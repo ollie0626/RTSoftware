@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IN528ATE_tool", "..\Software Tool\IN528ATE_tool\IN528ATE_tool\IN528ATE_tool.csproj", "{1A1B522E-34A4-43AE-8137-9AAE9B1C1569}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IN528ATE_tool", "IN528ATE_tool\IN528ATE_tool\IN528ATE_tool.csproj", "{1A1B522E-34A4-43AE-8137-9AAE9B1C1569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsLibDotNet", "..\Software Tool\InsLibDotNet\InsLibDotNet.csproj", "{26626D31-537A-4EAF-8D18-5E6F54C217F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsLibDotNet", "InsLibDotNet\InsLibDotNet.csproj", "{26626D31-537A-4EAF-8D18-5E6F54C217F1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTBBLibDotNet", "..\Software Tool\RTBBLibDotNet\RTBBLibDotNet.csproj", "{124B3177-8C3F-4EF2-B118-668A3584FEA7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTBBLibDotNet", "RTBBLibDotNet\RTBBLibDotNet.csproj", "{124B3177-8C3F-4EF2-B118-668A3584FEA7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +44,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2AAE53F-6099-4E7E-BF8F-9E6A334FD49E}
 	EndGlobalSection
 EndGlobal
