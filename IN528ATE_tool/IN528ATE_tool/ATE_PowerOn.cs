@@ -170,13 +170,9 @@ namespace IN528ATE_tool
                             //InsControl._scope.SetTimeoutTime(1000 * 7); // unit is ns
                             InsControl._scope.NormalTrigger();
                             InsControl._scope.Root_RUN();
-
-
-
                             MyLib.Delay1ms(500);
                             if (binList[0] != "") RTDev.I2C_WriteBinAndGPIO((byte)(test_parameter.slave), 0x00, binList[bin_idx]);
                             MyLib.Delay1ms(250);
-
                             //max = InsControl._scope.Meas_CH2MAX();
                             //min = InsControl._scope.Meas_CH2MIN();
                             //if (min < -1.2)
@@ -201,7 +197,7 @@ namespace IN528ATE_tool
                             //    InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
                             //}
                             InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                            InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1,FUNC1");
+                            //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1,FUNC1");
                             InsControl._scope.Measure_Clear();
                             MyLib.Delay1ms(500);
                             InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
@@ -210,8 +206,8 @@ namespace IN528ATE_tool
 
                         InsControl._scope.Root_STOP();
                         double delay_time, ss_time, Vmax, Inrush;
-                        double ss_time1;
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,FUNC1") * 1000;
+                        //double ss_time1;
+                        //delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,FUNC1") * 1000;
                         //delay_time = InsControl._scope.Meas_DeltaTime(1, 2) * 1000;
                         // add new function
                         delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
@@ -230,11 +226,11 @@ namespace IN528ATE_tool
                         MyLib.Delay1ms(250);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
 
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
+                        //ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
                         MyLib.Delay1ms(250);
                         //ss_time = InsControl._scope.Meas_DeltaTime(2, 2) * 1000;
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
-                        ss_time1 = tsClass.CalcSSTime(InsControl._scope);
+                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
+                        //ss_time1 = tsClass.CalcSSTime(InsControl._scope);
 
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
@@ -251,7 +247,7 @@ namespace IN528ATE_tool
                         _sheet.Cells[row, XLS_Table.G] = ss_time;
                         _sheet.Cells[row, XLS_Table.H] = Vmax;
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
-                        _sheet.Cells[row, XLS_Table.J] = ss_time1;
+                        //_sheet.Cells[row, XLS_Table.J] = ss_time1;
                         InsControl._power.PowerOff();
                         MyLib.Delay1ms(500);
                         row++;

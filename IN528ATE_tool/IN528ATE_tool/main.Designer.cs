@@ -91,6 +91,7 @@ namespace IN528ATE_tool
             this.ck_vin_trigger = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.nu_specify = new System.Windows.Forms.NumericUpDown();
+            this.uiSymbolButton2 = new Sunny.UI.UISymbolButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -955,12 +956,38 @@ namespace IN528ATE_tool
             0,
             0});
             // 
+            // uiSymbolButton2
+            // 
+            this.uiSymbolButton2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiSymbolButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton2.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uiSymbolButton2.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiSymbolButton2.Location = new System.Drawing.Point(403, 215);
+            this.uiSymbolButton2.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolButton2.Name = "uiSymbolButton2";
+            this.uiSymbolButton2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton2.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uiSymbolButton2.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.Size = new System.Drawing.Size(154, 35);
+            this.uiSymbolButton2.Style = Sunny.UI.UIStyle.Gray;
+            this.uiSymbolButton2.StyleCustomMode = true;
+            this.uiSymbolButton2.Symbol = 61515;
+            this.uiSymbolButton2.TabIndex = 59;
+            this.uiSymbolButton2.Text = "RUN";
+            this.uiSymbolButton2.Visible = false;
+            this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 492);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.uiSymbolButton2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.nu_specify);
             this.Controls.Add(this.ck_vin_trigger);
@@ -1102,6 +1129,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.CheckBox ck_vin_trigger;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nu_specify;
+        private Sunny.UI.UISymbolButton uiSymbolButton2;
     }
 }
 

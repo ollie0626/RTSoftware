@@ -253,8 +253,11 @@ namespace IN528ATE_tool
                             // master
                             if (test_parameter.run_stop == true) goto Stop;
                             SteadyTime = (int)nu_steady.Value;
+                            // new construct and connect chamber
                             InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
                             InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
+                            bool res = InsControl._chamber.InsState();
+
                             InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                             InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                             await InsControl._chamber.ChamberStable(templist[i]);
@@ -321,8 +324,6 @@ namespace IN528ATE_tool
                             Directory.CreateDirectory(tbWave.Text + @"\" + tempList[i] + "C");
                         }
                         test_parameter.waveform_path = tbWave.Text + @"\" + tempList[i] + "C";
-
-
 
                         SteadyTime = (int)nu_steady.Value;
                         InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
@@ -537,6 +538,12 @@ namespace IN528ATE_tool
             tb_vinList.Text = Properties.Settings.Default.vinList;
             tb_ioutList.Text = Properties.Settings.Default.IoutList;
             cb_item.SelectedIndex = Properties.Settings.Default.itemSel;
+        }
+
+        private void uiSymbolButton2_Click(object sender, EventArgs e)
+        {
+            RTDev.BoadInit();
+            RTDev.I2C_WriteBin(0x9E >> 1, 0x00, textBox2.Text);
         }
     }
 }
