@@ -46,20 +46,21 @@ namespace IN528ATE_tool
             // add new measure method
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 2));
-            InsControl._scope.DoCommand(":FUNCtion1:VERTical MANual");
+            //InsControl._scope.DoCommand(":FUNCtion1:VERTical MANual");
             InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
             
             //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:RANGe {0}", level));
-            InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:OFFSet {0}", level * 3));
+            //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:OFFSet {0}", level * 3));
             InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
-            InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:RANGe {0}", level));
-            //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+            //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:RANGe {0}", level));
+            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
+            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
 
             MyLib.Delay1s(1);
             //InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
             //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1,FUNC1");
             //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-            InsControl._scope.CH2_Off();
+            //InsControl._scope.CH2_Off();
         }
 
         public void ATETask()
