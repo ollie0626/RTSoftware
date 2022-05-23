@@ -410,7 +410,6 @@ namespace InsLibDotNet
             }
             else
             {
-                //TODO: Save waveform Fix
                 System.IO.MemoryStream ms = new System.IO.MemoryStream(bytRead, 0, count_out);
                 //Bitmap bmp = (Bitmap)Bitmap.FromStream(ms);
                 //bmp.Save(buf, ImageFormat.Jpeg);

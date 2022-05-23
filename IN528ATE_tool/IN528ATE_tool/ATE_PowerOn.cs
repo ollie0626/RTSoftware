@@ -42,7 +42,6 @@ namespace IN528ATE_tool
             InsControl._scope.TimeBasePositionMs(test_parameter.time_scale_ms * 3);
 
 
-
             InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
             // add new measure method
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");

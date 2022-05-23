@@ -83,35 +83,35 @@ namespace IN528ATE_tool
             {
                 case 0:
                     InsControl._scope = new AgilentOSC(tb_osc.Text);
-                    if (InsControl._scope.doQueryIDN() != "unlink Ins.")
+                    if (InsControl._scope.InsState())
                         led_osc.Color = Color.LightGreen;
                     else
                         led_osc.Color = Color.Red;
                     break;
                 case 1:
                     InsControl._power = new PowerModule((int)nu_power.Value);
-                    if (InsControl._power.doQueryIDN() != "unlink Ins.")
+                    if (InsControl._power.InsState())
                         led_power.Color = Color.LightGreen;
                     else
                         led_power.Color = Color.Red;
                     break;
                 case 2:
                     InsControl._eload = new EloadModule((int)nu_eload.Value);
-                    if (InsControl._eload.doQueryIDN() != "unlink Ins.")
+                    if (InsControl._eload.InsState())
                         led_eload.Color = Color.LightGreen;
                     else
                         led_eload.Color = Color.Red;
                     break;
                 case 3:
                     InsControl._34970A = new MultiChannelModule((int)nu_34970A.Value);
-                    if (InsControl._34970A.doQueryIDN() != "unlink Ins.")
+                    if (InsControl._34970A.InsState())
                         led_37940.Color = Color.LightGreen;
                     else
                         led_37940.Color = Color.Red;
                     break;
                 case 4:
                     InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
-                    if (InsControl._chamber.doQueryIDN() != "unlink Ins.")
+                    if (InsControl._chamber.InsState())
                         led_chamber.Color = Color.LightGreen;
                     else
                         led_chamber.Color = Color.Red;
