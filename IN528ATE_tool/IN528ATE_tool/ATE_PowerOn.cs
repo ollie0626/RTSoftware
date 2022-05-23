@@ -40,27 +40,14 @@ namespace IN528ATE_tool
         {
             InsControl._scope.TimeScaleMs(test_parameter.time_scale_ms);
             InsControl._scope.TimeBasePositionMs(test_parameter.time_scale_ms * 3);
-
-
             InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
-            // add new measure method
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 2));
-            //InsControl._scope.DoCommand(":FUNCtion1:VERTical MANual");
             InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
-            
-            //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:RANGe {0}", level));
-            //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:OFFSet {0}", level * 3));
             InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
-            //InsControl._scope.DoCommand(string.Format(":FUNCtion1:VERTical:RANGe {0}", level));
             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
             InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
-
             MyLib.Delay1s(1);
-            //InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-            //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1,FUNC1");
-            //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-            //InsControl._scope.CH2_Off();
         }
 
         public void ATETask()
@@ -111,22 +98,12 @@ namespace IN528ATE_tool
                 {
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
-                        //for(int relay_idx = 0; relay_idx < 8; relay_idx++)
-                        //{
-                        // gpio control for relay
-                        //RTDev.RelayOn(RTBBControl.in_gpio_table[relay_idx]);
-
                         if (test_parameter.run_stop == true) goto Stop;
 
                         if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
 
                         /* test initial setting */
-                        //double hi = 0;
-                        //double mid = 0;
-                        //double low = 0;
-                        //double max = 0;
-                        //double min = 0;
                         InsControl._scope.DoCommand(":MARKer:MODE OFF");
                         string file_name;
                         string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
@@ -154,90 +131,57 @@ namespace IN528ATE_tool
                         }
                         else
                         {
+                            // GPIO trigger
                             InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
                             InsControl._scope.Trigger(1);
                             InsControl._scope.TriggerLevel_CH1(1.65);
-
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                             MyLib.Delay1ms(250);
                             InsControl._scope.Root_STOP();
                             MyLib.Delay1ms(100);
                             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-
-                            //InsControl._scope.DoCommand(":TRIGger:MODE Timeout");
-                            //InsControl._scope.SetTimeoutCondition(true);
-                            //InsControl._scope.SetTimeoutSource(1);
-                            //InsControl._scope.SetTimeoutTime(1000 * 7); // unit is ns
                             InsControl._scope.NormalTrigger();
                             InsControl._scope.Root_RUN();
                             MyLib.Delay1ms(500);
                             if (binList[0] != "") RTDev.I2C_WriteBinAndGPIO((byte)(test_parameter.slave), 0x00, binList[bin_idx]);
                             MyLib.Delay1ms(250);
-                            //max = InsControl._scope.Meas_CH2MAX();
-                            //min = InsControl._scope.Meas_CH2MIN();
-                            //if (min < -1.2)
-                            //{
-                            //    // channel vout is negative
-                            //    hi = -0.5;
-                            //    mid = min * 0.5;
-                            //    low = min * 0.95;
-
-                            //    InsControl._scope.Meas_ThresholdMethod(2, false);
-                            //    InsControl._scope.Meas_Absolute(2, hi, mid, low);
-                            //    InsControl._scope.SetDeltaTime_Rising_to_Falling(1, 1);
-                            //}
-                            //else
-                            //{
-                            //    // channel vout is positive
-                            //    hi = max * 0.95;
-                            //    mid = hi * 0.5;
-                            //    low = 0.2;
-                            //    InsControl._scope.Meas_ThresholdMethod(2, false);
-                            //    InsControl._scope.Meas_Absolute(2, hi, mid, low);
-                            //    InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                            //}
-                            InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                            //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1,FUNC1");
                             InsControl._scope.Measure_Clear();
-                            MyLib.Delay1ms(500);
-                            InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
-                            InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                            MyLib.Delay1ms(800);
                         }
 
                         InsControl._scope.Root_STOP();
+
                         double delay_time, ss_time, Vmax, Inrush;
-                        //double ss_time1;
-                        //delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,FUNC1") * 1000;
-                        //delay_time = InsControl._scope.Meas_DeltaTime(1, 2) * 1000;
-                        // add new function
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
+                        // delay time measure
+                        InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
+                        // channel 1 to function 1
+                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+                        MyLib.Delay1ms(500);
+                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,FUNC1") * 1000;
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
 
-
-                        // sst part
+                        // sst measure
                         Vmax = InsControl._scope.Meas_CH2MAX();
                         Inrush = InsControl._scope.Meas_CH4MAX();
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(2);
-                        InsControl._scope.Meas_Absolute(2, Vmax * 0.95, Vmax / 2, 0.5);
+                        // rising, edge number, low, rising, edge number, upper
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+                        // function 1 to function 1
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        MyLib.Delay1ms(500);
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        MyLib.Delay1ms(250);
+                        MyLib.Delay1ms(800);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
-
-                        //ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
                         MyLib.Delay1ms(250);
-                        //ss_time = InsControl._scope.Meas_DeltaTime(2, 2) * 1000;
                         ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
-                        //ss_time1 = tsClass.CalcSSTime(InsControl._scope);
 
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
                         InsControl._scope.Root_RUN();
 
                         // gpio control for relay 
-                        //RTDev.RelayOff(RTBBControl.out_gpio_table[relay_idx]);
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
@@ -247,7 +191,6 @@ namespace IN528ATE_tool
                         _sheet.Cells[row, XLS_Table.G] = ss_time;
                         _sheet.Cells[row, XLS_Table.H] = Vmax;
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
-                        //_sheet.Cells[row, XLS_Table.J] = ss_time1;
                         InsControl._power.PowerOff();
                         MyLib.Delay1ms(500);
                         row++;
