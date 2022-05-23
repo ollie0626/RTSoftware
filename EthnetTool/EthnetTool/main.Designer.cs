@@ -112,7 +112,6 @@ namespace EthnetTool
             this.label2.Size = new System.Drawing.Size(89, 12);
             this.label2.TabIndex = 10;
             this.label2.Text = "File Name (Local)";
-            this.label2.Visible = false;
             // 
             // textBox1
             // 
@@ -121,7 +120,7 @@ namespace EthnetTool
             this.textBox1.Size = new System.Drawing.Size(272, 22);
             this.textBox1.TabIndex = 9;
             this.textBox1.Text = "temp";
-            this.textBox1.Visible = false;
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label3
             // 

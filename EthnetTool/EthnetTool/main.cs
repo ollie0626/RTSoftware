@@ -121,17 +121,36 @@ namespace EthnetTool
 
         private void bt_send_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (CK_Server.Checked)
+                {
+                    tcpServer.CopyFileBuffer(buf);
+                    tcpServer.SendTCPData();
+                }
+                else
+                {
+                    tcpClient.CopyFileBuffer(buf);
+                    tcpClient.SendTCPData();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
             if(CK_Server.Checked)
             {
-                tcpServer.CopyFileBuffer(buf);
-                tcpServer.SendTCPData();
+
             }
             else
             {
-                tcpClient.CopyFileBuffer(buf);
-                tcpClient.SendTCPData();
+
             }
         }
-
     }
 }

@@ -45,7 +45,11 @@ namespace EthnetTool
                         int size = btDatas[0] | btDatas[1] << 8 | btDatas[2] << 16 | btDatas[3] << 24;
                         Console.WriteLine("File Size 0x{0:X}", size);
 
-                        btDatas = new byte[256];
+                        stream.Read(btDatas, 0, btDatas.Length);
+                        size = btDatas[0] | btDatas[1] << 8 | btDatas[2] << 16 | btDatas[3] << 24;
+                        Console.WriteLine("File Name Size 0x{0:X}", size);
+
+                        btDatas = new byte[size];
                         i = stream.Read(btDatas, 0, btDatas.Length);
                         string sData = Encoding.ASCII.GetString(btDatas, 0, i);
                         Console.WriteLine("File Name " + sData);
@@ -80,6 +84,15 @@ namespace EthnetTool
                 btDatas[2] = (byte)((size & 0xff0000) >> 16);
                 btDatas[3] = (byte)((size & 0xff000000) >> 24);
                 Console.WriteLine("Send File Size " + size.ToString("X"));
+                stream.Write(btDatas, 0, btDatas.Length);
+
+                btDatas = Encoding.ASCII.GetBytes(file_name);
+                size = btDatas.Length;
+                btDatas[0] = (byte)(size & 0xff);
+                btDatas[1] = (byte)((size & 0xff00) >> 8);
+                btDatas[2] = (byte)((size & 0xff0000) >> 16);
+                btDatas[3] = (byte)((size & 0xff000000) >> 24);
+                Console.WriteLine("Send File Name Size " + size.ToString("X"));
                 stream.Write(btDatas, 0, btDatas.Length);
 
 
