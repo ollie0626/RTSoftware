@@ -92,6 +92,7 @@ namespace IN528ATE_tool
             this.label7 = new System.Windows.Forms.Label();
             this.nu_specify = new System.Windows.Forms.NumericUpDown();
             this.uiSymbolButton2 = new Sunny.UI.UISymbolButton();
+            this.uibt_pause = new Sunny.UI.UISymbolButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -222,7 +223,7 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uiSymbolButton1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiSymbolButton1.Location = new System.Drawing.Point(175, 438);
+            this.uiSymbolButton1.Location = new System.Drawing.Point(335, 438);
             this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton1.Name = "uiSymbolButton1";
             this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -816,7 +817,7 @@ namespace IN528ATE_tool
             this.uibt_kill.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_kill.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_kill.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_kill.Location = new System.Drawing.Point(335, 438);
+            this.uibt_kill.Location = new System.Drawing.Point(495, 438);
             this.uibt_kill.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_kill.Name = "uibt_kill";
             this.uibt_kill.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -981,12 +982,37 @@ namespace IN528ATE_tool
             this.uiSymbolButton2.Visible = false;
             this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
+            // uibt_pause
+            // 
+            this.uibt_pause.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uibt_pause.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_pause.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_pause.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_pause.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_pause.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_pause.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uibt_pause.Location = new System.Drawing.Point(175, 438);
+            this.uibt_pause.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uibt_pause.Name = "uibt_pause";
+            this.uibt_pause.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_pause.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_pause.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_pause.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_pause.Size = new System.Drawing.Size(154, 35);
+            this.uibt_pause.Style = Sunny.UI.UIStyle.Custom;
+            this.uibt_pause.StyleCustomMode = true;
+            this.uibt_pause.Symbol = 61516;
+            this.uibt_pause.TabIndex = 60;
+            this.uibt_pause.Text = "Pause";
+            this.uibt_pause.Click += new System.EventHandler(this.uibt_pause_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(701, 492);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.uibt_pause);
             this.Controls.Add(this.uiSymbolButton2);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.nu_specify);
@@ -1130,6 +1156,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nu_specify;
         private Sunny.UI.UISymbolButton uiSymbolButton2;
+        private Sunny.UI.UISymbolButton uibt_pause;
     }
 }
 

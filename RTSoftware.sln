@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RTBBLibDotNet", "RTBBLibDot
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthnetTool", "EthnetTool\EthnetTool\EthnetTool.csproj", "{EC3B8FC3-EEA2-4C0E-9A1C-FF3C714D0089}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MulanLite", "MulanLite\MulanLite\MulanLite.csproj", "{40198B4E-C82F-420E-8B1D-0F996092204E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,14 @@ Global
 		{EC3B8FC3-EEA2-4C0E-9A1C-FF3C714D0089}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EC3B8FC3-EEA2-4C0E-9A1C-FF3C714D0089}.Release|x86.ActiveCfg = Release|Any CPU
 		{EC3B8FC3-EEA2-4C0E-9A1C-FF3C714D0089}.Release|x86.Build.0 = Release|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Debug|x86.Build.0 = Debug|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|x86.ActiveCfg = Release|Any CPU
+		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

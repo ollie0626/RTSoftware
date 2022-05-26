@@ -17,7 +17,7 @@ namespace IN528ATE_tool
         static private bool IsFolderExist;
         static public bool IsTCPConnected;
         static public int FailCnt = 0;
-        static string ChamberTemps = "";
+        //static string ChamberTemps = "";
         static string GetMasterIP = "";
         //static string GetMasterIP = "";
         static public TcpListener myTcpListener = null;

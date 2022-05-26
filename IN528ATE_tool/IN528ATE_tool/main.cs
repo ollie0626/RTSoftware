@@ -35,10 +35,14 @@ namespace IN528ATE_tool
         ATE_PowerOn _ate_poweron;
         TaskRun[] ate_table;
 
+        string[] tempList;
+        string templist;
+        int item_sel;
+
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.11";
+            this.Text = "ATE Tool v2.12";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -135,7 +139,7 @@ namespace IN528ATE_tool
                 System.Threading.Thread.Sleep(1000);
                 Console.WriteLine("wait for slave ~~");
                 // test
-                if(InsControl._chamber != null) InsControl._chamber.GetChamberTemperature();
+                if (InsControl._chamber != null) InsControl._chamber.GetChamberTemperature();
             }
             ChamberCtr.IsTCPConnected = false;
             return false;
@@ -196,12 +200,28 @@ namespace IN528ATE_tool
             return Task.Factory.StartNew(() => RecountTime());
         }
 
-        private async void uibt_run_Click(object sender, EventArgs e)
+        private void uibt_pause_Click(object sender, EventArgs e)
+        {
+            if (ATETask == null) return;
+            System.Threading.ThreadState state = ATETask.ThreadState;
+            if (state == System.Threading.ThreadState.Running || state == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                ATETask.Suspend();
+                uibt_pause.SymbolColor = Color.Red;
+            }
+            else if (state == System.Threading.ThreadState.Suspended)
+            {
+                ATETask.Resume();
+                uibt_pause.SymbolColor = Color.White;
+            }
+        }
+
+        private void uibt_run_Click(object sender, EventArgs e)
         {
             try
             {
-                string templist = tb_templist.Text;
-                string[] tempList = tb_templist.Text.Split(',');
+                templist = tb_templist.Text;
+                tempList = tb_templist.Text.Split(',');
                 uiProcessBar1.Maximum = (int)nu_steady.Value;
                 RTDev.BoadInit();
                 /* test conditons assign */
@@ -222,153 +242,20 @@ namespace IN528ATE_tool
                 test_parameter.vol_min = (double)nu_vol_min.Value;
                 test_parameter.all_en = ck_all_test.Checked;
                 test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
+                item_sel = cb_item.SelectedIndex;
 
                 ChamberCtr.ChamberName = tb_chamber.Text;
                 SteadyTime = (int)nu_steady.Value;
 
                 if (ck_multi_chamber.Checked && ck_chaber_en.Checked)
                 {
-                    ChamberCtr.ChamberName = tb_chamber.Text;
-                    ChamberCtr.CreatShareChamberFolder();
-                    if (!ck_slave.Checked)
-                    {
-                        // master
-                        ChamberCtr.DeleteShareChamberFile();
-                        ChamberCtr.CreatTempList(templist);
-                    }
-                    else
-                    {
-                        // slave
-                        templist = ChamberCtr.ReadTempList();
-                    }
-
-                    if (!await TaskConnect(300)) return;// connect
-
-                    for (int i = 0; i < tempList.Length; i++)
-                    {
-                        // slave
-                        if (!await TaskConnect(3000 + SteadyTime * 60)) return;
-                        else
-                        {
-                            // master
-                            if (test_parameter.run_stop == true) goto Stop;
-                            SteadyTime = (int)nu_steady.Value;
-                            // new construct and connect chamber
-                            InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
-                            InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
-                            bool res = InsControl._chamber.InsState();
-
-                            InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                            InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                            await InsControl._chamber.ChamberStable(templist[i]);
-
-                            for (; SteadyTime > 0;)
-                            {
-                                await TaskRecount();
-                                uiProcessBar1.Value = SteadyTime;
-                                label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
-                            }
-                            if (!await TaskConnect(TCPServerTime)) TCPServerTime = 0;
-                        }
-
-                        // ripple test
-                        _ate_ripple.temp = Convert.ToDouble(tempList[i]);
-                        _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
-                        _ate_poweron.temp = Convert.ToDouble(tempList[i]);
-
-                        if (!test_parameter.all_en)
-                        {
-                            switch (cb_item.SelectedIndex)
-                            {
-                                case 0:
-                                    _ate_ripple.ATETask();
-                                    break;
-                                case 1:
-                                    _ate_code_inrush.ATETask();
-                                    break;
-                                case 2:
-                                    _ate_poweron.ATETask();
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            _ate_ripple.ATETask();
-                            _ate_code_inrush.ATETask();
-                        }
-
-                        // test finished
-                        if (ck_multi_chamber.Checked && ck_slave.Checked)
-                        {
-                            // slave
-                            if (!await TaskConnect(TCPServerTime)) return;
-                        }
-                        else
-                        {
-                            // server
-                            await TaskConnect(TCPServerTime);
-                        }
-
-                        Stop:
-                        if (InsControl._chamber != null)  InsControl._chamber.ChamberOn(25);
-                    }
+                    ATETask = new Thread(MultiChamber_Task);
+                    ATETask.Start();
                 }
                 else if (ck_chaber_en.Checked)
                 {
-                    for (int i = 0; i < tempList.Length; i++)
-                    {
-                        if (test_parameter.run_stop == true) goto Stop;
-
-                        if(!Directory.Exists(tbWave.Text + @"\" + tempList[i] + "C"))
-                        {
-                            Directory.CreateDirectory(tbWave.Text + @"\" + tempList[i] + "C");
-                        }
-                        test_parameter.waveform_path = tbWave.Text + @"\" + tempList[i] + "C";
-
-                        SteadyTime = (int)nu_steady.Value;
-                        InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
-                        InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
-                        InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                        InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                        await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
-                        for (; SteadyTime > 0;)
-                        {
-                            if (test_parameter.run_stop == true) goto Stop;
-                            await TaskRecount();
-                            uiProcessBar1.Value = SteadyTime;
-                            label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
-                        }
-                        _ate_ripple.temp = Convert.ToDouble(tempList[i]);
-                        _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
-                        _ate_poweron.temp = Convert.ToDouble(tempList[i]);
-
-                        if(!test_parameter.all_en)
-                        {
-                            await Ripple_Task(cb_item.SelectedIndex);
-
-                            switch (cb_item.SelectedIndex)
-                            {
-                                case 0:
-                                    //temp();
-                                    _ate_ripple.ATETask();
-                                    break;
-                                case 1:
-                                    _ate_code_inrush.ATETask();
-                                    break;
-                                case 2:
-                                    _ate_poweron.ATETask();
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            _ate_ripple.ATETask();
-                            _ate_code_inrush.ATETask();
-                        }
-
-                    }
-                    Stop:
-                    if(InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+                    ATETask = new Thread(Chamber_Task);
+                    ATETask.Start();
                 }
                 else
                 {
@@ -378,6 +265,7 @@ namespace IN528ATE_tool
                     _ate_code_inrush.temp = 25;
                     if (ck_all_test.Checked)
                     {
+
                         ATETask = new Thread(Run_Task_Flow);
                         ATETask.Start();
                     }
@@ -395,30 +283,144 @@ namespace IN528ATE_tool
             }
         }
 
-
-        public bool Sub_Task(int selet)
+        // ATE Process: MultiChamber_Task, Chamber_Task, Run_Task_Flow, Run_Single_Task
+        public async void MultiChamber_Task()
         {
-            switch(selet)
+            ChamberCtr.ChamberName = tb_chamber.Text;
+            ChamberCtr.CreatShareChamberFolder();
+            if (!ck_slave.Checked)
             {
-                case 0:
-                    _ate_ripple.ATETask();
-                    break;
-                case 1:
-                    _ate_code_inrush.ATETask();
-                    break;
-                case 2:
-                    _ate_poweron.ATETask();
-                    break;
+                // master
+                ChamberCtr.DeleteShareChamberFile();
+                ChamberCtr.CreatTempList(templist);
             }
-            
-            return true;
+            else
+            {
+                // slave
+                templist = ChamberCtr.ReadTempList();
+            }
+
+            if (!await TaskConnect(300)) return;// connect
+
+            for (int i = 0; i < tempList.Length; i++)
+            {
+                if (!await TaskConnect(3000 + SteadyTime * 60)) return;
+                else
+                {
+                    SteadyTime = (int)nu_steady.Value;
+                    // new construct and connect chamber
+                    InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
+                    InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
+                    bool res = InsControl._chamber.InsState();
+
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                    await InsControl._chamber.ChamberStable(templist[i]);
+
+                    for (; SteadyTime > 0;)
+                    {
+                        await TaskRecount();
+                        uiProcessBar1.Value = SteadyTime;
+                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+
+                    }
+                    if (!await TaskConnect(TCPServerTime)) TCPServerTime = 0;
+                }
+
+                // ripple test
+                _ate_ripple.temp = Convert.ToDouble(tempList[i]);
+                _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
+                _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+
+                if (!test_parameter.all_en)
+                {
+                    switch (item_sel)
+                    {
+                        case 0:
+                            _ate_ripple.ATETask();
+                            break;
+                        case 1:
+                            _ate_code_inrush.ATETask();
+                            break;
+                        case 2:
+                            _ate_poweron.ATETask();
+                            break;
+                    }
+                }
+                else
+                {
+                    _ate_ripple.ATETask();
+                    _ate_code_inrush.ATETask();
+                }
+
+                // test finished
+                if (ck_multi_chamber.Checked && ck_slave.Checked)
+                {
+                    // slave
+                    if (!await TaskConnect(TCPServerTime)) return;
+                }
+                else
+                {
+                    // server
+                    await TaskConnect(TCPServerTime);
+                }
+                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+            }
         }
 
-        public Task<bool> Ripple_Task(int sel)
+        public async void Chamber_Task()
         {
-            return Task.Factory.StartNew(() => Sub_Task(sel));
-        }
+            for (int i = 0; i < tempList.Length; i++)
+            {
+                if (!Directory.Exists(tbWave.Text + @"\" + tempList[i] + "C"))
+                {
+                    Directory.CreateDirectory(tbWave.Text + @"\" + tempList[i] + "C");
+                }
+                test_parameter.waveform_path = tbWave.Text + @"\" + tempList[i] + "C";
 
+                SteadyTime = (int)nu_steady.Value;
+                InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
+                InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
+                InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
+                for (; SteadyTime > 0;)
+                {
+                    await TaskRecount();
+                    uiProcessBar1.Value = SteadyTime;
+                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+                    //label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
+                }
+                _ate_ripple.temp = Convert.ToDouble(tempList[i]);
+                _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
+                _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+
+                if (!test_parameter.all_en)
+                {
+                    //await Ripple_Task(item_sel);
+
+                    switch (item_sel)
+                    {
+                        case 0:
+                            _ate_ripple.ATETask();
+                            break;
+                        case 1:
+                            _ate_code_inrush.ATETask();
+                            break;
+                        case 2:
+                            _ate_poweron.ATETask();
+                            break;
+                    }
+                }
+                else
+                {
+                    _ate_ripple.ATETask();
+                    _ate_code_inrush.ATETask();
+                }
+
+            }
+            if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+        }
 
         private void Run_Task_Flow()
         {
@@ -442,7 +444,6 @@ namespace IN528ATE_tool
             ate_table[(int)idx].ATETask();
         }
 
-
         private void uiSymbolButton1_Click(object sender, EventArgs e)
         {
             test_parameter.run_stop = true;
@@ -450,6 +451,8 @@ namespace IN528ATE_tool
             {
                 if (ATETask.IsAlive)
                 {
+                    System.Threading.ThreadState state = ATETask.ThreadState;
+                    if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
                     ATETask.Abort();
                     MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
                     InsControl._power.AutoPowerOff();
@@ -545,5 +548,7 @@ namespace IN528ATE_tool
             RTDev.BoadInit();
             RTDev.I2C_WriteBin(0x9E >> 1, 0x00, textBox2.Text);
         }
+
+
     }
 }
