@@ -45,14 +45,16 @@ namespace IN528ATE_tool
             InsControl._scope.CH4_On();
             InsControl._scope.CH4_1Mohm();
 
-            InsControl._scope.CH1_Level(test_parameter.vol_max / 5);
-            InsControl._scope.CH2_Level((test_parameter.vol_max / 5) * 1.5);
+            double level = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min) ;
+
+            InsControl._scope.CH1_Level(level / 5);
+            InsControl._scope.CH2_Level((level / 5) * 1.5);
             InsControl._scope.CH4_Level(0.2);
 
 
-            InsControl._scope.CH2_Offset(((test_parameter.vol_max / 5) * 1.5) * 2);
+            InsControl._scope.CH2_Offset(((level / 5) * 1.5) * 2);
             InsControl._scope.CH4_Offset(0.2 * 3);
-            InsControl._scope.CH1_Offset((test_parameter.vol_max / 5) * 2);
+            InsControl._scope.CH1_Offset((level / 5) * 2);
 
             System.Threading.Thread.Sleep(1000);
             InsControl._scope.TimeScaleMs(test_parameter.time_scale_ms);
