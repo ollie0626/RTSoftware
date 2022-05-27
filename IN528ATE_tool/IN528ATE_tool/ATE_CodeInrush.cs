@@ -163,9 +163,9 @@ namespace IN528ATE_tool
                         else InsControl._scope.SetTrigModeEdge(true);
 
                         InsControl._scope.NormalTrigger();
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_min);
+                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
                         System.Threading.Thread.Sleep(500);
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
+                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_max : buf_min);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_min");
@@ -187,7 +187,7 @@ namespace IN528ATE_tool
                         InsControl._scope.Root_RUN();
                         //RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
                         System.Threading.Thread.Sleep(500);
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_min);
+                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_max");
