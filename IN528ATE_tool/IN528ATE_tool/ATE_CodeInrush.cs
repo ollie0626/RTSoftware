@@ -45,16 +45,17 @@ namespace IN528ATE_tool
             InsControl._scope.CH4_On();
             InsControl._scope.CH4_1Mohm();
 
-            double level = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min) ;
+            double level = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
+            bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? true : false;
 
             InsControl._scope.CH1_Level(level / 5);
-            InsControl._scope.CH2_Level((level / 5) * 1.5);
+            //InsControl._scope.CH2_Level((level / 5) * 1.5);
             InsControl._scope.CH4_Level(0.2);
 
 
-            InsControl._scope.CH2_Offset(((level / 5) * 1.5) * 2);
+            //InsControl._scope.CH2_Offset(ispos ? ((level / 5) * 1.5) * 2 : ((level / 5) * 1.5) * 2 * -1);
             InsControl._scope.CH4_Offset(0.2 * 3);
-            InsControl._scope.CH1_Offset((level / 5) * 2);
+            InsControl._scope.CH1_Offset(ispos ? (level / 5) * 2 : (level / 5) * 2 * -1);
 
             System.Threading.Thread.Sleep(1000);
             InsControl._scope.TimeScaleMs(test_parameter.time_scale_ms);
@@ -78,6 +79,7 @@ namespace IN528ATE_tool
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.binFolder);
             bin_cnt = binList.Length;
+            bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min);
 
             RTDev.BoadInit();
             _app = new Excel.Application();
@@ -157,7 +159,9 @@ namespace IN528ATE_tool
 
                         /* min to max code */
                         InsControl._scope.Root_RUN();
-                        InsControl._scope.SetTrigModeEdge(false);
+                        if(ispos) InsControl._scope.SetTrigModeEdge(false);
+                        else InsControl._scope.SetTrigModeEdge(true);
+
                         InsControl._scope.NormalTrigger();
                         RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_min);
                         System.Threading.Thread.Sleep(500);
@@ -176,7 +180,10 @@ namespace IN528ATE_tool
                         System.Threading.Thread.Sleep(2000);
 
                         /* max to min code */
-                        InsControl._scope.SetTrigModeEdge(true);
+                        if (ispos) InsControl._scope.SetTrigModeEdge(true);
+                        else InsControl._scope.SetTrigModeEdge(false);
+
+                        //InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.Root_RUN();
                         //RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
                         System.Threading.Thread.Sleep(500);
