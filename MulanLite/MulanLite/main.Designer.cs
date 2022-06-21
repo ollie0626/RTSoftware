@@ -227,80 +227,72 @@ namespace MulanLite
             this.bt_repones = new Sunny.UI.UIButton();
             this.bt_inquiry = new Sunny.UI.UIButton();
             this.uiLabel38 = new Sunny.UI.UILabel();
-            this.uiGroupBox2 = new Sunny.UI.UIGroupBox();
             this.cb_vhr_short = new System.Windows.Forms.ComboBox();
             this.cb_vhr_open = new System.Windows.Forms.ComboBox();
-            this.uiLabel52 = new Sunny.UI.UILabel();
-            this.uiLabel53 = new Sunny.UI.UILabel();
-            this.uiGroupBox3 = new Sunny.UI.UIGroupBox();
             this.cb_vhr_up = new System.Windows.Forms.ComboBox();
             this.cb_vhr_hyst = new System.Windows.Forms.ComboBox();
-            this.uiLabel54 = new Sunny.UI.UILabel();
-            this.uiLabel55 = new Sunny.UI.UILabel();
-            this.uiGroupBox4 = new Sunny.UI.UIGroupBox();
             this.cb_short_dgl = new System.Windows.Forms.ComboBox();
             this.cb_open_dgl = new System.Windows.Forms.ComboBox();
-            this.uiLabel56 = new Sunny.UI.UILabel();
-            this.uiLabel57 = new Sunny.UI.UILabel();
             this.uiTabControl1 = new Sunny.UI.UITabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.uiGroupBox20 = new Sunny.UI.UIGroupBox();
-            this.cb_min_count = new System.Windows.Forms.ComboBox();
-            this.uiLabel70 = new Sunny.UI.UILabel();
-            this.uiGroupBox19 = new Sunny.UI.UIGroupBox();
-            this.cb_range_x8_x1 = new System.Windows.Forms.ComboBox();
-            this.uiLabel68 = new Sunny.UI.UILabel();
-            this.cb_low_drive = new System.Windows.Forms.ComboBox();
-            this.uiLabel69 = new Sunny.UI.UILabel();
-            this.cb_cal_modex8 = new System.Windows.Forms.ComboBox();
-            this.uiLabel67 = new Sunny.UI.UILabel();
-            this.cb_cal_modex1 = new System.Windows.Forms.ComboBox();
-            this.uiLabel66 = new Sunny.UI.UILabel();
-            this.uiGroupBox18 = new Sunny.UI.UIGroupBox();
-            this.cb_ch_num = new System.Windows.Forms.ComboBox();
-            this.uiLabel65 = new Sunny.UI.UILabel();
-            this.uiCheckBoxGroup7 = new Sunny.UI.UICheckBoxGroup();
+            this.groupBox33 = new System.Windows.Forms.GroupBox();
             this.nu_tsd = new System.Windows.Forms.NumericUpDown();
+            this.bt_user_test_mode = new Sunny.UI.UIButton();
             this.bt_tsd = new Sunny.UI.UIButton();
+            this.bt_stat_dis = new Sunny.UI.UIButton();
             this.nu_tsd_mask = new System.Windows.Forms.NumericUpDown();
+            this.bt_stat_norm = new Sunny.UI.UIButton();
             this.bt_tsd_mask = new Sunny.UI.UIButton();
+            this.bt_stat_stb = new Sunny.UI.UIButton();
             this.nu_efuse_load = new System.Windows.Forms.NumericUpDown();
+            this.bt_stat_iden = new Sunny.UI.UIButton();
             this.bt_efuse_load_done = new Sunny.UI.UIButton();
+            this.bt_stat_init = new Sunny.UI.UIButton();
             this.nu_stat_init = new System.Windows.Forms.NumericUpDown();
+            this.nu_test_mode = new System.Windows.Forms.NumericUpDown();
             this.nu_stat_iden = new System.Windows.Forms.NumericUpDown();
+            this.nu_stat_dis = new System.Windows.Forms.NumericUpDown();
             this.nu_stat_stb = new System.Windows.Forms.NumericUpDown();
             this.nu_stat_norm = new System.Windows.Forms.NumericUpDown();
-            this.nu_stat_dis = new System.Windows.Forms.NumericUpDown();
-            this.nu_test_mode = new System.Windows.Forms.NumericUpDown();
-            this.bt_stat_init = new Sunny.UI.UIButton();
-            this.bt_stat_iden = new Sunny.UI.UIButton();
-            this.bt_stat_stb = new Sunny.UI.UIButton();
-            this.bt_stat_norm = new Sunny.UI.UIButton();
-            this.bt_stat_dis = new Sunny.UI.UIButton();
-            this.bt_user_test_mode = new Sunny.UI.UIButton();
-            this.uiGroupBox17 = new Sunny.UI.UIGroupBox();
-            this.cb_debug_out = new System.Windows.Forms.ComboBox();
-            this.uiLabel64 = new Sunny.UI.UILabel();
-            this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
-            this.uiLabel62 = new Sunny.UI.UILabel();
-            this.cb_debug_en = new System.Windows.Forms.ComboBox();
-            this.uiLabel63 = new Sunny.UI.UILabel();
-            this.uiGroupBox16 = new Sunny.UI.UIGroupBox();
-            this.cb_blanking_time = new System.Windows.Forms.ComboBox();
-            this.uiLabel61 = new Sunny.UI.UILabel();
-            this.cb_switch_filter_time = new System.Windows.Forms.ComboBox();
-            this.uiLabel60 = new Sunny.UI.UILabel();
-            this.uiGroupBox15 = new Sunny.UI.UIGroupBox();
-            this.uiLabel26 = new Sunny.UI.UILabel();
+            this.groupBox32 = new System.Windows.Forms.GroupBox();
+            this.cb_min_count = new System.Windows.Forms.ComboBox();
+            this.label119 = new System.Windows.Forms.Label();
+            this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.cb_ldoio = new System.Windows.Forms.ComboBox();
+            this.label117 = new System.Windows.Forms.Label();
+            this.label118 = new System.Windows.Forms.Label();
+            this.cb_range_x8_x1 = new System.Windows.Forms.ComboBox();
+            this.groupBox30 = new System.Windows.Forms.GroupBox();
+            this.uiTrackBar1 = new Sunny.UI.UITrackBar();
+            this.label115 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label116 = new System.Windows.Forms.Label();
+            this.cb_ch_num = new System.Windows.Forms.ComboBox();
+            this.groupBox29 = new System.Windows.Forms.GroupBox();
+            this.label114 = new System.Windows.Forms.Label();
             this.track_bl_late = new Sunny.UI.UITrackBar();
             this.nu_bl_late = new System.Windows.Forms.NumericUpDown();
-            this.uiGroupBox14 = new Sunny.UI.UIGroupBox();
+            this.groupBox28 = new System.Windows.Forms.GroupBox();
+            this.cb_blanking_time = new System.Windows.Forms.ComboBox();
+            this.label112 = new System.Windows.Forms.Label();
+            this.label113 = new System.Windows.Forms.Label();
+            this.cb_switch_filter_time = new System.Windows.Forms.ComboBox();
+            this.groupBox26 = new System.Windows.Forms.GroupBox();
             this.cb_pulse_rf = new System.Windows.Forms.ComboBox();
-            this.uiLabel59 = new Sunny.UI.UILabel();
-            this.uiGroupBox13 = new Sunny.UI.UIGroupBox();
+            this.label107 = new System.Windows.Forms.Label();
+            this.groupBox25 = new System.Windows.Forms.GroupBox();
             this.cb_thresh_clk_missing = new System.Windows.Forms.ComboBox();
-            this.uiLabel58 = new Sunny.UI.UILabel();
+            this.label108 = new System.Windows.Forms.Label();
+            this.groupBox24 = new System.Windows.Forms.GroupBox();
+            this.label105 = new System.Windows.Forms.Label();
+            this.label106 = new System.Windows.Forms.Label();
+            this.groupBox23 = new System.Windows.Forms.GroupBox();
+            this.label103 = new System.Windows.Forms.Label();
+            this.label104 = new System.Windows.Forms.Label();
+            this.groupBox22 = new System.Windows.Forms.GroupBox();
+            this.label102 = new System.Windows.Forms.Label();
+            this.label101 = new System.Windows.Forms.Label();
             this.flowLayoutPanel6 = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.trackCH0x8SL = new Sunny.UI.UITrackBar();
@@ -628,6 +620,119 @@ namespace MulanLite
             this.W11 = new System.Windows.Forms.NumericUpDown();
             this.W10 = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox36 = new System.Windows.Forms.GroupBox();
+            this.ui_read_Tracking = new Sunny.UI.UIButton();
+            this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
+            this.uiLabel26 = new Sunny.UI.UILabel();
+            this.nu_X_ADDR = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel52 = new Sunny.UI.UILabel();
+            this.nu_Y_ADDR = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel53 = new Sunny.UI.UILabel();
+            this.nu_LotID = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel54 = new Sunny.UI.UILabel();
+            this.nu_Wafer = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel55 = new Sunny.UI.UILabel();
+            this.nu_PGM = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel56 = new Sunny.UI.UILabel();
+            this.nu_Fab = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel57 = new Sunny.UI.UILabel();
+            this.nu_Lot_type = new System.Windows.Forms.NumericUpDown();
+            this.groupBox35 = new System.Windows.Forms.GroupBox();
+            this.pwm_code_x1_sl = new Sunny.UI.UITrackBar();
+            this.label121 = new System.Windows.Forms.Label();
+            this.nu_pwm_code_x1 = new System.Windows.Forms.NumericUpDown();
+            this.pwm_code_x8_sl = new Sunny.UI.UITrackBar();
+            this.label120 = new System.Windows.Forms.Label();
+            this.nu_pwm_code_x8 = new System.Windows.Forms.NumericUpDown();
+            this.groupBox34 = new System.Windows.Forms.GroupBox();
+            this.nu_ridge_dontlow = new System.Windows.Forms.NumericUpDown();
+            this.nu_ridge_raise = new System.Windows.Forms.NumericUpDown();
+            this.uiButton5 = new Sunny.UI.UIButton();
+            this.uiButton4 = new Sunny.UI.UIButton();
+            this.groupBox21 = new System.Windows.Forms.GroupBox();
+            this.cb_sticky = new System.Windows.Forms.ComboBox();
+            this.label100 = new System.Windows.Forms.Label();
+            this.label99 = new System.Windows.Forms.Label();
+            this.label98 = new System.Windows.Forms.Label();
+            this.label97 = new System.Windows.Forms.Label();
+            this.cb_low_drive = new System.Windows.Forms.ComboBox();
+            this.cb_cal_modex1 = new System.Windows.Forms.ComboBox();
+            this.cb_cal_modex8 = new System.Windows.Forms.ComboBox();
+            this.uibt_ridge_testmode = new Sunny.UI.UIButton();
+            this.groupBox27 = new System.Windows.Forms.GroupBox();
+            this.cb_debug_out = new System.Windows.Forms.ComboBox();
+            this.label111 = new System.Windows.Forms.Label();
+            this.label110 = new System.Windows.Forms.Label();
+            this.label109 = new System.Windows.Forms.Label();
+            this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
+            this.cb_debug_en = new System.Windows.Forms.ComboBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.label139 = new System.Windows.Forms.Label();
+            this.groupBox40 = new System.Windows.Forms.GroupBox();
+            this.RE2 = new System.Windows.Forms.NumericUpDown();
+            this.RE3 = new System.Windows.Forms.NumericUpDown();
+            this.nu_Sel = new System.Windows.Forms.NumericUpDown();
+            this.label141 = new System.Windows.Forms.Label();
+            this.label138 = new System.Windows.Forms.Label();
+            this.bt_NR = new Sunny.UI.UIButton();
+            this.label143 = new System.Windows.Forms.Label();
+            this.bt_PGM = new Sunny.UI.UIButton();
+            this.bt_testmode_read_all = new Sunny.UI.UIButton();
+            this.bt_testmode_write_all = new Sunny.UI.UIButton();
+            this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.W9F = new System.Windows.Forms.NumericUpDown();
+            this.W9E = new System.Windows.Forms.NumericUpDown();
+            this.W9D = new System.Windows.Forms.NumericUpDown();
+            this.W9C = new System.Windows.Forms.NumericUpDown();
+            this.W9B = new System.Windows.Forms.NumericUpDown();
+            this.W9A = new System.Windows.Forms.NumericUpDown();
+            this.W99 = new System.Windows.Forms.NumericUpDown();
+            this.W98 = new System.Windows.Forms.NumericUpDown();
+            this.W97 = new System.Windows.Forms.NumericUpDown();
+            this.W96 = new System.Windows.Forms.NumericUpDown();
+            this.W95 = new System.Windows.Forms.NumericUpDown();
+            this.W94 = new System.Windows.Forms.NumericUpDown();
+            this.W93 = new System.Windows.Forms.NumericUpDown();
+            this.W92 = new System.Windows.Forms.NumericUpDown();
+            this.W91 = new System.Windows.Forms.NumericUpDown();
+            this.W90 = new System.Windows.Forms.NumericUpDown();
+            this.W70 = new System.Windows.Forms.NumericUpDown();
+            this.groupBox38 = new System.Windows.Forms.GroupBox();
+            this.R9F = new System.Windows.Forms.NumericUpDown();
+            this.R9E = new System.Windows.Forms.NumericUpDown();
+            this.R70 = new System.Windows.Forms.NumericUpDown();
+            this.R9D = new System.Windows.Forms.NumericUpDown();
+            this.R90 = new System.Windows.Forms.NumericUpDown();
+            this.R9C = new System.Windows.Forms.NumericUpDown();
+            this.R91 = new System.Windows.Forms.NumericUpDown();
+            this.R9B = new System.Windows.Forms.NumericUpDown();
+            this.R92 = new System.Windows.Forms.NumericUpDown();
+            this.R9A = new System.Windows.Forms.NumericUpDown();
+            this.R93 = new System.Windows.Forms.NumericUpDown();
+            this.R99 = new System.Windows.Forms.NumericUpDown();
+            this.R94 = new System.Windows.Forms.NumericUpDown();
+            this.R98 = new System.Windows.Forms.NumericUpDown();
+            this.R95 = new System.Windows.Forms.NumericUpDown();
+            this.R97 = new System.Windows.Forms.NumericUpDown();
+            this.R96 = new System.Windows.Forms.NumericUpDown();
+            this.ui_test_mode = new Sunny.UI.UIButton();
+            this.label122 = new System.Windows.Forms.Label();
+            this.label137 = new System.Windows.Forms.Label();
+            this.label123 = new System.Windows.Forms.Label();
+            this.label136 = new System.Windows.Forms.Label();
+            this.label124 = new System.Windows.Forms.Label();
+            this.label135 = new System.Windows.Forms.Label();
+            this.label125 = new System.Windows.Forms.Label();
+            this.label134 = new System.Windows.Forms.Label();
+            this.label126 = new System.Windows.Forms.Label();
+            this.label133 = new System.Windows.Forms.Label();
+            this.label127 = new System.Windows.Forms.Label();
+            this.label132 = new System.Windows.Forms.Label();
+            this.label128 = new System.Windows.Forms.Label();
+            this.label131 = new System.Windows.Forms.Label();
+            this.label129 = new System.Windows.Forms.Label();
+            this.label130 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.uiGroupBox21 = new Sunny.UI.UIGroupBox();
             this.uiLabel74 = new Sunny.UI.UILabel();
@@ -654,11 +759,7 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.cb_ldoio = new System.Windows.Forms.ComboBox();
-            this.uiLabel75 = new Sunny.UI.UILabel();
-            this.uiLabel79 = new Sunny.UI.UILabel();
-            this.uiTrackBar1 = new Sunny.UI.UITrackBar();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.bt_virus_pattern = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -729,31 +830,31 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.flag12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag13)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).BeginInit();
-            this.uiGroupBox2.SuspendLayout();
-            this.uiGroupBox3.SuspendLayout();
-            this.uiGroupBox4.SuspendLayout();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.uiGroupBox20.SuspendLayout();
-            this.uiGroupBox19.SuspendLayout();
-            this.uiGroupBox18.SuspendLayout();
-            this.uiCheckBoxGroup7.SuspendLayout();
+            this.groupBox33.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_tsd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_tsd_mask)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_efuse_load)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_init)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_mode)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_iden)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_stat_dis)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_stb)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_norm)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_stat_dis)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_test_mode)).BeginInit();
-            this.uiGroupBox17.SuspendLayout();
-            this.uiGroupBox16.SuspendLayout();
-            this.uiGroupBox15.SuspendLayout();
+            this.groupBox32.SuspendLayout();
+            this.groupBox31.SuspendLayout();
+            this.groupBox30.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            this.groupBox29.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_bl_late)).BeginInit();
-            this.uiGroupBox14.SuspendLayout();
-            this.uiGroupBox13.SuspendLayout();
+            this.groupBox28.SuspendLayout();
+            this.groupBox26.SuspendLayout();
+            this.groupBox25.SuspendLayout();
+            this.groupBox24.SuspendLayout();
+            this.groupBox23.SuspendLayout();
+            this.groupBox22.SuspendLayout();
             this.flowLayoutPanel6.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CH0x8)).BeginInit();
@@ -976,6 +1077,65 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W10)).BeginInit();
+            this.tabPage4.SuspendLayout();
+            this.groupBox36.SuspendLayout();
+            this.flowLayoutPanel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_X_ADDR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Y_ADDR)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_LotID)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Wafer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_PGM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Fab)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Lot_type)).BeginInit();
+            this.groupBox35.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_pwm_code_x1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_pwm_code_x8)).BeginInit();
+            this.groupBox34.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ridge_dontlow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ridge_raise)).BeginInit();
+            this.groupBox21.SuspendLayout();
+            this.groupBox27.SuspendLayout();
+            this.tabPage5.SuspendLayout();
+            this.groupBox40.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.RE2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RE3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sel)).BeginInit();
+            this.groupBox37.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.W9F)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9E)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9D)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9C)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9B)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9A)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W99)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W98)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W97)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W96)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W95)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W94)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W93)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W92)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W91)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W90)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W70)).BeginInit();
+            this.groupBox38.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.R9F)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9E)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R70)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9D)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R90)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9C)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R91)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9B)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R92)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9A)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R93)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R99)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R94)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R98)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R95)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R97)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R96)).BeginInit();
             this.uiGroupBox21.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSRead)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuSWrite)).BeginInit();
@@ -986,7 +1146,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).BeginInit();
             this.uiGroupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -995,6 +1154,7 @@ namespace MulanLite
             this.uiLabel1.Location = new System.Drawing.Point(165, 0);
             this.uiLabel1.Name = "uiLabel1";
             this.uiLabel1.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel1.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel1.TabIndex = 0;
             this.uiLabel1.Text = "First ID";
             this.uiLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1033,6 +1193,7 @@ namespace MulanLite
             this.uiLabel2.Location = new System.Drawing.Point(327, 0);
             this.uiLabel2.Name = "uiLabel2";
             this.uiLabel2.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel2.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel2.TabIndex = 2;
             this.uiLabel2.Text = "End ID";
             this.uiLabel2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1057,6 +1218,7 @@ namespace MulanLite
             this.uiLabel3.Location = new System.Drawing.Point(3, 0);
             this.uiLabel3.Name = "uiLabel3";
             this.uiLabel3.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel3.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel3.TabIndex = 4;
             this.uiLabel3.Text = "Present ID";
             this.uiLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1093,11 +1255,21 @@ namespace MulanLite
             // bt_config
             // 
             this.bt_config.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_config.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_config.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_config.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_config.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_config.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_config.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_config.Location = new System.Drawing.Point(3, 3);
             this.bt_config.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_config.Name = "bt_config";
+            this.bt_config.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_config.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_config.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_config.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_config.Size = new System.Drawing.Size(156, 29);
+            this.bt_config.Style = Sunny.UI.UIStyle.Custom;
             this.bt_config.TabIndex = 0;
             this.bt_config.Text = "Identify & Config";
             this.bt_config.Click += new System.EventHandler(this.bt_config_Click);
@@ -1105,11 +1277,21 @@ namespace MulanLite
             // bt_writeall
             // 
             this.bt_writeall.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_writeall.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_writeall.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_writeall.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_writeall.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_writeall.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_writeall.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_writeall.Location = new System.Drawing.Point(165, 3);
             this.bt_writeall.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_writeall.Name = "bt_writeall";
+            this.bt_writeall.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_writeall.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_writeall.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_writeall.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_writeall.Size = new System.Drawing.Size(156, 29);
+            this.bt_writeall.Style = Sunny.UI.UIStyle.Custom;
             this.bt_writeall.TabIndex = 1;
             this.bt_writeall.Text = "Write All";
             this.bt_writeall.Click += new System.EventHandler(this.bt_writeall_Click);
@@ -1117,11 +1299,21 @@ namespace MulanLite
             // bt_readall
             // 
             this.bt_readall.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_readall.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readall.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readall.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_readall.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_readall.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_readall.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_readall.Location = new System.Drawing.Point(327, 3);
             this.bt_readall.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_readall.Name = "bt_readall";
+            this.bt_readall.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readall.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_readall.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_readall.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_readall.Size = new System.Drawing.Size(156, 29);
+            this.bt_readall.Style = Sunny.UI.UIStyle.Custom;
             this.bt_readall.TabIndex = 2;
             this.bt_readall.Text = "Read All";
             this.bt_readall.Click += new System.EventHandler(this.bt_readall_Click);
@@ -1129,11 +1321,21 @@ namespace MulanLite
             // bt_blupdate
             // 
             this.bt_blupdate.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_blupdate.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_blupdate.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_blupdate.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_blupdate.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_blupdate.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_blupdate.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_blupdate.Location = new System.Drawing.Point(3, 38);
             this.bt_blupdate.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_blupdate.Name = "bt_blupdate";
+            this.bt_blupdate.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_blupdate.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_blupdate.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_blupdate.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_blupdate.Size = new System.Drawing.Size(156, 29);
+            this.bt_blupdate.Style = Sunny.UI.UIStyle.Custom;
             this.bt_blupdate.TabIndex = 3;
             this.bt_blupdate.Text = "BL Update";
             this.bt_blupdate.Click += new System.EventHandler(this.bt_blupdate_Click);
@@ -1141,11 +1343,21 @@ namespace MulanLite
             // bt_openbin
             // 
             this.bt_openbin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_openbin.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_openbin.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_openbin.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_openbin.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_openbin.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_openbin.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_openbin.Location = new System.Drawing.Point(165, 38);
             this.bt_openbin.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_openbin.Name = "bt_openbin";
+            this.bt_openbin.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_openbin.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_openbin.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_openbin.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_openbin.Size = new System.Drawing.Size(156, 29);
+            this.bt_openbin.Style = Sunny.UI.UIStyle.Custom;
             this.bt_openbin.TabIndex = 4;
             this.bt_openbin.Text = "Open Bin";
             this.bt_openbin.Click += new System.EventHandler(this.bt_openbin_Click);
@@ -1153,11 +1365,21 @@ namespace MulanLite
             // bt_savebin
             // 
             this.bt_savebin.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_savebin.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_savebin.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_savebin.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_savebin.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_savebin.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_savebin.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_savebin.Location = new System.Drawing.Point(327, 38);
             this.bt_savebin.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_savebin.Name = "bt_savebin";
+            this.bt_savebin.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_savebin.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_savebin.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_savebin.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_savebin.Size = new System.Drawing.Size(156, 29);
+            this.bt_savebin.Style = Sunny.UI.UIStyle.Custom;
             this.bt_savebin.TabIndex = 5;
             this.bt_savebin.Text = "Save Bin";
             this.bt_savebin.Click += new System.EventHandler(this.bt_savebin_Click);
@@ -1168,27 +1390,36 @@ namespace MulanLite
             this.uiLabel4.Location = new System.Drawing.Point(3, 70);
             this.uiLabel4.Name = "uiLabel4";
             this.uiLabel4.Size = new System.Drawing.Size(480, 23);
+            this.uiLabel4.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel4.TabIndex = 6;
             this.uiLabel4.Text = "Write/Read Progress";
             this.uiLabel4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiProcessBar1
             // 
+            this.uiProcessBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiProcessBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiProcessBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiProcessBar1.Location = new System.Drawing.Point(3, 96);
             this.uiProcessBar1.MinimumSize = new System.Drawing.Size(70, 3);
             this.uiProcessBar1.Name = "uiProcessBar1";
+            this.uiProcessBar1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiProcessBar1.Size = new System.Drawing.Size(480, 24);
+            this.uiProcessBar1.Style = Sunny.UI.UIStyle.Custom;
             this.uiProcessBar1.TabIndex = 41;
             this.uiProcessBar1.Text = "write_read_progress1";
             // 
             // uiProcessBar2
             // 
+            this.uiProcessBar2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiProcessBar2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiProcessBar2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiProcessBar2.Location = new System.Drawing.Point(3, 126);
             this.uiProcessBar2.MinimumSize = new System.Drawing.Size(70, 3);
             this.uiProcessBar2.Name = "uiProcessBar2";
+            this.uiProcessBar2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiProcessBar2.Size = new System.Drawing.Size(480, 5);
+            this.uiProcessBar2.Style = Sunny.UI.UIStyle.Custom;
             this.uiProcessBar2.TabIndex = 42;
             this.uiProcessBar2.Text = "write_read_progress2";
             // 
@@ -1550,14 +1781,17 @@ namespace MulanLite
             this.uiGroupBox1.Controls.Add(this.Host_CRC);
             this.uiGroupBox1.Controls.Add(this.uiLabel21);
             this.uiGroupBox1.Controls.Add(this.uiLabel22);
-            this.uiGroupBox1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiGroupBox1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.uiGroupBox1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiGroupBox1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox1.Location = new System.Drawing.Point(512, 40);
             this.uiGroupBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox1.Name = "uiGroupBox1";
             this.uiGroupBox1.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiGroupBox1.Size = new System.Drawing.Size(257, 184);
+            this.uiGroupBox1.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox1.TabIndex = 10;
             this.uiGroupBox1.Text = "Ci Config.";
             this.uiGroupBox1.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1570,6 +1804,7 @@ namespace MulanLite
             this.bt_bldisable.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_bldisable.Name = "bt_bldisable";
             this.bt_bldisable.Size = new System.Drawing.Size(100, 29);
+            this.bt_bldisable.Style = Sunny.UI.UIStyle.Custom;
             this.bt_bldisable.TabIndex = 45;
             this.bt_bldisable.Text = "BL Disable";
             this.bt_bldisable.Click += new System.EventHandler(this.bt_bldisable_Click);
@@ -1582,6 +1817,7 @@ namespace MulanLite
             this.bt_blenable.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_blenable.Name = "bt_blenable";
             this.bt_blenable.Size = new System.Drawing.Size(97, 29);
+            this.bt_blenable.Style = Sunny.UI.UIStyle.Custom;
             this.bt_blenable.TabIndex = 44;
             this.bt_blenable.Text = "BL Enable";
             this.bt_blenable.Click += new System.EventHandler(this.bt_blenable_Click);
@@ -1639,6 +1875,7 @@ namespace MulanLite
             this.uiLabel5.Location = new System.Drawing.Point(3, 31);
             this.uiLabel5.Name = "uiLabel5";
             this.uiLabel5.Size = new System.Drawing.Size(113, 23);
+            this.uiLabel5.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel5.TabIndex = 42;
             this.uiLabel5.Text = "RCLK_DIV (34h)";
             this.uiLabel5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1652,6 +1889,7 @@ namespace MulanLite
             this.Host_CRC.Name = "Host_CRC";
             this.Host_CRC.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
             this.Host_CRC.Size = new System.Drawing.Size(150, 29);
+            this.Host_CRC.Style = Sunny.UI.UIStyle.Custom;
             this.Host_CRC.TabIndex = 13;
             this.Host_CRC.Text = "Host Calculate CRC";
             this.Host_CRC.CheckedChanged += new System.EventHandler(this.Host_CRC_CheckedChanged);
@@ -1662,6 +1900,7 @@ namespace MulanLite
             this.uiLabel21.Location = new System.Drawing.Point(3, 60);
             this.uiLabel21.Name = "uiLabel21";
             this.uiLabel21.Size = new System.Drawing.Size(88, 23);
+            this.uiLabel21.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel21.TabIndex = 11;
             this.uiLabel21.Text = "Ci Freq";
             this.uiLabel21.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -1672,6 +1911,7 @@ namespace MulanLite
             this.uiLabel22.Location = new System.Drawing.Point(3, 90);
             this.uiLabel22.Name = "uiLabel22";
             this.uiLabel22.Size = new System.Drawing.Size(88, 23);
+            this.uiLabel22.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel22.TabIndex = 12;
             this.uiLabel22.Text = "Ci Enable";
             this.uiLabel22.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -4143,25 +4383,6 @@ namespace MulanLite
             this.uiLabel38.Text = "Qty.";
             this.uiLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // uiGroupBox2
-            // 
-            this.uiGroupBox2.Controls.Add(this.cb_vhr_short);
-            this.uiGroupBox2.Controls.Add(this.cb_vhr_open);
-            this.uiGroupBox2.Controls.Add(this.uiLabel52);
-            this.uiGroupBox2.Controls.Add(this.uiLabel53);
-            this.uiGroupBox2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox2.Location = new System.Drawing.Point(4, 415);
-            this.uiGroupBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox2.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox2.Name = "uiGroupBox2";
-            this.uiGroupBox2.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox2.Size = new System.Drawing.Size(225, 145);
-            this.uiGroupBox2.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox2.TabIndex = 46;
-            this.uiGroupBox2.Text = "45h LED HR TH1";
-            this.uiGroupBox2.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // cb_vhr_short
             // 
             this.cb_vhr_short.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4172,7 +4393,7 @@ namespace MulanLite
             "2\'b01 :    6    V",
             "2\'b10 :    7    V",
             "2\'b11 :    8    V"});
-            this.cb_vhr_short.Location = new System.Drawing.Point(6, 109);
+            this.cb_vhr_short.Location = new System.Drawing.Point(7, 90);
             this.cb_vhr_short.Name = "cb_vhr_short";
             this.cb_vhr_short.Size = new System.Drawing.Size(208, 23);
             this.cb_vhr_short.TabIndex = 14;
@@ -4188,54 +4409,11 @@ namespace MulanLite
             "2\'b01 : 200mV",
             "2\'b10 : 300mV",
             "2\'b11 : 400mV"});
-            this.cb_vhr_open.Location = new System.Drawing.Point(6, 57);
+            this.cb_vhr_open.Location = new System.Drawing.Point(7, 38);
             this.cb_vhr_open.Name = "cb_vhr_open";
             this.cb_vhr_open.Size = new System.Drawing.Size(208, 23);
             this.cb_vhr_open.TabIndex = 43;
             this.cb_vhr_open.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_open_SelectedIndexChanged);
-            // 
-            // uiLabel52
-            // 
-            this.uiLabel52.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel52.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel52.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel52.Name = "uiLabel52";
-            this.uiLabel52.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel52.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel52.TabIndex = 42;
-            this.uiLabel52.Text = "VHR_OPEN [5:4]";
-            this.uiLabel52.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel53
-            // 
-            this.uiLabel53.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel53.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel53.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel53.Name = "uiLabel53";
-            this.uiLabel53.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel53.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel53.TabIndex = 11;
-            this.uiLabel53.Text = "VHR_SHORT[2:0]";
-            this.uiLabel53.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox3
-            // 
-            this.uiGroupBox3.Controls.Add(this.cb_vhr_up);
-            this.uiGroupBox3.Controls.Add(this.cb_vhr_hyst);
-            this.uiGroupBox3.Controls.Add(this.uiLabel54);
-            this.uiGroupBox3.Controls.Add(this.uiLabel55);
-            this.uiGroupBox3.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox3.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox3.Location = new System.Drawing.Point(236, 415);
-            this.uiGroupBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox3.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox3.Name = "uiGroupBox3";
-            this.uiGroupBox3.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox3.Size = new System.Drawing.Size(225, 145);
-            this.uiGroupBox3.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox3.TabIndex = 47;
-            this.uiGroupBox3.Text = "46h LED HR TH2";
-            this.uiGroupBox3.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cb_vhr_up
             // 
@@ -4251,7 +4429,7 @@ namespace MulanLite
             "3\'b101 :  750   mV",
             "3\'b110 :  800   mV",
             "3\'b111 :  850   mV"});
-            this.cb_vhr_up.Location = new System.Drawing.Point(6, 109);
+            this.cb_vhr_up.Location = new System.Drawing.Point(10, 90);
             this.cb_vhr_up.Name = "cb_vhr_up";
             this.cb_vhr_up.Size = new System.Drawing.Size(208, 23);
             this.cb_vhr_up.TabIndex = 14;
@@ -4271,54 +4449,11 @@ namespace MulanLite
             "3\'b101 :  350   mV",
             "3\'b110 :  400   mV",
             "3\'b111 :  500   mV"});
-            this.cb_vhr_hyst.Location = new System.Drawing.Point(6, 57);
+            this.cb_vhr_hyst.Location = new System.Drawing.Point(10, 38);
             this.cb_vhr_hyst.Name = "cb_vhr_hyst";
             this.cb_vhr_hyst.Size = new System.Drawing.Size(208, 23);
             this.cb_vhr_hyst.TabIndex = 43;
             this.cb_vhr_hyst.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_hyst_SelectedIndexChanged);
-            // 
-            // uiLabel54
-            // 
-            this.uiLabel54.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel54.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel54.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel54.Name = "uiLabel54";
-            this.uiLabel54.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel54.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel54.TabIndex = 42;
-            this.uiLabel54.Text = "VHR_HYST [6:4]";
-            this.uiLabel54.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel55
-            // 
-            this.uiLabel55.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel55.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel55.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel55.Name = "uiLabel55";
-            this.uiLabel55.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel55.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel55.TabIndex = 11;
-            this.uiLabel55.Text = "VHR_UP[2:0]";
-            this.uiLabel55.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox4
-            // 
-            this.uiGroupBox4.Controls.Add(this.cb_short_dgl);
-            this.uiGroupBox4.Controls.Add(this.cb_open_dgl);
-            this.uiGroupBox4.Controls.Add(this.uiLabel56);
-            this.uiGroupBox4.Controls.Add(this.uiLabel57);
-            this.uiGroupBox4.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox4.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox4.Location = new System.Drawing.Point(469, 415);
-            this.uiGroupBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox4.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox4.Name = "uiGroupBox4";
-            this.uiGroupBox4.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox4.Size = new System.Drawing.Size(306, 145);
-            this.uiGroupBox4.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox4.TabIndex = 48;
-            this.uiGroupBox4.Text = "47h OPEN/SHORT DGL";
-            this.uiGroupBox4.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // cb_short_dgl
             // 
@@ -4330,7 +4465,7 @@ namespace MulanLite
             "2\'b01 : 4 Consecutive Detection Counts",
             "2\'b10 : 8 Consecutive Detection Counts",
             "2\'b11 : 16 Consecutive Detection Counts"});
-            this.cb_short_dgl.Location = new System.Drawing.Point(6, 109);
+            this.cb_short_dgl.Location = new System.Drawing.Point(6, 90);
             this.cb_short_dgl.Name = "cb_short_dgl";
             this.cb_short_dgl.Size = new System.Drawing.Size(280, 23);
             this.cb_short_dgl.TabIndex = 14;
@@ -4346,41 +4481,19 @@ namespace MulanLite
             "2\'b01 : 4 Consecutive Detection Counts",
             "2\'b10 : 8 Consecutive Detection Counts",
             "2\'b11 : 16 Consecutive Detection Counts"});
-            this.cb_open_dgl.Location = new System.Drawing.Point(6, 57);
+            this.cb_open_dgl.Location = new System.Drawing.Point(6, 38);
             this.cb_open_dgl.Name = "cb_open_dgl";
             this.cb_open_dgl.Size = new System.Drawing.Size(280, 23);
             this.cb_open_dgl.TabIndex = 43;
             this.cb_open_dgl.SelectedIndexChanged += new System.EventHandler(this.cb_open_dgl_SelectedIndexChanged);
-            // 
-            // uiLabel56
-            // 
-            this.uiLabel56.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel56.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel56.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel56.Name = "uiLabel56";
-            this.uiLabel56.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel56.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel56.TabIndex = 42;
-            this.uiLabel56.Text = "OPEN DGL[3:2]";
-            this.uiLabel56.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel57
-            // 
-            this.uiLabel57.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel57.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel57.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel57.Name = "uiLabel57";
-            this.uiLabel57.Size = new System.Drawing.Size(162, 23);
-            this.uiLabel57.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel57.TabIndex = 11;
-            this.uiLabel57.Text = "SHORT DGL[1:0]";
-            this.uiLabel57.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // uiTabControl1
             // 
             this.uiTabControl1.Controls.Add(this.tabPage1);
             this.uiTabControl1.Controls.Add(this.tabPage2);
             this.uiTabControl1.Controls.Add(this.tabPage3);
+            this.uiTabControl1.Controls.Add(this.tabPage4);
+            this.uiTabControl1.Controls.Add(this.tabPage5);
             this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.uiTabControl1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiTabControl1.ItemSize = new System.Drawing.Size(150, 25);
@@ -4390,6 +4503,7 @@ namespace MulanLite
             this.uiTabControl1.SelectedIndex = 0;
             this.uiTabControl1.Size = new System.Drawing.Size(1377, 599);
             this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.uiTabControl1.Style = Sunny.UI.UIStyle.Custom;
             this.uiTabControl1.TabIndex = 57;
             // 
             // tabPage1
@@ -4404,48 +4518,401 @@ namespace MulanLite
             this.tabPage1.Controls.Add(this.uiCheckBoxGroup5);
             this.tabPage1.Location = new System.Drawing.Point(0, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1514, 574);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 574);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "LED setting page";
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.White;
-            this.tabPage2.Controls.Add(this.uiGroupBox20);
-            this.tabPage2.Controls.Add(this.uiGroupBox19);
-            this.tabPage2.Controls.Add(this.uiGroupBox18);
-            this.tabPage2.Controls.Add(this.uiCheckBoxGroup7);
-            this.tabPage2.Controls.Add(this.uiGroupBox17);
-            this.tabPage2.Controls.Add(this.uiGroupBox16);
-            this.tabPage2.Controls.Add(this.uiGroupBox15);
-            this.tabPage2.Controls.Add(this.uiGroupBox14);
-            this.tabPage2.Controls.Add(this.uiGroupBox13);
+            this.tabPage2.Controls.Add(this.groupBox33);
+            this.tabPage2.Controls.Add(this.groupBox32);
+            this.tabPage2.Controls.Add(this.groupBox31);
+            this.tabPage2.Controls.Add(this.groupBox30);
+            this.tabPage2.Controls.Add(this.groupBox29);
+            this.tabPage2.Controls.Add(this.groupBox28);
+            this.tabPage2.Controls.Add(this.groupBox26);
+            this.tabPage2.Controls.Add(this.groupBox25);
+            this.tabPage2.Controls.Add(this.groupBox24);
+            this.tabPage2.Controls.Add(this.groupBox23);
+            this.tabPage2.Controls.Add(this.groupBox22);
             this.tabPage2.Controls.Add(this.flowLayoutPanel6);
-            this.tabPage2.Controls.Add(this.uiGroupBox2);
-            this.tabPage2.Controls.Add(this.uiGroupBox4);
-            this.tabPage2.Controls.Add(this.uiGroupBox3);
             this.tabPage2.Location = new System.Drawing.Point(0, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Size = new System.Drawing.Size(1377, 574);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "LED Options";
             // 
-            // uiGroupBox20
+            // groupBox33
             // 
-            this.uiGroupBox20.Controls.Add(this.cb_min_count);
-            this.uiGroupBox20.Controls.Add(this.uiLabel70);
-            this.uiGroupBox20.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox20.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox20.Location = new System.Drawing.Point(1055, 479);
-            this.uiGroupBox20.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox20.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox20.Name = "uiGroupBox20";
-            this.uiGroupBox20.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox20.Size = new System.Drawing.Size(225, 89);
-            this.uiGroupBox20.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox20.TabIndex = 51;
-            this.uiGroupBox20.Text = "35h HR Min Count";
-            this.uiGroupBox20.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox33.Controls.Add(this.nu_tsd);
+            this.groupBox33.Controls.Add(this.bt_user_test_mode);
+            this.groupBox33.Controls.Add(this.bt_tsd);
+            this.groupBox33.Controls.Add(this.bt_stat_dis);
+            this.groupBox33.Controls.Add(this.nu_tsd_mask);
+            this.groupBox33.Controls.Add(this.bt_stat_norm);
+            this.groupBox33.Controls.Add(this.bt_tsd_mask);
+            this.groupBox33.Controls.Add(this.bt_stat_stb);
+            this.groupBox33.Controls.Add(this.nu_efuse_load);
+            this.groupBox33.Controls.Add(this.bt_stat_iden);
+            this.groupBox33.Controls.Add(this.bt_efuse_load_done);
+            this.groupBox33.Controls.Add(this.bt_stat_init);
+            this.groupBox33.Controls.Add(this.nu_stat_init);
+            this.groupBox33.Controls.Add(this.nu_test_mode);
+            this.groupBox33.Controls.Add(this.nu_stat_iden);
+            this.groupBox33.Controls.Add(this.nu_stat_dis);
+            this.groupBox33.Controls.Add(this.nu_stat_stb);
+            this.groupBox33.Controls.Add(this.nu_stat_norm);
+            this.groupBox33.Location = new System.Drawing.Point(810, 202);
+            this.groupBox33.Name = "groupBox33";
+            this.groupBox33.Size = new System.Drawing.Size(226, 277);
+            this.groupBox33.TabIndex = 71;
+            this.groupBox33.TabStop = false;
+            this.groupBox33.Text = "60_61h Status Flags";
+            // 
+            // nu_tsd
+            // 
+            this.nu_tsd.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_tsd.Location = new System.Drawing.Point(165, 244);
+            this.nu_tsd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_tsd.Name = "nu_tsd";
+            this.nu_tsd.Size = new System.Drawing.Size(43, 21);
+            this.nu_tsd.TabIndex = 30;
+            this.nu_tsd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // bt_user_test_mode
+            // 
+            this.bt_user_test_mode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_user_test_mode.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_user_test_mode.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_user_test_mode.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_user_test_mode.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_user_test_mode.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_user_test_mode.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_user_test_mode.Location = new System.Drawing.Point(6, 21);
+            this.bt_user_test_mode.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_user_test_mode.Name = "bt_user_test_mode";
+            this.bt_user_test_mode.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_user_test_mode.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_user_test_mode.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_user_test_mode.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_user_test_mode.Size = new System.Drawing.Size(153, 22);
+            this.bt_user_test_mode.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_user_test_mode.TabIndex = 6;
+            this.bt_user_test_mode.Text = "user_test_mode[5]";
+            this.bt_user_test_mode.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_user_test_mode.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_tsd
+            // 
+            this.bt_tsd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_tsd.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_tsd.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_tsd.Location = new System.Drawing.Point(6, 242);
+            this.bt_tsd.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_tsd.Name = "bt_tsd";
+            this.bt_tsd.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_tsd.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd.Size = new System.Drawing.Size(153, 22);
+            this.bt_tsd.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_tsd.TabIndex = 29;
+            this.bt_tsd.Text = "TSD[0]";
+            this.bt_tsd.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_tsd.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_stat_dis
+            // 
+            this.bt_stat_dis.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_stat_dis.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_dis.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_dis.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_dis.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_dis.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_dis.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_dis.Location = new System.Drawing.Point(6, 49);
+            this.bt_stat_dis.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_stat_dis.Name = "bt_stat_dis";
+            this.bt_stat_dis.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_dis.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_dis.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_dis.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_dis.Size = new System.Drawing.Size(153, 22);
+            this.bt_stat_dis.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_stat_dis.TabIndex = 7;
+            this.bt_stat_dis.Text = "STAT_DIS[4]";
+            this.bt_stat_dis.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_dis.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // nu_tsd_mask
+            // 
+            this.nu_tsd_mask.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_tsd_mask.Location = new System.Drawing.Point(165, 217);
+            this.nu_tsd_mask.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_tsd_mask.Name = "nu_tsd_mask";
+            this.nu_tsd_mask.Size = new System.Drawing.Size(43, 21);
+            this.nu_tsd_mask.TabIndex = 28;
+            this.nu_tsd_mask.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // bt_stat_norm
+            // 
+            this.bt_stat_norm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_stat_norm.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_norm.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_norm.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_norm.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_norm.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_norm.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_norm.Location = new System.Drawing.Point(6, 77);
+            this.bt_stat_norm.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_stat_norm.Name = "bt_stat_norm";
+            this.bt_stat_norm.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_norm.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_norm.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_norm.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_norm.Size = new System.Drawing.Size(153, 22);
+            this.bt_stat_norm.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_stat_norm.TabIndex = 8;
+            this.bt_stat_norm.Text = "STAT_NORM[3]";
+            this.bt_stat_norm.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_norm.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_tsd_mask
+            // 
+            this.bt_tsd_mask.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_tsd_mask.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd_mask.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd_mask.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_tsd_mask.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd_mask.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_tsd_mask.Location = new System.Drawing.Point(6, 215);
+            this.bt_tsd_mask.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_tsd_mask.Name = "bt_tsd_mask";
+            this.bt_tsd_mask.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_tsd_mask.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_tsd_mask.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd_mask.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_tsd_mask.Size = new System.Drawing.Size(153, 22);
+            this.bt_tsd_mask.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_tsd_mask.TabIndex = 13;
+            this.bt_tsd_mask.Text = "TSD_MASK_ALLOW[1]";
+            this.bt_tsd_mask.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_tsd_mask.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_stat_stb
+            // 
+            this.bt_stat_stb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_stat_stb.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_stb.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_stb.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_stb.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_stb.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_stb.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_stb.Location = new System.Drawing.Point(6, 105);
+            this.bt_stat_stb.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_stat_stb.Name = "bt_stat_stb";
+            this.bt_stat_stb.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_stb.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_stb.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_stb.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_stb.Size = new System.Drawing.Size(153, 22);
+            this.bt_stat_stb.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_stat_stb.TabIndex = 9;
+            this.bt_stat_stb.Text = "STAT_STB[2]";
+            this.bt_stat_stb.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_stb.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // nu_efuse_load
+            // 
+            this.nu_efuse_load.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_efuse_load.Location = new System.Drawing.Point(165, 190);
+            this.nu_efuse_load.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_efuse_load.Name = "nu_efuse_load";
+            this.nu_efuse_load.Size = new System.Drawing.Size(43, 21);
+            this.nu_efuse_load.TabIndex = 25;
+            this.nu_efuse_load.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // bt_stat_iden
+            // 
+            this.bt_stat_iden.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_stat_iden.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_iden.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_iden.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_iden.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_iden.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_iden.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_iden.Location = new System.Drawing.Point(6, 133);
+            this.bt_stat_iden.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_stat_iden.Name = "bt_stat_iden";
+            this.bt_stat_iden.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_iden.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_iden.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_iden.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_iden.Size = new System.Drawing.Size(153, 22);
+            this.bt_stat_iden.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_stat_iden.TabIndex = 10;
+            this.bt_stat_iden.Text = "STAT_IDEN[1]";
+            this.bt_stat_iden.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_iden.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_efuse_load_done
+            // 
+            this.bt_efuse_load_done.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_efuse_load_done.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_efuse_load_done.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_efuse_load_done.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_efuse_load_done.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_efuse_load_done.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_efuse_load_done.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_efuse_load_done.Location = new System.Drawing.Point(6, 188);
+            this.bt_efuse_load_done.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_efuse_load_done.Name = "bt_efuse_load_done";
+            this.bt_efuse_load_done.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_efuse_load_done.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_efuse_load_done.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_efuse_load_done.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_efuse_load_done.Size = new System.Drawing.Size(153, 22);
+            this.bt_efuse_load_done.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_efuse_load_done.TabIndex = 12;
+            this.bt_efuse_load_done.Text = "Efuse_load_done[2]";
+            this.bt_efuse_load_done.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_efuse_load_done.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // bt_stat_init
+            // 
+            this.bt_stat_init.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_stat_init.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_init.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_init.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_init.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_init.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_init.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_init.Location = new System.Drawing.Point(6, 161);
+            this.bt_stat_init.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_stat_init.Name = "bt_stat_init";
+            this.bt_stat_init.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_stat_init.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_stat_init.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_init.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_stat_init.Size = new System.Drawing.Size(153, 22);
+            this.bt_stat_init.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_stat_init.TabIndex = 11;
+            this.bt_stat_init.Text = "STAT_INIT[0]";
+            this.bt_stat_init.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_stat_init.Click += new System.EventHandler(this.bt_user_test_mode_Click);
+            // 
+            // nu_stat_init
+            // 
+            this.nu_stat_init.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_stat_init.Location = new System.Drawing.Point(165, 163);
+            this.nu_stat_init.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_stat_init.Name = "nu_stat_init";
+            this.nu_stat_init.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_init.TabIndex = 17;
+            this.nu_stat_init.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_test_mode
+            // 
+            this.nu_test_mode.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_test_mode.Location = new System.Drawing.Point(165, 22);
+            this.nu_test_mode.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_test_mode.Name = "nu_test_mode";
+            this.nu_test_mode.Size = new System.Drawing.Size(43, 21);
+            this.nu_test_mode.TabIndex = 12;
+            this.nu_test_mode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_stat_iden
+            // 
+            this.nu_stat_iden.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_stat_iden.Location = new System.Drawing.Point(165, 134);
+            this.nu_stat_iden.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_stat_iden.Name = "nu_stat_iden";
+            this.nu_stat_iden.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_iden.TabIndex = 16;
+            this.nu_stat_iden.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_stat_dis
+            // 
+            this.nu_stat_dis.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_stat_dis.Location = new System.Drawing.Point(165, 51);
+            this.nu_stat_dis.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_stat_dis.Name = "nu_stat_dis";
+            this.nu_stat_dis.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_dis.TabIndex = 13;
+            this.nu_stat_dis.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_stat_stb
+            // 
+            this.nu_stat_stb.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_stat_stb.Location = new System.Drawing.Point(165, 107);
+            this.nu_stat_stb.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_stat_stb.Name = "nu_stat_stb";
+            this.nu_stat_stb.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_stb.TabIndex = 15;
+            this.nu_stat_stb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_stat_norm
+            // 
+            this.nu_stat_norm.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_stat_norm.Location = new System.Drawing.Point(165, 79);
+            this.nu_stat_norm.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_stat_norm.Name = "nu_stat_norm";
+            this.nu_stat_norm.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_norm.TabIndex = 14;
+            this.nu_stat_norm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox32
+            // 
+            this.groupBox32.Controls.Add(this.cb_min_count);
+            this.groupBox32.Controls.Add(this.label119);
+            this.groupBox32.Location = new System.Drawing.Point(1042, 138);
+            this.groupBox32.Name = "groupBox32";
+            this.groupBox32.Size = new System.Drawing.Size(226, 77);
+            this.groupBox32.TabIndex = 70;
+            this.groupBox32.TabStop = false;
+            this.groupBox32.Text = "35h HR Min Count";
             // 
             // cb_min_count
             // 
@@ -4469,48 +4936,65 @@ namespace MulanLite
             "4\'hD: 26 CI",
             "4\'hE: 28 CI",
             "4\'hF : 30CI"});
-            this.cb_min_count.Location = new System.Drawing.Point(6, 57);
+            this.cb_min_count.Location = new System.Drawing.Point(9, 38);
             this.cb_min_count.Name = "cb_min_count";
             this.cb_min_count.Size = new System.Drawing.Size(208, 23);
             this.cb_min_count.TabIndex = 43;
             this.cb_min_count.SelectedIndexChanged += new System.EventHandler(this.cb_min_count_SelectedIndexChanged);
             // 
-            // uiLabel70
+            // label119
             // 
-            this.uiLabel70.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel70.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel70.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel70.Name = "uiLabel70";
-            this.uiLabel70.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel70.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel70.TabIndex = 42;
-            this.uiLabel70.Text = "HR Min Count[3:0]";
-            this.uiLabel70.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label119.AutoSize = true;
+            this.label119.Location = new System.Drawing.Point(7, 20);
+            this.label119.Name = "label119";
+            this.label119.Size = new System.Drawing.Size(107, 15);
+            this.label119.TabIndex = 0;
+            this.label119.Text = "HR Min Count[3:0]";
             // 
-            // uiGroupBox19
+            // groupBox31
             // 
-            this.uiGroupBox19.Controls.Add(this.cb_ldoio);
-            this.uiGroupBox19.Controls.Add(this.uiLabel75);
-            this.uiGroupBox19.Controls.Add(this.cb_range_x8_x1);
-            this.uiGroupBox19.Controls.Add(this.uiLabel68);
-            this.uiGroupBox19.Controls.Add(this.cb_low_drive);
-            this.uiGroupBox19.Controls.Add(this.uiLabel69);
-            this.uiGroupBox19.Controls.Add(this.cb_cal_modex8);
-            this.uiGroupBox19.Controls.Add(this.uiLabel67);
-            this.uiGroupBox19.Controls.Add(this.cb_cal_modex1);
-            this.uiGroupBox19.Controls.Add(this.uiLabel66);
-            this.uiGroupBox19.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox19.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox19.Location = new System.Drawing.Point(1055, 168);
-            this.uiGroupBox19.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox19.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox19.Name = "uiGroupBox19";
-            this.uiGroupBox19.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox19.Size = new System.Drawing.Size(225, 301);
-            this.uiGroupBox19.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox19.TabIndex = 51;
-            this.uiGroupBox19.Text = "32_33h PWM CTRL";
-            this.uiGroupBox19.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox31.Controls.Add(this.cb_ldoio);
+            this.groupBox31.Controls.Add(this.label117);
+            this.groupBox31.Controls.Add(this.label118);
+            this.groupBox31.Controls.Add(this.cb_range_x8_x1);
+            this.groupBox31.Location = new System.Drawing.Point(1042, 6);
+            this.groupBox31.Name = "groupBox31";
+            this.groupBox31.Size = new System.Drawing.Size(226, 129);
+            this.groupBox31.TabIndex = 69;
+            this.groupBox31.TabStop = false;
+            this.groupBox31.Text = "32_33h PWM CTRL";
+            // 
+            // cb_ldoio
+            // 
+            this.cb_ldoio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_ldoio.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_ldoio.FormattingEnabled = true;
+            this.cb_ldoio.Items.AddRange(new object[] {
+            "0:  Disable LDOIOPG",
+            "1:  Enable LDOIOPG"});
+            this.cb_ldoio.Location = new System.Drawing.Point(7, 90);
+            this.cb_ldoio.Name = "cb_ldoio";
+            this.cb_ldoio.Size = new System.Drawing.Size(208, 23);
+            this.cb_ldoio.TabIndex = 51;
+            this.cb_ldoio.SelectedIndexChanged += new System.EventHandler(this.cb_ldoio_SelectedIndexChanged);
+            // 
+            // label117
+            // 
+            this.label117.AutoSize = true;
+            this.label117.Location = new System.Drawing.Point(7, 72);
+            this.label117.Name = "label117";
+            this.label117.Size = new System.Drawing.Size(92, 15);
+            this.label117.TabIndex = 44;
+            this.label117.Text = "LDOIOPG_EN[5]";
+            // 
+            // label118
+            // 
+            this.label118.AutoSize = true;
+            this.label118.Location = new System.Drawing.Point(7, 20);
+            this.label118.Name = "label118";
+            this.label118.Size = new System.Drawing.Size(90, 15);
+            this.label118.TabIndex = 0;
+            this.label118.Text = "Range x8_x1[6]";
             // 
             // cb_range_x8_x1
             // 
@@ -4520,121 +5004,78 @@ namespace MulanLite
             this.cb_range_x8_x1.Items.AddRange(new object[] {
             "0:  5.5 mA",
             "1:  6.5 mA"});
-            this.cb_range_x8_x1.Location = new System.Drawing.Point(6, 213);
+            this.cb_range_x8_x1.Location = new System.Drawing.Point(7, 38);
             this.cb_range_x8_x1.Name = "cb_range_x8_x1";
             this.cb_range_x8_x1.Size = new System.Drawing.Size(208, 23);
             this.cb_range_x8_x1.TabIndex = 49;
             this.cb_range_x8_x1.SelectedIndexChanged += new System.EventHandler(this.cb_range_x8_x1_SelectedIndexChanged);
             // 
-            // uiLabel68
+            // groupBox30
             // 
-            this.uiLabel68.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel68.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel68.Location = new System.Drawing.Point(3, 187);
-            this.uiLabel68.Name = "uiLabel68";
-            this.uiLabel68.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel68.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel68.TabIndex = 48;
-            this.uiLabel68.Text = "Range x8_x1[6]";
-            this.uiLabel68.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.groupBox30.Controls.Add(this.uiTrackBar1);
+            this.groupBox30.Controls.Add(this.label115);
+            this.groupBox30.Controls.Add(this.numericUpDown1);
+            this.groupBox30.Controls.Add(this.label116);
+            this.groupBox30.Controls.Add(this.cb_ch_num);
+            this.groupBox30.Location = new System.Drawing.Point(810, 6);
+            this.groupBox30.Name = "groupBox30";
+            this.groupBox30.Size = new System.Drawing.Size(226, 129);
+            this.groupBox30.TabIndex = 70;
+            this.groupBox30.TabStop = false;
+            this.groupBox30.Text = "0A_0Bh CH NUM";
             // 
-            // cb_low_drive
+            // uiTrackBar1
             // 
-            this.cb_low_drive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_low_drive.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_low_drive.FormattingEnabled = true;
-            this.cb_low_drive.Items.AddRange(new object[] {
-            "0 : Normal Channel Drive",
-            "1 : Regular drive on all channels"});
-            this.cb_low_drive.Location = new System.Drawing.Point(6, 161);
-            this.cb_low_drive.Name = "cb_low_drive";
-            this.cb_low_drive.Size = new System.Drawing.Size(208, 23);
-            this.cb_low_drive.TabIndex = 47;
-            this.cb_low_drive.SelectedIndexChanged += new System.EventHandler(this.cb_low_drive_SelectedIndexChanged);
+            this.uiTrackBar1.BarSize = 12;
+            this.uiTrackBar1.DisableColor = System.Drawing.Color.Silver;
+            this.uiTrackBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.uiTrackBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiTrackBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiTrackBar1.Location = new System.Drawing.Point(11, 85);
+            this.uiTrackBar1.Maximum = 65535;
+            this.uiTrackBar1.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiTrackBar1.Name = "uiTrackBar1";
+            this.uiTrackBar1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiTrackBar1.Size = new System.Drawing.Size(96, 23);
+            this.uiTrackBar1.Style = Sunny.UI.UIStyle.Gray;
+            this.uiTrackBar1.StyleCustomMode = true;
+            this.uiTrackBar1.TabIndex = 59;
+            this.uiTrackBar1.Text = "uiTrackBar8";
+            this.uiTrackBar1.ValueChanged += new System.EventHandler(this.uiTrackBar1_ValueChanged);
             // 
-            // uiLabel69
+            // label115
             // 
-            this.uiLabel69.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel69.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel69.Location = new System.Drawing.Point(3, 135);
-            this.uiLabel69.Name = "uiLabel69";
-            this.uiLabel69.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel69.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel69.TabIndex = 46;
-            this.uiLabel69.Text = "Low Drive[7]";
-            this.uiLabel69.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label115.AutoSize = true;
+            this.label115.Location = new System.Drawing.Point(8, 67);
+            this.label115.Name = "label115";
+            this.label115.Size = new System.Drawing.Size(86, 15);
+            this.label115.TabIndex = 44;
+            this.label115.Text = "CH Data [16:0]";
             // 
-            // cb_cal_modex8
+            // numericUpDown1
             // 
-            this.cb_cal_modex8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_cal_modex8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_cal_modex8.FormattingEnabled = true;
-            this.cb_cal_modex8.Items.AddRange(new object[] {
-            "0 : Normal operation",
-            "1 : TEST_PWM_CODE_8X"});
-            this.cb_cal_modex8.Location = new System.Drawing.Point(6, 109);
-            this.cb_cal_modex8.Name = "cb_cal_modex8";
-            this.cb_cal_modex8.Size = new System.Drawing.Size(208, 23);
-            this.cb_cal_modex8.TabIndex = 45;
-            this.cb_cal_modex8.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex8_SelectedIndexChanged);
+            this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Hexadecimal = true;
+            this.numericUpDown1.Location = new System.Drawing.Point(113, 85);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(50, 23);
+            this.numericUpDown1.TabIndex = 60;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
-            // uiLabel67
+            // label116
             // 
-            this.uiLabel67.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel67.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel67.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel67.Name = "uiLabel67";
-            this.uiLabel67.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel67.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel67.TabIndex = 44;
-            this.uiLabel67.Text = "CAL Mode x8[1]";
-            this.uiLabel67.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cb_cal_modex1
-            // 
-            this.cb_cal_modex1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_cal_modex1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_cal_modex1.FormattingEnabled = true;
-            this.cb_cal_modex1.Items.AddRange(new object[] {
-            "0 : Normal operation",
-            "1 : TEST_PWM_CODE_1X"});
-            this.cb_cal_modex1.Location = new System.Drawing.Point(6, 57);
-            this.cb_cal_modex1.Name = "cb_cal_modex1";
-            this.cb_cal_modex1.Size = new System.Drawing.Size(208, 23);
-            this.cb_cal_modex1.TabIndex = 43;
-            this.cb_cal_modex1.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex1_SelectedIndexChanged);
-            // 
-            // uiLabel66
-            // 
-            this.uiLabel66.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel66.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel66.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel66.Name = "uiLabel66";
-            this.uiLabel66.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel66.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel66.TabIndex = 42;
-            this.uiLabel66.Text = "CAL Mode x1[2]";
-            this.uiLabel66.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox18
-            // 
-            this.uiGroupBox18.Controls.Add(this.uiTrackBar1);
-            this.uiGroupBox18.Controls.Add(this.uiLabel79);
-            this.uiGroupBox18.Controls.Add(this.numericUpDown1);
-            this.uiGroupBox18.Controls.Add(this.cb_ch_num);
-            this.uiGroupBox18.Controls.Add(this.uiLabel65);
-            this.uiGroupBox18.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox18.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox18.Location = new System.Drawing.Point(1055, 5);
-            this.uiGroupBox18.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox18.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox18.Name = "uiGroupBox18";
-            this.uiGroupBox18.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox18.Size = new System.Drawing.Size(225, 153);
-            this.uiGroupBox18.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox18.TabIndex = 50;
-            this.uiGroupBox18.Text = "0A_0Bh CH NUM";
-            this.uiGroupBox18.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label116.AutoSize = true;
+            this.label116.Location = new System.Drawing.Point(7, 20);
+            this.label116.Name = "label116";
+            this.label116.Size = new System.Drawing.Size(77, 15);
+            this.label116.TabIndex = 0;
+            this.label116.Text = "CH NUM[1:0]";
             // 
             // cb_ch_num
             // 
@@ -4646,442 +5087,80 @@ namespace MulanLite
             "2\'b01: LED Data Packet for CH1",
             "2\'b10: LED Data Packet for CH2",
             "2\'b11: LED Data Packet for CH3"});
-            this.cb_ch_num.Location = new System.Drawing.Point(6, 57);
+            this.cb_ch_num.Location = new System.Drawing.Point(10, 38);
             this.cb_ch_num.Name = "cb_ch_num";
             this.cb_ch_num.Size = new System.Drawing.Size(208, 23);
             this.cb_ch_num.TabIndex = 43;
             this.cb_ch_num.SelectedIndexChanged += new System.EventHandler(this.cb_ch_num_SelectedIndexChanged);
             // 
-            // uiLabel65
+            // groupBox29
             // 
-            this.uiLabel65.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel65.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel65.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel65.Name = "uiLabel65";
-            this.uiLabel65.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel65.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel65.TabIndex = 42;
-            this.uiLabel65.Text = "CH NUM[1:0]";
-            this.uiLabel65.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.groupBox29.Controls.Add(this.label114);
+            this.groupBox29.Controls.Add(this.track_bl_late);
+            this.groupBox29.Controls.Add(this.nu_bl_late);
+            this.groupBox29.Location = new System.Drawing.Point(810, 141);
+            this.groupBox29.Name = "groupBox29";
+            this.groupBox29.Size = new System.Drawing.Size(226, 55);
+            this.groupBox29.TabIndex = 69;
+            this.groupBox29.TabStop = false;
+            this.groupBox29.Text = "4Bh CLK MISSING THRES";
             // 
-            // uiCheckBoxGroup7
+            // label114
             // 
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_tsd);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_tsd);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_tsd_mask);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_tsd_mask);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_efuse_load);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_efuse_load_done);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_stat_init);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_stat_iden);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_stat_stb);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_stat_norm);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_stat_dis);
-            this.uiCheckBoxGroup7.Controls.Add(this.nu_test_mode);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_stat_init);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_stat_iden);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_stat_stb);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_stat_norm);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_stat_dis);
-            this.uiCheckBoxGroup7.Controls.Add(this.bt_user_test_mode);
-            this.uiCheckBoxGroup7.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiCheckBoxGroup7.Font = new System.Drawing.Font("Calibri", 12F);
-            this.uiCheckBoxGroup7.Location = new System.Drawing.Point(812, 229);
-            this.uiCheckBoxGroup7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiCheckBoxGroup7.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiCheckBoxGroup7.Name = "uiCheckBoxGroup7";
-            this.uiCheckBoxGroup7.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiCheckBoxGroup7.SelectedIndexes = ((System.Collections.Generic.List<int>)(resources.GetObject("uiCheckBoxGroup7.SelectedIndexes")));
-            this.uiCheckBoxGroup7.Size = new System.Drawing.Size(235, 292);
-            this.uiCheckBoxGroup7.Style = Sunny.UI.UIStyle.Custom;
-            this.uiCheckBoxGroup7.StyleCustomMode = true;
-            this.uiCheckBoxGroup7.TabIndex = 58;
-            this.uiCheckBoxGroup7.Text = "60_61h Status Flags";
-            this.uiCheckBoxGroup7.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label114.AutoSize = true;
+            this.label114.Location = new System.Drawing.Point(188, 24);
+            this.label114.Name = "label114";
+            this.label114.Size = new System.Drawing.Size(26, 15);
+            this.label114.TabIndex = 45;
+            this.label114.Text = "CLK";
             // 
-            // nu_tsd
+            // track_bl_late
             // 
-            this.nu_tsd.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_tsd.Location = new System.Drawing.Point(180, 259);
-            this.nu_tsd.Maximum = new decimal(new int[] {
-            1,
+            this.track_bl_late.BarSize = 12;
+            this.track_bl_late.DisableColor = System.Drawing.Color.Silver;
+            this.track_bl_late.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.track_bl_late.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.track_bl_late.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.track_bl_late.Location = new System.Drawing.Point(10, 22);
+            this.track_bl_late.Maximum = 255;
+            this.track_bl_late.MinimumSize = new System.Drawing.Size(1, 1);
+            this.track_bl_late.Name = "track_bl_late";
+            this.track_bl_late.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.track_bl_late.Size = new System.Drawing.Size(116, 23);
+            this.track_bl_late.Style = Sunny.UI.UIStyle.Gray;
+            this.track_bl_late.StyleCustomMode = true;
+            this.track_bl_late.TabIndex = 49;
+            this.track_bl_late.Text = "uiTrackBar8";
+            this.track_bl_late.ValueChanged += new System.EventHandler(this.track_bl_late_ValueChanged);
+            // 
+            // nu_bl_late
+            // 
+            this.nu_bl_late.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_bl_late.Hexadecimal = true;
+            this.nu_bl_late.Location = new System.Drawing.Point(132, 22);
+            this.nu_bl_late.Maximum = new decimal(new int[] {
+            255,
             0,
             0,
             0});
-            this.nu_tsd.Name = "nu_tsd";
-            this.nu_tsd.Size = new System.Drawing.Size(43, 21);
-            this.nu_tsd.TabIndex = 30;
-            this.nu_tsd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_bl_late.Name = "nu_bl_late";
+            this.nu_bl_late.Size = new System.Drawing.Size(50, 23);
+            this.nu_bl_late.TabIndex = 58;
+            this.nu_bl_late.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_bl_late.ValueChanged += new System.EventHandler(this.nu_bl_late_ValueChanged);
             // 
-            // bt_tsd
+            // groupBox28
             // 
-            this.bt_tsd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_tsd.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_tsd.Location = new System.Drawing.Point(8, 257);
-            this.bt_tsd.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_tsd.Name = "bt_tsd";
-            this.bt_tsd.Size = new System.Drawing.Size(162, 22);
-            this.bt_tsd.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_tsd.TabIndex = 29;
-            this.bt_tsd.Text = "TSD[0]";
-            this.bt_tsd.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_tsd.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // nu_tsd_mask
-            // 
-            this.nu_tsd_mask.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_tsd_mask.Location = new System.Drawing.Point(180, 232);
-            this.nu_tsd_mask.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_tsd_mask.Name = "nu_tsd_mask";
-            this.nu_tsd_mask.Size = new System.Drawing.Size(43, 21);
-            this.nu_tsd_mask.TabIndex = 28;
-            this.nu_tsd_mask.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // bt_tsd_mask
-            // 
-            this.bt_tsd_mask.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_tsd_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_tsd_mask.Location = new System.Drawing.Point(8, 230);
-            this.bt_tsd_mask.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_tsd_mask.Name = "bt_tsd_mask";
-            this.bt_tsd_mask.Size = new System.Drawing.Size(162, 22);
-            this.bt_tsd_mask.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_tsd_mask.TabIndex = 13;
-            this.bt_tsd_mask.Text = "TSD_MASK_ALLOW[1]";
-            this.bt_tsd_mask.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_tsd_mask.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // nu_efuse_load
-            // 
-            this.nu_efuse_load.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_efuse_load.Location = new System.Drawing.Point(180, 205);
-            this.nu_efuse_load.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_efuse_load.Name = "nu_efuse_load";
-            this.nu_efuse_load.Size = new System.Drawing.Size(43, 21);
-            this.nu_efuse_load.TabIndex = 25;
-            this.nu_efuse_load.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // bt_efuse_load_done
-            // 
-            this.bt_efuse_load_done.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_efuse_load_done.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_efuse_load_done.Location = new System.Drawing.Point(8, 203);
-            this.bt_efuse_load_done.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_efuse_load_done.Name = "bt_efuse_load_done";
-            this.bt_efuse_load_done.Size = new System.Drawing.Size(162, 22);
-            this.bt_efuse_load_done.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_efuse_load_done.TabIndex = 12;
-            this.bt_efuse_load_done.Text = "Efuse_load_done[2]";
-            this.bt_efuse_load_done.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_efuse_load_done.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // nu_stat_init
-            // 
-            this.nu_stat_init.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_stat_init.Location = new System.Drawing.Point(180, 178);
-            this.nu_stat_init.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_stat_init.Name = "nu_stat_init";
-            this.nu_stat_init.Size = new System.Drawing.Size(43, 21);
-            this.nu_stat_init.TabIndex = 17;
-            this.nu_stat_init.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nu_stat_iden
-            // 
-            this.nu_stat_iden.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_stat_iden.Location = new System.Drawing.Point(180, 149);
-            this.nu_stat_iden.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_stat_iden.Name = "nu_stat_iden";
-            this.nu_stat_iden.Size = new System.Drawing.Size(43, 21);
-            this.nu_stat_iden.TabIndex = 16;
-            this.nu_stat_iden.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nu_stat_stb
-            // 
-            this.nu_stat_stb.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_stat_stb.Location = new System.Drawing.Point(180, 122);
-            this.nu_stat_stb.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_stat_stb.Name = "nu_stat_stb";
-            this.nu_stat_stb.Size = new System.Drawing.Size(43, 21);
-            this.nu_stat_stb.TabIndex = 15;
-            this.nu_stat_stb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nu_stat_norm
-            // 
-            this.nu_stat_norm.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_stat_norm.Location = new System.Drawing.Point(180, 94);
-            this.nu_stat_norm.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_stat_norm.Name = "nu_stat_norm";
-            this.nu_stat_norm.Size = new System.Drawing.Size(43, 21);
-            this.nu_stat_norm.TabIndex = 14;
-            this.nu_stat_norm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nu_stat_dis
-            // 
-            this.nu_stat_dis.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_stat_dis.Location = new System.Drawing.Point(180, 66);
-            this.nu_stat_dis.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_stat_dis.Name = "nu_stat_dis";
-            this.nu_stat_dis.Size = new System.Drawing.Size(43, 21);
-            this.nu_stat_dis.TabIndex = 13;
-            this.nu_stat_dis.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // nu_test_mode
-            // 
-            this.nu_test_mode.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_test_mode.Location = new System.Drawing.Point(180, 37);
-            this.nu_test_mode.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_test_mode.Name = "nu_test_mode";
-            this.nu_test_mode.Size = new System.Drawing.Size(43, 21);
-            this.nu_test_mode.TabIndex = 12;
-            this.nu_test_mode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // bt_stat_init
-            // 
-            this.bt_stat_init.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_stat_init.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_init.Location = new System.Drawing.Point(8, 176);
-            this.bt_stat_init.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_stat_init.Name = "bt_stat_init";
-            this.bt_stat_init.Size = new System.Drawing.Size(162, 22);
-            this.bt_stat_init.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_stat_init.TabIndex = 11;
-            this.bt_stat_init.Text = "STAT_INIT[0]";
-            this.bt_stat_init.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_init.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // bt_stat_iden
-            // 
-            this.bt_stat_iden.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_stat_iden.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_iden.Location = new System.Drawing.Point(8, 148);
-            this.bt_stat_iden.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_stat_iden.Name = "bt_stat_iden";
-            this.bt_stat_iden.Size = new System.Drawing.Size(162, 22);
-            this.bt_stat_iden.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_stat_iden.TabIndex = 10;
-            this.bt_stat_iden.Text = "STAT_IDEN[1]";
-            this.bt_stat_iden.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_iden.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // bt_stat_stb
-            // 
-            this.bt_stat_stb.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_stat_stb.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_stb.Location = new System.Drawing.Point(8, 120);
-            this.bt_stat_stb.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_stat_stb.Name = "bt_stat_stb";
-            this.bt_stat_stb.Size = new System.Drawing.Size(162, 22);
-            this.bt_stat_stb.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_stat_stb.TabIndex = 9;
-            this.bt_stat_stb.Text = "STAT_STB[2]";
-            this.bt_stat_stb.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_stb.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // bt_stat_norm
-            // 
-            this.bt_stat_norm.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_stat_norm.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_norm.Location = new System.Drawing.Point(8, 92);
-            this.bt_stat_norm.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_stat_norm.Name = "bt_stat_norm";
-            this.bt_stat_norm.Size = new System.Drawing.Size(162, 22);
-            this.bt_stat_norm.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_stat_norm.TabIndex = 8;
-            this.bt_stat_norm.Text = "STAT_NORM[3]";
-            this.bt_stat_norm.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_norm.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // bt_stat_dis
-            // 
-            this.bt_stat_dis.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_stat_dis.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_dis.Location = new System.Drawing.Point(8, 64);
-            this.bt_stat_dis.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_stat_dis.Name = "bt_stat_dis";
-            this.bt_stat_dis.Size = new System.Drawing.Size(162, 22);
-            this.bt_stat_dis.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_stat_dis.TabIndex = 7;
-            this.bt_stat_dis.Text = "STAT_DIS[4]";
-            this.bt_stat_dis.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_stat_dis.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // bt_user_test_mode
-            // 
-            this.bt_user_test_mode.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_user_test_mode.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_user_test_mode.Location = new System.Drawing.Point(8, 36);
-            this.bt_user_test_mode.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_user_test_mode.Name = "bt_user_test_mode";
-            this.bt_user_test_mode.Size = new System.Drawing.Size(162, 22);
-            this.bt_user_test_mode.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_user_test_mode.TabIndex = 6;
-            this.bt_user_test_mode.Text = "user_test_mode[5]";
-            this.bt_user_test_mode.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_user_test_mode.Click += new System.EventHandler(this.bt_user_test_mode_Click);
-            // 
-            // uiGroupBox17
-            // 
-            this.uiGroupBox17.Controls.Add(this.cb_debug_out);
-            this.uiGroupBox17.Controls.Add(this.uiLabel64);
-            this.uiGroupBox17.Controls.Add(this.cb_co_do_keep0);
-            this.uiGroupBox17.Controls.Add(this.uiLabel62);
-            this.uiGroupBox17.Controls.Add(this.cb_debug_en);
-            this.uiGroupBox17.Controls.Add(this.uiLabel63);
-            this.uiGroupBox17.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox17.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox17.Location = new System.Drawing.Point(579, 198);
-            this.uiGroupBox17.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox17.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox17.Name = "uiGroupBox17";
-            this.uiGroupBox17.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox17.Size = new System.Drawing.Size(225, 207);
-            this.uiGroupBox17.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox17.TabIndex = 51;
-            this.uiGroupBox17.Text = "5Eh Debug Control";
-            this.uiGroupBox17.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cb_debug_out
-            // 
-            this.cb_debug_out.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_debug_out.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_debug_out.FormattingEnabled = true;
-            this.cb_debug_out.Items.AddRange(new object[] {
-            "4\'h0",
-            "4\'h1",
-            "4\'h2",
-            "4\'h3",
-            "4\'h4",
-            "4\'h5",
-            "4\'h6",
-            "4\'h7",
-            "4\'h8",
-            "4\'h9",
-            "4\'hA",
-            "4\'hB",
-            "4\'hC",
-            "4\'hD",
-            "4\'hE",
-            "4\'hF"});
-            this.cb_debug_out.Location = new System.Drawing.Point(6, 162);
-            this.cb_debug_out.Name = "cb_debug_out";
-            this.cb_debug_out.Size = new System.Drawing.Size(208, 23);
-            this.cb_debug_out.TabIndex = 47;
-            this.cb_debug_out.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
-            // 
-            // uiLabel64
-            // 
-            this.uiLabel64.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel64.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel64.Location = new System.Drawing.Point(3, 136);
-            this.uiLabel64.Name = "uiLabel64";
-            this.uiLabel64.Size = new System.Drawing.Size(173, 23);
-            this.uiLabel64.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel64.TabIndex = 46;
-            this.uiLabel64.Text = "DEBUG_OUT_SEL[4:0]";
-            this.uiLabel64.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cb_co_do_keep0
-            // 
-            this.cb_co_do_keep0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_co_do_keep0.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_co_do_keep0.FormattingEnabled = true;
-            this.cb_co_do_keep0.Items.AddRange(new object[] {
-            "1\'b0: CO and DO as normal operation ",
-            "1\'b1: CO and DO will be tie to 0 "});
-            this.cb_co_do_keep0.Location = new System.Drawing.Point(6, 109);
-            this.cb_co_do_keep0.Name = "cb_co_do_keep0";
-            this.cb_co_do_keep0.Size = new System.Drawing.Size(208, 23);
-            this.cb_co_do_keep0.TabIndex = 45;
-            this.cb_co_do_keep0.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
-            // 
-            // uiLabel62
-            // 
-            this.uiLabel62.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel62.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel62.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel62.Name = "uiLabel62";
-            this.uiLabel62.Size = new System.Drawing.Size(173, 23);
-            this.uiLabel62.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel62.TabIndex = 44;
-            this.uiLabel62.Text = "TM_CO_DO_keep_0[6]";
-            this.uiLabel62.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // cb_debug_en
-            // 
-            this.cb_debug_en.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_debug_en.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_debug_en.FormattingEnabled = true;
-            this.cb_debug_en.Items.AddRange(new object[] {
-            "1\'b0 : Disable",
-            "1\'b1 : Enable"});
-            this.cb_debug_en.Location = new System.Drawing.Point(6, 57);
-            this.cb_debug_en.Name = "cb_debug_en";
-            this.cb_debug_en.Size = new System.Drawing.Size(208, 23);
-            this.cb_debug_en.TabIndex = 43;
-            this.cb_debug_en.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
-            // 
-            // uiLabel63
-            // 
-            this.uiLabel63.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel63.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel63.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel63.Name = "uiLabel63";
-            this.uiLabel63.Size = new System.Drawing.Size(173, 23);
-            this.uiLabel63.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel63.TabIndex = 42;
-            this.uiLabel63.Text = "Debug EN[7]";
-            this.uiLabel63.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox16
-            // 
-            this.uiGroupBox16.Controls.Add(this.cb_blanking_time);
-            this.uiGroupBox16.Controls.Add(this.uiLabel61);
-            this.uiGroupBox16.Controls.Add(this.cb_switch_filter_time);
-            this.uiGroupBox16.Controls.Add(this.uiLabel60);
-            this.uiGroupBox16.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox16.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox16.Location = new System.Drawing.Point(812, 3);
-            this.uiGroupBox16.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox16.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox16.Name = "uiGroupBox16";
-            this.uiGroupBox16.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox16.Size = new System.Drawing.Size(235, 142);
-            this.uiGroupBox16.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox16.TabIndex = 50;
-            this.uiGroupBox16.Text = "58h Filter time";
-            this.uiGroupBox16.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox28.Controls.Add(this.cb_blanking_time);
+            this.groupBox28.Controls.Add(this.label112);
+            this.groupBox28.Controls.Add(this.label113);
+            this.groupBox28.Controls.Add(this.cb_switch_filter_time);
+            this.groupBox28.Location = new System.Drawing.Point(578, 173);
+            this.groupBox28.Name = "groupBox28";
+            this.groupBox28.Size = new System.Drawing.Size(226, 129);
+            this.groupBox28.TabIndex = 69;
+            this.groupBox28.TabStop = false;
+            this.groupBox28.Text = "58h Filter time";
             // 
             // cb_blanking_time
             // 
@@ -5105,23 +5184,29 @@ namespace MulanLite
             "4\'hD : 26 CI",
             "4\'hE : 28 CI",
             "4\'hF : 30 CI"});
-            this.cb_blanking_time.Location = new System.Drawing.Point(6, 109);
+            this.cb_blanking_time.Location = new System.Drawing.Point(7, 90);
             this.cb_blanking_time.Name = "cb_blanking_time";
             this.cb_blanking_time.Size = new System.Drawing.Size(208, 23);
             this.cb_blanking_time.TabIndex = 45;
             this.cb_blanking_time.SelectedIndexChanged += new System.EventHandler(this.cb_switch_filter_time_SelectedIndexChanged);
             // 
-            // uiLabel61
+            // label112
             // 
-            this.uiLabel61.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel61.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel61.Location = new System.Drawing.Point(3, 83);
-            this.uiLabel61.Name = "uiLabel61";
-            this.uiLabel61.Size = new System.Drawing.Size(220, 23);
-            this.uiLabel61.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel61.TabIndex = 44;
-            this.uiLabel61.Text = "OPEN_SHORT_blanking_time[3:0]";
-            this.uiLabel61.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label112.AutoSize = true;
+            this.label112.Location = new System.Drawing.Point(7, 72);
+            this.label112.Name = "label112";
+            this.label112.Size = new System.Drawing.Size(187, 15);
+            this.label112.TabIndex = 44;
+            this.label112.Text = "OPEN_SHORT_blanking_time[3:0]";
+            // 
+            // label113
+            // 
+            this.label113.AutoSize = true;
+            this.label113.Location = new System.Drawing.Point(7, 20);
+            this.label113.Name = "label113";
+            this.label113.Size = new System.Drawing.Size(157, 15);
+            this.label113.TabIndex = 0;
+            this.label113.Text = "Vref_switch_filter_time[7:4]";
             // 
             // cb_switch_filter_time
             // 
@@ -5145,104 +5230,22 @@ namespace MulanLite
             "4\'hD : 13 CI",
             "4\'hE : 14 CI",
             "4\'hF : 15 CI"});
-            this.cb_switch_filter_time.Location = new System.Drawing.Point(6, 57);
+            this.cb_switch_filter_time.Location = new System.Drawing.Point(7, 38);
             this.cb_switch_filter_time.Name = "cb_switch_filter_time";
             this.cb_switch_filter_time.Size = new System.Drawing.Size(208, 23);
             this.cb_switch_filter_time.TabIndex = 43;
             this.cb_switch_filter_time.SelectedIndexChanged += new System.EventHandler(this.cb_switch_filter_time_SelectedIndexChanged);
             // 
-            // uiLabel60
+            // groupBox26
             // 
-            this.uiLabel60.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel60.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel60.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel60.Name = "uiLabel60";
-            this.uiLabel60.Size = new System.Drawing.Size(220, 23);
-            this.uiLabel60.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel60.TabIndex = 42;
-            this.uiLabel60.Text = "Vref_switch_filter_time[7:4]";
-            this.uiLabel60.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiGroupBox15
-            // 
-            this.uiGroupBox15.Controls.Add(this.uiLabel26);
-            this.uiGroupBox15.Controls.Add(this.track_bl_late);
-            this.uiGroupBox15.Controls.Add(this.nu_bl_late);
-            this.uiGroupBox15.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox15.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox15.Location = new System.Drawing.Point(812, 155);
-            this.uiGroupBox15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox15.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox15.Name = "uiGroupBox15";
-            this.uiGroupBox15.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox15.Size = new System.Drawing.Size(235, 65);
-            this.uiGroupBox15.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox15.TabIndex = 66;
-            this.uiGroupBox15.Text = "4Ah BL UPD LATE THRES";
-            this.uiGroupBox15.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // uiLabel26
-            // 
-            this.uiLabel26.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel26.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel26.Location = new System.Drawing.Point(177, 26);
-            this.uiLabel26.Name = "uiLabel26";
-            this.uiLabel26.Size = new System.Drawing.Size(37, 23);
-            this.uiLabel26.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel26.TabIndex = 44;
-            this.uiLabel26.Text = "CLK";
-            this.uiLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // track_bl_late
-            // 
-            this.track_bl_late.BarSize = 12;
-            this.track_bl_late.DisableColor = System.Drawing.Color.Silver;
-            this.track_bl_late.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
-            this.track_bl_late.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.track_bl_late.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.track_bl_late.Location = new System.Drawing.Point(18, 26);
-            this.track_bl_late.Maximum = 255;
-            this.track_bl_late.MinimumSize = new System.Drawing.Size(1, 1);
-            this.track_bl_late.Name = "track_bl_late";
-            this.track_bl_late.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.track_bl_late.Size = new System.Drawing.Size(96, 23);
-            this.track_bl_late.Style = Sunny.UI.UIStyle.Gray;
-            this.track_bl_late.StyleCustomMode = true;
-            this.track_bl_late.TabIndex = 49;
-            this.track_bl_late.Text = "uiTrackBar8";
-            this.track_bl_late.ValueChanged += new System.EventHandler(this.track_bl_late_ValueChanged);
-            // 
-            // nu_bl_late
-            // 
-            this.nu_bl_late.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_bl_late.Location = new System.Drawing.Point(120, 26);
-            this.nu_bl_late.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nu_bl_late.Name = "nu_bl_late";
-            this.nu_bl_late.Size = new System.Drawing.Size(50, 23);
-            this.nu_bl_late.TabIndex = 58;
-            this.nu_bl_late.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_bl_late.ValueChanged += new System.EventHandler(this.nu_bl_late_ValueChanged);
-            // 
-            // uiGroupBox14
-            // 
-            this.uiGroupBox14.Controls.Add(this.cb_pulse_rf);
-            this.uiGroupBox14.Controls.Add(this.uiLabel59);
-            this.uiGroupBox14.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox14.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox14.Location = new System.Drawing.Point(579, 104);
-            this.uiGroupBox14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox14.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox14.Name = "uiGroupBox14";
-            this.uiGroupBox14.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox14.Size = new System.Drawing.Size(225, 89);
-            this.uiGroupBox14.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox14.TabIndex = 50;
-            this.uiGroupBox14.Text = "44h 8x Rise/Fall Pulse";
-            this.uiGroupBox14.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox26.Controls.Add(this.cb_pulse_rf);
+            this.groupBox26.Controls.Add(this.label107);
+            this.groupBox26.Location = new System.Drawing.Point(578, 89);
+            this.groupBox26.Name = "groupBox26";
+            this.groupBox26.Size = new System.Drawing.Size(226, 77);
+            this.groupBox26.TabIndex = 69;
+            this.groupBox26.TabStop = false;
+            this.groupBox26.Text = "44h 8x Rise/Fall Pulse";
             // 
             // cb_pulse_rf
             // 
@@ -5258,40 +5261,31 @@ namespace MulanLite
             "3\'d5 : 48 CI clcok",
             "3\'d6 : 64 CI clcok",
             "3\'d7 : 80 CI clcok"});
-            this.cb_pulse_rf.Location = new System.Drawing.Point(6, 57);
+            this.cb_pulse_rf.Location = new System.Drawing.Point(7, 38);
             this.cb_pulse_rf.Name = "cb_pulse_rf";
             this.cb_pulse_rf.Size = new System.Drawing.Size(208, 23);
             this.cb_pulse_rf.TabIndex = 43;
             this.cb_pulse_rf.SelectedIndexChanged += new System.EventHandler(this.cb_pulse_rf_SelectedIndexChanged);
             // 
-            // uiLabel59
+            // label107
             // 
-            this.uiLabel59.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel59.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel59.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel59.Name = "uiLabel59";
-            this.uiLabel59.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel59.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel59.TabIndex = 42;
-            this.uiLabel59.Text = "PULSE_R_F[2:0]";
-            this.uiLabel59.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label107.AutoSize = true;
+            this.label107.Location = new System.Drawing.Point(7, 20);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(89, 15);
+            this.label107.TabIndex = 0;
+            this.label107.Text = "PULSE_R_F[2:0]";
             // 
-            // uiGroupBox13
+            // groupBox25
             // 
-            this.uiGroupBox13.Controls.Add(this.cb_thresh_clk_missing);
-            this.uiGroupBox13.Controls.Add(this.uiLabel58);
-            this.uiGroupBox13.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiGroupBox13.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiGroupBox13.Location = new System.Drawing.Point(579, 5);
-            this.uiGroupBox13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.uiGroupBox13.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiGroupBox13.Name = "uiGroupBox13";
-            this.uiGroupBox13.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
-            this.uiGroupBox13.Size = new System.Drawing.Size(225, 89);
-            this.uiGroupBox13.Style = Sunny.UI.UIStyle.Custom;
-            this.uiGroupBox13.TabIndex = 49;
-            this.uiGroupBox13.Text = "4Bh CLK MISSING THRES";
-            this.uiGroupBox13.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            this.groupBox25.Controls.Add(this.cb_thresh_clk_missing);
+            this.groupBox25.Controls.Add(this.label108);
+            this.groupBox25.Location = new System.Drawing.Point(578, 6);
+            this.groupBox25.Name = "groupBox25";
+            this.groupBox25.Size = new System.Drawing.Size(226, 77);
+            this.groupBox25.TabIndex = 68;
+            this.groupBox25.TabStop = false;
+            this.groupBox25.Text = "4Bh CLK MISSING THRES";
             // 
             // cb_thresh_clk_missing
             // 
@@ -5303,23 +5297,113 @@ namespace MulanLite
             "2\'d1 : 8 clk",
             "2\'d2 : 16 clk",
             "2\'d3 : 32 clk"});
-            this.cb_thresh_clk_missing.Location = new System.Drawing.Point(6, 57);
+            this.cb_thresh_clk_missing.Location = new System.Drawing.Point(6, 38);
             this.cb_thresh_clk_missing.Name = "cb_thresh_clk_missing";
             this.cb_thresh_clk_missing.Size = new System.Drawing.Size(208, 23);
             this.cb_thresh_clk_missing.TabIndex = 43;
             this.cb_thresh_clk_missing.SelectedIndexChanged += new System.EventHandler(this.cb_thresh_clk_missing_SelectedIndexChanged);
             // 
-            // uiLabel58
+            // label108
             // 
-            this.uiLabel58.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel58.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel58.Location = new System.Drawing.Point(3, 31);
-            this.uiLabel58.Name = "uiLabel58";
-            this.uiLabel58.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel58.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel58.TabIndex = 42;
-            this.uiLabel58.Text = "THRESH CLK MISS[1:0]";
-            this.uiLabel58.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label108.AutoSize = true;
+            this.label108.Location = new System.Drawing.Point(7, 20);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(125, 15);
+            this.label108.TabIndex = 0;
+            this.label108.Text = "THRESH CLK MISS[1:0]";
+            // 
+            // groupBox24
+            // 
+            this.groupBox24.Controls.Add(this.cb_short_dgl);
+            this.groupBox24.Controls.Add(this.label105);
+            this.groupBox24.Controls.Add(this.cb_open_dgl);
+            this.groupBox24.Controls.Add(this.label106);
+            this.groupBox24.Location = new System.Drawing.Point(467, 418);
+            this.groupBox24.Name = "groupBox24";
+            this.groupBox24.Size = new System.Drawing.Size(298, 129);
+            this.groupBox24.TabIndex = 69;
+            this.groupBox24.TabStop = false;
+            this.groupBox24.Text = "47h OPEN/SHORT DGL";
+            // 
+            // label105
+            // 
+            this.label105.AutoSize = true;
+            this.label105.Location = new System.Drawing.Point(7, 72);
+            this.label105.Name = "label105";
+            this.label105.Size = new System.Drawing.Size(92, 15);
+            this.label105.TabIndex = 44;
+            this.label105.Text = "SHORT DGL[1:0]";
+            // 
+            // label106
+            // 
+            this.label106.AutoSize = true;
+            this.label106.Location = new System.Drawing.Point(7, 20);
+            this.label106.Name = "label106";
+            this.label106.Size = new System.Drawing.Size(86, 15);
+            this.label106.TabIndex = 0;
+            this.label106.Text = "OPEN DGL[3:2]";
+            // 
+            // groupBox23
+            // 
+            this.groupBox23.Controls.Add(this.cb_vhr_up);
+            this.groupBox23.Controls.Add(this.label103);
+            this.groupBox23.Controls.Add(this.cb_vhr_hyst);
+            this.groupBox23.Controls.Add(this.label104);
+            this.groupBox23.Location = new System.Drawing.Point(235, 418);
+            this.groupBox23.Name = "groupBox23";
+            this.groupBox23.Size = new System.Drawing.Size(226, 129);
+            this.groupBox23.TabIndex = 68;
+            this.groupBox23.TabStop = false;
+            this.groupBox23.Text = "46h LED HR TH2";
+            // 
+            // label103
+            // 
+            this.label103.AutoSize = true;
+            this.label103.Location = new System.Drawing.Point(7, 72);
+            this.label103.Name = "label103";
+            this.label103.Size = new System.Drawing.Size(75, 15);
+            this.label103.TabIndex = 44;
+            this.label103.Text = "VHR_UP[2:0]";
+            // 
+            // label104
+            // 
+            this.label104.AutoSize = true;
+            this.label104.Location = new System.Drawing.Point(7, 20);
+            this.label104.Name = "label104";
+            this.label104.Size = new System.Drawing.Size(89, 15);
+            this.label104.TabIndex = 0;
+            this.label104.Text = "VHR_HYST [6:4]";
+            // 
+            // groupBox22
+            // 
+            this.groupBox22.Controls.Add(this.cb_vhr_short);
+            this.groupBox22.Controls.Add(this.label102);
+            this.groupBox22.Controls.Add(this.label101);
+            this.groupBox22.Controls.Add(this.cb_vhr_open);
+            this.groupBox22.Location = new System.Drawing.Point(3, 418);
+            this.groupBox22.Name = "groupBox22";
+            this.groupBox22.Size = new System.Drawing.Size(226, 129);
+            this.groupBox22.TabIndex = 67;
+            this.groupBox22.TabStop = false;
+            this.groupBox22.Text = "45h LED HR TH1";
+            // 
+            // label102
+            // 
+            this.label102.AutoSize = true;
+            this.label102.Location = new System.Drawing.Point(7, 72);
+            this.label102.Name = "label102";
+            this.label102.Size = new System.Drawing.Size(99, 15);
+            this.label102.TabIndex = 44;
+            this.label102.Text = "VHR_SHORT [2:0]";
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Location = new System.Drawing.Point(7, 20);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(93, 15);
+            this.label101.TabIndex = 0;
+            this.label101.Text = "VHR_OPEN [5:4]";
             // 
             // flowLayoutPanel6
             // 
@@ -5371,6 +5455,7 @@ namespace MulanLite
             // nu_CH0x8
             // 
             this.nu_CH0x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH0x8.Hexadecimal = true;
             this.nu_CH0x8.Location = new System.Drawing.Point(4, 366);
             this.nu_CH0x8.Maximum = new decimal(new int[] {
             127,
@@ -5418,6 +5503,7 @@ namespace MulanLite
             // nu_CH1x8
             // 
             this.nu_CH1x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH1x8.Hexadecimal = true;
             this.nu_CH1x8.Location = new System.Drawing.Point(3, 367);
             this.nu_CH1x8.Maximum = new decimal(new int[] {
             127,
@@ -5465,6 +5551,7 @@ namespace MulanLite
             // nu_CH2x8
             // 
             this.nu_CH2x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH2x8.Hexadecimal = true;
             this.nu_CH2x8.Location = new System.Drawing.Point(5, 369);
             this.nu_CH2x8.Maximum = new decimal(new int[] {
             127,
@@ -5512,6 +5599,7 @@ namespace MulanLite
             // nu_CH3x8
             // 
             this.nu_CH3x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH3x8.Hexadecimal = true;
             this.nu_CH3x8.Location = new System.Drawing.Point(5, 369);
             this.nu_CH3x8.Maximum = new decimal(new int[] {
             127,
@@ -5559,6 +5647,7 @@ namespace MulanLite
             // nu_CH0x1
             // 
             this.nu_CH0x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH0x1.Hexadecimal = true;
             this.nu_CH0x1.Location = new System.Drawing.Point(5, 363);
             this.nu_CH0x1.Maximum = new decimal(new int[] {
             127,
@@ -5606,6 +5695,7 @@ namespace MulanLite
             // nu_CH1x1
             // 
             this.nu_CH1x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH1x1.Hexadecimal = true;
             this.nu_CH1x1.Location = new System.Drawing.Point(6, 363);
             this.nu_CH1x1.Maximum = new decimal(new int[] {
             127,
@@ -5653,6 +5743,7 @@ namespace MulanLite
             // nu_CH2x1
             // 
             this.nu_CH2x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH2x1.Hexadecimal = true;
             this.nu_CH2x1.Location = new System.Drawing.Point(6, 363);
             this.nu_CH2x1.Maximum = new decimal(new int[] {
             127,
@@ -5699,6 +5790,7 @@ namespace MulanLite
             // nu_CH3x1
             // 
             this.nu_CH3x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_CH3x1.Hexadecimal = true;
             this.nu_CH3x1.Location = new System.Drawing.Point(5, 365);
             this.nu_CH3x1.Maximum = new decimal(new int[] {
             127,
@@ -5824,7 +5916,7 @@ namespace MulanLite
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Location = new System.Drawing.Point(0, 25);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1514, 574);
+            this.tabPage3.Size = new System.Drawing.Size(1377, 574);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Register map";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -5841,11 +5933,21 @@ namespace MulanLite
             // bt_readtowrite
             // 
             this.bt_readtowrite.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_readtowrite.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readtowrite.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readtowrite.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_readtowrite.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_readtowrite.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_readtowrite.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_readtowrite.Location = new System.Drawing.Point(46, 492);
             this.bt_readtowrite.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_readtowrite.Name = "bt_readtowrite";
+            this.bt_readtowrite.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_readtowrite.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_readtowrite.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_readtowrite.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_readtowrite.Size = new System.Drawing.Size(100, 22);
+            this.bt_readtowrite.Style = Sunny.UI.UIStyle.Custom;
             this.bt_readtowrite.TabIndex = 58;
             this.bt_readtowrite.Text = "<<";
             this.bt_readtowrite.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -5952,6 +6054,7 @@ namespace MulanLite
             // 
             // W0C
             // 
+            this.W0C.Enabled = false;
             this.W0C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W0C.Hexadecimal = true;
             this.W0C.Location = new System.Drawing.Point(9, 359);
@@ -5967,6 +6070,7 @@ namespace MulanLite
             // 
             // W0B
             // 
+            this.W0B.Enabled = false;
             this.W0B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W0B.Hexadecimal = true;
             this.W0B.Location = new System.Drawing.Point(9, 331);
@@ -6279,6 +6383,7 @@ namespace MulanLite
             this.R0D.Size = new System.Drawing.Size(42, 22);
             this.R0D.TabIndex = 31;
             this.R0D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0D.ValueChanged += new System.EventHandler(this.R0D_ValueChanged);
             // 
             // R02
             // 
@@ -6309,6 +6414,7 @@ namespace MulanLite
             this.R0C.Size = new System.Drawing.Size(42, 22);
             this.R0C.TabIndex = 30;
             this.R0C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0C.ValueChanged += new System.EventHandler(this.R0C_ValueChanged);
             // 
             // R03
             // 
@@ -6339,6 +6445,7 @@ namespace MulanLite
             this.R0B.Size = new System.Drawing.Size(42, 22);
             this.R0B.TabIndex = 29;
             this.R0B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0B.ValueChanged += new System.EventHandler(this.R0B_ValueChanged);
             // 
             // R04
             // 
@@ -6354,6 +6461,7 @@ namespace MulanLite
             this.R04.Size = new System.Drawing.Size(42, 22);
             this.R04.TabIndex = 22;
             this.R04.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R04.ValueChanged += new System.EventHandler(this.R04_ValueChanged);
             // 
             // R0A
             // 
@@ -6369,6 +6477,7 @@ namespace MulanLite
             this.R0A.Size = new System.Drawing.Size(42, 22);
             this.R0A.TabIndex = 28;
             this.R0A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R0A.ValueChanged += new System.EventHandler(this.R0A_ValueChanged);
             // 
             // R05
             // 
@@ -6414,6 +6523,7 @@ namespace MulanLite
             this.R06.Size = new System.Drawing.Size(42, 22);
             this.R06.TabIndex = 24;
             this.R06.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R06.ValueChanged += new System.EventHandler(this.R06_ValueChanged);
             // 
             // R08
             // 
@@ -6444,6 +6554,7 @@ namespace MulanLite
             this.R07.Size = new System.Drawing.Size(42, 22);
             this.R07.TabIndex = 25;
             this.R07.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R07.ValueChanged += new System.EventHandler(this.R07_ValueChanged);
             // 
             // label85
             // 
@@ -6769,8 +6880,9 @@ namespace MulanLite
             0});
             this.R50.Name = "R50";
             this.R50.Size = new System.Drawing.Size(42, 22);
-            this.R50.TabIndex = 18;
+            this.R50.TabIndex = 1;
             this.R50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R50.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R5E
             // 
@@ -6786,6 +6898,7 @@ namespace MulanLite
             this.R5E.Size = new System.Drawing.Size(42, 22);
             this.R5E.TabIndex = 32;
             this.R5E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5E.ValueChanged += new System.EventHandler(this.R5E_ValueChanged);
             // 
             // R51
             // 
@@ -6799,8 +6912,9 @@ namespace MulanLite
             0});
             this.R51.Name = "R51";
             this.R51.Size = new System.Drawing.Size(42, 22);
-            this.R51.TabIndex = 19;
+            this.R51.TabIndex = 2;
             this.R51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R51.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R5D
             // 
@@ -6829,8 +6943,9 @@ namespace MulanLite
             0});
             this.R52.Name = "R52";
             this.R52.Size = new System.Drawing.Size(42, 22);
-            this.R52.TabIndex = 20;
+            this.R52.TabIndex = 3;
             this.R52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R52.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R5C
             // 
@@ -6859,8 +6974,9 @@ namespace MulanLite
             0});
             this.R53.Name = "R53";
             this.R53.Size = new System.Drawing.Size(42, 22);
-            this.R53.TabIndex = 21;
+            this.R53.TabIndex = 4;
             this.R53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R53.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R5B
             // 
@@ -6889,8 +7005,9 @@ namespace MulanLite
             0});
             this.R54.Name = "R54";
             this.R54.Size = new System.Drawing.Size(42, 22);
-            this.R54.TabIndex = 22;
+            this.R54.TabIndex = 5;
             this.R54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R54.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R5A
             // 
@@ -6919,8 +7036,9 @@ namespace MulanLite
             0});
             this.R55.Name = "R55";
             this.R55.Size = new System.Drawing.Size(42, 22);
-            this.R55.TabIndex = 23;
+            this.R55.TabIndex = 6;
             this.R55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R55.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R59
             // 
@@ -6949,8 +7067,9 @@ namespace MulanLite
             0});
             this.R56.Name = "R56";
             this.R56.Size = new System.Drawing.Size(42, 22);
-            this.R56.TabIndex = 24;
+            this.R56.TabIndex = 7;
             this.R56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R56.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // R58
             // 
@@ -6966,6 +7085,7 @@ namespace MulanLite
             this.R58.Size = new System.Drawing.Size(42, 22);
             this.R58.TabIndex = 26;
             this.R58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R58.ValueChanged += new System.EventHandler(this.R58_ValueChanged);
             // 
             // R57
             // 
@@ -6979,8 +7099,9 @@ namespace MulanLite
             0});
             this.R57.Name = "R57";
             this.R57.Size = new System.Drawing.Size(42, 22);
-            this.R57.TabIndex = 25;
+            this.R57.TabIndex = 8;
             this.R57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R57.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // label8
             // 
@@ -7644,6 +7765,7 @@ namespace MulanLite
             this.R4B.Size = new System.Drawing.Size(42, 22);
             this.R4B.TabIndex = 29;
             this.R4B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4B.ValueChanged += new System.EventHandler(this.R4B_ValueChanged);
             // 
             // R44
             // 
@@ -7659,6 +7781,7 @@ namespace MulanLite
             this.R44.Size = new System.Drawing.Size(42, 22);
             this.R44.TabIndex = 22;
             this.R44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R44.ValueChanged += new System.EventHandler(this.R44_ValueChanged);
             // 
             // R4A
             // 
@@ -7674,6 +7797,7 @@ namespace MulanLite
             this.R4A.Size = new System.Drawing.Size(42, 22);
             this.R4A.TabIndex = 28;
             this.R4A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4A.ValueChanged += new System.EventHandler(this.R4A_ValueChanged);
             // 
             // R45
             // 
@@ -7689,6 +7813,7 @@ namespace MulanLite
             this.R45.Size = new System.Drawing.Size(42, 22);
             this.R45.TabIndex = 23;
             this.R45.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R45.ValueChanged += new System.EventHandler(this.R45_ValueChanged);
             // 
             // R49
             // 
@@ -7719,6 +7844,7 @@ namespace MulanLite
             this.R46.Size = new System.Drawing.Size(42, 22);
             this.R46.TabIndex = 24;
             this.R46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R46.ValueChanged += new System.EventHandler(this.R46_ValueChanged);
             // 
             // R48
             // 
@@ -7749,6 +7875,7 @@ namespace MulanLite
             this.R47.Size = new System.Drawing.Size(42, 22);
             this.R47.TabIndex = 25;
             this.R47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R47.ValueChanged += new System.EventHandler(this.R47_ValueChanged);
             // 
             // label11
             // 
@@ -8370,6 +8497,7 @@ namespace MulanLite
             this.R3F.Size = new System.Drawing.Size(42, 22);
             this.R3F.TabIndex = 33;
             this.R3F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3F.ValueChanged += new System.EventHandler(this.R3F_ValueChanged);
             // 
             // R30
             // 
@@ -8385,6 +8513,7 @@ namespace MulanLite
             this.R30.Size = new System.Drawing.Size(42, 22);
             this.R30.TabIndex = 18;
             this.R30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R30.ValueChanged += new System.EventHandler(this.R30_ValueChanged);
             // 
             // R3E
             // 
@@ -8400,6 +8529,7 @@ namespace MulanLite
             this.R3E.Size = new System.Drawing.Size(42, 22);
             this.R3E.TabIndex = 32;
             this.R3E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3E.ValueChanged += new System.EventHandler(this.R3E_ValueChanged);
             // 
             // R31
             // 
@@ -8430,6 +8560,7 @@ namespace MulanLite
             this.R3D.Size = new System.Drawing.Size(42, 22);
             this.R3D.TabIndex = 31;
             this.R3D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3D.ValueChanged += new System.EventHandler(this.R3D_ValueChanged);
             // 
             // R32
             // 
@@ -8445,6 +8576,7 @@ namespace MulanLite
             this.R32.Size = new System.Drawing.Size(42, 22);
             this.R32.TabIndex = 20;
             this.R32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R32.ValueChanged += new System.EventHandler(this.R32_ValueChanged);
             // 
             // R3C
             // 
@@ -8460,6 +8592,7 @@ namespace MulanLite
             this.R3C.Size = new System.Drawing.Size(42, 22);
             this.R3C.TabIndex = 30;
             this.R3C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3C.ValueChanged += new System.EventHandler(this.R3C_ValueChanged);
             // 
             // R33
             // 
@@ -8475,6 +8608,7 @@ namespace MulanLite
             this.R33.Size = new System.Drawing.Size(42, 22);
             this.R33.TabIndex = 21;
             this.R33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R33.ValueChanged += new System.EventHandler(this.R33_ValueChanged);
             // 
             // R3B
             // 
@@ -8505,6 +8639,7 @@ namespace MulanLite
             this.R34.Size = new System.Drawing.Size(42, 22);
             this.R34.TabIndex = 22;
             this.R34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R34.ValueChanged += new System.EventHandler(this.R34_ValueChanged);
             // 
             // R3A
             // 
@@ -8520,6 +8655,7 @@ namespace MulanLite
             this.R3A.Size = new System.Drawing.Size(42, 22);
             this.R3A.TabIndex = 28;
             this.R3A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R3A.ValueChanged += new System.EventHandler(this.R3A_ValueChanged);
             // 
             // R35
             // 
@@ -8535,6 +8671,7 @@ namespace MulanLite
             this.R35.Size = new System.Drawing.Size(42, 22);
             this.R35.TabIndex = 23;
             this.R35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R35.ValueChanged += new System.EventHandler(this.R35_ValueChanged);
             // 
             // R39
             // 
@@ -8550,6 +8687,7 @@ namespace MulanLite
             this.R39.Size = new System.Drawing.Size(42, 22);
             this.R39.TabIndex = 27;
             this.R39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R39.ValueChanged += new System.EventHandler(this.R39_ValueChanged);
             // 
             // R36
             // 
@@ -8565,6 +8703,7 @@ namespace MulanLite
             this.R36.Size = new System.Drawing.Size(42, 22);
             this.R36.TabIndex = 24;
             this.R36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R36.ValueChanged += new System.EventHandler(this.R36_ValueChanged);
             // 
             // R38
             // 
@@ -8580,6 +8719,7 @@ namespace MulanLite
             this.R38.Size = new System.Drawing.Size(42, 22);
             this.R38.TabIndex = 26;
             this.R38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R38.ValueChanged += new System.EventHandler(this.R38_ValueChanged);
             // 
             // R37
             // 
@@ -8595,6 +8735,7 @@ namespace MulanLite
             this.R37.Size = new System.Drawing.Size(42, 22);
             this.R37.TabIndex = 25;
             this.R37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R37.ValueChanged += new System.EventHandler(this.R37_ValueChanged);
             // 
             // label39
             // 
@@ -8709,6 +8850,7 @@ namespace MulanLite
             this.R2F.Size = new System.Drawing.Size(42, 22);
             this.R2F.TabIndex = 33;
             this.R2F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2F.ValueChanged += new System.EventHandler(this.R2F_ValueChanged);
             // 
             // R20
             // 
@@ -8739,6 +8881,7 @@ namespace MulanLite
             this.R2E.Size = new System.Drawing.Size(42, 22);
             this.R2E.TabIndex = 32;
             this.R2E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2E.ValueChanged += new System.EventHandler(this.R2E_ValueChanged);
             // 
             // R21
             // 
@@ -8769,6 +8912,7 @@ namespace MulanLite
             this.R2D.Size = new System.Drawing.Size(42, 22);
             this.R2D.TabIndex = 31;
             this.R2D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2D.ValueChanged += new System.EventHandler(this.R2D_ValueChanged);
             // 
             // R22
             // 
@@ -8799,6 +8943,7 @@ namespace MulanLite
             this.R2C.Size = new System.Drawing.Size(42, 22);
             this.R2C.TabIndex = 30;
             this.R2C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2C.ValueChanged += new System.EventHandler(this.R2C_ValueChanged);
             // 
             // R23
             // 
@@ -8829,6 +8974,7 @@ namespace MulanLite
             this.R2B.Size = new System.Drawing.Size(42, 22);
             this.R2B.TabIndex = 29;
             this.R2B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2B.ValueChanged += new System.EventHandler(this.R2B_ValueChanged);
             // 
             // R24
             // 
@@ -8859,6 +9005,7 @@ namespace MulanLite
             this.R2A.Size = new System.Drawing.Size(42, 22);
             this.R2A.TabIndex = 28;
             this.R2A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2A.ValueChanged += new System.EventHandler(this.R2A_ValueChanged);
             // 
             // R25
             // 
@@ -8889,6 +9036,7 @@ namespace MulanLite
             this.R29.Size = new System.Drawing.Size(42, 22);
             this.R29.TabIndex = 27;
             this.R29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R29.ValueChanged += new System.EventHandler(this.R29_ValueChanged);
             // 
             // R26
             // 
@@ -8919,6 +9067,7 @@ namespace MulanLite
             this.R28.Size = new System.Drawing.Size(42, 22);
             this.R28.TabIndex = 26;
             this.R28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R28.ValueChanged += new System.EventHandler(this.R28_ValueChanged);
             // 
             // R27
             // 
@@ -9916,6 +10065,1587 @@ namespace MulanLite
             this.label17.TabIndex = 128;
             this.label17.Text = "3Fh";
             // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.bt_virus_pattern);
+            this.tabPage4.Controls.Add(this.groupBox36);
+            this.tabPage4.Controls.Add(this.groupBox35);
+            this.tabPage4.Controls.Add(this.groupBox34);
+            this.tabPage4.Controls.Add(this.groupBox21);
+            this.tabPage4.Controls.Add(this.uibt_ridge_testmode);
+            this.tabPage4.Controls.Add(this.groupBox27);
+            this.tabPage4.Location = new System.Drawing.Point(0, 25);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Ridge TestMode";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox36
+            // 
+            this.groupBox36.Controls.Add(this.ui_read_Tracking);
+            this.groupBox36.Controls.Add(this.flowLayoutPanel7);
+            this.groupBox36.Location = new System.Drawing.Point(265, 146);
+            this.groupBox36.Name = "groupBox36";
+            this.groupBox36.Size = new System.Drawing.Size(191, 269);
+            this.groupBox36.TabIndex = 71;
+            this.groupBox36.TabStop = false;
+            this.groupBox36.Text = "99_9Eh Tracking";
+            // 
+            // ui_read_Tracking
+            // 
+            this.ui_read_Tracking.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ui_read_Tracking.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ui_read_Tracking.Location = new System.Drawing.Point(3, 231);
+            this.ui_read_Tracking.MinimumSize = new System.Drawing.Size(1, 1);
+            this.ui_read_Tracking.Name = "ui_read_Tracking";
+            this.ui_read_Tracking.Size = new System.Drawing.Size(97, 29);
+            this.ui_read_Tracking.Style = Sunny.UI.UIStyle.Custom;
+            this.ui_read_Tracking.TabIndex = 62;
+            this.ui_read_Tracking.Text = "Read";
+            this.ui_read_Tracking.Click += new System.EventHandler(this.ui_read_Tracking_Click);
+            // 
+            // flowLayoutPanel7
+            // 
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel26);
+            this.flowLayoutPanel7.Controls.Add(this.nu_X_ADDR);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel52);
+            this.flowLayoutPanel7.Controls.Add(this.nu_Y_ADDR);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel53);
+            this.flowLayoutPanel7.Controls.Add(this.nu_LotID);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel54);
+            this.flowLayoutPanel7.Controls.Add(this.nu_Wafer);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel55);
+            this.flowLayoutPanel7.Controls.Add(this.nu_PGM);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel56);
+            this.flowLayoutPanel7.Controls.Add(this.nu_Fab);
+            this.flowLayoutPanel7.Controls.Add(this.uiLabel57);
+            this.flowLayoutPanel7.Controls.Add(this.nu_Lot_type);
+            this.flowLayoutPanel7.Location = new System.Drawing.Point(3, 22);
+            this.flowLayoutPanel7.Name = "flowLayoutPanel7";
+            this.flowLayoutPanel7.Size = new System.Drawing.Size(182, 207);
+            this.flowLayoutPanel7.TabIndex = 72;
+            // 
+            // uiLabel26
+            // 
+            this.uiLabel26.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel26.Location = new System.Drawing.Point(3, 0);
+            this.uiLabel26.Name = "uiLabel26";
+            this.uiLabel26.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel26.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel26.TabIndex = 9;
+            this.uiLabel26.Text = "X_ADDR [8:0]";
+            this.uiLabel26.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_X_ADDR
+            // 
+            this.nu_X_ADDR.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_X_ADDR.Hexadecimal = true;
+            this.nu_X_ADDR.Location = new System.Drawing.Point(114, 3);
+            this.nu_X_ADDR.Maximum = new decimal(new int[] {
+            511,
+            0,
+            0,
+            0});
+            this.nu_X_ADDR.Name = "nu_X_ADDR";
+            this.nu_X_ADDR.Size = new System.Drawing.Size(59, 23);
+            this.nu_X_ADDR.TabIndex = 70;
+            this.nu_X_ADDR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel52
+            // 
+            this.uiLabel52.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel52.Location = new System.Drawing.Point(3, 29);
+            this.uiLabel52.Name = "uiLabel52";
+            this.uiLabel52.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel52.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel52.TabIndex = 71;
+            this.uiLabel52.Text = "Y_ADDR [8:0]";
+            this.uiLabel52.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_Y_ADDR
+            // 
+            this.nu_Y_ADDR.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_Y_ADDR.Hexadecimal = true;
+            this.nu_Y_ADDR.Location = new System.Drawing.Point(114, 32);
+            this.nu_Y_ADDR.Maximum = new decimal(new int[] {
+            511,
+            0,
+            0,
+            0});
+            this.nu_Y_ADDR.Name = "nu_Y_ADDR";
+            this.nu_Y_ADDR.Size = new System.Drawing.Size(59, 23);
+            this.nu_Y_ADDR.TabIndex = 71;
+            this.nu_Y_ADDR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel53
+            // 
+            this.uiLabel53.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel53.Location = new System.Drawing.Point(3, 58);
+            this.uiLabel53.Name = "uiLabel53";
+            this.uiLabel53.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel53.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel53.TabIndex = 72;
+            this.uiLabel53.Text = "Lot_ID [16:0]";
+            this.uiLabel53.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_LotID
+            // 
+            this.nu_LotID.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_LotID.Hexadecimal = true;
+            this.nu_LotID.Location = new System.Drawing.Point(114, 61);
+            this.nu_LotID.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
+            this.nu_LotID.Name = "nu_LotID";
+            this.nu_LotID.Size = new System.Drawing.Size(59, 23);
+            this.nu_LotID.TabIndex = 73;
+            this.nu_LotID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel54
+            // 
+            this.uiLabel54.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel54.Location = new System.Drawing.Point(3, 87);
+            this.uiLabel54.Name = "uiLabel54";
+            this.uiLabel54.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel54.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel54.TabIndex = 74;
+            this.uiLabel54.Text = "Wafer_Num[4:0]";
+            this.uiLabel54.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_Wafer
+            // 
+            this.nu_Wafer.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_Wafer.Hexadecimal = true;
+            this.nu_Wafer.Location = new System.Drawing.Point(114, 90);
+            this.nu_Wafer.Maximum = new decimal(new int[] {
+            31,
+            0,
+            0,
+            0});
+            this.nu_Wafer.Name = "nu_Wafer";
+            this.nu_Wafer.Size = new System.Drawing.Size(59, 23);
+            this.nu_Wafer.TabIndex = 75;
+            this.nu_Wafer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel55
+            // 
+            this.uiLabel55.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel55.Location = new System.Drawing.Point(3, 116);
+            this.uiLabel55.Name = "uiLabel55";
+            this.uiLabel55.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel55.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel55.TabIndex = 76;
+            this.uiLabel55.Text = "PGM_ver[7:5]";
+            this.uiLabel55.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_PGM
+            // 
+            this.nu_PGM.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_PGM.Hexadecimal = true;
+            this.nu_PGM.Location = new System.Drawing.Point(114, 119);
+            this.nu_PGM.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.nu_PGM.Name = "nu_PGM";
+            this.nu_PGM.Size = new System.Drawing.Size(59, 23);
+            this.nu_PGM.TabIndex = 77;
+            this.nu_PGM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel56
+            // 
+            this.uiLabel56.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel56.Location = new System.Drawing.Point(3, 145);
+            this.uiLabel56.Name = "uiLabel56";
+            this.uiLabel56.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel56.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel56.TabIndex = 78;
+            this.uiLabel56.Text = "Fab_code";
+            this.uiLabel56.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_Fab
+            // 
+            this.nu_Fab.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_Fab.Hexadecimal = true;
+            this.nu_Fab.Location = new System.Drawing.Point(114, 148);
+            this.nu_Fab.Maximum = new decimal(new int[] {
+            8191,
+            0,
+            0,
+            0});
+            this.nu_Fab.Name = "nu_Fab";
+            this.nu_Fab.Size = new System.Drawing.Size(59, 23);
+            this.nu_Fab.TabIndex = 79;
+            this.nu_Fab.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiLabel57
+            // 
+            this.uiLabel57.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel57.Location = new System.Drawing.Point(3, 174);
+            this.uiLabel57.Name = "uiLabel57";
+            this.uiLabel57.Size = new System.Drawing.Size(105, 23);
+            this.uiLabel57.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel57.TabIndex = 80;
+            this.uiLabel57.Text = "Lot_type[3:0]";
+            this.uiLabel57.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_Lot_type
+            // 
+            this.nu_Lot_type.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_Lot_type.Hexadecimal = true;
+            this.nu_Lot_type.Location = new System.Drawing.Point(114, 177);
+            this.nu_Lot_type.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nu_Lot_type.Name = "nu_Lot_type";
+            this.nu_Lot_type.Size = new System.Drawing.Size(59, 23);
+            this.nu_Lot_type.TabIndex = 81;
+            this.nu_Lot_type.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox35
+            // 
+            this.groupBox35.Controls.Add(this.pwm_code_x1_sl);
+            this.groupBox35.Controls.Add(this.label121);
+            this.groupBox35.Controls.Add(this.nu_pwm_code_x1);
+            this.groupBox35.Controls.Add(this.pwm_code_x8_sl);
+            this.groupBox35.Controls.Add(this.label120);
+            this.groupBox35.Controls.Add(this.nu_pwm_code_x8);
+            this.groupBox35.Location = new System.Drawing.Point(16, 433);
+            this.groupBox35.Name = "groupBox35";
+            this.groupBox35.Size = new System.Drawing.Size(242, 113);
+            this.groupBox35.TabIndex = 69;
+            this.groupBox35.TabStop = false;
+            this.groupBox35.Text = "3C_3Fh Test PWM Code";
+            // 
+            // pwm_code_x1_sl
+            // 
+            this.pwm_code_x1_sl.BarSize = 12;
+            this.pwm_code_x1_sl.DisableColor = System.Drawing.Color.Silver;
+            this.pwm_code_x1_sl.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.pwm_code_x1_sl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pwm_code_x1_sl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.pwm_code_x1_sl.Location = new System.Drawing.Point(9, 80);
+            this.pwm_code_x1_sl.Maximum = 8191;
+            this.pwm_code_x1_sl.MinimumSize = new System.Drawing.Size(1, 1);
+            this.pwm_code_x1_sl.Name = "pwm_code_x1_sl";
+            this.pwm_code_x1_sl.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.pwm_code_x1_sl.Size = new System.Drawing.Size(155, 23);
+            this.pwm_code_x1_sl.Style = Sunny.UI.UIStyle.Gray;
+            this.pwm_code_x1_sl.StyleCustomMode = true;
+            this.pwm_code_x1_sl.TabIndex = 68;
+            this.pwm_code_x1_sl.Text = "pwm_code_x1_sl";
+            this.pwm_code_x1_sl.ValueChanged += new System.EventHandler(this.pwm_code_x1_sl_ValueChanged);
+            // 
+            // label121
+            // 
+            this.label121.AutoSize = true;
+            this.label121.Location = new System.Drawing.Point(9, 63);
+            this.label121.Name = "label121";
+            this.label121.Size = new System.Drawing.Size(118, 15);
+            this.label121.TabIndex = 67;
+            this.label121.Text = "PWM Code x1 [12:0]";
+            // 
+            // nu_pwm_code_x1
+            // 
+            this.nu_pwm_code_x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_pwm_code_x1.Hexadecimal = true;
+            this.nu_pwm_code_x1.Location = new System.Drawing.Point(172, 80);
+            this.nu_pwm_code_x1.Maximum = new decimal(new int[] {
+            8191,
+            0,
+            0,
+            0});
+            this.nu_pwm_code_x1.Name = "nu_pwm_code_x1";
+            this.nu_pwm_code_x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_pwm_code_x1.TabIndex = 69;
+            this.nu_pwm_code_x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_pwm_code_x1.ValueChanged += new System.EventHandler(this.nu_pwm_code_x1_ValueChanged);
+            // 
+            // pwm_code_x8_sl
+            // 
+            this.pwm_code_x8_sl.BarSize = 12;
+            this.pwm_code_x8_sl.DisableColor = System.Drawing.Color.Silver;
+            this.pwm_code_x8_sl.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.pwm_code_x8_sl.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pwm_code_x8_sl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.pwm_code_x8_sl.Location = new System.Drawing.Point(9, 37);
+            this.pwm_code_x8_sl.Maximum = 8191;
+            this.pwm_code_x8_sl.MinimumSize = new System.Drawing.Size(1, 1);
+            this.pwm_code_x8_sl.Name = "pwm_code_x8_sl";
+            this.pwm_code_x8_sl.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.pwm_code_x8_sl.Size = new System.Drawing.Size(155, 23);
+            this.pwm_code_x8_sl.Style = Sunny.UI.UIStyle.Gray;
+            this.pwm_code_x8_sl.StyleCustomMode = true;
+            this.pwm_code_x8_sl.TabIndex = 65;
+            this.pwm_code_x8_sl.Text = "pwm_codex8_sl";
+            this.pwm_code_x8_sl.ValueChanged += new System.EventHandler(this.pwm_codex8_sl_ValueChanged);
+            // 
+            // label120
+            // 
+            this.label120.AutoSize = true;
+            this.label120.Location = new System.Drawing.Point(6, 19);
+            this.label120.Name = "label120";
+            this.label120.Size = new System.Drawing.Size(118, 15);
+            this.label120.TabIndex = 64;
+            this.label120.Text = "PWM Code x8 [12:0]";
+            // 
+            // nu_pwm_code_x8
+            // 
+            this.nu_pwm_code_x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_pwm_code_x8.Hexadecimal = true;
+            this.nu_pwm_code_x8.Location = new System.Drawing.Point(172, 37);
+            this.nu_pwm_code_x8.Maximum = new decimal(new int[] {
+            8191,
+            0,
+            0,
+            0});
+            this.nu_pwm_code_x8.Name = "nu_pwm_code_x8";
+            this.nu_pwm_code_x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_pwm_code_x8.TabIndex = 66;
+            this.nu_pwm_code_x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_pwm_code_x8.ValueChanged += new System.EventHandler(this.nu_pwm_code_x8_ValueChanged);
+            // 
+            // groupBox34
+            // 
+            this.groupBox34.Controls.Add(this.nu_ridge_dontlow);
+            this.groupBox34.Controls.Add(this.nu_ridge_raise);
+            this.groupBox34.Controls.Add(this.uiButton5);
+            this.groupBox34.Controls.Add(this.uiButton4);
+            this.groupBox34.Location = new System.Drawing.Point(264, 48);
+            this.groupBox34.Name = "groupBox34";
+            this.groupBox34.Size = new System.Drawing.Size(193, 93);
+            this.groupBox34.TabIndex = 68;
+            this.groupBox34.TabStop = false;
+            this.groupBox34.Text = "04h Fault";
+            // 
+            // nu_ridge_dontlow
+            // 
+            this.nu_ridge_dontlow.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_ridge_dontlow.Location = new System.Drawing.Point(118, 28);
+            this.nu_ridge_dontlow.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_ridge_dontlow.Name = "nu_ridge_dontlow";
+            this.nu_ridge_dontlow.Size = new System.Drawing.Size(43, 21);
+            this.nu_ridge_dontlow.TabIndex = 66;
+            this.nu_ridge_dontlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_ridge_raise
+            // 
+            this.nu_ridge_raise.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_ridge_raise.Location = new System.Drawing.Point(118, 55);
+            this.nu_ridge_raise.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_ridge_raise.Name = "nu_ridge_raise";
+            this.nu_ridge_raise.Size = new System.Drawing.Size(43, 21);
+            this.nu_ridge_raise.TabIndex = 67;
+            this.nu_ridge_raise.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiButton5
+            // 
+            this.uiButton5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton5.FillColor = System.Drawing.Color.White;
+            this.uiButton5.FillColor2 = System.Drawing.Color.White;
+            this.uiButton5.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton5.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton5.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.uiButton5.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.uiButton5.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton5.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton5.Location = new System.Drawing.Point(12, 27);
+            this.uiButton5.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton5.Name = "uiButton5";
+            this.uiButton5.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.uiButton5.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.uiButton5.Size = new System.Drawing.Size(100, 22);
+            this.uiButton5.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton5.TabIndex = 64;
+            this.uiButton5.Text = "DONT_LOWER";
+            this.uiButton5.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton5.Click += new System.EventHandler(this.uiButton5_Click);
+            // 
+            // uiButton4
+            // 
+            this.uiButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton4.FillColor = System.Drawing.Color.White;
+            this.uiButton4.FillColor2 = System.Drawing.Color.White;
+            this.uiButton4.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton4.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton4.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.uiButton4.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.uiButton4.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton4.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton4.Location = new System.Drawing.Point(12, 54);
+            this.uiButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton4.Name = "uiButton4";
+            this.uiButton4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.uiButton4.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.uiButton4.Size = new System.Drawing.Size(100, 22);
+            this.uiButton4.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton4.TabIndex = 65;
+            this.uiButton4.Text = "RAISE";
+            this.uiButton4.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton4.Click += new System.EventHandler(this.uiButton5_Click);
+            // 
+            // groupBox21
+            // 
+            this.groupBox21.Controls.Add(this.cb_sticky);
+            this.groupBox21.Controls.Add(this.label100);
+            this.groupBox21.Controls.Add(this.label99);
+            this.groupBox21.Controls.Add(this.label98);
+            this.groupBox21.Controls.Add(this.label97);
+            this.groupBox21.Controls.Add(this.cb_low_drive);
+            this.groupBox21.Controls.Add(this.cb_cal_modex1);
+            this.groupBox21.Controls.Add(this.cb_cal_modex8);
+            this.groupBox21.Location = new System.Drawing.Point(16, 48);
+            this.groupBox21.Name = "groupBox21";
+            this.groupBox21.Size = new System.Drawing.Size(242, 202);
+            this.groupBox21.TabIndex = 47;
+            this.groupBox21.TabStop = false;
+            this.groupBox21.Text = "32_33h PWM_CTRL1";
+            // 
+            // cb_sticky
+            // 
+            this.cb_sticky.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_sticky.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_sticky.FormattingEnabled = true;
+            this.cb_sticky.Items.AddRange(new object[] {
+            "0 : The bits reflect the last polled status, whether 1 or 0.",
+            "1 : The bits are set by polling."});
+            this.cb_sticky.Location = new System.Drawing.Point(14, 37);
+            this.cb_sticky.Name = "cb_sticky";
+            this.cb_sticky.Size = new System.Drawing.Size(208, 23);
+            this.cb_sticky.TabIndex = 48;
+            this.cb_sticky.SelectedIndexChanged += new System.EventHandler(this.cb_sticky_SelectedIndexChanged);
+            // 
+            // label100
+            // 
+            this.label100.AutoSize = true;
+            this.label100.Location = new System.Drawing.Point(11, 151);
+            this.label100.Name = "label100";
+            this.label100.Size = new System.Drawing.Size(83, 15);
+            this.label100.TabIndex = 46;
+            this.label100.Text = "Low Driver [7]";
+            // 
+            // label99
+            // 
+            this.label99.AutoSize = true;
+            this.label99.Location = new System.Drawing.Point(11, 107);
+            this.label99.Name = "label99";
+            this.label99.Size = new System.Drawing.Size(93, 15);
+            this.label99.TabIndex = 4;
+            this.label99.Text = "Cal Mode x8 [1]";
+            // 
+            // label98
+            // 
+            this.label98.AutoSize = true;
+            this.label98.Location = new System.Drawing.Point(11, 63);
+            this.label98.Name = "label98";
+            this.label98.Size = new System.Drawing.Size(93, 15);
+            this.label98.TabIndex = 2;
+            this.label98.Text = "Cal Mode x1 [2]";
+            // 
+            // label97
+            // 
+            this.label97.AutoSize = true;
+            this.label97.Location = new System.Drawing.Point(11, 19);
+            this.label97.Name = "label97";
+            this.label97.Size = new System.Drawing.Size(106, 15);
+            this.label97.TabIndex = 0;
+            this.label97.Text = "Sticky up down [3]";
+            // 
+            // cb_low_drive
+            // 
+            this.cb_low_drive.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_low_drive.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_low_drive.FormattingEnabled = true;
+            this.cb_low_drive.Items.AddRange(new object[] {
+            "0 : Normal Channel Drive",
+            "1 : Regular drive on all channels"});
+            this.cb_low_drive.Location = new System.Drawing.Point(14, 169);
+            this.cb_low_drive.Name = "cb_low_drive";
+            this.cb_low_drive.Size = new System.Drawing.Size(208, 23);
+            this.cb_low_drive.TabIndex = 47;
+            this.cb_low_drive.SelectedIndexChanged += new System.EventHandler(this.cb_low_drive_SelectedIndexChanged);
+            // 
+            // cb_cal_modex1
+            // 
+            this.cb_cal_modex1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_cal_modex1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_cal_modex1.FormattingEnabled = true;
+            this.cb_cal_modex1.Items.AddRange(new object[] {
+            "0 : Normal operation",
+            "1 : TEST_PWM_CODE_1X"});
+            this.cb_cal_modex1.Location = new System.Drawing.Point(14, 81);
+            this.cb_cal_modex1.Name = "cb_cal_modex1";
+            this.cb_cal_modex1.Size = new System.Drawing.Size(208, 23);
+            this.cb_cal_modex1.TabIndex = 43;
+            this.cb_cal_modex1.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex1_SelectedIndexChanged);
+            // 
+            // cb_cal_modex8
+            // 
+            this.cb_cal_modex8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_cal_modex8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_cal_modex8.FormattingEnabled = true;
+            this.cb_cal_modex8.Items.AddRange(new object[] {
+            "0 : Normal operation",
+            "1 : TEST_PWM_CODE_8X"});
+            this.cb_cal_modex8.Location = new System.Drawing.Point(14, 125);
+            this.cb_cal_modex8.Name = "cb_cal_modex8";
+            this.cb_cal_modex8.Size = new System.Drawing.Size(208, 23);
+            this.cb_cal_modex8.TabIndex = 45;
+            this.cb_cal_modex8.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex8_SelectedIndexChanged);
+            // 
+            // uibt_ridge_testmode
+            // 
+            this.uibt_ridge_testmode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uibt_ridge_testmode.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_ridge_testmode.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_ridge_testmode.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_ridge_testmode.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_ridge_testmode.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_ridge_testmode.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uibt_ridge_testmode.Location = new System.Drawing.Point(18, 13);
+            this.uibt_ridge_testmode.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uibt_ridge_testmode.Name = "uibt_ridge_testmode";
+            this.uibt_ridge_testmode.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_ridge_testmode.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_ridge_testmode.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_ridge_testmode.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_ridge_testmode.Size = new System.Drawing.Size(134, 29);
+            this.uibt_ridge_testmode.Style = Sunny.UI.UIStyle.Custom;
+            this.uibt_ridge_testmode.TabIndex = 46;
+            this.uibt_ridge_testmode.Text = "Ridge Test Mode";
+            this.uibt_ridge_testmode.Click += new System.EventHandler(this.uibt_ridge_testmode_Click);
+            // 
+            // groupBox27
+            // 
+            this.groupBox27.Controls.Add(this.cb_debug_out);
+            this.groupBox27.Controls.Add(this.label111);
+            this.groupBox27.Controls.Add(this.label110);
+            this.groupBox27.Controls.Add(this.label109);
+            this.groupBox27.Controls.Add(this.cb_co_do_keep0);
+            this.groupBox27.Controls.Add(this.cb_debug_en);
+            this.groupBox27.Location = new System.Drawing.Point(16, 256);
+            this.groupBox27.Name = "groupBox27";
+            this.groupBox27.Size = new System.Drawing.Size(242, 171);
+            this.groupBox27.TabIndex = 70;
+            this.groupBox27.TabStop = false;
+            this.groupBox27.Text = "5Eh Debug Control";
+            // 
+            // cb_debug_out
+            // 
+            this.cb_debug_out.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_debug_out.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_debug_out.FormattingEnabled = true;
+            this.cb_debug_out.Items.AddRange(new object[] {
+            "4\'h0",
+            "4\'h1",
+            "4\'h2",
+            "4\'h3",
+            "4\'h4",
+            "4\'h5",
+            "4\'h6",
+            "4\'h7",
+            "4\'h8",
+            "4\'h9",
+            "4\'hA",
+            "4\'hB",
+            "4\'hC",
+            "4\'hD",
+            "4\'hE",
+            "4\'hF"});
+            this.cb_debug_out.Location = new System.Drawing.Point(6, 127);
+            this.cb_debug_out.Name = "cb_debug_out";
+            this.cb_debug_out.Size = new System.Drawing.Size(216, 23);
+            this.cb_debug_out.TabIndex = 47;
+            this.cb_debug_out.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
+            // 
+            // label111
+            // 
+            this.label111.AutoSize = true;
+            this.label111.Location = new System.Drawing.Point(8, 109);
+            this.label111.Name = "label111";
+            this.label111.Size = new System.Drawing.Size(121, 15);
+            this.label111.TabIndex = 46;
+            this.label111.Text = "DEBUG_OUT_SEL[4:0]";
+            // 
+            // label110
+            // 
+            this.label110.AutoSize = true;
+            this.label110.Location = new System.Drawing.Point(8, 65);
+            this.label110.Name = "label110";
+            this.label110.Size = new System.Drawing.Size(128, 15);
+            this.label110.TabIndex = 44;
+            this.label110.Text = "TM_CO_DO_keep_0[6]";
+            // 
+            // label109
+            // 
+            this.label109.AutoSize = true;
+            this.label109.Location = new System.Drawing.Point(7, 20);
+            this.label109.Name = "label109";
+            this.label109.Size = new System.Drawing.Size(73, 15);
+            this.label109.TabIndex = 0;
+            this.label109.Text = "Debug EN[7]";
+            // 
+            // cb_co_do_keep0
+            // 
+            this.cb_co_do_keep0.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_co_do_keep0.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_co_do_keep0.FormattingEnabled = true;
+            this.cb_co_do_keep0.Items.AddRange(new object[] {
+            "1\'b0: CO and DO as normal operation ",
+            "1\'b1: CO and DO will be tie to 0 "});
+            this.cb_co_do_keep0.Location = new System.Drawing.Point(6, 83);
+            this.cb_co_do_keep0.Name = "cb_co_do_keep0";
+            this.cb_co_do_keep0.Size = new System.Drawing.Size(216, 23);
+            this.cb_co_do_keep0.TabIndex = 45;
+            this.cb_co_do_keep0.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
+            // 
+            // cb_debug_en
+            // 
+            this.cb_debug_en.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cb_debug_en.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cb_debug_en.FormattingEnabled = true;
+            this.cb_debug_en.Items.AddRange(new object[] {
+            "1\'b0 : Disable",
+            "1\'b1 : Enable"});
+            this.cb_debug_en.Location = new System.Drawing.Point(6, 38);
+            this.cb_debug_en.Name = "cb_debug_en";
+            this.cb_debug_en.Size = new System.Drawing.Size(216, 23);
+            this.cb_debug_en.TabIndex = 43;
+            this.cb_debug_en.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.label139);
+            this.tabPage5.Controls.Add(this.groupBox40);
+            this.tabPage5.Controls.Add(this.nu_Sel);
+            this.tabPage5.Controls.Add(this.label141);
+            this.tabPage5.Controls.Add(this.label138);
+            this.tabPage5.Controls.Add(this.bt_NR);
+            this.tabPage5.Controls.Add(this.label143);
+            this.tabPage5.Controls.Add(this.bt_PGM);
+            this.tabPage5.Controls.Add(this.bt_testmode_read_all);
+            this.tabPage5.Controls.Add(this.bt_testmode_write_all);
+            this.tabPage5.Controls.Add(this.groupBox37);
+            this.tabPage5.Controls.Add(this.groupBox38);
+            this.tabPage5.Controls.Add(this.ui_test_mode);
+            this.tabPage5.Controls.Add(this.label122);
+            this.tabPage5.Controls.Add(this.label137);
+            this.tabPage5.Controls.Add(this.label123);
+            this.tabPage5.Controls.Add(this.label136);
+            this.tabPage5.Controls.Add(this.label124);
+            this.tabPage5.Controls.Add(this.label135);
+            this.tabPage5.Controls.Add(this.label125);
+            this.tabPage5.Controls.Add(this.label134);
+            this.tabPage5.Controls.Add(this.label126);
+            this.tabPage5.Controls.Add(this.label133);
+            this.tabPage5.Controls.Add(this.label127);
+            this.tabPage5.Controls.Add(this.label132);
+            this.tabPage5.Controls.Add(this.label128);
+            this.tabPage5.Controls.Add(this.label131);
+            this.tabPage5.Controls.Add(this.label129);
+            this.tabPage5.Controls.Add(this.label130);
+            this.tabPage5.Location = new System.Drawing.Point(0, 25);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "Richtek Test Mode";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // label139
+            // 
+            this.label139.AutoSize = true;
+            this.label139.Location = new System.Drawing.Point(162, 487);
+            this.label139.Name = "label139";
+            this.label139.Size = new System.Drawing.Size(27, 15);
+            this.label139.TabIndex = 135;
+            this.label139.Text = "9Fh";
+            // 
+            // groupBox40
+            // 
+            this.groupBox40.Controls.Add(this.RE2);
+            this.groupBox40.Controls.Add(this.RE3);
+            this.groupBox40.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox40.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBox40.Location = new System.Drawing.Point(370, 15);
+            this.groupBox40.Name = "groupBox40";
+            this.groupBox40.Size = new System.Drawing.Size(54, 85);
+            this.groupBox40.TabIndex = 137;
+            this.groupBox40.TabStop = false;
+            this.groupBox40.Text = "Read";
+            // 
+            // RE2
+            // 
+            this.RE2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RE2.Hexadecimal = true;
+            this.RE2.Location = new System.Drawing.Point(6, 23);
+            this.RE2.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.RE2.Name = "RE2";
+            this.RE2.Size = new System.Drawing.Size(42, 22);
+            this.RE2.TabIndex = 18;
+            this.RE2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // RE3
+            // 
+            this.RE3.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RE3.Hexadecimal = true;
+            this.RE3.Location = new System.Drawing.Point(6, 51);
+            this.RE3.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.RE3.Name = "RE3";
+            this.RE3.Size = new System.Drawing.Size(42, 22);
+            this.RE3.TabIndex = 19;
+            this.RE3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nu_Sel
+            // 
+            this.nu_Sel.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_Sel.Hexadecimal = true;
+            this.nu_Sel.Location = new System.Drawing.Point(83, 190);
+            this.nu_Sel.Maximum = new decimal(new int[] {
+            15,
+            0,
+            0,
+            0});
+            this.nu_Sel.Name = "nu_Sel";
+            this.nu_Sel.Size = new System.Drawing.Size(61, 22);
+            this.nu_Sel.TabIndex = 133;
+            this.nu_Sel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label141
+            // 
+            this.label141.AutoSize = true;
+            this.label141.Location = new System.Drawing.Point(337, 39);
+            this.label141.Name = "label141";
+            this.label141.Size = new System.Drawing.Size(27, 15);
+            this.label141.TabIndex = 138;
+            this.label141.Text = "E2h";
+            // 
+            // label138
+            // 
+            this.label138.AutoSize = true;
+            this.label138.Location = new System.Drawing.Point(19, 191);
+            this.label138.Name = "label138";
+            this.label138.Size = new System.Drawing.Size(58, 15);
+            this.label138.TabIndex = 134;
+            this.label138.Text = "Efuse_Sel";
+            // 
+            // bt_NR
+            // 
+            this.bt_NR.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_NR.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_NR.Location = new System.Drawing.Point(13, 155);
+            this.bt_NR.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_NR.Name = "bt_NR";
+            this.bt_NR.Size = new System.Drawing.Size(101, 29);
+            this.bt_NR.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_NR.TabIndex = 132;
+            this.bt_NR.Text = "Efuse NR";
+            this.bt_NR.Click += new System.EventHandler(this.bt_NR_Click);
+            // 
+            // label143
+            // 
+            this.label143.AutoSize = true;
+            this.label143.Location = new System.Drawing.Point(337, 67);
+            this.label143.Name = "label143";
+            this.label143.Size = new System.Drawing.Size(27, 15);
+            this.label143.TabIndex = 139;
+            this.label143.Text = "E3h";
+            // 
+            // bt_PGM
+            // 
+            this.bt_PGM.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_PGM.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_PGM.Location = new System.Drawing.Point(13, 120);
+            this.bt_PGM.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_PGM.Name = "bt_PGM";
+            this.bt_PGM.Size = new System.Drawing.Size(101, 29);
+            this.bt_PGM.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_PGM.TabIndex = 131;
+            this.bt_PGM.Text = "Efuse PGM";
+            this.bt_PGM.Click += new System.EventHandler(this.bt_PGM_Click);
+            // 
+            // bt_testmode_read_all
+            // 
+            this.bt_testmode_read_all.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_testmode_read_all.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_testmode_read_all.Location = new System.Drawing.Point(13, 85);
+            this.bt_testmode_read_all.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_testmode_read_all.Name = "bt_testmode_read_all";
+            this.bt_testmode_read_all.Size = new System.Drawing.Size(101, 29);
+            this.bt_testmode_read_all.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_testmode_read_all.TabIndex = 130;
+            this.bt_testmode_read_all.Text = "Read All";
+            this.bt_testmode_read_all.Click += new System.EventHandler(this.bt_testmode_read_all_Click);
+            // 
+            // bt_testmode_write_all
+            // 
+            this.bt_testmode_write_all.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_testmode_write_all.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_testmode_write_all.Location = new System.Drawing.Point(13, 50);
+            this.bt_testmode_write_all.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_testmode_write_all.Name = "bt_testmode_write_all";
+            this.bt_testmode_write_all.Size = new System.Drawing.Size(101, 29);
+            this.bt_testmode_write_all.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_testmode_write_all.TabIndex = 129;
+            this.bt_testmode_write_all.Text = "Write All";
+            this.bt_testmode_write_all.Click += new System.EventHandler(this.bt_testmode_write_all_Click);
+            // 
+            // groupBox37
+            // 
+            this.groupBox37.Controls.Add(this.W9F);
+            this.groupBox37.Controls.Add(this.W9E);
+            this.groupBox37.Controls.Add(this.W9D);
+            this.groupBox37.Controls.Add(this.W9C);
+            this.groupBox37.Controls.Add(this.W9B);
+            this.groupBox37.Controls.Add(this.W9A);
+            this.groupBox37.Controls.Add(this.W99);
+            this.groupBox37.Controls.Add(this.W98);
+            this.groupBox37.Controls.Add(this.W97);
+            this.groupBox37.Controls.Add(this.W96);
+            this.groupBox37.Controls.Add(this.W95);
+            this.groupBox37.Controls.Add(this.W94);
+            this.groupBox37.Controls.Add(this.W93);
+            this.groupBox37.Controls.Add(this.W92);
+            this.groupBox37.Controls.Add(this.W91);
+            this.groupBox37.Controls.Add(this.W90);
+            this.groupBox37.Controls.Add(this.W70);
+            this.groupBox37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox37.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBox37.Location = new System.Drawing.Point(196, 15);
+            this.groupBox37.Name = "groupBox37";
+            this.groupBox37.Size = new System.Drawing.Size(62, 504);
+            this.groupBox37.TabIndex = 111;
+            this.groupBox37.TabStop = false;
+            this.groupBox37.Text = "Write";
+            // 
+            // W9F
+            // 
+            this.W9F.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9F.Hexadecimal = true;
+            this.W9F.Location = new System.Drawing.Point(9, 471);
+            this.W9F.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9F.Name = "W9F";
+            this.W9F.Size = new System.Drawing.Size(42, 22);
+            this.W9F.TabIndex = 35;
+            this.W9F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W9E
+            // 
+            this.W9E.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9E.Hexadecimal = true;
+            this.W9E.Location = new System.Drawing.Point(9, 443);
+            this.W9E.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9E.Name = "W9E";
+            this.W9E.Size = new System.Drawing.Size(42, 22);
+            this.W9E.TabIndex = 17;
+            this.W9E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W9D
+            // 
+            this.W9D.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9D.Hexadecimal = true;
+            this.W9D.Location = new System.Drawing.Point(9, 415);
+            this.W9D.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9D.Name = "W9D";
+            this.W9D.Size = new System.Drawing.Size(42, 22);
+            this.W9D.TabIndex = 16;
+            this.W9D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W9C
+            // 
+            this.W9C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9C.Hexadecimal = true;
+            this.W9C.Location = new System.Drawing.Point(9, 387);
+            this.W9C.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9C.Name = "W9C";
+            this.W9C.Size = new System.Drawing.Size(42, 22);
+            this.W9C.TabIndex = 15;
+            this.W9C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W9B
+            // 
+            this.W9B.Enabled = false;
+            this.W9B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9B.Hexadecimal = true;
+            this.W9B.Location = new System.Drawing.Point(9, 359);
+            this.W9B.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9B.Name = "W9B";
+            this.W9B.Size = new System.Drawing.Size(42, 22);
+            this.W9B.TabIndex = 14;
+            this.W9B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W9A
+            // 
+            this.W9A.Enabled = false;
+            this.W9A.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W9A.Hexadecimal = true;
+            this.W9A.Location = new System.Drawing.Point(9, 331);
+            this.W9A.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W9A.Name = "W9A";
+            this.W9A.Size = new System.Drawing.Size(42, 22);
+            this.W9A.TabIndex = 13;
+            this.W9A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W99
+            // 
+            this.W99.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W99.Hexadecimal = true;
+            this.W99.Location = new System.Drawing.Point(9, 303);
+            this.W99.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W99.Name = "W99";
+            this.W99.Size = new System.Drawing.Size(42, 22);
+            this.W99.TabIndex = 12;
+            this.W99.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W98
+            // 
+            this.W98.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W98.Hexadecimal = true;
+            this.W98.Location = new System.Drawing.Point(9, 275);
+            this.W98.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W98.Name = "W98";
+            this.W98.Size = new System.Drawing.Size(42, 22);
+            this.W98.TabIndex = 11;
+            this.W98.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W97
+            // 
+            this.W97.Enabled = false;
+            this.W97.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W97.Hexadecimal = true;
+            this.W97.Location = new System.Drawing.Point(9, 247);
+            this.W97.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W97.Name = "W97";
+            this.W97.Size = new System.Drawing.Size(42, 22);
+            this.W97.TabIndex = 10;
+            this.W97.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W96
+            // 
+            this.W96.Enabled = false;
+            this.W96.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W96.Hexadecimal = true;
+            this.W96.Location = new System.Drawing.Point(9, 219);
+            this.W96.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W96.Name = "W96";
+            this.W96.Size = new System.Drawing.Size(42, 22);
+            this.W96.TabIndex = 9;
+            this.W96.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W95
+            // 
+            this.W95.Enabled = false;
+            this.W95.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W95.Hexadecimal = true;
+            this.W95.Location = new System.Drawing.Point(9, 191);
+            this.W95.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W95.Name = "W95";
+            this.W95.Size = new System.Drawing.Size(42, 22);
+            this.W95.TabIndex = 8;
+            this.W95.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W94
+            // 
+            this.W94.Enabled = false;
+            this.W94.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W94.Hexadecimal = true;
+            this.W94.Location = new System.Drawing.Point(9, 163);
+            this.W94.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W94.Name = "W94";
+            this.W94.Size = new System.Drawing.Size(42, 22);
+            this.W94.TabIndex = 7;
+            this.W94.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W93
+            // 
+            this.W93.Enabled = false;
+            this.W93.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W93.Hexadecimal = true;
+            this.W93.Location = new System.Drawing.Point(9, 135);
+            this.W93.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W93.Name = "W93";
+            this.W93.Size = new System.Drawing.Size(42, 22);
+            this.W93.TabIndex = 6;
+            this.W93.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W92
+            // 
+            this.W92.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W92.Hexadecimal = true;
+            this.W92.Location = new System.Drawing.Point(9, 107);
+            this.W92.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W92.Name = "W92";
+            this.W92.Size = new System.Drawing.Size(42, 22);
+            this.W92.TabIndex = 5;
+            this.W92.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W91
+            // 
+            this.W91.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W91.Hexadecimal = true;
+            this.W91.Location = new System.Drawing.Point(9, 79);
+            this.W91.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W91.Name = "W91";
+            this.W91.Size = new System.Drawing.Size(42, 22);
+            this.W91.TabIndex = 4;
+            this.W91.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W90
+            // 
+            this.W90.Enabled = false;
+            this.W90.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W90.Hexadecimal = true;
+            this.W90.Location = new System.Drawing.Point(9, 51);
+            this.W90.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W90.Name = "W90";
+            this.W90.Size = new System.Drawing.Size(42, 22);
+            this.W90.TabIndex = 3;
+            this.W90.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // W70
+            // 
+            this.W70.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W70.Hexadecimal = true;
+            this.W70.Location = new System.Drawing.Point(9, 23);
+            this.W70.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W70.Name = "W70";
+            this.W70.Size = new System.Drawing.Size(42, 22);
+            this.W70.TabIndex = 2;
+            this.W70.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox38
+            // 
+            this.groupBox38.Controls.Add(this.R9F);
+            this.groupBox38.Controls.Add(this.R9E);
+            this.groupBox38.Controls.Add(this.R70);
+            this.groupBox38.Controls.Add(this.R9D);
+            this.groupBox38.Controls.Add(this.R90);
+            this.groupBox38.Controls.Add(this.R9C);
+            this.groupBox38.Controls.Add(this.R91);
+            this.groupBox38.Controls.Add(this.R9B);
+            this.groupBox38.Controls.Add(this.R92);
+            this.groupBox38.Controls.Add(this.R9A);
+            this.groupBox38.Controls.Add(this.R93);
+            this.groupBox38.Controls.Add(this.R99);
+            this.groupBox38.Controls.Add(this.R94);
+            this.groupBox38.Controls.Add(this.R98);
+            this.groupBox38.Controls.Add(this.R95);
+            this.groupBox38.Controls.Add(this.R97);
+            this.groupBox38.Controls.Add(this.R96);
+            this.groupBox38.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox38.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBox38.Location = new System.Drawing.Point(264, 15);
+            this.groupBox38.Name = "groupBox38";
+            this.groupBox38.Size = new System.Drawing.Size(54, 504);
+            this.groupBox38.TabIndex = 112;
+            this.groupBox38.TabStop = false;
+            this.groupBox38.Text = "Read";
+            // 
+            // R9F
+            // 
+            this.R9F.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9F.Hexadecimal = true;
+            this.R9F.Location = new System.Drawing.Point(6, 471);
+            this.R9F.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9F.Name = "R9F";
+            this.R9F.Size = new System.Drawing.Size(42, 22);
+            this.R9F.TabIndex = 34;
+            this.R9F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R9E
+            // 
+            this.R9E.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9E.Hexadecimal = true;
+            this.R9E.Location = new System.Drawing.Point(6, 443);
+            this.R9E.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9E.Name = "R9E";
+            this.R9E.Size = new System.Drawing.Size(42, 22);
+            this.R9E.TabIndex = 33;
+            this.R9E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R70
+            // 
+            this.R70.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R70.Hexadecimal = true;
+            this.R70.Location = new System.Drawing.Point(6, 23);
+            this.R70.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R70.Name = "R70";
+            this.R70.Size = new System.Drawing.Size(42, 22);
+            this.R70.TabIndex = 18;
+            this.R70.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R9D
+            // 
+            this.R9D.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9D.Hexadecimal = true;
+            this.R9D.Location = new System.Drawing.Point(6, 415);
+            this.R9D.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9D.Name = "R9D";
+            this.R9D.Size = new System.Drawing.Size(42, 22);
+            this.R9D.TabIndex = 32;
+            this.R9D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R90
+            // 
+            this.R90.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R90.Hexadecimal = true;
+            this.R90.Location = new System.Drawing.Point(6, 51);
+            this.R90.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R90.Name = "R90";
+            this.R90.Size = new System.Drawing.Size(42, 22);
+            this.R90.TabIndex = 19;
+            this.R90.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R9C
+            // 
+            this.R9C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9C.Hexadecimal = true;
+            this.R9C.Location = new System.Drawing.Point(6, 387);
+            this.R9C.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9C.Name = "R9C";
+            this.R9C.Size = new System.Drawing.Size(42, 22);
+            this.R9C.TabIndex = 31;
+            this.R9C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R91
+            // 
+            this.R91.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R91.Hexadecimal = true;
+            this.R91.Location = new System.Drawing.Point(6, 79);
+            this.R91.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R91.Name = "R91";
+            this.R91.Size = new System.Drawing.Size(42, 22);
+            this.R91.TabIndex = 20;
+            this.R91.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R9B
+            // 
+            this.R9B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9B.Hexadecimal = true;
+            this.R9B.Location = new System.Drawing.Point(6, 359);
+            this.R9B.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9B.Name = "R9B";
+            this.R9B.Size = new System.Drawing.Size(42, 22);
+            this.R9B.TabIndex = 30;
+            this.R9B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R92
+            // 
+            this.R92.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R92.Hexadecimal = true;
+            this.R92.Location = new System.Drawing.Point(6, 107);
+            this.R92.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R92.Name = "R92";
+            this.R92.Size = new System.Drawing.Size(42, 22);
+            this.R92.TabIndex = 21;
+            this.R92.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R9A
+            // 
+            this.R9A.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R9A.Hexadecimal = true;
+            this.R9A.Location = new System.Drawing.Point(6, 331);
+            this.R9A.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R9A.Name = "R9A";
+            this.R9A.Size = new System.Drawing.Size(42, 22);
+            this.R9A.TabIndex = 29;
+            this.R9A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R93
+            // 
+            this.R93.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R93.Hexadecimal = true;
+            this.R93.Location = new System.Drawing.Point(6, 135);
+            this.R93.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R93.Name = "R93";
+            this.R93.Size = new System.Drawing.Size(42, 22);
+            this.R93.TabIndex = 22;
+            this.R93.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R99
+            // 
+            this.R99.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R99.Hexadecimal = true;
+            this.R99.Location = new System.Drawing.Point(6, 303);
+            this.R99.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R99.Name = "R99";
+            this.R99.Size = new System.Drawing.Size(42, 22);
+            this.R99.TabIndex = 28;
+            this.R99.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R94
+            // 
+            this.R94.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R94.Hexadecimal = true;
+            this.R94.Location = new System.Drawing.Point(6, 163);
+            this.R94.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R94.Name = "R94";
+            this.R94.Size = new System.Drawing.Size(42, 22);
+            this.R94.TabIndex = 23;
+            this.R94.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R98
+            // 
+            this.R98.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R98.Hexadecimal = true;
+            this.R98.Location = new System.Drawing.Point(6, 275);
+            this.R98.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R98.Name = "R98";
+            this.R98.Size = new System.Drawing.Size(42, 22);
+            this.R98.TabIndex = 27;
+            this.R98.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R95
+            // 
+            this.R95.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R95.Hexadecimal = true;
+            this.R95.Location = new System.Drawing.Point(6, 191);
+            this.R95.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R95.Name = "R95";
+            this.R95.Size = new System.Drawing.Size(42, 22);
+            this.R95.TabIndex = 24;
+            this.R95.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R97
+            // 
+            this.R97.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R97.Hexadecimal = true;
+            this.R97.Location = new System.Drawing.Point(6, 247);
+            this.R97.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R97.Name = "R97";
+            this.R97.Size = new System.Drawing.Size(42, 22);
+            this.R97.TabIndex = 26;
+            this.R97.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R96
+            // 
+            this.R96.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R96.Hexadecimal = true;
+            this.R96.Location = new System.Drawing.Point(6, 219);
+            this.R96.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R96.Name = "R96";
+            this.R96.Size = new System.Drawing.Size(42, 22);
+            this.R96.TabIndex = 25;
+            this.R96.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // ui_test_mode
+            // 
+            this.ui_test_mode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ui_test_mode.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ui_test_mode.Location = new System.Drawing.Point(13, 15);
+            this.ui_test_mode.MinimumSize = new System.Drawing.Size(1, 1);
+            this.ui_test_mode.Name = "ui_test_mode";
+            this.ui_test_mode.Size = new System.Drawing.Size(101, 29);
+            this.ui_test_mode.Style = Sunny.UI.UIStyle.Custom;
+            this.ui_test_mode.TabIndex = 46;
+            this.ui_test_mode.Text = "Test Mode";
+            this.ui_test_mode.Click += new System.EventHandler(this.ui_test_mode_Click);
+            // 
+            // label122
+            // 
+            this.label122.AutoSize = true;
+            this.label122.Location = new System.Drawing.Point(162, 39);
+            this.label122.Name = "label122";
+            this.label122.Size = new System.Drawing.Size(28, 15);
+            this.label122.TabIndex = 113;
+            this.label122.Text = "70h";
+            // 
+            // label137
+            // 
+            this.label137.AutoSize = true;
+            this.label137.Location = new System.Drawing.Point(162, 459);
+            this.label137.Name = "label137";
+            this.label137.Size = new System.Drawing.Size(27, 15);
+            this.label137.TabIndex = 128;
+            this.label137.Text = "9Eh";
+            // 
+            // label123
+            // 
+            this.label123.AutoSize = true;
+            this.label123.Location = new System.Drawing.Point(162, 67);
+            this.label123.Name = "label123";
+            this.label123.Size = new System.Drawing.Size(28, 15);
+            this.label123.TabIndex = 114;
+            this.label123.Text = "90h";
+            // 
+            // label136
+            // 
+            this.label136.AutoSize = true;
+            this.label136.Location = new System.Drawing.Point(162, 431);
+            this.label136.Name = "label136";
+            this.label136.Size = new System.Drawing.Size(29, 15);
+            this.label136.TabIndex = 127;
+            this.label136.Text = "9Dh";
+            // 
+            // label124
+            // 
+            this.label124.AutoSize = true;
+            this.label124.Location = new System.Drawing.Point(162, 95);
+            this.label124.Name = "label124";
+            this.label124.Size = new System.Drawing.Size(28, 15);
+            this.label124.TabIndex = 115;
+            this.label124.Text = "91h";
+            // 
+            // label135
+            // 
+            this.label135.AutoSize = true;
+            this.label135.Location = new System.Drawing.Point(162, 403);
+            this.label135.Name = "label135";
+            this.label135.Size = new System.Drawing.Size(28, 15);
+            this.label135.TabIndex = 126;
+            this.label135.Text = "9Ch";
+            // 
+            // label125
+            // 
+            this.label125.AutoSize = true;
+            this.label125.Location = new System.Drawing.Point(162, 123);
+            this.label125.Name = "label125";
+            this.label125.Size = new System.Drawing.Size(28, 15);
+            this.label125.TabIndex = 116;
+            this.label125.Text = "92h";
+            // 
+            // label134
+            // 
+            this.label134.AutoSize = true;
+            this.label134.Location = new System.Drawing.Point(162, 375);
+            this.label134.Name = "label134";
+            this.label134.Size = new System.Drawing.Size(28, 15);
+            this.label134.TabIndex = 125;
+            this.label134.Text = "9Bh";
+            // 
+            // label126
+            // 
+            this.label126.AutoSize = true;
+            this.label126.Location = new System.Drawing.Point(162, 151);
+            this.label126.Name = "label126";
+            this.label126.Size = new System.Drawing.Size(28, 15);
+            this.label126.TabIndex = 117;
+            this.label126.Text = "93h";
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Location = new System.Drawing.Point(162, 347);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(28, 15);
+            this.label133.TabIndex = 124;
+            this.label133.Text = "9Ah";
+            // 
+            // label127
+            // 
+            this.label127.AutoSize = true;
+            this.label127.Location = new System.Drawing.Point(162, 179);
+            this.label127.Name = "label127";
+            this.label127.Size = new System.Drawing.Size(28, 15);
+            this.label127.TabIndex = 118;
+            this.label127.Text = "94h";
+            // 
+            // label132
+            // 
+            this.label132.AutoSize = true;
+            this.label132.Location = new System.Drawing.Point(162, 319);
+            this.label132.Name = "label132";
+            this.label132.Size = new System.Drawing.Size(28, 15);
+            this.label132.TabIndex = 123;
+            this.label132.Text = "99h";
+            // 
+            // label128
+            // 
+            this.label128.AutoSize = true;
+            this.label128.Location = new System.Drawing.Point(162, 207);
+            this.label128.Name = "label128";
+            this.label128.Size = new System.Drawing.Size(28, 15);
+            this.label128.TabIndex = 119;
+            this.label128.Text = "95h";
+            // 
+            // label131
+            // 
+            this.label131.AutoSize = true;
+            this.label131.Location = new System.Drawing.Point(162, 291);
+            this.label131.Name = "label131";
+            this.label131.Size = new System.Drawing.Size(28, 15);
+            this.label131.TabIndex = 122;
+            this.label131.Text = "98h";
+            // 
+            // label129
+            // 
+            this.label129.AutoSize = true;
+            this.label129.Location = new System.Drawing.Point(162, 235);
+            this.label129.Name = "label129";
+            this.label129.Size = new System.Drawing.Size(28, 15);
+            this.label129.TabIndex = 120;
+            this.label129.Text = "96h";
+            // 
+            // label130
+            // 
+            this.label130.AutoSize = true;
+            this.label130.Location = new System.Drawing.Point(162, 263);
+            this.label130.Name = "label130";
+            this.label130.Size = new System.Drawing.Size(28, 15);
+            this.label130.TabIndex = 121;
+            this.label130.Text = "97h";
+            // 
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
@@ -9932,14 +11662,17 @@ namespace MulanLite
             this.uiGroupBox21.Controls.Add(this.uibt_write);
             this.uiGroupBox21.Controls.Add(this.nuSAddr);
             this.uiGroupBox21.Controls.Add(this.nuSID);
-            this.uiGroupBox21.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiGroupBox21.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.uiGroupBox21.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiGroupBox21.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox21.Location = new System.Drawing.Point(777, 40);
             this.uiGroupBox21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox21.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox21.Name = "uiGroupBox21";
             this.uiGroupBox21.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox21.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiGroupBox21.Size = new System.Drawing.Size(225, 184);
+            this.uiGroupBox21.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox21.TabIndex = 46;
             this.uiGroupBox21.Text = "Single Write/Read";
             this.uiGroupBox21.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9950,6 +11683,7 @@ namespace MulanLite
             this.uiLabel74.Location = new System.Drawing.Point(14, 141);
             this.uiLabel74.Name = "uiLabel74";
             this.uiLabel74.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel74.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel74.TabIndex = 61;
             this.uiLabel74.Text = "Read";
             this.uiLabel74.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9960,6 +11694,7 @@ namespace MulanLite
             this.uiLabel73.Location = new System.Drawing.Point(14, 113);
             this.uiLabel73.Name = "uiLabel73";
             this.uiLabel73.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel73.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel73.TabIndex = 60;
             this.uiLabel73.Text = "Write";
             this.uiLabel73.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9970,6 +11705,7 @@ namespace MulanLite
             this.uiLabel72.Location = new System.Drawing.Point(14, 85);
             this.uiLabel72.Name = "uiLabel72";
             this.uiLabel72.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel72.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel72.TabIndex = 59;
             this.uiLabel72.Text = "Address";
             this.uiLabel72.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -9980,6 +11716,7 @@ namespace MulanLite
             this.uiLabel71.Location = new System.Drawing.Point(14, 58);
             this.uiLabel71.Name = "uiLabel71";
             this.uiLabel71.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel71.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel71.TabIndex = 58;
             this.uiLabel71.Text = "Single ID";
             this.uiLabel71.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10007,6 +11744,7 @@ namespace MulanLite
             this.uibt_read.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_read.Name = "uibt_read";
             this.uibt_read.Size = new System.Drawing.Size(100, 29);
+            this.uibt_read.Style = Sunny.UI.UIStyle.Custom;
             this.uibt_read.TabIndex = 47;
             this.uibt_read.Text = "Read";
             this.uibt_read.Click += new System.EventHandler(this.uibt_read_Click);
@@ -10034,6 +11772,7 @@ namespace MulanLite
             this.uibt_write.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_write.Name = "uibt_write";
             this.uibt_write.Size = new System.Drawing.Size(97, 29);
+            this.uibt_write.Style = Sunny.UI.UIStyle.Custom;
             this.uibt_write.TabIndex = 46;
             this.uibt_write.Text = "Write";
             this.uibt_write.Click += new System.EventHandler(this.uibt_write_Click);
@@ -10078,14 +11817,17 @@ namespace MulanLite
             this.uiGroupBox22.Controls.Add(this.uibt_flag_setting);
             this.uiGroupBox22.Controls.Add(this.nu_conf_addr);
             this.uiGroupBox22.Controls.Add(this.nu_conf_id);
-            this.uiGroupBox22.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiGroupBox22.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.uiGroupBox22.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiGroupBox22.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox22.Location = new System.Drawing.Point(1010, 40);
             this.uiGroupBox22.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox22.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox22.Name = "uiGroupBox22";
             this.uiGroupBox22.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox22.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiGroupBox22.Size = new System.Drawing.Size(208, 184);
+            this.uiGroupBox22.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox22.TabIndex = 62;
             this.uiGroupBox22.Text = "Read Flag";
             this.uiGroupBox22.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10098,6 +11840,7 @@ namespace MulanLite
             this.uiButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton1.Name = "uiButton1";
             this.uiButton1.Size = new System.Drawing.Size(85, 29);
+            this.uiButton1.Style = Sunny.UI.UIStyle.Custom;
             this.uiButton1.TabIndex = 61;
             this.uiButton1.Text = "Disable Flag";
             this.uiButton1.Click += new System.EventHandler(this.uiButton1_Click);
@@ -10108,6 +11851,7 @@ namespace MulanLite
             this.uiLabel76.Location = new System.Drawing.Point(14, 113);
             this.uiLabel76.Name = "uiLabel76";
             this.uiLabel76.Size = new System.Drawing.Size(70, 23);
+            this.uiLabel76.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel76.TabIndex = 60;
             this.uiLabel76.Text = "bit";
             this.uiLabel76.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10118,6 +11862,7 @@ namespace MulanLite
             this.uiLabel77.Location = new System.Drawing.Point(14, 85);
             this.uiLabel77.Name = "uiLabel77";
             this.uiLabel77.Size = new System.Drawing.Size(70, 23);
+            this.uiLabel77.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel77.TabIndex = 59;
             this.uiLabel77.Text = "Address";
             this.uiLabel77.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10128,6 +11873,7 @@ namespace MulanLite
             this.uiLabel78.Location = new System.Drawing.Point(14, 58);
             this.uiLabel78.Name = "uiLabel78";
             this.uiLabel78.Size = new System.Drawing.Size(70, 23);
+            this.uiLabel78.Style = Sunny.UI.UIStyle.Custom;
             this.uiLabel78.TabIndex = 58;
             this.uiLabel78.Text = "Single ID";
             this.uiLabel78.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10155,6 +11901,7 @@ namespace MulanLite
             this.uibt_flag_setting.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_flag_setting.Name = "uibt_flag_setting";
             this.uibt_flag_setting.Size = new System.Drawing.Size(93, 29);
+            this.uibt_flag_setting.Style = Sunny.UI.UIStyle.Custom;
             this.uibt_flag_setting.TabIndex = 46;
             this.uibt_flag_setting.Text = "Config Flag";
             this.uibt_flag_setting.Click += new System.EventHandler(this.uibt_flag_setting_Click);
@@ -10206,14 +11953,17 @@ namespace MulanLite
             this.uiGroupBox5.Controls.Add(this.ck_CH2_en);
             this.uiGroupBox5.Controls.Add(this.ck_CH1_en);
             this.uiGroupBox5.Controls.Add(this.ck_CH0_en);
-            this.uiGroupBox5.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiGroupBox5.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
+            this.uiGroupBox5.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
             this.uiGroupBox5.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiGroupBox5.Location = new System.Drawing.Point(1226, 40);
             this.uiGroupBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.uiGroupBox5.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiGroupBox5.Name = "uiGroupBox5";
             this.uiGroupBox5.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
+            this.uiGroupBox5.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiGroupBox5.Size = new System.Drawing.Size(161, 184);
+            this.uiGroupBox5.Style = Sunny.UI.UIStyle.Custom;
             this.uiGroupBox5.TabIndex = 63;
             this.uiGroupBox5.Text = "Channel Control";
             this.uiGroupBox5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
@@ -10251,82 +12001,36 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // cb_ldoio
+            // bt_virus_pattern
             // 
-            this.cb_ldoio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cb_ldoio.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cb_ldoio.FormattingEnabled = true;
-            this.cb_ldoio.Items.AddRange(new object[] {
-            "0:  Disable LDOIOPG",
-            "1:  Enable LDOIOPG"});
-            this.cb_ldoio.Location = new System.Drawing.Point(6, 268);
-            this.cb_ldoio.Name = "cb_ldoio";
-            this.cb_ldoio.Size = new System.Drawing.Size(208, 23);
-            this.cb_ldoio.TabIndex = 51;
-            this.cb_ldoio.SelectedIndexChanged += new System.EventHandler(this.cb_ldoio_SelectedIndexChanged);
-            // 
-            // uiLabel75
-            // 
-            this.uiLabel75.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel75.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel75.Location = new System.Drawing.Point(3, 242);
-            this.uiLabel75.Name = "uiLabel75";
-            this.uiLabel75.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel75.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel75.TabIndex = 50;
-            this.uiLabel75.Text = "LDOIOPG_EN[5]";
-            this.uiLabel75.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiLabel79
-            // 
-            this.uiLabel79.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.uiLabel79.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel79.Location = new System.Drawing.Point(3, 91);
-            this.uiLabel79.Name = "uiLabel79";
-            this.uiLabel79.Size = new System.Drawing.Size(175, 23);
-            this.uiLabel79.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel79.TabIndex = 44;
-            this.uiLabel79.Text = "CH Data [16:0]";
-            this.uiLabel79.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // uiTrackBar1
-            // 
-            this.uiTrackBar1.BarSize = 12;
-            this.uiTrackBar1.DisableColor = System.Drawing.Color.Silver;
-            this.uiTrackBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(244)))));
-            this.uiTrackBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiTrackBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiTrackBar1.Location = new System.Drawing.Point(11, 117);
-            this.uiTrackBar1.Maximum = 65535;
-            this.uiTrackBar1.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiTrackBar1.Name = "uiTrackBar1";
-            this.uiTrackBar1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiTrackBar1.Size = new System.Drawing.Size(96, 23);
-            this.uiTrackBar1.Style = Sunny.UI.UIStyle.Gray;
-            this.uiTrackBar1.StyleCustomMode = true;
-            this.uiTrackBar1.TabIndex = 59;
-            this.uiTrackBar1.Text = "uiTrackBar8";
-            // 
-            // numericUpDown1
-            // 
-            this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(113, 117);
-            this.numericUpDown1.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(50, 23);
-            this.numericUpDown1.TabIndex = 60;
-            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.bt_virus_pattern.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_virus_pattern.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_virus_pattern.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_virus_pattern.Location = new System.Drawing.Point(161, 13);
+            this.bt_virus_pattern.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_virus_pattern.Name = "bt_virus_pattern";
+            this.bt_virus_pattern.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_virus_pattern.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.Size = new System.Drawing.Size(183, 29);
+            this.bt_virus_pattern.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_virus_pattern.TabIndex = 72;
+            this.bt_virus_pattern.Text = "Mulan Virus Pattern";
+            this.bt_virus_pattern.Click += new System.EventHandler(this.bt_virus_pattern_Click);
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1428, 843);
+            this.ControlBoxFillHoverColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.uiGroupBox5);
             this.Controls.Add(this.uiGroupBox22);
             this.Controls.Add(this.uiGroupBox21);
@@ -10338,7 +12042,10 @@ namespace MulanLite
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximumSize = new System.Drawing.Size(2500, 977);
             this.Name = "main";
-            this.Text = "Mulan Lite tool v1";
+            this.RectColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.Style = Sunny.UI.UIStyle.Custom;
+            this.Text = "Mulan Lite tool v2";
+            this.TitleColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
@@ -10414,31 +12121,41 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.flag12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag13)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).EndInit();
-            this.uiGroupBox2.ResumeLayout(false);
-            this.uiGroupBox3.ResumeLayout(false);
-            this.uiGroupBox4.ResumeLayout(false);
             this.uiTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
-            this.uiGroupBox20.ResumeLayout(false);
-            this.uiGroupBox19.ResumeLayout(false);
-            this.uiGroupBox18.ResumeLayout(false);
-            this.uiCheckBoxGroup7.ResumeLayout(false);
+            this.groupBox33.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nu_tsd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_tsd_mask)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_efuse_load)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_init)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_mode)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_iden)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_stat_dis)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_stb)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_stat_norm)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_stat_dis)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_test_mode)).EndInit();
-            this.uiGroupBox17.ResumeLayout(false);
-            this.uiGroupBox16.ResumeLayout(false);
-            this.uiGroupBox15.ResumeLayout(false);
+            this.groupBox32.ResumeLayout(false);
+            this.groupBox32.PerformLayout();
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
+            this.groupBox30.ResumeLayout(false);
+            this.groupBox30.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            this.groupBox29.ResumeLayout(false);
+            this.groupBox29.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_bl_late)).EndInit();
-            this.uiGroupBox14.ResumeLayout(false);
-            this.uiGroupBox13.ResumeLayout(false);
+            this.groupBox28.ResumeLayout(false);
+            this.groupBox28.PerformLayout();
+            this.groupBox26.ResumeLayout(false);
+            this.groupBox26.PerformLayout();
+            this.groupBox25.ResumeLayout(false);
+            this.groupBox25.PerformLayout();
+            this.groupBox24.ResumeLayout(false);
+            this.groupBox24.PerformLayout();
+            this.groupBox23.ResumeLayout(false);
+            this.groupBox23.PerformLayout();
+            this.groupBox22.ResumeLayout(false);
+            this.groupBox22.PerformLayout();
             this.flowLayoutPanel6.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nu_CH0x8)).EndInit();
@@ -10662,6 +12379,69 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W10)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.groupBox36.ResumeLayout(false);
+            this.flowLayoutPanel7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nu_X_ADDR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Y_ADDR)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_LotID)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Wafer)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_PGM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Fab)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Lot_type)).EndInit();
+            this.groupBox35.ResumeLayout(false);
+            this.groupBox35.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_pwm_code_x1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_pwm_code_x8)).EndInit();
+            this.groupBox34.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ridge_dontlow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ridge_raise)).EndInit();
+            this.groupBox21.ResumeLayout(false);
+            this.groupBox21.PerformLayout();
+            this.groupBox27.ResumeLayout(false);
+            this.groupBox27.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
+            this.groupBox40.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.RE2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RE3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sel)).EndInit();
+            this.groupBox37.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.W9F)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9E)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9D)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9C)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9B)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W9A)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W99)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W98)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W97)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W96)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W95)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W94)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W93)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W92)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W91)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W90)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.W70)).EndInit();
+            this.groupBox38.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.R9F)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9E)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R70)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9D)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R90)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9C)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R91)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9B)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R92)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R9A)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R93)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R99)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R94)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R98)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R95)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R97)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R96)).EndInit();
             this.uiGroupBox21.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nuSRead)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuSWrite)).EndInit();
@@ -10673,7 +12453,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).EndInit();
             this.uiGroupBox5.ResumeLayout(false);
             this.uiGroupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -10868,21 +12647,12 @@ namespace MulanLite
         private Sunny.UI.UILabel uiLabel51;
         private System.Windows.Forms.NumericUpDown flag13;
         private System.Windows.Forms.TextBox textBox13;
-        private Sunny.UI.UIGroupBox uiGroupBox2;
         private System.Windows.Forms.ComboBox cb_vhr_short;
         private System.Windows.Forms.ComboBox cb_vhr_open;
-        private Sunny.UI.UILabel uiLabel52;
-        private Sunny.UI.UILabel uiLabel53;
-        private Sunny.UI.UIGroupBox uiGroupBox3;
         private System.Windows.Forms.ComboBox cb_vhr_up;
         private System.Windows.Forms.ComboBox cb_vhr_hyst;
-        private Sunny.UI.UILabel uiLabel54;
-        private Sunny.UI.UILabel uiLabel55;
-        private Sunny.UI.UIGroupBox uiGroupBox4;
         private System.Windows.Forms.ComboBox cb_short_dgl;
         private System.Windows.Forms.ComboBox cb_open_dgl;
-        private Sunny.UI.UILabel uiLabel56;
-        private Sunny.UI.UILabel uiLabel57;
         private Sunny.UI.UITabControl uiTabControl1;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
@@ -10903,12 +12673,8 @@ namespace MulanLite
         private System.Windows.Forms.NumericUpDown nu_CH2x1;
         private Sunny.UI.UITrackBar trackCH3x1SL;
         private System.Windows.Forms.NumericUpDown nu_CH3x1;
-        private Sunny.UI.UIGroupBox uiGroupBox13;
         private System.Windows.Forms.ComboBox cb_thresh_clk_missing;
-        private Sunny.UI.UILabel uiLabel58;
-        private Sunny.UI.UIGroupBox uiGroupBox14;
         private System.Windows.Forms.ComboBox cb_pulse_rf;
-        private Sunny.UI.UILabel uiLabel59;
         private Sunny.UI.UIButton bt_short_ch4;
         private System.Windows.Forms.ComboBox cb_centred;
         private Sunny.UI.UIButton bt_usLed_control;
@@ -11215,23 +12981,13 @@ namespace MulanLite
         private System.Windows.Forms.NumericUpDown W42;
         private System.Windows.Forms.NumericUpDown W41;
         private System.Windows.Forms.NumericUpDown W40;
-        private Sunny.UI.UIGroupBox uiGroupBox15;
-        private Sunny.UI.UILabel uiLabel26;
         private Sunny.UI.UITrackBar track_bl_late;
         private System.Windows.Forms.NumericUpDown nu_bl_late;
-        private Sunny.UI.UIGroupBox uiGroupBox16;
         private System.Windows.Forms.ComboBox cb_switch_filter_time;
-        private Sunny.UI.UILabel uiLabel60;
         private System.Windows.Forms.ComboBox cb_blanking_time;
-        private Sunny.UI.UILabel uiLabel61;
-        private Sunny.UI.UIGroupBox uiGroupBox17;
         private System.Windows.Forms.ComboBox cb_co_do_keep0;
-        private Sunny.UI.UILabel uiLabel62;
         private System.Windows.Forms.ComboBox cb_debug_en;
-        private Sunny.UI.UILabel uiLabel63;
         private System.Windows.Forms.ComboBox cb_debug_out;
-        private Sunny.UI.UILabel uiLabel64;
-        private Sunny.UI.UICheckBoxGroup uiCheckBoxGroup7;
         private System.Windows.Forms.NumericUpDown nu_tsd_mask;
         private Sunny.UI.UIButton bt_tsd_mask;
         private System.Windows.Forms.NumericUpDown nu_efuse_load;
@@ -11251,21 +13007,12 @@ namespace MulanLite
         private System.Windows.Forms.NumericUpDown nu_tsd;
         private Sunny.UI.UIButton bt_tsd;
         private System.Windows.Forms.Timer timer1;
-        private Sunny.UI.UIGroupBox uiGroupBox18;
         private System.Windows.Forms.ComboBox cb_ch_num;
-        private Sunny.UI.UILabel uiLabel65;
-        private Sunny.UI.UIGroupBox uiGroupBox19;
         private System.Windows.Forms.ComboBox cb_cal_modex1;
-        private Sunny.UI.UILabel uiLabel66;
         private System.Windows.Forms.ComboBox cb_cal_modex8;
-        private Sunny.UI.UILabel uiLabel67;
         private System.Windows.Forms.ComboBox cb_range_x8_x1;
-        private Sunny.UI.UILabel uiLabel68;
         private System.Windows.Forms.ComboBox cb_low_drive;
-        private Sunny.UI.UILabel uiLabel69;
-        private Sunny.UI.UIGroupBox uiGroupBox20;
         private System.Windows.Forms.ComboBox cb_min_count;
-        private Sunny.UI.UILabel uiLabel70;
         private Sunny.UI.UIGroupBox uiGroupBox21;
         private Sunny.UI.UIButton uibt_read;
         private Sunny.UI.UIButton uibt_write;
@@ -11304,10 +13051,143 @@ namespace MulanLite
         private System.Windows.Forms.CheckBox ck_CH2_en;
         private System.Windows.Forms.CheckBox ck_CH1_en;
         private System.Windows.Forms.ComboBox cb_ldoio;
-        private Sunny.UI.UILabel uiLabel75;
-        private Sunny.UI.UILabel uiLabel79;
         private Sunny.UI.UITrackBar uiTrackBar1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.TabPage tabPage4;
+        private Sunny.UI.UIButton uibt_ridge_testmode;
+        private System.Windows.Forms.GroupBox groupBox21;
+        private System.Windows.Forms.Label label99;
+        private System.Windows.Forms.Label label98;
+        private System.Windows.Forms.Label label97;
+        private System.Windows.Forms.Label label100;
+        private System.Windows.Forms.ComboBox cb_sticky;
+        private System.Windows.Forms.GroupBox groupBox22;
+        private System.Windows.Forms.Label label101;
+        private System.Windows.Forms.Label label102;
+        private System.Windows.Forms.GroupBox groupBox23;
+        private System.Windows.Forms.Label label103;
+        private System.Windows.Forms.Label label104;
+        private System.Windows.Forms.GroupBox groupBox24;
+        private System.Windows.Forms.Label label105;
+        private System.Windows.Forms.Label label106;
+        private System.Windows.Forms.GroupBox groupBox25;
+        private System.Windows.Forms.Label label108;
+        private System.Windows.Forms.GroupBox groupBox26;
+        private System.Windows.Forms.Label label107;
+        private System.Windows.Forms.GroupBox groupBox27;
+        private System.Windows.Forms.Label label109;
+        private System.Windows.Forms.Label label110;
+        private System.Windows.Forms.Label label111;
+        private System.Windows.Forms.GroupBox groupBox28;
+        private System.Windows.Forms.Label label112;
+        private System.Windows.Forms.Label label113;
+        private System.Windows.Forms.GroupBox groupBox29;
+        private System.Windows.Forms.Label label114;
+        private System.Windows.Forms.GroupBox groupBox30;
+        private System.Windows.Forms.Label label115;
+        private System.Windows.Forms.Label label116;
+        private System.Windows.Forms.GroupBox groupBox31;
+        private System.Windows.Forms.Label label117;
+        private System.Windows.Forms.Label label118;
+        private System.Windows.Forms.GroupBox groupBox32;
+        private System.Windows.Forms.Label label119;
+        private System.Windows.Forms.GroupBox groupBox33;
+        private System.Windows.Forms.GroupBox groupBox34;
+        private System.Windows.Forms.NumericUpDown nu_ridge_dontlow;
+        private System.Windows.Forms.NumericUpDown nu_ridge_raise;
+        private Sunny.UI.UIButton uiButton5;
+        private Sunny.UI.UIButton uiButton4;
+        private System.Windows.Forms.GroupBox groupBox35;
+        private Sunny.UI.UITrackBar pwm_code_x8_sl;
+        private System.Windows.Forms.Label label120;
+        private System.Windows.Forms.NumericUpDown nu_pwm_code_x8;
+        private Sunny.UI.UITrackBar pwm_code_x1_sl;
+        private System.Windows.Forms.Label label121;
+        private System.Windows.Forms.NumericUpDown nu_pwm_code_x1;
+        private System.Windows.Forms.GroupBox groupBox36;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel7;
+        private Sunny.UI.UILabel uiLabel26;
+        private System.Windows.Forms.NumericUpDown nu_X_ADDR;
+        private Sunny.UI.UILabel uiLabel52;
+        private System.Windows.Forms.NumericUpDown nu_Y_ADDR;
+        private Sunny.UI.UILabel uiLabel53;
+        private System.Windows.Forms.NumericUpDown nu_LotID;
+        private Sunny.UI.UILabel uiLabel54;
+        private System.Windows.Forms.NumericUpDown nu_Wafer;
+        private Sunny.UI.UILabel uiLabel55;
+        private System.Windows.Forms.NumericUpDown nu_PGM;
+        private Sunny.UI.UILabel uiLabel56;
+        private System.Windows.Forms.NumericUpDown nu_Fab;
+        private Sunny.UI.UILabel uiLabel57;
+        private System.Windows.Forms.NumericUpDown nu_Lot_type;
+        private Sunny.UI.UIButton ui_read_Tracking;
+        private System.Windows.Forms.TabPage tabPage5;
+        private Sunny.UI.UIButton ui_test_mode;
+        private System.Windows.Forms.GroupBox groupBox37;
+        private System.Windows.Forms.NumericUpDown W9E;
+        private System.Windows.Forms.NumericUpDown W9D;
+        private System.Windows.Forms.NumericUpDown W9C;
+        private System.Windows.Forms.NumericUpDown W9B;
+        private System.Windows.Forms.NumericUpDown W9A;
+        private System.Windows.Forms.NumericUpDown W99;
+        private System.Windows.Forms.NumericUpDown W98;
+        private System.Windows.Forms.NumericUpDown W97;
+        private System.Windows.Forms.NumericUpDown W96;
+        private System.Windows.Forms.NumericUpDown W95;
+        private System.Windows.Forms.NumericUpDown W94;
+        private System.Windows.Forms.NumericUpDown W93;
+        private System.Windows.Forms.NumericUpDown W92;
+        private System.Windows.Forms.NumericUpDown W91;
+        private System.Windows.Forms.NumericUpDown W90;
+        private System.Windows.Forms.NumericUpDown W70;
+        private System.Windows.Forms.GroupBox groupBox38;
+        private System.Windows.Forms.NumericUpDown R9E;
+        private System.Windows.Forms.NumericUpDown R70;
+        private System.Windows.Forms.NumericUpDown R9D;
+        private System.Windows.Forms.NumericUpDown R90;
+        private System.Windows.Forms.NumericUpDown R9C;
+        private System.Windows.Forms.NumericUpDown R91;
+        private System.Windows.Forms.NumericUpDown R9B;
+        private System.Windows.Forms.NumericUpDown R92;
+        private System.Windows.Forms.NumericUpDown R9A;
+        private System.Windows.Forms.NumericUpDown R93;
+        private System.Windows.Forms.NumericUpDown R99;
+        private System.Windows.Forms.NumericUpDown R94;
+        private System.Windows.Forms.NumericUpDown R98;
+        private System.Windows.Forms.NumericUpDown R95;
+        private System.Windows.Forms.NumericUpDown R97;
+        private System.Windows.Forms.NumericUpDown R96;
+        private System.Windows.Forms.Label label122;
+        private System.Windows.Forms.Label label137;
+        private System.Windows.Forms.Label label123;
+        private System.Windows.Forms.Label label136;
+        private System.Windows.Forms.Label label124;
+        private System.Windows.Forms.Label label135;
+        private System.Windows.Forms.Label label125;
+        private System.Windows.Forms.Label label134;
+        private System.Windows.Forms.Label label126;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.Label label127;
+        private System.Windows.Forms.Label label132;
+        private System.Windows.Forms.Label label128;
+        private System.Windows.Forms.Label label131;
+        private System.Windows.Forms.Label label129;
+        private System.Windows.Forms.Label label130;
+        private Sunny.UI.UIButton bt_testmode_write_all;
+        private Sunny.UI.UIButton bt_testmode_read_all;
+        private Sunny.UI.UIButton bt_PGM;
+        private Sunny.UI.UIButton bt_NR;
+        private System.Windows.Forms.NumericUpDown nu_Sel;
+        private System.Windows.Forms.Label label138;
+        private System.Windows.Forms.Label label139;
+        private System.Windows.Forms.NumericUpDown W9F;
+        private System.Windows.Forms.NumericUpDown R9F;
+        private System.Windows.Forms.GroupBox groupBox40;
+        private System.Windows.Forms.NumericUpDown RE2;
+        private System.Windows.Forms.NumericUpDown RE3;
+        private System.Windows.Forms.Label label141;
+        private System.Windows.Forms.Label label143;
+        private Sunny.UI.UIButton bt_virus_pattern;
     }
 }
 

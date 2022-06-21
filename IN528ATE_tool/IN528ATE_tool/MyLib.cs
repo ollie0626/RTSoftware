@@ -219,41 +219,55 @@ namespace IN528ATE_tool
 
         public string[] ListBinFile(string path)
         {
-            //Dictionary<int, string> map = new Dictionary<int, string>();
-            string[] binList;// = new string[1];
-            if (Directory.Exists(test_parameter.binFolder))
+            string[] binList = new string[1];
+            try
             {
-                binList = Directory.GetFiles(test_parameter.binFolder, "*.bin");
-                List<int> numList = new List<int>();
-                // full map
-                for (int i = 0; i < binList.Length; i++)
+                if (Directory.Exists(test_parameter.binFolder))
                 {
-                    //map.Add(i, binList[i]);
-                    string res = Path.GetFileNameWithoutExtension(binList[i]);
-                    int idx_of = res.IndexOf("_");
-                    numList.Add(Convert.ToInt16(res.Substring(0, idx_of)));
-                }
-
-                for(int i = 1; i < binList.Length; i++)
-                {
-                    string res = binList[i];
-                    int temp = numList[i];
-                    int j = i - 1;
-
-                    while(j > -1 && temp < numList[j])
+                    binList = Directory.GetFiles(test_parameter.binFolder, "*.bin");
+                    List<int> numList = new List<int>();
+                    // full map
+                    for (int i = 0; i < binList.Length; i++)
                     {
-                        numList[j + 1] = numList[j];
-                        binList[j + 1] = binList[j];
-                        j--;
+                        //map.Add(i, binList[i]);
+                        string res = Path.GetFileNameWithoutExtension(binList[i]);
+                        int idx_of = res.IndexOf("_");
+                        numList.Add(Convert.ToInt16(res.Substring(0, idx_of)));
                     }
-                    numList[j + 1] = temp;
-                    binList[j + 1] = res;
+
+                    for (int i = 1; i < binList.Length; i++)
+                    {
+                        string res = binList[i];
+                        int temp = numList[i];
+                        int j = i - 1;
+
+                        while (j > -1 && temp < numList[j])
+                        {
+                            numList[j + 1] = numList[j];
+                            binList[j + 1] = binList[j];
+                            j--;
+                        }
+                        numList[j + 1] = temp;
+                        binList[j + 1] = res;
+                    }
+                }
+                else
+                {
+                    return null;
                 }
             }
-            else
+            catch
             {
-                return null;
+                if (Directory.Exists(test_parameter.binFolder))
+                {
+                    binList = Directory.GetFiles(test_parameter.binFolder, "*.bin");
+                }
+                else
+                {
+                    return null;
+                }
             }
+
             return binList;
         }
         public void testCondition(Excel.Worksheet sheet, string item, int bin_cnt, double temperature)

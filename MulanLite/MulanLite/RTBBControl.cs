@@ -61,7 +61,6 @@ namespace MulanLite
             i2cMoudle.RTBB_I2CWrite(slave, 0x01, addr, data.Length, data);
         }
 
-
         public void SPIWrite(byte[] buf)
         {
             if (spiModule == null) return;
@@ -259,24 +258,28 @@ namespace MulanLite
             byte[] ReadPacket = new byte[13];
             byte sync_Cmd = 0xAC;
             byte cmd = 0x4B;
-
             ReadPacket[0] = cmd;
             ReadPacket[1] = 0x00;
             ReadPacket[2] = 0x00;
             ReadPacket[3] = 0x00;
+            ReadPacket[4] = 0x00;
 
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
             //System.Threading.Thread.Sleep(2);
             Task.Delay(2).Wait();
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x04, sync_Cmd, ReadPacket);
+            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x05, sync_Cmd, ReadPacket);
 
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA1CPOL0);
             Task.Delay(100).Wait();
             spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)ReadPacket.Length, 0xAC, ReadPacket);
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
 
-            return ReadPacket;
+            byte item = 0xac;
+            int idx = Array.IndexOf(ReadPacket, item);
+            byte[] data = ReadPacket.Skip(idx).ToArray();
+
+            return data;
         }
 
         public byte[] ResponesID(byte flag)
@@ -288,35 +291,47 @@ namespace MulanLite
             ReadPacket[0] = cmd;
             ReadPacket[1] = flag;
             ReadPacket[2] = 0x00;
+            ReadPacket[3] = 0x00;
+
+
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
             Task.Delay(2).Wait();
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x04, sync_Cmd, ReadPacket);
+            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x05, sync_Cmd, ReadPacket);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA1CPOL0);
             Task.Delay(100).Wait();
             spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)ReadPacket.Length, 0xAC, ReadPacket);
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
-            return ReadPacket;
+
+
+            byte item = 0xac;
+            int idx = Array.IndexOf(ReadPacket, item);
+            byte[] data = ReadPacket.Skip(idx).ToArray();
+
+
+
+            return data;
         }
 
         public void BLUpdate()
         {
             if (spiModule == null) return;
             byte sync_Cmd = 0xAC;
-            byte[] tmp = new byte[0x01];
+            byte[] tmp = new byte[0x02];
             tmp[0] = 0x5A;
+            tmp[1] = 0x00;
 
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x01, sync_Cmd, tmp);
+            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)0x02, sync_Cmd, tmp);
             System.Threading.Thread.Sleep(20);
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
         }
 
-
         public int WriteFunc(byte id, byte cmd, byte addr, int len, byte[] buf)
         {
             if (spiModule == null) return 1;
+
             byte Sync_Cmd = 0xAC;
             byte invid = (byte)~id;
             byte addr_M = 0x00;
@@ -337,6 +352,7 @@ namespace MulanLite
             }
 
             byte[] CRC_buf = new byte[9 + len];
+            Array.Copy(tmp, CRC_buf, CRC_buf.Length);
             byte CRC8 = CRC_8(CRC_buf);
             tmp[tmp.Length - 2] = CRC8;
             tmp[tmp.Length - 1] = 0;    // for FPGA dummy byte
@@ -346,6 +362,57 @@ namespace MulanLite
             spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, tmp);
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
             return 0;
+        }
+
+        public void LEDPacket(byte len, int addr, int[] buf)
+        {
+            if (spiModule == null) return;
+
+            byte sysnc_cmd = 0xAC;
+            byte cmd = 0x3C;
+            byte num_zones = len;
+            byte addr_M = (byte)((addr & 0xFF00) >> 8);
+            byte addr_L = (byte)(addr & 0xFF);
+
+
+            List<byte> packet = new List<byte>();
+            packet.Add(cmd);
+            packet.Add(num_zones);
+            packet.Add(addr_M);
+            packet.Add(addr_L);
+            int shift1 = 9;
+            int shift2 = 1;
+            int shift3 = 7;
+            int idx = 4;
+            foreach (int data in buf)
+            {
+                if (idx >= packet.Count) packet.Add(0);
+                packet[idx] = (byte)((data >> shift1) | packet[idx++]); shift1++;
+                if (idx >= packet.Count) packet.Add(0);
+                packet[idx++] = (byte)(data >> shift2); shift2++;
+                if (idx >= packet.Count) packet.Add(0);
+                packet[idx] = (byte)(data << shift3); shift3--;
+
+                if (shift3 == -1)
+                {
+                    shift1 = 9;
+                    shift2 = 1;
+                    shift3 = 7;
+                    idx++;
+                }
+            }
+
+            byte[] CRC_buf = new byte[packet.Count];
+            Array.Copy(packet.ToArray(), CRC_buf, CRC_buf.Length);
+            byte CRC8 = CRC_8(CRC_buf);
+            packet.Add(CRC8);
+            packet.Add(0);
+
+            gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
+            spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)packet.Count, sysnc_cmd, packet.ToArray());
+            System.Threading.Thread.Sleep(20);
+            gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
         }
 
 
@@ -383,52 +450,6 @@ namespace MulanLite
             return 0;
         }
 
-        public void LEDPacket(byte len, int addr, int[] buf)
-        {
-            byte[] tmp = new byte[SPI_BUF_LEN];
-
-            byte sync_Cmd = 0xAC;
-            byte cmd = 0x3C;
-            byte addr_M = (byte)(addr >> 8);
-            byte addr_L = (byte)(addr & 0xFF);
-
-            tmp[0] = cmd;
-            tmp[1] = len;
-            tmp[2] = addr_M;
-            tmp[3] = addr_L;
-
-            int b1_shift = 9; /* add */
-            int b2_shift = 1; /* add */
-            int b3_shift = 7; /* sub */
-
-            int idx = 4;
-            for (int i = 0; i < len + 1; i++)
-            {
-                tmp[idx] = (byte)((buf[i] >> b1_shift) | tmp[idx++]); b1_shift++;
-                tmp[idx++] = (byte)(buf[i] >> b2_shift); b2_shift++;
-                tmp[idx] = (byte)(buf[i] << b3_shift); b3_shift--;
-
-                if (b3_shift == -1)
-                {
-                    b1_shift = 9;
-                    b2_shift = 1;
-                    b3_shift = 7;
-                }
-            }
-
-            byte[] CRC_buf = new byte[idx];
-            Array.Copy(tmp, CRC_buf, CRC_buf.Length);
-            byte CRC8 = CRC_8(CRC_buf);
-            tmp[idx + 1] = CRC8;
-
-            gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
-            spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, 0x01, (ushort)SPI_BUF_LEN, sync_Cmd, tmp);
-            System.Threading.Thread.Sleep(20);
-            gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
-        }
-
-
         /* len follow packet setting (n + 1) */
         public byte[] ReadFunc(byte id, byte len, byte addr)
         {
@@ -465,11 +486,10 @@ namespace MulanLite
 
             byte item = 0xac;
             int idx = Array.IndexOf(Buffer_tmp, item);
-
-           
             byte[] data = Buffer_tmp.Skip(idx).ToArray();
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
 
+            if (data.Length < 3) data = new byte[12];
             return data;
         }
 

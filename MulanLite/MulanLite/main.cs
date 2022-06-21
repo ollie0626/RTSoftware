@@ -21,6 +21,7 @@ namespace MulanLite
         private const int BLUpdateCmd = 0x5A;
         private const int LEDPacketCmd = 0x3C;
         private const int BroadcastCmd = 0xFF;
+        private bool write_enable = false;
         RTBBControl RTDev;
         NumericUpDown[] WriteTable;
         NumericUpDown[] ReadTable;
@@ -115,6 +116,7 @@ namespace MulanLite
                 cb_switch_filter_time, cb_open_dgl, cb_ch_num, cb_cal_modex1, cb_cal_modex8, cb_low_drive, cb_range_x8_x1, cb_min_count
             };
             initial_wr_en = true;
+            write_enable = true;
         }
 
         public main()
@@ -199,7 +201,7 @@ namespace MulanLite
             switch (CiFreq.SelectedIndex)
             {
                 case 0:
-                    ci_freq = 18000000;
+                    ci_freq = 15000000;
                     break;
                 case 1:
                     ci_freq = 7800000;
@@ -347,7 +349,7 @@ namespace MulanLite
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
             byte[] ZoneNum = new byte[8];
-            byte[] startOffset = new byte[8];
+            byte[] startOffset = new byte[12];
             int offset = (int)nu_start_offset.Value;
             int max = (int)(nu_mulan_qty.Value) + (int)(nu_endid.Value - nu_startid.Value);
             uiProcessBar1.Value = 0;
@@ -355,44 +357,57 @@ namespace MulanLite
             uiProcessBar1.Maximum = max;
             uiProcessBar2.Maximum = max;
 
-            for (int i = (int)nuFirst.Value; i < nu_mulan_qty.Value; i++)
+            // zone setting
+            for (int i = (int)nu_startid.Value; i < nu_mulan_qty.Value; i++)
             {
-                int zone1 = ((i * 4) + 1) * offset;
-                int zone2 = ((i * 4) + 2) * offset;
-                int zone3 = ((i * 4) + 3) * offset;
-                int zone4 = ((i * 4) + 4) * offset;
+                int offset1 = ((i * 4) + 1) * offset;
+                int offset2 = ((i * 4) + 2) * offset;
+                int offset3 = ((i * 4) + 3) * offset;
+                int offset4 = ((i * 4) + 4) * offset;
+
+                int zone1 = ((i * 4) + 1);
+                int zone2 = ((i * 4) + 2);
+                int zone3 = ((i * 4) + 3);
+                int zone4 = ((i * 4) + 4);
 
                 ZoneNum[0] = (byte)(zone1 & 0xFF);
                 ZoneNum[1] = (byte)((zone1 & 0xFF00) >> 8);
-
                 ZoneNum[2] = (byte)(zone2 & 0xFF);
                 ZoneNum[3] = (byte)((zone2 & 0xFF00) >> 8);
-                
                 ZoneNum[4] = (byte)(zone3 & 0xFF);
                 ZoneNum[5] = (byte)((zone3 & 0xFF00) >> 8);
-
                 ZoneNum[6] = (byte)(zone4 & 0xFF);
-                ZoneNum[7] = (byte)((zone4 & 0xFF00) >> 8);                                
-                // mulna zone address start from 0x18
-                // and mulan-lite zone address start from 0x10
-                //RTDev.WriteFunc((byte)(i + 1), 0x2D, 0x10, 7, ZoneNum);
+                ZoneNum[7] = (byte)((zone4 & 0xFF00) >> 8);
+                RTDev.WriteFunc((byte)i, WriteCmd, 0x10, 7, ZoneNum);
 
-                await WDataTask((byte)(i), 0x10, 7, ZoneNum);
+                startOffset[0] = (byte)(offset1 & 0xFF);
+                startOffset[1] = (byte)((offset1 & 0xFF00) >> 8);
+                startOffset[2] = (byte)((offset1 & 0x030000) >> 16);
+                startOffset[3] = (byte)(offset2 & 0xFF);
+                startOffset[4] = (byte)((offset2 & 0xFF00) >> 8);
+                startOffset[5] = (byte)((offset2 & 0x030000) >> 16);
+                startOffset[6] = (byte)(offset3 & 0xFF);
+                startOffset[7] = (byte)((offset3 & 0xFF00) >> 8);
+                startOffset[8] = (byte)((offset3 & 0x030000) >> 16);
+                startOffset[9] = (byte)(offset4 & 0xFF);
+                startOffset[10] = (byte)((offset4 & 0xFF00) >> 8);
+                startOffset[11] = (byte)((offset4 & 0x030000) >> 16);
+                await WDataTask((byte)(i), 0x18, 11, startOffset);
+
                 uiProcessBar1.Value += 1;
                 uiProcessBar2.Value += 1;
+                System.Threading.Thread.Sleep(50);
             }
 
             int led_data = (int)nu_data.Value;
-            byte bit16 = (byte)((led_data & 0x10000) >> 16);
-            byte MSB = (byte)((led_data & 0xFF00) >> 8);
-            byte LSB = (byte)(led_data & 0xFF);
-            byte[] buffer = new byte[3] { LSB, MSB, bit16 };
+            int[] data = new int[] { led_data };
 
             for(int id = (int)nu_startid.Value; id < nu_endid.Value; id++)
             {
-                await WDataTask((byte)id, 0x0B, 2, buffer);
+                RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data);
                 uiProcessBar1.Value += 1;
                 uiProcessBar2.Value += 1;
+                System.Threading.Thread.Sleep(50);
             }
             bt.Enabled = true;
         }
@@ -403,11 +418,11 @@ namespace MulanLite
             bt.Enabled = false;
             // write data buffer parameter
             byte id = (byte)nu_speciedid.Value;
-            int data = (int)nu_specified_data.Value;
-            byte MSB = (byte)((data & 0xFF00) >> 8);
-            byte LSB = (byte)(data & 0xFF);
-            byte bit16 = (byte)((data & 0x10000) >> 16);
-            byte[] buffer = new byte[3] { LSB, MSB, bit16 };
+            int[] data = new int[] { (int)nu_specified_data.Value };
+            //byte LSB = (byte)(data & 0xFF);
+            //byte MSB = (byte)((data & 0xFF00) >> 8);
+            //byte bit16 = (byte)((data & 0x30000) >> 16);
+            //byte[] buffer = new byte[3] { LSB, MSB, bit16 };
             int max = 3;
             uiProcessBar1.Value = 0;
             uiProcessBar2.Value = 0;
@@ -421,19 +436,21 @@ namespace MulanLite
             int zone3 = start_zone + 2;
             int zone4 = start_zone + 3;
             byte[] ZoneNum = new byte[8];
-            ZoneNum[0] = (byte)((zone1 & 0x1fe0) >> 5);
-            ZoneNum[1] = (byte)(zone1 & 0x1f);
-            ZoneNum[2] = (byte)((zone2 & 0x1fe0) >> 5);
-            ZoneNum[3] = (byte)(zone2 & 0x1f);
-            ZoneNum[4] = (byte)((zone3 & 0x1fe0) >> 5);
-            ZoneNum[5] = (byte)(zone3 & 0x1f);
-            ZoneNum[6] = (byte)((zone4 & 0x1fe0) >> 5);
-            ZoneNum[7] = (byte)(zone4 & 0x1f);
+
+            ZoneNum[0] = (byte)(zone1 & 0xFF);
+            ZoneNum[1] = (byte)((zone1 & 0xFF00) >> 8);
+            ZoneNum[2] = (byte)(zone2 & 0xFF);
+            ZoneNum[3] = (byte)((zone2 & 0xFF00) >> 8);
+            ZoneNum[4] = (byte)(zone3 & 0xFF);
+            ZoneNum[5] = (byte)((zone3 & 0xFF00) >> 8);
+            ZoneNum[6] = (byte)(zone4 & 0xFF);
+            ZoneNum[7] = (byte)((zone4 & 0xFF00) >> 8);
             await WDataTask(id, 0x10, 7, ZoneNum);
             System.Threading.Thread.Sleep(50);
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
-            await WDataTask(id, 0x0B, 2, buffer);
+            //await WDataTask(id, 0x0B, 2, buffer);
+            RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data);
             System.Threading.Thread.Sleep(50);
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
@@ -443,13 +460,13 @@ namespace MulanLite
             int start_offset2 = (int)nu_spe_offset2.Value;
             int start_offset3 = (int)nu_spe_offset3.Value;
             int start_offset4 = (int)nu_spe_offset4.Value;
-            buffer = new byte[8]{ 
-                (byte)(start_offset1 & 0xFF), (byte)((start_offset1 & 0xFF00) >> 8),
-                (byte)(start_offset2 & 0xFF), (byte)((start_offset2 & 0xFF00) >> 8),
-                (byte)(start_offset4 & 0xFF), (byte)((start_offset4 & 0xFF00) >> 8),
-                (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8),
+            byte[] buffer = new byte[]{ 
+                (byte)(start_offset1 & 0xFF), (byte)((start_offset1 & 0xFF00) >> 8), (byte)((start_offset1 & 0x030000) >> 16),
+                (byte)(start_offset2 & 0xFF), (byte)((start_offset2 & 0xFF00) >> 8), (byte)((start_offset2 & 0x030000) >> 16),
+                (byte)(start_offset4 & 0xFF), (byte)((start_offset4 & 0xFF00) >> 8), (byte)((start_offset3 & 0x030000) >> 16),
+                (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8), (byte)((start_offset4 & 0x030000) >> 16),
             };
-            await WDataTask(id, 0x18, 7, buffer);
+            await WDataTask(id, 0x18, (byte)(buffer.Length - 1), buffer);
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
             bt.Enabled = true;
@@ -541,6 +558,7 @@ namespace MulanLite
 
         private void RCLK_DIV_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!write_enable) return;
             ComboBox cb = (ComboBox)sender;
             cb.Enabled = false;
             byte id = (byte)nu_persentid.Value;
@@ -548,6 +566,18 @@ namespace MulanLite
             byte[] WData = new byte[1];
             WData[0] = (byte)((RCLK_DIV.SelectedIndex << 4) | (RData[2] & 0x0F));
             RTDev.WriteFunc(id, WriteCmd, 0x34, 0x00, WData);
+
+
+            //2'b00 : Fsw = 1/4
+            //2'b01 : Fsw = 1/8
+            //2'b10 : Fsw = 1/16
+            //2'b11 : Fsw = 1/32
+            //byte Fsw = (byte)((RCLK_DIV.SelectedIndex == 0) ? 0x76 :
+            //                (RCLK_DIV.SelectedIndex == 1) ? 0x77 :
+            //                (RCLK_DIV.SelectedIndex == 2) ? 0x78 :
+            //                (RCLK_DIV.SelectedIndex == 3)? 0x79 : 0x76);
+            //byte[] data = new byte[] { 0xAD, 0xBA, Fsw };
+            //RTDev.SPIWrite(data);
             cb.Enabled = true;
         }
 
@@ -564,7 +594,11 @@ namespace MulanLite
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            int max = 6;
+            int max = 1;
+            uiProcessBar2.Value = 0;
+            uiProcessBar1.Value = 0;
+
+
             uiProcessBar1.Maximum = max;
             uiProcessBar2.Maximum = max;
             //for (int i = 0; i < max; i++)
@@ -595,13 +629,19 @@ namespace MulanLite
             //RTDev.WriteFunc((byte)nuSID.Value, WriteCmd, (byte)nuSAddr.Value, (byte)0x01, write_buf);
             byte[] data = new byte[WriteTable.Length];
             for (int i = 0; i < data.Length; i++) data[i] = (byte)WriteTable[i].Value;
-            RTDev.WriteFunc(id, WriteCmd, (byte)0x00, data.Length, data);
+            RTDev.WriteFunc(id, WriteCmd, (byte)0x00, data.Length - 1, data);
+
+
+            uiProcessBar2.Value = 1;
+            uiProcessBar1.Value = 1;
+
             bt.Enabled = true;
         }
 
         private async void bt_readall_Click(object sender, EventArgs e)
         {
             UIButton bt = (UIButton)sender;
+            write_enable = false;
             bt.Enabled = false;
             int max = 12;
             byte[] Before = new byte[ReadTable.Length];
@@ -614,8 +654,7 @@ namespace MulanLite
             uiProcessBar2.Value = 0;
             uiProcessBar1.Maximum = max;
             uiProcessBar2.Maximum = max;
-
-            for(int i = 0; i < max; i++)
+            for (int i = 0; i < max; i++)
             {
                 byte addr = (byte)(i * 8);
                 RData = await RDataTask(id, 7, addr);
@@ -640,7 +679,10 @@ namespace MulanLite
                 uiProcessBar1.Value += 1;
                 uiProcessBar2.Value += 1;
             }
+
+        
             bt.Enabled = true;
+            write_enable = true;
         }
 
         private async void WRReg(byte id, byte mask, byte addr, byte data)
@@ -648,9 +690,10 @@ namespace MulanLite
             try
             {
                 if (initial_wr_en == false) return;
+                if (write_enable == false) return;
 
                 byte[] RData = await RDataTask(id, 0x00, addr);
-                byte Wrin = (byte)((RData[0] & mask) | data);
+                byte Wrin = (byte)((RData[2] & mask) | data);
                 byte[] WData = new byte[1] { Wrin };
                 await WDataTask(id, addr, 0x00, WData);
             }
@@ -691,7 +734,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x32;
             byte mask = 0xEF;
-            byte data = (byte)cb_allowone.SelectedIndex;
+            byte data = (byte)cb_ditheren.SelectedIndex;
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
@@ -979,6 +1022,13 @@ namespace MulanLite
             //Guid hidGuid = new Guid("745a17a0-74d3-11d0-b6fe-00a0c90f57da");
             //Dbt.HidD_GetHidGuid(ref hidGuid);
             //RegisterNotification(hidGuid);
+
+            // LED packet test
+            //int[] buf = new int[] { 0x0E25D, 0x14AFF, 0x0E6F8, 0x1D8C7, 0x12DDE, 0x12DDE, 0x0E6F8, 0x14AFF, 0x12DDE };
+            //int[] buf = new int[] { 0x0E25D, 0x14AFF, 0x0E6F8, 0x1D8C7, 0x12DDE };
+            //int[] buf = new int[] { 0x12DDE };
+            //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
+
             timer1.Interval = 500;
             timer1.Enabled = false;
         }
@@ -1189,13 +1239,13 @@ namespace MulanLite
         private void uibt_write_Click(object sender, EventArgs e)
         {
             byte[] write_buf = new byte[1] { (byte)nuSWrite.Value };
-            
             RTDev.WriteFunc((byte)nuSID.Value, WriteCmd, (byte)nuSAddr.Value, (byte)0x0, write_buf);
         }
 
         private void uibt_read_Click(object sender, EventArgs e)
         {
             byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
+            if (data.Length < 3) return;
             nuSRead.Value = data[2];
         }
 
@@ -1207,7 +1257,6 @@ namespace MulanLite
 
             //byte[] buf = RTDev.ReadFunc((byte)nuSID.Value, 0x00, 0x32);
             //RTDev.WriteFunc((byte)nuSID.Value, WriteCmd, (byte)0x09, (byte)0x00, buf);
-
 
             // step 1, config turn on flag
             byte[] data = new byte[] { 0x3D, 0xAE, 0xDD, bit };
@@ -1258,5 +1307,558 @@ namespace MulanLite
             byte mask = 0xF0;
             WRReg(id, mask, addr, data);
         }
+
+        private void R33_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R33.Value;
+
+            cb_low_drive.SelectedIndex = (val & 0x80) >> 7;
+            cb_range_x8_x1.SelectedIndex = (val & 0x40) >> 6;
+            cb_ldoio.SelectedIndex = (val & 0x20) >> 5;
+            
+        }
+
+        private void R32_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R32.Value;
+            
+            cb_ditheren.SelectedIndex = (val & 0x10) >> 4;
+            cb_m_factor.SelectedIndex = (val & 0x60) >> 5;
+            cb_cal_modex1.SelectedIndex = (val & 0x04) >> 2;
+            cb_cal_modex8.SelectedIndex = (val & 0x02) >> 1;
+            cb_centred.SelectedIndex = (val & 0x80) >> 7;
+        }
+
+        private void R36_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R36.Value;
+            int val2 = (int)R37.Value;
+            nuPWMcycle.Value = (val2 << 8) | val1;
+        }
+
+        private void R37_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R36.Value;
+            int val2 = (int)R37.Value;
+            nuPWMcycle.Value = (val2 << 8) | val1;
+        }
+
+        private void R38_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R38.Value;
+            int val2 = (int)R39.Value;
+            nuMaxpulse.Value = (val2 << 8) | val1;
+        }
+
+        private void R39_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R38.Value;
+            int val2 = (int)R39.Value;
+            nuMaxpulse.Value = (val2 << 8) | val1;
+        }
+
+        private void R3A_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R3A.Value;
+            nuMinpulse.Value = val;
+        }
+
+        private void R50_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown nu = (NumericUpDown)sender;
+            nu.Enabled = false;
+            int val = (int)nu.Value;
+            switch (nu.TabIndex)
+            {
+                //case 0: addr = 0x3A; break;
+                case 1: nuCy0.Value = val; break;
+                case 2: nuCy1.Value = val; break;
+                case 3: nuCy2.Value = val; break;
+                case 4: nuCy3.Value = val; break;
+                case 5: nuCy4.Value = val; break;
+                case 6: nuCy5.Value = val; break;
+                case 7: nuCy6.Value = val; break;
+                case 8: nuCy7.Value = val; break;
+            }
+            nu.Enabled = true;
+        }
+
+        private void R07_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R07.Value;
+            nuopen_ch4.Value = (val & 0x80) >> 7;
+            nuopen_ch3.Value = (val & 0x40) >> 6;
+            nuopen_ch2.Value = (val & 0x20) >> 5;
+            nuopen_ch1.Value = (val & 0x10) >> 4;
+
+            nushort_ch4.Value = (val & 0x08) >> 3;
+            nushort_ch3.Value = (val & 0x04) >> 2;
+            nushort_ch2.Value = (val & 0x02) >> 1;
+            nushort_ch1.Value = (val & 0x01);
+        }
+
+        private void R04_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R04.Value;
+            nu_dont_lower.Value = (val & 0x40) >> 6;
+            nu_raise.Value = (val & 0x20);
+        }
+
+        private void R30_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R30.Value;
+
+            ck_short_mask.Checked = (((val & 0x80) >> 7) == 1) ? true : false;
+            ck_open_mask.Checked = (((val & 0x40) >> 6) == 1) ? true : false;
+            ck_clk_missing.Checked = (((val & 0x10) >> 4) == 1) ? true : false;
+            ck_fuse_mask.Checked = (((val & 0x08) >> 3) == 1) ? true : false;
+            ck_tsd_mask.Checked = (((val & 0x04) >> 2) == 1) ? true : false;
+
+        }
+
+        private void R06_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R06.Value;
+
+            nu_crc.Value = (val & 0x20) >> 5;
+            nu_rdo.Value = (val & 0x10) >> 4;
+            nu_badlen.Value = (val & 0x08) >> 3;
+            nu_badadd.Value = (val & 0x04) >> 2;
+            nu_badid.Value = (val & 0x02) >> 1;
+            nu_badcmd.Value = (val & 0x01);
+
+        }
+
+        private void R28_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH0x8SL.Value = (int)R28.Value;
+        }
+
+        private void R29_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH1x8SL.Value = (int)R29.Value;
+        }
+
+        private void R2A_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH2x8SL.Value = (int)R2A.Value;
+        }
+
+        private void R2B_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH3x8SL.Value = (int)R2B.Value;
+        }
+
+        private void R2C_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH0x1SL.Value = (int)R2C.Value;
+        }
+
+        private void R2D_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH1x1SL.Value = (int)R2D.Value;
+        }
+
+        private void R2E_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH2x1SL.Value = (int)R2E.Value;
+        }
+
+        private void R2F_ValueChanged(object sender, EventArgs e)
+        {
+            trackCH3x1SL.Value = (int)R2F.Value;
+        }
+
+        private void R34_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R34.Value;
+            RCLK_DIV.SelectedIndex = (val & 0x30) >> 4;
+            ck_CH0_en.Checked = ((val & 0x01) == 0x01) ? true : false;
+            ck_CH1_en.Checked = (((val & 0x02) >> 1) == 0x01) ? true : false;
+            ck_CH2_en.Checked = (((val & 0x04) >> 2) == 0x01) ? true : false;
+            ck_CH3_en.Checked = (((val & 0x08) >> 3) == 0x01) ? true : false;
+        }
+
+        private void R45_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R45.Value;
+            cb_vhr_open.SelectedIndex = (val & 0x30) >> 4;
+            cb_vhr_short.SelectedIndex = (val & 0x3);
+        }
+
+        private void R46_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R46.Value;
+            cb_vhr_hyst.SelectedIndex = (val & 0x70) >> 4;
+            cb_vhr_up.SelectedIndex = (val & 0x7);
+        }
+
+        private void R47_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R47.Value;
+            cb_open_dgl.SelectedIndex = (val & 0xC) >> 2;
+            cb_short_dgl.SelectedIndex = (val & 0x03);
+        }
+
+        private void R4B_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R4B.Value;
+            cb_thresh_clk_missing.SelectedIndex = (val & 0x03);
+        }
+
+        private void R44_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R44.Value;
+            cb_pulse_rf.SelectedIndex = (val & 0x07);
+        }
+
+        private void R5E_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R5E.Value;
+            cb_debug_en.SelectedIndex = (val & 0x80) >> 7;
+            cb_co_do_keep0.SelectedIndex = (val & 0x40) >> 6;
+            cb_debug_out.SelectedIndex = (val & 0x1F);
+        }
+
+        private void R58_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R58.Value;
+            cb_switch_filter_time.SelectedIndex = (val & 0xF0) >> 4;
+            cb_blanking_time.SelectedIndex = (val & 0xF0);
+        }
+
+        private void R4A_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R4A.Value;
+            nu_bl_late.Value = val;
+        }
+
+        private void R0A_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R0A.Value;
+            cb_ch_num.SelectedIndex = (val & 0x3);
+        }
+
+        private void R0B_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R0B.Value;
+            int val2 = (int)R0C.Value;
+            int val3 = (int)R0D.Value;
+            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+
+        }
+
+        private void R0C_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R0B.Value;
+            int val2 = (int)R0C.Value;
+            int val3 = (int)R0D.Value;
+            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+        }
+
+        private void R0D_ValueChanged(object sender, EventArgs e)
+        {
+            int val1 = (int)R0B.Value;
+            int val2 = (int)R0C.Value;
+            int val3 = (int)R0D.Value;
+            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+        }
+
+        private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            if (write_enable == false) return;
+            int val = uiTrackBar1.Value;
+            numericUpDown1.Value = uiTrackBar1.Value;
+            byte id = (byte)nu_persentid.Value;
+            byte[] data = new byte[3] { (byte)(val & 0xFF), (byte)((val & 0xFF00) >> 8), (byte)((val & 0x10000) >> 16) };
+            byte addr = 0x0B;
+            RTDev.WriteFunc(id, WriteCmd, addr, data.Length - 1, data);
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            uiTrackBar1.Value = (int)numericUpDown1.Value;
+        }
+
+        private void R35_ValueChanged(object sender, EventArgs e)
+        {
+            int val = (int)R35.Value;
+            cb_min_count.SelectedIndex = (val & 0xF);
+        }
+
+        private async void uibt_ridge_testmode_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte[] data = new byte[] { 0x44, 0x03, 0x93, 0xA5 };
+            byte addr = 0xF0;
+            byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, len, data);
+            bt.Enabled = true;
+        }
+
+        private void cb_sticky_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            cb.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte data = (byte)(cb_sticky.SelectedIndex << 2);
+            byte addr = 0x32;
+            byte mask = 0xF7;
+            WRReg(id, mask, addr, data);
+            cb.Enabled = true;
+        }
+
+        private async void uiButton5_Click(object sender, EventArgs e)
+        {
+            byte id = (byte)nu_persentid.Value;
+            byte[] Rdbuffer = new byte[1];
+
+            Rdbuffer = await RDataTask(id, 0, 0x04);
+            nu_ridge_dontlow.Value = (Rdbuffer[2] & 0x40) >> 6;
+            nu_ridge_raise.Value = (Rdbuffer[2] & 0x20) >> 5;
+        }
+
+        private void pwm_codex8_sl_ValueChanged(object sender, EventArgs e)
+        {
+            nu_pwm_code_x8.Value = pwm_code_x8_sl.Value;
+            int data = pwm_code_x8_sl.Value;
+            byte id = (byte)nu_persentid.Value;
+            byte[] buf = new byte[] { (byte)(data & 0xff), (byte)((data & 0x1F00) >> 8) };
+            RTDev.WriteFunc(id, WriteCmd, 0x3C, 0x01, buf);
+        }
+
+        private void pwm_code_x1_sl_ValueChanged(object sender, EventArgs e)
+        {
+            nu_pwm_code_x1.Value = pwm_code_x1_sl.Value;
+            int data = pwm_code_x8_sl.Value;
+            byte id = (byte)nu_persentid.Value;
+            byte[] buf = new byte[] { (byte)(data & 0xff), (byte)((data & 0x1F00) >> 8) };
+            RTDev.WriteFunc(id, WriteCmd, 0x3E, 0x01, buf);
+        }
+
+        private void nu_pwm_code_x8_ValueChanged(object sender, EventArgs e)
+        {
+            pwm_code_x8_sl.Value = (int)nu_pwm_code_x8.Value;
+        }
+
+        private void nu_pwm_code_x1_ValueChanged(object sender, EventArgs e)
+        {
+            pwm_code_x1_sl.Value = (int)pwm_code_x1_sl.Value;
+        }
+
+        private void R3C_ValueChanged(object sender, EventArgs e)
+        {
+            byte b1 = (byte)R3C.Value;
+            byte b2 = (byte)R3D.Value;
+            int data = b1 | (b2 << 8);
+            nu_pwm_code_x8.Value = data;
+        }
+
+        private void R3D_ValueChanged(object sender, EventArgs e)
+        {
+            byte b1 = (byte)R3C.Value;
+            byte b2 = (byte)R3D.Value;
+            int data = b1 | (b2 << 8);
+            nu_pwm_code_x8.Value = data;
+        }
+
+        private void R3E_ValueChanged(object sender, EventArgs e)
+        {
+            byte b1 = (byte)R3E.Value;
+            byte b2 = (byte)R3F.Value;
+            int data = b1 | (b2 << 8);
+            nu_pwm_code_x1.Value = data;
+        }
+
+        private void R3F_ValueChanged(object sender, EventArgs e)
+        {
+            byte b1 = (byte)R3E.Value;
+            byte b2 = (byte)R3F.Value;
+            int data = b1 | (b2 << 8);
+            nu_pwm_code_x1.Value = data;
+        }
+
+        private async void ui_read_Tracking_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            write_enable = false;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte addr = 0x99;
+            byte[] RData;
+            RData = await RDataTask(id, 0x05, addr);
+
+            int XAddr, YAddr, Lot_ID, Wafer_num, PGM_ver, Fab_code, Lot_type;
+            XAddr = RData[2] | ((RData[4] & 0x20) >> 5);
+            YAddr = RData[3] | ((RData[4] & 0x40) >> 6);
+            Lot_ID = ((RData[4] & 0x80) >> 7) | (RData[5] << 1) | (RData[6] << 9);
+            Wafer_num = (RData[4] & 0x1F);
+            PGM_ver = (RData[7] & 0xE0) >> 5;
+            Fab_code = (RData[7] & 0x10) >> 4;
+            Lot_type = (RData[7] & 0x0F);
+
+            nu_X_ADDR.Value = XAddr;
+            nu_Y_ADDR.Value = YAddr;
+            nu_LotID.Value = Lot_ID;
+            nu_Wafer.Value = Wafer_num;
+            nu_PGM.Value = PGM_ver;
+            nu_Fab.Value = Fab_code;
+            nu_Lot_type.Value = Lot_type;
+            
+            bt.Enabled = true;
+        }
+
+        private async void ui_test_mode_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte[] data = new byte[] { 0x5A, 0xA5, 0x26, 0x68, 0x86, 0x62, 0xA5, 0x5A };
+            byte addr = 0xF0;
+            byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, len, data);
+            bt.Enabled = true;
+        }
+
+        private void bt_testmode_write_all_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[16];
+            NumericUpDown[] Table = new NumericUpDown[]
+            {
+                W90, W91, W92, W93, W94, W95, W96, W97, W98, W99, W9A, W9B, W9C, W9D, W9E, W9F
+            };
+            for (int i = 0; i < 16; i++) WData[i] = (byte)Table[i].Value;
+            byte id = (byte)nu_persentid.Value;
+            byte addr = 0x90;
+            byte len = (byte)(Table.Length - 1);
+            RTDev.WriteFunc(id, WriteCmd, addr, len, WData);
+            WData[0] = (byte)W70.Value;
+            RTDev.WriteFunc(id, WriteCmd, 0x70, 0x00, WData);
+            bt.Enabled = true;
+        }
+
+        private async void bt_testmode_read_all_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            write_enable = false;
+            byte id = (byte)nu_persentid.Value;
+
+            byte[] RData;
+            RData = await RDataTask(id, 0x00, 0x70);
+            R70.Value = RData[2];
+
+            RData = await RDataTask(id, 0x07, 0x90);
+            R90.Value = RData[2];
+            R91.Value = RData[3];
+            R92.Value = RData[4];
+            R93.Value = RData[5];
+            R94.Value = RData[6];
+            R95.Value = RData[7];
+            R96.Value = RData[8];
+            R97.Value = RData[9];
+
+            RData = await RDataTask(id, 0x07, 0x98);
+            R98.Value = RData[2];
+            R99.Value = RData[3];
+            R9A.Value = RData[4];
+            R9B.Value = RData[5];
+            R9C.Value = RData[6];
+            R9D.Value = RData[7];
+            R9E.Value = RData[8];
+            R9F.Value = RData[9];
+
+            RData = await RDataTask(id, 0x01, 0xE2);
+            RE2.Value = RData[2];
+            RE3.Value = RData[3];
+
+            write_enable = true;
+            bt.Enabled = true;
+        }
+
+        private void bt_PGM_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { (byte)nu_Sel.Value, 0x01 };
+            byte id = (byte)nu_persentid.Value;
+            RTDev.WriteFunc(id, WriteCmd, 0xE0, 0x01, WData);
+            bt.Enabled = true;
+        }
+
+        private void bt_NR_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { (byte)nu_Sel.Value, 0x02 };
+            byte id = (byte)nu_persentid.Value;
+            RTDev.WriteFunc(id, WriteCmd, 0xE0, 0x01, WData);
+            bt.Enabled = true;
+        }
+
+        private List<int> GetPattern(string name)
+        {
+            List<byte> buf = new List<byte>();
+            List<int> pattern = new List<int>();
+
+            using (var stream = File.Open(Directory.GetCurrentDirectory() + name, FileMode.Open))
+            {
+                using (var reader = new BinaryReader(stream, Encoding.UTF8, false))
+                {
+                    FileInfo fi = new FileInfo(Directory.GetCurrentDirectory() + name);
+                    byte[] temp = reader.ReadBytes((int)fi.Length);
+                    buf = temp.ToList();
+
+                }
+            }
+            for(int i = 0; i < buf.Count; i+=3)
+            {
+                pattern.Add(buf[i] << 16 | buf[i + 1] << 8 | buf[i + 2]);
+            }
+
+            return pattern;
+        }
+
+        private void bt_virus_pattern_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            int id = (int)nuFirst.Value;
+            int end = (int)nuEnd.Value;
+            // set mulan-lit zone reg 0x10 ~ 0x17
+            for(int i = id; i < id + 72; i++)
+            {
+                byte z1 = (byte)(i * 4);
+                byte z2 = (byte)((i * 4) + 1);
+                byte z3 = (byte)((i * 4) + 2);
+                byte z4 = (byte)((i * 4) + 3);
+                RTDev.WriteFunc((byte)i, WriteCmd, 0x10, 3, new byte[] { z1, z2, z3, z4 });
+            }
+
+            string virus1 = @"\virus_pattern1.bin";
+            string virus2 = @"\virus_pattern2.bin";
+            List<int> pattern1 = GetPattern(virus1);
+            List<int> pattern2 = GetPattern(virus2);
+            // send mulan-lit 1 ~ 17
+            RTDev.LEDPacket((byte)(pattern1.Count - 1), 0, pattern1.ToArray());
+            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4*20, pattern2.ToArray()); // id 20
+            RTDev.LEDPacket((byte)(pattern1.Count - 1), 4*37, pattern2.ToArray()); // id 37
+            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4*56, pattern2.ToArray()); // id 56
+
+            int[] id18_packet = new int[] { 0x39F6, 0x1FF0, 0xD1AC, 0xB81C };
+            RTDev.LEDPacket((byte)(id18_packet.Length - 1), 4*18, id18_packet); // id_18
+
+            int[] last_packet = new int[] { 0xB81C, 0xB81C, 0x4FD9, 0x4FD9 };
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*19, last_packet); // id 19
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*54, last_packet); // id 54
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*55, last_packet); // id 55
+
+            bt.Enabled = true;
+        }
     }
 }
+
