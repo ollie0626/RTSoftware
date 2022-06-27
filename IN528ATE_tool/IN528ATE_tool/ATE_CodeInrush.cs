@@ -58,7 +58,7 @@ namespace IN528ATE_tool
             InsControl._scope.CH1_Offset(ispos ? (level / 5) * 2 : (level / 5) * 2 * -1);
 
             System.Threading.Thread.Sleep(1000);
-            InsControl._scope.TimeScaleMs(test_parameter.time_scale_ms);
+            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             System.Threading.Thread.Sleep(1000);
 
             System.Threading.Thread.Sleep(1000);

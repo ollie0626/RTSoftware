@@ -27,6 +27,8 @@ namespace IN528ATE_tool
         int SteadyTime;
         int TCPServerTime;
 
+        public static bool isChamberEn = false;
+
         ParameterizedThreadStart p_thread;
         Thread ATETask;
 
@@ -60,6 +62,14 @@ namespace IN528ATE_tool
             Message = new MyDelegate(MessageCallback);
             TCPServerTime = 28800;
 
+
+            for(int i = 1; i < 21; i++)
+            {
+                tb_chamber.Items.Add("ATE_" + i.ToString());
+            }
+
+            tb_chamber.SelectedIndex = 0;
+            Console.WriteLine(tb_chamber.Text);
             test_parameter.run_stop = false;
             test_parameter.chamber_en = false;
         }
@@ -234,7 +244,8 @@ namespace IN528ATE_tool
                 test_parameter.binFolder = textBox1.Text;
                 test_parameter.specify_bin = textBox2.Text;
                 test_parameter.waveform_path = tbWave.Text;
-                test_parameter.time_scale_ms = (double)nu_time_scale.Value;
+                test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
+                test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
                 test_parameter.addr = (byte)nu_addr.Value;
                 test_parameter.max = (byte)nu_code_max.Value;
                 test_parameter.min = (byte)nu_code_min.Value;
@@ -242,6 +253,7 @@ namespace IN528ATE_tool
                 test_parameter.vol_min = (double)nu_vol_min.Value;
                 test_parameter.all_en = ck_all_test.Checked;
                 test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
+                test_parameter.trigger_level = (double)nu_ch1_trigger_level.Value;
                 item_sel = cb_item.SelectedIndex;
 
                 ChamberCtr.ChamberName = tb_chamber.Text;
@@ -284,10 +296,13 @@ namespace IN528ATE_tool
         }
 
         // ATE Process: MultiChamber_Task, Chamber_Task, Run_Task_Flow, Run_Single_Task
+
         public async void MultiChamber_Task()
         {
+            ChamberCtr.IsTCPConnected = false;
             ChamberCtr.ChamberName = tb_chamber.Text;
             ChamberCtr.CreatShareChamberFolder();
+            
             if (!ck_slave.Checked)
             {
                 // master
@@ -297,22 +312,33 @@ namespace IN528ATE_tool
             else
             {
                 // slave
+                System.Threading.Thread.Sleep(1000);
                 templist = ChamberCtr.ReadTempList();
+                isChamberEn = !string.IsNullOrEmpty(templist);
             }
 
-            if (!await TaskConnect(300)) return;// connect
+            ChamberCtr.InitTCPTimer(!ck_slave.Checked);
+            ChamberCtr.CurrentStateMaster = "Busy,-999";
+            ChamberCtr.CurrenStateSlave = "Busy,-999";
+            ChamberCtr.IsTCPNoConnected = !ck_multi_chamber.Checked;
+            ChamberCtr.SetTCPTimerState(true);
+            Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+            //if (!await TaskConnect(300)) return;// connect
 
             for (int i = 0; i < tempList.Length; i++)
             {
-                if (!await TaskConnect(3000 + SteadyTime * 60)) return;
+                if(ck_slave.Checked)
+                {
+                    ChamberCtr.CurrenStateSlave = "Idle," + tempList[i].ToString();
+                }
                 else
                 {
+                    ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
                     SteadyTime = (int)nu_steady.Value;
-                    // new construct and connect chamber
                     InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
                     InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
                     bool res = InsControl._chamber.InsState();
-
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                     await InsControl._chamber.ChamberStable(templist[i]);
@@ -322,10 +348,15 @@ namespace IN528ATE_tool
                         await TaskRecount();
                         uiProcessBar1.Value = SteadyTime;
                         label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
-
                     }
-                    if (!await TaskConnect(TCPServerTime)) TCPServerTime = 0;
+                    ChamberCtr.CurrentStateMaster = "Idle," + tempList[i].ToString();
                 }
+
+                ChamberCtr.CheckTCP_ChamberIdle();
+                if (ck_slave.Checked) Console.WriteLine("Slave----------Start Run------------------");
+                else Console.WriteLine("Master----------Start Run------------------");
+                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Busy," + tempList[i].ToString();
+                else ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
 
                 // ripple test
                 _ate_ripple.temp = Convert.ToDouble(tempList[i]);
@@ -346,6 +377,7 @@ namespace IN528ATE_tool
                             _ate_poweron.ATETask();
                             break;
                     }
+
                 }
                 else
                 {
@@ -353,17 +385,13 @@ namespace IN528ATE_tool
                     _ate_code_inrush.ATETask();
                 }
 
-                // test finished
-                if (ck_multi_chamber.Checked && ck_slave.Checked)
-                {
-                    // slave
-                    if (!await TaskConnect(TCPServerTime)) return;
-                }
-                else
-                {
-                    // server
-                    await TaskConnect(TCPServerTime);
-                }
+                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Idle,9999";
+                else ChamberCtr.CurrentStateMaster = "Idle,9999";
+                if (ck_slave.Checked) Console.WriteLine("Slave----------WaitFIN------------------");
+                else Console.WriteLine("Master----------WaitFIN------------------");
+                ChamberCtr.CheckTCP_ChamberIdle();
+                if (ck_slave.Checked) Console.WriteLine("Slave----------FIN------------------");
+                else Console.WriteLine("Master----------FIN------------------");
                 if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
             }
         }
