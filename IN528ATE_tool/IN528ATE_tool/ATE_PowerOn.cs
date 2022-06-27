@@ -143,6 +143,8 @@ namespace IN528ATE_tool
                             MyLib.Delay1ms(100);
                             RTDev.GpEn_Enable();
                             MyLib.Delay1ms(250);
+                            if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                            MyLib.Delay1ms(250);
                         }
                         else
                         {
@@ -172,14 +174,17 @@ namespace IN528ATE_tool
                             // adjust CH1 level to Vout 10mV
                             // measure UVLO to Vout 10mV
                             // measure thresholds method is abs
+
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod CHANnel1,ABSolute");
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel1,{0},{1},{2}",
                                                         InsControl._scope.Meas_CH1Top(),
                                                         test_parameter.trigger_level,
                                                         0));
-                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,PERCent");
-                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent FUNC1,100,50,0");
-                            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent FUNC1,100,50,0");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,ABSolute");
+                            InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
+                                                        InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1"),
+                                                        InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1") * 0.5,
+                                                        0.01));
                             System.Threading.Thread.Sleep(150);
                         }
 
@@ -201,7 +206,7 @@ namespace IN528ATE_tool
                         {
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
                             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
-                            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+                            //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
                             System.Threading.Thread.Sleep(150);
                         }
                         Vmax = InsControl._scope.Meas_CH2MAX();
