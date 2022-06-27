@@ -31,6 +31,7 @@ namespace MulanLite
         private const int POR = GPIO_2_2;
         public static bool CRC_En = true;
 
+
         public void CiEnable()
         {
             if (gpioModule == null) return;

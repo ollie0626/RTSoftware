@@ -38,8 +38,8 @@ namespace IN528ATE_tool
 
         private void OSCInit()
         {
-            InsControl._scope.TimeScaleMs(test_parameter.time_scale_ms);
-            InsControl._scope.TimeBasePositionMs(test_parameter.time_scale_ms * 3);
+            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
             InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 2));
@@ -47,6 +47,8 @@ namespace IN528ATE_tool
             InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
             InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+            InsControl._scope.TriggerLevel_CH1(test_parameter.trigger_level); // gui trigger level
+            RTDev.GpEn_Disable();
             MyLib.Delay1s(1);
         }
 
@@ -86,7 +88,7 @@ namespace IN528ATE_tool
             _sheet.Cells[row, XLS_Table.I] = "Inrush(mA)";
             _sheet.Cells[row, XLS_Table.J] = "delay time(ms)_cal";
             _range = _sheet.Range["A" + row, "E" + row];
-            _range.Interior.Color = Color.FromArgb(124, 252, 0); 
+            _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range = _sheet.Range["F" + row, "J" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
@@ -116,22 +118,35 @@ namespace IN528ATE_tool
                         Mylib.eLoadLevelSwich(InsControl._eload, test_parameter.IoutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
                         double tempVin = ori_vinTable[vin_idx];
+                        InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                        InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
+                        System.Threading.Thread.Sleep(1000);
 
                         if (test_parameter.trigger_vin_en)
                         {
+                            // vin trigger
                             InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
                             // rising edge trigger
                             InsControl._scope.SetTrigModeEdge(false);
-                            InsControl._scope.TriggerLevel_CH1(test_parameter.VinList[vin_idx] / 2);
                             MyLib.Delay1ms(100);
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                             MyLib.Delay1ms(250);
                             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             MyLib.Delay1ms(250);
                         }
+                        else if (test_parameter.trigger_en)
+                        {
+                            //Gpio 2.0 trigger
+                            InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
+                            InsControl._scope.SetTrigModeEdge(false);
+                            InsControl._scope.TriggerLevel_CH1(1.5);
+                            MyLib.Delay1ms(100);
+                            RTDev.GpEn_Enable();
+                            MyLib.Delay1ms(250);
+                        }
                         else
                         {
-                            // GPIO trigger
+                            // I2c run and GPIO trigger
                             InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
                             InsControl._scope.Trigger(1);
                             InsControl._scope.TriggerLevel_CH1(1.65);
@@ -148,20 +163,47 @@ namespace IN528ATE_tool
                             InsControl._scope.Measure_Clear();
                             MyLib.Delay1ms(800);
                         }
-
                         InsControl._scope.Root_STOP();
 
                         double delay_time, ss_time, Vmax, Inrush;
-                        // delay time measure
+
+                        if(test_parameter.trigger_vin_en)
+                        {
+                            // adjust CH1 level to Vout 10mV
+                            // measure UVLO to Vout 10mV
+                            // measure thresholds method is abs
+                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod CHANnel1,ABSolute");
+                            InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel1,{0},{1},{2}",
+                                                        InsControl._scope.Meas_CH1Top(),
+                                                        test_parameter.trigger_level,
+                                                        0));
+                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,PERCent");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent FUNC1,100,50,0");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent FUNC1,100,50,0");
+                            System.Threading.Thread.Sleep(150);
+                        }
+
+                        // delay time measure 
+                        // this function is mid to low
                         InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
                         // channel 1 to function 1
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         MyLib.Delay1ms(500);
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,FUNC1") * 1000;
+                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
 
+
                         // sst measure
+                        if (test_parameter.trigger_vin_en)
+                        {
+                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+                            System.Threading.Thread.Sleep(150);
+                        }
                         Vmax = InsControl._scope.Meas_CH2MAX();
                         Inrush = InsControl._scope.Meas_CH4MAX();
                         InsControl._scope.Measure_Clear();
@@ -170,12 +212,14 @@ namespace IN528ATE_tool
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
                         // function 1 to function 1
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         MyLib.Delay1ms(500);
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                         MyLib.Delay1ms(800);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
                         MyLib.Delay1ms(250);
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1,FUNC1") * 1000;
+                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
 
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
@@ -191,15 +235,37 @@ namespace IN528ATE_tool
                         _sheet.Cells[row, XLS_Table.G] = ss_time;
                         _sheet.Cells[row, XLS_Table.H] = Vmax;
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
-                        InsControl._power.PowerOff();
-                        MyLib.Delay1ms(500);
+
+                        InsControl._scope.Measure_Clear();
+                        InsControl._scope.TimeScaleMs(test_parameter.offtime_scale_ms);
+                        InsControl._scope.TimeBasePositionMs(test_parameter.offtime_scale_ms * 3);
+                        System.Threading.Thread.Sleep(1000);
+                        InsControl._scope.NormalTrigger();
+                        InsControl._scope.SetTrigModeEdge(true);
+                        InsControl._scope.Root_RUN();
+
+                        // power off section
+                        if (test_parameter.trigger_vin_en)
+                        {
+                            InsControl._power.AutoPowerOff();
+                            System.Threading.Thread.Sleep(250);
+                            RTDev.GpEn_Disable();
+                        }
+                        else if (test_parameter.trigger_en)
+                        {
+                            RTDev.GpEn_Disable();
+                            System.Threading.Thread.Sleep(250);
+                            InsControl._power.AutoPowerOff();
+                        }
+                        System.Threading.Thread.Sleep(800);
+                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
+
                         row++;
-                        //}
                     }
                 }
             }
 
-            Stop:
+        Stop:
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;

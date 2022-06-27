@@ -15,7 +15,8 @@ namespace IN528ATE_tool
         public static byte specify_id;
         public static string specify_bin;
         public static string waveform_path;
-        public static double time_scale_ms;
+        public static double ontime_scale_ms;
+        public static double offtime_scale_ms;
         public static bool all_en;
 
         public static bool run_stop;
@@ -34,6 +35,9 @@ namespace IN528ATE_tool
 
         /* trigger select */
         public static bool trigger_vin_en;
+        public static bool trigger_en;
+        public static double trigger_level;
+
     }
 
 
