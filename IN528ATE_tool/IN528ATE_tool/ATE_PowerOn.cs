@@ -190,13 +190,16 @@ namespace IN528ATE_tool
 
                         // delay time measure 
                         // this function is mid to low
+                        InsControl._scope.Measure_Clear();
+                        MyLib.Delay1s(1);
                         InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
                         // channel 1 to function 1
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         MyLib.Delay1ms(500);
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
                         delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
 
@@ -217,15 +220,18 @@ namespace IN528ATE_tool
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
                         // function 1 to function 1
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         MyLib.Delay1ms(500);
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
                         MyLib.Delay1ms(800);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
                         MyLib.Delay1ms(250);
                         ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
 
+                        MyLib.Delay1s(1);
+                        InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
                         InsControl._scope.Root_RUN();
