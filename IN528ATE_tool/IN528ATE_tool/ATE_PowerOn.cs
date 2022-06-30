@@ -188,49 +188,81 @@ namespace IN528ATE_tool
                             System.Threading.Thread.Sleep(150);
                         }
 
-                        // delay time measure 
-                        // this function is mid to low
+
+                        // delay time and sst measure
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
-                        InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                        // channel 1 to function 1
+                        // MEAS2
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
-                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        MyLib.Delay1ms(500);
-                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
+                        InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
+                        
+                        // MEAS1
+                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+
                         delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
-
-
-                        // sst measure
-                        if (test_parameter.trigger_vin_en)
-                        {
-                            InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
-                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
-                            //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
-                            System.Threading.Thread.Sleep(150);
-                        }
+                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
                         Vmax = InsControl._scope.Meas_CH2MAX();
                         Inrush = InsControl._scope.Meas_CH4MAX();
-                        InsControl._scope.Measure_Clear();
-                        MyLib.Delay1s(2);
-                        // rising, edge number, low, rising, edge number, upper
-                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
-                        // function 1 to function 1
-                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
-                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        MyLib.Delay1ms(500);
-                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
-                        MyLib.Delay1ms(800);
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
-                        MyLib.Delay1ms(250);
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
 
-                        MyLib.Delay1s(1);
+                        InsControl._scope.DoCommand(":MARKer:MODE MANual");
+                        InsControl._scope.DoCommand(":MARKer1:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer2:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer3:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer4:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer1:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer2:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer1:DELTa MARKer2, ON");
+                        InsControl._scope.DoCommand(":MARKer4:DELTa MARKer3, ON");
+                        InsControl._scope.DoCommand(":MARKer3:SOURce CHANnel2");
+                        InsControl._scope.DoCommand(":MARKer4:SOURce CHANnel2");
+                        InsControl._scope.DoCommand(string.Format(":MARKer1:X:POSition 0"));
+                        InsControl._scope.DoCommand(string.Format(":MARKer2:X:POSition {0}", delay_time / 1000));
+                        InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", delay_time / 1000));
+                        InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (delay_time + ss_time) / 1000));
+                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ON");
+
+                        //// delay time measure 
+                        //// this function is mid to low
+                        //InsControl._scope.Measure_Clear();
+                        //MyLib.Delay1s(1);
+                        //InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
+                        //// channel 1 to function 1
+                        //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+                        ////InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        ////InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //MyLib.Delay1ms(500);
+                        //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
+                        //delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
+                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
+                        // sst measure
+                        //if (test_parameter.trigger_vin_en)
+                        //{
+                        //    InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
+                        //    InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
+                        //    //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+                        //    System.Threading.Thread.Sleep(150);
+                        //}
+
+                        //InsControl._scope.Measure_Clear();
+                        //MyLib.Delay1s(2);
+                        //// rising, edge number, low, rising, edge number, upper
+                        //InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+                        //// function 1 to function 1
+                        //InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        ////InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        ////InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //MyLib.Delay1ms(500);
+                        //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
+                        //MyLib.Delay1ms(800);
+                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
+                        //MyLib.Delay1ms(250);
+                        //ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
+
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
