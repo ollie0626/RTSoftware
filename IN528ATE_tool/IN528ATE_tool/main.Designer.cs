@@ -65,6 +65,7 @@ namespace IN528ATE_tool
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.tb_chamber = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.uiProcessBar1 = new Sunny.UI.UIProcessBar();
             this.label15 = new System.Windows.Forms.Label();
@@ -96,7 +97,14 @@ namespace IN528ATE_tool
             this.nu_offtime_scale = new System.Windows.Forms.NumericUpDown();
             this.ck_en_trigger = new System.Windows.Forms.CheckBox();
             this.nu_ch1_trigger_level = new System.Windows.Forms.NumericUpDown();
-            this.tb_chamber = new System.Windows.Forms.ComboBox();
+            this.CK_Program = new System.Windows.Forms.CheckBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.nu_mtp_slave = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.nu_mtp_addr = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nu_mtp_data = new System.Windows.Forms.NumericUpDown();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -116,6 +124,10 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_specify)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch1_trigger_level)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_slave)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_addr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_data)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -205,7 +217,7 @@ namespace IN528ATE_tool
             this.uibt_run.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_run.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_run.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_run.Location = new System.Drawing.Point(15, 444);
+            this.uibt_run.Location = new System.Drawing.Point(15, 517);
             this.uibt_run.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_run.Name = "uibt_run";
             this.uibt_run.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -229,7 +241,7 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uiSymbolButton1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiSymbolButton1.Location = new System.Drawing.Point(335, 443);
+            this.uiSymbolButton1.Location = new System.Drawing.Point(335, 516);
             this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton1.Name = "uiSymbolButton1";
             this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -591,6 +603,14 @@ namespace IN528ATE_tool
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Ctrl";
             // 
+            // tb_chamber
+            // 
+            this.tb_chamber.FormattingEnabled = true;
+            this.tb_chamber.Location = new System.Drawing.Point(102, 79);
+            this.tb_chamber.Name = "tb_chamber";
+            this.tb_chamber.Size = new System.Drawing.Size(121, 23);
+            this.tb_chamber.TabIndex = 51;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -815,7 +835,7 @@ namespace IN528ATE_tool
             this.uibt_kill.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_kill.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_kill.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_kill.Location = new System.Drawing.Point(495, 443);
+            this.uibt_kill.Location = new System.Drawing.Point(495, 516);
             this.uibt_kill.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_kill.Name = "uibt_kill";
             this.uibt_kill.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -989,7 +1009,7 @@ namespace IN528ATE_tool
             this.uibt_pause.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_pause.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_pause.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_pause.Location = new System.Drawing.Point(175, 444);
+            this.uibt_pause.Location = new System.Drawing.Point(175, 517);
             this.uibt_pause.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_pause.Name = "uibt_pause";
             this.uibt_pause.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -1040,9 +1060,9 @@ namespace IN528ATE_tool
             // nu_ch1_trigger_level
             // 
             this.nu_ch1_trigger_level.DecimalPlaces = 2;
-            this.nu_ch1_trigger_level.Location = new System.Drawing.Point(382, 210);
+            this.nu_ch1_trigger_level.Location = new System.Drawing.Point(378, 210);
             this.nu_ch1_trigger_level.Name = "nu_ch1_trigger_level";
-            this.nu_ch1_trigger_level.Size = new System.Drawing.Size(62, 23);
+            this.nu_ch1_trigger_level.Size = new System.Drawing.Size(66, 23);
             this.nu_ch1_trigger_level.TabIndex = 65;
             this.nu_ch1_trigger_level.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_ch1_trigger_level.Value = new decimal(new int[] {
@@ -1051,20 +1071,113 @@ namespace IN528ATE_tool
             0,
             0});
             // 
-            // tb_chamber
+            // CK_Program
             // 
-            this.tb_chamber.FormattingEnabled = true;
-            this.tb_chamber.Location = new System.Drawing.Point(102, 79);
-            this.tb_chamber.Name = "tb_chamber";
-            this.tb_chamber.Size = new System.Drawing.Size(121, 23);
-            this.tb_chamber.TabIndex = 51;
+            this.CK_Program.AutoSize = true;
+            this.CK_Program.Location = new System.Drawing.Point(9, 19);
+            this.CK_Program.Name = "CK_Program";
+            this.CK_Program.Size = new System.Drawing.Size(158, 19);
+            this.CK_Program.TabIndex = 66;
+            this.CK_Program.Text = "MTP Program Command";
+            this.CK_Program.UseVisualStyleBackColor = true;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(173, 20);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(36, 15);
+            this.label12.TabIndex = 68;
+            this.label12.Text = "Slave";
+            // 
+            // nu_mtp_slave
+            // 
+            this.nu_mtp_slave.Hexadecimal = true;
+            this.nu_mtp_slave.Location = new System.Drawing.Point(213, 18);
+            this.nu_mtp_slave.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_mtp_slave.Name = "nu_mtp_slave";
+            this.nu_mtp_slave.Size = new System.Drawing.Size(62, 23);
+            this.nu_mtp_slave.TabIndex = 67;
+            this.nu_mtp_slave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_mtp_slave.Value = new decimal(new int[] {
+            158,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(282, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(33, 15);
+            this.label16.TabIndex = 70;
+            this.label16.Text = "Addr";
+            // 
+            // nu_mtp_addr
+            // 
+            this.nu_mtp_addr.Hexadecimal = true;
+            this.nu_mtp_addr.Location = new System.Drawing.Point(322, 18);
+            this.nu_mtp_addr.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_mtp_addr.Name = "nu_mtp_addr";
+            this.nu_mtp_addr.Size = new System.Drawing.Size(62, 23);
+            this.nu_mtp_addr.TabIndex = 69;
+            this.nu_mtp_addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(389, 20);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(33, 15);
+            this.label17.TabIndex = 72;
+            this.label17.Text = "Data";
+            // 
+            // nu_mtp_data
+            // 
+            this.nu_mtp_data.Hexadecimal = true;
+            this.nu_mtp_data.Location = new System.Drawing.Point(429, 18);
+            this.nu_mtp_data.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_mtp_data.Name = "nu_mtp_data";
+            this.nu_mtp_data.Size = new System.Drawing.Size(62, 23);
+            this.nu_mtp_data.TabIndex = 71;
+            this.nu_mtp_data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label12);
+            this.groupBox5.Controls.Add(this.CK_Program);
+            this.groupBox5.Controls.Add(this.label17);
+            this.groupBox5.Controls.Add(this.nu_mtp_slave);
+            this.groupBox5.Controls.Add(this.nu_mtp_data);
+            this.groupBox5.Controls.Add(this.nu_mtp_addr);
+            this.groupBox5.Controls.Add(this.label16);
+            this.groupBox5.Location = new System.Drawing.Point(15, 443);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(622, 56);
+            this.groupBox5.TabIndex = 73;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Program";
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(698, 498);
+            this.ClientSize = new System.Drawing.Size(682, 567);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.nu_ch1_trigger_level);
             this.Controls.Add(this.ck_en_trigger);
             this.Controls.Add(this.label11);
@@ -1146,6 +1259,11 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_specify)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch1_trigger_level)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_slave)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_addr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_data)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1220,6 +1338,14 @@ namespace IN528ATE_tool
         private System.Windows.Forms.CheckBox ck_en_trigger;
         private System.Windows.Forms.NumericUpDown nu_ch1_trigger_level;
         private System.Windows.Forms.ComboBox tb_chamber;
+        private System.Windows.Forms.CheckBox CK_Program;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown nu_mtp_slave;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown nu_mtp_addr;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown nu_mtp_data;
+        private System.Windows.Forms.GroupBox groupBox5;
     }
 }
 

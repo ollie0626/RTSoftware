@@ -44,13 +44,57 @@ namespace IN528ATE_tool
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 2));
             InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
-            InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
-            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
-            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
+            //InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
+            //InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
+            //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
             InsControl._scope.TriggerLevel_CH1(test_parameter.trigger_level); // gui trigger level
             RTDev.GpEn_Disable();
+            InsControl._scope.Root_RUN();
             MyLib.Delay1s(1);
         }
+
+
+        private void Scope_Channel_Resize(int idx)
+        {
+            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            MyLib.Delay1ms(250);
+            if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+            MyLib.Delay1ms(250);
+            InsControl._eload.CH1_Loading(0.01);
+            // inital channel level setting
+            if(test_parameter.trigger_vin_en)
+            {
+                double vin = test_parameter.VinList[idx];
+                InsControl._scope.CH1_Level(vin / 2);
+            }
+            else if(test_parameter.trigger_en)
+            {
+                InsControl._scope.CH1_Level(1);
+            }
+
+            for(int i = 0; i < 3; i++)
+            {
+                InsControl._scope.CH2_Level(6);
+                InsControl._scope.CH3_Level(6);
+                // Inrush ???
+                //InsControl._scope.CH4_Level(1);
+                double Vo;
+                Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
+                InsControl._scope.CH2_Level(Vo / 2);
+                Vo = Math.Abs(InsControl._scope.Meas_CH3MAX());
+                InsControl._scope.CH3_Level(Vo / 2);
+                // Inrush ????
+                //Vo = Math.Abs(InsControl._scope.Meas_CH4MAX());
+                //InsControl._scope.CH4_Level(Vo / 2);
+            }
+
+            InsControl._power.AutoPowerOff();
+            MyLib.Delay1ms(100);
+            InsControl._eload.AllChannel_LoadOff();
+            MyLib.Delay1ms(100);
+        }
+
+
 
         public void ATETask()
         {
@@ -103,7 +147,7 @@ namespace IN528ATE_tool
                         if (test_parameter.run_stop == true) goto Stop;
 
                         if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-
+                        Scope_Channel_Resize(vin_idx);
 
                         /* test initial setting */
                         InsControl._scope.DoCommand(":MARKer:MODE OFF");
@@ -133,6 +177,12 @@ namespace IN528ATE_tool
                             MyLib.Delay1ms(250);
                             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             MyLib.Delay1ms(250);
+                            if(test_parameter.mtp_enable)
+                            {
+                                byte[] buf = new byte[] { test_parameter.mtp_data };
+                                RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
+                            }
+                            
                         }
                         else if (test_parameter.trigger_en)
                         {
@@ -145,6 +195,11 @@ namespace IN528ATE_tool
                             MyLib.Delay1ms(250);
                             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             MyLib.Delay1ms(250);
+                            if (test_parameter.mtp_enable)
+                            {
+                                byte[] buf = new byte[] { test_parameter.mtp_data };
+                                RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
+                            }
                         }
                         else
                         {
@@ -159,6 +214,7 @@ namespace IN528ATE_tool
                             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             InsControl._scope.NormalTrigger();
                             InsControl._scope.Root_RUN();
+
                             MyLib.Delay1ms(500);
                             if (binList[0] != "") RTDev.I2C_WriteBinAndGPIO((byte)(test_parameter.slave), 0x00, binList[bin_idx]);
                             MyLib.Delay1ms(250);
@@ -174,7 +230,8 @@ namespace IN528ATE_tool
                             // adjust CH1 level to Vout 10mV
                             // measure UVLO to Vout 10mV
                             // measure thresholds method is abs
-
+                            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod CHANnel1,ABSolute");
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel1,{0},{1},{2}",
                                                         InsControl._scope.Meas_CH1Top(),
@@ -184,7 +241,10 @@ namespace IN528ATE_tool
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
                                                         InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1"),
                                                         InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1") * 0.5,
-                                                        0.01));
+                                                        0.05));
+                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
+                            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent FUNC1,100,50,0");
+
                             System.Threading.Thread.Sleep(150);
                         }
 
@@ -193,12 +253,14 @@ namespace IN528ATE_tool
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
                         // MEAS2
-                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
                         InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                        
+                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+
+
                         // MEAS1
-                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        
 
                         delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
                         ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
@@ -206,14 +268,12 @@ namespace IN528ATE_tool
                         Inrush = InsControl._scope.Meas_CH4MAX();
 
                         InsControl._scope.DoCommand(":MARKer:MODE MANual");
-                        InsControl._scope.DoCommand(":MARKer1:ENABle ON");
-                        InsControl._scope.DoCommand(":MARKer2:ENABle ON");
-                        InsControl._scope.DoCommand(":MARKer3:ENABle ON");
-                        InsControl._scope.DoCommand(":MARKer4:ENABle ON");
-                        InsControl._scope.DoCommand(":MARKer1:TYPE XMANual");
-                        InsControl._scope.DoCommand(":MARKer2:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer3:ENABle OFF");
+                        InsControl._scope.DoCommand(":MARKer4:ENABle OFF");
                         InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
                         InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer3:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer4:ENABle ON");
                         InsControl._scope.DoCommand(":MARKer1:DELTa MARKer2, ON");
                         InsControl._scope.DoCommand(":MARKer4:DELTa MARKer3, ON");
                         InsControl._scope.DoCommand(":MARKer3:SOURce CHANnel2");
@@ -223,45 +283,7 @@ namespace IN528ATE_tool
                         InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", delay_time / 1000));
                         InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (delay_time + ss_time) / 1000));
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ON");
-
-                        //// delay time measure 
-                        //// this function is mid to low
-                        //InsControl._scope.Measure_Clear();
-                        //MyLib.Delay1s(1);
-                        //InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                        //// channel 1 to function 1
-                        //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
-                        ////InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        ////InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        //MyLib.Delay1ms(500);
-                        //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
-                        //delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
-                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
-                        // sst measure
-                        //if (test_parameter.trigger_vin_en)
-                        //{
-                        //    InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
-                        //    InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
-                        //    //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
-                        //    System.Threading.Thread.Sleep(150);
-                        //}
-
-                        //InsControl._scope.Measure_Clear();
-                        //MyLib.Delay1s(2);
-                        //// rising, edge number, low, rising, edge number, upper
-                        //InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
-                        //// function 1 to function 1
-                        //InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
-                        ////InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        ////InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        //MyLib.Delay1ms(500);
-                        //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
-                        //MyLib.Delay1ms(800);
-                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
-                        //MyLib.Delay1ms(250);
-                        //ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
+                        InsControl._scope.DoCommand(":MARKer:MODE OFF");
 
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
@@ -281,11 +303,12 @@ namespace IN528ATE_tool
 
                         InsControl._scope.Measure_Clear();
                         InsControl._scope.TimeScaleMs(test_parameter.offtime_scale_ms);
-                        InsControl._scope.TimeBasePositionMs(test_parameter.offtime_scale_ms * 3);
+                        InsControl._scope.TimeBasePositionMs(test_parameter.offtime_scale_ms * 1);
                         System.Threading.Thread.Sleep(1000);
                         InsControl._scope.NormalTrigger();
                         InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.Root_RUN();
+                        System.Threading.Thread.Sleep(1000);
 
                         // power off section
                         if (test_parameter.trigger_vin_en)

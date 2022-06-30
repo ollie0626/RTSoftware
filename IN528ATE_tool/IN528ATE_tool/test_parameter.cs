@@ -38,6 +38,12 @@ namespace IN528ATE_tool
         public static bool trigger_en;
         public static double trigger_level;
 
+        /* MTP program */
+        public static byte mtp_slave;
+        public static byte mtp_addr;
+        public static byte mtp_data;
+        public static bool mtp_enable;
+
     }
 
 
