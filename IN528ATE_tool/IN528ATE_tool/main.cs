@@ -254,6 +254,10 @@ namespace IN528ATE_tool
                 test_parameter.all_en = ck_all_test.Checked;
                 test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
                 test_parameter.trigger_level = (double)nu_ch1_trigger_level.Value;
+                test_parameter.mtp_slave = (byte)nu_mtp_slave.Value;
+                test_parameter.mtp_addr = (byte)nu_mtp_addr.Value;
+                test_parameter.mtp_data = (byte)nu_mtp_data.Value;
+                test_parameter.mtp_enable = CK_Program.Checked;
                 item_sel = cb_item.SelectedIndex;
 
                 ChamberCtr.ChamberName = tb_chamber.Text;
@@ -558,6 +562,13 @@ namespace IN528ATE_tool
             Properties.Settings.Default.vinList = tb_vinList.Text;
             Properties.Settings.Default.IoutList = tb_ioutList.Text;
             Properties.Settings.Default.itemSel = cb_item.SelectedIndex;
+            Properties.Settings.Default.ontime = nu_ontime_scale.Value;
+            Properties.Settings.Default.offtime = nu_offtime_scale.Value;
+            Properties.Settings.Default.mtp_slave = nu_mtp_slave.Value;
+            Properties.Settings.Default.mtp_addr = nu_mtp_addr.Value;
+            Properties.Settings.Default.mtp_data = nu_mtp_data.Value;
+            Properties.Settings.Default.mtp_en = CK_Program.Checked;
+
             IN528ATE_tool.Properties.Settings.Default.Save();
         }
 
@@ -569,6 +580,13 @@ namespace IN528ATE_tool
             tb_vinList.Text = Properties.Settings.Default.vinList;
             tb_ioutList.Text = Properties.Settings.Default.IoutList;
             cb_item.SelectedIndex = Properties.Settings.Default.itemSel;
+            nu_ontime_scale.Value = Properties.Settings.Default.ontime;
+            nu_offtime_scale.Value = Properties.Settings.Default.offtime;
+
+            nu_mtp_slave.Value = Properties.Settings.Default.mtp_slave;
+            nu_mtp_addr.Value = Properties.Settings.Default.mtp_addr;
+            nu_mtp_data.Value = Properties.Settings.Default.mtp_data;
+            CK_Program.Checked = Properties.Settings.Default.mtp_en;
         }
 
         private void uiSymbolButton2_Click(object sender, EventArgs e)

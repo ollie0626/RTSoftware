@@ -94,5 +94,77 @@ namespace IN528ATE_tool.Properties {
                 this["itemSel"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal ontime {
+            get {
+                return ((decimal)(this["ontime"]));
+            }
+            set {
+                this["ontime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal offtime {
+            get {
+                return ((decimal)(this["offtime"]));
+            }
+            set {
+                this["offtime"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool mtp_en {
+            get {
+                return ((bool)(this["mtp_en"]));
+            }
+            set {
+                this["mtp_en"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal mtp_slave {
+            get {
+                return ((decimal)(this["mtp_slave"]));
+            }
+            set {
+                this["mtp_slave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal mtp_addr {
+            get {
+                return ((decimal)(this["mtp_addr"]));
+            }
+            set {
+                this["mtp_addr"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal mtp_data {
+            get {
+                return ((decimal)(this["mtp_data"]));
+            }
+            set {
+                this["mtp_data"] = value;
+            }
+        }
     }
 }
