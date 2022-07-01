@@ -44,6 +44,13 @@ namespace IN528ATE_tool
             double level = InsControl._scope.doQueryNumber(":CHANNEL2:SCALE?");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 2));
             InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
+
+            InsControl._scope.CH2_On();
+            InsControl._scope.CH3_On();
+            InsControl._scope.CH2_Level(6);
+            InsControl._scope.CH3_Level(6);
+
+
             //InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
             //InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
             //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
