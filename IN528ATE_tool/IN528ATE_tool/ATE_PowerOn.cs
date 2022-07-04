@@ -62,11 +62,19 @@ namespace IN528ATE_tool
         }
 
 
-        private void Scope_Channel_Resize(int idx)
+        private void Scope_Channel_Resize(int idx, string path)
         {
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(250);
             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+            MyLib.Delay1ms(100);
+            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, path); // test conditions
+            MyLib.Delay1ms(250);
+            if (test_parameter.mtp_enable)
+            {
+                byte[] buf = new byte[] { test_parameter.mtp_data };
+                RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
+            }
             MyLib.Delay1ms(250);
             InsControl._eload.CH1_Loading(0.01);
             InsControl._scope.AutoTrigger();
@@ -74,7 +82,7 @@ namespace IN528ATE_tool
             if(test_parameter.trigger_vin_en)
             {
                 double vin = test_parameter.VinList[idx];
-                InsControl._scope.CH1_Level(vin / 2);
+                InsControl._scope.CH1_Level(vin * 0.5);
             }
             else if(test_parameter.trigger_en)
             {
@@ -161,7 +169,7 @@ namespace IN528ATE_tool
                         if (test_parameter.run_stop == true) goto Stop;
 
                         if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-                        Scope_Channel_Resize(vin_idx);
+                        //Scope_Channel_Resize(vin_idx);
 
                         /* test initial setting */
                         InsControl._scope.DoCommand(":MARKer:MODE OFF");
@@ -172,6 +180,7 @@ namespace IN528ATE_tool
                                                     test_parameter.VinList[vin_idx],
                                                     test_parameter.IoutList[iout_idx]
                                                     );
+                        Scope_Channel_Resize(vin_idx, binList[bin_idx]);
 
                         Mylib.eLoadLevelSwich(InsControl._eload, test_parameter.IoutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
@@ -190,13 +199,7 @@ namespace IN528ATE_tool
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                             MyLib.Delay1ms(250);
                             //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-                            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, binList[bin_idx]);
-                            MyLib.Delay1ms(250);
-                            if(test_parameter.mtp_enable)
-                            {
-                                byte[] buf = new byte[] { test_parameter.mtp_data };
-                                RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
-                            }
+                            //MyLib.Delay1ms(150);
                             
                         }
                         else if (test_parameter.trigger_en)
@@ -209,13 +212,14 @@ namespace IN528ATE_tool
                             RTDev.GpEn_Enable();
                             MyLib.Delay1ms(250);
                             //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-                            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, binList[bin_idx]);
-                            MyLib.Delay1ms(250);
-                            if (test_parameter.mtp_enable)
-                            {
-                                byte[] buf = new byte[] { test_parameter.mtp_data };
-                                RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
-                            }
+                            //MyLib.Delay1ms(150);
+                            //RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, binList[bin_idx]);
+                            //MyLib.Delay1ms(250);
+                            //if (test_parameter.mtp_enable)
+                            //{
+                            //    byte[] buf = new byte[] { test_parameter.mtp_data };
+                            //    RTDev.I2C_Write((byte)(test_parameter.mtp_slave >> 1), test_parameter.mtp_addr, buf);
+                            //}
                         }
                         else
                         {
