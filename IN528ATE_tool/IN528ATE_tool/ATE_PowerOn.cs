@@ -182,7 +182,8 @@ namespace IN528ATE_tool
                             MyLib.Delay1ms(100);
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                             MyLib.Delay1ms(250);
-                            if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                            //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, binList[bin_idx]);
                             MyLib.Delay1ms(250);
                             if(test_parameter.mtp_enable)
                             {
@@ -200,7 +201,8 @@ namespace IN528ATE_tool
                             MyLib.Delay1ms(100);
                             RTDev.GpEn_Enable();
                             MyLib.Delay1ms(250);
-                            if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                            //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, binList[bin_idx]);
                             MyLib.Delay1ms(250);
                             if (test_parameter.mtp_enable)
                             {
