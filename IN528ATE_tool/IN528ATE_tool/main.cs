@@ -25,7 +25,6 @@ namespace IN528ATE_tool
         RTBBControl RTDev;
         MyLib myLib;
         int SteadyTime;
-        int TCPServerTime;
 
         public static bool isChamberEn = false;
 
@@ -60,7 +59,6 @@ namespace IN528ATE_tool
             cb_item.SelectedIndex = 0;
             ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron };
             Message = new MyDelegate(MessageCallback);
-            TCPServerTime = 28800;
 
 
             for(int i = 1; i < 21; i++)
