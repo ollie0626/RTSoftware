@@ -55,6 +55,7 @@ namespace IN528ATE_tool
             //InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
             //InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,0");
             InsControl._scope.TriggerLevel_CH1(test_parameter.trigger_level); // gui trigger level
+            InsControl._scope.NormalTrigger();
             RTDev.GpEn_Disable();
             InsControl._scope.Root_RUN();
             MyLib.Delay1s(1);
@@ -68,6 +69,7 @@ namespace IN528ATE_tool
             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
             MyLib.Delay1ms(250);
             InsControl._eload.CH1_Loading(0.01);
+            InsControl._scope.AutoTrigger();
             // inital channel level setting
             if(test_parameter.trigger_vin_en)
             {
@@ -79,16 +81,18 @@ namespace IN528ATE_tool
                 InsControl._scope.CH1_Level(1);
             }
 
-            for(int i = 0; i < 3; i++)
+            InsControl._scope.CH2_Level(6);
+            InsControl._scope.CH3_Level(6);
+            for (int i = 0; i < 3; i++)
             {
-                InsControl._scope.CH2_Level(6);
-                InsControl._scope.CH3_Level(6);
                 // Inrush ???
                 //InsControl._scope.CH4_Level(1);
                 double Vo;
                 Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
+                MyLib.Delay1ms(100);
                 InsControl._scope.CH2_Level(Vo / 2);
                 Vo = Math.Abs(InsControl._scope.Meas_CH3MAX());
+                MyLib.Delay1ms(100);
                 InsControl._scope.CH3_Level(Vo / 2);
                 // Inrush ????
                 //Vo = Math.Abs(InsControl._scope.Meas_CH4MAX());
@@ -99,6 +103,8 @@ namespace IN528ATE_tool
             MyLib.Delay1ms(100);
             InsControl._eload.AllChannel_LoadOff();
             MyLib.Delay1ms(100);
+            InsControl._scope.NormalTrigger();
+            MyLib.Delay1ms(300);
         }
 
 
@@ -145,6 +151,7 @@ namespace IN528ATE_tool
             row++;
             InsControl._power.AutoPowerOff();
             OSCInit();
+            MyLib.Delay1s(1);
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
                 for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
@@ -334,7 +341,7 @@ namespace IN528ATE_tool
                         }
                         System.Threading.Thread.Sleep(800);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
-
+                        MyLib.Delay1s(2);
                         row++;
                     }
                 }
