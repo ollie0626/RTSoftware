@@ -68,7 +68,7 @@ namespace IN528ATE_tool
             MyLib.Delay1ms(250);
             if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
             MyLib.Delay1ms(100);
-            RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, path); // test conditions
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
             MyLib.Delay1ms(250);
             if (test_parameter.mtp_enable)
             {
@@ -198,7 +198,7 @@ namespace IN528ATE_tool
                             InsControl._scope.SetTrigModeEdge(false);
                             MyLib.Delay1ms(100);
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-                            MyLib.Delay1ms(250);
+                            MyLib.Delay1ms(500);
                             //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             //MyLib.Delay1ms(150);
                             

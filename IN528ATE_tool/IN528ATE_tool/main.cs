@@ -591,7 +591,7 @@ namespace IN528ATE_tool
         private void uiSymbolButton2_Click(object sender, EventArgs e)
         {
             RTDev.BoadInit();
-            RTDev.I2C_WriteBin(0x9E >> 1, 0x00, textBox2.Text);
+            RTDev.I2C_WriteBin(0x46 >> 1, 0x00, textBox2.Text);
         }
 
 

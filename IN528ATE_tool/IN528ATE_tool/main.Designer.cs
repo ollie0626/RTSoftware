@@ -1000,7 +1000,6 @@ namespace IN528ATE_tool
             this.uiSymbolButton2.Symbol = 61515;
             this.uiSymbolButton2.TabIndex = 59;
             this.uiSymbolButton2.Text = "RUN";
-            this.uiSymbolButton2.Visible = false;
             this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
             // uibt_pause
@@ -1201,7 +1200,7 @@ namespace IN528ATE_tool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(682, 567);
+            this.ClientSize = new System.Drawing.Size(690, 567);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
             this.Controls.Add(this.label18);
             this.Controls.Add(this.nu_measure_level);
