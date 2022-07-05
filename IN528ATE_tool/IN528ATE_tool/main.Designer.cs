@@ -105,6 +105,8 @@ namespace IN528ATE_tool
             this.label17 = new System.Windows.Forms.Label();
             this.nu_mtp_data = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.nu_measure_level = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -128,6 +130,7 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_data)).BeginInit();
             this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1171,12 +1174,37 @@ namespace IN528ATE_tool
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Program";
             // 
+            // nu_measure_level
+            // 
+            this.nu_measure_level.DecimalPlaces = 2;
+            this.nu_measure_level.Location = new System.Drawing.Point(540, 210);
+            this.nu_measure_level.Name = "nu_measure_level";
+            this.nu_measure_level.Size = new System.Drawing.Size(66, 23);
+            this.nu_measure_level.TabIndex = 74;
+            this.nu_measure_level.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_measure_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(448, 212);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(85, 15);
+            this.label18.TabIndex = 75;
+            this.label18.Text = "Measure Level";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(682, 567);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.nu_measure_level);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.nu_ch1_trigger_level);
             this.Controls.Add(this.ck_en_trigger);
@@ -1264,6 +1292,7 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_mtp_data)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1346,6 +1375,8 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.NumericUpDown nu_mtp_data;
         private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.NumericUpDown nu_measure_level;
+        private System.Windows.Forms.Label label18;
     }
 }
 

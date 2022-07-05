@@ -621,6 +621,7 @@ namespace MulanLite
             this.W10 = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.bt_virus_pattern = new Sunny.UI.UIButton();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
             this.ui_read_Tracking = new Sunny.UI.UIButton();
             this.flowLayoutPanel7 = new System.Windows.Forms.FlowLayoutPanel();
@@ -759,7 +760,7 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.bt_virus_pattern = new Sunny.UI.UIButton();
+            this.uiButton6 = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -10081,6 +10082,28 @@ namespace MulanLite
             this.tabPage4.Text = "Ridge TestMode";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // bt_virus_pattern
+            // 
+            this.bt_virus_pattern.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_virus_pattern.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_virus_pattern.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_virus_pattern.Location = new System.Drawing.Point(161, 13);
+            this.bt_virus_pattern.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_virus_pattern.Name = "bt_virus_pattern";
+            this.bt_virus_pattern.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.bt_virus_pattern.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.bt_virus_pattern.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.bt_virus_pattern.Size = new System.Drawing.Size(183, 29);
+            this.bt_virus_pattern.Style = Sunny.UI.UIStyle.Custom;
+            this.bt_virus_pattern.TabIndex = 72;
+            this.bt_virus_pattern.Text = "Mulan Virus Pattern";
+            this.bt_virus_pattern.Click += new System.EventHandler(this.bt_virus_pattern_Click);
+            // 
             // groupBox36
             // 
             this.groupBox36.Controls.Add(this.ui_read_Tracking);
@@ -11809,6 +11832,7 @@ namespace MulanLite
             // 
             // uiGroupBox22
             // 
+            this.uiGroupBox22.Controls.Add(this.uiButton6);
             this.uiGroupBox22.Controls.Add(this.uiButton1);
             this.uiGroupBox22.Controls.Add(this.uiLabel76);
             this.uiGroupBox22.Controls.Add(this.uiLabel77);
@@ -12001,27 +12025,18 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // bt_virus_pattern
+            // uiButton6
             // 
-            this.bt_virus_pattern.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_virus_pattern.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.bt_virus_pattern.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.bt_virus_pattern.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.bt_virus_pattern.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.bt_virus_pattern.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.bt_virus_pattern.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_virus_pattern.Location = new System.Drawing.Point(161, 13);
-            this.bt_virus_pattern.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_virus_pattern.Name = "bt_virus_pattern";
-            this.bt_virus_pattern.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.bt_virus_pattern.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.bt_virus_pattern.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.bt_virus_pattern.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.bt_virus_pattern.Size = new System.Drawing.Size(183, 29);
-            this.bt_virus_pattern.Style = Sunny.UI.UIStyle.Custom;
-            this.bt_virus_pattern.TabIndex = 72;
-            this.bt_virus_pattern.Text = "Mulan Virus Pattern";
-            this.bt_virus_pattern.Click += new System.EventHandler(this.bt_virus_pattern_Click);
+            this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton6.Location = new System.Drawing.Point(12, 145);
+            this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton6.Name = "uiButton6";
+            this.uiButton6.Size = new System.Drawing.Size(184, 29);
+            this.uiButton6.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton6.TabIndex = 46;
+            this.uiButton6.Text = "Into Richtek Test Mode";
+            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
             // 
             // main
             // 
@@ -12029,7 +12044,7 @@ namespace MulanLite
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1428, 843);
+            this.ClientSize = new System.Drawing.Size(1421, 843);
             this.ControlBoxFillHoverColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.uiGroupBox5);
             this.Controls.Add(this.uiGroupBox22);
@@ -12653,9 +12668,9 @@ namespace MulanLite
         private System.Windows.Forms.ComboBox cb_vhr_hyst;
         private System.Windows.Forms.ComboBox cb_short_dgl;
         private System.Windows.Forms.ComboBox cb_open_dgl;
-        private Sunny.UI.UITabControl uiTabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabPage tabPage2;
+        public Sunny.UI.UITabControl uiTabControl1;
+        public System.Windows.Forms.TabPage tabPage1;
+        public System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.NumericUpDown nu_CH0x8;
         private Sunny.UI.UITrackBar trackCH0x8SL;
         private Sunny.UI.UITrackBar trackCH3x8SL;
@@ -12679,7 +12694,7 @@ namespace MulanLite
         private System.Windows.Forms.ComboBox cb_centred;
         private Sunny.UI.UIButton bt_usLed_control;
         private Sunny.UI.UIButton bt_specified;
-        private System.Windows.Forms.TabPage tabPage3;
+        public System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Label label65;
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.NumericUpDown W0F;
@@ -13053,7 +13068,7 @@ namespace MulanLite
         private System.Windows.Forms.ComboBox cb_ldoio;
         private Sunny.UI.UITrackBar uiTrackBar1;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
-        private System.Windows.Forms.TabPage tabPage4;
+        public System.Windows.Forms.TabPage tabPage4;
         private Sunny.UI.UIButton uibt_ridge_testmode;
         private System.Windows.Forms.GroupBox groupBox21;
         private System.Windows.Forms.Label label99;
@@ -13121,7 +13136,7 @@ namespace MulanLite
         private Sunny.UI.UILabel uiLabel57;
         private System.Windows.Forms.NumericUpDown nu_Lot_type;
         private Sunny.UI.UIButton ui_read_Tracking;
-        private System.Windows.Forms.TabPage tabPage5;
+        public System.Windows.Forms.TabPage tabPage5;
         private Sunny.UI.UIButton ui_test_mode;
         private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.NumericUpDown W9E;
@@ -13188,6 +13203,7 @@ namespace MulanLite
         private System.Windows.Forms.Label label141;
         private System.Windows.Forms.Label label143;
         private Sunny.UI.UIButton bt_virus_pattern;
+        private Sunny.UI.UIButton uiButton6;
     }
 }
 

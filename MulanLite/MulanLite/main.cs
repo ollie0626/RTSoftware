@@ -33,6 +33,7 @@ namespace MulanLite
 
         public void GUIInit()
         {
+            
             RTDev = new RTBBControl();
             RTDev.BoardInit();
 
@@ -1029,6 +1030,12 @@ namespace MulanLite
             //int[] buf = new int[] { 0x12DDE };
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
 
+            uiTabControl1.TabPages.RemoveAt(4);
+            
+            
+
+
+
             timer1.Interval = 500;
             timer1.Enabled = false;
         }
@@ -1858,6 +1865,12 @@ namespace MulanLite
             RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*55, last_packet); // id 55
 
             bt.Enabled = true;
+        }
+
+        private void uiButton6_Click(object sender, EventArgs e)
+        {
+            password dialog = new password(this);
+            dialog.ShowDialog();
         }
     }
 }

@@ -81,8 +81,8 @@ namespace IN528ATE_tool
             // inital channel level setting
             if(test_parameter.trigger_vin_en)
             {
-                double vin = test_parameter.VinList[idx];
-                InsControl._scope.CH1_Level(vin * 0.5);
+                //double vin = test_parameter.VinList[idx];
+                InsControl._scope.CH1_Level(test_parameter.trigger_level);
             }
             else if(test_parameter.trigger_en)
             {
@@ -181,6 +181,7 @@ namespace IN528ATE_tool
                                                     test_parameter.IoutList[iout_idx]
                                                     );
                         Scope_Channel_Resize(vin_idx, binList[bin_idx]);
+                        
 
                         Mylib.eLoadLevelSwich(InsControl._eload, test_parameter.IoutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
@@ -255,7 +256,7 @@ namespace IN528ATE_tool
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod CHANnel1,ABSolute");
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel1,{0},{1},{2}",
                                                         InsControl._scope.Meas_CH1Top(),
-                                                        test_parameter.trigger_level,
+                                                        test_parameter.measure_level,
                                                         0));
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,ABSolute");
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",

@@ -37,6 +37,7 @@ namespace IN528ATE_tool
         public static bool trigger_vin_en;
         public static bool trigger_en;
         public static double trigger_level;
+        public static double measure_level;
 
         /* MTP program */
         public static byte mtp_slave;
