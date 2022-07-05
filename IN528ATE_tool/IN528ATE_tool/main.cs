@@ -255,6 +255,7 @@ namespace IN528ATE_tool
                 test_parameter.mtp_slave = (byte)nu_mtp_slave.Value;
                 test_parameter.mtp_addr = (byte)nu_mtp_addr.Value;
                 test_parameter.mtp_data = (byte)nu_mtp_data.Value;
+                test_parameter.measure_level = (double)nu_measure_level.Value;
                 test_parameter.mtp_enable = CK_Program.Checked;
                 item_sel = cb_item.SelectedIndex;
 
