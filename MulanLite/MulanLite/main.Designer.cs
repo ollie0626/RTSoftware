@@ -747,6 +747,7 @@ namespace MulanLite
             this.nuSAddr = new System.Windows.Forms.NumericUpDown();
             this.nuSID = new System.Windows.Forms.NumericUpDown();
             this.uiGroupBox22 = new Sunny.UI.UIGroupBox();
+            this.uiButton6 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiLabel76 = new Sunny.UI.UILabel();
             this.uiLabel77 = new Sunny.UI.UILabel();
@@ -760,7 +761,6 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.uiButton6 = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -11832,7 +11832,6 @@ namespace MulanLite
             // 
             // uiGroupBox22
             // 
-            this.uiGroupBox22.Controls.Add(this.uiButton6);
             this.uiGroupBox22.Controls.Add(this.uiButton1);
             this.uiGroupBox22.Controls.Add(this.uiLabel76);
             this.uiGroupBox22.Controls.Add(this.uiLabel77);
@@ -11855,6 +11854,30 @@ namespace MulanLite
             this.uiGroupBox22.TabIndex = 62;
             this.uiGroupBox22.Text = "Read Flag";
             this.uiGroupBox22.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiButton6
+            // 
+            this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
+            this.uiButton6.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
+            this.uiButton6.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(233)))), ((int)(((byte)(255)))));
+            this.uiButton6.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton6.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton6.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.Location = new System.Drawing.Point(1375, 230);
+            this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton6.Name = "uiButton6";
+            this.uiButton6.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.Size = new System.Drawing.Size(18, 29);
+            this.uiButton6.Style = Sunny.UI.UIStyle.Black;
+            this.uiButton6.TabIndex = 46;
+            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
             // 
             // uiButton1
             // 
@@ -12025,19 +12048,6 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // uiButton6
-            // 
-            this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton6.Location = new System.Drawing.Point(12, 145);
-            this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton6.Name = "uiButton6";
-            this.uiButton6.Size = new System.Drawing.Size(184, 29);
-            this.uiButton6.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton6.TabIndex = 46;
-            this.uiButton6.Text = "Into Richtek Test Mode";
-            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -12053,6 +12063,7 @@ namespace MulanLite
             this.Controls.Add(this.uiGroupBox1);
             this.Controls.Add(this.flowLayoutPanel2);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.uiButton6);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximumSize = new System.Drawing.Size(2500, 977);
