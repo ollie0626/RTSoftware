@@ -166,5 +166,29 @@ namespace IN528ATE_tool.Properties {
                 this["mtp_data"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal slave {
+            get {
+                return ((decimal)(this["slave"]));
+            }
+            set {
+                this["slave"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public decimal sp_slave {
+            get {
+                return ((decimal)(this["sp_slave"]));
+            }
+            set {
+                this["sp_slave"] = value;
+            }
+        }
     }
 }

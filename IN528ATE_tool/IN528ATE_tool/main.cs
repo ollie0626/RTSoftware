@@ -86,6 +86,50 @@ namespace IN528ATE_tool
             MessageBox.Show("Callback message test!!");
         }
 
+
+        private void connect_Ins(int idx)
+        {
+            switch (idx)
+            {
+                case 0:
+                    InsControl._scope = new AgilentOSC(tb_osc.Text);
+                    if (InsControl._scope.InsState())
+                        led_osc.Color = Color.LightGreen;
+                    else
+                        led_osc.Color = Color.Red;
+                    break;
+                case 1:
+                    InsControl._power = new PowerModule((int)nu_power.Value);
+                    if (InsControl._power.InsState())
+                        led_power.Color = Color.LightGreen;
+                    else
+                        led_power.Color = Color.Red;
+                    break;
+                case 2:
+                    InsControl._eload = new EloadModule((int)nu_eload.Value);
+                    if (InsControl._eload.InsState())
+                        led_eload.Color = Color.LightGreen;
+                    else
+                        led_eload.Color = Color.Red;
+                    break;
+                case 3:
+                    InsControl._34970A = new MultiChannelModule((int)nu_34970A.Value);
+                    if (InsControl._34970A.InsState())
+                        led_37940.Color = Color.LightGreen;
+                    else
+                        led_37940.Color = Color.Red;
+                    break;
+                case 4:
+                    InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
+                    if (InsControl._chamber.InsState())
+                        led_chamber.Color = Color.LightGreen;
+                    else
+                        led_chamber.Color = Color.Red;
+                    break;
+            }
+        }
+
+
         private void uibt_osc_connect_Click(object sender, EventArgs e)
         {
             UIButton bt = (UIButton)sender;
@@ -567,7 +611,8 @@ namespace IN528ATE_tool
             Properties.Settings.Default.mtp_addr = nu_mtp_addr.Value;
             Properties.Settings.Default.mtp_data = nu_mtp_data.Value;
             Properties.Settings.Default.mtp_en = CK_Program.Checked;
-
+            Properties.Settings.Default.slave = nu_slave.Value;
+            Properties.Settings.Default.sp_slave = nu_slave.Value;
             IN528ATE_tool.Properties.Settings.Default.Save();
         }
 
@@ -586,6 +631,15 @@ namespace IN528ATE_tool
             nu_mtp_addr.Value = Properties.Settings.Default.mtp_addr;
             nu_mtp_data.Value = Properties.Settings.Default.mtp_data;
             CK_Program.Checked = Properties.Settings.Default.mtp_en;
+
+            nu_slave.Value = Properties.Settings.Default.slave;
+            nu_specify.Value = Properties.Settings.Default.sp_slave;
+#if true
+            connect_Ins(0);
+            connect_Ins(1);
+            connect_Ins(2);
+            connect_Ins(3);
+#endif
         }
 
         private void uiSymbolButton2_Click(object sender, EventArgs e)
