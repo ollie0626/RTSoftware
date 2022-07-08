@@ -19,6 +19,7 @@ namespace IN528ATE_tool
     public interface TaskRun
     {
         void ATETask();
+
     }
 
     public class MyLib

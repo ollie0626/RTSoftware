@@ -34,6 +34,7 @@ namespace IN528ATE_tool
         ATE_OutputRipple _ate_ripple;
         ATE_CodeInrush _ate_code_inrush;
         ATE_PowerOn _ate_poweron;
+        ATE_CurrentLimit _ate_current_limit;
         TaskRun[] ate_table;
 
         string[] tempList;
@@ -50,6 +51,7 @@ namespace IN528ATE_tool
             _ate_ripple = new ATE_OutputRipple();
             _ate_code_inrush = new ATE_CodeInrush();
             _ate_poweron = new ATE_PowerOn();
+            _ate_current_limit = new ATE_CurrentLimit();
 
             led_osc.Color = Color.Red;
             led_power.Color = Color.Red;
@@ -57,7 +59,7 @@ namespace IN528ATE_tool
             led_37940.Color = Color.Red;
             led_chamber.Color = Color.Red;
             cb_item.SelectedIndex = 0;
-            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron };
+            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron, _ate_current_limit };
             Message = new MyDelegate(MessageCallback);
 
 
@@ -175,71 +177,6 @@ namespace IN528ATE_tool
             }
         }
 
-        private bool CheckTCPConnect_MS(int Time_1S)
-        {
-            ChamberCtr.CreatTCPServer();
-            for (int i = 0; i < Time_1S; ++i)
-            {
-                if (ChamberCtr.myTcpListener.Pending())
-                {
-                    ChamberCtr.mySocket = ChamberCtr.myTcpListener.AcceptSocket();
-                    ChamberCtr.mySocket.Close();
-                    ChamberCtr.myTcpListener.Stop();
-                    ChamberCtr.IsTCPConnected = true;
-                    return true;
-                }
-                System.Threading.Thread.Sleep(1000);
-                Console.WriteLine("wait for slave ~~");
-                // test
-                if (InsControl._chamber != null) InsControl._chamber.GetChamberTemperature();
-            }
-            ChamberCtr.IsTCPConnected = false;
-            return false;
-        }
-
-        private bool CheckTCPConnect_SV(int Time_1S)
-        {
-            for (int i = 0; i < Time_1S; ++i)
-            {
-                if (ChamberCtr.CreatSlaveConnect())
-                {
-                    ChamberCtr.IsTCPConnected = true;
-                    return true;
-                }
-                System.Threading.Thread.Sleep(1000);
-                Console.WriteLine("wait for master");
-            }
-            ChamberCtr.IsTCPConnected = false;
-            return false;
-        }
-
-        private bool CheckTCPConnect(int Time_1S)
-        {
-            if (ck_multi_chamber.Checked)
-            {
-                if (!ck_slave.Checked)
-                {
-                    if (!CheckTCPConnect_MS(Time_1S))
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    if (!CheckTCPConnect_SV(Time_1S))
-                    {
-                        return false;
-                    }
-                    System.Threading.Thread.Sleep(1000);
-                }
-            }
-            return true;
-        }
-
-        private Task<bool> TaskConnect(int Time_1S)
-        {
-            return Task.Factory.StartNew(() => CheckTCPConnect(Time_1S));
-        }
 
         private bool RecountTime()
         {
@@ -268,6 +205,37 @@ namespace IN528ATE_tool
             }
         }
 
+        private void test_parameter_copy()
+        {
+            test_parameter.chamber_en = ck_chaber_en.Checked;
+            test_parameter.run_stop = false;
+            test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.IoutList = tb_ioutList.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.specify_id = (byte)nu_specify.Value;
+            test_parameter.slave = (byte)nu_slave.Value;
+            test_parameter.binFolder = textBox1.Text;
+            test_parameter.specify_bin = textBox2.Text;
+            test_parameter.waveform_path = tbWave.Text;
+            test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
+            test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
+            test_parameter.addr = (byte)nu_addr.Value;
+            test_parameter.max = (byte)nu_code_max.Value;
+            test_parameter.min = (byte)nu_code_min.Value;
+            test_parameter.vol_max = (double)nu_vol_max.Value;
+            test_parameter.vol_min = (double)nu_vol_min.Value;
+            test_parameter.all_en = ck_all_test.Checked;
+            test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
+            test_parameter.trigger_level = (double)nu_ch1_trigger_level.Value;
+            test_parameter.mtp_slave = (byte)nu_mtp_slave.Value;
+            test_parameter.mtp_addr = (byte)nu_mtp_addr.Value;
+            test_parameter.mtp_data = (byte)nu_mtp_data.Value;
+            test_parameter.measure_level = (double)nu_measure_level.Value;
+            test_parameter.mtp_enable = CK_Program.Checked;
+            test_parameter.cv_setting = (double)nu_CVSetting.Value;
+            test_parameter.cv_step = (double)nu_CVStep.Value;
+            test_parameter.cv_wait = (int)nu_CVwait.Value;
+        }
+
         private void uibt_run_Click(object sender, EventArgs e)
         {
             try
@@ -277,30 +245,7 @@ namespace IN528ATE_tool
                 uiProcessBar1.Maximum = (int)nu_steady.Value;
                 RTDev.BoadInit();
                 /* test conditons assign */
-                test_parameter.chamber_en = ck_chaber_en.Checked;
-                test_parameter.run_stop = false;
-                test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
-                test_parameter.IoutList = tb_ioutList.Text.Split(',').Select(double.Parse).ToList();
-                test_parameter.specify_id = (byte)nu_specify.Value;
-                test_parameter.slave = (byte)nu_slave.Value;
-                test_parameter.binFolder = textBox1.Text;
-                test_parameter.specify_bin = textBox2.Text;
-                test_parameter.waveform_path = tbWave.Text;
-                test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
-                test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
-                test_parameter.addr = (byte)nu_addr.Value;
-                test_parameter.max = (byte)nu_code_max.Value;
-                test_parameter.min = (byte)nu_code_min.Value;
-                test_parameter.vol_max = (double)nu_vol_max.Value;
-                test_parameter.vol_min = (double)nu_vol_min.Value;
-                test_parameter.all_en = ck_all_test.Checked;
-                test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
-                test_parameter.trigger_level = (double)nu_ch1_trigger_level.Value;
-                test_parameter.mtp_slave = (byte)nu_mtp_slave.Value;
-                test_parameter.mtp_addr = (byte)nu_mtp_addr.Value;
-                test_parameter.mtp_data = (byte)nu_mtp_data.Value;
-                test_parameter.measure_level = (double)nu_measure_level.Value;
-                test_parameter.mtp_enable = CK_Program.Checked;
+                test_parameter_copy();
                 item_sel = cb_item.SelectedIndex;
 
                 ChamberCtr.ChamberName = tb_chamber.Text;
@@ -322,6 +267,8 @@ namespace IN528ATE_tool
                     _ate_ripple.temp = 25;
                     _ate_poweron.temp = 25;
                     _ate_code_inrush.temp = 25;
+                    _ate_current_limit.temp = 25;
+
                     if (ck_all_test.Checked)
                     {
 
@@ -409,6 +356,7 @@ namespace IN528ATE_tool
                 _ate_ripple.temp = Convert.ToDouble(tempList[i]);
                 _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
                 _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+                _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
 
                 if (!test_parameter.all_en)
                 {
@@ -423,8 +371,10 @@ namespace IN528ATE_tool
                         case 2:
                             _ate_poweron.ATETask();
                             break;
+                        case 3:
+                            _ate_current_limit.ATETask();
+                            break;
                     }
-
                 }
                 else
                 {
@@ -469,6 +419,7 @@ namespace IN528ATE_tool
                 _ate_ripple.temp = Convert.ToDouble(tempList[i]);
                 _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
                 _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+                _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
 
                 if (!test_parameter.all_en)
                 {
@@ -484,6 +435,9 @@ namespace IN528ATE_tool
                             break;
                         case 2:
                             _ate_poweron.ATETask();
+                            break;
+                        case 3:
+                            _ate_current_limit.ATETask();
                             break;
                     }
                 }
@@ -634,7 +588,7 @@ namespace IN528ATE_tool
 
             nu_slave.Value = Properties.Settings.Default.slave;
             nu_specify.Value = Properties.Settings.Default.sp_slave;
-#if true
+#if false
             connect_Ins(0);
             connect_Ins(1);
             connect_Ins(2);

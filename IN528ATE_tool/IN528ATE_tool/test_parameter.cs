@@ -45,6 +45,11 @@ namespace IN528ATE_tool
         public static byte mtp_data;
         public static bool mtp_enable;
 
+        /* Current Limit */
+        public static double cv_setting;
+        public static double cv_step;
+        public static int cv_wait;
+
     }
 
 
