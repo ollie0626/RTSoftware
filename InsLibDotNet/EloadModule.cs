@@ -86,6 +86,47 @@ namespace InsLibDotNet
             doCommand(mode);
         }
 
+        public void CV_Mode()
+        {
+            string mode = "MODE CV";
+            doCommand(mode);
+        }
+
+        public void SetCV_Vol(double vol)
+        {
+            string cmd = "VOLTage:CURRent MAX";
+            doCommand(cmd);
+
+            cmd = "VOLTage:L1 " + vol + "V";
+            doCommand(cmd);
+
+            cmd = "LOAD ON";
+            doCommand(cmd);
+        }
+
+        public void SetCV_Current(double current)
+        {
+            string cmd = "VOLTage:CURRent " + current;
+            doCommand(cmd);
+        }
+
+        public void SetCV_VolMode(bool isFast)
+        {
+            string cmd = "VOLTage:MODE " + (isFast ? "FAST" : "SLOW");
+            doCommand(cmd);
+        }
+
+        public double Meas_Vol(int ch)
+        {
+            string cmd = "MEASure:VOLTage? CHAN" + ch.ToString();
+            return doQueryNumber(cmd);
+        }
+
+        public double Meas_Curr(int ch)
+        {
+            string cmd = "MEASure:CURRent? CHAN" + ch.ToString();
+            return doQueryNumber(cmd);
+        }
 
 
         private void DymanicLoadClear(string CHx)
