@@ -35,6 +35,7 @@ namespace IN528ATE_tool
         ATE_CodeInrush _ate_code_inrush;
         ATE_PowerOn _ate_poweron;
         ATE_CurrentLimit _ate_current_limit;
+        ATE_UVPLevel _ate_uvp;
         TaskRun[] ate_table;
 
         string[] tempList;
@@ -52,6 +53,7 @@ namespace IN528ATE_tool
             _ate_code_inrush = new ATE_CodeInrush();
             _ate_poweron = new ATE_PowerOn();
             _ate_current_limit = new ATE_CurrentLimit();
+            _ate_uvp = new ATE_UVPLevel();
 
             led_osc.Color = Color.Red;
             led_power.Color = Color.Red;
@@ -59,7 +61,7 @@ namespace IN528ATE_tool
             led_37940.Color = Color.Red;
             led_chamber.Color = Color.Red;
             cb_item.SelectedIndex = 0;
-            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron, _ate_current_limit };
+            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron, _ate_current_limit, _ate_uvp };
             Message = new MyDelegate(MessageCallback);
 
 
@@ -233,7 +235,7 @@ namespace IN528ATE_tool
             test_parameter.mtp_enable = CK_Program.Checked;
             test_parameter.cv_setting = (double)nu_CVSetting.Value;
             test_parameter.cv_step = (double)nu_CVStep.Value;
-            test_parameter.cv_wait = (int)nu_CVwait.Value;
+            test_parameter.cv_wait = (double)nu_CVwait.Value;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)
@@ -598,8 +600,10 @@ namespace IN528ATE_tool
 
         private void uiSymbolButton2_Click(object sender, EventArgs e)
         {
-            RTDev.BoadInit();
-            RTDev.I2C_WriteBin(0x9E >> 1, 0x00, textBox2.Text);
+            //RTDev.BoadInit();
+            //RTDev.I2C_WriteBin(0x46 >> 1, 0x00, textBox2.Text);
+
+            InsControl._eload.SetCV_Vol(5.3);
         }
 
 

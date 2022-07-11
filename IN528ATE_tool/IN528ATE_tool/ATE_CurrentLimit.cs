@@ -33,7 +33,7 @@ namespace IN528ATE_tool
 
         private void Channel_Resize()
         {
-            InsControl._scope.TimeScaleUs(1);
+            InsControl._scope.TimeScaleUs(500);
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH3_Off();
@@ -47,25 +47,23 @@ namespace IN528ATE_tool
             InsControl._scope.CH1_Offset(3.5 * 2);
             InsControl._scope.CH2_Offset(3.5 * 1);
 
-            double max1, max2;
-            max1 = InsControl._scope.Meas_CH1MAX();
-            max2 = InsControl._scope.Meas_CH2MAX();
+            double max2;
+            //max1 = InsControl._scope.Meas_CH1MAX();
+            max2 = InsControl._scope.Meas_CH1MAX();
 
             for(int i = 0; i <= 3; i++)
             {
-                InsControl._scope.CH1_Level(max1 / 4);
-                max1 = InsControl._scope.Meas_CH1MAX();
-
+                InsControl._scope.CH1_Level(max2 / 4);
                 InsControl._scope.CH2_Level(max2 / 3);
-                max2 = InsControl._scope.Meas_CH2MAX();
+                max2 = InsControl._scope.Meas_CH1MAX();
             }
 
-            double freq = InsControl._scope.Meas_CH2Freq();
-            for(int i = 0; i <= 5; i++)
-            {
-                InsControl._scope.TimeScale(freq * 20);
-                freq = InsControl._scope.Meas_CH2Freq();
-            }
+            //double freq = InsControl._scope.Meas_CH2Freq();
+            //for(int i = 0; i <= 5; i++)
+            //{
+            //    InsControl._scope.TimeScale(freq * 20);
+            //    freq = InsControl._scope.Meas_CH2Freq();
+            //}
         }
 
 
@@ -85,7 +83,7 @@ namespace IN528ATE_tool
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if true
+#if false
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -134,14 +132,14 @@ namespace IN528ATE_tool
                     if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), test_parameter.addr, binList[bin_idx]);
                     InsControl._scope.AutoTrigger();
                     // CV enable
-                    double cv_vol = test_parameter.VinList[vin_idx] * (test_parameter.cv_setting / 100);
+                    double cv_vol = InsControl._eload.GetVol() * (test_parameter.cv_setting / 100);
                     InsControl._eload.SetCV_Vol(cv_vol);
                     double tempVin = ori_vinTable[vin_idx];
-                    if (!MyLib.Vincompensation(InsControl._power, InsControl._34970A, ori_vinTable[vin_idx], ref tempVin))
-                    {
-                        System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
-                        return;
-                    }
+                    //if (!MyLib.Vincompensation(InsControl._power, InsControl._34970A, ori_vinTable[vin_idx], ref tempVin))
+                    //{
+                    //    System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                    //    return;
+                    //}
                     // channel resize and time scale resize. use channel 1, 2, 4.
                     Channel_Resize();
 
@@ -156,7 +154,7 @@ namespace IN528ATE_tool
                     double amp_ch1 = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude CHANnel1"); // Vout
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     InsControl._scope.Root_RUN();
-#if true
+#if false
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
@@ -176,7 +174,7 @@ namespace IN528ATE_tool
                     MyLib.Delay1s(2);
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
-#if true
+#if false
                     _sheet.Cells[row, XLS_Table.K] = max_ch4; // power off ILX maximum
 #endif
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
@@ -188,7 +186,7 @@ namespace IN528ATE_tool
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-#if true
+#if false
             for (int i = 1; i < 12; i++) _sheet.Columns[i].AutoFit();
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CurrentLimit_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);

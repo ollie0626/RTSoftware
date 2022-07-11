@@ -99,14 +99,15 @@ namespace IN528ATE_tool
                     InsControl._scope.TriggerLevel_CH1(ori_vol * 0.65);
 
                     double cv_vol = 0, cv_percent = 0;
-
+                    InsControl._scope.NormalTrigger();
+                    InsControl._scope.Root_Clear();
                     for(int cv_idx = 0; cv_idx < cv_cnt; cv_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
                         double vol = 0;
                         cv_vol = ori_vol * ((test_parameter.cv_setting - (test_parameter.cv_step * cv_idx)) / 100);
                         InsControl._eload.SetCV_Vol(cv_vol);
-                        MyLib.Delay1ms(test_parameter.cv_wait * 15);
+                        MyLib.Delay1ms((int)test_parameter.cv_wait * 15);
                         vol = InsControl._eload.GetVol();
                         cv_percent = test_parameter.cv_setting - (test_parameter.cv_step * cv_idx);
                         if (vol < (ori_vol * 0.5))
@@ -128,17 +129,42 @@ namespace IN528ATE_tool
                                         ↓    ↓ | 
                                         ↓    ↓
                                wait * -0.7   wait * -0.3
+
+                        Channel1: Vout
+                        Channel2: Lx
+                        Channel4: ILx
+                        
+                        Function1: Vout abs
+                        Function2: Function1 gatting
+
+                        use Lx get UVP delay time
                      */
                     double start_t = (test_parameter.cv_wait / 1000) * -1 * 0.7;
-                    double stop_t = (test_parameter.cv_wait / 1000) * -1 * 0.2;
-                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing CHANnel1, {0}, {1}", start_t, stop_t));
-                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STARt {0}", start_t));
-                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STOP {0}", stop_t));
+                    double stop_t = (test_parameter.cv_wait / 1000) * -1 * 0.3;
+                    //InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing CHANnel1, {0}, {1}", start_t, stop_t));
+                    InsControl._scope.DoCommand(string.Format(":FUNCtion2:GATing FUNCtion1, {0}, {1}", start_t, stop_t));
 
-                    double UVP_amp = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude? FUNC1");
-                    double UVP_max = InsControl._scope.doQueryNumber(":MEASure:VMAX? FUNC1");
-                    double UVP_min = InsControl._scope.doQueryNumber(":MEASure:VMIN? FUNC1");
-                    double UVP_dly = InsControl._scope.doQueryNumber(":MEASure:PPULses? CHANnel2");
+
+                    //InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
+                    //InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STARt {0}", start_t));
+                    //InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STOP {0}", stop_t));
+
+                    InsControl._scope.DoCommand(":MEASure:SOURce FUNCtion2");
+                    InsControl._scope.DoCommand(":MEASure:VMAX FUNCtion2");
+                    InsControl._scope.DoCommand(":MEASure:VMIN FUNCtion2");
+                    double UVP_amp = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude?");
+                    double UVP_max = InsControl._scope.doQueryNumber(":MEASure:VMAX?");
+                    double UVP_min = InsControl._scope.doQueryNumber(":MEASure:VMIN?");
+
+
+                    //:MEASure:PPULses CHANNEL2
+                    //:MARKer:MODE MEASurement
+                    //:MARKer:MEASurement:MEASurement MEASurement1 --> ??
+                    InsControl._scope.DoCommand(":MEASure:PPULses CHANNEL2");
+                    InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                    InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement");
+                    //:MARKer2:X:POSition?
+                    double UVP_dly = InsControl._scope.doQueryNumber(":MARKer2:X:POSition?");
 #if true
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
@@ -150,20 +176,23 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.G] = UVP_amp;
                     _sheet.Cells[row, XLS_Table.H] = UVP_max;
                     _sheet.Cells[row, XLS_Table.I] = UVP_min;
-                    _sheet.Cells[row, XLS_Table.J] = UVP_dly;
+                    _sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
 #endif
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();
                     InsControl._scope.Root_RUN();
+                    InsControl._scope.AutoTrigger();
+                    InsControl._scope.Root_Clear();
                     row++;
                 }
             }
 
         Stop:
+            InsControl._scope.DoCommand(":MEASure:SOURce CHANnel1");
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-
+#if true
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_UVP_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
@@ -172,6 +201,8 @@ namespace IN528ATE_tool
             _app.Quit();
             _app = null;
             GC.Collect();
+#endif
+
         }
 
 
@@ -188,12 +219,19 @@ namespace IN528ATE_tool
             InsControl._scope.CH1_Level(5);
             InsControl._scope.CH2_Level(5);
             InsControl._scope.CH4_Level(1);
-
-            InsControl._scope.TimeScaleMs(test_parameter.cv_wait * 3);
-            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -3);
+            // right position is negtive
+            // up position is negtive 
+            InsControl._scope.TimeScaleMs(test_parameter.cv_wait * 3); // trigger point
+            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -3); 
             InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
             InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 1));
             InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
+            InsControl._scope.DoCommand(":FUNCTION2:DISPLAY ON");
+            InsControl._scope.Root_Clear();
+            InsControl._scope.Root_RUN();
+            InsControl._scope.Measure_Clear();
+
+
         }
 
 
