@@ -107,12 +107,12 @@ namespace IN528ATE_tool
             this.nu_measure_level = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
-            this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
-            this.label19 = new System.Windows.Forms.Label();
             this.nu_CVwait = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
+            this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -138,9 +138,9 @@ namespace IN528ATE_tool
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).BeginInit();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -451,7 +451,8 @@ namespace IN528ATE_tool
             "0. Output Ripple",
             "1. Code Inrush",
             "2. Delay Time & SST",
-            "3. Current Limit"});
+            "3. Current Limit",
+            "4. UVP"});
             this.cb_item.Location = new System.Drawing.Point(347, 182);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(174, 23);
@@ -1213,52 +1214,6 @@ namespace IN528ATE_tool
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Current Limit ＆ UVP Level　";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 19);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(80, 15);
-            this.label11.TabIndex = 73;
-            this.label11.Text = "CV Setting (%)";
-            // 
-            // nu_CVSetting
-            // 
-            this.nu_CVSetting.DecimalPlaces = 3;
-            this.nu_CVSetting.Location = new System.Drawing.Point(92, 19);
-            this.nu_CVSetting.Name = "nu_CVSetting";
-            this.nu_CVSetting.Size = new System.Drawing.Size(62, 23);
-            this.nu_CVSetting.TabIndex = 73;
-            this.nu_CVSetting.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_CVSetting.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // nu_CVStep
-            // 
-            this.nu_CVStep.DecimalPlaces = 3;
-            this.nu_CVStep.Location = new System.Drawing.Point(216, 17);
-            this.nu_CVStep.Name = "nu_CVStep";
-            this.nu_CVStep.Size = new System.Drawing.Size(62, 23);
-            this.nu_CVStep.TabIndex = 74;
-            this.nu_CVStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_CVStep.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(160, 19);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 15);
-            this.label19.TabIndex = 75;
-            this.label19.Text = "Step (%)";
-            // 
             // nu_CVwait
             // 
             this.nu_CVwait.Location = new System.Drawing.Point(402, 17);
@@ -1285,6 +1240,52 @@ namespace IN528ATE_tool
             this.label20.Size = new System.Drawing.Size(110, 15);
             this.label20.TabIndex = 77;
             this.label20.Text = "Wait Step time(ms)";
+            // 
+            // nu_CVStep
+            // 
+            this.nu_CVStep.DecimalPlaces = 3;
+            this.nu_CVStep.Location = new System.Drawing.Point(216, 17);
+            this.nu_CVStep.Name = "nu_CVStep";
+            this.nu_CVStep.Size = new System.Drawing.Size(62, 23);
+            this.nu_CVStep.TabIndex = 74;
+            this.nu_CVStep.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_CVStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(160, 19);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 15);
+            this.label19.TabIndex = 75;
+            this.label19.Text = "Step (%)";
+            // 
+            // nu_CVSetting
+            // 
+            this.nu_CVSetting.DecimalPlaces = 3;
+            this.nu_CVSetting.Location = new System.Drawing.Point(92, 19);
+            this.nu_CVSetting.Name = "nu_CVSetting";
+            this.nu_CVSetting.Size = new System.Drawing.Size(62, 23);
+            this.nu_CVSetting.TabIndex = 73;
+            this.nu_CVSetting.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_CVSetting.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 19);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(80, 15);
+            this.label11.TabIndex = 73;
+            this.label11.Text = "CV Setting (%)";
             // 
             // main
             // 
@@ -1384,9 +1385,9 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

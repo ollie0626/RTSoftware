@@ -48,7 +48,7 @@ namespace IN528ATE_tool
         /* Current Limit */
         public static double cv_setting;
         public static double cv_step;
-        public static int cv_wait;
+        public static double cv_wait;
 
     }
 

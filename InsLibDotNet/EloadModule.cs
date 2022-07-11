@@ -45,6 +45,19 @@ namespace InsLibDotNet
             doCommand(cmd);
         }
 
+        public void ChannelSel(int ch)
+        {
+            string cmd = "CHAN" + ch.ToString();
+            DoCommand(cmd);
+        }
+
+        public void ChannelActive(int ch)
+        {
+            string cmd = "CHANnel:ACTive ON";
+            DoCommand(cmd);
+        }
+
+
 
         public void ConnectELoad(int Addr)
         {
@@ -88,16 +101,16 @@ namespace InsLibDotNet
 
         public void CV_Mode()
         {
-            string mode = "MODE CV";
+            string mode = "MODE CVM";
             doCommand(mode);
         }
 
         public void SetCV_Vol(double vol)
         {
-            string cmd = "VOLTage:CURRent MAX";
+            string cmd = "VOLT:STAT:ILIM MAX";
             doCommand(cmd);
 
-            cmd = "VOLTage:L1 " + vol + "V";
+            cmd = "VOLTage:STATic:L1 " + vol;
             doCommand(cmd);
 
             cmd = "LOAD ON";
@@ -106,25 +119,27 @@ namespace InsLibDotNet
 
         public void SetCV_Current(double current)
         {
-            string cmd = "VOLTage:CURRent " + current;
+            string cmd = "VOLT:STAT:ILIM " + current;
             doCommand(cmd);
         }
 
         public void SetCV_VolMode(bool isFast)
         {
-            string cmd = "VOLTage:MODE " + (isFast ? "FAST" : "SLOW");
+            string cmd = "VOLT:STAT:RES " + (isFast ? "FAST" : "SLOW");
             doCommand(cmd);
         }
 
         public double Meas_Vol(int ch)
         {
-            string cmd = "MEASure:VOLTage? CHAN" + ch.ToString();
+            string cmd = "MEASure:VOLTage?";
+            ChannelSel(ch);
             return doQueryNumber(cmd);
         }
 
         public double Meas_Curr(int ch)
         {
-            string cmd = "MEASure:CURRent? CHAN" + ch.ToString();
+            string cmd = "MEASure:CURRent?";
+            ChannelSel(ch);
             return doQueryNumber(cmd);
         }
 
