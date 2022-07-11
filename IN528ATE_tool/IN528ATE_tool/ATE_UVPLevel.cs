@@ -98,39 +98,64 @@ namespace IN528ATE_tool
                     InsControl._scope.SetTrigModeEdge(true);
                     InsControl._scope.TriggerLevel_CH1(ori_vol * 0.65);
 
+                    double cv_vol = 0, cv_percent = 0;
+
                     for(int cv_idx = 0; cv_idx < cv_cnt; cv_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
                         double vol = 0;
-                        double cv_vol = ori_vol * ((test_parameter.cv_setting - (test_parameter.cv_step * cv_idx)) / 100);
+                        cv_vol = ori_vol * ((test_parameter.cv_setting - (test_parameter.cv_step * cv_idx)) / 100);
                         InsControl._eload.SetCV_Vol(cv_vol);
-                        MyLib.Delay1ms(test_parameter.cv_wait);
+                        MyLib.Delay1ms(test_parameter.cv_wait * 15);
                         vol = InsControl._eload.GetVol();
-                        if(vol < (ori_vol * 0.5))
+                        cv_percent = test_parameter.cv_setting - (test_parameter.cv_step * cv_idx);
+                        if (vol < (ori_vol * 0.5))
                         {
-                            // Ic shoutdown
-                            InsControl._scope.Root_STOP();
-                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
-#if true
-                            _sheet.Cells[row, XLS_Table.A] = row - 22;
-                            _sheet.Cells[row, XLS_Table.B] = temp;
-                            _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
-                            _sheet.Cells[row, XLS_Table.D] = res;
-                            _sheet.Cells[row, XLS_Table.E] = test_parameter.cv_setting - (test_parameter.cv_step * cv_idx);
-                            _sheet.Cells[row, XLS_Table.F] = cv_vol;
-                            // check measure function
-                            _sheet.Cells[row, XLS_Table.G] = "UVP(V)";
-                            _sheet.Cells[row, XLS_Table.H] = "UVP_Max(V)";
-                            _sheet.Cells[row, XLS_Table.I] = "UVP_Min(V)";
-                            _sheet.Cells[row, XLS_Table.J] = "UVP_DLY(ms)";
-#endif
                             break;
                         }
-                        InsControl._power.AutoPowerOff();
-                        InsControl._eload.AllChannel_LoadOff();
-                        InsControl._scope.Root_RUN();
-                        row++;
                     }
+
+
+                    // Ic shoutdown
+                    InsControl._scope.Root_STOP();
+                    InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                    /*
+                        --------
+                               |
+                               --------
+                                      |( wait )
+                                      ---------
+                                        ↓    ↓ | 
+                                        ↓    ↓
+                               wait * -0.7   wait * -0.3
+                     */
+                    double start_t = (test_parameter.cv_wait / 1000) * -1 * 0.7;
+                    double stop_t = (test_parameter.cv_wait / 1000) * -1 * 0.2;
+                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing CHANnel1, {0}, {1}", start_t, stop_t));
+                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STARt {0}", start_t));
+                    InsControl._scope.DoCommand(string.Format(":FUNCtion1:GATing:STOP {0}", stop_t));
+
+                    double UVP_amp = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude? FUNC1");
+                    double UVP_max = InsControl._scope.doQueryNumber(":MEASure:VMAX? FUNC1");
+                    double UVP_min = InsControl._scope.doQueryNumber(":MEASure:VMIN? FUNC1");
+                    double UVP_dly = InsControl._scope.doQueryNumber(":MEASure:PPULses? CHANnel2");
+#if true
+                    _sheet.Cells[row, XLS_Table.A] = row - 22;
+                    _sheet.Cells[row, XLS_Table.B] = temp;
+                    _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
+                    _sheet.Cells[row, XLS_Table.D] = res;
+                    _sheet.Cells[row, XLS_Table.E] = string.Format("{0}%", cv_percent);
+                    _sheet.Cells[row, XLS_Table.F] = cv_vol;
+                    // check measure function
+                    _sheet.Cells[row, XLS_Table.G] = UVP_amp;
+                    _sheet.Cells[row, XLS_Table.H] = UVP_max;
+                    _sheet.Cells[row, XLS_Table.I] = UVP_min;
+                    _sheet.Cells[row, XLS_Table.J] = UVP_dly;
+#endif
+                    InsControl._power.AutoPowerOff();
+                    InsControl._eload.AllChannel_LoadOff();
+                    InsControl._scope.Root_RUN();
+                    row++;
                 }
             }
 

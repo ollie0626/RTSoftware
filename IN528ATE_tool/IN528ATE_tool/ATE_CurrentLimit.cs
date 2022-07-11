@@ -142,17 +142,20 @@ namespace IN528ATE_tool
                         System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                         return;
                     }
-                    // channel resize and time scale resize
+                    // channel resize and time scale resize. use channel 1, 2, 4.
                     Channel_Resize();
 
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
                     InsControl._scope.DoCommand(":MEASure:VAMPlitude CHANnel1");
 
-                    double max_ch4 = InsControl._scope.Meas_CH4MAX();
-                    double max_ch2 = InsControl._scope.Meas_CH2MAX();
-                    double amp_ch1 = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude CHANnel1");
+                    InsControl._scope.Root_STOP();
+                    MyLib.Delay1ms(50);
+                    double max_ch4 = InsControl._scope.Meas_CH4MAX(); // ILX
+                    double max_ch2 = InsControl._scope.Meas_CH2MAX(); // LX
+                    double amp_ch1 = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude CHANnel1"); // Vout
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                    InsControl._scope.Root_RUN();
 #if true
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
@@ -161,8 +164,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.G] = amp_ch1;
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.cv_setting;
                     _sheet.Cells[row, XLS_Table.E] = cv_vol;
-                    _sheet.Cells[row, XLS_Table.I] = max_ch4;
-
+                    _sheet.Cells[row, XLS_Table.I] = max_ch4; // current limit
 #endif
 
                     // power off test
@@ -175,9 +177,8 @@ namespace IN528ATE_tool
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
 #if true
-                    _sheet.Cells[row, XLS_Table.K] = max_ch4;
+                    _sheet.Cells[row, XLS_Table.K] = max_ch4; // power off ILX maximum
 #endif
-
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
                     InsControl._scope.Root_RUN();
                     row++;
