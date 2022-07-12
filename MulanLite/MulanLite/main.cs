@@ -37,12 +37,13 @@ namespace MulanLite
             RTDev = new RTBBControl();
             RTDev.BoardInit();
 
+            cb_ldoio.SelectionLength = 1;
             cb_allowone.SelectedIndex = 0;
             cb_ditheren.SelectedIndex = 1;
             cb_m_factor.SelectedIndex = 0;
             cb_centred.SelectedIndex = 0;
-            CiFreq.SelectedIndex = 0;
-            RCLK_DIV.SelectedIndex = 3;
+            CiFreq.SelectedIndex = 1;
+            RCLK_DIV.SelectedIndex = 0;
             CiEnable.Active = true;
             cb_pulse_rf.SelectedIndex = 3;
             cb_vhr_open.SelectedIndex = 0;
@@ -598,10 +599,9 @@ namespace MulanLite
             int max = 1;
             uiProcessBar2.Value = 0;
             uiProcessBar1.Value = 0;
-
-
             uiProcessBar1.Maximum = max;
             uiProcessBar2.Maximum = max;
+
             //for (int i = 0; i < max; i++)
             //{
             //    byte[] Data = new byte[16];
@@ -1031,11 +1031,6 @@ namespace MulanLite
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
 
             uiTabControl1.TabPages.RemoveAt(4);
-            
-            
-
-
-
             timer1.Interval = 500;
             timer1.Enabled = false;
         }

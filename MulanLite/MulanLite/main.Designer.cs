@@ -270,7 +270,6 @@ namespace MulanLite
             this.label116 = new System.Windows.Forms.Label();
             this.cb_ch_num = new System.Windows.Forms.ComboBox();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
-            this.label114 = new System.Windows.Forms.Label();
             this.track_bl_late = new Sunny.UI.UITrackBar();
             this.nu_bl_late = new System.Windows.Forms.NumericUpDown();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
@@ -747,7 +746,6 @@ namespace MulanLite
             this.nuSAddr = new System.Windows.Forms.NumericUpDown();
             this.nuSID = new System.Windows.Forms.NumericUpDown();
             this.uiGroupBox22 = new Sunny.UI.UIGroupBox();
-            this.uiButton6 = new Sunny.UI.UIButton();
             this.uiButton1 = new Sunny.UI.UIButton();
             this.uiLabel76 = new Sunny.UI.UILabel();
             this.uiLabel77 = new Sunny.UI.UILabel();
@@ -756,6 +754,7 @@ namespace MulanLite
             this.uibt_flag_setting = new Sunny.UI.UIButton();
             this.nu_conf_addr = new System.Windows.Forms.NumericUpDown();
             this.nu_conf_id = new System.Windows.Forms.NumericUpDown();
+            this.uiButton6 = new Sunny.UI.UIButton();
             this.ck_CH0_en = new System.Windows.Forms.CheckBox();
             this.uiGroupBox5 = new Sunny.UI.UIGroupBox();
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
@@ -3425,6 +3424,11 @@ namespace MulanLite
             // 
             this.nu_data.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_data.Location = new System.Drawing.Point(116, 125);
+            this.nu_data.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
             this.nu_data.Name = "nu_data";
             this.nu_data.Size = new System.Drawing.Size(117, 23);
             this.nu_data.TabIndex = 49;
@@ -3490,6 +3494,11 @@ namespace MulanLite
             // 
             this.nu_start_offset.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_start_offset.Location = new System.Drawing.Point(116, 63);
+            this.nu_start_offset.Maximum = new decimal(new int[] {
+            262143,
+            0,
+            0,
+            0});
             this.nu_start_offset.Name = "nu_start_offset";
             this.nu_start_offset.Size = new System.Drawing.Size(117, 23);
             this.nu_start_offset.TabIndex = 8;
@@ -3565,6 +3574,11 @@ namespace MulanLite
             // 
             this.nu_spe_offset1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_spe_offset1.Location = new System.Drawing.Point(85, 3);
+            this.nu_spe_offset1.Maximum = new decimal(new int[] {
+            262143,
+            0,
+            0,
+            0});
             this.nu_spe_offset1.Name = "nu_spe_offset1";
             this.nu_spe_offset1.Size = new System.Drawing.Size(74, 23);
             this.nu_spe_offset1.TabIndex = 53;
@@ -3616,6 +3630,11 @@ namespace MulanLite
             // 
             this.nu_spe_offset2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_spe_offset2.Location = new System.Drawing.Point(85, 32);
+            this.nu_spe_offset2.Maximum = new decimal(new int[] {
+            262143,
+            0,
+            0,
+            0});
             this.nu_spe_offset2.Name = "nu_spe_offset2";
             this.nu_spe_offset2.Size = new System.Drawing.Size(74, 23);
             this.nu_spe_offset2.TabIndex = 55;
@@ -3641,6 +3660,11 @@ namespace MulanLite
             // 
             this.nu_spe_offset3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_spe_offset3.Location = new System.Drawing.Point(85, 61);
+            this.nu_spe_offset3.Maximum = new decimal(new int[] {
+            262143,
+            0,
+            0,
+            0});
             this.nu_spe_offset3.Name = "nu_spe_offset3";
             this.nu_spe_offset3.Size = new System.Drawing.Size(74, 23);
             this.nu_spe_offset3.TabIndex = 57;
@@ -3666,6 +3690,11 @@ namespace MulanLite
             // 
             this.nu_spe_offset4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_spe_offset4.Location = new System.Drawing.Point(85, 90);
+            this.nu_spe_offset4.Maximum = new decimal(new int[] {
+            262143,
+            0,
+            0,
+            0});
             this.nu_spe_offset4.Name = "nu_spe_offset4";
             this.nu_spe_offset4.Size = new System.Drawing.Size(74, 23);
             this.nu_spe_offset4.TabIndex = 59;
@@ -3734,6 +3763,11 @@ namespace MulanLite
             // 
             this.nu_start_zone.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_start_zone.Location = new System.Drawing.Point(91, 65);
+            this.nu_start_zone.Maximum = new decimal(new int[] {
+            8191,
+            0,
+            0,
+            0});
             this.nu_start_zone.Name = "nu_start_zone";
             this.nu_start_zone.Size = new System.Drawing.Size(63, 23);
             this.nu_start_zone.TabIndex = 59;
@@ -3759,6 +3793,11 @@ namespace MulanLite
             // 
             this.nu_end_zone.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_end_zone.Location = new System.Drawing.Point(91, 94);
+            this.nu_end_zone.Maximum = new decimal(new int[] {
+            8191,
+            0,
+            0,
+            0});
             this.nu_end_zone.Name = "nu_end_zone";
             this.nu_end_zone.Size = new System.Drawing.Size(63, 23);
             this.nu_end_zone.TabIndex = 59;
@@ -3786,6 +3825,11 @@ namespace MulanLite
             // 
             this.nu_specified_data.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_specified_data.Location = new System.Drawing.Point(53, 123);
+            this.nu_specified_data.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
             this.nu_specified_data.Name = "nu_specified_data";
             this.nu_specified_data.Size = new System.Drawing.Size(101, 23);
             this.nu_specified_data.TabIndex = 57;
@@ -3890,6 +3934,7 @@ namespace MulanLite
             // 
             // flag1
             // 
+            this.flag1.Enabled = false;
             this.flag1.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag1.Location = new System.Drawing.Point(124, 3);
             this.flag1.Maximum = new decimal(new int[] {
@@ -3923,6 +3968,7 @@ namespace MulanLite
             // 
             // flag2
             // 
+            this.flag2.Enabled = false;
             this.flag2.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag2.Location = new System.Drawing.Point(124, 32);
             this.flag2.Maximum = new decimal(new int[] {
@@ -3956,6 +4002,7 @@ namespace MulanLite
             // 
             // flag3
             // 
+            this.flag3.Enabled = false;
             this.flag3.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag3.Location = new System.Drawing.Point(124, 61);
             this.flag3.Maximum = new decimal(new int[] {
@@ -3989,6 +4036,7 @@ namespace MulanLite
             // 
             // flag4
             // 
+            this.flag4.Enabled = false;
             this.flag4.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag4.Location = new System.Drawing.Point(124, 90);
             this.flag4.Maximum = new decimal(new int[] {
@@ -4022,6 +4070,7 @@ namespace MulanLite
             // 
             // flag5
             // 
+            this.flag5.Enabled = false;
             this.flag5.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag5.Location = new System.Drawing.Point(124, 119);
             this.flag5.Maximum = new decimal(new int[] {
@@ -4055,6 +4104,7 @@ namespace MulanLite
             // 
             // flag6
             // 
+            this.flag6.Enabled = false;
             this.flag6.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag6.Location = new System.Drawing.Point(124, 148);
             this.flag6.Maximum = new decimal(new int[] {
@@ -4088,6 +4138,7 @@ namespace MulanLite
             // 
             // flag7
             // 
+            this.flag7.Enabled = false;
             this.flag7.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag7.Location = new System.Drawing.Point(124, 177);
             this.flag7.Maximum = new decimal(new int[] {
@@ -4121,6 +4172,7 @@ namespace MulanLite
             // 
             // flag8
             // 
+            this.flag8.Enabled = false;
             this.flag8.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag8.Location = new System.Drawing.Point(124, 206);
             this.flag8.Maximum = new decimal(new int[] {
@@ -4154,6 +4206,7 @@ namespace MulanLite
             // 
             // flag9
             // 
+            this.flag9.Enabled = false;
             this.flag9.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag9.Location = new System.Drawing.Point(124, 235);
             this.flag9.Maximum = new decimal(new int[] {
@@ -4187,6 +4240,7 @@ namespace MulanLite
             // 
             // flag10
             // 
+            this.flag10.Enabled = false;
             this.flag10.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag10.Location = new System.Drawing.Point(124, 264);
             this.flag10.Maximum = new decimal(new int[] {
@@ -4220,6 +4274,7 @@ namespace MulanLite
             // 
             // flag11
             // 
+            this.flag11.Enabled = false;
             this.flag11.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag11.Location = new System.Drawing.Point(124, 293);
             this.flag11.Maximum = new decimal(new int[] {
@@ -4253,6 +4308,7 @@ namespace MulanLite
             // 
             // flag12
             // 
+            this.flag12.Enabled = false;
             this.flag12.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag12.Location = new System.Drawing.Point(124, 322);
             this.flag12.Maximum = new decimal(new int[] {
@@ -4286,6 +4342,7 @@ namespace MulanLite
             // 
             // flag13
             // 
+            this.flag13.Enabled = false;
             this.flag13.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.flag13.Location = new System.Drawing.Point(124, 351);
             this.flag13.Maximum = new decimal(new int[] {
@@ -5056,7 +5113,6 @@ namespace MulanLite
             // numericUpDown1
             // 
             this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Hexadecimal = true;
             this.numericUpDown1.Location = new System.Drawing.Point(113, 85);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             65535,
@@ -5064,7 +5120,7 @@ namespace MulanLite
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(50, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(95, 23);
             this.numericUpDown1.TabIndex = 60;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
@@ -5096,7 +5152,6 @@ namespace MulanLite
             // 
             // groupBox29
             // 
-            this.groupBox29.Controls.Add(this.label114);
             this.groupBox29.Controls.Add(this.track_bl_late);
             this.groupBox29.Controls.Add(this.nu_bl_late);
             this.groupBox29.Location = new System.Drawing.Point(810, 141);
@@ -5105,15 +5160,6 @@ namespace MulanLite
             this.groupBox29.TabIndex = 69;
             this.groupBox29.TabStop = false;
             this.groupBox29.Text = "4Bh CLK MISSING THRES";
-            // 
-            // label114
-            // 
-            this.label114.AutoSize = true;
-            this.label114.Location = new System.Drawing.Point(188, 24);
-            this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(26, 15);
-            this.label114.TabIndex = 45;
-            this.label114.Text = "CLK";
             // 
             // track_bl_late
             // 
@@ -5137,7 +5183,6 @@ namespace MulanLite
             // nu_bl_late
             // 
             this.nu_bl_late.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_bl_late.Hexadecimal = true;
             this.nu_bl_late.Location = new System.Drawing.Point(132, 22);
             this.nu_bl_late.Maximum = new decimal(new int[] {
             255,
@@ -5145,7 +5190,7 @@ namespace MulanLite
             0,
             0});
             this.nu_bl_late.Name = "nu_bl_late";
-            this.nu_bl_late.Size = new System.Drawing.Size(50, 23);
+            this.nu_bl_late.Size = new System.Drawing.Size(76, 23);
             this.nu_bl_late.TabIndex = 58;
             this.nu_bl_late.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_bl_late.ValueChanged += new System.EventHandler(this.nu_bl_late_ValueChanged);
@@ -5216,21 +5261,21 @@ namespace MulanLite
             this.cb_switch_filter_time.FormattingEnabled = true;
             this.cb_switch_filter_time.Items.AddRange(new object[] {
             "4\'h0 : 0 CI",
-            "4\'h1 : 1 CI",
-            "4\'h2 : 2 CI",
-            "4\'h3 : 3 CI",
-            "4\'h4 : 4 CI",
-            "4\'h5 : 5 CI",
-            "4\'h6 : 6 CI",
-            "4\'h7 : 7 CI",
-            "4\'h8 : 8 CI",
-            "4\'h9 : 9 CI",
-            "4\'hA : 10 CI",
-            "4\'hB : 11 CI",
-            "4\'hC : 12 CI",
-            "4\'hD : 13 CI",
-            "4\'hE : 14 CI",
-            "4\'hF : 15 CI"});
+            "4\'h1 : 2 CI",
+            "4\'h2 : 4 CI",
+            "4\'h3 : 6 CI",
+            "4\'h4 : 8 CI",
+            "4\'h5 : 10 CI",
+            "4\'h6 : 12 CI",
+            "4\'h7 : 14 CI",
+            "4\'h8 : 16 CI",
+            "4\'h9 : 18 CI",
+            "4\'hA : 20 CI",
+            "4\'hB : 22 CI",
+            "4\'hC : 24 CI",
+            "4\'hD : 26 CI",
+            "4\'hE : 28 CI",
+            "4\'hF : 30 CI"});
             this.cb_switch_filter_time.Location = new System.Drawing.Point(7, 38);
             this.cb_switch_filter_time.Name = "cb_switch_filter_time";
             this.cb_switch_filter_time.Size = new System.Drawing.Size(208, 23);
@@ -11855,30 +11900,6 @@ namespace MulanLite
             this.uiGroupBox22.Text = "Read Flag";
             this.uiGroupBox22.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // uiButton6
-            // 
-            this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
-            this.uiButton6.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
-            this.uiButton6.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(233)))), ((int)(((byte)(255)))));
-            this.uiButton6.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiButton6.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.uiButton6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton6.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.Location = new System.Drawing.Point(1375, 230);
-            this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton6.Name = "uiButton6";
-            this.uiButton6.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
-            this.uiButton6.Size = new System.Drawing.Size(18, 29);
-            this.uiButton6.Style = Sunny.UI.UIStyle.Black;
-            this.uiButton6.TabIndex = 46;
-            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
-            // 
             // uiButton1
             // 
             this.uiButton1.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -11982,6 +12003,30 @@ namespace MulanLite
             this.nu_conf_id.Size = new System.Drawing.Size(82, 21);
             this.nu_conf_id.TabIndex = 18;
             this.nu_conf_id.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // uiButton6
+            // 
+            this.uiButton6.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton6.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
+            this.uiButton6.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(40)))), ((int)(((byte)(70)))));
+            this.uiButton6.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(233)))), ((int)(((byte)(255)))));
+            this.uiButton6.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton6.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton6.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton6.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.Location = new System.Drawing.Point(1375, 230);
+            this.uiButton6.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton6.Name = "uiButton6";
+            this.uiButton6.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(130)))), ((int)(((byte)(130)))), ((int)(((byte)(130)))));
+            this.uiButton6.Size = new System.Drawing.Size(18, 29);
+            this.uiButton6.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton6.TabIndex = 46;
+            this.uiButton6.Click += new System.EventHandler(this.uiButton6_Click);
             // 
             // ck_CH0_en
             // 
@@ -12168,7 +12213,6 @@ namespace MulanLite
             this.groupBox30.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBox29.ResumeLayout(false);
-            this.groupBox29.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_bl_late)).EndInit();
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
@@ -13108,7 +13152,6 @@ namespace MulanLite
         private System.Windows.Forms.Label label112;
         private System.Windows.Forms.Label label113;
         private System.Windows.Forms.GroupBox groupBox29;
-        private System.Windows.Forms.Label label114;
         private System.Windows.Forms.GroupBox groupBox30;
         private System.Windows.Forms.Label label115;
         private System.Windows.Forms.Label label116;
