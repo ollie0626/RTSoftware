@@ -33,37 +33,42 @@ namespace IN528ATE_tool
 
         private void Channel_Resize()
         {
-            InsControl._scope.TimeScaleUs(500);
+            InsControl._scope.TimeScaleUs(50);
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_On();
 
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH2_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
+
             InsControl._scope.CH1_Level(3.5);
             InsControl._scope.CH2_Level(3.5);
-            InsControl._scope.CH4_Level(0.5);
+            InsControl._scope.CH4_Level(1);
 
-            InsControl._scope.CH4_Offset(0.5 * 3);
+            InsControl._scope.CH4_Offset(1 * 3);
             InsControl._scope.CH1_Offset(3.5 * 2);
             InsControl._scope.CH2_Offset(3.5 * 1);
 
-            double max2;
-            //max1 = InsControl._scope.Meas_CH1MAX();
-            max2 = InsControl._scope.Meas_CH1MAX();
 
+            double vout, ILx;
+            // Channel1: Vout
+            // Channel2: Lx
+            // Channel4: ILx
+            vout = InsControl._scope.Meas_CH1MAX();
+            ILx = InsControl._scope.Meas_CH4AVG(); // ILX
+            InsControl._scope.CH4_Offset(ILx);
+            InsControl._scope.CH4_Level(ILx / 5);
             for(int i = 0; i <= 3; i++)
             {
-                InsControl._scope.CH1_Level(max2 / 4);
-                InsControl._scope.CH2_Level(max2 / 3);
-                max2 = InsControl._scope.Meas_CH1MAX();
+                InsControl._scope.CH1_Level(vout / 4);
+                InsControl._scope.CH2_Level(vout / 3);
+                vout = InsControl._scope.Meas_CH1MAX();
             }
 
-            //double freq = InsControl._scope.Meas_CH2Freq();
-            //for(int i = 0; i <= 5; i++)
-            //{
-            //    InsControl._scope.TimeScale(freq * 20);
-            //    freq = InsControl._scope.Meas_CH2Freq();
-            //}
+            double period = InsControl._scope.Meas_CH2Period();
+            InsControl._scope.TimeScale(period);
         }
 
 
@@ -143,9 +148,9 @@ namespace IN528ATE_tool
                     // channel resize and time scale resize. use channel 1, 2, 4.
                     Channel_Resize();
 
-                    InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                    InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
-                    InsControl._scope.DoCommand(":MEASure:VAMPlitude CHANnel1");
+                    InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // ILX max OCP
+                    InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // LX level max
+                    InsControl._scope.DoCommand(":MEASure:VAMPlitude CHANnel1"); // Vout Level
 
                     InsControl._scope.Root_STOP();
                     MyLib.Delay1ms(50);

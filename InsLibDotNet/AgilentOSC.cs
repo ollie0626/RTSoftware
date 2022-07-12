@@ -1020,6 +1020,37 @@ namespace InsLibDotNet
             return Meas_MIN(MEAS_CH4);
         }
 
+
+        public double Meas_AVG(string CHx)
+        {
+            string cmd = ":MEASure:VAVE?";
+            DoCommand(CHx);
+            return doQueryNumber(cmd);
+        }
+
+        public double Meas_CH1AVG()
+        {
+            return Meas_AVG(MEAS_CH1);
+        }
+
+        public double Meas_CH2AVG()
+        {
+            return Meas_AVG(MEAS_CH2);
+        }
+
+        public double Meas_CH3AVG()
+        {
+            return Meas_AVG(MEAS_CH3);
+        }
+
+        public double Meas_CH4AVG()
+        {
+            return Meas_AVG(MEAS_CH4);
+        }
+
+
+
+
         //public new void doCommand(string cmd)
         //{
         //    doCommand(cmd);
