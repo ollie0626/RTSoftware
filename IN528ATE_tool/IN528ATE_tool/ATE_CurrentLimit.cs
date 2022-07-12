@@ -150,7 +150,7 @@ namespace IN528ATE_tool
 
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // ILX max OCP
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // LX level max
-                    InsControl._scope.DoCommand(":MEASure:VAMPlitude CHANnel1"); // Vout Level
+                    InsControl._scope.DoCommand(":MEASure:VAVerage DISPlay, CHANnel1"); // Vout Level
 
                     InsControl._scope.Root_STOP();
                     MyLib.Delay1ms(50);
