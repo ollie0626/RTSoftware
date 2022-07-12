@@ -34,6 +34,9 @@ namespace IN528ATE_tool
         private void Channel_Resize()
         {
             InsControl._scope.TimeScaleUs(50);
+            InsControl._scope.Trigger(2);
+            InsControl._scope.AutoTrigger();
+            InsControl._scope.SetTrigModeEdge(false);
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH3_Off();
@@ -49,23 +52,28 @@ namespace IN528ATE_tool
 
             InsControl._scope.CH4_Offset(1 * 3);
             InsControl._scope.CH1_Offset(3.5 * 2);
-            InsControl._scope.CH2_Offset(3.5 * 1);
-
+            InsControl._scope.CH2_Offset(3.5 * 2);
+            MyLib.Delay1ms(200);
 
             double vout, ILx;
             // Channel1: Vout
             // Channel2: Lx
             // Channel4: ILx
             vout = InsControl._scope.Meas_CH1MAX();
+            InsControl._scope.TriggerLevel_CH2(vout * 0.6);
             ILx = InsControl._scope.Meas_CH4AVG(); // ILX
+            InsControl._scope.CH4_Level(ILx / 3);
             InsControl._scope.CH4_Offset(ILx);
-            InsControl._scope.CH4_Level(ILx / 5);
-            for(int i = 0; i <= 3; i++)
+            MyLib.Delay1ms(200);
+
+            for (int i = 0; i < 3; i++)
             {
                 InsControl._scope.CH1_Level(vout / 4);
                 InsControl._scope.CH2_Level(vout / 3);
                 vout = InsControl._scope.Meas_CH1MAX();
+                MyLib.Delay1ms(200);
             }
+
 
             double period = InsControl._scope.Meas_CH2Period();
             InsControl._scope.TimeScale(period);
@@ -118,6 +126,7 @@ namespace IN528ATE_tool
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
             InsControl._eload.CV_Mode();
+            InsControl._scope.Measure_Clear();
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
                 for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
@@ -147,6 +156,7 @@ namespace IN528ATE_tool
                     //}
                     // channel resize and time scale resize. use channel 1, 2, 4.
                     Channel_Resize();
+                    MyLib.Delay1ms(250);
 
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // ILX max OCP
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // LX level max
@@ -156,7 +166,7 @@ namespace IN528ATE_tool
                     MyLib.Delay1ms(50);
                     double max_ch4 = InsControl._scope.Meas_CH4MAX(); // ILX
                     double max_ch2 = InsControl._scope.Meas_CH2MAX(); // LX
-                    double amp_ch1 = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude CHANnel1"); // Vout
+                    double amp_ch1 = InsControl._scope.Meas_CH1MAX(); // Vout
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     InsControl._scope.Root_RUN();
 #if false
@@ -171,11 +181,17 @@ namespace IN528ATE_tool
 #endif
 
                     // power off test
+                    InsControl._scope.Trigger(1);
                     InsControl._scope.TriggerLevel_CH1(amp_ch1 * 0.7);
                     InsControl._scope.SetTrigModeEdge(true);
                     InsControl._scope.NormalTrigger();
+                    InsControl._scope.TimeScaleMs(40);
+                    MyLib.Delay1s(3);
+                    
 
                     InsControl._power.AutoPowerOff();
+                    double offset = InsControl._scope.doQueryNumber(":CHAN4:OFFSet?");
+                    InsControl._scope.CH4_Offset(offset);
                     MyLib.Delay1s(2);
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
@@ -184,6 +200,8 @@ namespace IN528ATE_tool
 #endif
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
                     InsControl._scope.Root_RUN();
+                    InsControl._eload.AllChannel_LoadOff();
+                    MyLib.Delay1ms(150);
                     row++;
                 }
             }
