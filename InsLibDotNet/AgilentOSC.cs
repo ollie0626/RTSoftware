@@ -9,6 +9,9 @@ namespace InsLibDotNet
 {
     public class AgilentOSC : VisaCommand
     {
+        // 1. override docommand
+        // 2. :PDER?
+        // 3. :ADER?
         string MEAS_CH1 = ":MEASure:SOURce CHANnel1";
         string MEAS_CH2 = ":MEASure:SOURce CHANnel2";
         string MEAS_CH3 = ":MEASure:SOURce CHANnel3";
