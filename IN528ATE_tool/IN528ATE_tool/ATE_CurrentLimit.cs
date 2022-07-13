@@ -96,7 +96,7 @@ namespace IN528ATE_tool
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if false
+#if true
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -169,7 +169,7 @@ namespace IN528ATE_tool
                     double amp_ch1 = InsControl._scope.Meas_CH1MAX(); // Vout
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     InsControl._scope.Root_RUN();
-#if false
+#if true
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
@@ -195,7 +195,7 @@ namespace IN528ATE_tool
                     MyLib.Delay1s(2);
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
-#if false
+#if true
                     _sheet.Cells[row, XLS_Table.K] = max_ch4; // power off ILX maximum
 #endif
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
@@ -209,7 +209,7 @@ namespace IN528ATE_tool
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-#if false
+#if true
             for (int i = 1; i < 12; i++) _sheet.Columns[i].AutoFit();
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CurrentLimit_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
