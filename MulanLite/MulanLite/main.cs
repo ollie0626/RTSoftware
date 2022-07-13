@@ -1867,6 +1867,46 @@ namespace MulanLite
             password dialog = new password(this);
             dialog.ShowDialog();
         }
+
+        private void bt_inq_therm_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { 0x04 };
+            byte id = 0xff;
+            RTDev.WriteFunc(id, WriteCmd, 0x04, 0x00, WData);
+            bt.Enabled = true;
+        }
+
+        private void bt_inq_crc_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { 0x08 };
+            byte id = 0xff;
+            RTDev.WriteFunc(id, WriteCmd, 0x04, 0x00, WData);
+            bt.Enabled = true;
+        }
+
+        private void bt_inq_clk_miss_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { 0x10 };
+            byte id = 0xff;
+            RTDev.WriteFunc(id, WriteCmd, 0x04, 0x00, WData);
+            bt.Enabled = true;
+        }
+
+        private void bt_inq_upd_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte[] WData = new byte[] { 0x02 };
+            byte id = 0xff;
+            RTDev.WriteFunc(id, WriteCmd, 0x05, 0x00, WData);
+            bt.Enabled = true;
+        }
     }
 }
 
