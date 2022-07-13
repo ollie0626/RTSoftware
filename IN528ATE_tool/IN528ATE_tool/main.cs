@@ -311,6 +311,7 @@ namespace IN528ATE_tool
                 System.Threading.Thread.Sleep(1000);
                 templist = ChamberCtr.ReadTempList();
                 isChamberEn = !string.IsNullOrEmpty(templist);
+                tempList = templist.Split(',');
             }
 
             ChamberCtr.InitTCPTimer(!ck_slave.Checked);
@@ -337,7 +338,7 @@ namespace IN528ATE_tool
                     bool res = InsControl._chamber.InsState();
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                    await InsControl._chamber.ChamberStable(templist[i]);
+                    await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
 
                     for (; SteadyTime > 0;)
                     {
