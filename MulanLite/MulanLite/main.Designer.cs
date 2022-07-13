@@ -760,6 +760,10 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
+            this.bt_inq_therm = new Sunny.UI.UIButton();
+            this.bt_inq_crc = new Sunny.UI.UIButton();
+            this.bt_inq_clk_miss = new Sunny.UI.UIButton();
+            this.bt_inq_upd = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -3886,12 +3890,15 @@ namespace MulanLite
             this.flowLayoutPanel5.Controls.Add(this.uiLabel41);
             this.flowLayoutPanel5.Controls.Add(this.flag3);
             this.flowLayoutPanel5.Controls.Add(this.textBox3);
+            this.flowLayoutPanel5.Controls.Add(this.bt_inq_therm);
             this.flowLayoutPanel5.Controls.Add(this.uiLabel42);
             this.flowLayoutPanel5.Controls.Add(this.flag4);
             this.flowLayoutPanel5.Controls.Add(this.textBox4);
+            this.flowLayoutPanel5.Controls.Add(this.bt_inq_crc);
             this.flowLayoutPanel5.Controls.Add(this.uiLabel43);
             this.flowLayoutPanel5.Controls.Add(this.flag5);
             this.flowLayoutPanel5.Controls.Add(this.textBox5);
+            this.flowLayoutPanel5.Controls.Add(this.bt_inq_clk_miss);
             this.flowLayoutPanel5.Controls.Add(this.uiLabel44);
             this.flowLayoutPanel5.Controls.Add(this.flag6);
             this.flowLayoutPanel5.Controls.Add(this.textBox6);
@@ -3904,6 +3911,7 @@ namespace MulanLite
             this.flowLayoutPanel5.Controls.Add(this.uiLabel47);
             this.flowLayoutPanel5.Controls.Add(this.flag9);
             this.flowLayoutPanel5.Controls.Add(this.textBox9);
+            this.flowLayoutPanel5.Controls.Add(this.bt_inq_upd);
             this.flowLayoutPanel5.Controls.Add(this.uiLabel48);
             this.flowLayoutPanel5.Controls.Add(this.flag10);
             this.flowLayoutPanel5.Controls.Add(this.textBox10);
@@ -4020,7 +4028,7 @@ namespace MulanLite
             this.textBox3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox3.Location = new System.Drawing.Point(173, 61);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(213, 23);
+            this.textBox3.Size = new System.Drawing.Size(147, 23);
             this.textBox3.TabIndex = 20;
             // 
             // uiLabel42
@@ -4054,7 +4062,7 @@ namespace MulanLite
             this.textBox4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox4.Location = new System.Drawing.Point(173, 90);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(213, 23);
+            this.textBox4.Size = new System.Drawing.Size(147, 23);
             this.textBox4.TabIndex = 23;
             // 
             // uiLabel43
@@ -4088,7 +4096,7 @@ namespace MulanLite
             this.textBox5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox5.Location = new System.Drawing.Point(173, 119);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(213, 23);
+            this.textBox5.Size = new System.Drawing.Size(147, 23);
             this.textBox5.TabIndex = 26;
             // 
             // uiLabel44
@@ -4224,7 +4232,7 @@ namespace MulanLite
             this.textBox9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox9.Location = new System.Drawing.Point(173, 235);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(213, 23);
+            this.textBox9.Size = new System.Drawing.Size(147, 23);
             this.textBox9.TabIndex = 38;
             // 
             // uiLabel48
@@ -12093,6 +12101,106 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
+            // bt_inq_therm
+            // 
+            this.bt_inq_therm.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_inq_therm.FillColor = System.Drawing.Color.White;
+            this.bt_inq_therm.FillColor2 = System.Drawing.Color.White;
+            this.bt_inq_therm.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_therm.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_therm.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_therm.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_therm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_inq_therm.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_inq_therm.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_therm.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_therm.Location = new System.Drawing.Point(326, 61);
+            this.bt_inq_therm.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_inq_therm.Name = "bt_inq_therm";
+            this.bt_inq_therm.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_inq_therm.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_inq_therm.Size = new System.Drawing.Size(60, 22);
+            this.bt_inq_therm.Style = Sunny.UI.UIStyle.White;
+            this.bt_inq_therm.TabIndex = 33;
+            this.bt_inq_therm.Text = "W1C";
+            this.bt_inq_therm.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_therm.Click += new System.EventHandler(this.bt_inq_therm_Click);
+            // 
+            // bt_inq_crc
+            // 
+            this.bt_inq_crc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_inq_crc.FillColor = System.Drawing.Color.White;
+            this.bt_inq_crc.FillColor2 = System.Drawing.Color.White;
+            this.bt_inq_crc.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_crc.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_crc.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_crc.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_crc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_inq_crc.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_inq_crc.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_crc.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_crc.Location = new System.Drawing.Point(326, 90);
+            this.bt_inq_crc.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_inq_crc.Name = "bt_inq_crc";
+            this.bt_inq_crc.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_inq_crc.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_inq_crc.Size = new System.Drawing.Size(60, 22);
+            this.bt_inq_crc.Style = Sunny.UI.UIStyle.White;
+            this.bt_inq_crc.TabIndex = 33;
+            this.bt_inq_crc.Text = "W1C";
+            this.bt_inq_crc.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_crc.Click += new System.EventHandler(this.bt_inq_crc_Click);
+            // 
+            // bt_inq_clk_miss
+            // 
+            this.bt_inq_clk_miss.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_inq_clk_miss.FillColor = System.Drawing.Color.White;
+            this.bt_inq_clk_miss.FillColor2 = System.Drawing.Color.White;
+            this.bt_inq_clk_miss.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_clk_miss.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_clk_miss.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_clk_miss.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_clk_miss.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_inq_clk_miss.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_inq_clk_miss.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_clk_miss.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_clk_miss.Location = new System.Drawing.Point(326, 119);
+            this.bt_inq_clk_miss.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_inq_clk_miss.Name = "bt_inq_clk_miss";
+            this.bt_inq_clk_miss.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_inq_clk_miss.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_inq_clk_miss.Size = new System.Drawing.Size(60, 22);
+            this.bt_inq_clk_miss.Style = Sunny.UI.UIStyle.White;
+            this.bt_inq_clk_miss.TabIndex = 33;
+            this.bt_inq_clk_miss.Text = "W1C";
+            this.bt_inq_clk_miss.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_clk_miss.Click += new System.EventHandler(this.bt_inq_clk_miss_Click);
+            // 
+            // bt_inq_upd
+            // 
+            this.bt_inq_upd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_inq_upd.FillColor = System.Drawing.Color.White;
+            this.bt_inq_upd.FillColor2 = System.Drawing.Color.White;
+            this.bt_inq_upd.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_upd.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_upd.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inq_upd.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_upd.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_inq_upd.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_inq_upd.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_upd.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inq_upd.Location = new System.Drawing.Point(326, 235);
+            this.bt_inq_upd.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_inq_upd.Name = "bt_inq_upd";
+            this.bt_inq_upd.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_inq_upd.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_inq_upd.Size = new System.Drawing.Size(60, 22);
+            this.bt_inq_upd.Style = Sunny.UI.UIStyle.White;
+            this.bt_inq_upd.TabIndex = 33;
+            this.bt_inq_upd.Text = "W1C";
+            this.bt_inq_upd.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inq_upd.Click += new System.EventHandler(this.bt_inq_upd_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -13258,6 +13366,10 @@ namespace MulanLite
         private System.Windows.Forms.Label label143;
         private Sunny.UI.UIButton bt_virus_pattern;
         private Sunny.UI.UIButton uiButton6;
+        private Sunny.UI.UIButton bt_inq_therm;
+        private Sunny.UI.UIButton bt_inq_crc;
+        private Sunny.UI.UIButton bt_inq_clk_miss;
+        private Sunny.UI.UIButton bt_inq_upd;
     }
 }
 
