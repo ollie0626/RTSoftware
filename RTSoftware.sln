@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IN528ATE_tool", "IN528ATE_tool\IN528ATE_tool\IN528ATE_tool.csproj", "{1A1B522E-34A4-43AE-8137-9AAE9B1C1569}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EthnetTool", "EthnetTool\EthnetTool\EthnetTool.csproj", "{EC3B8FC3-EEA2-4C0E-9A1C-FF3C714D0089}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MulanLite", "MulanLite\MulanLite\MulanLite.csproj", "{40198B4E-C82F-420E-8B1D-0F996092204E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuckTool", "BuckTool\BuckTool.csproj", "{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +63,14 @@ Global
 		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|x86.ActiveCfg = Release|Any CPU
 		{40198B4E-C82F-420E-8B1D-0F996092204E}.Release|x86.Build.0 = Release|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Debug|x86.Build.0 = Debug|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|x86.ActiveCfg = Release|Any CPU
+		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
