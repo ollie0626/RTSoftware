@@ -89,9 +89,7 @@ namespace BuckTool
                         double target = test_parameter.Vin_table[vin_idx];
                         InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
-
                         MyLib.Delay1ms(250);
-
                         Vin = InsControl._34970A.Get_100Vol(1);
                         Vout = InsControl._34970A.Get_100Vol(1);
                         Iin = meter1_400mA_en ? InsControl._dmm1.GetCurrent(1) : InsControl._dmm1.GetCurrent(3);
