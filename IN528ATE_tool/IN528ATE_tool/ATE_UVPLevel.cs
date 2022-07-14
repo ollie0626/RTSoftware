@@ -77,6 +77,7 @@ namespace IN528ATE_tool
             {
                 for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                 {
+                    if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                     double ori_vol = 0;
                     string file_name;
                     string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
@@ -191,7 +192,12 @@ namespace IN528ATE_tool
             InsControl._scope.DoCommand(":MEASure:SOURce CHANnel1");
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
+            //string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+
+            string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            str_temp += "\r\n" + time;
+            _sheet.Cells[2, 2] = str_temp;
 #if true
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 

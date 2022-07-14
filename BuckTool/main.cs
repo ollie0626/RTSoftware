@@ -21,6 +21,12 @@ namespace BuckTool
         void ATETask();
     }
 
+    public enum XLS_Table
+    {
+        A = 1, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK, AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW, AX, AY, AZ,
+    };
+
 
     public partial class main : Sunny.UI.UIForm
     {
@@ -32,15 +38,13 @@ namespace BuckTool
         int SteadyTime;
         string tempList;
         ATE_Eff _ate_eff = new ATE_Eff();
-        ITask[] ate_table;
-
-
+        TaskRun[] ate_table;
 
         public void GUInit()
         {
             cb_item.SelectedIndex = 0;
             Eload_DG.RowCount = 1;
-            ate_table = new ITask[] { _ate_eff };
+            ate_table = new TaskRun[] { _ate_eff };
 
             for (int i = 1; i < 21; i++)
             {
@@ -227,7 +231,7 @@ namespace BuckTool
                         uiProcessBar1.Value = SteadyTime;
                         label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
                     }
-                    ChamberCtr.CurrentStateMaster = "Idle," + tempList[i].ToString();
+                    ChamberCtr.CurrentStateMaster = "Idle," + test_parameter.temp_table[i].ToString();
                 }
 
 
@@ -238,7 +242,8 @@ namespace BuckTool
                 else ChamberCtr.CurrentStateMaster = "Busy," + test_parameter.temp_table[i].ToString();
 
                 // ATE test task
-                //TODO: impelement ATE main body in the multi-chamber thread
+                ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                ate_table[cb_item.SelectedIndex].ATETask();
 
 
 
@@ -281,8 +286,8 @@ namespace BuckTool
                 }
 
 
-                //TODO: impelement ATE task in the single chamber task
-
+                ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                ate_table[cb_item.SelectedIndex].ATETask();
 
 
             }

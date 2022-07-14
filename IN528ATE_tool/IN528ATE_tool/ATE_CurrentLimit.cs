@@ -131,6 +131,7 @@ namespace IN528ATE_tool
             {
                 for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                 {
+                    if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                     string file_name;
                     string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                     file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_CV={4:0.##}%",
@@ -208,7 +209,10 @@ namespace IN528ATE_tool
         Stop:
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
+            string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+            str_temp += "\r\n" + time;
+            _sheet.Cells[2, 2] = str_temp;
 #if true
             for (int i = 1; i < 12; i++) _sheet.Columns[i].AutoFit();
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CurrentLimit_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);

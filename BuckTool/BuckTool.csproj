@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATE_Eff.cs" />
+    <Compile Include="ATE_Line.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="main.cs">

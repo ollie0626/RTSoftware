@@ -14,10 +14,13 @@ namespace BuckTool
 
         // High Voltage buck frequency control
         public static bool[] Freq_en = new bool[2];
+        public static string Freq_des;
+        public static double vout_ideal;
         
         // bin folder path
         public static string specify_bin;
         public static string waveform_path;
+        public static string binFolder;
 
         public static bool run_stop;
         public static bool chamber_en;
