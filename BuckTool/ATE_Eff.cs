@@ -23,7 +23,6 @@ namespace BuckTool
         }
     }
 
-
     public class ATE_Eff : TaskRun
     {
         Excel.Application _app;
@@ -35,6 +34,7 @@ namespace BuckTool
         {
             bool meter1_10A_en = false;
             bool meter2_10A_en = false;
+            bool sw10A = false;
 
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
@@ -102,9 +102,9 @@ namespace BuckTool
                         Iin = InsControl._power.GetCurrent();
                         
                         if(!meter1_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, ref meter1_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, sw10A, ref meter1_10A_en);
                         if(!meter2_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, ref meter2_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, sw10A, ref meter2_10A_en);
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
 
                         MyLib.Delay1ms(250);
@@ -125,7 +125,6 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.H] = Math.Abs((Vout * Iout) / (Vin * Iin)) * 100;
                         _sheet.Cells[row, XLS_Table.I] = Math.Abs((Vout - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
 #endif
-                        
                         row++;
                     } // iout loop
                     stop_pos.Add(row - 1);

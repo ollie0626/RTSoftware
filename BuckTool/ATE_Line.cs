@@ -19,8 +19,11 @@ namespace BuckTool
 
         override public void ATETask()
         {
-            bool meter1_10A_en = false;
-            bool meter2_10A_en = false;
+            bool meter1_400mA_en = false;
+            bool meter2_400mA_en = false;
+            bool sw400mA = true;
+            List<int> start_pos = new List<int>();
+            List<int> stop_pos = new List<int>();
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -58,8 +61,8 @@ namespace BuckTool
                 for(int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                 {
                     double Iin, level;
-                    meter1_10A_en = false;
-                    meter2_10A_en = false;
+                    meter1_400mA_en = false;
+                    meter2_400mA_en = false;
                     MyLib.Relay_Reset(false); // 10A level reset
 #if true
                     printTitle(row);
@@ -69,19 +72,43 @@ namespace BuckTool
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
                     InsControl._eload.CH1_Loading(level);
                     Iin = InsControl._power.GetCurrent();
-                    
-                    if (!meter1_10A_en)
-                        MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, ref meter1_10A_en);
-                        
-                    if (!meter2_10A_en)
-                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, ref meter2_10A_en);
 
+                    if (!meter1_400mA_en)
+                        MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, sw400mA, ref meter1_400mA_en);
+
+                    if (!meter2_400mA_en)
+                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, sw400mA, ref meter2_400mA_en);
+
+                    start_pos.Add(row);
                     for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                     {
+                        double Vin, Vout, Iout;
+
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
+                        double target = test_parameter.Vin_table[vin_idx];
+                        InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
+                        MyLib.Vincompensation(target, ref vinList[vin_idx]);
 
+                        MyLib.Delay1ms(250);
+
+                        Vin = InsControl._34970A.Get_100Vol(1);
+                        Vout = InsControl._34970A.Get_100Vol(1);
+                        Iin = meter1_400mA_en ? InsControl._dmm1.GetCurrent(1) : InsControl._dmm1.GetCurrent(3);
+                        Iout = meter2_400mA_en ? InsControl._dmm2.GetCurrent(1) : InsControl._dmm2.GetCurrent(3);
+
+#if true
+                        _sheet.Cells[row, XLS_Table.A] = row - 22;
+                        _sheet.Cells[row, XLS_Table.B] = temp;
+                        _sheet.Cells[row, XLS_Table.C] = Vin;
+                        _sheet.Cells[row, XLS_Table.D] = Iin;
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des;
+                        _sheet.Cells[row, XLS_Table.F] = Vout;
+                        _sheet.Cells[row, XLS_Table.G] = Iout;
+                        _sheet.Cells[row, XLS_Table.H] = Math.Abs((Vout - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
+#endif
                     } // vin loop
+                    stop_pos.Add(row - 1);
                 } // iout loop
             } // freq loop
 
