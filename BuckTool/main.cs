@@ -45,6 +45,13 @@ namespace BuckTool
             cb_item.SelectedIndex = 0;
             Eload_DG.RowCount = 1;
             ate_table = new TaskRun[] { _ate_eff };
+            led_power.Color = Color.Red;
+            led_osc.Color = Color.Red;
+            led_eload.Color = Color.Red;
+            led_dmm2.Color = Color.Red;
+            led_dmm1.Color = Color.Red;
+            led_chamber.Color = Color.Red;
+            led_37940.Color = Color.Red;
 
             for (int i = 1; i < 21; i++)
             {
@@ -103,6 +110,22 @@ namespace BuckTool
                         led_chamber.Color = Color.LightGreen;
                     else
                         led_chamber.Color = Color.Red;
+                    break;
+                case 5:
+
+                    InsControl._dmm1 = new DMMModule((int)nu_dmm1.Value);
+                    if (InsControl._dmm1.InsState())
+                        led_dmm1.Color = Color.LightGreen;
+                    else
+                        led_dmm1.Color = Color.Red;
+                    break;
+
+                case 6:
+                    InsControl._dmm2 = new DMMModule((int)nu_dmm2.Value);
+                    if (InsControl._dmm2.InsState())
+                        led_dmm2.Color = Color.LightGreen;
+                    else
+                        led_dmm2.Color = Color.Red;
                     break;
             }
         }
