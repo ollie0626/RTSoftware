@@ -222,25 +222,17 @@ namespace BuckTool
                 InsControl._eload.CCH_Mode();
         }
 
-        public static void Relay_Process(int port, double curr_cmp, bool isIin, ref bool en)
+        public static void Relay_Process(int port, double curr_cmp, bool isIin, bool sw400mA, ref bool en)
         {
             double meter_limit = 0.4 * 0.75;
             if(curr_cmp > meter_limit && !en)
             {
                 InsControl._power.AutoPowerOff();
                 InsControl._eload.AllChannel_LoadOff();
-                if (isIin) InsControl._dmm1.ChangeCurrentLevel(false);  // convter to 10A level
-                else InsControl._dmm2.ChangeCurrentLevel(false);        // conveter to 10A level
+                if (isIin) InsControl._dmm1.ChangeCurrentLevel(sw400mA);
+                else InsControl._dmm2.ChangeCurrentLevel(sw400mA);
                 RTBBControl.Meter10A(port);
                 en = true;
-            }
-            else
-            {
-                if (isIin) InsControl._dmm1.ChangeCurrentLevel(true);
-                else InsControl._dmm2.ChangeCurrentLevel(true);
-
-                if(isIin) RTBBControl.Meter400mA(RTBBControl.GPIO2_0);
-                else RTBBControl.Meter400mA(RTBBControl.GPIO2_1);
             }
         }
 
