@@ -13,7 +13,9 @@ namespace BuckTool
 {
     public class RTBBControl
     {
-        private const int GPIO2_0 = 32;
+        public const int GPIO2_0 = 32; // relay Iin
+        public const int GPIO2_1 = 33; // relay Iout
+        public const int GPIO2_2 = 34; // freq switch
         private static BridgeBoard hDevice;
         private static BridgeBoardEnum hEnum;
         private static GPIOModule gpioModule;
@@ -32,32 +34,39 @@ namespace BuckTool
         {
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_0, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_1, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_2, true);
+
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
+            // gpio low relay 10A
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
 
         public static void Gpio_Enable()
         {
             if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, true);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, true);
         }
 
         public static void Gpio_Disable()
         {
             if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
 
-        public static void RelayOn(int num)
+        public static void Meter400mA(int port)
         {
             if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(num, false);
+            gpioModule.RTBB_GPIOSingleWrite(port, true);
         }
 
-        public static void RelayOff(int num)
+        public static void Meter10A(int port)
         {
             if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(num, true);
+            gpioModule.RTBB_GPIOSingleWrite(port, false);
         }
+
 
     }
 }

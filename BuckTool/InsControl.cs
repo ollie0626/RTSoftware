@@ -17,6 +17,7 @@ namespace BuckTool
         public static EloadModule _eload;
         public static MultiChannelModule _34970A;
         public static ChamberModule _chamber;
-
+        public static DMMModule _dmm1;
+        public static DMMModule _dmm2;
     }
 }
