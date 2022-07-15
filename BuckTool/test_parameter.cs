@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 
 namespace BuckTool
 {
+
+    public struct Hi_Lo
+    {
+        public double Highlevel;
+        public double LowLevel;
+    }
+
+
+
     public static class test_parameter
     {
         public static List<double> Iout_table = new List<double>();
         public static List<double> Vin_table = new List<double>();
         public static List<string> temp_table = new List<string>();
+        public static List<Hi_Lo> HiLo_table = new List<Hi_Lo>();
 
         // High Voltage buck frequency control
         public static bool[] Freq_en = new bool[2];
@@ -24,6 +34,12 @@ namespace BuckTool
 
         public static bool run_stop;
         public static bool chamber_en;
+
+        // load transtion variables
+        public static double freq;
+        public static double duty;
+        public static double tr;
+        public static double tf;
 
     }
 }

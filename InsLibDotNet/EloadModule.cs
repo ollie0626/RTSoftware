@@ -353,7 +353,7 @@ namespace InsLibDotNet
         public double GetIout()
         {
             string buffer = "MEAS:CURR?";
-            return doQueryNumber(buffer) * 1000;
+            return doQueryNumber(buffer);
         }
 
         public double[] GetAllChannel_Vol()

@@ -32,6 +32,7 @@ namespace BuckTool
 
         override public void ATETask()
         {
+            int freq_cnt = (test_parameter.Freq_en[0] ? 1 : 0) + (test_parameter.Freq_en[1] ? 1 : 0);
             bool meter1_10A_en = false;
             bool meter2_10A_en = false;
             bool sw10A = false;
@@ -57,7 +58,7 @@ namespace BuckTool
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
             Mylib.testCondition(_sheet, "Eff", bin_cnt, temp);
-            printTitle(row); row++;
+            //printTitle(row); row++;
 #endif
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
@@ -66,7 +67,7 @@ namespace BuckTool
 
 
             //TODO: switch frequency need modify.
-            for (int freq_idx = 0; freq_idx < 2; freq_idx++)
+            for (int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
             {
                 InsControl._power.AutoPowerOff();
                 
