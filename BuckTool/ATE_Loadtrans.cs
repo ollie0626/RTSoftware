@@ -44,6 +44,8 @@ namespace BuckTool
         public override void ATETask()
         {
             int freq_cnt = (test_parameter.Freq_en[0] ? 1 : 0) + (test_parameter.Freq_en[1] ? 1 : 0);
+            double period = 1 / test_parameter.freq;
+
 
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -72,6 +74,7 @@ namespace BuckTool
                                         test_parameter.tr,
                                         test_parameter.tf);
 
+
             for (int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
             {
                 if (freq_idx == 0 && test_parameter.Freq_en[0])
@@ -86,7 +89,16 @@ namespace BuckTool
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
                     for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++)
                     {
+                        string file_name = string.Format("{0}_Vin={1}V_Freq={2}_Hi={3}V_Lo={4}V",
+                                                        row - 22,
+                                                        test_parameter.Vin_table[vin_idx],
+                                                        test_parameter.Freq_des,
+                                                        test_parameter.HiLo_table[func_idx].Highlevel,
+                                                        test_parameter.HiLo_table[func_idx].LowLevel);
+
                         double current_level, trigger_level;
+                        double time_scale;
+                        double vpp, vmax, vmin, rise, fall, rise_time, fall_time, imax, imin;
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((func_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
@@ -96,15 +108,16 @@ namespace BuckTool
                             test_parameter.HiLo_table[func_idx].Highlevel,
                             test_parameter.HiLo_table[func_idx].LowLevel);
 
-
+                        InsControl._scope.AutoTrigger();
                         current_level = (test_parameter.HiLo_table[func_idx].Highlevel + test_parameter.HiLo_table[func_idx].LowLevel) / 4;
                         trigger_level = test_parameter.HiLo_table[func_idx].Highlevel * 0.6 + test_parameter.HiLo_table[func_idx].LowLevel * 0.4;
+                        time_scale = (period * test_parameter.duty) / 5;
+                        InsControl._scope.TimeScale(time_scale);
+                        InsControl._scope.TimeBasePosition(time_scale * 2.5);
                         InsControl._scope.TriggerLevel_CH4(trigger_level);
                         InsControl._scope.CH4_Level(current_level);
                         InsControl._scope.CH4_Offset(current_level * 3);
                         InsControl._scope.SetTrigModeEdge(false);
-
-
                         InsControl._scope.Root_STOP();
                         InsControl._scope.NormalTrigger();
                         InsControl._scope.DoCommand(":MEASure: CLEar");
@@ -115,14 +128,71 @@ namespace BuckTool
                         InsControl._scope.Root_RUN();
                         MyLib.WaveformCheck();
                         ChannelResize();
+                        MyLib.WaveformCheck();
+                        InsControl._scope.Root_STOP();
+                        //InsControl._scope.DoCommand(":MEASure:CLEar");
+                        //InsControl._scope.DoCommand(":MEASURE:VPP CHANnel1");
+                        //InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
+                        //InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
+                        //InsControl._scope.DoCommand(":MARKer:MODE OFF");
+                        MyLib.ProcessCheck();
+                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
 
+                        vpp = InsControl._scope.Meas_CH1VPP();
+                        vmax = InsControl._scope.Meas_CH1MAX();
+                        vmin = InsControl._scope.Meas_CH1MIN();
+                        rise = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel4,RISing") / 1000;
+                        fall = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel4,Falling") / 1000;
+                        rise_time = InsControl._scope.Meas_CH4Rise() * Math.Pow(10, 6);
+                        fall_time = InsControl._scope.Meas_CH4Fall() * Math.Pow(10, 6);
+#if true
+                        _sheet.Cells[row, XLS_Table.A] = row - 22;
+                        _sheet.Cells[row, XLS_Table.B] = temp;
+                        _sheet.Cells[row, XLS_Table.C] = test_parameter.Vin_table[vin_idx];
+                        _sheet.Cells[row, XLS_Table.D] = test_parameter.Freq_des;
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.freq;
+                        _sheet.Cells[row, XLS_Table.F] = test_parameter.HiLo_table[func_idx].Highlevel;
+                        _sheet.Cells[row, XLS_Table.G] = test_parameter.HiLo_table[func_idx].LowLevel;
+                        _sheet.Cells[row, XLS_Table.H] = vpp;
+                        _sheet.Cells[row, XLS_Table.I] = vmax;
+                        _sheet.Cells[row, XLS_Table.J] = vmin;
+                        _sheet.Cells[row, XLS_Table.K] = rise;
+                        _sheet.Cells[row, XLS_Table.L] = rise_time;
+                        _sheet.Cells[row, XLS_Table.M] = fall;
+                        _sheet.Cells[row, XLS_Table.K] = fall_time;
+#endif
 
+                        for(int i = 0; i < 2; i++)
+                        {
+                            InsControl._scope.TimeBasePosition(0);
+                            switch (i)
+                            {
+                                case 0: // rise
+                                    InsControl._scope.Root_RUN();
+                                    InsControl._scope.SetTrigModeEdge(false);
+                                    InsControl._scope.TimeScaleUs(test_parameter.tr * 3);
+                                    InsControl._scope.TimeBasePositionUs(test_parameter.tr * 9);
+                                    MyLib.WaveformCheck();
+                                    InsControl._scope.Root_STOP();
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Rise");
+                                    break;
+                                case 1: // fall
+                                    InsControl._scope.Root_RUN();
+                                    InsControl._scope.SetTrigModeEdge(true);
+                                    InsControl._scope.TimeScaleUs(test_parameter.tf * 3);
+                                    InsControl._scope.TimeBasePositionUs(test_parameter.tf * 9);
+                                    MyLib.WaveformCheck();
+                                    InsControl._scope.Root_STOP();
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Fall");
+                                    break;
+                            }
+                        }
 
-
-
-
-
-
+                        InsControl._scope.Root_RUN();
+                        InsControl._scope.AutoTrigger();
+                        MyLib.WaveformCheck();
+                        InsControl._power.AutoPowerOff();
+                        row++;
                     } // iout loop
                 } // vin loop
             } // freq loop
@@ -140,7 +210,7 @@ namespace BuckTool
 #if true
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
-            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Eff" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_LoadTrans" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();
@@ -173,19 +243,30 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.A] = "No.";
             _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
-            _sheet.Cells[row, XLS_Table.E] = "Freq(MHz)";
-            _sheet.Cells[row, XLS_Table.F] = "Vout(V)";
-            _sheet.Cells[row, XLS_Table.G] = "Iout(mA)";
-            _sheet.Cells[row, XLS_Table.H] = "VPP(mV)";
+            _sheet.Cells[row, XLS_Table.D] = "Freq(MHz)";
+            _sheet.Cells[row, XLS_Table.E] = "Freq(KHz)";
+            _sheet.Cells[row, XLS_Table.F] = "Hi Level(V)";
+            _sheet.Cells[row, XLS_Table.G] = "Lo Level(V)";
+            _sheet.Cells[row, XLS_Table.H] = "Vpp(mV)";
+            _sheet.Cells[row, XLS_Table.I] = "Vmin(mV)";
+            _sheet.Cells[row, XLS_Table.J] = "Vmax(mV)";
+            _sheet.Cells[row, XLS_Table.K] = "Rise SR(A/ms)";
+            _sheet.Cells[row, XLS_Table.L] = "Rise Time(us)";
+            _sheet.Cells[row, XLS_Table.M] = "Fall SR(A/ms)";
+            _sheet.Cells[row, XLS_Table.N] = "Fall Time(us)";
+            _sheet.Cells[row, XLS_Table.O] = "Imax(mA)";
+            _sheet.Cells[row, XLS_Table.P] = "Imin(mA)";
+            _sheet.Cells[row, XLS_Table.Q] = "Overshoot(mV)";
+            _sheet.Cells[row, XLS_Table.R] = "UnderShoot(mV)";
 
-            _range = _sheet.Range["A" + row, "E" + row];
+            _range = _sheet.Range["A" + row, "G" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["F" + row, "H" + row];
+            _range = _sheet.Range["H" + row, "R" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
         }
+
     }
 }
