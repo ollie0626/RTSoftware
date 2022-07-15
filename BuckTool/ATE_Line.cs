@@ -19,6 +19,7 @@ namespace BuckTool
 
         override public void ATETask()
         {
+            int freq_cnt = (test_parameter.Freq_en[0] ? 1 : 0) + (test_parameter.Freq_en[1] ? 1 : 0);
             bool meter1_400mA_en = false;
             bool meter2_400mA_en = false;
             bool sw400mA = true;
@@ -43,14 +44,14 @@ namespace BuckTool
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
             Mylib.testCondition(_sheet, "Eff", bin_cnt, temp);
-            printTitle(row); row++;
+            //printTitle(row); row++;
 #endif
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
             InsControl._eload.CH1_Loading(0);
             InsControl._eload.CCL_Mode();
 
-            for(int freq_idx = 0; freq_idx < 2; freq_idx++)
+            for(int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
             {
                 InsControl._power.AutoPowerOff();
                 if (freq_idx == 0 && test_parameter.Freq_en[0])
@@ -65,7 +66,7 @@ namespace BuckTool
                     meter2_400mA_en = false;
                     MyLib.Relay_Reset(false); // 10A level reset
 #if true
-                    printTitle(row);
+                    printTitle(row); row++;
 #endif
                     level = test_parameter.Iout_table[iout_idx];
                     MyLib.Switch_ELoadLevel(level);
@@ -104,7 +105,9 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.F] = Vout;
                         _sheet.Cells[row, XLS_Table.G] = Iout;
                         _sheet.Cells[row, XLS_Table.H] = Math.Abs((Vout - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
+                        _sheet.Cells[row, XLS_Table.I] = InsControl._34970A.Get_1Vol(3);
 #endif
+                        row++;
                     } // vin loop
                     stop_pos.Add(row - 1);
                 } // iout loop
@@ -147,6 +150,7 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.F] = "Vout(V)";
             _sheet.Cells[row, XLS_Table.G] = "Iout(mA)";
             _sheet.Cells[row, XLS_Table.H] = "LIR(%)";
+            _sheet.Cells[row, XLS_Table.I] = "FB accuracy(V)";
 
             _range = _sheet.Range["A" + row, "E" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;

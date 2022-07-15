@@ -62,8 +62,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATE_Bode.cs" />
     <Compile Include="ATE_Eff.cs" />
     <Compile Include="ATE_Line.cs" />
+    <Compile Include="ATE_Loadtrans.cs" />
+    <Compile Include="ATE_Lx.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="main.cs">
@@ -73,6 +76,7 @@
       <DependentUpon>main.cs</DependentUpon>
     </Compile>
     <Compile Include="MyLib.cs" />
+    <Compile Include="ATE_OutputRipple.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RTBBControl.cs" />

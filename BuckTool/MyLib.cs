@@ -222,6 +222,18 @@ namespace BuckTool
                 InsControl._eload.CCH_Mode();
         }
 
+        public static void WaveformCheck()
+        {
+            InsControl._scope.DoCommand("*CLS");
+            while (!(InsControl._scope.doQeury(":ADER?") == "1")) ;
+        }
+
+        public static void ProcessCheck()
+        {
+            InsControl._scope.DoCommand("*CLS");
+            while (!(InsControl._scope.doQeury(":PDER?") == "1")) ;
+        }
+
         public static void Relay_Process(int port, double curr_cmp, bool isIin, bool sw400mA, ref bool en)
         {
             double meter_limit = 0.4 * 0.75;
@@ -242,12 +254,27 @@ namespace BuckTool
             System.Threading.Thread.Sleep(cnt);
         }
 
-
         public static void Delay1s(int cnt)
         {
             if (cnt < 1) return;
             Delay1ms(cnt * 1000);
         }
 
+        public static void FuncGen_Fixedparameter(double freq, double duty, double tr, double tf)
+        {
+            InsControl._funcgen.CH1_ContinuousMode();
+            InsControl._funcgen.CH1_PulseMode();
+            InsControl._funcgen.CH1_Frequency(freq);
+            InsControl._funcgen.CH1_DutyCycle(duty);
+            InsControl._funcgen.SetCH1_TrTfFunc(tr, tf);
+            InsControl._funcgen.CHl1_HiLevel(0.1);
+        }
+
+        public static void FuncGen_loopparameter(double hi, double lo)
+        {
+            InsControl._funcgen.CHl1_HiLevel(hi);
+            InsControl._funcgen.CH1_LoLevel(lo);
+            InsControl._funcgen.CH1_On();
+        }
     }
 }

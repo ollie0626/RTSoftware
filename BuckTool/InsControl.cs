@@ -19,5 +19,6 @@ namespace BuckTool
         public static ChamberModule _chamber;
         public static DMMModule _dmm1;
         public static DMMModule _dmm2;
+        public static FuncGenModule _funcgen;
     }
 }
