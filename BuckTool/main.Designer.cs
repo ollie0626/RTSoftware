@@ -87,6 +87,8 @@ namespace BuckTool
             this.nu_dmm1 = new System.Windows.Forms.NumericUpDown();
             this.led_dmm2 = new Sunny.UI.UILedBulb();
             this.led_dmm1 = new Sunny.UI.UILedBulb();
+            this.tb_Iout = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -437,12 +439,14 @@ namespace BuckTool
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.tb_Iout);
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.bt_load_sub);
             this.groupBox1.Controls.Add(this.bt_load_add);
             this.groupBox1.Controls.Add(this.Eload_DG);
             this.groupBox1.Location = new System.Drawing.Point(11, 255);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(403, 236);
+            this.groupBox1.Size = new System.Drawing.Size(403, 263);
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ELoad Setting";
@@ -546,7 +550,11 @@ namespace BuckTool
             this.cb_item.FormattingEnabled = true;
             this.cb_item.Items.AddRange(new object[] {
             "1. Efficiency/Load Regulation",
-            "2. Line Regulation"});
+            "2. Line Regulation",
+            "3. Output Ripple",
+            "4. Lx",
+            "5. Bode",
+            "6. Load Transient"});
             this.cb_item.Location = new System.Drawing.Point(101, 138);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(172, 23);
@@ -617,7 +625,7 @@ namespace BuckTool
             this.groupBox3.Controls.Add(this.ck_multi_chamber);
             this.groupBox3.Location = new System.Drawing.Point(420, 246);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 245);
+            this.groupBox3.Size = new System.Drawing.Size(265, 272);
             this.groupBox3.TabIndex = 70;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Ctrl";
@@ -934,10 +942,27 @@ namespace BuckTool
             this.led_dmm1.Text = "uiLedBulb4";
             this.led_dmm1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
+            // tb_Iout
+            // 
+            this.tb_Iout.Location = new System.Drawing.Point(65, 225);
+            this.tb_Iout.Name = "tb_Iout";
+            this.tb_Iout.Size = new System.Drawing.Size(231, 23);
+            this.tb_Iout.TabIndex = 84;
+            this.tb_Iout.Text = "0.01,0.02,0.03";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(34, 228);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 15);
+            this.label4.TabIndex = 83;
+            this.label4.Text = "Iout";
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(699, 509);
+            this.ClientSize = new System.Drawing.Size(699, 595);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
             this.Controls.Add(this.uiSymbolButton2);
             this.Controls.Add(this.uiSymbolButton3);
@@ -991,6 +1016,7 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_eload)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -1064,6 +1090,8 @@ namespace BuckTool
         private System.Windows.Forms.NumericUpDown nu_dmm1;
         private Sunny.UI.UILedBulb led_dmm2;
         private Sunny.UI.UILedBulb led_dmm1;
+        private System.Windows.Forms.TextBox tb_Iout;
+        private System.Windows.Forms.Label label4;
     }
 }
 

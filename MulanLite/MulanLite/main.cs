@@ -410,7 +410,10 @@ namespace MulanLite
                 uiProcessBar1.Value += 1;
                 uiProcessBar2.Value += 1;
                 System.Threading.Thread.Sleep(50);
+                RTDev.BLEnable((byte)id);
+                System.Threading.Thread.Sleep(50);
             }
+            RTDev.BLUpdate();
             bt.Enabled = true;
         }
 
@@ -469,6 +472,9 @@ namespace MulanLite
                 (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8), (byte)((start_offset4 & 0x030000) >> 16),
             };
             await WDataTask(id, 0x18, (byte)(buffer.Length - 1), buffer);
+
+            RTDev.BLEnable(id);
+            RTDev.BLUpdate();
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
             bt.Enabled = true;

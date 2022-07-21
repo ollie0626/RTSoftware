@@ -154,7 +154,28 @@ namespace BuckTool
 
         private void test_parameter_copy()
         {
-            test_parameter.Iout_table = MyLib.DGData(Eload_DG);
+            //1.Efficiency / Load Regulation
+            //2.Line Regulation
+            //3.Output Ripple
+            //4.Lx
+            //5.Bode
+            //6.Load Transient
+
+
+            switch (cb_item.SelectedIndex)
+            {
+                case 0:
+                    test_parameter.Iout_table = MyLib.DGData(Eload_DG);
+                    break;
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                    break;
+            }
+            
             test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.Freq_en[0] = ck_freq1.Checked;
             test_parameter.Freq_en[1] = ck_freq2.Checked;

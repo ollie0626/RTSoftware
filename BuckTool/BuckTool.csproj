@@ -62,7 +62,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ATE_Bode.cs" />
     <Compile Include="ATE_Eff.cs" />
     <Compile Include="ATE_Line.cs" />
     <Compile Include="ATE_Loadtrans.cs" />
