@@ -184,8 +184,8 @@ namespace IN528ATE_tool
                                                     test_parameter.IoutList[iout_idx]
                                                     );
                         Scope_Channel_Resize(vin_idx, binList[bin_idx]);
-                        
 
+                        //:MARKer:MEASurement:MEASurement {MEASurement<N>}
                         Mylib.eLoadLevelSwich(InsControl._eload, test_parameter.IoutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
                         double tempVin = ori_vinTable[vin_idx];

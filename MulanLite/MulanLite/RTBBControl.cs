@@ -314,6 +314,12 @@ namespace MulanLite
             return data;
         }
 
+        public void BLEnable(byte id)
+        {
+            byte[] WData = new byte[1] { 0x02 };
+            WriteFunc(id, 0x2D, 0x03, 0x00, WData);
+        }
+
         public void BLUpdate()
         {
             if (spiModule == null) return;
