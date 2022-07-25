@@ -49,6 +49,8 @@ namespace BuckTool
             this.uiSymbolButton1 = new Sunny.UI.UISymbolButton();
             this.uibt_run = new Sunny.UI.UISymbolButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_Iout = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.bt_load_sub = new Sunny.UI.UISymbolButton();
             this.bt_load_add = new Sunny.UI.UISymbolButton();
             this.Eload_DG = new System.Windows.Forms.DataGridView();
@@ -87,8 +89,6 @@ namespace BuckTool
             this.nu_dmm1 = new System.Windows.Forms.NumericUpDown();
             this.led_dmm2 = new Sunny.UI.UILedBulb();
             this.led_dmm1 = new Sunny.UI.UILedBulb();
-            this.tb_Iout = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -229,7 +229,6 @@ namespace BuckTool
             this.uibt_chamber.Symbol = 61633;
             this.uibt_chamber.TabIndex = 4;
             this.uibt_chamber.Text = "Chamber Connect";
-            this.uibt_chamber.Visible = false;
             this.uibt_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_chamber.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
@@ -450,6 +449,23 @@ namespace BuckTool
             this.groupBox1.TabIndex = 64;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ELoad Setting";
+            // 
+            // tb_Iout
+            // 
+            this.tb_Iout.Location = new System.Drawing.Point(65, 225);
+            this.tb_Iout.Name = "tb_Iout";
+            this.tb_Iout.Size = new System.Drawing.Size(231, 23);
+            this.tb_Iout.TabIndex = 84;
+            this.tb_Iout.Text = "0.01,0.02,0.03";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(34, 228);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(29, 15);
+            this.label4.TabIndex = 83;
+            this.label4.Text = "Iout";
             // 
             // bt_load_sub
             // 
@@ -869,7 +885,6 @@ namespace BuckTool
             this.uiSymbolButton2.Symbol = 61633;
             this.uiSymbolButton2.TabIndex = 6;
             this.uiSymbolButton2.Text = "DMM2 Connect";
-            this.uiSymbolButton2.Visible = false;
             this.uiSymbolButton2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton2.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
@@ -941,23 +956,6 @@ namespace BuckTool
             this.led_dmm1.TabIndex = 79;
             this.led_dmm1.Text = "uiLedBulb4";
             this.led_dmm1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // tb_Iout
-            // 
-            this.tb_Iout.Location = new System.Drawing.Point(65, 225);
-            this.tb_Iout.Name = "tb_Iout";
-            this.tb_Iout.Size = new System.Drawing.Size(231, 23);
-            this.tb_Iout.TabIndex = 84;
-            this.tb_Iout.Text = "0.01,0.02,0.03";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(34, 228);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(29, 15);
-            this.label4.TabIndex = 83;
-            this.label4.Text = "Iout";
             // 
             // main
             // 

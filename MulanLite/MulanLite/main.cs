@@ -37,7 +37,7 @@ namespace MulanLite
             RTDev = new RTBBControl();
             RTDev.BoardInit();
 
-            cb_ldoio.SelectionLength = 1;
+            
             cb_allowone.SelectedIndex = 0;
             cb_ditheren.SelectedIndex = 1;
             cb_m_factor.SelectedIndex = 0;
@@ -66,6 +66,10 @@ namespace MulanLite
             cb_range_x8_x1.SelectedIndex = 0;
             cb_ch_num.SelectedIndex = 0;
             cb_min_count.SelectedIndex = 0;
+
+            cb_ldoio.SelectedIndex = 1;
+            cb_datdrive.SelectedIndex = 0;
+            cb_clkdrive.SelectedIndex = 0;
             initial_wr_en = true;
 
             bt_crc_en.Style = UIStyle.Gray;
@@ -1054,7 +1058,15 @@ namespace MulanLite
             byte data = (byte)cb_ch_num.SelectedIndex;
             byte addr = 0x0A;
             byte mask = 0x00;
+            // switch channel
             WRReg(id, mask, addr, data);
+
+            // read channel data
+            byte[] RData = RTDev.ReadFunc((byte)id, 0x02, 0x0B);
+            if (RData.Length < 3) return;
+            R0B.Value = RData[2];
+            R0C.Value = RData[3];
+            R0D.Value = RData[4];
             cb.Enabled = true;
         }
 
@@ -1574,13 +1586,13 @@ namespace MulanLite
 
         private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
         {
-            if (write_enable == false) return;
-            int val = uiTrackBar1.Value;
-            numericUpDown1.Value = uiTrackBar1.Value;
-            byte id = (byte)nu_persentid.Value;
-            byte[] data = new byte[3] { (byte)(val & 0xFF), (byte)((val & 0xFF00) >> 8), (byte)((val & 0x10000) >> 16) };
-            byte addr = 0x0B;
-            RTDev.WriteFunc(id, WriteCmd, addr, data.Length - 1, data);
+            //if (write_enable == false) return;
+            //int val = uiTrackBar1.Value;
+            //numericUpDown1.Value = uiTrackBar1.Value;
+            //byte id = (byte)nu_persentid.Value;
+            //byte[] data = new byte[3] { (byte)(val & 0xFF), (byte)((val & 0xFF00) >> 8), (byte)((val & 0x10000) >> 16) };
+            //byte addr = 0x0B;
+            //RTDev.WriteFunc(id, WriteCmd, addr, data.Length - 1, data);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
