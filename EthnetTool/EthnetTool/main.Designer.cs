@@ -94,6 +94,7 @@ namespace EthnetTool
             this.tb_save.Size = new System.Drawing.Size(272, 22);
             this.tb_save.TabIndex = 7;
             this.tb_save.Text = "C:\\Users\\westg\\Desktop\\";
+            this.tb_save.TextChanged += new System.EventHandler(this.tb_save_TextChanged);
             // 
             // label1
             // 
@@ -139,7 +140,7 @@ namespace EthnetTool
             this.tb_IPaddr.Name = "tb_IPaddr";
             this.tb_IPaddr.Size = new System.Drawing.Size(272, 22);
             this.tb_IPaddr.TabIndex = 11;
-            this.tb_IPaddr.Text = "192.168.150.1";
+            this.tb_IPaddr.Text = "168.254.95.1";
             // 
             // label4
             // 

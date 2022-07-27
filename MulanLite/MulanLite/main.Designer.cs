@@ -5150,6 +5150,7 @@ namespace MulanLite
             this.cb_datdrive.Name = "cb_datdrive";
             this.cb_datdrive.Size = new System.Drawing.Size(208, 23);
             this.cb_datdrive.TabIndex = 55;
+            this.cb_datdrive.SelectedIndexChanged += new System.EventHandler(this.cb_datdrive_SelectedIndexChanged);
             // 
             // label140
             // 
@@ -5172,6 +5173,7 @@ namespace MulanLite
             this.cb_clkdrive.Name = "cb_clkdrive";
             this.cb_clkdrive.Size = new System.Drawing.Size(208, 23);
             this.cb_clkdrive.TabIndex = 53;
+            this.cb_clkdrive.SelectedIndexChanged += new System.EventHandler(this.cb_clkdrive_SelectedIndexChanged);
             // 
             // label114
             // 

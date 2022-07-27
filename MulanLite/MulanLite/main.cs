@@ -37,7 +37,7 @@ namespace MulanLite
             RTDev = new RTBBControl();
             RTDev.BoardInit();
 
-            
+            cb_sticky.SelectedIndex = 0;
             cb_allowone.SelectedIndex = 0;
             cb_ditheren.SelectedIndex = 1;
             cb_m_factor.SelectedIndex = 0;
@@ -1924,6 +1924,30 @@ namespace MulanLite
             byte id = 0xff;
             RTDev.WriteFunc(id, WriteCmd, 0x05, 0x00, WData);
             bt.Enabled = true;
+        }
+
+        private void cb_clkdrive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            cb.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte data = (byte)(cb_clkdrive.SelectedIndex << 2);
+            byte addr = 0x33;
+            byte mask = 0xFB;
+            WRReg(id, mask, addr, data);
+            cb.Enabled = true;
+        }
+
+        private void cb_datdrive_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox cb = (ComboBox)sender;
+            cb.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte data = (byte)(cb_clkdrive.SelectedIndex << 1);
+            byte addr = 0x33;
+            byte mask = 0xFD;
+            WRReg(id, mask, addr, data);
+            cb.Enabled = true;
         }
     }
 }

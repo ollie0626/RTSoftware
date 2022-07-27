@@ -14,18 +14,20 @@ namespace EthnetTool
     {
         public string msg;
         public string file_name;
+        public string g_path;
         public byte[] trans_buffer;
         public byte[] receiver_buffer;
         private TcpListener m_tcpListener;
         private TcpClient m_client;
         NetworkStream m_stream;
 
-        public Server(string IP, int port)
+        public Server(string IP, int port, string path)
         {
             // create local IPEndpoint object
             IPEndPoint ipe = new IPEndPoint(IPAddress.Parse(IP), port);
             // create tcpListener
             m_tcpListener = new TcpListener(ipe);
+            g_path = path;
         }
 
         public void ListenToConnection()
@@ -36,15 +38,14 @@ namespace EthnetTool
         }
 
 
-        public void Listening(string path)
+        public void Listening()
         {
             try
             {
                 Console.WriteLine("Waiting for connection ... ");
-
                 m_client = m_tcpListener.AcceptTcpClient();
                 m_stream = m_client.GetStream();
-                WaitforData(path);
+                WaitforData();
             }
             catch (SocketException ex)
             {
@@ -53,7 +54,7 @@ namespace EthnetTool
         }
 
 
-        public void WaitforData(string path)
+        public void WaitforData()
         {
             while(true)
             {
@@ -78,7 +79,7 @@ namespace EthnetTool
 
                         Console.WriteLine("Write File ok!!!! ");
                         m_stream.Read(receiver_buffer, 0, size);
-                        FileProcess.WriteFile(receiver_buffer, path, "temp");
+                        FileProcess.WriteFile(receiver_buffer, g_path, "temp");
                     }
                 }
             }
