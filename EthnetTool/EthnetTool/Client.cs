@@ -17,19 +17,23 @@ namespace EthnetTool
     {
         public string msg;
         public string file_name;
+        public string g_path;
+        public bool connect_en;
         private TcpClient m_tcpClient;
         public byte[] trans_buffer;
         public byte[] receiver_buffer;
 
-        public void ConnectToServer(string IP, int port)
+        public void ConnectToServer(string IP, int port, string path)
         {
             //m_tcpClient = new TcpClient(IP, port);
             Console.WriteLine("Host IP:" + IP);
             Console.WriteLine("Connecting to host .... ");
+            g_path = path;
+            connect_en = true;
         }
 
 
-        public void WaitTCPData(string IP, int port, string path)
+        public void WaitTCPData(string IP, int port)
         {
             try
             {
@@ -40,6 +44,7 @@ namespace EthnetTool
                     NetworkStream stream = m_tcpClient.GetStream();
                     stream.Flush();
                     int i = stream.Read(btDatas, 0, btDatas.Length);
+                    if (!connect_en) goto DISCONN;
                     if (i != 0)
                     {
                         int size = btDatas[0] | btDatas[1] << 8 | btDatas[2] << 16 | btDatas[3] << 24;
@@ -55,14 +60,16 @@ namespace EthnetTool
                         //string sData = Encoding.ASCII.GetString(btDatas, 0, btDatas.Length);
                         //Console.WriteLine("File Name " + sData);
 
-
-                        
                         stream.Read(receiver_buffer, 0, size);
                         Console.WriteLine("Write File ok!!!! ");
-                        FileProcess.WriteFile(receiver_buffer, path, "temp");
+                        FileProcess.WriteFile(receiver_buffer, g_path, "temp");
                         Thread.Sleep(100);
                     }
                 }
+            DISCONN:
+                m_tcpClient.Close();
+                Console.WriteLine("Disconnected !!!!");
+
 
             }
             catch (SocketException ex)
@@ -108,7 +115,9 @@ namespace EthnetTool
 
         public void CloseClient()
         {
-            m_tcpClient.Close();
+            connect_en = false;
+            Console.WriteLine("Disconnect to Server !!");
+            
         }
 
         public void CopyFileBuffer(byte[] buf)

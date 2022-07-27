@@ -18,6 +18,7 @@ namespace EthnetTool
     {
         private Server tcpServer;
         private Client tcpClient;
+        
 
         CancellationTokenSource tokenSource2;
         CancellationToken ct;
@@ -37,11 +38,11 @@ namespace EthnetTool
                 // seriver
                 tokenSource2 = new CancellationTokenSource();
                 ct = tokenSource2.Token;
-                tcpServer = new Server(tb_IPaddr.Text, port);
+                tcpServer = new Server(tb_IPaddr.Text, port, tb_save.Text);
                 //tcpServer.CopyFileBuffer(buf);
                 tcpServer.msg = "Serve message";
                 tcpServer.ListenToConnection();
-                Task.Run(() => tcpServer.Listening(tb_save.Text), tokenSource2.Token);
+                Task.Run(() => tcpServer.Listening(), tokenSource2.Token);
             }
             else
             {
@@ -51,8 +52,8 @@ namespace EthnetTool
                 tcpClient = new Client();
                 //tcpClient.CopyFileBuffer(buf);
                 tcpClient.msg = "client data";
-                tcpClient.ConnectToServer(tb_IPaddr.Text, port);
-                Task.Run(() => tcpClient.WaitTCPData(tb_IPaddr.Text, port, tb_save.Text), tokenSource2.Token);
+                tcpClient.ConnectToServer(tb_IPaddr.Text, port, tb_save.Text);
+                Task.Run(() => tcpClient.WaitTCPData(tb_IPaddr.Text, port), tokenSource2.Token);
             }
         }
 
@@ -150,6 +151,21 @@ namespace EthnetTool
             else
             {
 
+            }
+        }
+
+        private void tb_save_TextChanged(object sender, EventArgs e)
+        {
+            
+            if(CK_Server.Checked)
+            {
+                if(tcpServer == null) bt_connect_Click(null, null);
+                tcpServer.g_path = tb_save.Text;
+            }
+            else
+            {
+                if(tcpClient == null) bt_connect_Click(null, null);
+                tcpClient.g_path = tb_save.Text;
             }
         }
     }
