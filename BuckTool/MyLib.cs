@@ -33,6 +33,25 @@ namespace BuckTool
             return data;
         }
 
+        public static List<double> TBData(TextBox tb)
+        {
+            List<double> data = new List<double>();
+            string[] str_data = tb.Text.Split(',');
+            double start = Convert.ToDouble(str_data[0]);
+            double stop = Convert.ToDouble(str_data[1]);
+            double step = 0.1;
+            double res = 0;
+
+            for (int idx = 0; res < stop; idx++)
+            {
+                res = start + step * idx;
+                data.Add(res);
+            }
+            return data;
+        }
+
+
+
         public string[] ListBinFile(string path)
         {
             string[] binList = new string[1];
@@ -239,11 +258,17 @@ namespace BuckTool
             double meter_limit = 0.4 * 0.75;
             if(curr_cmp > meter_limit && !en)
             {
+                double vin = InsControl._power.GetVoltage();
                 InsControl._power.AutoPowerOff();
                 InsControl._eload.AllChannel_LoadOff();
                 if (isIin) InsControl._dmm1.ChangeCurrentLevel(sw400mA);
                 else InsControl._dmm2.ChangeCurrentLevel(sw400mA);
                 RTBBControl.Meter10A(port);
+
+                
+                InsControl._power.AutoSelPowerOn(vin);
+                InsControl._eload.CH1_Loading(curr_cmp);
+
                 en = true;
             }
         }

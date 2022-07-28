@@ -30,20 +30,20 @@ namespace BuckTool
             stopWatch.Start();
             int row = 22;
             MyLib Mylib = new MyLib();
-            int bin_cnt = 1;
-            string[] binList = new string[1];
-            binList = Mylib.ListBinFile(test_parameter.binFolder);
-            bin_cnt = binList.Length;
-            double[] vinList = new double[test_parameter.Vin_table.Count];
-            Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
+            //int bin_cnt = 1;
+            //string[] binList = new string[1];
+            //binList = Mylib.ListBinFile(test_parameter.binFolder);
+            //bin_cnt = binList.Length;
+            double[] vinList = test_parameter.Vin_table.ToArray();
+            //Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
-#if true
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
-            Mylib.testCondition(_sheet, "Eff", bin_cnt, temp);
+            Mylib.testCondition(_sheet, "Line", 0, temp);
             //printTitle(row); row++;
 #endif
             InsControl._power.AutoPowerOff();
@@ -65,11 +65,14 @@ namespace BuckTool
                     meter1_400mA_en = false;
                     meter2_400mA_en = false;
                     MyLib.Relay_Reset(false); // 10A level reset
-#if true
+#if Report
                     printTitle(row); row++;
 #endif
                     level = test_parameter.Iout_table[iout_idx];
                     MyLib.Switch_ELoadLevel(level);
+                    if (!meter2_400mA_en)
+                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, sw400mA, ref meter2_400mA_en);
+
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
                     InsControl._eload.CH1_Loading(level);
                     Iin = InsControl._power.GetCurrent();
@@ -77,8 +80,7 @@ namespace BuckTool
                     if (!meter1_400mA_en)
                         MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, sw400mA, ref meter1_400mA_en);
 
-                    if (!meter2_400mA_en)
-                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, sw400mA, ref meter2_400mA_en);
+
 
                     start_pos.Add(row);
                     for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
@@ -92,16 +94,26 @@ namespace BuckTool
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
                         MyLib.Delay1ms(250);
                         Vin = InsControl._34970A.Get_100Vol(1);
-                        Vout = InsControl._34970A.Get_100Vol(1);
+                        Vout = InsControl._34970A.Get_100Vol(2);
                         Iin = meter1_400mA_en ? InsControl._dmm1.GetCurrent(1) : InsControl._dmm1.GetCurrent(3);
                         Iout = meter2_400mA_en ? InsControl._dmm2.GetCurrent(1) : InsControl._dmm2.GetCurrent(3);
 
-#if true
-                        _sheet.Cells[row, XLS_Table.A] = row - 22;
+#if Report
+                        _sheet.Cells[row, XLS_Table.A] = vin_idx;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = Vin;
                         _sheet.Cells[row, XLS_Table.D] = Iin;
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des;
+                        if (freq_cnt == 1)
+                        {
+                            if (test_parameter.Freq_en[0])
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[0];
+                            else
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[1];
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[freq_idx];
+                        }
                         _sheet.Cells[row, XLS_Table.F] = Vout;
                         _sheet.Cells[row, XLS_Table.G] = Iout;
                         _sheet.Cells[row, XLS_Table.H] = Math.Abs((Vout - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
@@ -115,13 +127,13 @@ namespace BuckTool
 
             Stop:
             stopWatch.Stop();
+
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
-
-#if true
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Line" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);

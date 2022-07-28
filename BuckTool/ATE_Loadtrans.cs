@@ -58,7 +58,7 @@ namespace BuckTool
             double[] vinList = new double[test_parameter.Vin_table.Count];
             Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
-#if true
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -83,7 +83,7 @@ namespace BuckTool
                     RTBBControl.Gpio_Disable();
                 for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                 {
-#if true
+#if Report
                     printTitle(row); row++;
 #endif
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
@@ -145,11 +145,21 @@ namespace BuckTool
                         fall = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel4,Falling") / 1000;
                         rise_time = InsControl._scope.Meas_CH4Rise() * Math.Pow(10, 6);
                         fall_time = InsControl._scope.Meas_CH4Fall() * Math.Pow(10, 6);
-#if true
+#if Report
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = test_parameter.Vin_table[vin_idx];
-                        _sheet.Cells[row, XLS_Table.D] = test_parameter.Freq_des;
+                        if (freq_cnt == 1)
+                        {
+                            if (test_parameter.Freq_en[0])
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[0];
+                            else
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[1];
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[freq_idx];
+                        }
                         _sheet.Cells[row, XLS_Table.E] = test_parameter.freq;
                         _sheet.Cells[row, XLS_Table.F] = test_parameter.HiLo_table[func_idx].Highlevel;
                         _sheet.Cells[row, XLS_Table.G] = test_parameter.HiLo_table[func_idx].LowLevel;
@@ -162,7 +172,7 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.K] = fall_time;
 #endif
 
-                        for(int i = 0; i < 2; i++)
+                        for (int i = 0; i < 2; i++)
                         {
                             InsControl._scope.TimeBasePosition(0);
                             switch (i)
@@ -205,9 +215,10 @@ namespace BuckTool
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-            _sheet.Cells[2, 2] = str_temp;
 
-#if true
+
+#if Report
+            _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_LoadTrans" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
