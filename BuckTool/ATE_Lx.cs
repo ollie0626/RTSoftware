@@ -14,6 +14,7 @@ namespace BuckTool
 
     public class ATE_Lx : TaskRun
     {
+
         Excel.Application _app;
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
@@ -45,7 +46,7 @@ namespace BuckTool
             double[] vinList = new double[test_parameter.Vin_table.Count];
             Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
-#if true
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -59,7 +60,7 @@ namespace BuckTool
             {
                 for(int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                 {
-#if true
+#if Report
                     printTitle(row); row++;
 #endif
                     for (int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
@@ -80,12 +81,22 @@ namespace BuckTool
                         iout = InsControl._eload.GetIout();
                         vout = InsControl._eload.GetVol();
 
-#if true
+#if Report
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin;
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des;
+                        if (freq_cnt == 1)
+                        {
+                            if (test_parameter.Freq_en[0])
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[0];
+                            else
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[1];
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[freq_idx];
+                        }
                         _sheet.Cells[row, XLS_Table.F] = iout;
                         _sheet.Cells[row, XLS_Table.G] = vout;
 #endif
@@ -126,9 +137,10 @@ namespace BuckTool
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-            _sheet.Cells[2, 2] = str_temp;
 
-#if true
+
+#if Report
+            _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Lx" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
@@ -178,7 +190,7 @@ namespace BuckTool
             InsControl._scope.Root_STOP();
             double rise_time = InsControl._scope.Measure_SlewRate_Rising(1);
             double rise = InsControl._scope.Measure_Rise(1);
-#if true
+#if Report
             _sheet.Cells[row, XLS_Table.K] = string.Format("{0:0.000}", rise_time * Math.Pow(10, 9));
             _sheet.Cells[row, XLS_Table.L] = string.Format("{0:0.000}", rise * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
@@ -202,7 +214,7 @@ namespace BuckTool
             InsControl._scope.Root_STOP();
             double fall = InsControl._scope.Measure_SlewRate_Falling(1);
             double fall_time = InsControl._scope.Measure_Fall_Time(1);
-#if true
+#if Report
             _sheet.Cells[row, XLS_Table.M] = string.Format("{0:0.000}", fall_time * Math.Pow(10, 9));
             _sheet.Cells[row, XLS_Table.N] = string.Format("{0:0.000}", fall * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
@@ -261,7 +273,7 @@ namespace BuckTool
             double MeaStdDev = InsControl._scope.doQueryNumber(":MEASure:HISTogram:STDDev?") * Math.Pow(10, 9);
             double Freq = InsControl._scope.Measure_Freq(1);
 
-#if true
+#if Report
             _sheet.Cells[row, XLS_Table.O] = MeaPKPK;
             _sheet.Cells[row, XLS_Table.P] = MeaStdDev;
             _sheet.Cells[row, XLS_Table.Q] = MeaPKPK * Freq * 100 * Math.Pow(10, -9);
@@ -312,7 +324,7 @@ namespace BuckTool
             InsControl._scope.DoCommand(":MEASURE:STATISTICS MIN");
             freq_min = InsControl._scope.Meas_Result();
 
-#if true
+#if Report
             _sheet.Cells[row, XLS_Table.H] = string.Format("{0:##.000}", freq_mean);
             _sheet.Cells[row, XLS_Table.I] = string.Format("{0:##.000}", freq_max);
             _sheet.Cells[row, XLS_Table.J] = string.Format("{0:##.000}", freq_min);

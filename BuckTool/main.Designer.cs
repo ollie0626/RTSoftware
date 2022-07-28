@@ -89,6 +89,8 @@ namespace BuckTool
             this.nu_dmm1 = new System.Windows.Forms.NumericUpDown();
             this.led_dmm2 = new Sunny.UI.UILedBulb();
             this.led_dmm1 = new Sunny.UI.UILedBulb();
+            this.tb_freqdes1 = new System.Windows.Forms.TextBox();
+            this.tb_freqdes2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -591,10 +593,12 @@ namespace BuckTool
             this.tb_Vin.Name = "tb_Vin";
             this.tb_Vin.Size = new System.Drawing.Size(231, 23);
             this.tb_Vin.TabIndex = 68;
-            this.tb_Vin.Text = "3,3.3,3.5";
+            this.tb_Vin.Text = "12,5";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tb_freqdes2);
+            this.groupBox2.Controls.Add(this.tb_freqdes1);
             this.groupBox2.Controls.Add(this.ck_freq2);
             this.groupBox2.Controls.Add(this.ck_freq1);
             this.groupBox2.Location = new System.Drawing.Point(11, 205);
@@ -607,7 +611,7 @@ namespace BuckTool
             // ck_freq2
             // 
             this.ck_freq2.AutoSize = true;
-            this.ck_freq2.Location = new System.Drawing.Point(128, 19);
+            this.ck_freq2.Location = new System.Drawing.Point(170, 16);
             this.ck_freq2.Name = "ck_freq2";
             this.ck_freq2.Size = new System.Drawing.Size(101, 19);
             this.ck_freq2.TabIndex = 1;
@@ -843,6 +847,7 @@ namespace BuckTool
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(152, 23);
             this.tbWave.TabIndex = 73;
+            this.tbWave.Text = "D:\\";
             // 
             // textBox2
             // 
@@ -956,6 +961,22 @@ namespace BuckTool
             this.led_dmm1.TabIndex = 79;
             this.led_dmm1.Text = "uiLedBulb4";
             this.led_dmm1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            // 
+            // tb_freqdes1
+            // 
+            this.tb_freqdes1.Location = new System.Drawing.Point(31, 15);
+            this.tb_freqdes1.Name = "tb_freqdes1";
+            this.tb_freqdes1.Size = new System.Drawing.Size(133, 23);
+            this.tb_freqdes1.TabIndex = 2;
+            this.tb_freqdes1.Text = "Freq 2_5MHz";
+            // 
+            // tb_freqdes2
+            // 
+            this.tb_freqdes2.Location = new System.Drawing.Point(190, 14);
+            this.tb_freqdes2.Name = "tb_freqdes2";
+            this.tb_freqdes2.Size = new System.Drawing.Size(133, 23);
+            this.tb_freqdes2.TabIndex = 3;
+            this.tb_freqdes2.Text = "Freq 1_25MHz";
             // 
             // main
             // 
@@ -1090,6 +1111,8 @@ namespace BuckTool
         private Sunny.UI.UILedBulb led_dmm1;
         private System.Windows.Forms.TextBox tb_Iout;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tb_freqdes2;
+        private System.Windows.Forms.TextBox tb_freqdes1;
     }
 }
 

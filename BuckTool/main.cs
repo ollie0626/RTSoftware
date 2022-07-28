@@ -30,6 +30,7 @@ namespace BuckTool
 
     public partial class main : Sunny.UI.UIForm
     {
+
         // Thread
         FolderBrowserDialog FolderBrow;
         Thread ATETask;
@@ -37,14 +38,21 @@ namespace BuckTool
         public static bool isChamberEn = false;
         int SteadyTime;
         string tempList;
+
         ATE_Eff _ate_eff = new ATE_Eff();
+        ATE_Line _ate_line = new ATE_Line();
+        ATE_OutputRipple _ate_ripple = new ATE_OutputRipple();
+        ATE_Lx _ate_lx = new ATE_Lx();
+        ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
+
         TaskRun[] ate_table;
 
         public void GUInit()
         {
             cb_item.SelectedIndex = 0;
             Eload_DG.RowCount = 1;
-            ate_table = new TaskRun[] { _ate_eff };
+            ate_table = new TaskRun[] { _ate_eff, _ate_line, _ate_ripple, _ate_lx, _ate_trans };
+
             led_power.Color = Color.Red;
             led_osc.Color = Color.Red;
             led_eload.Color = Color.Red;
@@ -165,20 +173,28 @@ namespace BuckTool
             switch (cb_item.SelectedIndex)
             {
                 case 0:
+                    test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = MyLib.DGData(Eload_DG);
                     break;
                 case 1:
+                    test_parameter.Vin_table = MyLib.TBData(tb_Vin);
+                    test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                    break;
                 case 2:
                 case 3:
                 case 4:
                 case 5:
+                    test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
             }
             
-            test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+            
             test_parameter.Freq_en[0] = ck_freq1.Checked;
             test_parameter.Freq_en[1] = ck_freq2.Checked;
+            test_parameter.Freq_des[0] = tb_freqdes1.Text;
+            test_parameter.Freq_des[1] = tb_freqdes2.Text;
+            test_parameter.waveform_path = tbWave.Text;
         }
 
 
@@ -341,6 +357,7 @@ namespace BuckTool
 
         private void Single_Task(object idx)
         {
+            ate_table[(int)idx].temp = 25;
             ate_table[(int)idx].ATETask();
         }
 

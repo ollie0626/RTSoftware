@@ -8,6 +8,8 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Drawing;
 
+
+
 namespace BuckTool
 {
     public class ATE_OutputRipple : TaskRun
@@ -53,7 +55,7 @@ namespace BuckTool
             double[] vinList = new double[test_parameter.Vin_table.Count];
             Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
-#if true
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -72,7 +74,7 @@ namespace BuckTool
                 
                 for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                 {
-#if true
+#if Report
                     printTitle(row); row++;
 #endif
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
@@ -96,7 +98,7 @@ namespace BuckTool
                         ChannelResize();
                         InsControl._scope.Root_STOP();
 
-#if true
+#if Report
                         vin = InsControl._34970A.Get_100Vol(1);
                         vout = InsControl._34970A.Get_100Vol(2);
                         iin = InsControl._power.GetCurrent();
@@ -107,7 +109,17 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = string.Format("{0:00.00}", vin);
                         _sheet.Cells[row, XLS_Table.D] = string.Format("{0:00.00}", iin);
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des;
+                        if (freq_cnt == 1)
+                        {
+                            if (test_parameter.Freq_en[0])
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[0];
+                            else
+                                _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[1];
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[freq_idx];
+                        }
                         _sheet.Cells[row, XLS_Table.F] = string.Format("{0:00.00}", vout);
                         _sheet.Cells[row, XLS_Table.G] = string.Format("{0:00.00}", iout);
                         _sheet.Cells[row, XLS_Table.H] = string.Format("{0:00.00}", vpp);
@@ -126,9 +138,10 @@ namespace BuckTool
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-            _sheet.Cells[2, 2] = str_temp;
 
-#if true
+
+#if Report
+            _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Eff" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
