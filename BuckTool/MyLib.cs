@@ -253,7 +253,7 @@ namespace BuckTool
             while (!(InsControl._scope.doQeury(":PDER?") == "1")) ;
         }
 
-        public static void Relay_Process(int port, double curr_cmp, bool isIin, bool sw400mA, ref bool en)
+        public static void Relay_Process(int port, double curr_cmp, int vin_idx, bool isIin, bool sw400mA, ref bool en)
         {
             double meter_limit = 0.4 * 0.75;
             if(curr_cmp > meter_limit && !en)
@@ -266,7 +266,7 @@ namespace BuckTool
                 RTBBControl.Meter10A(port);
 
                 
-                InsControl._power.AutoSelPowerOn(vin);
+                InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
                 InsControl._eload.CH1_Loading(curr_cmp);
 
                 en = true;
