@@ -100,14 +100,14 @@ namespace BuckTool
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                         if (!meter2_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, false, sw10A, ref meter2_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, vin_idx, false, sw10A, ref meter2_10A_en);
                         InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.Iout_table[iout_idx]);
                         MyLib.Delay1ms(150);
                         Iin = InsControl._power.GetCurrent();
                         
                         if(!meter1_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, true, sw10A, ref meter1_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, vin_idx, true, sw10A, ref meter1_10A_en);
 
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
 

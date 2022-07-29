@@ -38,13 +38,14 @@ namespace BuckTool
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             int row = 22;
-            int bin_cnt = 1;
+            //int bin_cnt = 1;
             MyLib Mylib = new MyLib();
-            string[] binList = new string[1];
-            binList = Mylib.ListBinFile(test_parameter.binFolder);
-            bin_cnt = binList.Length;
-            double[] vinList = new double[test_parameter.Vin_table.Count];
-            Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
+            //string[] binList = new string[1];
+            //binList = Mylib.ListBinFile(test_parameter.binFolder);
+            //bin_cnt = binList.Length;
+            //double[] vinList = new double[test_parameter.Vin_table.Count];
+            //Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
+            double[] vinList = test_parameter.Vin_table.ToArray();
 
 #if Report
             _app = new Excel.Application();
@@ -52,7 +53,7 @@ namespace BuckTool
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
-            Mylib.testCondition(_sheet, "Lx", bin_cnt, temp);
+            Mylib.testCondition(_sheet, "Lx", 0, temp);
 #endif
             OSCInit();
 
