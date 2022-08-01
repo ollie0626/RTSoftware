@@ -168,7 +168,6 @@ namespace BuckTool
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
-
         }
 
         private void printTitle(int row)
