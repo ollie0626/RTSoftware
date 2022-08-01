@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 
 namespace BuckTool
 {
@@ -17,6 +18,10 @@ namespace BuckTool
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
+
+        private const string str_Freqfolder = "\\Freq";
+        private const string str_SRfolder = "\\SR";
+        private const string str_Jitterfolder = "\\Jitter";
 
         private void OSCInit()
         {
@@ -32,8 +37,28 @@ namespace BuckTool
         }
 
 
+        private void WaveformPathCheck()
+        {
+            if (!Directory.Exists(test_parameter.waveform_path + "\\Lx"))
+            {
+                Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx");
+                Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Freqfolder);
+                Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_SRfolder);
+                Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder);
+            }
+            else
+            {
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Freqfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Freqfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_SRfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_SRfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder);
+            }
+            test_parameter.waveform_path = test_parameter.waveform_path + "\\Lx";
+        }
+
         public override void ATETask()
         {
+
+            WaveformPathCheck();
             int freq_cnt = (test_parameter.Freq_en[0] ? 1 : 0) + (test_parameter.Freq_en[1] ? 1 : 0);
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -67,6 +92,11 @@ namespace BuckTool
                     for (int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                     {
                         string file_neme = "";
+                        string file_name = string.Format("{0}_Vin={1}_Iout={2}_Freq={3}",
+                                                        row - 22,
+                                                        test_parameter.Vin_table[vin_idx],
+                                                        test_parameter.Iout_table[iout_idx],
+                                                        test_parameter.Freq_des);
                         double iout = test_parameter.Iout_table[iout_idx];
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
@@ -108,12 +138,12 @@ namespace BuckTool
                             {
                                 case 0: // freq task
                                     FreqTask(row); row++;
-                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_neme + "_freq");
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Freqfolder, file_neme + "_freq");
                                     InsControl._scope.Root_RUN();
                                     break;
                                 case 1: // jitter task
                                     JitterTask(row); row++;
-                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_neme + "_jitter");
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Jitterfolder, file_neme + "_jitter");
                                     InsControl._scope.DoCommand(":HISTogram:MODE OFF");
                                     InsControl._scope.DoCommand(":DISPlay:CGRade OFF");
                                     InsControl._scope.Root_RUN();
@@ -137,7 +167,6 @@ namespace BuckTool
         Stop:
             stopWatch.Stop();
 #if Report
-            
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
@@ -204,7 +233,7 @@ namespace BuckTool
 #endif
             InsControl._scope.TimeScale(rise * 2);
             // Rise save waveform
-            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Rise");
+            InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Rise");
 
             // Fall
             InsControl._scope.Bandwidth_Limit_On(1);
@@ -228,7 +257,7 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.U] = InsControl._scope.Measure_Ch_min(1);
 #endif
             // fall wave waveform
-            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Fall");
+            InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Fall");
         }
 
         private void JitterTask(int row)

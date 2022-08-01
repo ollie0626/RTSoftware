@@ -169,10 +169,10 @@ namespace BuckTool
             //5.Bode
             //6.Load Transient
 
-
             switch (cb_item.SelectedIndex)
             {
-                case 0:
+                case 0: // eload
+                case 3:
                     test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = MyLib.DGData(Eload_DG);
                     break;
@@ -181,14 +181,12 @@ namespace BuckTool
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 case 2:
-                case 3:
                 case 4:
                 case 5:
                     test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
             }
-            
             
             test_parameter.Freq_en[0] = ck_freq1.Checked;
             test_parameter.Freq_en[1] = ck_freq2.Checked;

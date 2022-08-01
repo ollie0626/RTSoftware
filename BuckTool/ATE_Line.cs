@@ -145,6 +145,7 @@ namespace BuckTool
             _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
+            AddCruve(start_pos, stop_pos);
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Line" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -153,16 +154,39 @@ namespace BuckTool
             GC.Collect();
 #endif
 
-
         } // ATETask
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
+#if Report
+            Excel.Chart chart;
+            Excel.Range range;
+            Excel.SeriesCollection collection;
+            Excel.Series series;
+            Excel.Range XRange, YRange;
+            range = _sheet.Range["M16", "V32"];
+            chart = MyLib.CreateChart(_sheet, range, "Line Regulation", "Vin (V)", "Vout (V)");
+            // for LOR
+            //range = _sheet.Range["M38", "V54"];
 
+            chart.Legend.Delete();
+            collection = chart.SeriesCollection();
+
+            for(int line = 0; line < start_pos.Count; line++)
+            {
+                series = collection.NewSeries();
+                XRange = _sheet.Range["G" + start_pos[line].ToString(), "G" + stop_pos[line].ToString()];
+                YRange = _sheet.Range["H" + start_pos[line].ToString(), "H" + stop_pos[line].ToString()];
+                series.XValues = XRange;
+                series.Values = YRange;
+                series.Name = "line" + (line + 1).ToString();
+            }
+#endif
         }
 
         private void printTitle(int row)
         {
+#if Report
             _sheet.Cells[row, XLS_Table.A] = "No.";
             _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
@@ -180,6 +204,7 @@ namespace BuckTool
             _range = _sheet.Range["F" + row, "I" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
+#endif
         }
     }
 }
