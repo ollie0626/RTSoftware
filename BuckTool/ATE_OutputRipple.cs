@@ -21,6 +21,8 @@ namespace BuckTool
 
         private void OSCInint()
         {
+            InsControl._scope.AgilentOSC_RST();
+            MyLib.WaveformCheck();
             InsControl._scope.CH1_ACoupling();
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_Off();
@@ -29,7 +31,7 @@ namespace BuckTool
 
 
             InsControl._scope.CH1_Level(0.1);
-            InsControl._scope.CH1_Offset(0);
+            InsControl._scope.CH1_Offset(-0.1);
             InsControl._scope.CH4_Level(0.3);
             InsControl._scope.CH4_Offset(0.3 * 3);
 
@@ -37,6 +39,7 @@ namespace BuckTool
             InsControl._scope.TimeScaleUs(20);
             InsControl._scope.TimeBasePositionUs(0);
             InsControl._scope.DoCommand(":MEASure:VPP CHANnel1");
+            MyLib.WaveformCheck();
         }
 
 
@@ -47,13 +50,14 @@ namespace BuckTool
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             int row = 22;
-            int bin_cnt = 1;
+            int bin_cnt = 0;
             MyLib Mylib = new MyLib();
-            string[] binList = new string[1];
-            binList = Mylib.ListBinFile(test_parameter.binFolder);
-            bin_cnt = binList.Length;
-            double[] vinList = new double[test_parameter.Vin_table.Count];
-            Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
+            //string[] binList = new string[1];
+            //binList = Mylib.ListBinFile(test_parameter.binFolder);
+            //bin_cnt = binList.Length;
+            double[] vinList = test_parameter.Vin_table.ToArray();
+            //double[] vinList = new double[test_parameter.Vin_table.Count];
+            //Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
 #if Report
             _app = new Excel.Application();
@@ -108,7 +112,7 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = string.Format("{0:00.00}", vin);
-                        _sheet.Cells[row, XLS_Table.D] = string.Format("{0:00.00}", iin);
+                        _sheet.Cells[row, XLS_Table.D] = string.Format("{0:00.00}", iin * 1000);
                         if (freq_cnt == 1)
                         {
                             if (test_parameter.Freq_en[0])
@@ -121,8 +125,8 @@ namespace BuckTool
                             _sheet.Cells[row, XLS_Table.E] = test_parameter.Freq_des[freq_idx];
                         }
                         _sheet.Cells[row, XLS_Table.F] = string.Format("{0:00.00}", vout);
-                        _sheet.Cells[row, XLS_Table.G] = string.Format("{0:00.00}", iout);
-                        _sheet.Cells[row, XLS_Table.H] = string.Format("{0:00.00}", vpp);
+                        _sheet.Cells[row, XLS_Table.G] = string.Format("{0:00.00}", iout * 1000);
+                        _sheet.Cells[row, XLS_Table.H] = string.Format("{0:00.0000}", vpp * 1000);
 
 #endif
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
@@ -134,17 +138,18 @@ namespace BuckTool
 
         Stop:
             stopWatch.Stop();
+
+
+
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-
-
-#if Report
             _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
-            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Eff" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Ripple" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();
@@ -155,13 +160,11 @@ namespace BuckTool
 
         private void ChannelResize()
         {
-            int time_cnt = 20;
             double max = 0, period, vpp = 0;
-            double fail_num = 9.99 * Math.Pow(10, 9);
             for (int i = 0; i < 3; i++)
             {
                 max = InsControl._scope.Meas_CH4MAX();
-                InsControl._scope.CH4_Offset(max / 3);
+                InsControl._scope.CH4_Level(max / 3);
                 MyLib.Delay1ms(50);
 
                 vpp = InsControl._scope.Meas_CH1VPP();
@@ -169,14 +172,12 @@ namespace BuckTool
 
             }
             InsControl._scope.TriggerLevel_CH4(max * 0.75);
+            InsControl._scope.TimeScaleUs(10);
+
             period = InsControl._scope.Meas_CH4Period();
-            while (period > fail_num)
-            {
-                time_cnt++;
-                InsControl._scope.TimeScaleUs(time_cnt);
-                period = InsControl._scope.Meas_CH4Period();
-                if (time_cnt >= 100) break;
-            }
+            InsControl._scope.TimeScale(period / 2);
+
+            period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period / 2);
 
         }

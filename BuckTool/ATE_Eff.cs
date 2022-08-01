@@ -65,13 +65,9 @@ namespace BuckTool
             InsControl._eload.CH1_Loading(0);
             InsControl._eload.CCL_Mode();
 
-
-            //TODO: switch frequency need modify.
             for (int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
             {
                 InsControl._power.AutoPowerOff();
-                
-                
                 if (freq_idx == 0 && test_parameter.Freq_en[0])
                     RTBBControl.Gpio_Enable();
                 else
@@ -100,14 +96,14 @@ namespace BuckTool
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                         if (!meter2_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, vin_idx, false, sw10A, ref meter2_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_1, level, iout_idx, vin_idx, false, sw10A, ref meter2_10A_en);
                         InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.Iout_table[iout_idx]);
                         MyLib.Delay1ms(150);
                         Iin = InsControl._power.GetCurrent();
                         
                         if(!meter1_10A_en)
-                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, vin_idx, true, sw10A, ref meter1_10A_en);
+                            MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, iout_idx, vin_idx, true, sw10A, ref meter1_10A_en);
 
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
 

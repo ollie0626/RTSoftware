@@ -71,7 +71,7 @@ namespace BuckTool
                     level = test_parameter.Iout_table[iout_idx];
                     MyLib.Switch_ELoadLevel(level);
                     if (!meter2_10A_en)
-                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, 0, false, sw400mA, ref meter2_10A_en);
+                        MyLib.Relay_Process(RTBBControl.GPIO2_1, level, iout_idx, 0, false, sw400mA, ref meter2_10A_en);
 
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
                     InsControl._eload.CH1_Loading(level);
