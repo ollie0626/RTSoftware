@@ -203,6 +203,7 @@ namespace BuckTool
             try
             {
                 test_parameter_copy();
+                test_parameter.run_stop = false;
 
                 if (ck_multi_chamber.Checked && ck_chaber_en.Checked)
                 {
