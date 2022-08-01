@@ -22,13 +22,13 @@ namespace BuckTool
         private void OSCInint()
         {
             InsControl._scope.AgilentOSC_RST();
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
             MyLib.WaveformCheck();
             InsControl._scope.CH1_ACoupling();
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_Off();
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_On();
-
 
             InsControl._scope.CH1_Level(0.1);
             InsControl._scope.CH1_Offset(-0.1);
@@ -52,6 +52,8 @@ namespace BuckTool
             int row = 22;
             int bin_cnt = 0;
             MyLib Mylib = new MyLib();
+            List<int> start_pos = new List<int>();
+            List<int> stop_pos = new List<int>();
             //string[] binList = new string[1];
             //binList = Mylib.ListBinFile(test_parameter.binFolder);
             //bin_cnt = binList.Length;
@@ -66,7 +68,6 @@ namespace BuckTool
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
             Mylib.testCondition(_sheet, "Ripple", bin_cnt, temp);
-
 #endif
             OSCInint();
             for (int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
@@ -83,6 +84,7 @@ namespace BuckTool
 #endif
                     InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);
                     double target = vinList[vin_idx];
+                    start_pos.Add(row);
                     for (int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                     {
                         double vin, iout, vpp, vout, iin;
@@ -133,13 +135,12 @@ namespace BuckTool
                         InsControl._scope.Root_RUN();
                         row++;
                     }
+                    stop_pos.Add(row - 1);
                 }
             }
 
         Stop:
             stopWatch.Stop();
-
-
 
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
@@ -149,6 +150,7 @@ namespace BuckTool
             _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
+            AddCruve(start_pos, stop_pos);
             Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Ripple" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -173,6 +175,7 @@ namespace BuckTool
             }
             InsControl._scope.TriggerLevel_CH4(max * 0.75);
             InsControl._scope.TimeScaleUs(10);
+            MyLib.WaveformCheck();
 
             period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period / 2);
@@ -184,7 +187,31 @@ namespace BuckTool
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
+#if Report
+            Excel.Chart chart;
+            Excel.Range range;
+            Excel.SeriesCollection collection;
+            Excel.Series series;
+            Excel.Range XRange, YRange;
+            range = _sheet.Range["M16", "V32"];
+            chart = MyLib.CreateChart(_sheet, range, "Output Ripple", "Iout (mA)", "Vout (V)");
+            // for LOR
+            //range = _sheet.Range["M38", "V54"];
 
+            chart.Legend.Delete();
+            collection = chart.SeriesCollection();
+
+            for (int line = 0; line < start_pos.Count; line++)
+            {
+                series = collection.NewSeries();
+
+                XRange = _sheet.Range["G" + start_pos[line].ToString(), "G" + stop_pos[line].ToString()];
+                YRange = _sheet.Range["H" + start_pos[line].ToString(), "H" + stop_pos[line].ToString()];
+                series.XValues = XRange;
+                series.Values = YRange;
+                series.Name = "line" + (line + 1).ToString();
+            }
+#endif
         }
 
         private void printTitle(int row)
