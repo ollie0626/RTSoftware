@@ -268,16 +268,16 @@ namespace BuckTool
         public static void WaveformCheck()
         {
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":ADER?") == "1")) ;
+            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n")) ;
         }
 
         public static void ProcessCheck()
         {
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":PDER?") == "1")) ;
+            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n")) ;
         }
 
-        public static void Relay_Process(int port, double curr_cmp, int vin_idx, bool isIin, bool sw400mA, ref bool en)
+        public static void Relay_Process(int port, double curr_cmp, int iout_idx, int vin_idx, bool isIin, bool sw400mA, ref bool en)
         {
             double meter_limit = 0.4 * 0.75;
             if(curr_cmp > meter_limit && !en)
@@ -291,7 +291,7 @@ namespace BuckTool
 
                 
                 InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
-                InsControl._eload.CH1_Loading(curr_cmp);
+                InsControl._eload.CH1_Loading(test_parameter.Iout_table[iout_idx]);
 
                 en = true;
             }

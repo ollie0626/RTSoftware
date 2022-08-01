@@ -10,8 +10,6 @@ using System.Drawing;
 
 namespace BuckTool
 {
-
-
     public class ATE_Lx : TaskRun
     {
 
@@ -28,6 +26,8 @@ namespace BuckTool
             InsControl._scope.CH2_Off();
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_Off();
+            InsControl._scope.CH1_Level(1.3);
+            InsControl._scope.CH1_Offset(1.3 * 1.5);
             InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
         }
 
@@ -114,6 +114,8 @@ namespace BuckTool
                                 case 1: // jitter task
                                     JitterTask(row); row++;
                                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_neme + "_jitter");
+                                    InsControl._scope.DoCommand(":HISTogram:MODE OFF");
+                                    InsControl._scope.DoCommand(":DISPlay:CGRade OFF");
                                     InsControl._scope.Root_RUN();
                                     break;
                                 case 2: // slew rate task
@@ -134,13 +136,12 @@ namespace BuckTool
 
         Stop:
             stopWatch.Stop();
+#if Report
+            
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-
-
-#if Report
             _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
@@ -187,10 +188,13 @@ namespace BuckTool
             InsControl._scope.DoCommand(":MARKer:MODE ON");
             InsControl._scope.DoCommand(":MEASURE:RISetime CHANnel1");
             InsControl._scope.SetTrigModeEdge(false); // trigger rise
-            MyLib.WaveformCheck();
-            InsControl._scope.Root_STOP();
             double rise_time = InsControl._scope.Measure_SlewRate_Rising(1);
             double rise = InsControl._scope.Measure_Rise(1);
+            InsControl._scope.TimeScale(rise * 2);
+            MyLib.WaveformCheck();
+            InsControl._scope.Root_STOP();
+            rise_time = InsControl._scope.Measure_SlewRate_Rising(1);
+            rise = InsControl._scope.Measure_Rise(1);
 #if Report
             _sheet.Cells[row, XLS_Table.K] = string.Format("{0:0.000}", rise_time * Math.Pow(10, 9));
             _sheet.Cells[row, XLS_Table.L] = string.Format("{0:0.000}", rise * Math.Pow(10, -6));
@@ -198,6 +202,7 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.R] = InsControl._scope.Measure_Ch_Max(1);
             _sheet.Cells[row, XLS_Table.S] = InsControl._scope.Measure_Ch_min(1);
 #endif
+            InsControl._scope.TimeScale(rise * 2);
             // Rise save waveform
             InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Rise");
 
@@ -244,15 +249,15 @@ namespace BuckTool
             period = InsControl._scope.Meas_CH1Period();
             period = period / 6.5; // default 10 period
             InsControl._scope.TimeScale(period);
-            InsControl._scope.TimeBasePosition(period * 3);
-            Rlimit = (period * 6.4) / Math.Pow(10, 6);
-            Llimit = (period * 0.2) / Math.Pow(10, 6);
+            InsControl._scope.TimeBasePosition(period * 2);
+            Rlimit = (period * 5);
+            Llimit = (period * 0.2);
             trigger = InsControl._scope.Meas_CH1VPP() / 3;
             lx_level = InsControl._scope.Meas_CH1VPP() / 3;
             Vtop = InsControl._scope.Meas_CH1Top();
             Vbase = InsControl._scope.Meas_CH1Base();
             histogramLevel = Vtop * 0.5 + Vbase * 0.5;
-            InsControl._scope.SetTrigModeEdge(false);
+            InsControl._scope.SetTrigModeEdge(true);
             InsControl._scope.TriggerLevel_CH1(trigger);
             InsControl._scope.CH1_Level(lx_level);
             InsControl._scope.NormalTrigger();
@@ -279,8 +284,6 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.P] = MeaStdDev;
             _sheet.Cells[row, XLS_Table.Q] = MeaPKPK * Freq * 100 * Math.Pow(10, -9);
 #endif
-            InsControl._scope.DoCommand(":HISTogram:MODE OFF");
-            InsControl._scope.DoCommand(":DISPlay:CGRade OFF");
         }
 
         private void FreqTask(int row)
