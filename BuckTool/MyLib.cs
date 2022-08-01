@@ -150,6 +150,30 @@ namespace BuckTool
             }
         }
 
+        static public Excel.Chart CreateChart(Excel.Worksheet sheet, Excel.Range range, string title, string x_title, string y_title)
+        {
+            double top = range.Top;
+            double left = range.Left;
+            double width = range.Width;
+            double height = range.Height;
+
+            Excel.Chart page;
+            Excel.ChartObjects objects = sheet.ChartObjects();
+            Excel.ChartObject obj = objects.Add(left, top, width, height);
+            page = obj.Chart;
+
+            page.ChartWizard(
+                System.Type.Missing,
+                Excel.XlChartType.xlXYScatterSmooth,
+                System.Type.Missing,
+                Excel.XlRowCol.xlColumns,
+                0, 0, true,
+                title, x_title, y_title,
+                System.Type.Missing
+                );
+            return page;
+        }
+
 
         public void testCondition(Excel.Worksheet sheet, string item, int bin_cnt, double temperature)
         {
