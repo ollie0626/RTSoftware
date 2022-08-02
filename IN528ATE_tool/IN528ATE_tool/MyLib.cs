@@ -25,6 +25,19 @@ namespace IN528ATE_tool
     public class MyLib
     {
 
+        public static void WaveformCheck()
+        {
+            InsControl._scope.DoCommand("*CLS");
+            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n")) ;
+        }
+
+        public static void ProcessCheck()
+        {
+            InsControl._scope.DoCommand("*CLS");
+            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n")) ;
+        }
+
+
         public int calculate_cnt(double start, double stop, double step)
         {
             double offset;

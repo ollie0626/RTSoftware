@@ -53,7 +53,7 @@ namespace IN528ATE_tool
             InsControl._scope.CH4_Offset(1 * 3);
             InsControl._scope.CH1_Offset(3.5 * 2);
             InsControl._scope.CH2_Offset(3.5 * 2);
-            MyLib.Delay1ms(200);
+            MyLib.WaveformCheck();
 
             double vout, ILx;
             // Channel1: Vout
@@ -64,14 +64,14 @@ namespace IN528ATE_tool
             ILx = InsControl._scope.Meas_CH4AVG(); // ILX
             InsControl._scope.CH4_Level(ILx / 3);
             InsControl._scope.CH4_Offset(ILx);
-            MyLib.Delay1ms(200);
+            MyLib.WaveformCheck();
 
             for (int i = 0; i < 3; i++)
             {
                 InsControl._scope.CH1_Level(vout / 4);
                 InsControl._scope.CH2_Level(vout / 3);
                 vout = InsControl._scope.Meas_CH1MAX();
-                MyLib.Delay1ms(200);
+                MyLib.WaveformCheck();
             }
 
 
@@ -157,17 +157,18 @@ namespace IN528ATE_tool
                     //}
                     // channel resize and time scale resize. use channel 1, 2, 4.
                     Channel_Resize();
-                    MyLib.Delay1ms(250);
+                    MyLib.WaveformCheck();
 
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // ILX max OCP
                     InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // LX level max
                     InsControl._scope.DoCommand(":MEASure:VAVerage DISPlay, CHANnel1"); // Vout Level
+                    MyLib.ProcessCheck();
 
                     InsControl._scope.Root_STOP();
-                    MyLib.Delay1ms(50);
                     double max_ch4 = InsControl._scope.Meas_CH4MAX(); // ILX
                     double max_ch2 = InsControl._scope.Meas_CH2MAX(); // LX
                     double amp_ch1 = InsControl._scope.Meas_CH1MAX(); // Vout
+                    MyLib.ProcessCheck();
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     InsControl._scope.Root_RUN();
 #if true
@@ -186,14 +187,12 @@ namespace IN528ATE_tool
                     InsControl._scope.TriggerLevel_CH1(amp_ch1 * 0.7);
                     InsControl._scope.SetTrigModeEdge(true);
                     InsControl._scope.NormalTrigger();
-                    InsControl._scope.TimeScaleMs(40);
-                    MyLib.Delay1s(3);
-                    
+                    MyLib.WaveformCheck();
 
                     InsControl._power.AutoPowerOff();
                     double offset = InsControl._scope.doQueryNumber(":CHAN4:OFFSet?");
                     InsControl._scope.CH4_Offset(offset);
-                    MyLib.Delay1s(2);
+                    MyLib.WaveformCheck();
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
 #if true
