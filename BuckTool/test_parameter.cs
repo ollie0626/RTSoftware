@@ -14,13 +14,15 @@ namespace BuckTool
     }
 
 
-
     public static class test_parameter
     {
         public static List<double> Iout_table = new List<double>();
         public static List<double> Vin_table = new List<double>();
         public static List<string> temp_table = new List<string>();
         public static List<Hi_Lo> HiLo_table = new List<Hi_Lo>();
+
+        public static List<double> HiLevel = new List<double>();
+        public static List<double> LoLevel = new List<double>();
 
         // High Voltage buck frequency control
         public static bool[] Freq_en = new bool[2];

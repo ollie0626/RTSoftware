@@ -33,9 +33,10 @@ namespace BuckTool
             InsControl._scope.Trigger_CH4();
             InsControl._scope.TriggerLevel_CH4(0.2);
             InsControl._scope.CH1_Level(1);
-            InsControl._scope.CH4_Level(1);
+            InsControl._scope.CH4_Level(0.5);
             InsControl._scope.CH1_Offset(-2);
-            InsControl._scope.CH4_Offset(3);
+            InsControl._scope.CH4_Offset(1.5);
+            InsControl._scope.TimeScale(1 / test_parameter.freq);
             MyLib.WaveformCheck();
 
             InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
@@ -59,7 +60,6 @@ namespace BuckTool
             //Array.Copy(vinList, test_parameter.Vin_table.ToArray(), vinList.Length);
 
             double[] vinList = test_parameter.Vin_table.ToArray();
-
 #if Report
             _app = new Excel.Application();
             _app.Visible = true;
@@ -75,6 +75,10 @@ namespace BuckTool
                                         test_parameter.duty,
                                         test_parameter.tr,
                                         test_parameter.tf);
+
+            double time_scale = ((1 / test_parameter.freq) * (test_parameter.duty / 100)) / 5;
+            InsControl._scope.TimeScale(time_scale);
+            InsControl._scope.TimeBasePosition(time_scale * 2.5);
 
 
             for (int freq_idx = 0; freq_idx < freq_cnt; freq_idx++)
@@ -99,7 +103,6 @@ namespace BuckTool
                                                         test_parameter.HiLo_table[func_idx].LowLevel);
 
                         double current_level, trigger_level;
-                        double time_scale;
                         double vpp, vmax, vmin, rise, fall, rise_time, fall_time;
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((func_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
@@ -110,15 +113,18 @@ namespace BuckTool
                             test_parameter.HiLo_table[func_idx].Highlevel,
                             test_parameter.HiLo_table[func_idx].LowLevel);
 
+                        time_scale = ((1 / test_parameter.freq) * (test_parameter.duty / 100)) / 5;
+                        InsControl._scope.TimeScale(time_scale);
+                        InsControl._scope.TimeBasePosition(time_scale * 2.5);
+
                         InsControl._scope.AutoTrigger();
                         current_level = (test_parameter.HiLo_table[func_idx].Highlevel + test_parameter.HiLo_table[func_idx].LowLevel) / 4;
                         trigger_level = test_parameter.HiLo_table[func_idx].Highlevel * 0.6 + test_parameter.HiLo_table[func_idx].LowLevel * 0.4;
-                        time_scale = (period * test_parameter.duty) / 5;
-                        InsControl._scope.TimeScale(time_scale);
-                        InsControl._scope.TimeBasePosition(time_scale * 2.5);
-                        InsControl._scope.TriggerLevel_CH4(trigger_level);
                         InsControl._scope.CH4_Level(current_level);
                         InsControl._scope.CH4_Offset(current_level * 3);
+                        MyLib.WaveformCheck();
+                        InsControl._scope.TriggerLevel_CH4(trigger_level);
+                        MyLib.WaveformCheck();
                         InsControl._scope.SetTrigModeEdge(false);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.NormalTrigger();
@@ -126,18 +132,13 @@ namespace BuckTool
                         InsControl._scope.DoCommand(":MEASURE:VPP CHANnel1");
                         InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
                         InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
+                        MyLib.ProcessCheck();
                         InsControl._scope.CH1_Level(0.3);
                         InsControl._scope.Root_RUN();
                         MyLib.WaveformCheck();
                         ChannelResize();
                         MyLib.WaveformCheck();
                         InsControl._scope.Root_STOP();
-                        //InsControl._scope.DoCommand(":MEASure:CLEar");
-                        //InsControl._scope.DoCommand(":MEASURE:VPP CHANnel1");
-                        //InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
-                        //InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
-                        //InsControl._scope.DoCommand(":MARKer:MODE OFF");
-                        MyLib.ProcessCheck();
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
 
                         vpp = InsControl._scope.Meas_CH1VPP();
@@ -213,13 +214,11 @@ namespace BuckTool
 
             Stop:
             stopWatch.Stop();
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-
-
-#if Report
             _sheet.Cells[2, 2] = str_temp;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
@@ -234,21 +233,22 @@ namespace BuckTool
 
         private void ChannelResize()
         {
-            double max = InsControl._scope.Meas_CH1MAX();
+            InsControl._scope.CH1_Level(0.3);
+            double max = InsControl._scope.Meas_CH1VPP();
             for(int i = 0; i < 3; i++)
             {
                 InsControl._scope.CH1_Level(max / 3);
-                max = InsControl._scope.Meas_CH1MAX();
+                max = InsControl._scope.Meas_CH1VPP();
                 MyLib.ProcessCheck();
             }
 
-            max = InsControl._scope.Meas_CH4MAX();
-            for (int i = 0; i < 3; i++)
-            {
-                InsControl._scope.CH1_Level(max / 3);
-                max = InsControl._scope.Meas_CH1MAX();
-                MyLib.ProcessCheck();
-            }
+            //max = InsControl._scope.Meas_CH1VPP();
+            //for (int i = 0; i < 3; i++)
+            //{
+            //    InsControl._scope.CH1_Level(max / 3);
+            //    max = InsControl._scope.Meas_CH1MAX();
+            //    MyLib.ProcessCheck();
+            //}
         }
 
         private void printTitle(int row)

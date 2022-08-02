@@ -317,6 +317,8 @@ namespace BuckTool
             InsControl._funcgen.CH1_DutyCycle(duty);
             InsControl._funcgen.SetCH1_TrTfFunc(tr, tf);
             InsControl._funcgen.CHl1_HiLevel(0.1);
+            InsControl._funcgen.CH1_LoLevel(0);
+            InsControl._funcgen.CH1_LoadImpedanceHiz();
         }
 
         public static void FuncGen_loopparameter(double hi, double lo)
