@@ -62,6 +62,8 @@ namespace BuckTool
             this.label2 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_freqdes2 = new System.Windows.Forms.TextBox();
+            this.tb_freqdes1 = new System.Windows.Forms.TextBox();
             this.ck_freq2 = new System.Windows.Forms.CheckBox();
             this.ck_freq1 = new System.Windows.Forms.CheckBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -89,8 +91,22 @@ namespace BuckTool
             this.nu_dmm1 = new System.Windows.Forms.NumericUpDown();
             this.led_dmm2 = new Sunny.UI.UILedBulb();
             this.led_dmm1 = new Sunny.UI.UILedBulb();
-            this.tb_freqdes1 = new System.Windows.Forms.TextBox();
-            this.tb_freqdes2 = new System.Windows.Forms.TextBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nu_Freq = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nu_duty = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tb_Highlevel = new System.Windows.Forms.TextBox();
+            this.tb_Lowlevel = new System.Windows.Forms.TextBox();
+            this.nu_tf = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.nu_tr = new System.Windows.Forms.NumericUpDown();
+            this.label10 = new System.Windows.Forms.Label();
+            this.uiSymbolButton4 = new Sunny.UI.UISymbolButton();
+            this.nu_funcgen = new System.Windows.Forms.NumericUpDown();
+            this.led_funcgen = new Sunny.UI.UILedBulb();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -102,6 +118,12 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm1)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_tf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_tr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_funcgen)).BeginInit();
             this.SuspendLayout();
             // 
             // led_chamber
@@ -445,7 +467,7 @@ namespace BuckTool
             this.groupBox1.Controls.Add(this.bt_load_sub);
             this.groupBox1.Controls.Add(this.bt_load_add);
             this.groupBox1.Controls.Add(this.Eload_DG);
-            this.groupBox1.Location = new System.Drawing.Point(11, 255);
+            this.groupBox1.Location = new System.Drawing.Point(11, 411);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(403, 263);
             this.groupBox1.TabIndex = 64;
@@ -571,8 +593,7 @@ namespace BuckTool
             "2. Line Regulation",
             "3. Output Ripple",
             "4. Lx",
-            "5. Bode",
-            "6. Load Transient"});
+            "5. Load Transient"});
             this.cb_item.Location = new System.Drawing.Point(101, 138);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(172, 23);
@@ -593,7 +614,7 @@ namespace BuckTool
             this.tb_Vin.Name = "tb_Vin";
             this.tb_Vin.Size = new System.Drawing.Size(231, 23);
             this.tb_Vin.TabIndex = 68;
-            this.tb_Vin.Text = "12,5";
+            this.tb_Vin.Text = "12";
             // 
             // groupBox2
             // 
@@ -607,6 +628,22 @@ namespace BuckTool
             this.groupBox2.TabIndex = 69;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Freq Select";
+            // 
+            // tb_freqdes2
+            // 
+            this.tb_freqdes2.Location = new System.Drawing.Point(190, 14);
+            this.tb_freqdes2.Name = "tb_freqdes2";
+            this.tb_freqdes2.Size = new System.Drawing.Size(133, 23);
+            this.tb_freqdes2.TabIndex = 3;
+            this.tb_freqdes2.Text = "Freq 1_25MHz";
+            // 
+            // tb_freqdes1
+            // 
+            this.tb_freqdes1.Location = new System.Drawing.Point(31, 15);
+            this.tb_freqdes1.Name = "tb_freqdes1";
+            this.tb_freqdes1.Size = new System.Drawing.Size(133, 23);
+            this.tb_freqdes1.TabIndex = 2;
+            this.tb_freqdes1.Text = "Freq 2_5MHz";
             // 
             // ck_freq2
             // 
@@ -643,9 +680,9 @@ namespace BuckTool
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.ck_slave);
             this.groupBox3.Controls.Add(this.ck_multi_chamber);
-            this.groupBox3.Location = new System.Drawing.Point(420, 246);
+            this.groupBox3.Location = new System.Drawing.Point(420, 274);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 272);
+            this.groupBox3.Size = new System.Drawing.Size(265, 227);
             this.groupBox3.TabIndex = 70;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Ctrl";
@@ -962,27 +999,219 @@ namespace BuckTool
             this.led_dmm1.Text = "uiLedBulb4";
             this.led_dmm1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
-            // tb_freqdes1
+            // groupBox4
             // 
-            this.tb_freqdes1.Location = new System.Drawing.Point(31, 15);
-            this.tb_freqdes1.Name = "tb_freqdes1";
-            this.tb_freqdes1.Size = new System.Drawing.Size(133, 23);
-            this.tb_freqdes1.TabIndex = 2;
-            this.tb_freqdes1.Text = "Freq 2_5MHz";
+            this.groupBox4.Controls.Add(this.nu_tf);
+            this.groupBox4.Controls.Add(this.label9);
+            this.groupBox4.Controls.Add(this.nu_tr);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.tb_Lowlevel);
+            this.groupBox4.Controls.Add(this.tb_Highlevel);
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.label7);
+            this.groupBox4.Controls.Add(this.nu_duty);
+            this.groupBox4.Controls.Add(this.label6);
+            this.groupBox4.Controls.Add(this.nu_Freq);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Location = new System.Drawing.Point(14, 255);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(399, 150);
+            this.groupBox4.TabIndex = 83;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Func Gen";
             // 
-            // tb_freqdes2
+            // label5
             // 
-            this.tb_freqdes2.Location = new System.Drawing.Point(190, 14);
-            this.tb_freqdes2.Name = "tb_freqdes2";
-            this.tb_freqdes2.Size = new System.Drawing.Size(133, 23);
-            this.tb_freqdes2.TabIndex = 3;
-            this.tb_freqdes2.Text = "Freq 1_25MHz";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 19);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(55, 15);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "Freq (Hz)";
+            // 
+            // nu_Freq
+            // 
+            this.nu_Freq.DecimalPlaces = 2;
+            this.nu_Freq.Location = new System.Drawing.Point(104, 17);
+            this.nu_Freq.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nu_Freq.Name = "nu_Freq";
+            this.nu_Freq.Size = new System.Drawing.Size(74, 23);
+            this.nu_Freq.TabIndex = 1;
+            this.nu_Freq.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_Freq.Value = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(10, 48);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 15);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "Duty (%)";
+            // 
+            // nu_duty
+            // 
+            this.nu_duty.DecimalPlaces = 2;
+            this.nu_duty.Location = new System.Drawing.Point(104, 46);
+            this.nu_duty.Name = "nu_duty";
+            this.nu_duty.Size = new System.Drawing.Size(74, 23);
+            this.nu_duty.TabIndex = 3;
+            this.nu_duty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_duty.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 77);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(80, 15);
+            this.label7.TabIndex = 4;
+            this.label7.Text = "High Level (V)";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 109);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 15);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "Low Level (V)";
+            // 
+            // tb_Highlevel
+            // 
+            this.tb_Highlevel.Location = new System.Drawing.Point(104, 77);
+            this.tb_Highlevel.Name = "tb_Highlevel";
+            this.tb_Highlevel.Size = new System.Drawing.Size(258, 23);
+            this.tb_Highlevel.TabIndex = 6;
+            this.tb_Highlevel.Text = "0.3,0.5,0.7";
+            // 
+            // tb_Lowlevel
+            // 
+            this.tb_Lowlevel.Location = new System.Drawing.Point(104, 106);
+            this.tb_Lowlevel.Name = "tb_Lowlevel";
+            this.tb_Lowlevel.Size = new System.Drawing.Size(258, 23);
+            this.tb_Lowlevel.TabIndex = 7;
+            this.tb_Lowlevel.Text = "0";
+            // 
+            // nu_tf
+            // 
+            this.nu_tf.DecimalPlaces = 2;
+            this.nu_tf.Location = new System.Drawing.Point(288, 46);
+            this.nu_tf.Name = "nu_tf";
+            this.nu_tf.Size = new System.Drawing.Size(74, 23);
+            this.nu_tf.TabIndex = 11;
+            this.nu_tf.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_tf.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(194, 48);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(43, 15);
+            this.label9.TabIndex = 10;
+            this.label9.Text = "Tf. (us)";
+            // 
+            // nu_tr
+            // 
+            this.nu_tr.DecimalPlaces = 2;
+            this.nu_tr.Location = new System.Drawing.Point(288, 17);
+            this.nu_tr.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.nu_tr.Name = "nu_tr";
+            this.nu_tr.Size = new System.Drawing.Size(74, 23);
+            this.nu_tr.TabIndex = 9;
+            this.nu_tr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_tr.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(194, 19);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(43, 15);
+            this.label10.TabIndex = 8;
+            this.label10.Text = "Tr. (us)";
+            // 
+            // uiSymbolButton4
+            // 
+            this.uiSymbolButton4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiSymbolButton4.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton4.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton4.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton4.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton4.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiSymbolButton4.Location = new System.Drawing.Point(516, 243);
+            this.uiSymbolButton4.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiSymbolButton4.Name = "uiSymbolButton4";
+            this.uiSymbolButton4.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uiSymbolButton4.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton4.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton4.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton4.Size = new System.Drawing.Size(143, 22);
+            this.uiSymbolButton4.Style = Sunny.UI.UIStyle.Gray;
+            this.uiSymbolButton4.StyleCustomMode = true;
+            this.uiSymbolButton4.Symbol = 61633;
+            this.uiSymbolButton4.TabIndex = 7;
+            this.uiSymbolButton4.Text = "FuncGen Connect";
+            this.uiSymbolButton4.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
+            this.uiSymbolButton4.Click += new System.EventHandler(this.uibt_osc_connect_Click);
+            // 
+            // nu_funcgen
+            // 
+            this.nu_funcgen.Location = new System.Drawing.Point(448, 245);
+            this.nu_funcgen.Name = "nu_funcgen";
+            this.nu_funcgen.Size = new System.Drawing.Size(62, 23);
+            this.nu_funcgen.TabIndex = 86;
+            this.nu_funcgen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_funcgen.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            0});
+            // 
+            // led_funcgen
+            // 
+            this.led_funcgen.Location = new System.Drawing.Point(426, 250);
+            this.led_funcgen.Name = "led_funcgen";
+            this.led_funcgen.Size = new System.Drawing.Size(16, 14);
+            this.led_funcgen.TabIndex = 85;
+            this.led_funcgen.Text = "uiLedBulb4";
+            this.led_funcgen.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(699, 595);
+            this.ClientSize = new System.Drawing.Size(699, 730);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.Controls.Add(this.uiSymbolButton4);
+            this.Controls.Add(this.nu_funcgen);
+            this.Controls.Add(this.led_funcgen);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.uiSymbolButton2);
             this.Controls.Add(this.uiSymbolButton3);
             this.Controls.Add(this.nu_dmm2);
@@ -1044,6 +1273,13 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_tf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_tr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_funcgen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1113,6 +1349,22 @@ namespace BuckTool
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tb_freqdes2;
         private System.Windows.Forms.TextBox tb_freqdes1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nu_Freq;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown nu_duty;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tb_Lowlevel;
+        private System.Windows.Forms.TextBox tb_Highlevel;
+        private System.Windows.Forms.NumericUpDown nu_tf;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.NumericUpDown nu_tr;
+        private System.Windows.Forms.Label label10;
+        private Sunny.UI.UISymbolButton uiSymbolButton4;
+        private System.Windows.Forms.NumericUpDown nu_funcgen;
+        private Sunny.UI.UILedBulb led_funcgen;
     }
 }
 

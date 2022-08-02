@@ -60,6 +60,7 @@ namespace BuckTool
             led_dmm1.Color = Color.Red;
             led_chamber.Color = Color.Red;
             led_37940.Color = Color.Red;
+            led_funcgen.Color = Color.Red;
 
             for (int i = 1; i < 21; i++)
             {
@@ -135,6 +136,14 @@ namespace BuckTool
                     else
                         led_dmm2.Color = Color.Red;
                     break;
+
+                case 7:
+                    InsControl._funcgen = new FuncGenModule((int)nu_funcgen.Value);
+                    if (InsControl._funcgen.InsState())
+                        led_funcgen.Color = Color.LightGreen;
+                    else
+                        led_funcgen.Color = Color.Red;
+                    break;
             }
         }
 
@@ -166,25 +175,41 @@ namespace BuckTool
             //2.Line Regulation
             //3.Output Ripple
             //4.Lx
-            //5.Bode
-            //6.Load Transient
+            //5.Load Transient
 
             switch (cb_item.SelectedIndex)
             {
-                case 0: // eload
-                case 3:
+                case 0: // eff and load regulation
+                case 2: // output ripple
                     test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = MyLib.DGData(Eload_DG);
                     break;
-                case 1:
+                case 1: // line regulation
                     test_parameter.Vin_table = MyLib.TBData(tb_Vin);
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
-                case 2:
-                case 4:
-                case 5:
+                case 3: // Lx 
                     test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                    break;
+                case 4:
+                    test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+                    test_parameter.HiLevel = tb_Highlevel.Text.Split(',').Select(double.Parse).ToList();
+                    test_parameter.LoLevel = tb_Lowlevel.Text.Split(',').Select(double.Parse).ToList();
+                    //test_parameter.HiLo_table.Add()
+                    Hi_Lo level = new Hi_Lo();
+
+                    for(int hi_index = 0; hi_index < test_parameter.HiLevel.Count; hi_index++)
+                    {
+                        for(int lo_index = 0; lo_index < test_parameter.LoLevel.Count; lo_index++)
+                        {
+                            level.Highlevel = test_parameter.HiLevel[hi_index];
+                            level.LowLevel = test_parameter.LoLevel[lo_index];
+                            test_parameter.HiLo_table.Add(level);
+                        }
+                    }
+
+
                     break;
             }
             
@@ -193,6 +218,11 @@ namespace BuckTool
             test_parameter.Freq_des[0] = tb_freqdes1.Text;
             test_parameter.Freq_des[1] = tb_freqdes2.Text;
             test_parameter.waveform_path = tbWave.Text;
+            test_parameter.freq = (double)nu_Freq.Value;
+            test_parameter.duty = (double)nu_duty.Value;
+            test_parameter.tr = (double)nu_tr.Value;
+            test_parameter.tf = (double)nu_tf.Value;
+
         }
 
 
