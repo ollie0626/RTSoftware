@@ -113,6 +113,7 @@ namespace IN528ATE_tool
             this.label19 = new System.Windows.Forms.Label();
             this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
+            this.lab_scope = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -1287,12 +1288,22 @@ namespace IN528ATE_tool
             this.label11.TabIndex = 73;
             this.label11.Text = "CV Setting (%)";
             // 
+            // lab_scope
+            // 
+            this.lab_scope.AutoSize = true;
+            this.lab_scope.Location = new System.Drawing.Point(676, 210);
+            this.lab_scope.Name = "lab_scope";
+            this.lab_scope.Size = new System.Drawing.Size(67, 15);
+            this.lab_scope.TabIndex = 77;
+            this.lab_scope.Text = "Scope Info:";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(855, 575);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.lab_scope);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.nu_measure_level);
@@ -1478,6 +1489,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.NumericUpDown nu_CVwait;
         private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label lab_scope;
     }
 }
 
