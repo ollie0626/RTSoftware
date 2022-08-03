@@ -45,7 +45,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.12";
+            this.Text = "ATE Tool v2.3";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -552,6 +552,52 @@ namespace IN528ATE_tool
             { ck_vin_trigger.Checked = false; }
             else
             { ck_vin_trigger.Checked = false; }
+
+            /*
+                0. Output Ripple
+                1. Code Inrush
+                2. Delay Time & SST
+                3. Current Limit
+                4. UVP
+             */
+
+            switch (cb_item.SelectedIndex)
+            {
+                case 0:
+                    // Output ripple
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vout \r\n";
+                    break;
+                case 1:
+                    // code inrush
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vout \r\n" + 
+                                     "Ch2: Iout";
+                    break;
+                case 2:
+                    // delay time
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vin or Enable \r\n" +
+                                     "Ch2: Vout";
+                    break;
+                case 3:
+                    // current
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vout \r\n" +
+                                     "Ch2: Lx \r\n" +
+                                     "CH3: ILX";
+                    break;
+                case 4:
+                    // UVP
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vout \r\n" +
+                                     "Ch2: Lx \r\n" +
+                                     "CH3: ILX";
+                    break;
+            }
+
+
+
         }
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
