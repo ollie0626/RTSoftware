@@ -73,10 +73,12 @@ namespace IN528ATE_tool
                 vout = InsControl._scope.Meas_CH1MAX();
                 MyLib.WaveformCheck();
             }
-
-
             double period = InsControl._scope.Meas_CH2Period();
             InsControl._scope.TimeScale(period);
+
+            period = InsControl._scope.Meas_CH2Period();
+            InsControl._scope.TimeScale(period);
+            InsControl._scope.NormalTrigger();
         }
 
 
@@ -85,6 +87,15 @@ namespace IN528ATE_tool
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             MyLib = new MyLib();
+
+
+            InsControl._scope.AgilentOSC_RST();
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH2_BWLimitOn();
+            InsControl._scope.CH3_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
+            MyLib.WaveformCheck();
+
 
             int bin_cnt = 1;
             int row = 22;
@@ -111,14 +122,14 @@ namespace IN528ATE_tool
             _sheet.Cells[row, XLS_Table.E] = "CV(V)";
             _sheet.Cells[row, XLS_Table.F] = "Bin file";
             _sheet.Cells[row, XLS_Table.G] = "Vout(V)";
-            _sheet.Cells[row, XLS_Table.I] = "ILX_Max(A)";
-            _sheet.Cells[row, XLS_Table.K] = "Power Off ILX_Max(A)";
+            _sheet.Cells[row, XLS_Table.H] = "ILX_Max(A)";
+            _sheet.Cells[row, XLS_Table.I] = "Power Off ILX_Max(A)";
 
             _range = _sheet.Range["A" + row, "F" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["G" + row, "K" + row];
+            _range = _sheet.Range["G" + row, "I" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
@@ -168,37 +179,45 @@ namespace IN528ATE_tool
                     double max_ch4 = InsControl._scope.Meas_CH4MAX(); // ILX
                     double max_ch2 = InsControl._scope.Meas_CH2MAX(); // LX
                     double amp_ch1 = InsControl._scope.Meas_CH1MAX(); // Vout
-                    MyLib.ProcessCheck();
+                    //MyLib.ProcessCheck();
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     InsControl._scope.Root_RUN();
 #if true
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
-                    _sheet.Cells[row, XLS_Table.F] = res;
-                    _sheet.Cells[row, XLS_Table.G] = amp_ch1;
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.cv_setting;
                     _sheet.Cells[row, XLS_Table.E] = cv_vol;
-                    _sheet.Cells[row, XLS_Table.I] = max_ch4; // current limit
+                    _sheet.Cells[row, XLS_Table.F] = res;
+                    _sheet.Cells[row, XLS_Table.G] = amp_ch1;
+                    _sheet.Cells[row, XLS_Table.H] = max_ch4; // current limit
 #endif
-
+                    double period;
+                    period = InsControl._scope.Meas_CH2Period();
+                    InsControl._scope.TimeScale(period * 10);
+                    //InsControl._scope.TimeBasePosition(period * 2.5);
                     // power off test
-                    InsControl._scope.Trigger(1);
-                    InsControl._scope.TriggerLevel_CH1(amp_ch1 * 0.7);
                     InsControl._scope.SetTrigModeEdge(true);
+                    InsControl._scope.Trigger(4);
+                    InsControl._scope.TriggerLevel_CH4(0.25);
+                    
+                    MyLib.Delay1s(2);
                     InsControl._scope.NormalTrigger();
-                    MyLib.WaveformCheck();
-
                     InsControl._power.AutoPowerOff();
+                    //MyLib.WaveformCheck();
+
+
                     double offset = InsControl._scope.doQueryNumber(":CHAN4:OFFSet?");
                     InsControl._scope.CH4_Offset(offset);
-                    MyLib.WaveformCheck();
                     InsControl._scope.Root_STOP();
                     max_ch4 = InsControl._scope.Meas_CH4MAX();
 #if true
-                    _sheet.Cells[row, XLS_Table.K] = max_ch4; // power off ILX maximum
+                    _sheet.Cells[row, XLS_Table.I] = max_ch4; // power off ILX maximum
 #endif
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
+
+
+
                     InsControl._scope.Root_RUN();
                     InsControl._eload.AllChannel_LoadOff();
                     MyLib.Delay1ms(150);
@@ -207,12 +226,13 @@ namespace IN528ATE_tool
             }
         Stop:
             stopWatch.Stop();
+
+#if true
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
-#if true
             for (int i = 1; i < 12; i++) _sheet.Columns[i].AutoFit();
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CurrentLimit_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
