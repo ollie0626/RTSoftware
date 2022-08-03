@@ -9,6 +9,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Drawing;
 
+
 namespace IN528ATE_tool
 {
     public class ATE_UVPLevel : TaskRun
@@ -94,6 +95,7 @@ namespace IN528ATE_tool
                     MyLib.Delay1ms(100);
                     ori_vol = InsControl._eload.GetVol();
 
+                    InsControl._scope.Trigger_CH1();
                     InsControl._scope.CH1_Level(ori_vol / 5);
                     InsControl._scope.CH1_Offset((ori_vol / 5) * 3);
                     InsControl._scope.SetTrigModeEdge(true);
@@ -191,6 +193,8 @@ namespace IN528ATE_tool
         Stop:
             InsControl._scope.DoCommand(":MEASure:SOURce CHANnel1");
             stopWatch.Stop();
+
+#if true
             TimeSpan timeSpan = stopWatch.Elapsed;
             //string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 
@@ -198,7 +202,6 @@ namespace IN528ATE_tool
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
-#if true
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_UVP_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
@@ -216,14 +219,14 @@ namespace IN528ATE_tool
         {
             // CH1 Vout
             // CH2 LX
-            // CH3 ILX
+            // CH4 ILX
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH4_On();
             InsControl._scope.CH3_Off();
 
             InsControl._scope.CH1_Level(5);
-            InsControl._scope.CH2_Level(5);
+            //InsControl._scope.CH2_Level(5);
             InsControl._scope.CH4_Level(1);
             // right position is negtive
             // up position is negtive 
