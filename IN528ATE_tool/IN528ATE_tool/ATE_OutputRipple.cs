@@ -77,6 +77,7 @@ namespace IN528ATE_tool
             binList = myLib.ListBinFile(test_parameter.binFolder);
             bin_cnt = binList.Length;
 
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
@@ -109,6 +110,7 @@ namespace IN528ATE_tool
             colletion = _chart.SeriesCollection();
             line = colletion.NewSeries();
             _chart.Legend.Delete();
+#endif
 
             row++;
             InsControl._power.AutoPowerOff();
@@ -131,7 +133,7 @@ namespace IN528ATE_tool
                                                         test_parameter.VinList[vin_idx],
                                                         test_parameter.IoutList[iout_idx]);
                         if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-                        #region "ripple test flow"
+#region "ripple test flow"
                         // power on voltage
                         InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                         System.Threading.Thread.Sleep(250);
@@ -172,6 +174,7 @@ namespace IN528ATE_tool
                         iin = InsControl._power.GetCurrent();
                         iout = InsControl._eload.GetIout();
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+#if Report
                         _sheet.Cells[row, XLS_Table.A] = idx;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
@@ -191,7 +194,7 @@ namespace IN528ATE_tool
                         Y_Range = _sheet.Range["H23", "H" + row];
                         line.XValues = X_Range;
                         line.Values = Y_Range;
-
+#endif
 
                         if(Math.Abs(vout) < 0.15)
                         {
@@ -205,14 +208,15 @@ namespace IN528ATE_tool
                         }
 
                         row++; idx++;
-                        #endregion
+#endregion
                     } /* iout loop */
                 } /* bin loop */
             } /* power loop */
 
             InsControl._scope.DoCommand(":DISPlay:PERSistence INFinite");
-            Stop:
+        Stop:
             stopWatch.Stop();
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
@@ -226,7 +230,7 @@ namespace IN528ATE_tool
             _app.Quit();
             _app = null;
             GC.Collect();
-
+#endif
             if(!test_parameter.all_en && !test_parameter.chamber_en) delegate_mess.Invoke();
         }
     }
