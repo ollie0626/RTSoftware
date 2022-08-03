@@ -80,18 +80,17 @@ namespace IN528ATE_tool
             binList = MyLib.ListBinFile(test_parameter.binFolder);
             bin_cnt = binList.Length;
             bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min);
-
-            RTDev.BoadInit();
-            _app = new Excel.Application();
-            _app.Visible = true;
-            _book = (Excel.Workbook)_app.Workbooks.Add();
-            _sheet = (Excel.Worksheet)_book.ActiveSheet;
-            OSCInit();
-
             int vin_cnt = test_parameter.VinList.Count;
             int iout_cnt = test_parameter.IoutList.Count;
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
+
+            RTDev.BoadInit();
+#if Report
+            _app = new Excel.Application();
+            _app.Visible = true;
+            _book = (Excel.Workbook)_app.Workbooks.Add();
+            _sheet = (Excel.Worksheet)_book.ActiveSheet;
             MyLib.ExcelReportInit(_sheet);
             MyLib.testCondition(_sheet, "Code Inrush", bin_cnt, temp);
             _sheet.Cells[row, XLS_Table.A] = "No.";
@@ -114,7 +113,10 @@ namespace IN528ATE_tool
             _range = _sheet.Range["F" + row.ToString(), "K" + row.ToString()];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
+#endif
 
+
+            OSCInit();
             InsControl._power.AutoPowerOff();
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
@@ -151,12 +153,13 @@ namespace IN528ATE_tool
                         double max, min, vin, iin, imax;
                         vin = InsControl._34970A.Get_100Vol(1);
                         iin = InsControl._power.GetCurrent();
+#if Report
                         _sheet.Cells[row, XLS_Table.A] = idx;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin;
                         _sheet.Cells[row, XLS_Table.E] = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-
+#endif
                         /* min to max code */
                         InsControl._scope.Root_RUN();
                         if(ispos) InsControl._scope.SetTrigModeEdge(false);
@@ -173,9 +176,11 @@ namespace IN528ATE_tool
                         imax = InsControl._scope.Meas_CH4MAX();
                         max = InsControl._scope.Meas_CH1MAX();
                         min = InsControl._scope.Meas_CH1MIN();
+#if Report
                         _sheet.Cells[row, XLS_Table.F] = imax * 1000;
                         _sheet.Cells[row, XLS_Table.G] = max;
                         _sheet.Cells[row, XLS_Table.H] = min;
+#endif
                         InsControl._scope.Root_Clear();
                         System.Threading.Thread.Sleep(2000);
 
@@ -194,13 +199,13 @@ namespace IN528ATE_tool
                         imax = InsControl._scope.Meas_CH4MAX();
                         max = InsControl._scope.Meas_CH1MAX();
                         min = InsControl._scope.Meas_CH1MIN();
+#if Report
                         _sheet.Cells[row, XLS_Table.I] = imax * 1000;
                         _sheet.Cells[row, XLS_Table.J] = max;
                         _sheet.Cells[row, XLS_Table.K] = min;
-                        InsControl._scope.Root_Clear();
-
                         for (int i = 1; i < 11; i++) _sheet.Columns[i].AutoFit();
-
+#endif
+                        InsControl._scope.Root_Clear();
                         InsControl._power.AutoPowerOff();
                         InsControl._eload.CH1_Loading(0);
                         InsControl._eload.AllChannel_LoadOff();
@@ -214,8 +219,9 @@ namespace IN528ATE_tool
             InsControl._scope.AutoTrigger();
             InsControl._scope.Root_RUN();
 
-            Stop:
+        Stop:
             stopWatch.Stop();
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
@@ -228,6 +234,7 @@ namespace IN528ATE_tool
             _app.Quit();
             _app = null;
             GC.Collect();
+#endif
             if (!test_parameter.all_en && !test_parameter.chamber_en) delegate_mess.Invoke();
         }
     }

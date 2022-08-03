@@ -39,13 +39,13 @@ namespace IN528ATE_tool
 
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
-#if true
+#if Report
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             MyLib.ExcelReportInit(_sheet);
-            MyLib.testCondition(_sheet, "Current_Limit", bin_cnt, temp);
+            MyLib.testCondition(_sheet, "UVP", bin_cnt, temp);
 
             _sheet.Cells[row, XLS_Table.A] = "No.";
             _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
@@ -168,7 +168,7 @@ namespace IN528ATE_tool
                     InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement");
                     //:MARKer2:X:POSition?
                     double UVP_dly = InsControl._scope.doQueryNumber(":MARKer2:X:POSition?");
-#if true
+#if Report
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
@@ -194,7 +194,7 @@ namespace IN528ATE_tool
             InsControl._scope.DoCommand(":MEASure:SOURce CHANnel1");
             stopWatch.Stop();
 
-#if true
+#if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             //string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 
