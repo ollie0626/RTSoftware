@@ -215,9 +215,6 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.I] = max_ch4; // power off ILX maximum
 #endif
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
-
-
-
                     InsControl._scope.Root_RUN();
                     InsControl._eload.AllChannel_LoadOff();
                     MyLib.Delay1ms(150);

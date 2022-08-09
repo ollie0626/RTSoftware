@@ -433,6 +433,9 @@ namespace InsLibDotNet
         {
             string gogoCMD = ":" + CHx + ":BWLIMIT 20e6";
             doCommand(gogoCMD);
+            gogoCMD = ":" + CHx + ":BWLIMIT ON";
+            doCommand(gogoCMD);
+
         }
         
         public void CH1_BWLimitOn()
