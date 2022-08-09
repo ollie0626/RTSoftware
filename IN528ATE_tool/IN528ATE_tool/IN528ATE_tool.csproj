@@ -66,6 +66,7 @@
     <Compile Include="ATE_CurrentLimit.cs" />
     <Compile Include="ATE_OutputRipple.cs" />
     <Compile Include="ATE_PowerOn.cs" />
+    <Compile Include="ATE_UVPDly.cs" />
     <Compile Include="ATE_UVPLevel.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="Dbt.cs" />
