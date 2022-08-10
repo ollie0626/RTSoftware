@@ -166,20 +166,23 @@ namespace BuckTool
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
 #if Report
-            Excel.Chart chart;
+            Excel.Chart chart, chart_lor;
             Excel.Range range;
-            Excel.SeriesCollection collection;
-            Excel.Series series;
+            Excel.SeriesCollection collection, collection_lor;
+            Excel.Series series, series_lor;
             Excel.Range XRange, YRange;
             range = _sheet.Range["M16", "V32"];
             chart = MyLib.CreateChart(_sheet, range, "Efficiency", "ILoad(mA)", "Efficiency(%)");
             // for LOR
-            //range = _sheet.Range["M38", "V54"];
+            range = _sheet.Range["M38", "V54"];
+            chart_lor = MyLib.CreateChart(_sheet, range, "LOR", "ILoad(mA)", "LOR(%)");
 
             chart.Legend.Delete();
+            chart_lor.Legend.Delete();
             collection = chart.SeriesCollection();
+            collection_lor = chart_lor.SeriesCollection();
 
-            for(int line = 0; line < start_pos.Count; line++)
+            for (int line = 0; line < start_pos.Count; line++)
             {
                 series = collection.NewSeries();
 
@@ -188,6 +191,12 @@ namespace BuckTool
                 series.XValues = XRange;
                 series.Values = YRange;
                 series.Name = "line" + (line + 1).ToString();
+
+                series_lor = collection_lor.NewSeries();
+                YRange = _sheet.Range["I" + start_pos[line].ToString(), "I" + stop_pos[line].ToString()];
+                series_lor.XValues = XRange;
+                series_lor.Values = YRange;
+                series_lor.Name = "LOR" + (line + 1).ToString();
             }
 #endif
         }

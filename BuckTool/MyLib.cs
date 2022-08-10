@@ -39,7 +39,8 @@ namespace BuckTool
             string[] str_data = tb.Text.Split(',');
             double start = Convert.ToDouble(str_data[0]);
             double stop = Convert.ToDouble(str_data[1]);
-            double step = 0.1;
+            double step = Convert.ToDouble(str_data[2]);
+            //double step = 0.1;
             double res = 0;
 
             for (int idx = 0; res < stop; idx++)
