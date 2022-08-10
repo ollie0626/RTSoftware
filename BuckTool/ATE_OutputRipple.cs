@@ -129,7 +129,7 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.F] = string.Format("{0:00.00}", vout);
                         _sheet.Cells[row, XLS_Table.G] = string.Format("{0:00.00}", iout * 1000);
                         _sheet.Cells[row, XLS_Table.H] = string.Format("{0:00.0000}", vpp * 1000);
-
+                        _sheet.Cells[row, XLS_Table.I] = ((Math.Abs(vpp) - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
 #endif
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                         InsControl._scope.Root_RUN();
@@ -224,12 +224,13 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.F] = "Vout(V)";
             _sheet.Cells[row, XLS_Table.G] = "Iout(mA)";
             _sheet.Cells[row, XLS_Table.H] = "VPP(mV)";
+            _sheet.Cells[row, XLS_Table.I] = "Ripple(%)";
 
             _range = _sheet.Range["A" + row, "E" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["F" + row, "H" + row];
+            _range = _sheet.Range["F" + row, "I" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
         }
