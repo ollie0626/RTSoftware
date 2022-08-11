@@ -88,7 +88,6 @@ namespace IN528ATE_tool
             _range = _sheet.Range["E" + row, "E" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
-
             row++;
 #endif
             InsControl._power.AutoPowerOff();
@@ -125,7 +124,6 @@ namespace IN528ATE_tool
                     InsControl._scope.NormalTrigger();
                     InsControl._scope.Root_Clear();
 
-
                     // eload shot on to trigger uvp function
                     InsControl._eload.ShortOn();
                     MyLib.Delay1s(1);
@@ -146,7 +144,6 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.D] = res;
                     _sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
 #endif
-
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();
                     InsControl._scope.Root_RUN();
