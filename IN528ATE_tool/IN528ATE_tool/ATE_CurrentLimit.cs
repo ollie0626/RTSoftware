@@ -73,10 +73,10 @@ namespace IN528ATE_tool
                 vout = InsControl._scope.Meas_CH1MAX();
                 MyLib.WaveformCheck();
             }
-            double period = InsControl._scope.Meas_CH2Period();
+            double period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period);
 
-            period = InsControl._scope.Meas_CH2Period();
+            period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period);
             InsControl._scope.NormalTrigger();
         }
@@ -154,8 +154,8 @@ namespace IN528ATE_tool
                     if (test_parameter.run_stop == true) goto Stop;
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                     System.Threading.Thread.Sleep(500);
-                    if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), test_parameter.addr, test_parameter.specify_bin);
-                    if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), test_parameter.addr, binList[bin_idx]);
+                    if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                    if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
                     InsControl._scope.AutoTrigger();
                     // CV enable
                     double cv_vol = InsControl._eload.GetVol() * (test_parameter.cv_setting / 100);
