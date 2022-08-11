@@ -23,6 +23,32 @@ namespace IN528ATE_tool
         MyLib MyLib;
         RTBBControl RTDev = new RTBBControl();
 
+        private void OSCInint()
+        {
+            // CH1 Vout
+            // CH2 LX
+            // CH4 ILX
+            InsControl._scope.CH1_On();
+            InsControl._scope.CH2_On();
+            InsControl._scope.CH4_On();
+            InsControl._scope.CH3_Off();
+
+            InsControl._scope.CH1_Level(5);
+            //InsControl._scope.CH2_Level(5);
+            InsControl._scope.CH4_Level(1);
+            // right position is negtive
+            // up position is negtive 
+            InsControl._scope.TimeScaleMs(test_parameter.cv_wait * 3); // trigger point
+            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -3);
+            InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
+            InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 1));
+            InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
+            InsControl._scope.DoCommand(":FUNCTION2:DISPLAY ON");
+            InsControl._scope.Root_Clear();
+            InsControl._scope.Root_RUN();
+            InsControl._scope.Measure_Clear();
+        }
+
 
         public void ATETask()
         {
@@ -56,16 +82,15 @@ namespace IN528ATE_tool
             _sheet.Cells[row, XLS_Table.G] = "UVP(V)";
             _sheet.Cells[row, XLS_Table.H] = "UVP_Max(V)";
             _sheet.Cells[row, XLS_Table.I] = "UVP_Min(V)";
-            _sheet.Cells[row, XLS_Table.J] = "UVP_DLY(ms)";
+            //_sheet.Cells[row, XLS_Table.J] = "UVP_DLY(ms)";
 
             _range = _sheet.Range["A" + row, "F" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["G" + row, "J" + row];
+            _range = _sheet.Range["G" + row, "I" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
-
             row++;
 #endif
             InsControl._power.AutoPowerOff();
@@ -78,6 +103,7 @@ namespace IN528ATE_tool
             {
                 for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                 {
+                    if (test_parameter.run_stop == true) goto Stop;
                     if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                     double ori_vol = 0;
                     string file_name;
@@ -163,11 +189,11 @@ namespace IN528ATE_tool
                     //:MEASure:PPULses CHANNEL2
                     //:MARKer:MODE MEASurement
                     //:MARKer:MEASurement:MEASurement MEASurement1 --> ??
-                    InsControl._scope.DoCommand(":MEASure:PPULses CHANNEL2");
-                    InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                    InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement");
-                    //:MARKer2:X:POSition?
-                    double UVP_dly = InsControl._scope.doQueryNumber(":MARKer2:X:POSition?");
+                    //InsControl._scope.DoCommand(":MEASure:PPULses CHANNEL2");
+                    //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                    //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement");
+                    ////:MARKer2:X:POSition?
+                    //double UVP_dly = InsControl._scope.doQueryNumber(":MARKer2:X:POSition?");
 #if Report
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
@@ -179,7 +205,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.G] = UVP_amp;
                     _sheet.Cells[row, XLS_Table.H] = UVP_max;
                     _sheet.Cells[row, XLS_Table.I] = UVP_min;
-                    _sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
+                    //_sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
 #endif
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();
@@ -196,7 +222,6 @@ namespace IN528ATE_tool
 
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
-            //string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
@@ -215,33 +240,7 @@ namespace IN528ATE_tool
         }
 
 
-        private void OSCInint()
-        {
-            // CH1 Vout
-            // CH2 LX
-            // CH4 ILX
-            InsControl._scope.CH1_On();
-            InsControl._scope.CH2_On();
-            InsControl._scope.CH4_On();
-            InsControl._scope.CH3_Off();
 
-            InsControl._scope.CH1_Level(5);
-            //InsControl._scope.CH2_Level(5);
-            InsControl._scope.CH4_Level(1);
-            // right position is negtive
-            // up position is negtive 
-            InsControl._scope.TimeScaleMs(test_parameter.cv_wait * 3); // trigger point
-            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -3); 
-            InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
-            InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 1));
-            InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
-            InsControl._scope.DoCommand(":FUNCTION2:DISPLAY ON");
-            InsControl._scope.Root_Clear();
-            InsControl._scope.Root_RUN();
-            InsControl._scope.Measure_Clear();
-
-
-        }
 
 
 

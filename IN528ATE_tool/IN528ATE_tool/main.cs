@@ -36,6 +36,7 @@ namespace IN528ATE_tool
         ATE_PowerOn _ate_poweron;
         ATE_CurrentLimit _ate_current_limit;
         ATE_UVPLevel _ate_uvp;
+        ATE_UVPDly _ate_dly;
         TaskRun[] ate_table;
 
         string[] tempList;
@@ -54,6 +55,7 @@ namespace IN528ATE_tool
             _ate_poweron = new ATE_PowerOn();
             _ate_current_limit = new ATE_CurrentLimit();
             _ate_uvp = new ATE_UVPLevel();
+            _ate_dly = new ATE_UVPDly();
 
             led_osc.Color = Color.Red;
             led_power.Color = Color.Red;
@@ -61,7 +63,7 @@ namespace IN528ATE_tool
             led_37940.Color = Color.Red;
             led_chamber.Color = Color.Red;
             cb_item.SelectedIndex = 0;
-            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron, _ate_current_limit, _ate_uvp };
+            ate_table = new TaskRun[] { _ate_ripple, _ate_code_inrush, _ate_poweron, _ate_current_limit, _ate_uvp, _ate_dly };
             Message = new MyDelegate(MessageCallback);
 
 
@@ -82,7 +84,7 @@ namespace IN528ATE_tool
             GUIInit();
 
             // 2 ^ 10
-            Console.WriteLine(Math.Pow(10, 10));
+            //Console.WriteLine(Math.Pow(10, 10));
         }
 
         private void MessageCallback()
@@ -589,6 +591,13 @@ namespace IN528ATE_tool
                     break;
                 case 4:
                     // UVP
+                    lab_scope.Text = "Scope Info:" + "\r\n" +
+                                     "CH1: Vout \r\n" +
+                                     "Ch2: Lx \r\n" +
+                                     "CH3: ILX";
+                    break;
+                case 5:
+                    // UVP Delay time
                     lab_scope.Text = "Scope Info:" + "\r\n" +
                                      "CH1: Vout \r\n" +
                                      "Ch2: Lx \r\n" +

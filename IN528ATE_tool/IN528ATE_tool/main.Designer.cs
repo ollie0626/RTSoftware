@@ -453,7 +453,8 @@ namespace IN528ATE_tool
             "1. Code Inrush",
             "2. Delay Time & SST",
             "3. Current Limit",
-            "4. UVP"});
+            "4. UVP",
+            "5. UVP Dly"});
             this.cb_item.Location = new System.Drawing.Point(347, 182);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(174, 23);

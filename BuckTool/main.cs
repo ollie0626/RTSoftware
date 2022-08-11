@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 using Sunny.UI;
 using InsLibDotNet;
@@ -64,9 +65,9 @@ namespace BuckTool
 
             for (int i = 1; i < 21; i++)
             {
-                tb_chamber.Items.Add("ATE_" + i.ToString());
+                cb_chamber.Items.Add("ATE_" + i.ToString());
             }
-            tb_chamber.SelectedIndex = 0;
+            cb_chamber.SelectedIndex = 0;
         }
 
 
@@ -208,8 +209,6 @@ namespace BuckTool
                             test_parameter.HiLo_table.Add(level);
                         }
                     }
-
-
                     break;
             }
             
@@ -222,6 +221,7 @@ namespace BuckTool
             test_parameter.duty = (double)nu_duty.Value;
             test_parameter.tr = (double)nu_tr.Value;
             test_parameter.tf = (double)nu_tf.Value;
+            test_parameter.vout_ideal = (double)nu_Videa.Value;
 
         }
 
@@ -272,7 +272,7 @@ namespace BuckTool
         {
             //test_parameter.temp_table --> List<string> need to converter to double
             ChamberCtr.IsTCPConnected = false;
-            ChamberCtr.ChamberName = tb_chamber.Text;
+            ChamberCtr.ChamberName = cb_chamber.Text;
             ChamberCtr.CreatShareChamberFolder();
             if (!ck_slave.Checked)
             {
@@ -449,5 +449,137 @@ namespace BuckTool
             }
         }
 
+        private void uibt_save_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savedlg = new SaveFileDialog();
+            savedlg.Filter = "settings|*.tb_info";
+            
+            if(savedlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = savedlg.FileName;
+                SaveSettings(file_name);
+            }
+
+        }
+
+
+        private void SaveSettings(string file)
+        {
+            string settings = "";
+
+            settings = "0.BinPath=$" + textBox1.Text + "$\r\n";
+            settings += "1.WavePath=$" + tbWave.Text + "$\r\n";
+            settings += "2.SpecifyPath=$" + textBox2.Text + "$\r\n";
+            settings += "3.Vin=$" + tb_Vin.Text + "$\r\n";
+            settings += "4.Freq1_en=$" + (ck_freq1.Checked ? "1" : "0") + "$\r\n";
+            settings += "5.Freq1_des=$" + tb_freqdes1.Text + "$\r\n";
+            settings += "6.Freq2_en=$" + (ck_freq2.Checked ? "1" : "0") + "$\r\n";
+            settings += "7.Freq2_des=$" + tb_freqdes2.Text + "$\r\n";
+            settings += "8.Func_freq=$" + nu_Freq.Value.ToString() + "$\r\n";
+            settings += "9.Func_duty=$" + nu_duty.Value.ToString() + "$\r\n";
+            settings += "10.Func_tr=$" + nu_tr.Value.ToString() + "$\r\n";
+            settings += "11.Func_tf=$" + nu_tf.Value.ToString() + "$\r\n";
+            settings += "12.Func_hi_level=$" + tb_Highlevel.Text + "$\r\n";
+            settings += "13.Func_lo_level=$" + tb_Lowlevel.Text + "$\r\n";
+            settings += "14.Iout_non_Seq=$" + tb_Iout.Text + "$\r\n";
+            /* connect ins. info */
+            settings += "15.Scope_addr=$" + tb_osc.Text + "$\r\n";
+            settings += "16.Power_addr=$" + nu_power.Value.ToString() + "$\r\n";
+            settings += "17.Eload_addr=$" + nu_eload.Value.ToString() + "$\r\n";
+            settings += "18.34970_adr=$" + nu_34970A.Value.ToString() + "$\r\n";
+            settings += "19.Chamber_addr=$" + nu_chamber.Value.ToString() + "$\r\n";
+            settings += "20.Dmm1_addr=$" + nu_dmm1.Value.ToString() + "$\r\n";
+            settings += "21.Dmm2_addr=$" + nu_dmm2.Value.ToString() + "$\r\n";
+            settings += "22.Func_addr=$" + nu_funcgen.Value.ToString() + "$\r\n";
+
+            /* chamber info */
+            //settings += "23.Chamber_en=$" + (ck_chaber_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "23.Chamber_info=$" + tb_templist.Text + "$\r\n";
+            settings += "24.Chamber_name=$" + cb_chamber.SelectedIndex.ToString() + "$\r\n";
+            settings += "25.Chamber_time=$" + nu_steady.Value.ToString() + "$\r\n";
+            settings += "26.Eload_row=$" + Eload_DG.RowCount.ToString() + "$\r\n";
+            for(int idx = 0; idx < Eload_DG.RowCount; idx++)
+            {
+                settings += (idx + 27).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
+                settings += (idx + 28).ToString() + ".Eload_step=$" + Eload_DG[1, idx].Value.ToString() + "$\r\n";
+                settings += (idx + 29).ToString() + ".Eload_stop=$" + Eload_DG[2, idx].Value.ToString() + "$\r\n";
+            }
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void uibt_load_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if(opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(opendlg.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                textBox1, tbWave, textBox2, tb_Vin, ck_freq1, tb_freqdes1, ck_freq2, tb_freqdes2, nu_Freq, nu_duty, nu_tr,
+                nu_tf, tb_Highlevel, tb_Lowlevel, tb_Iout, tb_osc, nu_power, nu_eload, nu_34970A, nu_chamber, nu_dmm1,
+                nu_dmm2, nu_funcgen, tb_templist, cb_chamber, nu_steady, Eload_DG
+            };
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                int idx = 0;
+                for(int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch(obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "DataGridView":
+                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            idx = i;
+                            goto fullDG;
+                            
+                            break;
+                    }
+                }
+
+                fullDG:
+                for(int i = 0; i < Eload_DG.RowCount; i++)
+                {
+                    Eload_DG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    Eload_DG[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    Eload_DG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    idx += 3;
+                }
+                
+
+            }
+        }
     }
 }

@@ -453,5 +453,19 @@ namespace InsLibDotNet
             return doures;
         }
 
+        // support UVP delay time
+
+        public void ShortOn()
+        {
+            string cmd = "LOAD:SHOR ON";
+            doCommand(cmd);
+        }
+
+        public void ShortOff()
+        {
+            string cmd = "LOAD:SHOR OFF";
+            doCommand(cmd);
+        }
+
     }
 }
