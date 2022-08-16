@@ -18,6 +18,7 @@ namespace IN528ATE_tool
 {
     public partial class main : Sunny.UI.UIForm
     {
+        
         delegate void MyDelegate();
         MyDelegate Message;
         FolderBrowserDialog FolderBrow;
@@ -229,6 +230,7 @@ namespace IN528ATE_tool
             test_parameter.vol_min = (double)nu_vol_min.Value;
             test_parameter.all_en = ck_all_test.Checked;
             test_parameter.trigger_vin_en = ck_vin_trigger.Checked;
+            test_parameter.trigger_en = ck_en_trigger.Checked;
             test_parameter.trigger_level = (double)nu_ch1_trigger_level.Value;
             test_parameter.mtp_slave = (byte)nu_mtp_slave.Value;
             test_parameter.mtp_addr = (byte)nu_mtp_addr.Value;

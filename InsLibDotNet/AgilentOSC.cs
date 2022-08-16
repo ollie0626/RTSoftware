@@ -62,6 +62,11 @@ namespace InsLibDotNet
             doCommand(":RUN");
         }
 
+        public void Root_Single()
+        {
+            doCommand(":SINGle");
+        }
+
         public void Root_Clear()
         {
             doCommand(":CDISplay");

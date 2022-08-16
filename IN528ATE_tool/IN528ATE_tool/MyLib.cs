@@ -7,6 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Drawing;
 using InsLibDotNet;
 using System.IO;
+using System.Timers;
 
 namespace IN528ATE_tool
 {
@@ -24,17 +25,60 @@ namespace IN528ATE_tool
 
     public class MyLib
     {
+        static Timer timer = new Timer();
+        static private int timer_cnt = 0;
+        
+        public MyLib()
+        {
+            timer.Enabled = false;
+            timer.Interval = 100;
+            timer.Elapsed += OnTickEvent;
+            timer_cnt = 0;
+            timer.Stop();
+        }
+
+        private void OnTickEvent(object sender, ElapsedEventArgs e)
+        {
+            timer_cnt += 1;
+        }
+
 
         public static void WaveformCheck()
         {
+            timer.Start();
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n")) ;
+            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n"))
+            {
+                Delay1ms(50);
+                if (timer_cnt >= 100)
+                {
+                    timer.Stop();
+                    timer_cnt = 0;
+                    Console.WriteLine("WaveformCheck time out !!!");
+                    break;
+                }
+            }
+            timer.Stop();
+            timer_cnt = 0;
         }
 
         public static void ProcessCheck()
         {
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n")) ;
+            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n"))
+            {
+                Delay1ms(50);
+                if (timer_cnt >= 100)
+                {
+                    timer.Stop();
+                    timer_cnt = 0;
+                    Console.WriteLine("ProcessCheck time out !!!");
+                    break;
+                }
+            }
+
+            timer.Stop();
+            timer_cnt = 0;
         }
 
 
