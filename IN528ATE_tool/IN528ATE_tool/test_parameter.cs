@@ -50,6 +50,10 @@ namespace IN528ATE_tool
         public static double cv_step;
         public static double cv_wait;
 
+        /* add SST & DT */
+        public static double lovol;
+        public static double midvol;
+        public static double hivol;
     }
 
 
