@@ -241,6 +241,9 @@ namespace MulanLite
             nushort_ch2.Value = (Rdbuffer[2] & 0x02) >> 1;
             nushort_ch1.Value = (Rdbuffer[2] & 0x01) >> 0;
 
+
+            //textBox14.Text = Convert.ToString((Rdbuffer[2] & 0x80) >> 7);
+
             Rdbuffer = await RDataTask(id, 0, 0x04);
             nu_dont_lower.Value = (Rdbuffer[2] & 0x40) >> 6;
             nu_raise.Value = (Rdbuffer[2] & 0x20) >> 5;
@@ -1039,6 +1042,23 @@ namespace MulanLite
             //int[] buf = new int[] { 0x0E25D, 0x14AFF, 0x0E6F8, 0x1D8C7, 0x12DDE };
             //int[] buf = new int[] { 0x12DDE };
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
+
+
+            NumericUpDown[] nu_table = new NumericUpDown[]
+            {
+                nuopen_ch4, nuopen_ch3, nuopen_ch2, nuopen_ch1, nu_crc, nu_rdo, nu_badlen, nu_badadd, nu_badcmd, nu_badid,
+                flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, flag13, 
+                nu_dont_lower, nu_raise, nu_test_mode, nu_stat_dis, nu_stat_norm, nu_stat_stb, nu_stat_iden, nu_stat_init,
+                nu_efuse_load, nu_tsd_mask, nu_tsd, nushort_ch1, nushort_ch2, nushort_ch3, nushort_ch4, numericUpDown1
+            };
+
+            for(int i = 0; i < nu_table.Length; i++)
+            {
+                //nu_table[i].Controls[0].Visible = false;
+                nu_table[i].Enabled = false;
+            }
+
+
 
             uiTabControl1.TabPages.RemoveAt(4);
             timer1.Interval = 500;
@@ -1949,6 +1969,7 @@ namespace MulanLite
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
+
     }
 }
 
