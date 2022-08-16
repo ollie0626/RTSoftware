@@ -183,6 +183,10 @@ namespace MulanLite
             this.nu_specified_data = new System.Windows.Forms.NumericUpDown();
             this.uiLabel35 = new Sunny.UI.UILabel();
             this.uiCheckBoxGroup6 = new Sunny.UI.UICheckBoxGroup();
+            this.nu_fault_qty = new System.Windows.Forms.NumericUpDown();
+            this.bt_repones = new Sunny.UI.UIButton();
+            this.bt_inquiry = new Sunny.UI.UIButton();
+            this.uiLabel38 = new Sunny.UI.UILabel();
             this.flowLayoutPanel5 = new System.Windows.Forms.FlowLayoutPanel();
             this.uiLabel39 = new Sunny.UI.UILabel();
             this.flag1 = new System.Windows.Forms.NumericUpDown();
@@ -227,10 +231,6 @@ namespace MulanLite
             this.uiLabel51 = new Sunny.UI.UILabel();
             this.flag13 = new System.Windows.Forms.NumericUpDown();
             this.textBox13 = new System.Windows.Forms.TextBox();
-            this.nu_fault_qty = new System.Windows.Forms.NumericUpDown();
-            this.bt_repones = new Sunny.UI.UIButton();
-            this.bt_inquiry = new Sunny.UI.UIButton();
-            this.uiLabel38 = new Sunny.UI.UILabel();
             this.cb_vhr_short = new System.Windows.Forms.ComboBox();
             this.cb_vhr_open = new System.Windows.Forms.ComboBox();
             this.cb_vhr_up = new System.Windows.Forms.ComboBox();
@@ -823,6 +823,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_end_zone)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data)).BeginInit();
             this.uiCheckBoxGroup6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).BeginInit();
             this.flowLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.flag1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag2)).BeginInit();
@@ -837,7 +838,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.flag11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag12)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag13)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).BeginInit();
             this.uiTabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -2276,6 +2276,7 @@ namespace MulanLite
             // 
             // nu_badcmd
             // 
+            this.nu_badcmd.Enabled = false;
             this.nu_badcmd.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_badcmd.Location = new System.Drawing.Point(225, 176);
             this.nu_badcmd.Maximum = new decimal(new int[] {
@@ -2290,6 +2291,7 @@ namespace MulanLite
             // 
             // nu_badid
             // 
+            this.nu_badid.Enabled = false;
             this.nu_badid.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_badid.Location = new System.Drawing.Point(225, 147);
             this.nu_badid.Maximum = new decimal(new int[] {
@@ -2304,6 +2306,7 @@ namespace MulanLite
             // 
             // nu_badadd
             // 
+            this.nu_badadd.Enabled = false;
             this.nu_badadd.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_badadd.Location = new System.Drawing.Point(225, 120);
             this.nu_badadd.Maximum = new decimal(new int[] {
@@ -2318,6 +2321,7 @@ namespace MulanLite
             // 
             // nu_badlen
             // 
+            this.nu_badlen.Enabled = false;
             this.nu_badlen.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_badlen.Location = new System.Drawing.Point(225, 92);
             this.nu_badlen.Maximum = new decimal(new int[] {
@@ -2332,6 +2336,7 @@ namespace MulanLite
             // 
             // nu_rdo
             // 
+            this.nu_rdo.Enabled = false;
             this.nu_rdo.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_rdo.Location = new System.Drawing.Point(225, 64);
             this.nu_rdo.Maximum = new decimal(new int[] {
@@ -2346,6 +2351,7 @@ namespace MulanLite
             // 
             // nu_crc
             // 
+            this.nu_crc.Enabled = false;
             this.nu_crc.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_crc.Location = new System.Drawing.Point(225, 35);
             this.nu_crc.Maximum = new decimal(new int[] {
@@ -3128,6 +3134,7 @@ namespace MulanLite
             // nuopen_ch4
             // 
             this.nuopen_ch4.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuopen_ch4.InterceptArrowKeys = false;
             this.nuopen_ch4.Location = new System.Drawing.Point(114, 36);
             this.nuopen_ch4.Maximum = new decimal(new int[] {
             1,
@@ -3861,11 +3868,11 @@ namespace MulanLite
             // 
             // uiCheckBoxGroup6
             // 
-            this.uiCheckBoxGroup6.Controls.Add(this.flowLayoutPanel5);
             this.uiCheckBoxGroup6.Controls.Add(this.nu_fault_qty);
             this.uiCheckBoxGroup6.Controls.Add(this.bt_repones);
             this.uiCheckBoxGroup6.Controls.Add(this.bt_inquiry);
             this.uiCheckBoxGroup6.Controls.Add(this.uiLabel38);
+            this.uiCheckBoxGroup6.Controls.Add(this.flowLayoutPanel5);
             this.uiCheckBoxGroup6.FillColor = System.Drawing.Color.White;
             this.uiCheckBoxGroup6.FillColor2 = System.Drawing.Color.White;
             this.uiCheckBoxGroup6.Font = new System.Drawing.Font("Calibri", 12F);
@@ -3882,6 +3889,84 @@ namespace MulanLite
             this.uiCheckBoxGroup6.TabIndex = 56;
             this.uiCheckBoxGroup6.Text = "Inquiry and Respones ID";
             this.uiCheckBoxGroup6.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_fault_qty
+            // 
+            this.nu_fault_qty.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_fault_qty.Location = new System.Drawing.Point(318, 33);
+            this.nu_fault_qty.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_fault_qty.Name = "nu_fault_qty";
+            this.nu_fault_qty.Size = new System.Drawing.Size(50, 23);
+            this.nu_fault_qty.TabIndex = 49;
+            this.nu_fault_qty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_fault_qty.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // bt_repones
+            // 
+            this.bt_repones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_repones.FillColor = System.Drawing.Color.White;
+            this.bt_repones.FillColor2 = System.Drawing.Color.White;
+            this.bt_repones.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_repones.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_repones.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_repones.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_repones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_repones.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_repones.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_repones.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_repones.Location = new System.Drawing.Point(148, 30);
+            this.bt_repones.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_repones.Name = "bt_repones";
+            this.bt_repones.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_repones.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_repones.Size = new System.Drawing.Size(114, 29);
+            this.bt_repones.Style = Sunny.UI.UIStyle.White;
+            this.bt_repones.TabIndex = 47;
+            this.bt_repones.Text = "Respones ID";
+            this.bt_repones.Click += new System.EventHandler(this.bt_repones_Click);
+            // 
+            // bt_inquiry
+            // 
+            this.bt_inquiry.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bt_inquiry.FillColor = System.Drawing.Color.White;
+            this.bt_inquiry.FillColor2 = System.Drawing.Color.White;
+            this.bt_inquiry.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inquiry.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inquiry.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.bt_inquiry.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bt_inquiry.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.bt_inquiry.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.bt_inquiry.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inquiry.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.bt_inquiry.Location = new System.Drawing.Point(19, 30);
+            this.bt_inquiry.MinimumSize = new System.Drawing.Size(1, 1);
+            this.bt_inquiry.Name = "bt_inquiry";
+            this.bt_inquiry.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.bt_inquiry.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.bt_inquiry.Size = new System.Drawing.Size(123, 29);
+            this.bt_inquiry.Style = Sunny.UI.UIStyle.White;
+            this.bt_inquiry.TabIndex = 46;
+            this.bt_inquiry.Text = "Inquiry Packet";
+            this.bt_inquiry.Click += new System.EventHandler(this.bt_inquiry_Click);
+            // 
+            // uiLabel38
+            // 
+            this.uiLabel38.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel38.Location = new System.Drawing.Point(240, 33);
+            this.uiLabel38.Name = "uiLabel38";
+            this.uiLabel38.Size = new System.Drawing.Size(100, 23);
+            this.uiLabel38.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel38.TabIndex = 48;
+            this.uiLabel38.Text = "Qty.";
+            this.uiLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel5
             // 
@@ -4475,84 +4560,6 @@ namespace MulanLite
             this.textBox13.Size = new System.Drawing.Size(213, 23);
             this.textBox13.TabIndex = 50;
             // 
-            // nu_fault_qty
-            // 
-            this.nu_fault_qty.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_fault_qty.Location = new System.Drawing.Point(318, 33);
-            this.nu_fault_qty.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nu_fault_qty.Name = "nu_fault_qty";
-            this.nu_fault_qty.Size = new System.Drawing.Size(50, 23);
-            this.nu_fault_qty.TabIndex = 49;
-            this.nu_fault_qty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_fault_qty.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // bt_repones
-            // 
-            this.bt_repones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_repones.FillColor = System.Drawing.Color.White;
-            this.bt_repones.FillColor2 = System.Drawing.Color.White;
-            this.bt_repones.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_repones.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_repones.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_repones.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_repones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
-            this.bt_repones.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.bt_repones.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_repones.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_repones.Location = new System.Drawing.Point(148, 30);
-            this.bt_repones.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_repones.Name = "bt_repones";
-            this.bt_repones.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
-            this.bt_repones.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
-            this.bt_repones.Size = new System.Drawing.Size(114, 29);
-            this.bt_repones.Style = Sunny.UI.UIStyle.White;
-            this.bt_repones.TabIndex = 47;
-            this.bt_repones.Text = "Respones ID";
-            this.bt_repones.Click += new System.EventHandler(this.bt_repones_Click);
-            // 
-            // bt_inquiry
-            // 
-            this.bt_inquiry.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bt_inquiry.FillColor = System.Drawing.Color.White;
-            this.bt_inquiry.FillColor2 = System.Drawing.Color.White;
-            this.bt_inquiry.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_inquiry.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_inquiry.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
-            this.bt_inquiry.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_inquiry.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
-            this.bt_inquiry.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
-            this.bt_inquiry.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inquiry.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inquiry.Location = new System.Drawing.Point(19, 30);
-            this.bt_inquiry.MinimumSize = new System.Drawing.Size(1, 1);
-            this.bt_inquiry.Name = "bt_inquiry";
-            this.bt_inquiry.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
-            this.bt_inquiry.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
-            this.bt_inquiry.Size = new System.Drawing.Size(123, 29);
-            this.bt_inquiry.Style = Sunny.UI.UIStyle.White;
-            this.bt_inquiry.TabIndex = 46;
-            this.bt_inquiry.Text = "Inquiry Packet";
-            this.bt_inquiry.Click += new System.EventHandler(this.bt_inquiry_Click);
-            // 
-            // uiLabel38
-            // 
-            this.uiLabel38.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel38.Location = new System.Drawing.Point(240, 33);
-            this.uiLabel38.Name = "uiLabel38";
-            this.uiLabel38.Size = new System.Drawing.Size(100, 23);
-            this.uiLabel38.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel38.TabIndex = 48;
-            this.uiLabel38.Text = "Qty.";
-            this.uiLabel38.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // cb_vhr_short
             // 
             this.cb_vhr_short.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -4742,6 +4749,7 @@ namespace MulanLite
             // 
             // nu_tsd
             // 
+            this.nu_tsd.Enabled = false;
             this.nu_tsd.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_tsd.Location = new System.Drawing.Point(165, 244);
             this.nu_tsd.Maximum = new decimal(new int[] {
@@ -4825,6 +4833,7 @@ namespace MulanLite
             // 
             // nu_tsd_mask
             // 
+            this.nu_tsd_mask.Enabled = false;
             this.nu_tsd_mask.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_tsd_mask.Location = new System.Drawing.Point(165, 217);
             this.nu_tsd_mask.Maximum = new decimal(new int[] {
@@ -4908,6 +4917,7 @@ namespace MulanLite
             // 
             // nu_efuse_load
             // 
+            this.nu_efuse_load.Enabled = false;
             this.nu_efuse_load.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_efuse_load.Location = new System.Drawing.Point(165, 190);
             this.nu_efuse_load.Maximum = new decimal(new int[] {
@@ -4991,6 +5001,7 @@ namespace MulanLite
             // 
             // nu_stat_init
             // 
+            this.nu_stat_init.Enabled = false;
             this.nu_stat_init.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_stat_init.Location = new System.Drawing.Point(165, 163);
             this.nu_stat_init.Maximum = new decimal(new int[] {
@@ -5005,6 +5016,7 @@ namespace MulanLite
             // 
             // nu_test_mode
             // 
+            this.nu_test_mode.Enabled = false;
             this.nu_test_mode.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_test_mode.Location = new System.Drawing.Point(165, 22);
             this.nu_test_mode.Maximum = new decimal(new int[] {
@@ -5019,6 +5031,7 @@ namespace MulanLite
             // 
             // nu_stat_iden
             // 
+            this.nu_stat_iden.Enabled = false;
             this.nu_stat_iden.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_stat_iden.Location = new System.Drawing.Point(165, 134);
             this.nu_stat_iden.Maximum = new decimal(new int[] {
@@ -5033,6 +5046,7 @@ namespace MulanLite
             // 
             // nu_stat_dis
             // 
+            this.nu_stat_dis.Enabled = false;
             this.nu_stat_dis.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_stat_dis.Location = new System.Drawing.Point(165, 51);
             this.nu_stat_dis.Maximum = new decimal(new int[] {
@@ -5047,6 +5061,7 @@ namespace MulanLite
             // 
             // nu_stat_stb
             // 
+            this.nu_stat_stb.Enabled = false;
             this.nu_stat_stb.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_stat_stb.Location = new System.Drawing.Point(165, 107);
             this.nu_stat_stb.Maximum = new decimal(new int[] {
@@ -5061,6 +5076,7 @@ namespace MulanLite
             // 
             // nu_stat_norm
             // 
+            this.nu_stat_norm.Enabled = false;
             this.nu_stat_norm.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_stat_norm.Location = new System.Drawing.Point(165, 79);
             this.nu_stat_norm.Maximum = new decimal(new int[] {
@@ -12278,7 +12294,7 @@ namespace MulanLite
             this.Name = "main";
             this.RectColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Style = Sunny.UI.UIStyle.Custom;
-            this.Text = "Mulan Lite tool v2";
+            this.Text = "Mulan Lite tool v3";
             this.TitleColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
@@ -12339,6 +12355,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_end_zone)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data)).EndInit();
             this.uiCheckBoxGroup6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).EndInit();
             this.flowLayoutPanel5.ResumeLayout(false);
             this.flowLayoutPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.flag1)).EndInit();
@@ -12354,7 +12371,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.flag11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag12)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.flag13)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).EndInit();
             this.uiTabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
