@@ -47,7 +47,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.3";
+            this.Text = "ATE Tool v2.4";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -240,6 +240,11 @@ namespace IN528ATE_tool
             test_parameter.cv_setting = (double)nu_CVSetting.Value;
             test_parameter.cv_step = (double)nu_CVStep.Value;
             test_parameter.cv_wait = (double)nu_CVwait.Value;
+
+
+            test_parameter.lovol = (double)nu_LoVol.Value;
+            test_parameter.midvol = (double)nu_MidVol.Value;
+            test_parameter.hivol = (double)nu_HiVol.Value;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)
