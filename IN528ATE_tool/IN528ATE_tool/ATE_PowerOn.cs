@@ -38,6 +38,8 @@ namespace IN528ATE_tool
 
         private void OSCInit()
         {
+            InsControl._scope.AgilentOSC_RST();
+            MyLib.WaveformCheck();
             // for power on time scale
             InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
@@ -91,6 +93,7 @@ namespace IN528ATE_tool
             else if(test_parameter.trigger_en)
             {
                 InsControl._scope.CH1_Level(1);
+                RTDev.GpEn_Enable();
             }
 
             InsControl._scope.CH2_Level(6);
@@ -101,15 +104,16 @@ namespace IN528ATE_tool
                 //InsControl._scope.CH4_Level(1);
                 double Vo;
                 Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
-                InsControl._scope.CH2_Level(Vo / 2);
+                InsControl._scope.CH2_Level(Vo / 3);
                 Vo = Math.Abs(InsControl._scope.Meas_CH3MAX());
-                InsControl._scope.CH3_Level(Vo / 2);
+                InsControl._scope.CH3_Level(Vo / 3);
                 MyLib.WaveformCheck();
                 // Inrush ????
                 //Vo = Math.Abs(InsControl._scope.Meas_CH4MAX());
                 //InsControl._scope.CH4_Level(Vo / 2);
             }
 
+            RTDev.GpEn_Disable();
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
             //InsControl._scope.NormalTrigger();
@@ -160,7 +164,7 @@ namespace IN528ATE_tool
             row++;
             InsControl._power.AutoPowerOff();
             OSCInit();
-            MyLib.Delay1s(1);
+            //MyLib.Delay1s(1);
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
                 for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
@@ -192,15 +196,18 @@ namespace IN528ATE_tool
                         InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                         MyLib.WaveformCheck();
                         InsControl._scope.NormalTrigger();
+                        //InsControl._scope.Root_Single();
+                        //InsControl._scope.SingleTrigger();
                         if (test_parameter.trigger_vin_en)
                         {
                             // vin trigger
                             InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
                             // rising edge trigger
                             InsControl._scope.SetTrigModeEdge(false);
-                            MyLib.Delay1ms(100);
+                            MyLib.Delay1s(2);
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-                            MyLib.WaveformCheck();
+                            MyLib.Delay1s(1);
+                            //MyLib.WaveformCheck();
                             //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             //MyLib.Delay1ms(150);
                             
@@ -208,12 +215,15 @@ namespace IN528ATE_tool
                         else if (test_parameter.trigger_en)
                         {
                             //Gpio 2.0 trigger
+                            InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+                            MyLib.Delay1s(1);
                             InsControl._scope.DoCommand(":TRIGger:MODE EDGE");
                             InsControl._scope.SetTrigModeEdge(false);
                             InsControl._scope.TriggerLevel_CH1(1.5);
-                            MyLib.Delay1ms(100);
+                            MyLib.Delay1ms(500);
                             RTDev.GpEn_Enable();
-                            MyLib.WaveformCheck();
+                            MyLib.Delay1s(1);
+                            //MyLib.WaveformCheck();
 
                             //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
                             //MyLib.Delay1ms(150);
@@ -276,13 +286,22 @@ namespace IN528ATE_tool
                         // MEAS2
                         InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+                        MyLib.Delay1s(1);
 
                         // MEAS1
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
-                        
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") * 1000;
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1") * 1000;
+
+                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        MyLib.Delay1ms(500);
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement2");
+                        MyLib.Delay1ms(500);
+                        double offset = InsControl._scope.doQueryNumber(":MARKer1:X:POSition?");
+                        MyLib.Delay1ms(500);
+
+
+                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1") ;
+                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1");
                         Vmax = InsControl._scope.Meas_CH2MAX();
                         Inrush = InsControl._scope.Meas_CH4MAX();
 
@@ -297,10 +316,10 @@ namespace IN528ATE_tool
                         InsControl._scope.DoCommand(":MARKer4:DELTa MARKer3, ON");
                         InsControl._scope.DoCommand(":MARKer3:SOURce CHANnel2");
                         InsControl._scope.DoCommand(":MARKer4:SOURce CHANnel2");
-                        InsControl._scope.DoCommand(string.Format(":MARKer1:X:POSition 0"));
-                        InsControl._scope.DoCommand(string.Format(":MARKer2:X:POSition {0}", delay_time / 1000));
-                        InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", delay_time / 1000));
-                        InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (delay_time + ss_time) / 1000));
+                        InsControl._scope.DoCommand(string.Format(":MARKer1:X:POSition {0}", offset));
+                        InsControl._scope.DoCommand(string.Format(":MARKer2:X:POSition {0}", offset + delay_time));
+                        InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", offset + delay_time));
+                        InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (offset + delay_time + ss_time)));
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ON");
                         InsControl._scope.DoCommand(":MARKer:MODE OFF");
 
@@ -315,8 +334,8 @@ namespace IN528ATE_tool
                         _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
                         _sheet.Cells[row, XLS_Table.D] = test_parameter.IoutList[iout_idx];
                         _sheet.Cells[row, XLS_Table.E] = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                        _sheet.Cells[row, XLS_Table.F] = delay_time;
-                        _sheet.Cells[row, XLS_Table.G] = ss_time;
+                        _sheet.Cells[row, XLS_Table.F] = delay_time * 1000;
+                        _sheet.Cells[row, XLS_Table.G] = ss_time * 1000;
                         _sheet.Cells[row, XLS_Table.H] = Vmax;
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
 
@@ -342,9 +361,11 @@ namespace IN528ATE_tool
                             System.Threading.Thread.Sleep(250);
                             InsControl._power.AutoPowerOff();
                         }
+
+                        RTDev.GpEn_Disable();
                         System.Threading.Thread.Sleep(800);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
-                        MyLib.Delay1s(2);
+                        MyLib.Delay1s(1);
                         row++;
                     }
                 }
