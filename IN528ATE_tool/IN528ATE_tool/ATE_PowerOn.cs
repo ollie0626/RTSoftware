@@ -38,8 +38,9 @@ namespace IN528ATE_tool
 
         private void OSCInit()
         {
-            InsControl._scope.AgilentOSC_RST();
-            MyLib.WaveformCheck();
+            //InsControl._scope.AgilentOSC_RST();
+            //MyLib.WaveformCheck();
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
             // for power on time scale
             InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
@@ -53,8 +54,10 @@ namespace IN528ATE_tool
             InsControl._scope.CH3_On();
             InsControl._scope.CH4_On();
             InsControl._scope.CH2_Level(6);
-            InsControl._scope.CH3_Level(6);
-            InsControl._scope.CH3_Offset(6 * 3);
+            //InsControl._scope.CH3_Level(6);
+            //InsControl._scope.CH4_Level(0.5);
+            //InsControl._scope.CH3_Offset(6 * 3);
+            //InsControl._scope.CH4_Offset(0.5 * 3);
 
 
             //InsControl._scope.DoCommand(":MEASure:THResholds:METHod ALL,PERCent");
@@ -99,7 +102,7 @@ namespace IN528ATE_tool
             }
 
             InsControl._scope.CH2_Level(6);
-            InsControl._scope.CH3_Level(6);
+            //InsControl._scope.CH3_Level(6);
             for (int i = 0; i < 3; i++)
             {
                 // Inrush ???
@@ -107,8 +110,8 @@ namespace IN528ATE_tool
                 double Vo;
                 Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
                 InsControl._scope.CH2_Level(Vo / 3);
-                Vo = Math.Abs(InsControl._scope.Meas_CH3MAX());
-                InsControl._scope.CH3_Level(Vo / 3);
+                //Vo = Math.Abs(InsControl._scope.Meas_CH3MAX());
+                //InsControl._scope.CH3_Level(Vo / 3);
                 MyLib.WaveformCheck();
                 // Inrush ????
                 //Vo = Math.Abs(InsControl._scope.Meas_CH4MAX());
@@ -270,6 +273,7 @@ namespace IN528ATE_tool
                                                         InsControl._scope.Meas_CH1Top(),
                                                         test_parameter.measure_level,
                                                         0));
+                            MyLib.Delay1ms(200);
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,ABSolute");
                             //InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
                             //                            InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1"),
@@ -279,7 +283,8 @@ namespace IN528ATE_tool
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
                                                         test_parameter.hivol,
                                                         test_parameter.midvol,
-                                                        test_parameter.hivol));
+                                                        test_parameter.lovol));
+                            MyLib.Delay1ms(200);
                             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
                             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent FUNC1,100,50,0");
 
@@ -290,16 +295,20 @@ namespace IN528ATE_tool
                         // delay time and sst measure
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
-                        // MEAS2
+                        //InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
+                        //InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
                         MyLib.Delay1s(1);
 
-                        // MEAS1
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
@@ -377,7 +386,8 @@ namespace IN528ATE_tool
                             System.Threading.Thread.Sleep(250);
                             InsControl._power.AutoPowerOff();
                         }
-
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
                         RTDev.GpEn_Disable();
                         System.Threading.Thread.Sleep(800);
                         Inrush = InsControl._scope.Meas_CH4MAX();
