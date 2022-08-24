@@ -115,15 +115,17 @@ namespace IN528ATE_tool
             this.label11 = new System.Windows.Forms.Label();
             this.lab_scope = new System.Windows.Forms.Label();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.nu_LoVol = new System.Windows.Forms.NumericUpDown();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.nu_MidVol = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
             this.nu_HiVol = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.nu_MidVol = new System.Windows.Forms.NumericUpDown();
+            this.label24 = new System.Windows.Forms.Label();
+            this.nu_LoVol = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -153,9 +155,10 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_HiVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1217,6 +1220,8 @@ namespace IN528ATE_tool
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.nu_eloadch2);
+            this.groupBox6.Controls.Add(this.label27);
             this.groupBox6.Controls.Add(this.nu_CVwait);
             this.groupBox6.Controls.Add(this.label20);
             this.groupBox6.Controls.Add(this.nu_CVStep);
@@ -1328,57 +1333,30 @@ namespace IN528ATE_tool
             this.groupBox7.Size = new System.Drawing.Size(181, 147);
             this.groupBox7.TabIndex = 78;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "SST and Dly Time";
+            this.groupBox7.Text = "SST and Dly Time (AE1 only)";
             // 
-            // label21
+            // label26
             // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(6, 26);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(28, 15);
-            this.label21.TabIndex = 0;
-            this.label21.Text = "Low";
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(112, 102);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(14, 15);
+            this.label26.TabIndex = 84;
+            this.label26.Text = "V";
             // 
-            // label22
+            // nu_HiVol
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 64);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(29, 15);
-            this.label22.TabIndex = 1;
-            this.label22.Text = "Mid";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(6, 102);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(32, 15);
-            this.label23.TabIndex = 2;
-            this.label23.Text = "High";
-            // 
-            // nu_LoVol
-            // 
-            this.nu_LoVol.DecimalPlaces = 3;
-            this.nu_LoVol.Location = new System.Drawing.Point(40, 24);
-            this.nu_LoVol.Name = "nu_LoVol";
-            this.nu_LoVol.Size = new System.Drawing.Size(66, 23);
-            this.nu_LoVol.TabIndex = 79;
-            this.nu_LoVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_LoVol.Value = new decimal(new int[] {
-            5,
+            this.nu_HiVol.DecimalPlaces = 3;
+            this.nu_HiVol.Location = new System.Drawing.Point(40, 100);
+            this.nu_HiVol.Name = "nu_HiVol";
+            this.nu_HiVol.Size = new System.Drawing.Size(66, 23);
+            this.nu_HiVol.TabIndex = 83;
+            this.nu_HiVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_HiVol.Value = new decimal(new int[] {
+            1,
             0,
             0,
-            131072});
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(112, 26);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(14, 15);
-            this.label24.TabIndex = 80;
-            this.label24.Text = "V";
+            0});
             // 
             // label25
             // 
@@ -1403,28 +1381,88 @@ namespace IN528ATE_tool
             0,
             65536});
             // 
-            // label26
+            // label24
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(112, 102);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(14, 15);
-            this.label26.TabIndex = 84;
-            this.label26.Text = "V";
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(112, 26);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(14, 15);
+            this.label24.TabIndex = 80;
+            this.label24.Text = "V";
             // 
-            // nu_HiVol
+            // nu_LoVol
             // 
-            this.nu_HiVol.DecimalPlaces = 3;
-            this.nu_HiVol.Location = new System.Drawing.Point(40, 100);
-            this.nu_HiVol.Name = "nu_HiVol";
-            this.nu_HiVol.Size = new System.Drawing.Size(66, 23);
-            this.nu_HiVol.TabIndex = 83;
-            this.nu_HiVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_HiVol.Value = new decimal(new int[] {
-            1,
+            this.nu_LoVol.DecimalPlaces = 3;
+            this.nu_LoVol.Location = new System.Drawing.Point(40, 24);
+            this.nu_LoVol.Name = "nu_LoVol";
+            this.nu_LoVol.Size = new System.Drawing.Size(66, 23);
+            this.nu_LoVol.TabIndex = 79;
+            this.nu_LoVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_LoVol.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(6, 102);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(32, 15);
+            this.label23.TabIndex = 2;
+            this.label23.Text = "High";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 64);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(29, 15);
+            this.label22.TabIndex = 1;
+            this.label22.Text = "Mid";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(6, 26);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(28, 15);
+            this.label21.TabIndex = 0;
+            this.label21.Text = "Low";
+            // 
+            // nu_eloadch2
+            // 
+            this.nu_eloadch2.DecimalPlaces = 3;
+            this.nu_eloadch2.Increment = new decimal(new int[] {
+            3,
             0,
             0,
             0});
+            this.nu_eloadch2.Location = new System.Drawing.Point(553, 17);
+            this.nu_eloadch2.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nu_eloadch2.Name = "nu_eloadch2";
+            this.nu_eloadch2.Size = new System.Drawing.Size(62, 23);
+            this.nu_eloadch2.TabIndex = 78;
+            this.nu_eloadch2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_eloadch2.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(470, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(81, 15);
+            this.label27.TabIndex = 79;
+            this.label27.Text = "ELoad Ch2 (A)";
             // 
             // main
             // 
@@ -1531,9 +1569,10 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_HiVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1635,6 +1674,8 @@ namespace IN528ATE_tool
         private System.Windows.Forms.NumericUpDown nu_HiVol;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.NumericUpDown nu_MidVol;
+        private System.Windows.Forms.NumericUpDown nu_eloadch2;
+        private System.Windows.Forms.Label label27;
     }
 }
 

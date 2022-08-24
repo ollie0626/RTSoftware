@@ -33,6 +33,9 @@ namespace IN528ATE_tool
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH4_On();
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH2_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
             InsControl._scope.CH3_Off();
 
             InsControl._scope.CH1_Level(5);
@@ -41,7 +44,7 @@ namespace IN528ATE_tool
             // right position is negtive
             // up position is negtive 
             InsControl._scope.TimeScaleMs(test_parameter.cv_wait * 3); // trigger point
-            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -3);
+            InsControl._scope.TimeBasePositionMs(test_parameter.cv_wait * 3 * -2);
             //InsControl._scope.DoCommand(":FUNCtion1:VERTical AUTO");
             //InsControl._scope.DoCommand(string.Format(":FUNCTION1:ABSolute CHANNEL{0}", 1));
             //InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
@@ -116,15 +119,22 @@ namespace IN528ATE_tool
                     if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
                     MyLib.Delay1ms(100);
                     ori_vol = InsControl._eload.GetVol();
+                    InsControl._eload.CH2_Loading(0.05);
+                    //InsControl._eload.CH1_Loading(0);
                     InsControl._scope.Trigger_CH1();
-                    InsControl._scope.CH1_Level(ori_vol / 5);
-                    InsControl._scope.CH1_Offset((ori_vol / 5) * 3);
+                    InsControl._scope.CH1_Level(ori_vol / 4);
+                    InsControl._scope.CH1_Offset((ori_vol / 4) * 2);
+
+                    InsControl._scope.CH2_Level(ori_vol / 2);
+                    InsControl._scope.CH2_Offset((ori_vol / 2) * 1);
+
                     InsControl._scope.SetTrigModeEdge(true);
                     InsControl._scope.TriggerLevel_CH1(ori_vol * 0.65);
                     InsControl._scope.NormalTrigger();
                     InsControl._scope.Root_Clear();
-
+                    MyLib.Delay1s(1);
                     // eload shot on to trigger uvp function
+                    InsControl._eload.ChannelSel(1);
                     InsControl._eload.ShortOn();
                     MyLib.Delay1s(1);
                     InsControl._eload.ShortOff();
@@ -142,7 +152,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = res;
-                    _sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
+                    _sheet.Cells[row, XLS_Table.J] = Math.Abs(UVP_dly * 1000);
 #endif
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();
