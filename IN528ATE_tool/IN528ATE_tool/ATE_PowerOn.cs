@@ -328,6 +328,7 @@ namespace IN528ATE_tool
 
                         InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
                         InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        MyLib.ProcessCheck();
 
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                         MyLib.Delay1ms(500);
