@@ -144,6 +144,7 @@ namespace IN528ATE_tool
             bin_cnt = binList.Length;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
+#if Report
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
@@ -167,6 +168,7 @@ namespace IN528ATE_tool
             _range = _sheet.Range["F" + row, "J" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
+#endif
             InsControl._power.AutoPowerOff();
             OSCInit();
             //MyLib.Delay1s(1);
@@ -275,15 +277,17 @@ namespace IN528ATE_tool
                                                         0));
                             MyLib.Delay1ms(200);
                             InsControl._scope.DoCommand(":MEASure:THResholds:METHod FUNC1,ABSolute");
-                            //InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
-                            //                            InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1"),
-                            //                            InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1") * 0.5,
-                            //                            0.05));
-
+                            // for IN528 project
                             InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
-                                                        test_parameter.hivol,
-                                                        test_parameter.midvol,
-                                                        test_parameter.lovol));
+                                                        InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1"),
+                                                        InsControl._scope.doQueryNumber(":MEASure:VTOP? FUNC1") * 0.5,
+                                                        0.05));
+
+                            // AE1 method
+                            //InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute FUNC1,{0},{1},{2}",
+                            //                            test_parameter.hivol,
+                            //                            test_parameter.midvol,
+                            //                            test_parameter.lovol));
                             MyLib.Delay1ms(200);
                             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
                             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent FUNC1,100,50,0");
@@ -295,64 +299,70 @@ namespace IN528ATE_tool
                         // delay time and sst measure
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
-                        //InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
-                        //InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
-                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
-                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
-                        MyLib.Delay1s(1);
-
-                        InsControl._scope.Measure_Clear();
-                        MyLib.Delay1s(1);
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
-                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
-                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
-                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ST");
-                        MyLib.Delay1s(1);
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1");
-                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1");
-                        Vmax = InsControl._scope.Meas_CH2MAX();
-                        Inrush = InsControl._scope.Meas_CH4MAX();
-
+                        // AE1 only
+                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
+                        //InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
                         //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        //MyLib.Delay1ms(500);
-                        //InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement2");
-                        //MyLib.Delay1ms(500);
-                        //double offset = InsControl._scope.doQueryNumber(":MARKer1:X:POSition?");
-                        //MyLib.Delay1ms(500);
+                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_DT");
+                        //MyLib.Delay1s(1);
+
+                        //InsControl._scope.Measure_Clear();
+                        //MyLib.Delay1s(1);
+                        //InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4");
+                        //InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4");
+                        //InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+                        //InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+                        //InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ST");
+                        //MyLib.Delay1s(1);
                         //delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1");
                         //ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1");
                         //Vmax = InsControl._scope.Meas_CH2MAX();
                         //Inrush = InsControl._scope.Meas_CH4MAX();
 
-                        //InsControl._scope.DoCommand(":MARKer:MODE MANual");
-                        //InsControl._scope.DoCommand(":MARKer3:ENABle OFF");
-                        //InsControl._scope.DoCommand(":MARKer4:ENABle OFF");
-                        //InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
-                        //InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
-                        //InsControl._scope.DoCommand(":MARKer3:ENABle ON");
-                        //InsControl._scope.DoCommand(":MARKer4:ENABle ON");
-                        //InsControl._scope.DoCommand(":MARKer1:DELTa MARKer2, ON");
-                        //InsControl._scope.DoCommand(":MARKer4:DELTa MARKer3, ON");
-                        //InsControl._scope.DoCommand(":MARKer3:SOURce CHANnel2");
-                        //InsControl._scope.DoCommand(":MARKer4:SOURce CHANnel2");
-                        //InsControl._scope.DoCommand(string.Format(":MARKer1:X:POSition {0}", offset));
-                        //InsControl._scope.DoCommand(string.Format(":MARKer2:X:POSition {0}", offset + delay_time));
-                        //InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", offset + delay_time));
-                        //InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (offset + delay_time + ss_time)));
-                        //InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ON");
-                        //InsControl._scope.DoCommand(":MARKer:MODE OFF");
+
+                        InsControl._scope.SetDeltaTime_Rising_to_Rising(1, 1);
+                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, FUNC1");
+
+                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
+                        InsControl._scope.DoCommand(":MEASure:DELTatime FUNC1, FUNC1");
+
+                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                        MyLib.Delay1ms(500);
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement2");
+                        MyLib.Delay1ms(500);
+                        double offset = InsControl._scope.doQueryNumber(":MARKer1:X:POSition?");
+                        MyLib.Delay1ms(500);
+                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, FUNC1");
+                        ss_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? FUNC1, FUNC1");
+                        Vmax = InsControl._scope.Meas_CH2MAX();
+                        Inrush = InsControl._scope.Meas_CH4MAX();
+
+                        InsControl._scope.DoCommand(":MARKer:MODE MANual");
+                        InsControl._scope.DoCommand(":MARKer3:ENABle OFF");
+                        InsControl._scope.DoCommand(":MARKer4:ENABle OFF");
+                        InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
+                        InsControl._scope.DoCommand(":MARKer3:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer4:ENABle ON");
+                        InsControl._scope.DoCommand(":MARKer1:DELTa MARKer2, ON");
+                        InsControl._scope.DoCommand(":MARKer4:DELTa MARKer3, ON");
+                        InsControl._scope.DoCommand(":MARKer3:SOURce CHANnel2");
+                        InsControl._scope.DoCommand(":MARKer4:SOURce CHANnel2");
+                        InsControl._scope.DoCommand(string.Format(":MARKer1:X:POSition {0}", offset));
+                        InsControl._scope.DoCommand(string.Format(":MARKer2:X:POSition {0}", offset + delay_time));
+                        InsControl._scope.DoCommand(string.Format(":MARKer3:X:POSition {0}", offset + delay_time));
+                        InsControl._scope.DoCommand(string.Format(":MARKer4:X:POSition {0}", (offset + delay_time + ss_time)));
+                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_ON");
+                        InsControl._scope.DoCommand(":MARKer:MODE OFF");
 
                         InsControl._scope.Measure_Clear();
                         MyLib.Delay1s(1);
                         InsControl._scope.Root_Clear();
                         InsControl._scope.Root_RUN();
-
+#if Report
                         // gpio control for relay 
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
@@ -363,6 +373,7 @@ namespace IN528ATE_tool
                         _sheet.Cells[row, XLS_Table.G] = ss_time * 1000;
                         _sheet.Cells[row, XLS_Table.H] = Vmax;
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
+#endif
 
                         InsControl._scope.Measure_Clear();
                         InsControl._scope.TimeScaleMs(test_parameter.offtime_scale_ms);
@@ -391,7 +402,9 @@ namespace IN528ATE_tool
                         RTDev.GpEn_Disable();
                         System.Threading.Thread.Sleep(800);
                         Inrush = InsControl._scope.Meas_CH4MAX();
+#if Report
                         _sheet.Cells[row, XLS_Table.I] = Inrush;
+#endif
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
                         MyLib.Delay1s(1);
                         row++;
@@ -402,6 +415,7 @@ namespace IN528ATE_tool
         Stop:
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
+#if Report
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
@@ -414,6 +428,7 @@ namespace IN528ATE_tool
             _app = null;
             GC.Collect();
             if (!test_parameter.all_en && !test_parameter.chamber_en) delegate_mess.Invoke();
+#endif
 
         }
     }

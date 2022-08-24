@@ -47,7 +47,7 @@ namespace InsLibDotNet
 
         public void ChannelSel(int ch)
         {
-            string cmd = "CHAN" + ch.ToString();
+            string cmd = "CHAN " + ch.ToString();
             DoCommand(cmd);
         }
 
