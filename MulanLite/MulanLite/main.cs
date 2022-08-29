@@ -29,13 +29,10 @@ namespace MulanLite
         NumericUpDown[] LEDCHxTable;
         Control[] FileTable;
 
-        private bool initial_wr_en = false;
 
         public void GUIInit()
         {
-            
             RTDev = new RTBBControl();
-            RTDev.BoardInit();
 
             cb_sticky.SelectedIndex = 0;
             cb_allowone.SelectedIndex = 0;
@@ -70,7 +67,6 @@ namespace MulanLite
             cb_ldoio.SelectedIndex = 1;
             cb_datdrive.SelectedIndex = 0;
             cb_clkdrive.SelectedIndex = 0;
-            initial_wr_en = true;
 
             bt_crc_en.Style = UIStyle.Gray;
             bt_rdo_en.Style = UIStyle.Gray;
@@ -121,8 +117,9 @@ namespace MulanLite
                 cb_thresh_clk_missing, cb_pulse_rf, cb_debug_en, cb_debug_out, cb_vhr_open, cb_vhr_short, cb_vhr_hyst, cb_vhr_up,
                 cb_switch_filter_time, cb_open_dgl, cb_ch_num, cb_cal_modex1, cb_cal_modex8, cb_low_drive, cb_range_x8_x1, cb_min_count
             };
-            initial_wr_en = true;
             write_enable = true;
+
+            RTDev.BoardInit();
         }
 
         public main()
@@ -133,10 +130,10 @@ namespace MulanLite
 
         private Task<int> WDataTask(byte id, byte addr, byte len ,byte[] buf)
         {
-            if(initial_wr_en == false)
-            {
-                return Task.Factory.StartNew(() => 0);
-            }
+            //if(initial_wr_en == false)
+            //{
+            //    return Task.Factory.StartNew(() => 0);
+            //}
             return Task.Factory.StartNew(() => RTDev.WriteFunc(id, WriteCmd, addr, len, buf));
         }
 
@@ -160,8 +157,9 @@ namespace MulanLite
             // broadcast write config
             // len follow n + 1 format
             byte[] buffer = new byte[15];
-            buffer[0] = (byte)(cb_ditheren.SelectedIndex << 4 |
-                               cb_m_factor.SelectedIndex << 5 |
+            // 0x32
+            buffer[0] = (byte)(cb_ditheren.SelectedIndex << 4 | cb_sticky.SelectedIndex << 3 |
+                               cb_m_factor.SelectedIndex << 5 | cb_cal_modex1.SelectedIndex << 2 | cb_cal_modex8.SelectedIndex << 1 | 
                                cb_centred.SelectedIndex << 7);
             buffer[1] = (byte)(cb_allowone.SelectedIndex);
             await WDataTask(0xff, 0x32, 1, buffer); /* id, addr, len, data */
@@ -195,7 +193,9 @@ namespace MulanLite
             // set EOC
             int last_id = (int)nuEnd.Value;
             byte[] data = new byte[1];
-            data[0] = 0x01;
+            data[0] = (byte)(cb_ditheren.SelectedIndex << 4 | cb_sticky.SelectedIndex << 3 |
+                               cb_m_factor.SelectedIndex << 5 | cb_cal_modex1.SelectedIndex << 2 | cb_cal_modex8.SelectedIndex << 1 |
+                               cb_centred.SelectedIndex << 7 | 0x01);
             RTDev.WriteFunc((byte)last_id, WriteCmd, 0x32, 0x00, data);
             bt.Enabled = true;
         }
@@ -229,7 +229,7 @@ namespace MulanLite
         {
             byte id = (byte)nu_persentid.Value;
             byte[] Rdbuffer = new byte[1];
-            Rdbuffer = await RDataTask(id, 0, 0x7);
+            Rdbuffer = await RDataTask(id, 0, 0x7); // id, len, addr
 
             nuopen_ch4.Value = (Rdbuffer[2] & 0x80) >> 7;
             nuopen_ch3.Value = (Rdbuffer[2] & 0x40) >> 6;
@@ -240,10 +240,7 @@ namespace MulanLite
             nushort_ch3.Value = (Rdbuffer[2] & 0x04) >> 2;
             nushort_ch2.Value = (Rdbuffer[2] & 0x02) >> 1;
             nushort_ch1.Value = (Rdbuffer[2] & 0x01) >> 0;
-
-
             //textBox14.Text = Convert.ToString((Rdbuffer[2] & 0x80) >> 7);
-
             Rdbuffer = await RDataTask(id, 0, 0x04);
             nu_dont_lower.Value = (Rdbuffer[2] & 0x40) >> 6;
             nu_raise.Value = (Rdbuffer[2] & 0x20) >> 5;
@@ -703,7 +700,7 @@ namespace MulanLite
         {
             try
             {
-                if (initial_wr_en == false) return;
+                //if (initial_wr_en == false) return;
                 if (write_enable == false) return;
 
                 byte[] RData = await RDataTask(id, 0x00, addr);
@@ -1963,13 +1960,58 @@ namespace MulanLite
             ComboBox cb = (ComboBox)sender;
             cb.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            byte data = (byte)(cb_clkdrive.SelectedIndex << 1);
+            byte data = (byte)(cb_datdrive.SelectedIndex << 1);
             byte addr = 0x33;
             byte mask = 0xFD;
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
 
+        private async void R31_ValueChanged(object sender, EventArgs e)
+        {
+            byte id = (byte)nu_persentid.Value;
+            byte[] Rdbuffer = await RDataTask(id, 0x00, 0x31);
+
+            byte bit0 = (byte)((Rdbuffer[2] & 0x01) >> 0);
+            byte bit1 = (byte)((Rdbuffer[2] & 0x02) >> 1);
+            byte bit2 = (byte)((Rdbuffer[2] & 0x04) >> 2);
+            byte bit3 = (byte)((Rdbuffer[2] & 0x08) >> 3);
+            byte bit4 = (byte)((Rdbuffer[2] & 0x10) >> 4);
+            byte bit5 = (byte)((Rdbuffer[2] & 0x20) >> 5);
+            byte bit6 = (byte)((Rdbuffer[2] & 0x40) >> 6);
+            byte bit7 = (byte)((Rdbuffer[2] & 0x80) >> 7);
+
+            bt_crc_en.Style = (bit5 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_rdo_en.Style = (bit4 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_badlen_en.Style = (bit3 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_badadd_en.Style = (bit2 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_badid.Style = (bit1 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_badcmd_en.Style = (bit0 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+        }
+
+        private async void uibt_exit_testmode_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte[] data = new byte[] { 0x37 };
+            byte addr = 0xF3;
+            byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, len, data);
+            bt.Enabled = true;
+        }
+
+        private async void ui_exit_test_mode_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte[] data = new byte[] { 0x87 };
+            byte addr = 0xF7;
+            byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, len, data);
+            bt.Enabled = true;
+        }
     }
 }
 

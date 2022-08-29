@@ -245,6 +245,14 @@ namespace IN528ATE_tool
             test_parameter.lovol = (double)nu_LoVol.Value;
             test_parameter.midvol = (double)nu_MidVol.Value;
             test_parameter.hivol = (double)nu_HiVol.Value;
+
+            // swire
+            for(int i = 0; i < swireTable.RowCount; i++)
+            {
+                test_parameter.swireList.Add((string)swireTable[0, i].Value);
+                test_parameter.voutList.Add(Convert.ToDouble(swireTable[1, i].Value));
+            }
+            test_parameter.swire_en = ck_swire.Checked;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)
@@ -669,6 +677,12 @@ namespace IN528ATE_tool
             InsControl._eload.SetCV_Vol(5.3);
         }
 
-
+        private void SwireRow_ValueChanged(object sender, EventArgs e)
+        {
+            swireTable.ColumnCount = 2;
+            swireTable.Columns[0].HeaderText = "swire";
+            swireTable.Columns[1].HeaderText = "vout";
+            swireTable.RowCount = (int)SwireRow.Value;
+        }
     }
 }
