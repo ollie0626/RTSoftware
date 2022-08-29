@@ -107,6 +107,8 @@ namespace IN528ATE_tool
             this.nu_measure_level = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
+            this.label27 = new System.Windows.Forms.Label();
             this.nu_CVwait = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
@@ -124,8 +126,17 @@ namespace IN528ATE_tool
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
-            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
-            this.label27 = new System.Windows.Forms.Label();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.bt_SwireSave = new System.Windows.Forms.Button();
+            this.bt_SwireLoad = new System.Windows.Forms.Button();
+            this.SwireRow = new System.Windows.Forms.NumericUpDown();
+            this.swireTable = new System.Windows.Forms.DataGridView();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.RB20 = new System.Windows.Forms.RadioButton();
+            this.RB21 = new System.Windows.Forms.RadioButton();
+            this.ck_swire = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -151,6 +162,7 @@ namespace IN528ATE_tool
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).BeginInit();
             this.groupBox6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
@@ -158,7 +170,12 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_HiVol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1235,6 +1252,39 @@ namespace IN528ATE_tool
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Current Limit ＆ UVP Level　";
             // 
+            // nu_eloadch2
+            // 
+            this.nu_eloadch2.DecimalPlaces = 3;
+            this.nu_eloadch2.Increment = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nu_eloadch2.Location = new System.Drawing.Point(553, 17);
+            this.nu_eloadch2.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nu_eloadch2.Name = "nu_eloadch2";
+            this.nu_eloadch2.Size = new System.Drawing.Size(62, 23);
+            this.nu_eloadch2.TabIndex = 78;
+            this.nu_eloadch2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_eloadch2.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(470, 21);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(81, 15);
+            this.label27.TabIndex = 79;
+            this.label27.Text = "ELoad Ch2 (A)";
+            // 
             // nu_CVwait
             // 
             this.nu_CVwait.Location = new System.Drawing.Point(402, 17);
@@ -1311,7 +1361,7 @@ namespace IN528ATE_tool
             // lab_scope
             // 
             this.lab_scope.AutoSize = true;
-            this.lab_scope.Location = new System.Drawing.Point(676, 210);
+            this.lab_scope.Location = new System.Drawing.Point(879, 42);
             this.lab_scope.Name = "lab_scope";
             this.lab_scope.Size = new System.Drawing.Size(67, 15);
             this.lab_scope.TabIndex = 77;
@@ -1328,9 +1378,9 @@ namespace IN528ATE_tool
             this.groupBox7.Controls.Add(this.label23);
             this.groupBox7.Controls.Add(this.label22);
             this.groupBox7.Controls.Add(this.label21);
-            this.groupBox7.Location = new System.Drawing.Point(652, 410);
+            this.groupBox7.Location = new System.Drawing.Point(6, 9);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(181, 147);
+            this.groupBox7.Size = new System.Drawing.Size(187, 147);
             this.groupBox7.TabIndex = 78;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "SST and Dly Time (AE1 only)";
@@ -1431,46 +1481,129 @@ namespace IN528ATE_tool
             this.label21.TabIndex = 0;
             this.label21.Text = "Low";
             // 
-            // nu_eloadch2
+            // tabControl1
             // 
-            this.nu_eloadch2.DecimalPlaces = 3;
-            this.nu_eloadch2.Increment = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.nu_eloadch2.Location = new System.Drawing.Point(553, 17);
-            this.nu_eloadch2.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nu_eloadch2.Name = "nu_eloadch2";
-            this.nu_eloadch2.Size = new System.Drawing.Size(62, 23);
-            this.nu_eloadch2.TabIndex = 78;
-            this.nu_eloadch2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_eloadch2.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(655, 202);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(328, 356);
+            this.tabControl1.TabIndex = 79;
             // 
-            // label27
+            // tabPage1
             // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(470, 21);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(81, 15);
-            this.label27.TabIndex = 79;
-            this.label27.Text = "ELoad Ch2 (A)";
+            this.tabPage1.Controls.Add(this.ck_swire);
+            this.tabPage1.Controls.Add(this.groupBox8);
+            this.tabPage1.Controls.Add(this.swireTable);
+            this.tabPage1.Controls.Add(this.SwireRow);
+            this.tabPage1.Controls.Add(this.bt_SwireLoad);
+            this.tabPage1.Controls.Add(this.bt_SwireSave);
+            this.tabPage1.Location = new System.Drawing.Point(4, 24);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(320, 328);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Swire";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(216, 302);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "SST Setting";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // bt_SwireSave
+            // 
+            this.bt_SwireSave.Location = new System.Drawing.Point(6, 10);
+            this.bt_SwireSave.Name = "bt_SwireSave";
+            this.bt_SwireSave.Size = new System.Drawing.Size(60, 23);
+            this.bt_SwireSave.TabIndex = 0;
+            this.bt_SwireSave.Text = "Save";
+            this.bt_SwireSave.UseVisualStyleBackColor = true;
+            // 
+            // bt_SwireLoad
+            // 
+            this.bt_SwireLoad.Location = new System.Drawing.Point(72, 10);
+            this.bt_SwireLoad.Name = "bt_SwireLoad";
+            this.bt_SwireLoad.Size = new System.Drawing.Size(60, 23);
+            this.bt_SwireLoad.TabIndex = 1;
+            this.bt_SwireLoad.Text = "Load";
+            this.bt_SwireLoad.UseVisualStyleBackColor = true;
+            // 
+            // SwireRow
+            // 
+            this.SwireRow.Location = new System.Drawing.Point(108, 38);
+            this.SwireRow.Name = "SwireRow";
+            this.SwireRow.Size = new System.Drawing.Size(49, 23);
+            this.SwireRow.TabIndex = 3;
+            this.SwireRow.ValueChanged += new System.EventHandler(this.SwireRow_ValueChanged);
+            // 
+            // swireTable
+            // 
+            this.swireTable.AllowUserToAddRows = false;
+            this.swireTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.swireTable.Location = new System.Drawing.Point(6, 67);
+            this.swireTable.Name = "swireTable";
+            this.swireTable.RowTemplate.Height = 24;
+            this.swireTable.Size = new System.Drawing.Size(294, 246);
+            this.swireTable.TabIndex = 4;
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.RB21);
+            this.groupBox8.Controls.Add(this.RB20);
+            this.groupBox8.Location = new System.Drawing.Point(167, 11);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(141, 49);
+            this.groupBox8.TabIndex = 5;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Swire select";
+            // 
+            // RB20
+            // 
+            this.RB20.AutoSize = true;
+            this.RB20.Location = new System.Drawing.Point(6, 20);
+            this.RB20.Name = "RB20";
+            this.RB20.Size = new System.Drawing.Size(49, 19);
+            this.RB20.TabIndex = 0;
+            this.RB20.TabStop = true;
+            this.RB20.Text = "P2.0";
+            this.RB20.UseVisualStyleBackColor = true;
+            // 
+            // RB21
+            // 
+            this.RB21.AutoSize = true;
+            this.RB21.Location = new System.Drawing.Point(71, 20);
+            this.RB21.Name = "RB21";
+            this.RB21.Size = new System.Drawing.Size(49, 19);
+            this.RB21.TabIndex = 1;
+            this.RB21.TabStop = true;
+            this.RB21.Text = "P2.1";
+            this.RB21.UseVisualStyleBackColor = true;
+            // 
+            // ck_swire
+            // 
+            this.ck_swire.AutoSize = true;
+            this.ck_swire.Location = new System.Drawing.Point(6, 39);
+            this.ck_swire.Name = "ck_swire";
+            this.ck_swire.Size = new System.Drawing.Size(96, 19);
+            this.ck_swire.TabIndex = 81;
+            this.ck_swire.Text = "Swire Enable";
+            this.ck_swire.UseVisualStyleBackColor = true;
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(855, 575);
+            this.ClientSize = new System.Drawing.Size(1027, 575);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.Controls.Add(this.groupBox7);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lab_scope);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.label18);
@@ -1564,6 +1697,7 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_measure_level)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
@@ -1572,7 +1706,14 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_HiVol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_MidVol)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1676,6 +1817,17 @@ namespace IN528ATE_tool
         private System.Windows.Forms.NumericUpDown nu_MidVol;
         private System.Windows.Forms.NumericUpDown nu_eloadch2;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button bt_SwireLoad;
+        private System.Windows.Forms.Button bt_SwireSave;
+        private System.Windows.Forms.NumericUpDown SwireRow;
+        private System.Windows.Forms.DataGridView swireTable;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton RB20;
+        private System.Windows.Forms.RadioButton RB21;
+        private System.Windows.Forms.CheckBox ck_swire;
     }
 }
 

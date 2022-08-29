@@ -54,6 +54,12 @@ namespace IN528ATE_tool
         public static double lovol;
         public static double midvol;
         public static double hivol;
+
+        /* add for swire */
+        public static bool swire_en;
+        public static List<string> swireList = new List<string>();
+        public static List<double> voutList = new List<double>();
+        public static bool swire_20;
     }
 
 

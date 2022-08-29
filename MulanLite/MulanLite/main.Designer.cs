@@ -768,6 +768,8 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
+            this.uibt_exit_testmode = new Sunny.UI.UIButton();
+            this.ui_exit_test_mode = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -5093,7 +5095,7 @@ namespace MulanLite
             // 
             this.groupBox32.Controls.Add(this.cb_min_count);
             this.groupBox32.Controls.Add(this.label119);
-            this.groupBox32.Location = new System.Drawing.Point(1042, 240);
+            this.groupBox32.Location = new System.Drawing.Point(1042, 252);
             this.groupBox32.Name = "groupBox32";
             this.groupBox32.Size = new System.Drawing.Size(226, 77);
             this.groupBox32.TabIndex = 70;
@@ -5149,7 +5151,7 @@ namespace MulanLite
             this.groupBox31.Controls.Add(this.cb_range_x8_x1);
             this.groupBox31.Location = new System.Drawing.Point(1042, 6);
             this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(226, 228);
+            this.groupBox31.Size = new System.Drawing.Size(226, 239);
             this.groupBox31.TabIndex = 69;
             this.groupBox31.TabStop = false;
             this.groupBox31.Text = "32_33h PWM CTRL";
@@ -5338,7 +5340,7 @@ namespace MulanLite
             this.groupBox29.Size = new System.Drawing.Size(226, 55);
             this.groupBox29.TabIndex = 69;
             this.groupBox29.TabStop = false;
-            this.groupBox29.Text = "4Bh CLK MISSING THRES";
+            this.groupBox29.Text = "4Ah FT DET THR SET 1";
             // 
             // track_bl_late
             // 
@@ -8770,6 +8772,7 @@ namespace MulanLite
             this.R31.Size = new System.Drawing.Size(42, 22);
             this.R31.TabIndex = 19;
             this.R31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R31.ValueChanged += new System.EventHandler(this.R31_ValueChanged);
             // 
             // R3D
             // 
@@ -10292,6 +10295,7 @@ namespace MulanLite
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.uibt_exit_testmode);
             this.tabPage4.Controls.Add(this.bt_virus_pattern);
             this.tabPage4.Controls.Add(this.groupBox36);
             this.tabPage4.Controls.Add(this.groupBox35);
@@ -10315,7 +10319,7 @@ namespace MulanLite
             this.bt_virus_pattern.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_virus_pattern.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.bt_virus_pattern.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_virus_pattern.Location = new System.Drawing.Point(161, 13);
+            this.bt_virus_pattern.Location = new System.Drawing.Point(301, 13);
             this.bt_virus_pattern.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_virus_pattern.Name = "bt_virus_pattern";
             this.bt_virus_pattern.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -10980,6 +10984,7 @@ namespace MulanLite
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.ui_exit_test_mode);
             this.tabPage5.Controls.Add(this.label139);
             this.tabPage5.Controls.Add(this.groupBox40);
             this.tabPage5.Controls.Add(this.nu_Sel);
@@ -11072,7 +11077,7 @@ namespace MulanLite
             // 
             this.nu_Sel.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Sel.Hexadecimal = true;
-            this.nu_Sel.Location = new System.Drawing.Point(83, 190);
+            this.nu_Sel.Location = new System.Drawing.Point(80, 228);
             this.nu_Sel.Maximum = new decimal(new int[] {
             15,
             0,
@@ -11095,7 +11100,7 @@ namespace MulanLite
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(19, 191);
+            this.label138.Location = new System.Drawing.Point(16, 229);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(58, 15);
             this.label138.TabIndex = 134;
@@ -11105,7 +11110,7 @@ namespace MulanLite
             // 
             this.bt_NR.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bt_NR.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_NR.Location = new System.Drawing.Point(13, 155);
+            this.bt_NR.Location = new System.Drawing.Point(13, 192);
             this.bt_NR.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_NR.Name = "bt_NR";
             this.bt_NR.Size = new System.Drawing.Size(101, 29);
@@ -11127,7 +11132,7 @@ namespace MulanLite
             // 
             this.bt_PGM.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bt_PGM.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_PGM.Location = new System.Drawing.Point(13, 120);
+            this.bt_PGM.Location = new System.Drawing.Point(13, 157);
             this.bt_PGM.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_PGM.Name = "bt_PGM";
             this.bt_PGM.Size = new System.Drawing.Size(101, 29);
@@ -11140,7 +11145,7 @@ namespace MulanLite
             // 
             this.bt_testmode_read_all.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bt_testmode_read_all.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_testmode_read_all.Location = new System.Drawing.Point(13, 85);
+            this.bt_testmode_read_all.Location = new System.Drawing.Point(13, 122);
             this.bt_testmode_read_all.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_testmode_read_all.Name = "bt_testmode_read_all";
             this.bt_testmode_read_all.Size = new System.Drawing.Size(101, 29);
@@ -11153,7 +11158,7 @@ namespace MulanLite
             // 
             this.bt_testmode_write_all.Cursor = System.Windows.Forms.Cursors.Hand;
             this.bt_testmode_write_all.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bt_testmode_write_all.Location = new System.Drawing.Point(13, 50);
+            this.bt_testmode_write_all.Location = new System.Drawing.Point(13, 87);
             this.bt_testmode_write_all.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_testmode_write_all.Name = "bt_testmode_write_all";
             this.bt_testmode_write_all.Size = new System.Drawing.Size(101, 29);
@@ -12271,6 +12276,41 @@ namespace MulanLite
             this.ck_CH1_en.Text = "CH1 EN";
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
+            // 
+            // uibt_exit_testmode
+            // 
+            this.uibt_exit_testmode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uibt_exit_testmode.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_exit_testmode.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_exit_testmode.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_exit_testmode.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_exit_testmode.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_exit_testmode.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uibt_exit_testmode.Location = new System.Drawing.Point(161, 13);
+            this.uibt_exit_testmode.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uibt_exit_testmode.Name = "uibt_exit_testmode";
+            this.uibt_exit_testmode.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.uibt_exit_testmode.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.uibt_exit_testmode.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_exit_testmode.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_exit_testmode.Size = new System.Drawing.Size(134, 29);
+            this.uibt_exit_testmode.Style = Sunny.UI.UIStyle.Custom;
+            this.uibt_exit_testmode.TabIndex = 73;
+            this.uibt_exit_testmode.Text = "Exit Test Mode";
+            this.uibt_exit_testmode.Click += new System.EventHandler(this.uibt_exit_testmode_Click);
+            // 
+            // ui_exit_test_mode
+            // 
+            this.ui_exit_test_mode.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ui_exit_test_mode.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ui_exit_test_mode.Location = new System.Drawing.Point(13, 50);
+            this.ui_exit_test_mode.MinimumSize = new System.Drawing.Size(1, 1);
+            this.ui_exit_test_mode.Name = "ui_exit_test_mode";
+            this.ui_exit_test_mode.Size = new System.Drawing.Size(101, 29);
+            this.ui_exit_test_mode.Style = Sunny.UI.UIStyle.Custom;
+            this.ui_exit_test_mode.TabIndex = 140;
+            this.ui_exit_test_mode.Text = "Exit Test Mode";
+            this.ui_exit_test_mode.Click += new System.EventHandler(this.ui_exit_test_mode_Click);
             // 
             // main
             // 
@@ -13445,6 +13485,8 @@ namespace MulanLite
         private System.Windows.Forms.Label label140;
         private System.Windows.Forms.ComboBox cb_clkdrive;
         private System.Windows.Forms.Label label114;
+        private Sunny.UI.UIButton uibt_exit_testmode;
+        private Sunny.UI.UIButton ui_exit_test_mode;
     }
 }
 
