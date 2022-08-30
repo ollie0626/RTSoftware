@@ -138,5 +138,42 @@ namespace IN528ATE_tool
             return ret;
         }
 
+
+        public void SwirePulse(int num)
+        {
+            // customized transation
+            int pCmdIn = test_parameter.swire_20 ? 1 : 2;
+            int pDataInCount = 16;
+            byte[] pDataIn = new byte[pDataInCount];
+
+            // wait time
+            pDataIn[0] = 500 & 0xff;
+            pDataIn[1] = (500 & 0xff00) >> 8;
+            pDataIn[2] = 0x00;
+            pDataIn[3] = 0x00;
+
+            // high time
+            pDataIn[4] = 5;
+            pDataIn[5] = 0x00;
+            pDataIn[6] = 0x00;
+            pDataIn[7] = 0x00;
+
+            // low time
+            pDataIn[8] = 5;
+            pDataIn[9] = 0x00;
+            pDataIn[10] = 0x00;
+            pDataIn[11] = 0x00;
+
+            // pulse
+            pDataIn[12] = (byte)(num & 0xff);
+            pDataIn[13] = (byte)((num & 0xff00) >> 8);
+            pDataIn[14] = 0x00;
+            pDataIn[15] = 0x00;
+
+            int pCmdOut = 0;
+            int pDataOutCount = 0;
+            customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, null);
+        }
+
     }
 }
