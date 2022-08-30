@@ -1763,18 +1763,25 @@ namespace MulanLite
         {
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
-            byte[] WData = new byte[16];
+            byte[] WData = new byte[8];
             NumericUpDown[] Table = new NumericUpDown[]
             {
-                W90, W91, W92, W93, W94, W95, W96, W97, W98, W99, W9A, W9B, W9C, W9D, W9E, W9F
+                W90, W91, W92, W93, W94, W95, W96, W97
             };
-            for (int i = 0; i < 16; i++) WData[i] = (byte)Table[i].Value;
+            for (int i = 0; i < 8; i++) WData[i] = (byte)Table[i].Value;
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x90;
             byte len = (byte)(Table.Length - 1);
             RTDev.WriteFunc(id, WriteCmd, addr, len, WData);
             WData[0] = (byte)W70.Value;
             RTDev.WriteFunc(id, WriteCmd, 0x70, 0x00, WData);
+
+
+            WData[0] = (byte)WF8.Value;
+            WData[1] = (byte)WF9.Value;
+            RTDev.WriteFunc(id, WriteCmd, 0xF8, 0x01, WData);
+
+
             bt.Enabled = true;
         }
 
@@ -1799,19 +1806,23 @@ namespace MulanLite
             R96.Value = RData[8];
             R97.Value = RData[9];
 
-            RData = await RDataTask(id, 0x07, 0x98);
-            R98.Value = RData[2];
-            R99.Value = RData[3];
-            R9A.Value = RData[4];
-            R9B.Value = RData[5];
-            R9C.Value = RData[6];
-            R9D.Value = RData[7];
-            R9E.Value = RData[8];
-            R9F.Value = RData[9];
+            //RData = await RDataTask(id, 0x07, 0x98);
+            //R98.Value = RData[2];
+            //R99.Value = RData[3];
+            //R9A.Value = RData[4];
+            //R9B.Value = RData[5];
+            //R9C.Value = RData[6];
+            //R9D.Value = RData[7];
+            //R9E.Value = RData[8];
+            //R9F.Value = RData[9];
 
             RData = await RDataTask(id, 0x01, 0xE2);
             RE2.Value = RData[2];
             RE3.Value = RData[3];
+
+            RData = await RDataTask(id, 0x1, 0xF8);
+            RF8.Value = RData[2];
+            RF9.Value = RData[3];
 
             write_enable = true;
             bt.Enabled = true;

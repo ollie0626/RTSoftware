@@ -96,7 +96,6 @@ namespace IN528ATE_tool
             InsControl._scope.CH4_BWLimitOn();
             MyLib.WaveformCheck();
 
-
             int bin_cnt = 1;
             int row = 22;
             string[] binList = MyLib.ListBinFile(test_parameter.binFolder);
@@ -140,22 +139,46 @@ namespace IN528ATE_tool
             InsControl._scope.Measure_Clear();
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
-                for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
+                for(int bin_idx = 0; bin_idx < (test_parameter.swire_en ? test_parameter.swireList.Count : bin_idx); bin_idx++)
                 {
                     if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-                    string file_name;
-                    string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                    file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_CV={4:0.##}%",
-                            row - 22, res, temp,
+                    string file_name = "";
+                    string res = "";
+                    
+                    if(test_parameter.swire_en)
+                    {
+                        file_name = string.Format("{0}_Temp={1}_vin={2:0.##}V_CV={3:0.##}%_Pulse={4}",
+                            row - 22, temp,
                             test_parameter.VinList[vin_idx],
-                            test_parameter.cv_setting
+                            test_parameter.cv_setting,
+                            test_parameter.swireList[bin_idx]
                             );
+                    }
+                    else
+                    {
+                        res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                        file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_CV={4:0.##}%",
+                                row - 22, res, temp,
+                                test_parameter.VinList[vin_idx],
+                                test_parameter.cv_setting
+                                );
+                    }
+
 
                     if (test_parameter.run_stop == true) goto Stop;
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                     System.Threading.Thread.Sleep(500);
-                    if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-                    if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
+
+                    if(test_parameter.swire_en)
+                    {
+                        int[] pulse_tmp = test_parameter.swireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                        for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                    }
+                    else
+                    {
+                        if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                        if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
+                    }
                     InsControl._scope.AutoTrigger();
                     // CV enable
                     double cv_vol = InsControl._eload.GetVol() * (test_parameter.cv_setting / 100);
@@ -188,7 +211,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.cv_setting;
                     _sheet.Cells[row, XLS_Table.E] = cv_vol;
-                    _sheet.Cells[row, XLS_Table.F] = res;
+                    _sheet.Cells[row, XLS_Table.F] = test_parameter.swire_en ? test_parameter.swireList[bin_idx] : res;
                     _sheet.Cells[row, XLS_Table.G] = amp_ch1;
                     _sheet.Cells[row, XLS_Table.H] = max_ch4; // current limit
 #endif

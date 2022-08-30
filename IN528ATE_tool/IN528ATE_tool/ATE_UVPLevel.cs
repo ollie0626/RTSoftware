@@ -101,23 +101,54 @@ namespace IN528ATE_tool
 
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
-                for(int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
+                for(int bin_idx = 0; bin_idx < (test_parameter.swire_en ? test_parameter.swireList.Count : bin_cnt); bin_idx++)
                 {
                     if (test_parameter.run_stop == true) goto Stop;
                     if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                     double ori_vol = 0;
-                    string file_name;
-                    string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                    file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V",
-                            row - 22, res, temp,
-                            test_parameter.VinList[vin_idx]
-                            );
+                    string file_name = "";
+                    string res = "";
+
+                    if (test_parameter.swire_en)
+                    {
+                        file_name = string.Format("{0}_Temp={1}_vin={2:0.##}V_CV={3:0.##}%_Pulse={4}",
+                                    row - 22, temp,
+                                    test_parameter.VinList[vin_idx],
+                                    test_parameter.cv_setting,
+                                    test_parameter.swireList[bin_idx]
+                                    );
+                    }
+                    else
+                    {
+                        res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                        file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V",
+                                    row - 22, res, temp,
+                                    test_parameter.VinList[vin_idx]
+                                    );
+                    }
+
+
+                    //res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                    //file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V",
+                    //        row - 22, res, temp,
+                    //        test_parameter.VinList[vin_idx]
+                    //        );
 
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                     MyLib.Delay1ms(250);
-                    if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-                    MyLib.Delay1ms(100);
-                    if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
+
+                    if (test_parameter.swire_en)
+                    {
+                        int[] pulse_tmp = test_parameter.swireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                        for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                    }
+                    else
+                    {
+                        if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
+                        MyLib.Delay1ms(100);
+                        if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
+                    }
+
                     MyLib.Delay1ms(100);
                     ori_vol = InsControl._eload.GetVol();
 
@@ -198,7 +229,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.A] = row - 22;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
-                    _sheet.Cells[row, XLS_Table.D] = res;
+                    _sheet.Cells[row, XLS_Table.D] = test_parameter.swire_en ? test_parameter.swireList[bin_idx] : res; ;
                     _sheet.Cells[row, XLS_Table.E] = string.Format("{0}%", cv_percent);
                     _sheet.Cells[row, XLS_Table.F] = cv_vol;
                     // check measure function

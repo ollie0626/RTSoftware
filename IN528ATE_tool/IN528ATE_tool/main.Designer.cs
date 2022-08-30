@@ -128,15 +128,15 @@ namespace IN528ATE_tool
             this.label21 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.bt_SwireSave = new System.Windows.Forms.Button();
-            this.bt_SwireLoad = new System.Windows.Forms.Button();
-            this.SwireRow = new System.Windows.Forms.NumericUpDown();
-            this.swireTable = new System.Windows.Forms.DataGridView();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.RB20 = new System.Windows.Forms.RadioButton();
-            this.RB21 = new System.Windows.Forms.RadioButton();
             this.ck_swire = new System.Windows.Forms.CheckBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.RB21 = new System.Windows.Forms.RadioButton();
+            this.RB20 = new System.Windows.Forms.RadioButton();
+            this.swireTable = new System.Windows.Forms.DataGridView();
+            this.SwireRow = new System.Windows.Forms.NumericUpDown();
+            this.bt_SwireLoad = new System.Windows.Forms.Button();
+            this.bt_SwireSave = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -172,10 +172,10 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_LoVol)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1507,52 +1507,15 @@ namespace IN528ATE_tool
             this.tabPage1.Text = "Swire";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // ck_swire
             // 
-            this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(216, 302);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "SST Setting";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // bt_SwireSave
-            // 
-            this.bt_SwireSave.Location = new System.Drawing.Point(6, 10);
-            this.bt_SwireSave.Name = "bt_SwireSave";
-            this.bt_SwireSave.Size = new System.Drawing.Size(60, 23);
-            this.bt_SwireSave.TabIndex = 0;
-            this.bt_SwireSave.Text = "Save";
-            this.bt_SwireSave.UseVisualStyleBackColor = true;
-            // 
-            // bt_SwireLoad
-            // 
-            this.bt_SwireLoad.Location = new System.Drawing.Point(72, 10);
-            this.bt_SwireLoad.Name = "bt_SwireLoad";
-            this.bt_SwireLoad.Size = new System.Drawing.Size(60, 23);
-            this.bt_SwireLoad.TabIndex = 1;
-            this.bt_SwireLoad.Text = "Load";
-            this.bt_SwireLoad.UseVisualStyleBackColor = true;
-            // 
-            // SwireRow
-            // 
-            this.SwireRow.Location = new System.Drawing.Point(108, 38);
-            this.SwireRow.Name = "SwireRow";
-            this.SwireRow.Size = new System.Drawing.Size(49, 23);
-            this.SwireRow.TabIndex = 3;
-            this.SwireRow.ValueChanged += new System.EventHandler(this.SwireRow_ValueChanged);
-            // 
-            // swireTable
-            // 
-            this.swireTable.AllowUserToAddRows = false;
-            this.swireTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.swireTable.Location = new System.Drawing.Point(6, 67);
-            this.swireTable.Name = "swireTable";
-            this.swireTable.RowTemplate.Height = 24;
-            this.swireTable.Size = new System.Drawing.Size(294, 246);
-            this.swireTable.TabIndex = 4;
+            this.ck_swire.AutoSize = true;
+            this.ck_swire.Location = new System.Drawing.Point(6, 39);
+            this.ck_swire.Name = "ck_swire";
+            this.ck_swire.Size = new System.Drawing.Size(96, 19);
+            this.ck_swire.TabIndex = 81;
+            this.ck_swire.Text = "Swire Enable";
+            this.ck_swire.UseVisualStyleBackColor = true;
             // 
             // groupBox8
             // 
@@ -1565,17 +1528,6 @@ namespace IN528ATE_tool
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Swire select";
             // 
-            // RB20
-            // 
-            this.RB20.AutoSize = true;
-            this.RB20.Location = new System.Drawing.Point(6, 20);
-            this.RB20.Name = "RB20";
-            this.RB20.Size = new System.Drawing.Size(49, 19);
-            this.RB20.TabIndex = 0;
-            this.RB20.TabStop = true;
-            this.RB20.Text = "P2.0";
-            this.RB20.UseVisualStyleBackColor = true;
-            // 
             // RB21
             // 
             this.RB21.AutoSize = true;
@@ -1587,15 +1539,66 @@ namespace IN528ATE_tool
             this.RB21.Text = "P2.1";
             this.RB21.UseVisualStyleBackColor = true;
             // 
-            // ck_swire
+            // RB20
             // 
-            this.ck_swire.AutoSize = true;
-            this.ck_swire.Location = new System.Drawing.Point(6, 39);
-            this.ck_swire.Name = "ck_swire";
-            this.ck_swire.Size = new System.Drawing.Size(96, 19);
-            this.ck_swire.TabIndex = 81;
-            this.ck_swire.Text = "Swire Enable";
-            this.ck_swire.UseVisualStyleBackColor = true;
+            this.RB20.AutoSize = true;
+            this.RB20.Checked = true;
+            this.RB20.Location = new System.Drawing.Point(6, 20);
+            this.RB20.Name = "RB20";
+            this.RB20.Size = new System.Drawing.Size(49, 19);
+            this.RB20.TabIndex = 0;
+            this.RB20.TabStop = true;
+            this.RB20.Text = "P2.0";
+            this.RB20.UseVisualStyleBackColor = true;
+            // 
+            // swireTable
+            // 
+            this.swireTable.AllowUserToAddRows = false;
+            this.swireTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.swireTable.Location = new System.Drawing.Point(6, 67);
+            this.swireTable.Name = "swireTable";
+            this.swireTable.RowTemplate.Height = 24;
+            this.swireTable.Size = new System.Drawing.Size(294, 246);
+            this.swireTable.TabIndex = 4;
+            // 
+            // SwireRow
+            // 
+            this.SwireRow.Location = new System.Drawing.Point(108, 38);
+            this.SwireRow.Name = "SwireRow";
+            this.SwireRow.Size = new System.Drawing.Size(49, 23);
+            this.SwireRow.TabIndex = 3;
+            this.SwireRow.ValueChanged += new System.EventHandler(this.SwireRow_ValueChanged);
+            // 
+            // bt_SwireLoad
+            // 
+            this.bt_SwireLoad.Location = new System.Drawing.Point(72, 10);
+            this.bt_SwireLoad.Name = "bt_SwireLoad";
+            this.bt_SwireLoad.Size = new System.Drawing.Size(60, 23);
+            this.bt_SwireLoad.TabIndex = 1;
+            this.bt_SwireLoad.Text = "Load";
+            this.bt_SwireLoad.UseVisualStyleBackColor = true;
+            this.bt_SwireLoad.Click += new System.EventHandler(this.bt_SwireLoad_Click);
+            // 
+            // bt_SwireSave
+            // 
+            this.bt_SwireSave.Location = new System.Drawing.Point(6, 10);
+            this.bt_SwireSave.Name = "bt_SwireSave";
+            this.bt_SwireSave.Size = new System.Drawing.Size(60, 23);
+            this.bt_SwireSave.TabIndex = 0;
+            this.bt_SwireSave.Text = "Save";
+            this.bt_SwireSave.UseVisualStyleBackColor = true;
+            this.bt_SwireSave.Click += new System.EventHandler(this.bt_SwireSave_Click);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox7);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(320, 328);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "SST Setting";
+            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // main
             // 
@@ -1709,11 +1712,11 @@ namespace IN528ATE_tool
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.tabPage2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 

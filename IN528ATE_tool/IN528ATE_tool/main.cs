@@ -14,6 +14,8 @@ using System.Diagnostics;
 using System.Threading;
 using System.IO;
 
+using System.Text.RegularExpressions;
+
 namespace IN528ATE_tool
 {
     public partial class main : Sunny.UI.UIForm
@@ -47,7 +49,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.4";
+            this.Text = "ATE Tool v2.5";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -683,6 +685,72 @@ namespace IN528ATE_tool
             swireTable.Columns[0].HeaderText = "swire";
             swireTable.Columns[1].HeaderText = "vout";
             swireTable.RowCount = (int)SwireRow.Value;
+        }
+
+        private void bt_SwireSave_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savedlg = new SaveFileDialog();
+            savedlg.Filter = "settings|*.tb_info";
+            if (savedlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = savedlg.FileName;
+                SaveSettings(file_name);
+            }
+        }
+
+        private void SaveSettings(string file)
+        {
+            if(swireTable.RowCount != 0)
+            {
+                string settings = "";
+                for(int cnt = 0; cnt < swireTable.RowCount; cnt++)
+                {
+                    settings += string.Format("{0}.Row=${1},Vout={2}$\r\n",
+                        cnt,
+                        swireTable[0, cnt].Value.ToString(),
+                        swireTable[1, cnt].Value.ToString());
+                }
+                using (StreamWriter sw = new StreamWriter(file))
+                {
+                    sw.Write(settings);
+                }
+            }
+        }
+
+        private void bt_SwireLoad_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.Filter = "settings|*.tb_info";
+            if(openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(openFileDialog1.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+                SwireRow.Value = info.Count;
+
+                for (int i = 0; i < info.Count; i++)
+                {
+                    string[] buf = info[i].Split(',');
+
+                    swireTable[0, i].Value = buf[0];
+                    swireTable[1, i].Value = buf[1];
+                }
+            }
         }
     }
 }
