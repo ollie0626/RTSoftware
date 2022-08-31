@@ -84,11 +84,12 @@ namespace IN528ATE_tool
             _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
             _sheet.Cells[row, XLS_Table.D] = "Bin file";
             _sheet.Cells[row, XLS_Table.E] = "UVP_DLY(ms)";
+            _sheet.Cells[row, XLS_Table.F] = "Vout(V)";
             _range = _sheet.Range["A" + row, "D" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["E" + row, "E" + row];
+            _range = _sheet.Range["E" + row, "F" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
@@ -176,7 +177,8 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.swire_en ? test_parameter.swireList[bin_idx] : res;
-                    _sheet.Cells[row, XLS_Table.J] = Math.Abs(UVP_dly * 1000);
+                    _sheet.Cells[row, XLS_Table.E] = Math.Abs(UVP_dly * 1000);
+                    _sheet.Cells[row, XLS_Table.F] = ori_vol;
 #endif
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();

@@ -82,13 +82,14 @@ namespace IN528ATE_tool
             _sheet.Cells[row, XLS_Table.G] = "UVP(V)";
             _sheet.Cells[row, XLS_Table.H] = "UVP_Max(V)";
             _sheet.Cells[row, XLS_Table.I] = "UVP_Min(V)";
+            _sheet.Cells[row, XLS_Table.J] = "Vout(V)";
             //_sheet.Cells[row, XLS_Table.J] = "UVP_DLY(ms)";
 
             _range = _sheet.Range["A" + row, "F" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["G" + row, "I" + row];
+            _range = _sheet.Range["G" + row, "J" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
@@ -236,7 +237,7 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.G] = UVP_amp;
                     _sheet.Cells[row, XLS_Table.H] = UVP_max;
                     _sheet.Cells[row, XLS_Table.I] = UVP_min;
-                    //_sheet.Cells[row, XLS_Table.J] = UVP_dly * 1000;
+                    _sheet.Cells[row, XLS_Table.J] = ori_vol;
 #endif
                     InsControl._power.AutoPowerOff();
                     InsControl._eload.AllChannel_LoadOff();
