@@ -249,7 +249,8 @@ namespace IN528ATE_tool
             test_parameter.hivol = (double)nu_HiVol.Value;
 
             // swire
-            for(int i = 0; i < swireTable.RowCount; i++)
+            test_parameter.swireList.Clear();
+            for (int i = 0; i < swireTable.RowCount; i++)
             {
                 test_parameter.swireList.Add((string)swireTable[0, i].Value);
                 //test_parameter.voutList.Add(Convert.ToDouble(swireTable[1, i].Value));

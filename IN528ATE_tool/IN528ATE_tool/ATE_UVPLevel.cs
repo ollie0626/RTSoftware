@@ -162,7 +162,8 @@ namespace IN528ATE_tool
                     double cv_vol = 0, cv_percent = 0;
                     InsControl._scope.NormalTrigger();
                     InsControl._scope.Root_Clear();
-                    for(int cv_idx = 0; cv_idx < cv_cnt; cv_idx++)
+                    MyLib.Delay1s(1);
+                    for (int cv_idx = 0; cv_idx < cv_cnt; cv_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
                         double vol = 0;
@@ -176,8 +177,8 @@ namespace IN528ATE_tool
                             break;
                         }
                     }
-
-
+                    
+                    MyLib.WaveformCheck();
                     // Ic shoutdown
                     InsControl._scope.Root_STOP();
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
