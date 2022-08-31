@@ -240,3 +240,17 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.exe
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.exe.config
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.pdb
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe.config
+/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe.manifest
+/IN528ATE_tool/ATEToolv1/InsLibDotNet.dll
+/IN528ATE_tool/ATEToolv1/InsLibDotNet.pdb
+/IN528ATE_tool/ATEToolv1/RTBBLib.dll
+/IN528ATE_tool/ATEToolv1/RTBBLibDotNet.dll
+/IN528ATE_tool/ATEToolv1/RTBBLibDotNet.pdb
+/IN528ATE_tool/ATEToolv1/RTBridgeBoardCore.dll
+/IN528ATE_tool/ATEToolv1/SunnyUI.Common.dll
+/IN528ATE_tool/ATEToolv1/SunnyUI.dll
