@@ -64,6 +64,7 @@ namespace IN528ATE_tool
 
         public static void ProcessCheck()
         {
+            timer.Start();
             InsControl._scope.DoCommand("*CLS");
             while (!(InsControl._scope.doQeury(":PDER?") == "+1\n"))
             {
