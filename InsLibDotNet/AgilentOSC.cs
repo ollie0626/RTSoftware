@@ -16,10 +16,10 @@ namespace InsLibDotNet
         string MEAS_CH2 = ":MEASure:SOURce CHANnel2";
         string MEAS_CH3 = ":MEASure:SOURce CHANnel3";
         string MEAS_CH4 = ":MEASure:SOURce CHANnel4";
-        string CH1 = "CHANNEL1";
-        string CH2 = "CHANNEL2";
-        string CH3 = "CHANNEL3";
-        string CH4 = "CHANNEL4";
+        string CH1 = "CHANnel1";
+        string CH2 = "CHANnel2";
+        string CH3 = "CHANnel3";
+        string CH4 = "CHANnel4";
 
         public AgilentOSC(string Addr)
         {
@@ -436,9 +436,10 @@ namespace InsLibDotNet
 
         public void CHx_BWLimitOn(string CHx)
         {
-            string gogoCMD = ":" + CHx + ":BWLIMIT 20e6";
+            //:CHANnel<N>:BWLimit
+            string gogoCMD = ":" + CHx + ":BWLimit 20e6";
             doCommand(gogoCMD);
-            gogoCMD = ":" + CHx + ":BWLIMIT ON";
+            gogoCMD = ":" + CHx + ":BWLimit ON";
             doCommand(gogoCMD);
 
         }
