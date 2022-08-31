@@ -145,6 +145,7 @@ namespace IN528ATE_tool
             int pCmdIn = test_parameter.swire_20 ? 1 : 2;
             int pDataInCount = 16;
             byte[] pDataIn = new byte[pDataInCount];
+            byte[] pDataOut = new byte[pDataInCount];
 
             // wait time
             pDataIn[0] = 500 & 0xff;
@@ -172,7 +173,8 @@ namespace IN528ATE_tool
 
             int pCmdOut = 0;
             int pDataOutCount = 0;
-            customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, null);
+            int ret = customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, pDataOut);
+            Console.WriteLine("ret = {0}", ret);
         }
 
     }

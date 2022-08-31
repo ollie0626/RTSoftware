@@ -255,6 +255,7 @@ namespace IN528ATE_tool
                 test_parameter.voutList.Add(Convert.ToDouble(swireTable[1, i].Value));
             }
             test_parameter.swire_en = ck_swire.Checked;
+            test_parameter.swire_20 = RB20.Checked;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)
@@ -681,9 +682,10 @@ namespace IN528ATE_tool
 
         private void SwireRow_ValueChanged(object sender, EventArgs e)
         {
-            swireTable.ColumnCount = 2;
+            swireTable.ColumnCount = 1;
             swireTable.Columns[0].HeaderText = "swire";
-            swireTable.Columns[1].HeaderText = "vout";
+            swireTable.Columns[0].Width = 150;
+            //swireTable.Columns[1].HeaderText = "vout";
             swireTable.RowCount = (int)SwireRow.Value;
         }
 
@@ -705,10 +707,9 @@ namespace IN528ATE_tool
                 string settings = "";
                 for(int cnt = 0; cnt < swireTable.RowCount; cnt++)
                 {
-                    settings += string.Format("{0}.Row=${1},Vout={2}$\r\n",
+                    settings += string.Format("{0}.Row=${1}$\r\n",
                         cnt,
-                        swireTable[0, cnt].Value.ToString(),
-                        swireTable[1, cnt].Value.ToString());
+                        swireTable[0, cnt].Value.ToString());
                 }
                 using (StreamWriter sw = new StreamWriter(file))
                 {
@@ -745,10 +746,10 @@ namespace IN528ATE_tool
 
                 for (int i = 0; i < info.Count; i++)
                 {
-                    string[] buf = info[i].Split(',');
+                    string buf = info[i];
 
-                    swireTable[0, i].Value = buf[0];
-                    swireTable[1, i].Value = buf[1];
+                    swireTable[0, i].Value = buf;
+                    //swireTable[1, i].Value = buf[1];
                 }
             }
         }

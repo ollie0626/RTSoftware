@@ -140,7 +140,7 @@ namespace IN528ATE_tool
                         if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
                     }
 
-                    MyLib.Delay1ms(100);
+                    MyLib.WaveformCheck();
                     ori_vol = InsControl._eload.GetVol();
                     InsControl._eload.CH2_Loading(0.05);
                     //InsControl._eload.CH1_Loading(0);
@@ -155,11 +155,11 @@ namespace IN528ATE_tool
                     InsControl._scope.TriggerLevel_CH1(ori_vol * 0.65);
                     InsControl._scope.NormalTrigger();
                     InsControl._scope.Root_Clear();
-                    MyLib.Delay1s(1);
+                    MyLib.Delay1s(3);
                     // eload shot on to trigger uvp function
                     InsControl._eload.ChannelSel(1);
                     InsControl._eload.ShortOn();
-                    MyLib.Delay1s(1);
+                    MyLib.Delay1s(2);
                     InsControl._eload.ShortOff();
 
                     InsControl._scope.Root_STOP();
@@ -167,6 +167,7 @@ namespace IN528ATE_tool
                     InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                     InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement");
                     //:MARKer2:X:POSition?
+                    MyLib.Delay1s(1);
                     double UVP_dly = InsControl._scope.doQueryNumber(":MARKer2:X:POSition?");
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
 
