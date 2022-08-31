@@ -33,6 +33,10 @@ namespace IN528ATE_tool
             InsControl._scope.CH4_On();
             InsControl._scope.CH3_Off();
 
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH2_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
+
             InsControl._scope.CH1_Level(5);
             //InsControl._scope.CH2_Level(5);
             InsControl._scope.CH4_Level(1);
@@ -232,7 +236,8 @@ namespace IN528ATE_tool
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.VinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.swire_en ? test_parameter.swireList[bin_idx] : res; ;
-                    _sheet.Cells[row, XLS_Table.E] = string.Format("{0}%", cv_percent);
+                    //_sheet.Cells[row, XLS_Table.E] = string.Format("{0}%", cv_percent);
+                    _sheet.Cells[row, XLS_Table.E] = "=(H" + row + "/J" + row + ") * 100";
                     _sheet.Cells[row, XLS_Table.F] = cv_vol;
                     // check measure function
                     _sheet.Cells[row, XLS_Table.G] = UVP_amp;
