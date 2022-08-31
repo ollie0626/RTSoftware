@@ -252,7 +252,7 @@ namespace IN528ATE_tool
             for(int i = 0; i < swireTable.RowCount; i++)
             {
                 test_parameter.swireList.Add((string)swireTable[0, i].Value);
-                test_parameter.voutList.Add(Convert.ToDouble(swireTable[1, i].Value));
+                //test_parameter.voutList.Add(Convert.ToDouble(swireTable[1, i].Value));
             }
             test_parameter.swire_en = ck_swire.Checked;
             test_parameter.swire_20 = RB20.Checked;
@@ -290,6 +290,9 @@ namespace IN528ATE_tool
                     _ate_poweron.temp = 25;
                     _ate_code_inrush.temp = 25;
                     _ate_current_limit.temp = 25;
+                    _ate_uvp.temp = 25;
+                    _ate_dly.temp = 25;
+
 
                     if (ck_all_test.Checked)
                     {
@@ -380,6 +383,10 @@ namespace IN528ATE_tool
                 _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
                 _ate_poweron.temp = Convert.ToDouble(tempList[i]);
                 _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
+
+                //_ate_current_limit.temp = 25;
+                _ate_uvp.temp = Convert.ToDouble(tempList[i]);
+                _ate_dly.temp = Convert.ToDouble(tempList[i]);
 
                 if (!test_parameter.all_en)
                 {
@@ -618,7 +625,7 @@ namespace IN528ATE_tool
                     // UVP Delay time
                     lab_scope.Text = "Scope Info:" + "\r\n" +
                                      "CH1: Vout \r\n" +
-                                     "Ch2: Lx \r\n" +
+                                     "Ch2: Other Lx \r\n" +
                                      "CH3: ILX";
                     break;
             }

@@ -139,7 +139,7 @@ namespace IN528ATE_tool
             InsControl._scope.Measure_Clear();
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
-                for(int bin_idx = 0; bin_idx < (test_parameter.swire_en ? test_parameter.swireList.Count : bin_idx); bin_idx++)
+                for(int bin_idx = 0; bin_idx < (test_parameter.swire_en ? test_parameter.swireList.Count : bin_cnt); bin_idx++)
                 {
                     if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                     string file_name = "";
