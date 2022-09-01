@@ -13,8 +13,7 @@ using InsLibDotNet;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
-// update for new 
-// update for company
+// this's new basic branch
 
 using System.Text.RegularExpressions;
 
