@@ -240,8 +240,5 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
-/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe.manifest
-/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe.config
-/IN528ATE_tool/ATEToolv1/IN528ATE_tool.vshost.exe
-/IN528ATE_tool/ATEToolv1/IN528ATE_tool.exe.config
 /IN528ATE_tool/ATEToolv1
+/IN528ATE_tool/ATEToolv1.zip
