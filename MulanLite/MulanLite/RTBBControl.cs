@@ -187,7 +187,7 @@ namespace MulanLite
         public byte CRC_8(byte[] buffer)
         {
             byte crc = 0xFF;
-            for (int j = 0; j < buffer.Length; j++)
+            for (int j = 0; j < buffer.Length - 2; j++)
             {
                 crc ^= buffer[j];
 
