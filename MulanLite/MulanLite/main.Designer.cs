@@ -12044,7 +12044,7 @@ namespace MulanLite
             this.Name = "main";
             this.RectColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Style = Sunny.UI.UIStyle.Custom;
-            this.Text = "Mulan Lite tool v3";
+            this.Text = "Mulan Lite tool v3.1";
             this.TitleColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
