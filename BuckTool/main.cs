@@ -221,7 +221,7 @@ namespace BuckTool
             test_parameter.duty = (double)nu_duty.Value;
             test_parameter.tr = (double)nu_tr.Value;
             test_parameter.tf = (double)nu_tf.Value;
-            test_parameter.vout_ideal = (double)nu_Videa.Value;
+            test_parameter.vout_ideal = (double)nu_Videa.Value; 
 
         }
 

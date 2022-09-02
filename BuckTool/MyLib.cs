@@ -9,11 +9,30 @@ using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Drawing;
 using InsLibDotNet;
+//using System.Timers;
 
 namespace BuckTool
 {
     public class MyLib
     {
+        static System.Timers.Timer timer = new System.Timers.Timer();
+        static private int timer_cnt = 0;
+
+        public MyLib()
+        {
+            timer.Enabled = false;
+            timer.Interval = 100;
+            timer.Elapsed += OnTickEvent;
+            timer_cnt = 0;
+            timer.Stop();
+        }
+
+        private void OnTickEvent(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            timer_cnt += 1;
+        }
+
+
         public static List<double> DGData(DataGridView dataGrid)
         {
             List<double> data = new List<double>();
@@ -188,11 +207,11 @@ namespace BuckTool
             }
 
             string str_iout = "";
-            //foreach (double temp in test_parameter.Iout_table)
-            //{
-            //    str_iout += string.Format("{0:0.##}A, ", temp);
-            //}
-            str_iout = string.Format("{0}A ~ {1}A, ", test_parameter.Iout_table[0], test_parameter.Iout_table[test_parameter.Iout_table.Count - 1]);
+            foreach (double temp in test_parameter.Iout_table)
+            {
+                str_iout += string.Format("{0:0.##}A, ", temp);
+            }
+            //str_iout = string.Format("{0}A ~ {1}A, ", test_parameter.Iout_table[0], test_parameter.Iout_table[test_parameter.Iout_table.Count - 1]);
 
             conditions += "Temperature = " + temperature.ToString() + "\r\n";
             conditions += "Vin= " + str_vin + "\r\n";
@@ -268,14 +287,41 @@ namespace BuckTool
 
         public static void WaveformCheck()
         {
+            timer.Start();
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n")) ;
+            while (!(InsControl._scope.doQeury(":ADER?") == "+1\n"))
+            {
+                Delay1ms(50);
+                if (timer_cnt >= 100)
+                {
+                    timer.Stop();
+                    timer_cnt = 0;
+                    Console.WriteLine("WaveformCheck time out !!!");
+                    break;
+                }
+            }
+            timer.Stop();
+            timer_cnt = 0;
         }
 
         public static void ProcessCheck()
         {
+            timer.Start();
             InsControl._scope.DoCommand("*CLS");
-            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n")) ;
+            while (!(InsControl._scope.doQeury(":PDER?") == "+1\n"))
+            {
+                Delay1ms(50);
+                if (timer_cnt >= 100)
+                {
+                    timer.Stop();
+                    timer_cnt = 0;
+                    Console.WriteLine("ProcessCheck time out !!!");
+                    break;
+                }
+            }
+
+            timer.Stop();
+            timer_cnt = 0;
         }
 
         public static void Relay_Process(int port, double curr_cmp, int iout_idx, int vin_idx, bool isIin, bool sw400mA, ref bool en)
