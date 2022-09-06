@@ -892,7 +892,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x46;
             byte mask = 0x8F;
-            byte data = (byte)(cb_vhr_hyst.SelectedIndex);
+            byte data = (byte)(cb_vhr_hyst.SelectedIndex << 4);
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
@@ -916,7 +916,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x47;
             byte mask = 0xF3;
-            byte data = (byte)(cb_open_dgl.SelectedIndex);
+            byte data = (byte)(cb_open_dgl.SelectedIndex << 2);
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
