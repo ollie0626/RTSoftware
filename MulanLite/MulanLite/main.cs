@@ -703,7 +703,7 @@ namespace MulanLite
                 //if (initial_wr_en == false) return;
                 if (write_enable == false) return;
 
-                byte[] RData = await RDataTask(id, 0x00, addr);
+                byte[] RData = RTDev.ReadFunc(id, 0, addr);
                 byte Wrin = (byte)((RData[2] & mask) | data);
                 byte[] WData = new byte[1] { Wrin };
                 await WDataTask(id, addr, 0x00, WData);
@@ -855,7 +855,7 @@ namespace MulanLite
             cb.Enabled = false;
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x44;
-            byte mask = 0xFC;
+            byte mask = 0xF8;
             byte data = (byte)(cb_pulse_rf.SelectedIndex);
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
@@ -868,7 +868,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x45;
             byte mask = 0xCF;
-            byte data = (byte)(cb_vhr_open.SelectedIndex);
+            byte data = (byte)(cb_vhr_open.SelectedIndex << 4);
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
@@ -904,7 +904,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x46;
             byte mask = 0xF8;
-            byte data = (byte)(cb_vhr_hyst.SelectedIndex);
+            byte data = (byte)(cb_vhr_up.SelectedIndex);
             WRReg(id, mask, addr, data);
             cb.Enabled = true;
         }
@@ -1752,10 +1752,9 @@ namespace MulanLite
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            byte[] data = new byte[] { 0x5A, 0xA5, 0x26, 0x68, 0x86, 0x62, 0xA5, 0x5A };
+            byte[] data = new byte[] { 0xA5, 0x5A, 0x26, 0x68, 0x86, 0x62, 0xA5, 0x5A };
             byte addr = 0xF0;
-            byte len = (byte)(data.Length - 1);
-            await WDataTask(id, addr, len, data);
+            await WDataTask(id, addr, 7, data);
             bt.Enabled = true;
         }
 
@@ -2007,8 +2006,8 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte[] data = new byte[] { 0x37 };
             byte addr = 0xF3;
-            byte len = (byte)(data.Length - 1);
-            await WDataTask(id, addr, len, data);
+            //byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, 0, data);
             bt.Enabled = true;
         }
 
@@ -2019,8 +2018,8 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte[] data = new byte[] { 0x87 };
             byte addr = 0xF7;
-            byte len = (byte)(data.Length - 1);
-            await WDataTask(id, addr, len, data);
+            //byte len = (byte)(data.Length - 1);
+            await WDataTask(id, addr, 0, data);
             bt.Enabled = true;
         }
     }

@@ -5591,7 +5591,7 @@ namespace MulanLite
             this.label102.Name = "label102";
             this.label102.Size = new System.Drawing.Size(99, 15);
             this.label102.TabIndex = 44;
-            this.label102.Text = "VHR_SHORT [2:0]";
+            this.label102.Text = "VHR_SHORT [1:0]";
             // 
             // label101
             // 
@@ -12044,7 +12044,7 @@ namespace MulanLite
             this.Name = "main";
             this.RectColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.Style = Sunny.UI.UIStyle.Custom;
-            this.Text = "Mulan Lite tool v3.1";
+            this.Text = "Mulan Lite tool v3.2";
             this.TitleColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.TitleFont = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
