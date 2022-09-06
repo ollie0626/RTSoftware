@@ -27,6 +27,7 @@ namespace BuckTool
             InsControl._scope.CH4_On();
 
             InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
             InsControl._scope.CH1_ACoupling();
             MyLib.WaveformCheck();
 
@@ -98,12 +99,13 @@ namespace BuckTool
                         string file_name = string.Format("{0}_Vin={1}V_Freq={2}_Hi={3}V_Lo={4}V",
                                                         row - 22,
                                                         test_parameter.Vin_table[vin_idx],
-                                                        test_parameter.Freq_des,
+                                                        (freq_idx == 0 && test_parameter.Freq_en[0]) ? test_parameter.Freq_des[0] : test_parameter.Freq_des[1],
                                                         test_parameter.HiLo_table[func_idx].Highlevel,
                                                         test_parameter.HiLo_table[func_idx].LowLevel);
 
                         double current_level, trigger_level;
                         double vpp, vmax, vmin, rise, fall, rise_time, fall_time;
+                        double imax, imin, overshoot, undershoot;
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((func_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
@@ -132,6 +134,8 @@ namespace BuckTool
                         InsControl._scope.DoCommand(":MEASURE:VPP CHANnel1");
                         InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel1");
                         InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel1");
+                        InsControl._scope.DoCommand(":MEASURE:VMAX CHANnel4");
+                        InsControl._scope.DoCommand(":MEASURE:VMIN CHANnel4");
                         MyLib.ProcessCheck();
                         InsControl._scope.CH1_Level(0.3);
                         InsControl._scope.Root_RUN();
@@ -148,6 +152,8 @@ namespace BuckTool
                         fall = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel4,Falling") / 1000;
                         rise_time = InsControl._scope.Meas_CH4Rise() * Math.Pow(10, 6);
                         fall_time = InsControl._scope.Meas_CH4Fall() * Math.Pow(10, 6);
+                        imax = InsControl._scope.Meas_CH4MAX();
+                        imin = InsControl._scope.Meas_CH4MIN();
 #if Report
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;
@@ -166,13 +172,20 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.E] = test_parameter.freq;
                         _sheet.Cells[row, XLS_Table.F] = test_parameter.HiLo_table[func_idx].Highlevel;
                         _sheet.Cells[row, XLS_Table.G] = test_parameter.HiLo_table[func_idx].LowLevel;
-                        _sheet.Cells[row, XLS_Table.H] = vpp;
-                        _sheet.Cells[row, XLS_Table.I] = vmax;
-                        _sheet.Cells[row, XLS_Table.J] = vmin;
+                        _sheet.Cells[row, XLS_Table.H] = vpp * 1000;
+                        _sheet.Cells[row, XLS_Table.I] = vmin * 1000;
+                        _sheet.Cells[row, XLS_Table.J] = vmax * 1000;
                         _sheet.Cells[row, XLS_Table.K] = rise;
                         _sheet.Cells[row, XLS_Table.L] = rise_time;
                         _sheet.Cells[row, XLS_Table.M] = fall;
-                        _sheet.Cells[row, XLS_Table.K] = fall_time;
+                        _sheet.Cells[row, XLS_Table.N] = fall_time;
+
+                        _sheet.Cells[row, XLS_Table.O] = imax * 1000;
+                        _sheet.Cells[row, XLS_Table.P] = imin * 1000;
+                        _sheet.Cells[row, XLS_Table.Q] = Math.Abs(vmax / test_parameter.vout_ideal) * 100;
+                        _sheet.Cells[row, XLS_Table.R] = Math.Abs(vmin / test_parameter.vout_ideal) * 100;
+
+
 #endif
 
                         for (int i = 0; i < 2; i++)
@@ -269,8 +282,8 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.N] = "Fall Time(us)";
             _sheet.Cells[row, XLS_Table.O] = "Imax(mA)";
             _sheet.Cells[row, XLS_Table.P] = "Imin(mA)";
-            _sheet.Cells[row, XLS_Table.Q] = "Overshoot(mV)";
-            _sheet.Cells[row, XLS_Table.R] = "UnderShoot(mV)";
+            _sheet.Cells[row, XLS_Table.Q] = "Overshoot(%)";
+            _sheet.Cells[row, XLS_Table.R] = "UnderShoot(%)";
 
             _range = _sheet.Range["A" + row, "G" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;

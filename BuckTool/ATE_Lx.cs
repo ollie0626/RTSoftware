@@ -96,7 +96,7 @@ namespace BuckTool
                                                         row - 22,
                                                         test_parameter.Vin_table[vin_idx],
                                                         test_parameter.Iout_table[iout_idx],
-                                                        test_parameter.Freq_des);
+                                                        (freq_idx == 0 && test_parameter.Freq_en[0]) ? test_parameter.Freq_des[0] : test_parameter.Freq_des[1]);
                         double iout = test_parameter.Iout_table[iout_idx];
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();

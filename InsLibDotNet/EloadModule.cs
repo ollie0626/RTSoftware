@@ -101,7 +101,7 @@ namespace InsLibDotNet
 
         public void CV_Mode()
         {
-            string mode = "MODE CVM";
+            string mode = "MODE CVH";
             doCommand(mode);
         }
 
