@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using Sunny.UI;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
@@ -48,8 +43,6 @@ namespace MulanLite
                 //nu_table[i].Controls[0].Visible = false;
                 nu_table[i].Enabled = false;
             }
-
-
 
             uiTabControl1.TabPages.RemoveAt(4);
             timer1.Interval = 500;
