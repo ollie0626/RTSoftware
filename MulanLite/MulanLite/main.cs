@@ -7,27 +7,42 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 
 using System.IO;
 using Sunny.UI;
+using System.Runtime.InteropServices;
+
 
 namespace MulanLite
 {
     public partial class main : UIForm
     {
+        
         private const int WriteCmd = 0x2D;
         private const int ReadCmd = 0x1E;
         private const int BLUpdateCmd = 0x5A;
         private const int LEDPacketCmd = 0x3C;
         private const int BroadcastCmd = 0xFF;
         private bool write_enable = false;
+
+        bool connected_status = false;
         RTBBControl RTDev;
         NumericUpDown[] WriteTable;
         NumericUpDown[] ReadTable;
         UITrackBar[] TrackBarTable;
         NumericUpDown[] LEDCHxTable;
         Control[] FileTable;
+
+        /* usb detect */
+        private const int WM_DEVICECHANGE = 0x219;
+        private const int DBT_DEVICEARRIVAL = 0x8000;
+        private const int DBT_DEVICEREMOVEPENDING = 0x8003;
+        private const int DBT_DEVICEREMOVECOMPLETE = 0x8004;
+        private const int DBT_DEVTYP_PORT = 0x003;
+
+        private IntPtr m_hNotifyDevNode;
+
+        private string win_name = "Mulan Lite tool v3.2";
 
 
         public void GUIInit()
@@ -119,7 +134,9 @@ namespace MulanLite
             };
             write_enable = true;
 
-            RTDev.BoardInit();
+            connected_status = RTDev.BoardInit();
+            if (connected_status) this.Text = win_name + " - Connected";
+            else this.Text = win_name + "- Disconected";
         }
 
         public main()
@@ -652,48 +669,57 @@ namespace MulanLite
         private async void bt_readall_Click(object sender, EventArgs e)
         {
             UIButton bt = (UIButton)sender;
-            write_enable = false;
-            bt.Enabled = false;
-            int max = 12;
-            byte[] Before = new byte[ReadTable.Length];
-            byte[] After = new byte[ReadTable.Length];
-            for (int i = 0; i < Before.Length; i++) Before[i] = (byte)ReadTable[i].Value;
-            byte[] RData = new byte[7];
-            byte id = (byte)nu_persentid.Value;
 
-            uiProcessBar1.Value = 0;
-            uiProcessBar2.Value = 0;
-            uiProcessBar1.Maximum = max;
-            uiProcessBar2.Maximum = max;
-            for (int i = 0; i < max; i++)
+            try
             {
-                byte addr = (byte)(i * 8);
-                RData = await RDataTask(id, 7, addr);
-                ReadTable[i * 8 + 0].Value = RData[2];
-                ReadTable[i * 8 + 1].Value = RData[3];
-                ReadTable[i * 8 + 2].Value = RData[4];
-                ReadTable[i * 8 + 3].Value = RData[5];
-                ReadTable[i * 8 + 4].Value = RData[6];
-                ReadTable[i * 8 + 5].Value = RData[7];
-                ReadTable[i * 8 + 6].Value = RData[8];
-                ReadTable[i * 8 + 7].Value = RData[9];
+                write_enable = false;
+                bt.Enabled = false;
+                int max = 12;
+                byte[] Before = new byte[ReadTable.Length];
+                byte[] After = new byte[ReadTable.Length];
+                for (int i = 0; i < Before.Length; i++) Before[i] = (byte)ReadTable[i].Value;
+                byte[] RData = new byte[7];
+                byte id = (byte)nu_persentid.Value;
 
-                ReadTable[i * 8 + 0].BackColor = Before[i * 8 + 0] != RData[2] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 1].BackColor = Before[i * 8 + 1] != RData[3] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 2].BackColor = Before[i * 8 + 2] != RData[4] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 3].BackColor = Before[i * 8 + 3] != RData[5] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 4].BackColor = Before[i * 8 + 4] != RData[6] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 5].BackColor = Before[i * 8 + 5] != RData[7] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 6].BackColor = Before[i * 8 + 6] != RData[8] ? Color.Red : Color.White;
-                ReadTable[i * 8 + 7].BackColor = Before[i * 8 + 7] != RData[9] ? Color.Red : Color.White;
-                System.Threading.Thread.Sleep(5);
-                uiProcessBar1.Value += 1;
-                uiProcessBar2.Value += 1;
+                uiProcessBar1.Value = 0;
+                uiProcessBar2.Value = 0;
+                uiProcessBar1.Maximum = max;
+                uiProcessBar2.Maximum = max;
+                for (int i = 0; i < max; i++)
+                {
+                    byte addr = (byte)(i * 8);
+                    RData = await RDataTask(id, 7, addr);
+                    ReadTable[i * 8 + 0].Value = RData[2];
+                    ReadTable[i * 8 + 1].Value = RData[3];
+                    ReadTable[i * 8 + 2].Value = RData[4];
+                    ReadTable[i * 8 + 3].Value = RData[5];
+                    ReadTable[i * 8 + 4].Value = RData[6];
+                    ReadTable[i * 8 + 5].Value = RData[7];
+                    ReadTable[i * 8 + 6].Value = RData[8];
+                    ReadTable[i * 8 + 7].Value = RData[9];
+
+                    ReadTable[i * 8 + 0].BackColor = Before[i * 8 + 0] != RData[2] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 1].BackColor = Before[i * 8 + 1] != RData[3] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 2].BackColor = Before[i * 8 + 2] != RData[4] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 3].BackColor = Before[i * 8 + 3] != RData[5] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 4].BackColor = Before[i * 8 + 4] != RData[6] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 5].BackColor = Before[i * 8 + 5] != RData[7] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 6].BackColor = Before[i * 8 + 6] != RData[8] ? Color.Red : Color.White;
+                    ReadTable[i * 8 + 7].BackColor = Before[i * 8 + 7] != RData[9] ? Color.Red : Color.White;
+                    System.Threading.Thread.Sleep(5);
+                    uiProcessBar1.Value += 1;
+                    uiProcessBar2.Value += 1;
+                }
+                bt.Enabled = true;
+                write_enable = true;
+            }
+            catch
+            {
+                bt.Enabled = true;
+                write_enable = true;
+                Console.WriteLine("Read All happen error !!");
             }
 
-        
-            bt.Enabled = true;
-            write_enable = true;
         }
 
         private async void WRReg(byte id, byte mask, byte addr, byte data)
@@ -1060,12 +1086,51 @@ namespace MulanLite
             uiTabControl1.TabPages.RemoveAt(4);
             timer1.Interval = 500;
             timer1.Enabled = false;
+
+            Guid hidGuid = new Guid("745a17a0-74d3-11d0-b6fe-00a0c90f57da");
+            Dbt.HidD_GetHidGuid(ref hidGuid);
+            RegisterNotification(hidGuid);
         }
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //UnregisterNotification();
+            UnregisterNotification();
         }
+
+
+        private void RegisterNotification(Guid guid)
+        {
+            Dbt.DEV_BROADCAST_DEVICEINTERFACE devIF = new Dbt.DEV_BROADCAST_DEVICEINTERFACE();
+            IntPtr devIFBuffer;
+
+            // Set to HID GUID
+            devIF.dbcc_size = Marshal.SizeOf(devIF);
+            devIF.dbcc_devicetype = Dbt.DBT_DEVTYP_DEVICEINTERFACE;
+            devIF.dbcc_reserved = 0;
+            devIF.dbcc_classguid = guid;
+            devIF.dbcc_name = (char)0;
+
+            // Allocate a buffer for DLL call
+            devIFBuffer = Marshal.AllocHGlobal(devIF.dbcc_size);
+
+            // Copy devIF to buffer
+            Marshal.StructureToPtr(devIF, devIFBuffer, true);
+
+            // Register for HID device notifications
+            m_hNotifyDevNode = Dbt.RegisterDeviceNotification(this.Handle, devIFBuffer, Dbt.DEVICE_NOTIFY_WINDOW_HANDLE);
+
+            // Copy buffer to devIF
+            Marshal.PtrToStructure(devIFBuffer, devIF);
+
+            // Free buffer
+            Marshal.FreeHGlobal(devIFBuffer);
+        }
+
+        private void UnregisterNotification()
+        {
+            uint ret = Dbt.UnregisterDeviceNotification(m_hNotifyDevNode);
+        }
+
 
         private void cb_ch_num_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1104,7 +1169,7 @@ namespace MulanLite
             ComboBox cb = (ComboBox)sender;
             cb.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            byte data = (byte)(cb_cal_modex1.SelectedIndex << 2);
+            byte data = (byte)(cb_cal_modex8.SelectedIndex << 1);
             byte addr = 0x32;
             byte mask = 0xFD;
             WRReg(id, mask, addr, data);
@@ -2022,6 +2087,70 @@ namespace MulanLite
             await WDataTask(id, addr, 0, data);
             bt.Enabled = true;
         }
+
+        /*
+            WndProc
+         */
+        protected override void WndProc(ref Message m)
+        {
+            // Intercept the WM_DEVICECHANGE message
+            if (m.Msg == Dbt.WM_DEVICECHANGE)
+            {
+                // Get the message event type
+                int nEventType = m.WParam.ToInt32();
+
+                // Check for devices being connected or disconnected
+                if (nEventType == Dbt.DBT_DEVICEARRIVAL ||
+                    nEventType == Dbt.DBT_DEVICEREMOVECOMPLETE)
+                {
+                    Dbt.DEV_BROADCAST_HDR hdr = new Dbt.DEV_BROADCAST_HDR();
+
+                    // Convert lparam to DEV_BROADCAST_HDR structure
+                    Marshal.PtrToStructure(m.LParam, hdr);
+
+                    if (hdr.dbch_devicetype == Dbt.DBT_DEVTYP_DEVICEINTERFACE)
+                    {
+                        Dbt.DEV_BROADCAST_DEVICEINTERFACE_1 devIF = new Dbt.DEV_BROADCAST_DEVICEINTERFACE_1();
+
+                        // Convert lparam to DEV_BROADCAST_DEVICEINTERFACE structure
+                        Marshal.PtrToStructure(m.LParam, devIF);
+
+                        // Get the device path from the broadcast message
+                        string devicePath = new string(devIF.dbcc_name);
+
+                        // Remove null-terminated data from the string
+                        int pos = devicePath.IndexOf((char)0);
+                        if (pos != -1)
+                        {
+                            devicePath = devicePath.Substring(0, pos);
+                        }
+
+                        // An HID device was connected or removed
+                        if (nEventType == Dbt.DBT_DEVICEREMOVECOMPLETE)
+                        {
+                            RTDev.BoardRemove();
+                            //RTBBStatus.ForeColor = Color.Red;
+                            //RTBBStatus.Text = "Disconnected";
+                            //WriteTableReset();
+                            this.Text = win_name + " - Disconnected";
+                            Console.WriteLine("RTBridge board remove!!!");
+                        }
+                        else if (nEventType == Dbt.DBT_DEVICEARRIVAL)
+                        {
+
+                            Console.WriteLine("RTBridge board arrived!!!");
+                            //RTBBStatus.ForeColor = Color.AliceBlue;
+                            //RTBBStatus.Text = "Connected";
+                            this.Text = win_name + " - Connected";
+
+                            timer1.Enabled = true;
+                        }
+                    }
+                }
+            }
+            base.WndProc(ref m);
+        }
+
     }
 }
 

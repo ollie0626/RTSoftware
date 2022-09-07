@@ -36,7 +36,7 @@
   <ItemGroup>
     <Reference Include="RTBBLibDotNet, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>.\RTBBLibDotNet.dll</HintPath>
+      <HintPath>bin\Debug\RTBBLibDotNet.dll</HintPath>
     </Reference>
     <Reference Include="SunnyUI">
       <HintPath>..\..\packages\SunnyUI.3.1.1\lib\net40\SunnyUI.dll</HintPath>

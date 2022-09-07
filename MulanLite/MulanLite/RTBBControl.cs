@@ -134,42 +134,29 @@ namespace MulanLite
 
         public bool BoardInit()
         {
+            hEnum = null;
+            hDevice = null;
+
             hEnum = BridgeBoardEnum.GetBoardEnum();
             hDevice = BridgeBoard.ConnectByIndex(hEnum, 0);
 
-            if (hDevice != null)
-            {
-                spiModule = hDevice.GetSPIModule();
-                gpioModule = hDevice.GetGPIOModule();
-                pwmModule = hDevice.GetPWMModule();
-                i2cMoudle = hDevice.GetI2CModule();
-                return false;
-            }
+            if (hDevice == null) return false;
 
-            if (gpioModule != null)
-            {
-                gpioModule.RTBB_GPIOSingleSetIODirection(Trans_en, true);
-                gpioModule.RTBB_GPIOSingleSetIODirection(Co_en, true);
-                gpioModule.RTBB_GPIOSingleSetIODirection(POR, true);
+            spiModule = hDevice.GetSPIModule();
+            gpioModule = hDevice.GetGPIOModule();
+            pwmModule = hDevice.GetPWMModule();
+            i2cMoudle = hDevice.GetI2CModule();
 
-                gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
-                gpioModule.RTBB_GPIOSingleWrite(Co_en, true);
-                gpioModule.RTBB_GPIOSingleWrite(POR, false);
-            }
+            gpioModule.RTBB_GPIOSingleSetIODirection(Trans_en, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(Co_en, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(POR, true);
 
-            if (pwmModule != null)
-            {
-                /* system clock = 72MHz */
-                /* pwm clock max = 36MHz */
-                /* example 36MHz tick = 1 : Ci = 18MHz */
-                /* example 24MHz tick = 2 : Ci = 12MHz */
-                /* example 18MHz tick = 3 : Ci = 9MHz */
-                /* example 14MHz tick = 4 : Ci = 7MHz */
-                /* example 12MHz tick = 5 : Ci = 6MHz */
-                pwmModule.RTBB_PWMSetPeriod(0, 1); /* pwm 36MHz */
-                pwmModule.RTBB_PWMSetDutyCycle(0, 0.5);
-                pwmModule.RTBB_PWMStart(0);
-            }
+            gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
+            gpioModule.RTBB_GPIOSingleWrite(Co_en, true);
+            gpioModule.RTBB_GPIOSingleWrite(POR, false);
+            pwmModule.RTBB_PWMSetPeriod(0, 1); /* pwm 36MHz */
+            pwmModule.RTBB_PWMSetDutyCycle(0, 0.5);
+            pwmModule.RTBB_PWMStart(0);
             return true;
 
         }

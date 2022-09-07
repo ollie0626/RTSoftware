@@ -10561,7 +10561,7 @@ namespace MulanLite
             this.groupBox35.Controls.Add(this.nu_pwm_code_x8);
             this.groupBox35.Location = new System.Drawing.Point(16, 433);
             this.groupBox35.Name = "groupBox35";
-            this.groupBox35.Size = new System.Drawing.Size(242, 113);
+            this.groupBox35.Size = new System.Drawing.Size(441, 113);
             this.groupBox35.TabIndex = 69;
             this.groupBox35.TabStop = false;
             this.groupBox35.Text = "3C_3Fh Test PWM Code";
@@ -10578,7 +10578,7 @@ namespace MulanLite
             this.pwm_code_x1_sl.MinimumSize = new System.Drawing.Size(1, 1);
             this.pwm_code_x1_sl.Name = "pwm_code_x1_sl";
             this.pwm_code_x1_sl.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.pwm_code_x1_sl.Size = new System.Drawing.Size(155, 23);
+            this.pwm_code_x1_sl.Size = new System.Drawing.Size(303, 23);
             this.pwm_code_x1_sl.Style = Sunny.UI.UIStyle.Gray;
             this.pwm_code_x1_sl.StyleCustomMode = true;
             this.pwm_code_x1_sl.TabIndex = 68;
@@ -10597,15 +10597,14 @@ namespace MulanLite
             // nu_pwm_code_x1
             // 
             this.nu_pwm_code_x1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_pwm_code_x1.Hexadecimal = true;
-            this.nu_pwm_code_x1.Location = new System.Drawing.Point(172, 80);
+            this.nu_pwm_code_x1.Location = new System.Drawing.Point(318, 80);
             this.nu_pwm_code_x1.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.nu_pwm_code_x1.Name = "nu_pwm_code_x1";
-            this.nu_pwm_code_x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_pwm_code_x1.Size = new System.Drawing.Size(107, 23);
             this.nu_pwm_code_x1.TabIndex = 69;
             this.nu_pwm_code_x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_pwm_code_x1.ValueChanged += new System.EventHandler(this.nu_pwm_code_x1_ValueChanged);
@@ -10622,7 +10621,7 @@ namespace MulanLite
             this.pwm_code_x8_sl.MinimumSize = new System.Drawing.Size(1, 1);
             this.pwm_code_x8_sl.Name = "pwm_code_x8_sl";
             this.pwm_code_x8_sl.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.pwm_code_x8_sl.Size = new System.Drawing.Size(155, 23);
+            this.pwm_code_x8_sl.Size = new System.Drawing.Size(303, 23);
             this.pwm_code_x8_sl.Style = Sunny.UI.UIStyle.Gray;
             this.pwm_code_x8_sl.StyleCustomMode = true;
             this.pwm_code_x8_sl.TabIndex = 65;
@@ -10641,15 +10640,14 @@ namespace MulanLite
             // nu_pwm_code_x8
             // 
             this.nu_pwm_code_x8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_pwm_code_x8.Hexadecimal = true;
-            this.nu_pwm_code_x8.Location = new System.Drawing.Point(172, 37);
+            this.nu_pwm_code_x8.Location = new System.Drawing.Point(318, 37);
             this.nu_pwm_code_x8.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.nu_pwm_code_x8.Name = "nu_pwm_code_x8";
-            this.nu_pwm_code_x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_pwm_code_x8.Size = new System.Drawing.Size(107, 23);
             this.nu_pwm_code_x8.TabIndex = 66;
             this.nu_pwm_code_x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_pwm_code_x8.ValueChanged += new System.EventHandler(this.nu_pwm_code_x8_ValueChanged);
@@ -11960,6 +11958,8 @@ namespace MulanLite
             // ck_CH0_en
             // 
             this.ck_CH0_en.AutoSize = true;
+            this.ck_CH0_en.Checked = true;
+            this.ck_CH0_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH0_en.Location = new System.Drawing.Point(13, 35);
             this.ck_CH0_en.Name = "ck_CH0_en";
             this.ck_CH0_en.Size = new System.Drawing.Size(77, 23);
@@ -11992,6 +11992,8 @@ namespace MulanLite
             // ck_CH3_en
             // 
             this.ck_CH3_en.AutoSize = true;
+            this.ck_CH3_en.Checked = true;
+            this.ck_CH3_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH3_en.Location = new System.Drawing.Point(13, 122);
             this.ck_CH3_en.Name = "ck_CH3_en";
             this.ck_CH3_en.Size = new System.Drawing.Size(77, 23);
@@ -12003,6 +12005,8 @@ namespace MulanLite
             // ck_CH2_en
             // 
             this.ck_CH2_en.AutoSize = true;
+            this.ck_CH2_en.Checked = true;
+            this.ck_CH2_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH2_en.Location = new System.Drawing.Point(13, 93);
             this.ck_CH2_en.Name = "ck_CH2_en";
             this.ck_CH2_en.Size = new System.Drawing.Size(77, 23);
@@ -12014,6 +12018,8 @@ namespace MulanLite
             // ck_CH1_en
             // 
             this.ck_CH1_en.AutoSize = true;
+            this.ck_CH1_en.Checked = true;
+            this.ck_CH1_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH1_en.Location = new System.Drawing.Point(13, 64);
             this.ck_CH1_en.Name = "ck_CH1_en";
             this.ck_CH1_en.Size = new System.Drawing.Size(77, 23);
