@@ -47,6 +47,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
+        string App_name = "Buck Tool v1.2";
 
         public void GUInit()
         {
@@ -68,6 +69,7 @@ namespace BuckTool
                 cb_chamber.Items.Add("ATE_" + i.ToString());
             }
             cb_chamber.SelectedIndex = 0;
+            this.Text = App_name;
         }
 
 
@@ -331,10 +333,19 @@ namespace BuckTool
                 else ChamberCtr.CurrentStateMaster = "Busy," + test_parameter.temp_table[i].ToString();
 
                 // ATE test task
-                ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                ate_table[cb_item.SelectedIndex].ATETask();
-
-
+                if(cb_item.SelectedIndex == 5)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        ate_table[j].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                        ate_table[j].ATETask();
+                    }
+                }
+                else
+                {
+                    ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                    ate_table[cb_item.SelectedIndex].ATETask();
+                }    
 
                 if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Idle,9999";
                 else ChamberCtr.CurrentStateMaster = "Idle,9999";
@@ -374,11 +385,19 @@ namespace BuckTool
                     //label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
                 }
 
-
-                ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                ate_table[cb_item.SelectedIndex].ATETask();
-
-
+                if(cb_item.SelectedIndex == 5)
+                {
+                    for (int j = 0; j < 2; j++)
+                    {
+                        ate_table[j].temp = 25;
+                        ate_table[j].ATETask();
+                    }
+                }
+                else
+                {
+                    ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                    ate_table[cb_item.SelectedIndex].ATETask();
+                }
             }
             // test finish chamber to 25C
             if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
@@ -386,8 +405,20 @@ namespace BuckTool
 
         private void Single_Task(object idx)
         {
-            ate_table[(int)idx].temp = 25;
-            ate_table[(int)idx].ATETask();
+            if((int)idx == 5)
+            {
+
+                for(int i = 0; i < 2; i++)
+                {
+                    ate_table[i].temp = 25;
+                    ate_table[i].ATETask();
+                }
+            }
+            else
+            {
+                ate_table[(int)idx].temp = 25;
+                ate_table[(int)idx].ATETask();
+            }
         }
 
         private void uibut_binfile_Click(object sender, EventArgs e)

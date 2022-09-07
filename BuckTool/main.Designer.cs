@@ -598,7 +598,8 @@ namespace BuckTool
             "2. Line Regulation",
             "3. Output Ripple",
             "4. Lx",
-            "5. Load Transient"});
+            "5. Load Transient",
+            "6. Eff & Line"});
             this.cb_item.Location = new System.Drawing.Point(101, 138);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(172, 23);

@@ -126,7 +126,7 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.F] = Vout;
                         _sheet.Cells[row, XLS_Table.G] = Iout;
                         _sheet.Cells[row, XLS_Table.H] = Math.Abs((Vout - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
-                        _sheet.Cells[row, XLS_Table.I] = InsControl._34970A.Get_1Vol(3);
+                        _sheet.Cells[row, XLS_Table.I] = InsControl._34970A.Get_1Vol(3);    // for FB voltage
 #endif
                         row++;
                     } // vin loop
