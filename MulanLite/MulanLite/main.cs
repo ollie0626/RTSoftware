@@ -121,7 +121,7 @@ namespace MulanLite
                 nu_persentid, nuFirst, nuEnd, RCLK_DIV, CiEnable, Host_CRC, cb_allowone, cb_ditheren, cb_m_factor, nuPWMcycle, nuMaxpulse, nuMinpulse, cb_centred,
                 nuCy0, nuCy1, nuCy2, nuCy3, nuCy4, nuCy5, nuCy6, nuCy7, ck_short_mask, ck_open_mask, ck_clk_missing, ck_fuse_mask, ck_tsd_mask,
                 nu_mulan_qty, nu_start_offset, nu_startid, nu_endid, nu_data, nu_speciedid, nu_start_zone, nu_spe_offset1, nu_spe_offset2, nu_spe_offset2, nu_spe_offset3, nu_spe_offset4,
-                nu_specified_data, nu_fault_qty, trackCH0x8SL, trackCH1x8SL, trackCH2x8SL, trackCH3x8SL, trackCH0x1SL, trackCH1x1SL, trackCH2x1SL, trackCH3x1SL,
+                nu_specified_data1, nu_fault_qty, trackCH0x8SL, trackCH1x8SL, trackCH2x8SL, trackCH3x8SL, trackCH0x1SL, trackCH1x1SL, trackCH2x1SL, trackCH3x1SL,
                 cb_thresh_clk_missing, cb_pulse_rf, cb_debug_en, cb_debug_out, cb_vhr_open, cb_vhr_short, cb_vhr_hyst, cb_vhr_up,
                 cb_switch_filter_time, cb_open_dgl, cb_ch_num, cb_cal_modex1, cb_cal_modex8, cb_low_drive, cb_range_x8_x1, cb_min_count
             };
@@ -367,14 +367,14 @@ namespace MulanLite
             byte[] ZoneNum = new byte[8];
             byte[] startOffset = new byte[12];
             int offset = (int)nu_start_offset.Value;
-            int max = (int)(nu_mulan_qty.Value) + (int)(nu_endid.Value - nu_startid.Value);
+            int max = (int)(nu_mulan_qty.Value) * 2;
             uiProcessBar1.Value = 0;
             uiProcessBar2.Value = 0;
             uiProcessBar1.Maximum = max;
             uiProcessBar2.Maximum = max;
 
             // zone setting
-            for (int i = (int)nu_startid.Value; i < nu_mulan_qty.Value; i++)
+            for (int i = (int)nu_startid.Value; i < (nu_mulan_qty.Value + nu_startid.Value); i++)
             {
                 int offset1 = ((i * 4) + 1) * offset;
                 int offset2 = ((i * 4) + 2) * offset;
@@ -416,9 +416,9 @@ namespace MulanLite
             }
 
             int led_data = (int)nu_data.Value;
-            int[] data = new int[] { led_data };
+            int[] data = new int[] { led_data, led_data, led_data, led_data };
 
-            for(int id = (int)nu_startid.Value; id < nu_endid.Value; id++)
+            for(int id = (int)nu_startid.Value; id < (nu_mulan_qty.Value + nu_startid.Value); id++)
             {
                 RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data);
                 uiProcessBar1.Value += 1;
@@ -427,6 +427,8 @@ namespace MulanLite
                 RTDev.BLEnable((byte)id);
                 System.Threading.Thread.Sleep(50);
             }
+            //uiProcessBar1.Value += 1;
+            //uiProcessBar2.Value += 1;
             RTDev.BLUpdate();
             bt.Enabled = true;
         }
@@ -437,7 +439,11 @@ namespace MulanLite
             bt.Enabled = false;
             // write data buffer parameter
             byte id = (byte)nu_speciedid.Value;
-            int[] data = new int[] { (int)nu_specified_data.Value };
+            int[] data = new int[] { (int)nu_specified_data1.Value,
+                                     (int)nu_specified_data2.Value,
+                                     (int)nu_specified_data3.Value,
+                                     (int)nu_specified_data4.Value
+                                   };
             //byte LSB = (byte)(data & 0xFF);
             //byte MSB = (byte)((data & 0xFF00) >> 8);
             //byte bit16 = (byte)((data & 0x30000) >> 16);

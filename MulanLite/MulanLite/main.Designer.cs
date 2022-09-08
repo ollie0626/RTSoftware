@@ -175,13 +175,19 @@ namespace MulanLite
             this.uiLabel34 = new Sunny.UI.UILabel();
             this.nu_spe_offset4 = new System.Windows.Forms.NumericUpDown();
             this.uiCheckBoxGroup5 = new Sunny.UI.UICheckBoxGroup();
+            this.nu_specified_data4 = new System.Windows.Forms.NumericUpDown();
             this.bt_specified = new Sunny.UI.UIButton();
+            this.uiLabel60 = new Sunny.UI.UILabel();
             this.nu_start_zone = new System.Windows.Forms.NumericUpDown();
+            this.nu_specified_data3 = new System.Windows.Forms.NumericUpDown();
             this.uiLabel37 = new Sunny.UI.UILabel();
+            this.uiLabel59 = new Sunny.UI.UILabel();
+            this.nu_specified_data2 = new System.Windows.Forms.NumericUpDown();
+            this.nu_specified_data1 = new System.Windows.Forms.NumericUpDown();
+            this.uiLabel58 = new Sunny.UI.UILabel();
+            this.uiLabel35 = new Sunny.UI.UILabel();
             this.nu_end_zone = new System.Windows.Forms.NumericUpDown();
             this.uiLabel36 = new Sunny.UI.UILabel();
-            this.nu_specified_data = new System.Windows.Forms.NumericUpDown();
-            this.uiLabel35 = new Sunny.UI.UILabel();
             this.uiCheckBoxGroup6 = new Sunny.UI.UICheckBoxGroup();
             this.nu_fault_qty = new System.Windows.Forms.NumericUpDown();
             this.bt_repones = new Sunny.UI.UIButton();
@@ -803,9 +809,12 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_spe_offset3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_spe_offset4)).BeginInit();
             this.uiCheckBoxGroup5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_start_zone)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_end_zone)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data)).BeginInit();
             this.uiCheckBoxGroup6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).BeginInit();
             this.flowLayoutPanel5.SuspendLayout();
@@ -3445,6 +3454,7 @@ namespace MulanLite
             this.nu_endid.Size = new System.Drawing.Size(50, 23);
             this.nu_endid.TabIndex = 47;
             this.nu_endid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_endid.Visible = false;
             // 
             // uiLabel28
             // 
@@ -3456,6 +3466,7 @@ namespace MulanLite
             this.uiLabel28.TabIndex = 46;
             this.uiLabel28.Text = "End ID";
             this.uiLabel28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.uiLabel28.Visible = false;
             // 
             // nu_startid
             // 
@@ -3694,16 +3705,20 @@ namespace MulanLite
             // 
             // uiCheckBoxGroup5
             // 
+            this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data4);
             this.uiCheckBoxGroup5.Controls.Add(this.bt_specified);
+            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel60);
             this.uiCheckBoxGroup5.Controls.Add(this.nu_start_zone);
+            this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data3);
             this.uiCheckBoxGroup5.Controls.Add(this.uiLabel37);
-            this.uiCheckBoxGroup5.Controls.Add(this.nu_end_zone);
-            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel36);
-            this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data);
             this.uiCheckBoxGroup5.Controls.Add(this.uiLabel30);
-            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel35);
             this.uiCheckBoxGroup5.Controls.Add(this.nu_speciedid);
+            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel59);
             this.uiCheckBoxGroup5.Controls.Add(this.flowLayoutPanel3);
+            this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data2);
+            this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data1);
+            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel58);
+            this.uiCheckBoxGroup5.Controls.Add(this.uiLabel35);
             this.uiCheckBoxGroup5.FillColor = System.Drawing.Color.White;
             this.uiCheckBoxGroup5.FillColor2 = System.Drawing.Color.White;
             this.uiCheckBoxGroup5.Font = new System.Drawing.Font("Calibri", 12F);
@@ -3714,12 +3729,31 @@ namespace MulanLite
             this.uiCheckBoxGroup5.Padding = new System.Windows.Forms.Padding(0, 32, 0, 0);
             this.uiCheckBoxGroup5.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
             this.uiCheckBoxGroup5.SelectedIndexes = ((System.Collections.Generic.List<int>)(resources.GetObject("uiCheckBoxGroup5.SelectedIndexes")));
-            this.uiCheckBoxGroup5.Size = new System.Drawing.Size(355, 185);
+            this.uiCheckBoxGroup5.Size = new System.Drawing.Size(355, 242);
             this.uiCheckBoxGroup5.Style = Sunny.UI.UIStyle.White;
             this.uiCheckBoxGroup5.StyleCustomMode = true;
             this.uiCheckBoxGroup5.TabIndex = 55;
             this.uiCheckBoxGroup5.Text = "Specified LED Control";
             this.uiCheckBoxGroup5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_specified_data4
+            // 
+            this.nu_specified_data4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_specified_data4.Location = new System.Drawing.Point(55, 181);
+            this.nu_specified_data4.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
+            this.nu_specified_data4.Name = "nu_specified_data4";
+            this.nu_specified_data4.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data4.TabIndex = 65;
+            this.nu_specified_data4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_specified_data4.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
             // 
             // bt_specified
             // 
@@ -3734,7 +3768,7 @@ namespace MulanLite
             this.bt_specified.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.bt_specified.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
             this.bt_specified.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_specified.Location = new System.Drawing.Point(16, 152);
+            this.bt_specified.Location = new System.Drawing.Point(16, 210);
             this.bt_specified.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_specified.Name = "bt_specified";
             this.bt_specified.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
@@ -3745,6 +3779,17 @@ namespace MulanLite
             this.bt_specified.Text = "Click to set";
             this.bt_specified.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bt_specified.Click += new System.EventHandler(this.bt_specified_Click);
+            // 
+            // uiLabel60
+            // 
+            this.uiLabel60.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel60.Location = new System.Drawing.Point(11, 181);
+            this.uiLabel60.Name = "uiLabel60";
+            this.uiLabel60.Size = new System.Drawing.Size(47, 23);
+            this.uiLabel60.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel60.TabIndex = 64;
+            this.uiLabel60.Text = "Data4";
+            this.uiLabel60.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nu_start_zone
             // 
@@ -3765,6 +3810,25 @@ namespace MulanLite
             0,
             0});
             // 
+            // nu_specified_data3
+            // 
+            this.nu_specified_data3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_specified_data3.Location = new System.Drawing.Point(55, 152);
+            this.nu_specified_data3.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
+            this.nu_specified_data3.Name = "nu_specified_data3";
+            this.nu_specified_data3.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data3.TabIndex = 63;
+            this.nu_specified_data3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_specified_data3.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
             // uiLabel37
             // 
             this.uiLabel37.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -3776,10 +3840,81 @@ namespace MulanLite
             this.uiLabel37.Text = "Start Zone";
             this.uiLabel37.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // uiLabel59
+            // 
+            this.uiLabel59.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel59.Location = new System.Drawing.Point(11, 152);
+            this.uiLabel59.Name = "uiLabel59";
+            this.uiLabel59.Size = new System.Drawing.Size(47, 23);
+            this.uiLabel59.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel59.TabIndex = 62;
+            this.uiLabel59.Text = "Data3";
+            this.uiLabel59.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // nu_specified_data2
+            // 
+            this.nu_specified_data2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_specified_data2.Location = new System.Drawing.Point(55, 123);
+            this.nu_specified_data2.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
+            this.nu_specified_data2.Name = "nu_specified_data2";
+            this.nu_specified_data2.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data2.TabIndex = 61;
+            this.nu_specified_data2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_specified_data2.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // nu_specified_data1
+            // 
+            this.nu_specified_data1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_specified_data1.Location = new System.Drawing.Point(55, 94);
+            this.nu_specified_data1.Maximum = new decimal(new int[] {
+            131071,
+            0,
+            0,
+            0});
+            this.nu_specified_data1.Name = "nu_specified_data1";
+            this.nu_specified_data1.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data1.TabIndex = 57;
+            this.nu_specified_data1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_specified_data1.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // uiLabel58
+            // 
+            this.uiLabel58.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel58.Location = new System.Drawing.Point(11, 123);
+            this.uiLabel58.Name = "uiLabel58";
+            this.uiLabel58.Size = new System.Drawing.Size(47, 23);
+            this.uiLabel58.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel58.TabIndex = 60;
+            this.uiLabel58.Text = "Data2";
+            this.uiLabel58.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiLabel35
+            // 
+            this.uiLabel35.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiLabel35.Location = new System.Drawing.Point(11, 94);
+            this.uiLabel35.Name = "uiLabel35";
+            this.uiLabel35.Size = new System.Drawing.Size(47, 23);
+            this.uiLabel35.Style = Sunny.UI.UIStyle.Custom;
+            this.uiLabel35.TabIndex = 56;
+            this.uiLabel35.Text = "Data1";
+            this.uiLabel35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // nu_end_zone
             // 
             this.nu_end_zone.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_end_zone.Location = new System.Drawing.Point(91, 94);
+            this.nu_end_zone.Location = new System.Drawing.Point(392, 492);
             this.nu_end_zone.Maximum = new decimal(new int[] {
             8191,
             0,
@@ -3799,7 +3934,7 @@ namespace MulanLite
             // uiLabel36
             // 
             this.uiLabel36.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel36.Location = new System.Drawing.Point(9, 94);
+            this.uiLabel36.Location = new System.Drawing.Point(310, 492);
             this.uiLabel36.Name = "uiLabel36";
             this.uiLabel36.Size = new System.Drawing.Size(76, 23);
             this.uiLabel36.Style = Sunny.UI.UIStyle.Custom;
@@ -3807,36 +3942,6 @@ namespace MulanLite
             this.uiLabel36.Text = "End Zone";
             this.uiLabel36.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.uiLabel36.Visible = false;
-            // 
-            // nu_specified_data
-            // 
-            this.nu_specified_data.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_specified_data.Location = new System.Drawing.Point(53, 123);
-            this.nu_specified_data.Maximum = new decimal(new int[] {
-            131071,
-            0,
-            0,
-            0});
-            this.nu_specified_data.Name = "nu_specified_data";
-            this.nu_specified_data.Size = new System.Drawing.Size(101, 23);
-            this.nu_specified_data.TabIndex = 57;
-            this.nu_specified_data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_specified_data.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            // 
-            // uiLabel35
-            // 
-            this.uiLabel35.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel35.Location = new System.Drawing.Point(9, 123);
-            this.uiLabel35.Name = "uiLabel35";
-            this.uiLabel35.Size = new System.Drawing.Size(47, 23);
-            this.uiLabel35.Style = Sunny.UI.UIStyle.Custom;
-            this.uiLabel35.TabIndex = 56;
-            this.uiLabel35.Text = "Data";
-            this.uiLabel35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // uiCheckBoxGroup6
             // 
@@ -4650,7 +4755,7 @@ namespace MulanLite
             this.uiTabControl1.MainPage = "";
             this.uiTabControl1.Name = "uiTabControl1";
             this.uiTabControl1.SelectedIndex = 0;
-            this.uiTabControl1.Size = new System.Drawing.Size(1377, 599);
+            this.uiTabControl1.Size = new System.Drawing.Size(1377, 668);
             this.uiTabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.uiTabControl1.Style = Sunny.UI.UIStyle.Custom;
             this.uiTabControl1.TabIndex = 57;
@@ -4658,6 +4763,8 @@ namespace MulanLite
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.White;
+            this.tabPage1.Controls.Add(this.nu_end_zone);
+            this.tabPage1.Controls.Add(this.uiLabel36);
             this.tabPage1.Controls.Add(this.flowLayoutPanel4);
             this.tabPage1.Controls.Add(this.uiCheckBoxGroup1);
             this.tabPage1.Controls.Add(this.uiCheckBoxGroup2);
@@ -4667,7 +4774,7 @@ namespace MulanLite
             this.tabPage1.Controls.Add(this.uiCheckBoxGroup5);
             this.tabPage1.Location = new System.Drawing.Point(0, 25);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage1.Size = new System.Drawing.Size(1377, 643);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "LED setting page";
             // 
@@ -4688,7 +4795,7 @@ namespace MulanLite
             this.tabPage2.Controls.Add(this.flowLayoutPanel6);
             this.tabPage2.Location = new System.Drawing.Point(0, 25);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage2.Size = new System.Drawing.Size(1377, 643);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "LED Options";
             // 
@@ -6113,7 +6220,7 @@ namespace MulanLite
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Location = new System.Drawing.Point(0, 25);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage3.Size = new System.Drawing.Size(1377, 643);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Register map";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -10275,7 +10382,7 @@ namespace MulanLite
             this.tabPage4.Controls.Add(this.groupBox27);
             this.tabPage4.Location = new System.Drawing.Point(0, 25);
             this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage4.Size = new System.Drawing.Size(1377, 643);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Ridge TestMode";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -11000,7 +11107,7 @@ namespace MulanLite
             this.tabPage5.Controls.Add(this.label130);
             this.tabPage5.Location = new System.Drawing.Point(0, 25);
             this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1377, 574);
+            this.tabPage5.Size = new System.Drawing.Size(1377, 643);
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Richtek Test Mode";
             this.tabPage5.UseVisualStyleBackColor = true;
@@ -12034,7 +12141,7 @@ namespace MulanLite
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1421, 843);
+            this.ClientSize = new System.Drawing.Size(1421, 901);
             this.ControlBoxFillHoverColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.uiGroupBox5);
             this.Controls.Add(this.uiGroupBox22);
@@ -12107,9 +12214,12 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_spe_offset3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_spe_offset4)).EndInit();
             this.uiCheckBoxGroup5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data4)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_start_zone)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_end_zone)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_specified_data)).EndInit();
             this.uiCheckBoxGroup6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nu_fault_qty)).EndInit();
             this.flowLayoutPanel5.ResumeLayout(false);
@@ -12593,7 +12703,7 @@ namespace MulanLite
         private Sunny.UI.UILabel uiLabel37;
         private System.Windows.Forms.NumericUpDown nu_end_zone;
         private Sunny.UI.UILabel uiLabel36;
-        private System.Windows.Forms.NumericUpDown nu_specified_data;
+        private System.Windows.Forms.NumericUpDown nu_specified_data1;
         private Sunny.UI.UILabel uiLabel35;
         private Sunny.UI.UICheckBoxGroup uiCheckBoxGroup6;
         private Sunny.UI.UIButton bt_repones;
@@ -13173,6 +13283,12 @@ namespace MulanLite
         private System.Windows.Forms.Label label114;
         private Sunny.UI.UIButton uibt_exit_testmode;
         private Sunny.UI.UIButton ui_exit_test_mode;
+        private System.Windows.Forms.NumericUpDown nu_specified_data2;
+        private Sunny.UI.UILabel uiLabel58;
+        private System.Windows.Forms.NumericUpDown nu_specified_data4;
+        private Sunny.UI.UILabel uiLabel60;
+        private System.Windows.Forms.NumericUpDown nu_specified_data3;
+        private Sunny.UI.UILabel uiLabel59;
     }
 }
 
