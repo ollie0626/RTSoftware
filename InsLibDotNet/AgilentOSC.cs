@@ -583,7 +583,7 @@ namespace InsLibDotNet
 
             string cmd = string.Format(
                             ":MEASure:DELTatime:DEFine {0}, {1}, {2}, {3}, {4}, {5}",
-                            rising1, start, threshold1, rising1, stop, threshold2
+                            rising1, start, threshold1, rising2, stop, threshold2
                             );
             doCommand(cmd);
         }

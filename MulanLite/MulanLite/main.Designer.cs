@@ -175,6 +175,7 @@ namespace MulanLite
             this.uiLabel34 = new Sunny.UI.UILabel();
             this.nu_spe_offset4 = new System.Windows.Forms.NumericUpDown();
             this.uiCheckBoxGroup5 = new Sunny.UI.UICheckBoxGroup();
+            this.uiButton7 = new Sunny.UI.UIButton();
             this.nu_specified_data4 = new System.Windows.Forms.NumericUpDown();
             this.bt_specified = new Sunny.UI.UIButton();
             this.uiLabel60 = new Sunny.UI.UILabel();
@@ -3705,6 +3706,7 @@ namespace MulanLite
             // 
             // uiCheckBoxGroup5
             // 
+            this.uiCheckBoxGroup5.Controls.Add(this.uiButton7);
             this.uiCheckBoxGroup5.Controls.Add(this.nu_specified_data4);
             this.uiCheckBoxGroup5.Controls.Add(this.bt_specified);
             this.uiCheckBoxGroup5.Controls.Add(this.uiLabel60);
@@ -3735,6 +3737,30 @@ namespace MulanLite
             this.uiCheckBoxGroup5.TabIndex = 55;
             this.uiCheckBoxGroup5.Text = "Specified LED Control";
             this.uiCheckBoxGroup5.TextAlignment = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // uiButton7
+            // 
+            this.uiButton7.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton7.FillColor = System.Drawing.Color.White;
+            this.uiButton7.FillColor2 = System.Drawing.Color.White;
+            this.uiButton7.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton7.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton7.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
+            this.uiButton7.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(96)))), ((int)(((byte)(98)))), ((int)(((byte)(102)))));
+            this.uiButton7.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
+            this.uiButton7.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton7.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
+            this.uiButton7.Location = new System.Drawing.Point(171, 147);
+            this.uiButton7.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton7.Name = "uiButton7";
+            this.uiButton7.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
+            this.uiButton7.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(222)))), ((int)(((byte)(255)))));
+            this.uiButton7.Size = new System.Drawing.Size(97, 29);
+            this.uiButton7.Style = Sunny.UI.UIStyle.White;
+            this.uiButton7.TabIndex = 46;
+            this.uiButton7.Text = "BL Update";
+            this.uiButton7.Click += new System.EventHandler(this.uiButton7_Click);
             // 
             // nu_specified_data4
             // 
@@ -6109,6 +6135,7 @@ namespace MulanLite
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox19);
             this.tabPage3.Controls.Add(this.label81);
             this.tabPage3.Controls.Add(this.bt_readtowrite);
             this.tabPage3.Controls.Add(this.label82);
@@ -6149,7 +6176,6 @@ namespace MulanLite
             this.tabPage3.Controls.Add(this.label9);
             this.tabPage3.Controls.Add(this.label96);
             this.tabPage3.Controls.Add(this.label71);
-            this.tabPage3.Controls.Add(this.groupBox19);
             this.tabPage3.Controls.Add(this.label8);
             this.tabPage3.Controls.Add(this.groupBox20);
             this.tabPage3.Controls.Add(this.label72);
@@ -13289,6 +13315,7 @@ namespace MulanLite
         private Sunny.UI.UILabel uiLabel60;
         private System.Windows.Forms.NumericUpDown nu_specified_data3;
         private Sunny.UI.UILabel uiLabel59;
+        private Sunny.UI.UIButton uiButton7;
     }
 }
 

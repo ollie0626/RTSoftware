@@ -179,9 +179,9 @@ namespace MulanLite
 
             buffer[0] = (byte)((int)nuPWMcycle.Value & 0xFF);
             buffer[1] = (byte)(((int)nuPWMcycle.Value & 0xFF00) >> 8);
-            buffer[3] = (byte)((int)nuMaxpulse.Value & 0xFF);
-            buffer[4] = (byte)(((int)nuMaxpulse.Value & 0xFF00) >> 8);
-            buffer[5] = (byte)nuMinpulse.Value;
+            buffer[2] = (byte)((int)nuMaxpulse.Value & 0xFF);
+            buffer[3] = (byte)(((int)nuMaxpulse.Value & 0xFF00) >> 8);
+            buffer[4] = (byte)nuMinpulse.Value;
             await WDataTask(0xff, 0x36, 4, buffer);
             uiProcessBar2.Value += 1;
             uiProcessBar1.Value += 1;
@@ -429,7 +429,7 @@ namespace MulanLite
             }
             //uiProcessBar1.Value += 1;
             //uiProcessBar2.Value += 1;
-            RTDev.BLUpdate();
+            //RTDev.BLUpdate();
             bt.Enabled = true;
         }
 
@@ -439,11 +439,7 @@ namespace MulanLite
             bt.Enabled = false;
             // write data buffer parameter
             byte id = (byte)nu_speciedid.Value;
-            int[] data = new int[] { (int)nu_specified_data1.Value,
-                                     (int)nu_specified_data2.Value,
-                                     (int)nu_specified_data3.Value,
-                                     (int)nu_specified_data4.Value
-                                   };
+
             //byte LSB = (byte)(data & 0xFF);
             //byte MSB = (byte)((data & 0xFF00) >> 8);
             //byte bit16 = (byte)((data & 0x30000) >> 16);
@@ -471,30 +467,37 @@ namespace MulanLite
             ZoneNum[6] = (byte)(zone4 & 0xFF);
             ZoneNum[7] = (byte)((zone4 & 0xFF00) >> 8);
             await WDataTask(id, 0x10, 7, ZoneNum);
-            System.Threading.Thread.Sleep(50);
-            uiProcessBar1.Value += 1;
-            uiProcessBar2.Value += 1;
-            //await WDataTask(id, 0x0B, 2, buffer);
-            RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data);
-            System.Threading.Thread.Sleep(50);
-            uiProcessBar1.Value += 1;
-            uiProcessBar2.Value += 1;
+            System.Threading.Thread.Sleep(200);
 
             // for start offset setting
             int start_offset1 = (int)nu_spe_offset1.Value;
             int start_offset2 = (int)nu_spe_offset2.Value;
             int start_offset3 = (int)nu_spe_offset3.Value;
             int start_offset4 = (int)nu_spe_offset4.Value;
-            byte[] buffer = new byte[]{ 
+            byte[] buffer = new byte[]{
                 (byte)(start_offset1 & 0xFF), (byte)((start_offset1 & 0xFF00) >> 8), (byte)((start_offset1 & 0x030000) >> 16),
                 (byte)(start_offset2 & 0xFF), (byte)((start_offset2 & 0xFF00) >> 8), (byte)((start_offset2 & 0x030000) >> 16),
                 (byte)(start_offset4 & 0xFF), (byte)((start_offset4 & 0xFF00) >> 8), (byte)((start_offset3 & 0x030000) >> 16),
                 (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8), (byte)((start_offset4 & 0x030000) >> 16),
             };
             await WDataTask(id, 0x18, (byte)(buffer.Length - 1), buffer);
+            System.Threading.Thread.Sleep(200);
+            uiProcessBar1.Value += 1;
+            uiProcessBar2.Value += 1;
+            int[] data = new int[] { (int)nu_specified_data1.Value,
+                                     (int)nu_specified_data2.Value,
+                                     (int)nu_specified_data3.Value,
+                                     (int)nu_specified_data4.Value
+                                   };
+            RTDev.LEDPacket((byte)(data.Length - 1), (int)nu_start_zone.Value, data);
+            uiProcessBar1.Value += 1;
+            uiProcessBar2.Value += 1;
 
+
+            System.Threading.Thread.Sleep(200);
             RTDev.BLEnable(id);
-            RTDev.BLUpdate();
+            System.Threading.Thread.Sleep(200);
+            //RTDev.BLUpdate();
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
             bt.Enabled = true;
@@ -592,7 +595,7 @@ namespace MulanLite
             byte id = (byte)nu_persentid.Value;
             byte[] RData = RTDev.ReadFunc(id, 0x00, 0x34);
             byte[] WData = new byte[1];
-            WData[0] = (byte)((RCLK_DIV.SelectedIndex << 4) | (RData[2] & 0x0F));
+            WData[0] = (byte)((RCLK_DIV.SelectedIndex << 4) | (ck_CH0_en.Checked ? 0x01 : 0x00) | (ck_CH1_en.Checked ? 0x02 : 0x00) | (ck_CH2_en.Checked ? 0x04 : 0x00) | (ck_CH3_en.Checked ? 0x08 : 0x00));
             RTDev.WriteFunc(id, WriteCmd, 0x34, 0x00, WData);
 
 
@@ -684,28 +687,30 @@ namespace MulanLite
                 uiProcessBar2.Value = 0;
                 uiProcessBar1.Maximum = max;
                 uiProcessBar2.Maximum = max;
+                int offset = 8;
                 for (int i = 0; i < max; i++)
                 {
-                    byte addr = (byte)(i * 8);
-                    RData = await RDataTask(id, 7, addr);
-                    ReadTable[i * 8 + 0].Value = RData[2];
-                    ReadTable[i * 8 + 1].Value = RData[3];
-                    ReadTable[i * 8 + 2].Value = RData[4];
-                    ReadTable[i * 8 + 3].Value = RData[5];
+                    byte addr = (byte)(i * offset);
+                    Console.WriteLine("i = {0}, Addr = {1:X}", i, addr);
+                    RData = await RDataTask(id, (byte)(offset - 1), addr);
+                    ReadTable[i * offset + 0].Value = RData[2];
+                    ReadTable[i * offset + 1].Value = RData[3];
+                    ReadTable[i * offset + 2].Value = RData[4];
+                    ReadTable[i * offset + 3].Value = RData[5];
                     ReadTable[i * 8 + 4].Value = RData[6];
                     ReadTable[i * 8 + 5].Value = RData[7];
                     ReadTable[i * 8 + 6].Value = RData[8];
                     ReadTable[i * 8 + 7].Value = RData[9];
 
-                    ReadTable[i * 8 + 0].BackColor = Before[i * 8 + 0] != RData[2] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 1].BackColor = Before[i * 8 + 1] != RData[3] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 2].BackColor = Before[i * 8 + 2] != RData[4] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 3].BackColor = Before[i * 8 + 3] != RData[5] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 0].BackColor = Before[i * offset + 0] != RData[2] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 1].BackColor = Before[i * offset + 1] != RData[3] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 2].BackColor = Before[i * offset + 2] != RData[4] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 3].BackColor = Before[i * offset + 3] != RData[5] ? Color.Red : Color.White;
                     ReadTable[i * 8 + 4].BackColor = Before[i * 8 + 4] != RData[6] ? Color.Red : Color.White;
                     ReadTable[i * 8 + 5].BackColor = Before[i * 8 + 5] != RData[7] ? Color.Red : Color.White;
                     ReadTable[i * 8 + 6].BackColor = Before[i * 8 + 6] != RData[8] ? Color.Red : Color.White;
                     ReadTable[i * 8 + 7].BackColor = Before[i * 8 + 7] != RData[9] ? Color.Red : Color.White;
-                    System.Threading.Thread.Sleep(5);
+                    System.Threading.Thread.Sleep(100);
                     uiProcessBar1.Value += 1;
                     uiProcessBar2.Value += 1;
                 }
@@ -807,7 +812,7 @@ namespace MulanLite
             NumericUpDown nu = (NumericUpDown)sender;
             nu.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            int Data = (int)nuPWMcycle.Value;
+            int Data = (int)nuMaxpulse.Value;
             byte addr = 0x38;
             byte len = 1;
             byte MSB = (byte)(Data & 0xFF);
@@ -1056,7 +1061,7 @@ namespace MulanLite
             byte mask = 0x00;
             // switch channel
             WRReg(id, mask, addr, data);
-
+            System.Threading.Thread.Sleep(300);
             // read channel data
             byte[] RData = RTDev.ReadFunc((byte)id, 0x02, 0x0B);
             if (RData.Length < 3) return;
@@ -1540,7 +1545,7 @@ namespace MulanLite
         {
             int val = (int)R58.Value;
             cb_switch_filter_time.SelectedIndex = (val & 0xF0) >> 4;
-            cb_blanking_time.SelectedIndex = (val & 0xF0);
+            cb_blanking_time.SelectedIndex = (val & 0x0F);
         }
 
         private void R4A_ValueChanged(object sender, EventArgs e)
@@ -1560,7 +1565,7 @@ namespace MulanLite
             int val1 = (int)R0B.Value;
             int val2 = (int)R0C.Value;
             int val3 = (int)R0D.Value;
-            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+            numericUpDown1.Value = (val3 << 16) | (val2 << 8) | val1;
 
         }
 
@@ -1569,7 +1574,7 @@ namespace MulanLite
             int val1 = (int)R0B.Value;
             int val2 = (int)R0C.Value;
             int val3 = (int)R0D.Value;
-            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+            numericUpDown1.Value = (val3 << 16) | (val2 << 8) | val1;
         }
 
         private void R0D_ValueChanged(object sender, EventArgs e)
@@ -1577,7 +1582,7 @@ namespace MulanLite
             int val1 = (int)R0B.Value;
             int val2 = (int)R0C.Value;
             int val3 = (int)R0D.Value;
-            uiTrackBar1.Value = (val3 << 16) | (val2 << 8) | val1;
+            numericUpDown1.Value = (val3 << 16) | (val2 << 8) | val1;
         }
 
         private void uiTrackBar1_ValueChanged(object sender, EventArgs e)
@@ -1648,7 +1653,7 @@ namespace MulanLite
         private void pwm_code_x1_sl_ValueChanged(object sender, EventArgs e)
         {
             nu_pwm_code_x1.Value = pwm_code_x1_sl.Value;
-            int data = pwm_code_x8_sl.Value;
+            int data = pwm_code_x1_sl.Value;
             byte id = (byte)nu_persentid.Value;
             byte[] buf = new byte[] { (byte)(data & 0xff), (byte)((data & 0x1F00) >> 8) };
             RTDev.WriteFunc(id, WriteCmd, 0x3E, 0x01, buf);
@@ -2000,6 +2005,11 @@ namespace MulanLite
             //byte len = (byte)(data.Length - 1);
             await WDataTask(id, addr, 0, data);
             bt.Enabled = true;
+        }
+
+        private void uiButton7_Click(object sender, EventArgs e)
+        {
+            RTDev.BLUpdate();
         }
     }
 }

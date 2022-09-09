@@ -8,7 +8,7 @@ namespace MulanLite
     public partial class main : UIForm
     {
         private IntPtr m_hNotifyDevNode;
-        private string win_name = "Mulan Lite tool v3.3";
+        private string win_name = "Mulan Lite tool v3.4 beta";
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -28,6 +28,19 @@ namespace MulanLite
             //int[] buf = new int[] { 0x0E25D, 0x14AFF, 0x0E6F8, 0x1D8C7, 0x12DDE };
             //int[] buf = new int[] { 0x12DDE };
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
+
+            nu_persentid.Value = 1;
+            nu_startid.Value = 1;
+            nu_endid.Value = 1;
+            nuSID.Value = 1;
+            nuFirst.Value = 1;
+            nuEnd.Value = 1;
+            nuSAddr.Value = 0x32;
+            nu_speciedid.Value = 1;
+            nu_specified_data1.Value = 1234;
+            nu_specified_data2.Value = 3322;
+            nu_specified_data3.Value = 4531;
+            nu_specified_data4.Value = 7777;
 
 
             NumericUpDown[] nu_table = new NumericUpDown[]
