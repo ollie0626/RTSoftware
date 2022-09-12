@@ -22,6 +22,7 @@ namespace MulanLite
         //private const int LEDPacketCmd = 0x3C;
         //private const int BroadcastCmd = 0xFF;
         private bool write_enable = false;
+        private bool track_bar_en = true;
 
         bool connected_status = false;
         RTBBControl RTDev;
@@ -144,6 +145,7 @@ namespace MulanLite
             //{
             //    return Task.Factory.StartNew(() => 0);
             //}
+            if(!write_enable) return Task.Factory.StartNew(() => 0);
             return Task.Factory.StartNew(() => RTDev.WriteFunc(id, WriteCmd, addr, len, buf));
         }
 
@@ -874,8 +876,10 @@ namespace MulanLite
             nu.Enabled = true;
         }
 
+        
         private async void trackCH0x8SL_ValueChanged(object sender, EventArgs e)
         {
+            if (!write_enable) return;
             List<byte> DataList = new List<byte>();
             for(int i = 0; i < TrackBarTable.Length; i++)
             {
@@ -885,6 +889,7 @@ namespace MulanLite
             byte[] WData = DataList.ToArray();
             byte id = (byte)nu_persentid.Value;
             await WDataTask(id, 0x28, 7, WData);
+            track_bar_en = true;
         }
 
         private void nu_CH0x8_ValueChanged(object sender, EventArgs e)
@@ -1671,6 +1676,7 @@ namespace MulanLite
 
         private void pwm_codex8_sl_ValueChanged(object sender, EventArgs e)
         {
+            if (!write_enable) return;
             nu_pwm_code_x8.Value = pwm_code_x8_sl.Value;
             int data = pwm_code_x8_sl.Value;
             byte id = (byte)nu_persentid.Value;
@@ -1680,6 +1686,7 @@ namespace MulanLite
 
         private void pwm_code_x1_sl_ValueChanged(object sender, EventArgs e)
         {
+            if (!write_enable) return;
             nu_pwm_code_x1.Value = pwm_code_x1_sl.Value;
             int data = pwm_code_x1_sl.Value;
             byte id = (byte)nu_persentid.Value;
