@@ -8,7 +8,7 @@ namespace MulanLite
     public partial class main : UIForm
     {
         private IntPtr m_hNotifyDevNode;
-        private string win_name = "Mulan Lite tool v3.4 beta";
+        private string win_name = "Mulan Lite tool v3.4";
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -29,6 +29,7 @@ namespace MulanLite
             //int[] buf = new int[] { 0x12DDE };
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
 
+            cb_range_x8_x1.SelectedIndex = 1;
             nu_persentid.Value = 1;
             nu_startid.Value = 1;
             nu_endid.Value = 1;
@@ -64,6 +65,8 @@ namespace MulanLite
             Guid hidGuid = new Guid("745a17a0-74d3-11d0-b6fe-00a0c90f57da");
             Dbt.HidD_GetHidGuid(ref hidGuid);
             RegisterNotification(hidGuid);
+
+            write_enable = true;
         }
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)

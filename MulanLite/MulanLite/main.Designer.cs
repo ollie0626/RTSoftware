@@ -333,6 +333,23 @@ namespace MulanLite
             this.trackCH3x1SL = new Sunny.UI.UITrackBar();
             this.nu_CH3x1 = new System.Windows.Forms.NumericUpDown();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox19 = new System.Windows.Forms.GroupBox();
+            this.R5F = new System.Windows.Forms.NumericUpDown();
+            this.R50 = new System.Windows.Forms.NumericUpDown();
+            this.R5E = new System.Windows.Forms.NumericUpDown();
+            this.R51 = new System.Windows.Forms.NumericUpDown();
+            this.R5D = new System.Windows.Forms.NumericUpDown();
+            this.R52 = new System.Windows.Forms.NumericUpDown();
+            this.R5C = new System.Windows.Forms.NumericUpDown();
+            this.R53 = new System.Windows.Forms.NumericUpDown();
+            this.R5B = new System.Windows.Forms.NumericUpDown();
+            this.R54 = new System.Windows.Forms.NumericUpDown();
+            this.R5A = new System.Windows.Forms.NumericUpDown();
+            this.R55 = new System.Windows.Forms.NumericUpDown();
+            this.R59 = new System.Windows.Forms.NumericUpDown();
+            this.R56 = new System.Windows.Forms.NumericUpDown();
+            this.R58 = new System.Windows.Forms.NumericUpDown();
+            this.R57 = new System.Windows.Forms.NumericUpDown();
             this.label81 = new System.Windows.Forms.Label();
             this.bt_readtowrite = new Sunny.UI.UIButton();
             this.label82 = new System.Windows.Forms.Label();
@@ -405,23 +422,6 @@ namespace MulanLite
             this.label9 = new System.Windows.Forms.Label();
             this.label96 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.R5F = new System.Windows.Forms.NumericUpDown();
-            this.R50 = new System.Windows.Forms.NumericUpDown();
-            this.R5E = new System.Windows.Forms.NumericUpDown();
-            this.R51 = new System.Windows.Forms.NumericUpDown();
-            this.R5D = new System.Windows.Forms.NumericUpDown();
-            this.R52 = new System.Windows.Forms.NumericUpDown();
-            this.R5C = new System.Windows.Forms.NumericUpDown();
-            this.R53 = new System.Windows.Forms.NumericUpDown();
-            this.R5B = new System.Windows.Forms.NumericUpDown();
-            this.R54 = new System.Windows.Forms.NumericUpDown();
-            this.R5A = new System.Windows.Forms.NumericUpDown();
-            this.R55 = new System.Windows.Forms.NumericUpDown();
-            this.R59 = new System.Windows.Forms.NumericUpDown();
-            this.R56 = new System.Windows.Forms.NumericUpDown();
-            this.R58 = new System.Windows.Forms.NumericUpDown();
-            this.R57 = new System.Windows.Forms.NumericUpDown();
             this.label8 = new System.Windows.Forms.Label();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.W5F = new System.Windows.Forms.NumericUpDown();
@@ -875,6 +875,23 @@ namespace MulanLite
             this.groupBox8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_CH3x1)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.groupBox19.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.R5F)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R50)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5E)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R51)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5D)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R52)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5C)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R53)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5B)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R54)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5A)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R55)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R59)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R56)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R58)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R57)).BeginInit();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.W0F)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W0E)).BeginInit();
@@ -909,23 +926,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.R06)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R08)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R07)).BeginInit();
-            this.groupBox19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.R5F)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R50)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5E)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R51)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5D)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R52)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5C)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R53)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5B)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R54)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5A)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R55)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R59)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R56)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R58)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R57)).BeginInit();
             this.groupBox20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.W5F)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W5E)).BeginInit();
@@ -3760,6 +3760,7 @@ namespace MulanLite
             this.uiButton7.Style = Sunny.UI.UIStyle.White;
             this.uiButton7.TabIndex = 46;
             this.uiButton7.Text = "BL Update";
+            this.uiButton7.Visible = false;
             this.uiButton7.Click += new System.EventHandler(this.uiButton7_Click);
             // 
             // nu_specified_data4
@@ -5583,14 +5584,14 @@ namespace MulanLite
             this.cb_pulse_rf.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cb_pulse_rf.FormattingEnabled = true;
             this.cb_pulse_rf.Items.AddRange(new object[] {
-            "3\'d0 : 2   CI clcok",
-            "3\'d1 : 4   CI clcok",
-            "3\'d2 : 8   CI clcok",
-            "3\'d3 : 16 CI clcok",
-            "3\'d4 : 32 CI clcok",
-            "3\'d5 : 48 CI clcok",
-            "3\'d6 : 64 CI clcok",
-            "3\'d7 : 80 CI clcok"});
+            "3\'d0 : 1   CI clcok",
+            "3\'d1 : 2   CI clcok",
+            "3\'d2 : 4   CI clcok",
+            "3\'d3 : 8 CI clcok",
+            "3\'d4 : 16 CI clcok",
+            "3\'d5 : 24 CI clcok",
+            "3\'d6 : 32 CI clcok",
+            "3\'d7 : 40 CI clcok"});
             this.cb_pulse_rf.Location = new System.Drawing.Point(7, 38);
             this.cb_pulse_rf.Name = "cb_pulse_rf";
             this.cb_pulse_rf.Size = new System.Drawing.Size(208, 23);
@@ -6251,6 +6252,283 @@ namespace MulanLite
             this.tabPage3.Text = "Register map";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox19
+            // 
+            this.groupBox19.Controls.Add(this.R5F);
+            this.groupBox19.Controls.Add(this.R50);
+            this.groupBox19.Controls.Add(this.R5E);
+            this.groupBox19.Controls.Add(this.R51);
+            this.groupBox19.Controls.Add(this.R5D);
+            this.groupBox19.Controls.Add(this.R52);
+            this.groupBox19.Controls.Add(this.R5C);
+            this.groupBox19.Controls.Add(this.R53);
+            this.groupBox19.Controls.Add(this.R5B);
+            this.groupBox19.Controls.Add(this.R54);
+            this.groupBox19.Controls.Add(this.R5A);
+            this.groupBox19.Controls.Add(this.R55);
+            this.groupBox19.Controls.Add(this.R59);
+            this.groupBox19.Controls.Add(this.R56);
+            this.groupBox19.Controls.Add(this.R58);
+            this.groupBox19.Controls.Add(this.R57);
+            this.groupBox19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox19.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.groupBox19.Location = new System.Drawing.Point(943, 13);
+            this.groupBox19.Name = "groupBox19";
+            this.groupBox19.Size = new System.Drawing.Size(54, 473);
+            this.groupBox19.TabIndex = 95;
+            this.groupBox19.TabStop = false;
+            this.groupBox19.Text = "Read";
+            // 
+            // R5F
+            // 
+            this.R5F.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5F.Hexadecimal = true;
+            this.R5F.Location = new System.Drawing.Point(6, 443);
+            this.R5F.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5F.Name = "R5F";
+            this.R5F.Size = new System.Drawing.Size(42, 22);
+            this.R5F.TabIndex = 33;
+            this.R5F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R50
+            // 
+            this.R50.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R50.Hexadecimal = true;
+            this.R50.Location = new System.Drawing.Point(6, 23);
+            this.R50.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R50.Name = "R50";
+            this.R50.Size = new System.Drawing.Size(42, 22);
+            this.R50.TabIndex = 1;
+            this.R50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R50.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R5E
+            // 
+            this.R5E.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5E.Hexadecimal = true;
+            this.R5E.Location = new System.Drawing.Point(6, 415);
+            this.R5E.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5E.Name = "R5E";
+            this.R5E.Size = new System.Drawing.Size(42, 22);
+            this.R5E.TabIndex = 32;
+            this.R5E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R5E.ValueChanged += new System.EventHandler(this.R5E_ValueChanged);
+            // 
+            // R51
+            // 
+            this.R51.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R51.Hexadecimal = true;
+            this.R51.Location = new System.Drawing.Point(6, 51);
+            this.R51.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R51.Name = "R51";
+            this.R51.Size = new System.Drawing.Size(42, 22);
+            this.R51.TabIndex = 2;
+            this.R51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R51.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R5D
+            // 
+            this.R5D.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5D.Hexadecimal = true;
+            this.R5D.Location = new System.Drawing.Point(6, 387);
+            this.R5D.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5D.Name = "R5D";
+            this.R5D.Size = new System.Drawing.Size(42, 22);
+            this.R5D.TabIndex = 31;
+            this.R5D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R52
+            // 
+            this.R52.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R52.Hexadecimal = true;
+            this.R52.Location = new System.Drawing.Point(6, 79);
+            this.R52.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R52.Name = "R52";
+            this.R52.Size = new System.Drawing.Size(42, 22);
+            this.R52.TabIndex = 3;
+            this.R52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R52.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R5C
+            // 
+            this.R5C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5C.Hexadecimal = true;
+            this.R5C.Location = new System.Drawing.Point(6, 359);
+            this.R5C.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5C.Name = "R5C";
+            this.R5C.Size = new System.Drawing.Size(42, 22);
+            this.R5C.TabIndex = 30;
+            this.R5C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R53
+            // 
+            this.R53.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R53.Hexadecimal = true;
+            this.R53.Location = new System.Drawing.Point(6, 107);
+            this.R53.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R53.Name = "R53";
+            this.R53.Size = new System.Drawing.Size(42, 22);
+            this.R53.TabIndex = 4;
+            this.R53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R53.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R5B
+            // 
+            this.R5B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5B.Hexadecimal = true;
+            this.R5B.Location = new System.Drawing.Point(6, 331);
+            this.R5B.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5B.Name = "R5B";
+            this.R5B.Size = new System.Drawing.Size(42, 22);
+            this.R5B.TabIndex = 29;
+            this.R5B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R54
+            // 
+            this.R54.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R54.Hexadecimal = true;
+            this.R54.Location = new System.Drawing.Point(6, 135);
+            this.R54.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R54.Name = "R54";
+            this.R54.Size = new System.Drawing.Size(42, 22);
+            this.R54.TabIndex = 5;
+            this.R54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R54.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R5A
+            // 
+            this.R5A.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R5A.Hexadecimal = true;
+            this.R5A.Location = new System.Drawing.Point(6, 303);
+            this.R5A.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R5A.Name = "R5A";
+            this.R5A.Size = new System.Drawing.Size(42, 22);
+            this.R5A.TabIndex = 28;
+            this.R5A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R55
+            // 
+            this.R55.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R55.Hexadecimal = true;
+            this.R55.Location = new System.Drawing.Point(6, 163);
+            this.R55.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R55.Name = "R55";
+            this.R55.Size = new System.Drawing.Size(42, 22);
+            this.R55.TabIndex = 6;
+            this.R55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R55.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R59
+            // 
+            this.R59.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R59.Hexadecimal = true;
+            this.R59.Location = new System.Drawing.Point(6, 275);
+            this.R59.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R59.Name = "R59";
+            this.R59.Size = new System.Drawing.Size(42, 22);
+            this.R59.TabIndex = 27;
+            this.R59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // R56
+            // 
+            this.R56.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R56.Hexadecimal = true;
+            this.R56.Location = new System.Drawing.Point(6, 191);
+            this.R56.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R56.Name = "R56";
+            this.R56.Size = new System.Drawing.Size(42, 22);
+            this.R56.TabIndex = 7;
+            this.R56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R56.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
+            // R58
+            // 
+            this.R58.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R58.Hexadecimal = true;
+            this.R58.Location = new System.Drawing.Point(6, 247);
+            this.R58.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R58.Name = "R58";
+            this.R58.Size = new System.Drawing.Size(42, 22);
+            this.R58.TabIndex = 26;
+            this.R58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R58.ValueChanged += new System.EventHandler(this.R58_ValueChanged);
+            // 
+            // R57
+            // 
+            this.R57.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.R57.Hexadecimal = true;
+            this.R57.Location = new System.Drawing.Point(6, 219);
+            this.R57.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.R57.Name = "R57";
+            this.R57.Size = new System.Drawing.Size(42, 22);
+            this.R57.TabIndex = 8;
+            this.R57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R57.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
+            // 
             // label81
             // 
             this.label81.AutoSize = true;
@@ -6384,7 +6662,6 @@ namespace MulanLite
             // 
             // W0C
             // 
-            this.W0C.Enabled = false;
             this.W0C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W0C.Hexadecimal = true;
             this.W0C.Location = new System.Drawing.Point(9, 359);
@@ -6400,7 +6677,6 @@ namespace MulanLite
             // 
             // W0B
             // 
-            this.W0B.Enabled = false;
             this.W0B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W0B.Hexadecimal = true;
             this.W0B.Location = new System.Drawing.Point(9, 331);
@@ -6446,7 +6722,6 @@ namespace MulanLite
             // 
             // W08
             // 
-            this.W08.Enabled = false;
             this.W08.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W08.Hexadecimal = true;
             this.W08.Location = new System.Drawing.Point(9, 247);
@@ -6462,7 +6737,6 @@ namespace MulanLite
             // 
             // W07
             // 
-            this.W07.Enabled = false;
             this.W07.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W07.Hexadecimal = true;
             this.W07.Location = new System.Drawing.Point(9, 219);
@@ -6478,7 +6752,6 @@ namespace MulanLite
             // 
             // W06
             // 
-            this.W06.Enabled = false;
             this.W06.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W06.Hexadecimal = true;
             this.W06.Location = new System.Drawing.Point(9, 191);
@@ -6494,7 +6767,6 @@ namespace MulanLite
             // 
             // W05
             // 
-            this.W05.Enabled = false;
             this.W05.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W05.Hexadecimal = true;
             this.W05.Location = new System.Drawing.Point(9, 163);
@@ -6510,7 +6782,6 @@ namespace MulanLite
             // 
             // W04
             // 
-            this.W04.Enabled = false;
             this.W04.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W04.Hexadecimal = true;
             this.W04.Location = new System.Drawing.Point(9, 135);
@@ -6556,7 +6827,6 @@ namespace MulanLite
             // 
             // W01
             // 
-            this.W01.Enabled = false;
             this.W01.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.W01.Hexadecimal = true;
             this.W01.Location = new System.Drawing.Point(9, 51);
@@ -7155,283 +7425,6 @@ namespace MulanLite
             this.label71.Size = new System.Drawing.Size(28, 15);
             this.label71.TabIndex = 158;
             this.label71.Text = "29h";
-            // 
-            // groupBox19
-            // 
-            this.groupBox19.Controls.Add(this.R5F);
-            this.groupBox19.Controls.Add(this.R50);
-            this.groupBox19.Controls.Add(this.R5E);
-            this.groupBox19.Controls.Add(this.R51);
-            this.groupBox19.Controls.Add(this.R5D);
-            this.groupBox19.Controls.Add(this.R52);
-            this.groupBox19.Controls.Add(this.R5C);
-            this.groupBox19.Controls.Add(this.R53);
-            this.groupBox19.Controls.Add(this.R5B);
-            this.groupBox19.Controls.Add(this.R54);
-            this.groupBox19.Controls.Add(this.R5A);
-            this.groupBox19.Controls.Add(this.R55);
-            this.groupBox19.Controls.Add(this.R59);
-            this.groupBox19.Controls.Add(this.R56);
-            this.groupBox19.Controls.Add(this.R58);
-            this.groupBox19.Controls.Add(this.R57);
-            this.groupBox19.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox19.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.groupBox19.Location = new System.Drawing.Point(943, 13);
-            this.groupBox19.Name = "groupBox19";
-            this.groupBox19.Size = new System.Drawing.Size(54, 473);
-            this.groupBox19.TabIndex = 95;
-            this.groupBox19.TabStop = false;
-            this.groupBox19.Text = "Read";
-            // 
-            // R5F
-            // 
-            this.R5F.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5F.Hexadecimal = true;
-            this.R5F.Location = new System.Drawing.Point(6, 443);
-            this.R5F.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5F.Name = "R5F";
-            this.R5F.Size = new System.Drawing.Size(42, 22);
-            this.R5F.TabIndex = 33;
-            this.R5F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R50
-            // 
-            this.R50.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R50.Hexadecimal = true;
-            this.R50.Location = new System.Drawing.Point(6, 23);
-            this.R50.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R50.Name = "R50";
-            this.R50.Size = new System.Drawing.Size(42, 22);
-            this.R50.TabIndex = 1;
-            this.R50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R50.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R5E
-            // 
-            this.R5E.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5E.Hexadecimal = true;
-            this.R5E.Location = new System.Drawing.Point(6, 415);
-            this.R5E.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5E.Name = "R5E";
-            this.R5E.Size = new System.Drawing.Size(42, 22);
-            this.R5E.TabIndex = 32;
-            this.R5E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R5E.ValueChanged += new System.EventHandler(this.R5E_ValueChanged);
-            // 
-            // R51
-            // 
-            this.R51.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R51.Hexadecimal = true;
-            this.R51.Location = new System.Drawing.Point(6, 51);
-            this.R51.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R51.Name = "R51";
-            this.R51.Size = new System.Drawing.Size(42, 22);
-            this.R51.TabIndex = 2;
-            this.R51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R51.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R5D
-            // 
-            this.R5D.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5D.Hexadecimal = true;
-            this.R5D.Location = new System.Drawing.Point(6, 387);
-            this.R5D.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5D.Name = "R5D";
-            this.R5D.Size = new System.Drawing.Size(42, 22);
-            this.R5D.TabIndex = 31;
-            this.R5D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R52
-            // 
-            this.R52.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R52.Hexadecimal = true;
-            this.R52.Location = new System.Drawing.Point(6, 79);
-            this.R52.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R52.Name = "R52";
-            this.R52.Size = new System.Drawing.Size(42, 22);
-            this.R52.TabIndex = 3;
-            this.R52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R52.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R5C
-            // 
-            this.R5C.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5C.Hexadecimal = true;
-            this.R5C.Location = new System.Drawing.Point(6, 359);
-            this.R5C.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5C.Name = "R5C";
-            this.R5C.Size = new System.Drawing.Size(42, 22);
-            this.R5C.TabIndex = 30;
-            this.R5C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R53
-            // 
-            this.R53.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R53.Hexadecimal = true;
-            this.R53.Location = new System.Drawing.Point(6, 107);
-            this.R53.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R53.Name = "R53";
-            this.R53.Size = new System.Drawing.Size(42, 22);
-            this.R53.TabIndex = 4;
-            this.R53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R53.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R5B
-            // 
-            this.R5B.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5B.Hexadecimal = true;
-            this.R5B.Location = new System.Drawing.Point(6, 331);
-            this.R5B.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5B.Name = "R5B";
-            this.R5B.Size = new System.Drawing.Size(42, 22);
-            this.R5B.TabIndex = 29;
-            this.R5B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R54
-            // 
-            this.R54.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R54.Hexadecimal = true;
-            this.R54.Location = new System.Drawing.Point(6, 135);
-            this.R54.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R54.Name = "R54";
-            this.R54.Size = new System.Drawing.Size(42, 22);
-            this.R54.TabIndex = 5;
-            this.R54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R54.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R5A
-            // 
-            this.R5A.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R5A.Hexadecimal = true;
-            this.R5A.Location = new System.Drawing.Point(6, 303);
-            this.R5A.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R5A.Name = "R5A";
-            this.R5A.Size = new System.Drawing.Size(42, 22);
-            this.R5A.TabIndex = 28;
-            this.R5A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R55
-            // 
-            this.R55.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R55.Hexadecimal = true;
-            this.R55.Location = new System.Drawing.Point(6, 163);
-            this.R55.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R55.Name = "R55";
-            this.R55.Size = new System.Drawing.Size(42, 22);
-            this.R55.TabIndex = 6;
-            this.R55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R55.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R59
-            // 
-            this.R59.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R59.Hexadecimal = true;
-            this.R59.Location = new System.Drawing.Point(6, 275);
-            this.R59.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R59.Name = "R59";
-            this.R59.Size = new System.Drawing.Size(42, 22);
-            this.R59.TabIndex = 27;
-            this.R59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // R56
-            // 
-            this.R56.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R56.Hexadecimal = true;
-            this.R56.Location = new System.Drawing.Point(6, 191);
-            this.R56.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R56.Name = "R56";
-            this.R56.Size = new System.Drawing.Size(42, 22);
-            this.R56.TabIndex = 7;
-            this.R56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R56.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
-            // 
-            // R58
-            // 
-            this.R58.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R58.Hexadecimal = true;
-            this.R58.Location = new System.Drawing.Point(6, 247);
-            this.R58.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R58.Name = "R58";
-            this.R58.Size = new System.Drawing.Size(42, 22);
-            this.R58.TabIndex = 26;
-            this.R58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R58.ValueChanged += new System.EventHandler(this.R58_ValueChanged);
-            // 
-            // R57
-            // 
-            this.R57.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.R57.Hexadecimal = true;
-            this.R57.Location = new System.Drawing.Point(6, 219);
-            this.R57.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.R57.Name = "R57";
-            this.R57.Size = new System.Drawing.Size(42, 22);
-            this.R57.TabIndex = 8;
-            this.R57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.R57.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
             // 
             // label8
             // 
@@ -12316,6 +12309,23 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_CH3x1)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox19.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.R5F)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R50)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5E)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R51)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5D)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R52)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5C)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R53)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5B)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R54)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R5A)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R55)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R59)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R56)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R58)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.R57)).EndInit();
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.W0F)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W0E)).EndInit();
@@ -12350,23 +12360,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.R06)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R08)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R07)).EndInit();
-            this.groupBox19.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.R5F)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R50)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5E)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R51)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5D)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R52)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5C)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R53)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5B)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R54)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R5A)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R55)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R59)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R56)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R58)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.R57)).EndInit();
             this.groupBox20.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.W5F)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W5E)).EndInit();

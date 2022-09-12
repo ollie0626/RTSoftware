@@ -125,7 +125,7 @@ namespace MulanLite
                 cb_thresh_clk_missing, cb_pulse_rf, cb_debug_en, cb_debug_out, cb_vhr_open, cb_vhr_short, cb_vhr_hyst, cb_vhr_up,
                 cb_switch_filter_time, cb_open_dgl, cb_ch_num, cb_cal_modex1, cb_cal_modex8, cb_low_drive, cb_range_x8_x1, cb_min_count
             };
-            write_enable = true;
+            
 
             connected_status = RTDev.BoardInit();
             if (connected_status) this.Text = win_name + " - Connected";
@@ -376,15 +376,15 @@ namespace MulanLite
             // zone setting
             for (int i = (int)nu_startid.Value; i < (nu_mulan_qty.Value + nu_startid.Value); i++)
             {
-                int offset1 = ((i * 4) + 1) * offset;
-                int offset2 = ((i * 4) + 2) * offset;
-                int offset3 = ((i * 4) + 3) * offset;
-                int offset4 = ((i * 4) + 4) * offset;
+                int offset1 = ((i * 4) + 0) * offset;
+                int offset2 = ((i * 4) + 1) * offset;
+                int offset3 = ((i * 4) + 2) * offset;
+                int offset4 = ((i * 4) + 3) * offset;
 
-                int zone1 = ((i * 4) + 1);
-                int zone2 = ((i * 4) + 2);
-                int zone3 = ((i * 4) + 3);
-                int zone4 = ((i * 4) + 4);
+                int zone1 = ((i * 4) + 0);
+                int zone2 = ((i * 4) + 1);
+                int zone3 = ((i * 4) + 2);
+                int zone4 = ((i * 4) + 3);
 
                 ZoneNum[0] = (byte)(zone1 & 0xFF);
                 ZoneNum[1] = (byte)((zone1 & 0xFF00) >> 8);
@@ -420,7 +420,7 @@ namespace MulanLite
 
             for(int id = (int)nu_startid.Value; id < (nu_mulan_qty.Value + nu_startid.Value); id++)
             {
-                RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data);
+                RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data); // id * 4 = zone
                 uiProcessBar1.Value += 1;
                 uiProcessBar2.Value += 1;
                 System.Threading.Thread.Sleep(50);
@@ -429,7 +429,7 @@ namespace MulanLite
             }
             //uiProcessBar1.Value += 1;
             //uiProcessBar2.Value += 1;
-            //RTDev.BLUpdate();
+            RTDev.BLUpdate();
             bt.Enabled = true;
         }
 
@@ -497,7 +497,7 @@ namespace MulanLite
             System.Threading.Thread.Sleep(200);
             RTDev.BLEnable(id);
             System.Threading.Thread.Sleep(200);
-            //RTDev.BLUpdate();
+            RTDev.BLUpdate();
             uiProcessBar1.Value += 1;
             uiProcessBar2.Value += 1;
             bt.Enabled = true;
@@ -507,37 +507,65 @@ namespace MulanLite
         {
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
-            string[] FlagName_talbe = new string[]{
-                "Not Ready",                /* 0 */
-                "Disable LED",              /* 1 */
-                "Therm SHUT",               /* 2 */
-                "EFUSE CRCERR",             /* 3 */
-                "CLOCK MISSING",            /* 4 */
-                "RAISE",                    /* 5 */
-                "DONT LOWER",               /* 6 */
-                "COMM ERR",                 /* 7 */
-                "LATE UPD",                 /* 8 */
-                "OPEN",                     /* 9 */
-                "SHORT",                    /* 10 */
-                "SMALL BLANKED",            /* 11 */
-                "BIG BLANKED"               /* 12 */
-            };
-            
+            //string[] FlagName_talbe = new string[]{
+            //    // 04h
+            //    "Not Ready",                /* 0 */
+            //    "Disable LED",              /* 1 */
+            //    "Therm SHUT",               /* 2 */
+            //    "EFUSE CRCERR",             /* 3 */
+            //    "CLOCK MISSING",            /* 4 */
+            //    "RAISE",                    /* 5 */
+            //    "DONT LOWER",               /* 6 */
+            //    // 05h
+            //    "COMM ERR",                 /* 7 */
+            //    "LATE UPD",                 /* 8 */
+            //    "OPEN",                     /* 9 */
+            //    "SHORT",                    /* 10 */
+            //    "SMALL BLANKED",            /* 11 */
+            //    "BIG BLANKED"               /* 12 */
+            //};
+
             NumericUpDown[] FlagTable = new NumericUpDown[]
             {
-                flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, flag13
+                // 04h
+                flag1, flag2, flag3, flag4, flag5, flag6, flag7,
+                // 05h
+                flag8, flag9, flag10, flag11, flag12, flag13
             };
             byte[] RData = RTDev.Inquiry();
             int flag = RData[1] | (RData[2] << 8);
             if(flag != 0x00)
             {
-                for(int i = 0; i < FlagTable.Length; i++)
-                {
-                    if((flag & (1 << i)) == (1 << i))
-                        FlagTable[i].Value = 1;
-                    else
-                        FlagTable[i].Value = 0;
-                }
+                byte Reg04_bit0 = (byte)((RData[1] & 0x01) >> 0);
+                byte Reg04_bit1 = (byte)((RData[1] & 0x02) >> 1);
+                byte Reg04_bit2 = (byte)((RData[1] & 0x04) >> 2);
+                byte Reg04_bit3 = (byte)((RData[1] & 0x08) >> 3);
+                byte Reg04_bit4 = (byte)((RData[1] & 0x10) >> 4);
+                byte Reg04_bit5 = (byte)((RData[1] & 0x20) >> 5);
+                byte Reg04_bit6 = (byte)((RData[1] & 0x40) >> 6);
+
+                byte Reg05_bit0 = (byte)((RData[2] & 0x01) >> 0);
+                byte Reg05_bit1 = (byte)((RData[2] & 0x02) >> 1);
+                byte Reg05_bit2 = (byte)((RData[2] & 0x04) >> 2);
+                byte Reg05_bit3 = (byte)((RData[2] & 0x08) >> 3);
+                byte Reg05_bit4 = (byte)((RData[2] & 0x10) >> 4);
+                byte Reg05_bit5 = (byte)((RData[2] & 0x20) >> 5);
+
+                flag1.Value = Reg04_bit0;
+                flag2.Value = Reg04_bit1;
+                flag3.Value = Reg04_bit2;
+                flag4.Value = Reg04_bit3;
+                flag5.Value = Reg04_bit4;
+                flag6.Value = Reg04_bit5;
+                flag7.Value = Reg04_bit6;
+
+                flag8.Value = Reg05_bit0;
+                flag9.Value = Reg05_bit1;
+                flag10.Value = Reg05_bit2;
+                flag11.Value = Reg05_bit3;
+                flag12.Value = Reg05_bit4;
+                flag13.Value = Reg05_bit5;
+
             }
             else
             {
@@ -552,12 +580,12 @@ namespace MulanLite
             bt.Enabled = false;
             NumericUpDown[] FlagTable = new NumericUpDown[]
             {
-                flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag8, flag9, flag10, flag11, flag12, flag13
+                flag1, flag2, flag3, flag4, flag5, flag6, flag7, flag13, flag8, flag9, flag10, flag11, flag12, flag13
             };
 
             TextBox[] showFlagTable = new TextBox[]
             {
-                textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox8, textBox9, textBox10, textBox11, textBox12, textBox13
+                textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox13, textBox8, textBox9, textBox10, textBox11, textBox12, textBox13
             };
 
             for(int flag_idx = 0; flag_idx < FlagTable.Length; flag_idx++)
@@ -697,19 +725,19 @@ namespace MulanLite
                     ReadTable[i * offset + 1].Value = RData[3];
                     ReadTable[i * offset + 2].Value = RData[4];
                     ReadTable[i * offset + 3].Value = RData[5];
-                    ReadTable[i * 8 + 4].Value = RData[6];
-                    ReadTable[i * 8 + 5].Value = RData[7];
-                    ReadTable[i * 8 + 6].Value = RData[8];
-                    ReadTable[i * 8 + 7].Value = RData[9];
+                    ReadTable[i * offset + 4].Value = RData[6];
+                    ReadTable[i * offset + 5].Value = RData[7];
+                    ReadTable[i * offset + 6].Value = RData[8];
+                    ReadTable[i * offset + 7].Value = RData[9];
 
                     ReadTable[i * offset + 0].BackColor = Before[i * offset + 0] != RData[2] ? Color.Red : Color.White;
                     ReadTable[i * offset + 1].BackColor = Before[i * offset + 1] != RData[3] ? Color.Red : Color.White;
                     ReadTable[i * offset + 2].BackColor = Before[i * offset + 2] != RData[4] ? Color.Red : Color.White;
                     ReadTable[i * offset + 3].BackColor = Before[i * offset + 3] != RData[5] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 4].BackColor = Before[i * 8 + 4] != RData[6] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 5].BackColor = Before[i * 8 + 5] != RData[7] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 6].BackColor = Before[i * 8 + 6] != RData[8] ? Color.Red : Color.White;
-                    ReadTable[i * 8 + 7].BackColor = Before[i * 8 + 7] != RData[9] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 4].BackColor = Before[i * offset + 4] != RData[6] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 5].BackColor = Before[i * offset + 5] != RData[7] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 6].BackColor = Before[i * offset + 6] != RData[8] ? Color.Red : Color.White;
+                    ReadTable[i * offset + 7].BackColor = Before[i * offset + 7] != RData[9] ? Color.Red : Color.White;
                     System.Threading.Thread.Sleep(100);
                     uiProcessBar1.Value += 1;
                     uiProcessBar2.Value += 1;
@@ -1624,7 +1652,7 @@ namespace MulanLite
             ComboBox cb = (ComboBox)sender;
             cb.Enabled = false;
             byte id = (byte)nu_persentid.Value;
-            byte data = (byte)(cb_sticky.SelectedIndex << 2);
+            byte data = (byte)(cb_sticky.SelectedIndex << 3);
             byte addr = 0x32;
             byte mask = 0xF7;
             WRReg(id, mask, addr, data);
@@ -1666,7 +1694,7 @@ namespace MulanLite
 
         private void nu_pwm_code_x1_ValueChanged(object sender, EventArgs e)
         {
-            pwm_code_x1_sl.Value = (int)pwm_code_x1_sl.Value;
+            pwm_code_x1_sl.Value = (int)nu_pwm_code_x1.Value;
         }
 
         private void R3C_ValueChanged(object sender, EventArgs e)
@@ -1979,7 +2007,7 @@ namespace MulanLite
             bt_rdo_en.Style = (bit4 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
             bt_badlen_en.Style = (bit3 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
             bt_badadd_en.Style = (bit2 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
-            bt_badid.Style = (bit1 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
+            bt_badid_en.Style = (bit1 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
             bt_badcmd_en.Style = (bit0 == 1) ? UIStyle.LightBlue : UIStyle.Gray;
         }
 

@@ -395,9 +395,12 @@ namespace MulanLite
 
             byte[] CRC_buf = new byte[packet.Count];
             Array.Copy(packet.ToArray(), CRC_buf, CRC_buf.Length);
-            byte CRC8 = CRC_8(CRC_buf);
-            packet.Add(CRC8);
             packet.Add(0);
+            packet.Add(0);
+            byte CRC8 = CRC_8(packet.ToArray());
+            packet[packet.Count - 2] = CRC8;
+            packet[packet.Count - 1] = 0;
+
 
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
@@ -478,7 +481,6 @@ namespace MulanLite
             int idx = Array.IndexOf(Buffer_tmp, item);
             byte[] data = Buffer_tmp.Skip(idx).ToArray();
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
-
             WriteFunc(0x00, 0x00, 0x00, 0x00, new byte[1] { 0x00 }, 0x00);
 
             if (data.Length < 3) data = new byte[12];
