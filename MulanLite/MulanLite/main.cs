@@ -173,7 +173,8 @@ namespace MulanLite
             buffer[0] = (byte)(cb_ditheren.SelectedIndex << 4 | cb_sticky.SelectedIndex << 3 |
                                cb_m_factor.SelectedIndex << 5 | cb_cal_modex1.SelectedIndex << 2 | cb_cal_modex8.SelectedIndex << 1 | 
                                cb_centred.SelectedIndex << 7);
-            buffer[1] = (byte)(cb_allowone.SelectedIndex);
+            buffer[1] = (byte)(cb_allowone.SelectedIndex | cb_low_drive.SelectedIndex << 7 | cb_range_x8_x1.SelectedIndex << 6 | cb_ldoio.SelectedIndex << 5 |
+                                cb_clkdrive.SelectedIndex << 2 | cb_datdrive.SelectedIndex << 1);
             await WDataTask(0xff, 0x32, 1, buffer); /* id, addr, len, data */
             uiProcessBar2.Value += 1;
             uiProcessBar1.Value += 1;
@@ -889,7 +890,6 @@ namespace MulanLite
             byte[] WData = DataList.ToArray();
             byte id = (byte)nu_persentid.Value;
             await WDataTask(id, 0x28, 7, WData);
-            track_bar_en = true;
         }
 
         private void nu_CH0x8_ValueChanged(object sender, EventArgs e)
@@ -1483,44 +1483,53 @@ namespace MulanLite
 
         }
 
+        //nu_CH0x8, nu_CH1x8, nu_CH2x8, nu_CH3x8, nu_CH0x1, nu_CH1x1, nu_CH2x1, nu_CH3x1
         private void R28_ValueChanged(object sender, EventArgs e)
         {
             trackCH0x8SL.Value = (int)R28.Value;
+            nu_CH0x8.Value = R28.Value;
         }
 
         private void R29_ValueChanged(object sender, EventArgs e)
         {
             trackCH1x8SL.Value = (int)R29.Value;
+            nu_CH1x8.Value = R29.Value;
         }
 
         private void R2A_ValueChanged(object sender, EventArgs e)
         {
             trackCH2x8SL.Value = (int)R2A.Value;
+            nu_CH2x8.Value = R2A.Value;
         }
 
         private void R2B_ValueChanged(object sender, EventArgs e)
         {
             trackCH3x8SL.Value = (int)R2B.Value;
+            nu_CH3x8.Value = R2B.Value;
         }
 
         private void R2C_ValueChanged(object sender, EventArgs e)
         {
             trackCH0x1SL.Value = (int)R2C.Value;
+            nu_CH0x1.Value = R2C.Value;
         }
 
         private void R2D_ValueChanged(object sender, EventArgs e)
         {
             trackCH1x1SL.Value = (int)R2D.Value;
+            nu_CH1x1.Value = R2D.Value;
         }
 
         private void R2E_ValueChanged(object sender, EventArgs e)
         {
             trackCH2x1SL.Value = (int)R2E.Value;
+            nu_CH2x1.Value = R2E.Value;
         }
 
         private void R2F_ValueChanged(object sender, EventArgs e)
         {
             trackCH3x1SL.Value = (int)R2F.Value;
+            nu_CH3x1.Value = R2F.Value;
         }
 
         private void R34_ValueChanged(object sender, EventArgs e)

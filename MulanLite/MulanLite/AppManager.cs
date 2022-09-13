@@ -30,6 +30,12 @@ namespace MulanLite
             //RTDev.LEDPacket((byte)(buf.Length - 1), 0x0406, buf);
 
             cb_range_x8_x1.SelectedIndex = 1;
+            nu_bl_late.Value = 2;
+            cb_switch_filter_time.SelectedIndex = 10;
+            cb_blanking_time.SelectedIndex = 10;
+            cb_min_count.SelectedIndex = 9;
+
+
             nu_persentid.Value = 1;
             nu_startid.Value = 1;
             nu_endid.Value = 1;
