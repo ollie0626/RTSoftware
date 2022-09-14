@@ -759,6 +759,8 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
+            this.uiButton8 = new Sunny.UI.UIButton();
+            this.uiButton9 = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -11100,6 +11102,8 @@ namespace MulanLite
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.uiButton9);
+            this.tabPage5.Controls.Add(this.uiButton8);
             this.tabPage5.Controls.Add(this.ui_exit_test_mode);
             this.tabPage5.Controls.Add(this.groupBox40);
             this.tabPage5.Controls.Add(this.nu_Sel);
@@ -11191,7 +11195,7 @@ namespace MulanLite
             // 
             this.nu_Sel.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Sel.Hexadecimal = true;
-            this.nu_Sel.Location = new System.Drawing.Point(80, 228);
+            this.nu_Sel.Location = new System.Drawing.Point(78, 228);
             this.nu_Sel.Maximum = new decimal(new int[] {
             15,
             0,
@@ -11214,7 +11218,7 @@ namespace MulanLite
             // label138
             // 
             this.label138.AutoSize = true;
-            this.label138.Location = new System.Drawing.Point(16, 229);
+            this.label138.Location = new System.Drawing.Point(14, 229);
             this.label138.Name = "label138";
             this.label138.Size = new System.Drawing.Size(58, 15);
             this.label138.TabIndex = 134;
@@ -12153,6 +12157,32 @@ namespace MulanLite
             this.ck_CH1_en.Text = "CH1 EN";
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
+            // 
+            // uiButton8
+            // 
+            this.uiButton8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton8.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton8.Location = new System.Drawing.Point(340, 115);
+            this.uiButton8.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton8.Name = "uiButton8";
+            this.uiButton8.Size = new System.Drawing.Size(164, 29);
+            this.uiButton8.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton8.TabIndex = 141;
+            this.uiButton8.Text = "Write All without efuse";
+            this.uiButton8.Click += new System.EventHandler(this.uiButton8_Click);
+            // 
+            // uiButton9
+            // 
+            this.uiButton9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton9.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton9.Location = new System.Drawing.Point(340, 150);
+            this.uiButton9.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton9.Name = "uiButton9";
+            this.uiButton9.Size = new System.Drawing.Size(164, 29);
+            this.uiButton9.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton9.TabIndex = 142;
+            this.uiButton9.Text = "Read All without efuse";
+            this.uiButton9.Click += new System.EventHandler(this.uiButton9_Click);
             // 
             // main
             // 
@@ -13309,6 +13339,8 @@ namespace MulanLite
         private System.Windows.Forms.NumericUpDown nu_specified_data3;
         private Sunny.UI.UILabel uiLabel59;
         private Sunny.UI.UIButton uiButton7;
+        private Sunny.UI.UIButton uiButton9;
+        private Sunny.UI.UIButton uiButton8;
     }
 }
 

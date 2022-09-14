@@ -2055,6 +2055,31 @@ namespace MulanLite
         {
             RTDev.BLUpdate();
         }
+
+        private void uiButton8_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            RTDev.WriteFunc(id, WriteCmd, 0x70, 0x00, new byte[] { (byte)W70.Value });
+            RTDev.WriteFunc(id, WriteCmd, 0xF8, 0x01, new byte[] { (byte)WF8.Value, (byte)WF9.Value });
+            bt.Enabled = true;
+        }
+
+        private async void uiButton9_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            byte id = (byte)nu_persentid.Value;
+            byte[] RData;
+            RData = await RDataTask(id, 0x00, 0x70);
+            R70.Value = RData[2];
+
+            RData = await RDataTask(id, 0x1, 0xF8);
+            RF8.Value = RData[2];
+            RF9.Value = RData[3];
+            bt.Enabled = true;
+        }
     }
 }
 

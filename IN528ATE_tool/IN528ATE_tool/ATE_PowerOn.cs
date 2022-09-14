@@ -404,7 +404,7 @@ namespace IN528ATE_tool
                         System.Threading.Thread.Sleep(800);
                         Inrush = InsControl._scope.Meas_CH4MAX();
 #if Report
-                        _sheet.Cells[row, XLS_Table.I] = Inrush;
+                        _sheet.Cells[row, XLS_Table.J] = Inrush;
 #endif
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
                         MyLib.Delay1s(1);
