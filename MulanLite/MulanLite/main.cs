@@ -2080,6 +2080,30 @@ namespace MulanLite
             RF9.Value = RData[3];
             bt.Enabled = true;
         }
+
+        private void by_tm_read_to_write_Click(object sender, EventArgs e)
+        {
+            NumericUpDown[] WRTable = new NumericUpDown[]
+             {
+                W90, W91, W92, W93, W94, W95, W96, W97
+             };
+
+            NumericUpDown[] RDTable = new NumericUpDown[]
+            {
+                R90, R91, R92, R93, R94, R95, R96, R97
+            };
+
+            for(int i = 0; i < WRTable.Length; i++)
+            {
+                WRTable[i].Value = ReadTable[i].Value;
+            }
+
+            W70.Value = R70.Value;
+            WF8.Value = RF8.Value;
+            WF9.Value = RF9.Value;
+
+
+        }
     }
 }
 

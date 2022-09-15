@@ -684,6 +684,8 @@ namespace MulanLite
             this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
             this.cb_debug_en = new System.Windows.Forms.ComboBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.uiButton9 = new Sunny.UI.UIButton();
+            this.uiButton8 = new Sunny.UI.UIButton();
             this.ui_exit_test_mode = new Sunny.UI.UIButton();
             this.groupBox40 = new System.Windows.Forms.GroupBox();
             this.RE2 = new System.Windows.Forms.NumericUpDown();
@@ -759,8 +761,7 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.uiButton8 = new Sunny.UI.UIButton();
-            this.uiButton9 = new Sunny.UI.UIButton();
+            this.by_tm_read_to_write = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -11102,6 +11103,7 @@ namespace MulanLite
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.by_tm_read_to_write);
             this.tabPage5.Controls.Add(this.uiButton9);
             this.tabPage5.Controls.Add(this.uiButton8);
             this.tabPage5.Controls.Add(this.ui_exit_test_mode);
@@ -11134,6 +11136,32 @@ namespace MulanLite
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "Richtek Test Mode";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // uiButton9
+            // 
+            this.uiButton9.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton9.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton9.Location = new System.Drawing.Point(340, 150);
+            this.uiButton9.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton9.Name = "uiButton9";
+            this.uiButton9.Size = new System.Drawing.Size(164, 29);
+            this.uiButton9.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton9.TabIndex = 142;
+            this.uiButton9.Text = "Read All without efuse";
+            this.uiButton9.Click += new System.EventHandler(this.uiButton9_Click);
+            // 
+            // uiButton8
+            // 
+            this.uiButton8.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton8.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton8.Location = new System.Drawing.Point(340, 115);
+            this.uiButton8.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton8.Name = "uiButton8";
+            this.uiButton8.Size = new System.Drawing.Size(164, 29);
+            this.uiButton8.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton8.TabIndex = 141;
+            this.uiButton8.Text = "Write All without efuse";
+            this.uiButton8.Click += new System.EventHandler(this.uiButton8_Click);
             // 
             // ui_exit_test_mode
             // 
@@ -12158,31 +12186,28 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // uiButton8
+            // by_tm_read_to_write
             // 
-            this.uiButton8.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton8.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton8.Location = new System.Drawing.Point(340, 115);
-            this.uiButton8.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton8.Name = "uiButton8";
-            this.uiButton8.Size = new System.Drawing.Size(164, 29);
-            this.uiButton8.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton8.TabIndex = 141;
-            this.uiButton8.Text = "Write All without efuse";
-            this.uiButton8.Click += new System.EventHandler(this.uiButton8_Click);
-            // 
-            // uiButton9
-            // 
-            this.uiButton9.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton9.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton9.Location = new System.Drawing.Point(340, 150);
-            this.uiButton9.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton9.Name = "uiButton9";
-            this.uiButton9.Size = new System.Drawing.Size(164, 29);
-            this.uiButton9.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton9.TabIndex = 142;
-            this.uiButton9.Text = "Read All without efuse";
-            this.uiButton9.Click += new System.EventHandler(this.uiButton9_Click);
+            this.by_tm_read_to_write.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.by_tm_read_to_write.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.by_tm_read_to_write.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.by_tm_read_to_write.Location = new System.Drawing.Point(13, 263);
+            this.by_tm_read_to_write.MinimumSize = new System.Drawing.Size(1, 1);
+            this.by_tm_read_to_write.Name = "by_tm_read_to_write";
+            this.by_tm_read_to_write.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.by_tm_read_to_write.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.Size = new System.Drawing.Size(100, 22);
+            this.by_tm_read_to_write.Style = Sunny.UI.UIStyle.Custom;
+            this.by_tm_read_to_write.TabIndex = 64;
+            this.by_tm_read_to_write.Text = "<<";
+            this.by_tm_read_to_write.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.by_tm_read_to_write.Click += new System.EventHandler(this.by_tm_read_to_write_Click);
             // 
             // main
             // 
@@ -13341,6 +13366,7 @@ namespace MulanLite
         private Sunny.UI.UIButton uiButton7;
         private Sunny.UI.UIButton uiButton9;
         private Sunny.UI.UIButton uiButton8;
+        private Sunny.UI.UIButton by_tm_read_to_write;
     }
 }
 
