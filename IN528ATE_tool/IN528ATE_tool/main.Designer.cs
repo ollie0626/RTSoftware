@@ -261,23 +261,24 @@ namespace IN528ATE_tool
             this.uibt_run.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_run.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_run.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_run.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_run.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_run.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_run.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_run.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_run.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_run.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_run.Location = new System.Drawing.Point(679, 39);
             this.uibt_run.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_run.Name = "uibt_run";
             this.uibt_run.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_run.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_run.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_run.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_run.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_run.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_run.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_run.Size = new System.Drawing.Size(154, 35);
             this.uibt_run.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_run.StyleCustomMode = true;
             this.uibt_run.Symbol = 61515;
             this.uibt_run.TabIndex = 15;
             this.uibt_run.Text = "RUN";
+            this.uibt_run.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_run.Click += new System.EventHandler(this.uibt_run_Click);
             // 
             // uiSymbolButton1
@@ -285,23 +286,24 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiSymbolButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiSymbolButton1.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiSymbolButton1.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton1.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiSymbolButton1.Location = new System.Drawing.Point(679, 120);
             this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton1.Name = "uiSymbolButton1";
             this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiSymbolButton1.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uiSymbolButton1.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uiSymbolButton1.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton1.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton1.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton1.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton1.Size = new System.Drawing.Size(154, 35);
             this.uiSymbolButton1.Style = Sunny.UI.UIStyle.Gray;
             this.uiSymbolButton1.StyleCustomMode = true;
             this.uiSymbolButton1.Symbol = 61517;
             this.uiSymbolButton1.TabIndex = 16;
             this.uiSymbolButton1.Text = "STOP";
+            this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton1.Click += new System.EventHandler(this.uiSymbolButton1_Click);
             // 
             // led_osc
@@ -311,6 +313,7 @@ namespace IN528ATE_tool
             this.led_osc.Size = new System.Drawing.Size(16, 14);
             this.led_osc.TabIndex = 17;
             this.led_osc.Text = "uiLedBulb1";
+            this.led_osc.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_power
             // 
@@ -319,6 +322,7 @@ namespace IN528ATE_tool
             this.led_power.Size = new System.Drawing.Size(16, 14);
             this.led_power.TabIndex = 18;
             this.led_power.Text = "uiLedBulb2";
+            this.led_power.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_eload
             // 
@@ -327,6 +331,7 @@ namespace IN528ATE_tool
             this.led_eload.Size = new System.Drawing.Size(16, 14);
             this.led_eload.TabIndex = 19;
             this.led_eload.Text = "uiLedBulb3";
+            this.led_eload.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // nu_eload
             // 
@@ -367,23 +372,24 @@ namespace IN528ATE_tool
             this.uibt_osc_connect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_osc_connect.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_osc_connect.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_osc_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_osc_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_osc_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_osc_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_osc_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_osc_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_osc_connect.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_osc_connect.Location = new System.Drawing.Point(538, 39);
             this.uibt_osc_connect.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_osc_connect.Name = "uibt_osc_connect";
             this.uibt_osc_connect.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_osc_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_osc_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_osc_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_osc_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_osc_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_osc_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_osc_connect.Size = new System.Drawing.Size(135, 22);
             this.uibt_osc_connect.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_osc_connect.StyleCustomMode = true;
             this.uibt_osc_connect.Symbol = 61633;
             this.uibt_osc_connect.TabIndex = 0;
             this.uibt_osc_connect.Text = "OSC Connect";
+            this.uibt_osc_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_power_connect
@@ -391,23 +397,24 @@ namespace IN528ATE_tool
             this.uibt_power_connect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_power_connect.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_power_connect.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_power_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_power_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_power_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_power_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_power_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_power_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_power_connect.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_power_connect.Location = new System.Drawing.Point(378, 70);
             this.uibt_power_connect.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_power_connect.Name = "uibt_power_connect";
             this.uibt_power_connect.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_power_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_power_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_power_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_power_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_power_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_power_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_power_connect.Size = new System.Drawing.Size(143, 22);
             this.uibt_power_connect.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_power_connect.StyleCustomMode = true;
             this.uibt_power_connect.Symbol = 61633;
             this.uibt_power_connect.TabIndex = 1;
             this.uibt_power_connect.Text = "Power Connect";
+            this.uibt_power_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_power_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // ui_eload_connect
@@ -415,23 +422,24 @@ namespace IN528ATE_tool
             this.ui_eload_connect.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ui_eload_connect.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.ui_eload_connect.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.ui_eload_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.ui_eload_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.ui_eload_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.ui_eload_connect.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.ui_eload_connect.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.ui_eload_connect.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.ui_eload_connect.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ui_eload_connect.Location = new System.Drawing.Point(378, 96);
             this.ui_eload_connect.MinimumSize = new System.Drawing.Size(1, 1);
             this.ui_eload_connect.Name = "ui_eload_connect";
             this.ui_eload_connect.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.ui_eload_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.ui_eload_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.ui_eload_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.ui_eload_connect.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.ui_eload_connect.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.ui_eload_connect.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.ui_eload_connect.Size = new System.Drawing.Size(143, 22);
             this.ui_eload_connect.Style = Sunny.UI.UIStyle.Gray;
             this.ui_eload_connect.StyleCustomMode = true;
             this.ui_eload_connect.Symbol = 61633;
             this.ui_eload_connect.TabIndex = 2;
             this.ui_eload_connect.Text = "ELoad Connect";
+            this.ui_eload_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.ui_eload_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_34970
@@ -439,23 +447,24 @@ namespace IN528ATE_tool
             this.uibt_34970.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_34970.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_34970.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_34970.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_34970.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_34970.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_34970.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_34970.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_34970.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_34970.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_34970.Location = new System.Drawing.Point(378, 125);
             this.uibt_34970.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_34970.Name = "uibt_34970";
             this.uibt_34970.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_34970.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_34970.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_34970.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_34970.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_34970.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_34970.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_34970.Size = new System.Drawing.Size(143, 22);
             this.uibt_34970.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_34970.StyleCustomMode = true;
             this.uibt_34970.Symbol = 61633;
             this.uibt_34970.TabIndex = 3;
             this.uibt_34970.Text = "34970 Connect";
+            this.uibt_34970.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_34970.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_34970A
@@ -478,6 +487,7 @@ namespace IN528ATE_tool
             this.led_37940.Size = new System.Drawing.Size(16, 14);
             this.led_37940.TabIndex = 27;
             this.led_37940.Text = "uiLedBulb4";
+            this.led_37940.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // cb_item
             // 
@@ -523,17 +533,17 @@ namespace IN528ATE_tool
             this.uibt_chamber.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_chamber.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_chamber.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_chamber.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_chamber.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_chamber.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_chamber.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_chamber.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_chamber.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_chamber.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_chamber.Location = new System.Drawing.Point(378, 153);
             this.uibt_chamber.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_chamber.Name = "uibt_chamber";
             this.uibt_chamber.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_chamber.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_chamber.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_chamber.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_chamber.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_chamber.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_chamber.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_chamber.Size = new System.Drawing.Size(143, 22);
             this.uibt_chamber.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_chamber.StyleCustomMode = true;
@@ -541,6 +551,7 @@ namespace IN528ATE_tool
             this.uibt_chamber.TabIndex = 4;
             this.uibt_chamber.Text = "Chamber Connect";
             this.uibt_chamber.Visible = false;
+            this.uibt_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_chamber.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_chamber
@@ -563,6 +574,7 @@ namespace IN528ATE_tool
             this.led_chamber.Size = new System.Drawing.Size(16, 14);
             this.led_chamber.TabIndex = 38;
             this.led_chamber.Text = "uiLedBulb4";
+            this.led_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label10
             // 
@@ -673,6 +685,7 @@ namespace IN528ATE_tool
             // 
             // uiProcessBar1
             // 
+            this.uiProcessBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             this.uiProcessBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiProcessBar1.Location = new System.Drawing.Point(5, 182);
             this.uiProcessBar1.MinimumSize = new System.Drawing.Size(70, 3);
@@ -681,6 +694,7 @@ namespace IN528ATE_tool
             this.uiProcessBar1.Style = Sunny.UI.UIStyle.Custom;
             this.uiProcessBar1.TabIndex = 49;
             this.uiProcessBar1.Text = "uiProcessBar1";
+            this.uiProcessBar1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label15
             // 
@@ -882,23 +896,24 @@ namespace IN528ATE_tool
             this.uibt_kill.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_kill.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_kill.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_kill.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_kill.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_kill.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_kill.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_kill.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_kill.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_kill.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_kill.Location = new System.Drawing.Point(679, 161);
             this.uibt_kill.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_kill.Name = "uibt_kill";
             this.uibt_kill.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_kill.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_kill.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_kill.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_kill.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_kill.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_kill.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_kill.Size = new System.Drawing.Size(154, 35);
             this.uibt_kill.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_kill.StyleCustomMode = true;
             this.uibt_kill.Symbol = 61944;
             this.uibt_kill.TabIndex = 52;
             this.uibt_kill.Text = "Kill Excel";
+            this.uibt_kill.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_kill.Click += new System.EventHandler(this.uibt_kill_Click);
             // 
             // uibut_binfile
@@ -906,23 +921,24 @@ namespace IN528ATE_tool
             this.uibut_binfile.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibut_binfile.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibut_binfile.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibut_binfile.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibut_binfile.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibut_binfile.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibut_binfile.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibut_binfile.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibut_binfile.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibut_binfile.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibut_binfile.Location = new System.Drawing.Point(15, 38);
             this.uibut_binfile.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibut_binfile.Name = "uibut_binfile";
             this.uibut_binfile.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibut_binfile.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibut_binfile.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibut_binfile.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibut_binfile.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibut_binfile.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibut_binfile.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibut_binfile.Size = new System.Drawing.Size(109, 27);
             this.uibut_binfile.Style = Sunny.UI.UIStyle.Gray;
             this.uibut_binfile.StyleCustomMode = true;
             this.uibut_binfile.Symbol = 61787;
             this.uibut_binfile.TabIndex = 53;
             this.uibut_binfile.Text = "Bin File";
+            this.uibut_binfile.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibut_binfile.Click += new System.EventHandler(this.uibut_binfile_Click);
             // 
             // uibt_Wavepath
@@ -930,23 +946,24 @@ namespace IN528ATE_tool
             this.uibt_Wavepath.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_Wavepath.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_Wavepath.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_Wavepath.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_Wavepath.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_Wavepath.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_Wavepath.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_Wavepath.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_Wavepath.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_Wavepath.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_Wavepath.Location = new System.Drawing.Point(15, 67);
             this.uibt_Wavepath.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_Wavepath.Name = "uibt_Wavepath";
             this.uibt_Wavepath.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_Wavepath.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_Wavepath.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_Wavepath.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_Wavepath.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_Wavepath.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_Wavepath.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_Wavepath.Size = new System.Drawing.Size(109, 27);
             this.uibt_Wavepath.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_Wavepath.StyleCustomMode = true;
             this.uibt_Wavepath.Symbol = 61717;
             this.uibt_Wavepath.TabIndex = 54;
             this.uibt_Wavepath.Text = "Wave Path";
+            this.uibt_Wavepath.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_Wavepath.Click += new System.EventHandler(this.uibt_Wavepath_Click);
             // 
             // uibt_specify
@@ -954,23 +971,24 @@ namespace IN528ATE_tool
             this.uibt_specify.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uibt_specify.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uibt_specify.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_specify.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_specify.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_specify.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_specify.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_specify.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_specify.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_specify.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uibt_specify.Location = new System.Drawing.Point(15, 96);
             this.uibt_specify.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_specify.Name = "uibt_specify";
             this.uibt_specify.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uibt_specify.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uibt_specify.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uibt_specify.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uibt_specify.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uibt_specify.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uibt_specify.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_specify.Size = new System.Drawing.Size(109, 27);
             this.uibt_specify.Style = Sunny.UI.UIStyle.Gray;
             this.uibt_specify.StyleCustomMode = true;
             this.uibt_specify.Symbol = 61462;
             this.uibt_specify.TabIndex = 55;
             this.uibt_specify.Text = "Specify Bin";
+            this.uibt_specify.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_specify.Click += new System.EventHandler(this.uibt_specify_Click);
             // 
             // openFileDialog1
@@ -1031,23 +1049,24 @@ namespace IN528ATE_tool
             this.uiSymbolButton2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiSymbolButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.uiSymbolButton2.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiSymbolButton2.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uiSymbolButton2.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uiSymbolButton2.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton2.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton2.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiSymbolButton2.Location = new System.Drawing.Point(538, 70);
             this.uiSymbolButton2.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton2.Name = "uiSymbolButton2";
             this.uiSymbolButton2.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiSymbolButton2.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.uiSymbolButton2.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.uiSymbolButton2.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.uiSymbolButton2.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.uiSymbolButton2.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
+            this.uiSymbolButton2.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton2.Size = new System.Drawing.Size(135, 24);
             this.uiSymbolButton2.Style = Sunny.UI.UIStyle.Gray;
             this.uiSymbolButton2.StyleCustomMode = true;
             this.uiSymbolButton2.Symbol = 261912;
             this.uiSymbolButton2.TabIndex = 59;
             this.uiSymbolButton2.Text = "Debug";
+            this.uiSymbolButton2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
             // uibt_pause
@@ -1072,6 +1091,7 @@ namespace IN528ATE_tool
             this.uibt_pause.Symbol = 61516;
             this.uibt_pause.TabIndex = 60;
             this.uibt_pause.Text = "Pause";
+            this.uibt_pause.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_pause.Click += new System.EventHandler(this.uibt_pause_Click);
             // 
             // nu_offtime_scale
@@ -1602,8 +1622,7 @@ namespace IN528ATE_tool
             // 
             // main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1027, 575);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
             this.Controls.Add(this.tabControl1);
@@ -1656,6 +1675,7 @@ namespace IN528ATE_tool
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.MaximumSize = new System.Drawing.Size(1300, 771);
             this.Name = "main";
@@ -1667,6 +1687,7 @@ namespace IN528ATE_tool
             this.TitleColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
             this.TitleFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleHeight = 31;
+            this.ZoomScaleRect = new System.Drawing.Rectangle(15, 15, 1027, 575);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
             this.groupBox1.ResumeLayout(false);

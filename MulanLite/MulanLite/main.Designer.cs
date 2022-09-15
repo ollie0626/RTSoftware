@@ -684,6 +684,7 @@ namespace MulanLite
             this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
             this.cb_debug_en = new System.Windows.Forms.ComboBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.by_tm_read_to_write = new Sunny.UI.UIButton();
             this.uiButton9 = new Sunny.UI.UIButton();
             this.uiButton8 = new Sunny.UI.UIButton();
             this.ui_exit_test_mode = new Sunny.UI.UIButton();
@@ -761,7 +762,6 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.by_tm_read_to_write = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -11137,6 +11137,29 @@ namespace MulanLite
             this.tabPage5.Text = "Richtek Test Mode";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // by_tm_read_to_write
+            // 
+            this.by_tm_read_to_write.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.by_tm_read_to_write.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.by_tm_read_to_write.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.by_tm_read_to_write.Location = new System.Drawing.Point(13, 263);
+            this.by_tm_read_to_write.MinimumSize = new System.Drawing.Size(1, 1);
+            this.by_tm_read_to_write.Name = "by_tm_read_to_write";
+            this.by_tm_read_to_write.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
+            this.by_tm_read_to_write.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.by_tm_read_to_write.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
+            this.by_tm_read_to_write.Size = new System.Drawing.Size(100, 22);
+            this.by_tm_read_to_write.Style = Sunny.UI.UIStyle.Custom;
+            this.by_tm_read_to_write.TabIndex = 64;
+            this.by_tm_read_to_write.Text = "<<";
+            this.by_tm_read_to_write.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.by_tm_read_to_write.Click += new System.EventHandler(this.by_tm_read_to_write_Click);
+            // 
             // uiButton9
             // 
             this.uiButton9.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -12186,29 +12209,6 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // by_tm_read_to_write
-            // 
-            this.by_tm_read_to_write.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.by_tm_read_to_write.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.by_tm_read_to_write.FillColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.by_tm_read_to_write.FillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.by_tm_read_to_write.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.by_tm_read_to_write.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.by_tm_read_to_write.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.by_tm_read_to_write.Location = new System.Drawing.Point(13, 263);
-            this.by_tm_read_to_write.MinimumSize = new System.Drawing.Size(1, 1);
-            this.by_tm_read_to_write.Name = "by_tm_read_to_write";
-            this.by_tm_read_to_write.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.by_tm_read_to_write.RectHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.by_tm_read_to_write.RectPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.by_tm_read_to_write.RectSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
-            this.by_tm_read_to_write.Size = new System.Drawing.Size(100, 22);
-            this.by_tm_read_to_write.Style = Sunny.UI.UIStyle.Custom;
-            this.by_tm_read_to_write.TabIndex = 64;
-            this.by_tm_read_to_write.Text = "<<";
-            this.by_tm_read_to_write.TipsFont = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.by_tm_read_to_write.Click += new System.EventHandler(this.by_tm_read_to_write_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -12226,6 +12226,7 @@ namespace MulanLite
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.uiButton6);
             this.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.MaximumSize = new System.Drawing.Size(2500, 977);
             this.Name = "main";

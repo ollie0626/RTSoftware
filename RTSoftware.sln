@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MulanLite", "MulanLite\Mula
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuckTool", "BuckTool\BuckTool.csproj", "{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OLEDLite", "OLEDLite\OLEDLite.csproj", "{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,6 +73,14 @@ Global
 		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|x86.ActiveCfg = Release|Any CPU
 		{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}.Release|x86.Build.0 = Release|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Debug|x86.Build.0 = Debug|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|x86.ActiveCfg = Release|Any CPU
+		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
