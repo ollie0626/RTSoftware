@@ -47,7 +47,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.2";
+        string App_name = "Buck Tool v1.3";
 
         public void GUInit()
         {
@@ -188,7 +188,8 @@ namespace BuckTool
                     test_parameter.Iout_table = MyLib.DGData(Eload_DG);
                     break;
                 case 1: // line regulation
-                    test_parameter.Vin_table = MyLib.TBData(tb_Vin);
+                    // start, stop, step
+                    test_parameter.Vin_table = MyLib.TBData(tb_lineVin);
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 case 3: // Lx 
@@ -410,6 +411,20 @@ namespace BuckTool
 
                 for(int i = 0; i < 2; i++)
                 {
+                    test_parameter.Vin_table.Clear();
+                    test_parameter.Iout_table.Clear();
+                    if (i == 0)
+                    {
+                        test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+                        test_parameter.Iout_table = MyLib.DGData(Eload_DG);
+                    }
+                    else if (i == 1)
+                    {
+                        test_parameter.Vin_table = MyLib.TBData(tb_lineVin);
+                        test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                    }
+
+
                     ate_table[i].temp = 25;
                     ate_table[i].ATETask();
                 }

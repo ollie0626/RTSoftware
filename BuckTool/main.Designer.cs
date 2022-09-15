@@ -111,6 +111,8 @@ namespace BuckTool
             this.uibt_save = new Sunny.UI.UISymbolButton();
             this.label11 = new System.Windows.Forms.Label();
             this.nu_Videa = new System.Windows.Forms.NumericUpDown();
+            this.tb_lineVin = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -472,7 +474,7 @@ namespace BuckTool
             this.groupBox1.Controls.Add(this.bt_load_sub);
             this.groupBox1.Controls.Add(this.bt_load_add);
             this.groupBox1.Controls.Add(this.Eload_DG);
-            this.groupBox1.Location = new System.Drawing.Point(11, 430);
+            this.groupBox1.Location = new System.Drawing.Point(11, 456);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(403, 263);
             this.groupBox1.TabIndex = 64;
@@ -628,7 +630,7 @@ namespace BuckTool
             this.groupBox2.Controls.Add(this.tb_freqdes1);
             this.groupBox2.Controls.Add(this.ck_freq2);
             this.groupBox2.Controls.Add(this.ck_freq1);
-            this.groupBox2.Location = new System.Drawing.Point(11, 224);
+            this.groupBox2.Location = new System.Drawing.Point(11, 250);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(403, 44);
             this.groupBox2.TabIndex = 69;
@@ -1019,7 +1021,7 @@ namespace BuckTool
             this.groupBox4.Controls.Add(this.label6);
             this.groupBox4.Controls.Add(this.nu_Freq);
             this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Location = new System.Drawing.Point(14, 274);
+            this.groupBox4.Location = new System.Drawing.Point(14, 300);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(399, 150);
             this.groupBox4.TabIndex = 83;
@@ -1218,7 +1220,7 @@ namespace BuckTool
             this.uibt_load.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_load.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_load.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_load.Location = new System.Drawing.Point(163, 194);
+            this.uibt_load.Location = new System.Drawing.Point(165, 222);
             this.uibt_load.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_load.Name = "uibt_load";
             this.uibt_load.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -1244,7 +1246,7 @@ namespace BuckTool
             this.uibt_save.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_save.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_save.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_save.Location = new System.Drawing.Point(40, 194);
+            this.uibt_save.Location = new System.Drawing.Point(42, 222);
             this.uibt_save.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_save.Name = "uibt_save";
             this.uibt_save.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -1264,7 +1266,7 @@ namespace BuckTool
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(286, 197);
+            this.label11.Location = new System.Drawing.Point(288, 225);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(38, 15);
             this.label11.TabIndex = 89;
@@ -1273,7 +1275,7 @@ namespace BuckTool
             // nu_Videa
             // 
             this.nu_Videa.DecimalPlaces = 2;
-            this.nu_Videa.Location = new System.Drawing.Point(325, 193);
+            this.nu_Videa.Location = new System.Drawing.Point(327, 221);
             this.nu_Videa.Maximum = new decimal(new int[] {
             12,
             0,
@@ -1289,11 +1291,30 @@ namespace BuckTool
             0,
             0});
             // 
+            // tb_lineVin
+            // 
+            this.tb_lineVin.Location = new System.Drawing.Point(67, 194);
+            this.tb_lineVin.Name = "tb_lineVin";
+            this.tb_lineVin.Size = new System.Drawing.Size(231, 23);
+            this.tb_lineVin.TabIndex = 91;
+            this.tb_lineVin.Text = "3,5,0.1";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(11, 199);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(50, 15);
+            this.label12.TabIndex = 90;
+            this.label12.Text = "Line Vin";
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(699, 730);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.Controls.Add(this.tb_lineVin);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.nu_Videa);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.uibt_save);
@@ -1460,6 +1481,8 @@ namespace BuckTool
         private Sunny.UI.UISymbolButton uibt_save;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown nu_Videa;
+        private System.Windows.Forms.TextBox tb_lineVin;
+        private System.Windows.Forms.Label label12;
     }
 }
 
