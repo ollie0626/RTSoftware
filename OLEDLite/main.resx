@@ -117,18 +117,498 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="materialButton2.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="materialButton2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="materialButton2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>114, 9</value>
+  </data>
+  <data name="materialButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 6, 4, 6</value>
+  </data>
+  <data name="materialButton2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 36</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="materialButton2.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="materialButton2.Text" xml:space="preserve">
+    <value>Scan Ins.</value>
+  </data>
+  <data name="&gt;&gt;materialButton2.Name" xml:space="preserve">
+    <value>materialButton2</value>
+  </data>
+  <data name="&gt;&gt;materialButton2.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialButton2.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialButton2.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="materialMultiLineTextBox21.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="materialMultiLineTextBox21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 379</value>
+  </data>
+  <data name="materialMultiLineTextBox21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>305, 213</value>
+  </data>
+  <data name="materialMultiLineTextBox21.TabIndex" type="System.Int32, mscorlib">
+    <value>14</value>
+  </data>
+  <data name="materialMultiLineTextBox21.Text" xml:space="preserve">
+    <value>materialMultiLineTextBox21</value>
+  </data>
+  <data name="&gt;&gt;materialMultiLineTextBox21.Name" xml:space="preserve">
+    <value>materialMultiLineTextBox21</value>
+  </data>
+  <data name="&gt;&gt;materialMultiLineTextBox21.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialMultiLineTextBox2, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialMultiLineTextBox21.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialMultiLineTextBox21.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="materialButton6.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="materialButton6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="materialButton6.Location" type="System.Drawing.Point, System.Drawing">
+    <value>76, 336</value>
+  </data>
+  <data name="materialButton6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 6, 4, 6</value>
+  </data>
+  <data name="materialButton6.Size" type="System.Drawing.Size, System.Drawing">
+    <value>68, 36</value>
+  </data>
+  <data name="materialButton6.TabIndex" type="System.Int32, mscorlib">
+    <value>13</value>
+  </data>
+  <data name="materialButton6.Text" xml:space="preserve">
+    <value>Query</value>
+  </data>
+  <data name="&gt;&gt;materialButton6.Name" xml:space="preserve">
+    <value>materialButton6</value>
+  </data>
+  <data name="&gt;&gt;materialButton6.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialButton6.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialButton6.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="materialCheckbox1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="materialCheckbox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 62</value>
+  </data>
+  <data name="materialCheckbox1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="materialCheckbox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 37</value>
+  </data>
+  <data name="materialCheckbox1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox1.Name" xml:space="preserve">
+    <value>materialCheckbox1</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox1.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckbox, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox1.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="materialButton5.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="materialButton5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="materialButton5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 336</value>
+  </data>
+  <data name="materialButton5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 6, 4, 6</value>
+  </data>
+  <data name="materialButton5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>65, 36</value>
+  </data>
+  <data name="materialButton5.TabIndex" type="System.Int32, mscorlib">
+    <value>12</value>
+  </data>
+  <data name="materialButton5.Text" xml:space="preserve">
+    <value>Write</value>
+  </data>
+  <data name="&gt;&gt;materialButton5.Name" xml:space="preserve">
+    <value>materialButton5</value>
+  </data>
+  <data name="&gt;&gt;materialButton5.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialButton5.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialButton5.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="materialCheckbox4.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="materialCheckbox4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="materialCheckbox4.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 224</value>
+  </data>
+  <data name="materialCheckbox4.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="materialCheckbox4.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 37</value>
+  </data>
+  <data name="materialCheckbox4.TabIndex" type="System.Int32, mscorlib">
+    <value>11</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox4.Name" xml:space="preserve">
+    <value>materialCheckbox4</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox4.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckbox, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox4.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox4.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 307</value>
+  </data>
+  <data name="comboBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>306, 20</value>
+  </data>
+  <data name="comboBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Name" xml:space="preserve">
+    <value>comboBox1</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="materialTextBox21.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="materialTextBox21.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16px</value>
+  </data>
+  <data name="materialTextBox21.Hint" xml:space="preserve">
+    <value>Input Scope Resource name</value>
+  </data>
+  <data name="materialTextBox21.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 51</value>
+  </data>
+  <data name="materialTextBox21.PrefixSuffixText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="materialTextBox21.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="materialTextBox21.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 48</value>
+  </data>
+  <data name="materialTextBox21.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="materialTextBox21.Text" xml:space="preserve">
+    <value>TCPIP0::168.254.95.0::hislip0::INSTR</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox21.Name" xml:space="preserve">
+    <value>materialTextBox21</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox21.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialTextBox2, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox21.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox21.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="materialLabel1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="materialLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Roboto, 14px</value>
+  </data>
+  <data name="materialLabel1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 284</value>
+  </data>
+  <data name="materialLabel1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 19</value>
+  </data>
+  <data name="materialLabel1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="materialLabel1.Text" xml:space="preserve">
+    <value>Ins. Command Test</value>
+  </data>
+  <data name="&gt;&gt;materialLabel1.Name" xml:space="preserve">
+    <value>materialLabel1</value>
+  </data>
+  <data name="&gt;&gt;materialLabel1.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialLabel, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialLabel1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialLabel1.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="materialTextBox24.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="materialTextBox24.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16px</value>
+  </data>
+  <data name="materialTextBox24.Hint" xml:space="preserve">
+    <value>Input 34970A Resource name</value>
+  </data>
+  <data name="materialTextBox24.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 213</value>
+  </data>
+  <data name="materialTextBox24.PrefixSuffixText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="materialTextBox24.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="materialTextBox24.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 48</value>
+  </data>
+  <data name="materialTextBox24.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="materialTextBox24.Text" xml:space="preserve">
+    <value>GPIB0::6::INSTR</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox24.Name" xml:space="preserve">
+    <value>materialTextBox24</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox24.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialTextBox2, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox24.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox24.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="materialButton1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="materialButton1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 9</value>
+  </data>
+  <data name="materialButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 6, 4, 6</value>
+  </data>
+  <data name="materialButton1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>98, 36</value>
+  </data>
+  <data name="materialButton1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="materialButton1.Text" xml:space="preserve">
+    <value>Connects</value>
+  </data>
+  <data name="&gt;&gt;materialButton1.Name" xml:space="preserve">
+    <value>materialButton1</value>
+  </data>
+  <data name="&gt;&gt;materialButton1.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialButton1.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialButton1.ZOrder" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="materialTextBox22.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="materialTextBox22.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16px</value>
+  </data>
+  <data name="materialTextBox22.Hint" xml:space="preserve">
+    <value>Input Power supply Resource name</value>
+  </data>
+  <data name="materialTextBox22.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 105</value>
+  </data>
+  <data name="materialTextBox22.PrefixSuffixText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="materialTextBox22.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="materialTextBox22.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 48</value>
+  </data>
+  <data name="materialTextBox22.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="materialTextBox22.Text" xml:space="preserve">
+    <value>GPIB0::5::INSTR</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox22.Name" xml:space="preserve">
+    <value>materialTextBox22</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox22.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialTextBox2, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox22.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox22.ZOrder" xml:space="preserve">
+    <value>11</value>
+  </data>
+  <data name="materialCheckbox3.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="materialCheckbox3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="materialCheckbox3.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 170</value>
+  </data>
+  <data name="materialCheckbox3.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="materialCheckbox3.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 37</value>
+  </data>
+  <data name="materialCheckbox3.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox3.Name" xml:space="preserve">
+    <value>materialCheckbox3</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox3.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckbox, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox3.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox3.ZOrder" xml:space="preserve">
+    <value>12</value>
+  </data>
+  <data name="materialCheckbox2.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="materialCheckbox2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="materialCheckbox2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>5, 116</value>
+  </data>
+  <data name="materialCheckbox2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="materialCheckbox2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>35, 37</value>
+  </data>
+  <data name="materialCheckbox2.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox2.Name" xml:space="preserve">
+    <value>materialCheckbox2</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox2.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialCheckbox, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox2.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialCheckbox2.ZOrder" xml:space="preserve">
+    <value>13</value>
+  </data>
+  <data name="materialTextBox23.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
+    <value>None</value>
+  </data>
+  <data name="materialTextBox23.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 16px</value>
+  </data>
+  <data name="materialTextBox23.Hint" xml:space="preserve">
+    <value>Input ELoad Resource name</value>
+  </data>
+  <data name="materialTextBox23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>43, 159</value>
+  </data>
+  <data name="materialTextBox23.PrefixSuffixText" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="materialTextBox23.RightToLeft" type="System.Windows.Forms.RightToLeft, System.Windows.Forms">
+    <value>No</value>
+  </data>
+  <data name="materialTextBox23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>297, 48</value>
+  </data>
+  <data name="materialTextBox23.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="materialTextBox23.Text" xml:space="preserve">
+    <value>GPIB0::7::INSTR</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox23.Name" xml:space="preserve">
+    <value>materialTextBox23</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox23.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialTextBox2, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox23.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;materialTextBox23.ZOrder" xml:space="preserve">
+    <value>14</value>
+  </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabPage1.Padding" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>812, 399</value>
+    <value>549, 612</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="tabPage1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
@@ -154,13 +634,13 @@
     <value>3, 3, 3, 3</value>
   </data>
   <data name="tabPage2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>812, 399</value>
+    <value>549, 612</value>
   </data>
   <data name="tabPage2.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="tabPage2.Text" xml:space="preserve">
-    <value>tabPage2</value>
+    <value>TDMA</value>
   </data>
   <data name="&gt;&gt;tabPage2.Name" xml:space="preserve">
     <value>tabPage2</value>
@@ -178,7 +658,7 @@
     <value>6, 97</value>
   </data>
   <data name="materialTabControl1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>820, 425</value>
+    <value>557, 638</value>
   </data>
   <data name="materialTabControl1.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -229,7 +709,7 @@
     <value>6, 12</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>832, 528</value>
+    <value>569, 751</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

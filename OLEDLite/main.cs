@@ -27,7 +27,8 @@ namespace OLEDLite
             materialTabSelector1.Width = this.Width;
             materialTabSelector1.Height = 25;
             this.Text = win_name;
-            this.WindowState = FormWindowState.Maximized;
+            
+            //this.WindowState = FormWindowState.Maximized;
         }
 
         private void main_Resize(object sender, EventArgs e)
