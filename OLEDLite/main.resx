@@ -117,41 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="materialButton2.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
-    <value>GrowAndShrink</value>
-  </data>
-  <data name="materialButton2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>Off</value>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="listBox1.ItemHeight" type="System.Int32, mscorlib">
+    <value>12</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="materialButton2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>114, 9</value>
+  <data name="listBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 54</value>
   </data>
-  <data name="materialButton2.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
-    <value>4, 6, 4, 6</value>
+  <data name="listBox1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>192, 208</value>
   </data>
-  <data name="materialButton2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>91, 36</value>
+  <data name="listBox1.TabIndex" type="System.Int32, mscorlib">
+    <value>16</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="materialButton2.TabIndex" type="System.Int32, mscorlib">
-    <value>15</value>
+  <data name="&gt;&gt;listBox1.Name" xml:space="preserve">
+    <value>listBox1</value>
   </data>
-  <data name="materialButton2.Text" xml:space="preserve">
-    <value>Scan Ins.</value>
+  <data name="&gt;&gt;listBox1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ListBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;materialButton2.Name" xml:space="preserve">
-    <value>materialButton2</value>
-  </data>
-  <data name="&gt;&gt;materialButton2.Type" xml:space="preserve">
-    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
-  </data>
-  <data name="&gt;&gt;materialButton2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;listBox1.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;materialButton2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;listBox1.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="bt_scanIns.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+    <value>GrowAndShrink</value>
+  </data>
+  <data name="bt_scanIns.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>Off</value>
+  </data>
+  <data name="bt_scanIns.Location" type="System.Drawing.Point, System.Drawing">
+    <value>346, 9</value>
+  </data>
+  <data name="bt_scanIns.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+    <value>4, 6, 4, 6</value>
+  </data>
+  <data name="bt_scanIns.Size" type="System.Drawing.Size, System.Drawing">
+    <value>91, 36</value>
+  </data>
+  <data name="bt_scanIns.TabIndex" type="System.Int32, mscorlib">
+    <value>15</value>
+  </data>
+  <data name="bt_scanIns.Text" xml:space="preserve">
+    <value>Scan Ins.</value>
+  </data>
+  <data name="&gt;&gt;bt_scanIns.Name" xml:space="preserve">
+    <value>bt_scanIns</value>
+  </data>
+  <data name="&gt;&gt;bt_scanIns.Type" xml:space="preserve">
+    <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;bt_scanIns.Parent" xml:space="preserve">
+    <value>tabPage1</value>
+  </data>
+  <data name="&gt;&gt;bt_scanIns.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="materialMultiLineTextBox21.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -178,40 +202,40 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialMultiLineTextBox21.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
-  <data name="materialButton6.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="bt_query.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="materialButton6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="bt_query.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>Off</value>
   </data>
-  <data name="materialButton6.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="bt_query.Location" type="System.Drawing.Point, System.Drawing">
     <value>76, 336</value>
   </data>
-  <data name="materialButton6.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="bt_query.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
   </data>
-  <data name="materialButton6.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="bt_query.Size" type="System.Drawing.Size, System.Drawing">
     <value>68, 36</value>
   </data>
-  <data name="materialButton6.TabIndex" type="System.Int32, mscorlib">
+  <data name="bt_query.TabIndex" type="System.Int32, mscorlib">
     <value>13</value>
   </data>
-  <data name="materialButton6.Text" xml:space="preserve">
+  <data name="bt_query.Text" xml:space="preserve">
     <value>Query</value>
   </data>
-  <data name="&gt;&gt;materialButton6.Name" xml:space="preserve">
-    <value>materialButton6</value>
+  <data name="&gt;&gt;bt_query.Name" xml:space="preserve">
+    <value>bt_query</value>
   </data>
-  <data name="&gt;&gt;materialButton6.Type" xml:space="preserve">
+  <data name="&gt;&gt;bt_query.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;materialButton6.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bt_query.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;materialButton6.ZOrder" xml:space="preserve">
-    <value>2</value>
+  <data name="&gt;&gt;bt_query.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="materialCheckbox1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -238,40 +262,40 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialCheckbox1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
-  <data name="materialButton5.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="bt_write.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="materialButton5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="bt_write.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>Off</value>
   </data>
-  <data name="materialButton5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="bt_write.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 336</value>
   </data>
-  <data name="materialButton5.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="bt_write.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
   </data>
-  <data name="materialButton5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="bt_write.Size" type="System.Drawing.Size, System.Drawing">
     <value>65, 36</value>
   </data>
-  <data name="materialButton5.TabIndex" type="System.Int32, mscorlib">
+  <data name="bt_write.TabIndex" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
-  <data name="materialButton5.Text" xml:space="preserve">
+  <data name="bt_write.Text" xml:space="preserve">
     <value>Write</value>
   </data>
-  <data name="&gt;&gt;materialButton5.Name" xml:space="preserve">
-    <value>materialButton5</value>
+  <data name="&gt;&gt;bt_write.Name" xml:space="preserve">
+    <value>bt_write</value>
   </data>
-  <data name="&gt;&gt;materialButton5.Type" xml:space="preserve">
+  <data name="&gt;&gt;bt_write.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;materialButton5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bt_write.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;materialButton5.ZOrder" xml:space="preserve">
-    <value>4</value>
+  <data name="&gt;&gt;bt_write.ZOrder" xml:space="preserve">
+    <value>5</value>
   </data>
   <data name="materialCheckbox4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -301,7 +325,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialCheckbox4.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 307</value>
@@ -322,7 +346,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;comboBox1.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>7</value>
   </data>
   <data name="materialTextBox21.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -361,7 +385,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialTextBox21.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>8</value>
   </data>
   <data name="materialLabel1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -391,7 +415,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialLabel1.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>9</value>
   </data>
   <data name="materialTextBox24.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -430,37 +454,37 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialTextBox24.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>10</value>
   </data>
-  <data name="materialButton1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
+  <data name="bt_connect.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
-  <data name="materialButton1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="bt_connect.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 9</value>
   </data>
-  <data name="materialButton1.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
+  <data name="bt_connect.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>4, 6, 4, 6</value>
   </data>
-  <data name="materialButton1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="bt_connect.Size" type="System.Drawing.Size, System.Drawing">
     <value>98, 36</value>
   </data>
-  <data name="materialButton1.TabIndex" type="System.Int32, mscorlib">
+  <data name="bt_connect.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="materialButton1.Text" xml:space="preserve">
+  <data name="bt_connect.Text" xml:space="preserve">
     <value>Connects</value>
   </data>
-  <data name="&gt;&gt;materialButton1.Name" xml:space="preserve">
-    <value>materialButton1</value>
+  <data name="&gt;&gt;bt_connect.Name" xml:space="preserve">
+    <value>bt_connect</value>
   </data>
-  <data name="&gt;&gt;materialButton1.Type" xml:space="preserve">
+  <data name="&gt;&gt;bt_connect.Type" xml:space="preserve">
     <value>MaterialSkin.Controls.MaterialButton, MaterialSkin, Version=2.3.1.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
-  <data name="&gt;&gt;materialButton1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;bt_connect.Parent" xml:space="preserve">
     <value>tabPage1</value>
   </data>
-  <data name="&gt;&gt;materialButton1.ZOrder" xml:space="preserve">
-    <value>10</value>
+  <data name="&gt;&gt;bt_connect.ZOrder" xml:space="preserve">
+    <value>11</value>
   </data>
   <data name="materialTextBox22.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -499,7 +523,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialTextBox22.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>12</value>
   </data>
   <data name="materialCheckbox3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -529,7 +553,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialCheckbox3.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>13</value>
   </data>
   <data name="materialCheckbox2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -559,7 +583,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialCheckbox2.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>14</value>
   </data>
   <data name="materialTextBox23.BackgroundImageLayout" type="System.Windows.Forms.ImageLayout, System.Windows.Forms">
     <value>None</value>
@@ -598,7 +622,7 @@
     <value>tabPage1</value>
   </data>
   <data name="&gt;&gt;materialTextBox23.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>15</value>
   </data>
   <data name="tabPage1.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>
