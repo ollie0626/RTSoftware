@@ -47,7 +47,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.3";
+        string App_name = "Buck Tool v1.5.2";
 
         public void GUInit()
         {

@@ -291,7 +291,7 @@ namespace BuckTool
             InsControl._scope.DoCommand("*CLS");
             while (!(InsControl._scope.doQeury(":ADER?") == "+1\n"))
             {
-                Delay1ms(50);
+                Delay1ms(150);
                 if (timer_cnt >= 100)
                 {
                     timer.Stop();

@@ -163,26 +163,27 @@ namespace BuckTool
         private void ChannelResize()
         {
             double max = 0, period, vpp = 0;
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 max = InsControl._scope.Meas_CH4MAX();
                 InsControl._scope.CH4_Level(max / 3);
-                MyLib.Delay1ms(50);
+                MyLib.Delay1ms(250);
 
                 vpp = InsControl._scope.Meas_CH1VPP();
                 InsControl._scope.CH1_Level(vpp / 3);
 
             }
             InsControl._scope.TriggerLevel_CH4(max * 0.75);
-            InsControl._scope.TimeScaleUs(10);
+            InsControl._scope.TimeScaleUs(100);
             MyLib.WaveformCheck();
 
             period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period / 2);
-
+            MyLib.Delay1ms(250);
+            //InsControl._scope.TimeScaleUs(100);
             period = InsControl._scope.Meas_CH4Period();
             InsControl._scope.TimeScale(period / 2);
-
+            MyLib.Delay1ms(250);
         }
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
