@@ -47,7 +47,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.5.2";
+        string App_name = "Buck Tool v1.5.3";
 
         public void GUInit()
         {
@@ -197,6 +197,7 @@ namespace BuckTool
                     test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 case 4:
+                    test_parameter.HiLo_table.Clear();
                     test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.HiLevel = tb_Highlevel.Text.Split(',').Select(double.Parse).ToList();
                     test_parameter.LoLevel = tb_Lowlevel.Text.Split(',').Select(double.Parse).ToList();
@@ -543,13 +544,17 @@ namespace BuckTool
             settings += "23.Chamber_info=$" + tb_templist.Text + "$\r\n";
             settings += "24.Chamber_name=$" + cb_chamber.SelectedIndex.ToString() + "$\r\n";
             settings += "25.Chamber_time=$" + nu_steady.Value.ToString() + "$\r\n";
-            settings += "26.Eload_row=$" + Eload_DG.RowCount.ToString() + "$\r\n";
-            for(int idx = 0; idx < Eload_DG.RowCount; idx++)
+            
+
+            settings += "26.Vin_line=$" + tb_lineVin.Text + "$\r\n";
+            settings += "27.Eload_row=$" + Eload_DG.RowCount.ToString() + "$\r\n";
+            for (int idx = 0; idx < Eload_DG.RowCount; idx++)
             {
-                settings += (idx + 27).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
-                settings += (idx + 28).ToString() + ".Eload_step=$" + Eload_DG[1, idx].Value.ToString() + "$\r\n";
-                settings += (idx + 29).ToString() + ".Eload_stop=$" + Eload_DG[2, idx].Value.ToString() + "$\r\n";
+                settings += (idx + 28).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
+                settings += (idx + 29).ToString() + ".Eload_step=$" + Eload_DG[1, idx].Value.ToString() + "$\r\n";
+                settings += (idx + 30).ToString() + ".Eload_stop=$" + Eload_DG[2, idx].Value.ToString() + "$\r\n";
             }
+            
 
             using (StreamWriter sw = new StreamWriter(file))
             {
@@ -573,7 +578,7 @@ namespace BuckTool
             {
                 textBox1, tbWave, textBox2, tb_Vin, ck_freq1, tb_freqdes1, ck_freq2, tb_freqdes2, nu_Freq, nu_duty, nu_tr,
                 nu_tf, tb_Highlevel, tb_Lowlevel, tb_Iout, tb_osc, nu_power, nu_eload, nu_34970A, nu_chamber, nu_dmm1,
-                nu_dmm2, nu_funcgen, tb_templist, cb_chamber, nu_steady, Eload_DG
+                nu_dmm2, nu_funcgen, tb_templist, cb_chamber, nu_steady, tb_lineVin, Eload_DG
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
