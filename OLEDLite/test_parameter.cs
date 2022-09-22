@@ -17,11 +17,18 @@ namespace OLEDLite
     {
         // interface
         public static byte slave;
-        public static string binFolder;
+        public static string bin_path;
+        public static string wave_path;
+        public static string special_file;
         public static List<string> swireList = new List<string>();
+        public static bool i2c_enable;
+
+        // power
+        public static List<double> vinList = new List<double>();
 
         // ELoad
         public static List<double> ioutList = new List<double>();
+        public static bool eload_select;
         
         // FuncGen
         public static List<Hi_Lo> HiLo_table = new List<Hi_Lo>();
@@ -29,6 +36,7 @@ namespace OLEDLite
         public static double duty;
         public static double tr;
         public static double tf;
+
 
 
 

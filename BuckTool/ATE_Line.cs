@@ -175,7 +175,7 @@ namespace BuckTool
             for(int line = 0; line < start_pos.Count; line++)
             {
                 series = collection.NewSeries();
-                XRange = _sheet.Range["G" + start_pos[line].ToString(), "G" + stop_pos[line].ToString()];
+                XRange = _sheet.Range["C" + start_pos[line].ToString(), "C" + stop_pos[line].ToString()];
                 YRange = _sheet.Range["H" + start_pos[line].ToString(), "H" + stop_pos[line].ToString()];
                 series.XValues = XRange;
                 series.Values = YRange;

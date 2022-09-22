@@ -32,26 +32,95 @@ namespace OLEDLite
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
-            this.materialMultiLineTextBox21 = new MaterialSkin.Controls.MaterialMultiLineTextBox2();
-            this.bt_query = new MaterialSkin.Controls.MaterialButton();
-            this.materialCheckbox1 = new MaterialSkin.Controls.MaterialCheckbox();
-            this.bt_write = new MaterialSkin.Controls.MaterialButton();
-            this.materialCheckbox4 = new MaterialSkin.Controls.MaterialCheckbox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.materialTextBox21 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.materialTextBox24 = new MaterialSkin.Controls.MaterialTextBox2();
             this.bt_connect = new MaterialSkin.Controls.MaterialButton();
-            this.materialTextBox22 = new MaterialSkin.Controls.MaterialTextBox2();
-            this.materialCheckbox3 = new MaterialSkin.Controls.MaterialCheckbox();
-            this.materialCheckbox2 = new MaterialSkin.Controls.MaterialCheckbox();
-            this.materialTextBox23 = new MaterialSkin.Controls.MaterialTextBox2();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.list_ins = new System.Windows.Forms.ListBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.nu_Freq = new System.Windows.Forms.NumericUpDown();
+            this.nu_duty = new System.Windows.Forms.NumericUpDown();
+            this.tb_High_level = new System.Windows.Forms.TextBox();
+            this.tb_Low_level = new System.Windows.Forms.TextBox();
+            this.nu_Tf = new System.Windows.Forms.NumericUpDown();
+            this.nu_Tr = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CK_I2c = new System.Windows.Forms.CheckBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.nu_slave = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.tb_res_scope = new System.Windows.Forms.TextBox();
+            this.tb_res_daq = new System.Windows.Forms.TextBox();
+            this.tb_res_eload = new System.Windows.Forms.TextBox();
+            this.tb_res_power = new System.Windows.Forms.TextBox();
+            this.tb_bin = new System.Windows.Forms.TextBox();
+            this.tb_wave_path = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.tb_initial_bin = new System.Windows.Forms.TextBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.cb_chamber = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.ck_chaber_en = new System.Windows.Forms.CheckBox();
+            this.nu_steady = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tb_templist = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ck_slave = new System.Windows.Forms.CheckBox();
+            this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
+            this.ck_scope = new System.Windows.Forms.CheckBox();
+            this.ck_daq = new System.Windows.Forms.CheckBox();
+            this.ck_eload = new System.Windows.Forms.CheckBox();
+            this.ck_power = new System.Windows.Forms.CheckBox();
+            this.ck_meter_in = new System.Windows.Forms.CheckBox();
+            this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.ck_meter_out = new System.Windows.Forms.CheckBox();
+            this.tb_res_meter_out = new System.Windows.Forms.TextBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.nu_swire_num = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tb_Iout = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.Eload_DG = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tb_Vin = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.bt_eload_add = new System.Windows.Forms.Button();
+            this.bt_eload_sub = new System.Windows.Forms.Button();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.ck_Iout_mode = new System.Windows.Forms.CheckBox();
+            this.ck_chamber = new System.Windows.Forms.CheckBox();
+            this.tb_res_chamber = new System.Windows.Forms.TextBox();
+            this.bt_run = new MaterialSkin.Controls.MaterialButton();
+            this.bt_pause = new MaterialSkin.Controls.MaterialButton();
+            this.bt_stop = new MaterialSkin.Controls.MaterialButton();
+            this.cb_item = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Tr)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -65,7 +134,6 @@ namespace OLEDLite
             // 
             // materialTabControl1
             // 
-            this.materialTabControl1.Controls.Add(this.tabPage1);
             this.materialTabControl1.Controls.Add(this.tabPage2);
             this.materialTabControl1.Depth = 0;
             resources.ApplyResources(this.materialTabControl1, "materialTabControl1");
@@ -73,28 +141,6 @@ namespace OLEDLite
             this.materialTabControl1.Multiline = true;
             this.materialTabControl1.Name = "materialTabControl1";
             this.materialTabControl1.SelectedIndex = 0;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.listBox1);
-            this.tabPage1.Controls.Add(this.bt_scanIns);
-            this.tabPage1.Controls.Add(this.materialMultiLineTextBox21);
-            this.tabPage1.Controls.Add(this.bt_query);
-            this.tabPage1.Controls.Add(this.materialCheckbox1);
-            this.tabPage1.Controls.Add(this.bt_write);
-            this.tabPage1.Controls.Add(this.materialCheckbox4);
-            this.tabPage1.Controls.Add(this.comboBox1);
-            this.tabPage1.Controls.Add(this.materialTextBox21);
-            this.tabPage1.Controls.Add(this.materialLabel1);
-            this.tabPage1.Controls.Add(this.materialTextBox24);
-            this.tabPage1.Controls.Add(this.bt_connect);
-            this.tabPage1.Controls.Add(this.materialTextBox22);
-            this.tabPage1.Controls.Add(this.materialCheckbox3);
-            this.tabPage1.Controls.Add(this.materialCheckbox2);
-            this.tabPage1.Controls.Add(this.materialTextBox23);
-            resources.ApplyResources(this.tabPage1, "tabPage1");
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // bt_scanIns
             // 
@@ -110,137 +156,7 @@ namespace OLEDLite
             this.bt_scanIns.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             this.bt_scanIns.UseAccentColor = false;
             this.bt_scanIns.UseVisualStyleBackColor = true;
-            // 
-            // materialMultiLineTextBox21
-            // 
-            this.materialMultiLineTextBox21.AnimateReadOnly = false;
-            resources.ApplyResources(this.materialMultiLineTextBox21, "materialMultiLineTextBox21");
-            this.materialMultiLineTextBox21.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialMultiLineTextBox21.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.materialMultiLineTextBox21.Depth = 0;
-            this.materialMultiLineTextBox21.HideSelection = true;
-            this.materialMultiLineTextBox21.MaxLength = 32767;
-            this.materialMultiLineTextBox21.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialMultiLineTextBox21.Name = "materialMultiLineTextBox21";
-            this.materialMultiLineTextBox21.PasswordChar = '\0';
-            this.materialMultiLineTextBox21.ReadOnly = false;
-            this.materialMultiLineTextBox21.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.materialMultiLineTextBox21.SelectedText = "";
-            this.materialMultiLineTextBox21.SelectionLength = 0;
-            this.materialMultiLineTextBox21.SelectionStart = 0;
-            this.materialMultiLineTextBox21.ShortcutsEnabled = true;
-            this.materialMultiLineTextBox21.TabStop = false;
-            this.materialMultiLineTextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialMultiLineTextBox21.UseSystemPasswordChar = false;
-            // 
-            // bt_query
-            // 
-            resources.ApplyResources(this.bt_query, "bt_query");
-            this.bt_query.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
-            this.bt_query.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.bt_query.Depth = 0;
-            this.bt_query.HighEmphasis = true;
-            this.bt_query.Icon = null;
-            this.bt_query.MouseState = MaterialSkin.MouseState.HOVER;
-            this.bt_query.Name = "bt_query";
-            this.bt_query.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_query.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.bt_query.UseAccentColor = false;
-            this.bt_query.UseVisualStyleBackColor = true;
-            // 
-            // materialCheckbox1
-            // 
-            resources.ApplyResources(this.materialCheckbox1, "materialCheckbox1");
-            this.materialCheckbox1.Depth = 0;
-            this.materialCheckbox1.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialCheckbox1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCheckbox1.Name = "materialCheckbox1";
-            this.materialCheckbox1.ReadOnly = false;
-            this.materialCheckbox1.Ripple = true;
-            this.materialCheckbox1.UseVisualStyleBackColor = true;
-            // 
-            // bt_write
-            // 
-            resources.ApplyResources(this.bt_write, "bt_write");
-            this.bt_write.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
-            this.bt_write.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
-            this.bt_write.Depth = 0;
-            this.bt_write.HighEmphasis = true;
-            this.bt_write.Icon = null;
-            this.bt_write.MouseState = MaterialSkin.MouseState.HOVER;
-            this.bt_write.Name = "bt_write";
-            this.bt_write.NoAccentTextColor = System.Drawing.Color.Empty;
-            this.bt_write.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
-            this.bt_write.UseAccentColor = false;
-            this.bt_write.UseVisualStyleBackColor = true;
-            // 
-            // materialCheckbox4
-            // 
-            resources.ApplyResources(this.materialCheckbox4, "materialCheckbox4");
-            this.materialCheckbox4.Depth = 0;
-            this.materialCheckbox4.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialCheckbox4.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCheckbox4.Name = "materialCheckbox4";
-            this.materialCheckbox4.ReadOnly = false;
-            this.materialCheckbox4.Ripple = true;
-            this.materialCheckbox4.UseVisualStyleBackColor = true;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            resources.ApplyResources(this.comboBox1, "comboBox1");
-            this.comboBox1.Name = "comboBox1";
-            // 
-            // materialTextBox21
-            // 
-            this.materialTextBox21.AnimateReadOnly = false;
-            resources.ApplyResources(this.materialTextBox21, "materialTextBox21");
-            this.materialTextBox21.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox21.Depth = 0;
-            this.materialTextBox21.HideSelection = true;
-            this.materialTextBox21.LeadingIcon = null;
-            this.materialTextBox21.MaxLength = 32767;
-            this.materialTextBox21.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox21.Name = "materialTextBox21";
-            this.materialTextBox21.PasswordChar = '\0';
-            this.materialTextBox21.ReadOnly = false;
-            this.materialTextBox21.SelectedText = "";
-            this.materialTextBox21.SelectionLength = 0;
-            this.materialTextBox21.SelectionStart = 0;
-            this.materialTextBox21.ShortcutsEnabled = true;
-            this.materialTextBox21.TabStop = false;
-            this.materialTextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox21.TrailingIcon = null;
-            this.materialTextBox21.UseSystemPasswordChar = false;
-            // 
-            // materialLabel1
-            // 
-            resources.ApplyResources(this.materialLabel1, "materialLabel1");
-            this.materialLabel1.Depth = 0;
-            this.materialLabel1.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialLabel1.Name = "materialLabel1";
-            // 
-            // materialTextBox24
-            // 
-            this.materialTextBox24.AnimateReadOnly = false;
-            resources.ApplyResources(this.materialTextBox24, "materialTextBox24");
-            this.materialTextBox24.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox24.Depth = 0;
-            this.materialTextBox24.HideSelection = true;
-            this.materialTextBox24.LeadingIcon = null;
-            this.materialTextBox24.MaxLength = 32767;
-            this.materialTextBox24.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox24.Name = "materialTextBox24";
-            this.materialTextBox24.PasswordChar = '\0';
-            this.materialTextBox24.ReadOnly = false;
-            this.materialTextBox24.SelectedText = "";
-            this.materialTextBox24.SelectionLength = 0;
-            this.materialTextBox24.SelectionStart = 0;
-            this.materialTextBox24.ShortcutsEnabled = true;
-            this.materialTextBox24.TabStop = false;
-            this.materialTextBox24.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox24.TrailingIcon = null;
-            this.materialTextBox24.UseSystemPasswordChar = false;
+            this.bt_scanIns.Click += new System.EventHandler(this.bt_scanIns_Click);
             // 
             // bt_connect
             // 
@@ -258,83 +174,536 @@ namespace OLEDLite
             this.bt_connect.UseVisualStyleBackColor = true;
             this.bt_connect.Click += new System.EventHandler(this.bt_connect_Click);
             // 
-            // materialTextBox22
-            // 
-            this.materialTextBox22.AnimateReadOnly = false;
-            resources.ApplyResources(this.materialTextBox22, "materialTextBox22");
-            this.materialTextBox22.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox22.Depth = 0;
-            this.materialTextBox22.HideSelection = true;
-            this.materialTextBox22.LeadingIcon = null;
-            this.materialTextBox22.MaxLength = 32767;
-            this.materialTextBox22.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox22.Name = "materialTextBox22";
-            this.materialTextBox22.PasswordChar = '\0';
-            this.materialTextBox22.ReadOnly = false;
-            this.materialTextBox22.SelectedText = "";
-            this.materialTextBox22.SelectionLength = 0;
-            this.materialTextBox22.SelectionStart = 0;
-            this.materialTextBox22.ShortcutsEnabled = true;
-            this.materialTextBox22.TabStop = false;
-            this.materialTextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox22.TrailingIcon = null;
-            this.materialTextBox22.UseSystemPasswordChar = false;
-            // 
-            // materialCheckbox3
-            // 
-            resources.ApplyResources(this.materialCheckbox3, "materialCheckbox3");
-            this.materialCheckbox3.Depth = 0;
-            this.materialCheckbox3.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialCheckbox3.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCheckbox3.Name = "materialCheckbox3";
-            this.materialCheckbox3.ReadOnly = false;
-            this.materialCheckbox3.Ripple = true;
-            this.materialCheckbox3.UseVisualStyleBackColor = true;
-            // 
-            // materialCheckbox2
-            // 
-            resources.ApplyResources(this.materialCheckbox2, "materialCheckbox2");
-            this.materialCheckbox2.Depth = 0;
-            this.materialCheckbox2.MouseLocation = new System.Drawing.Point(-1, -1);
-            this.materialCheckbox2.MouseState = MaterialSkin.MouseState.HOVER;
-            this.materialCheckbox2.Name = "materialCheckbox2";
-            this.materialCheckbox2.ReadOnly = false;
-            this.materialCheckbox2.Ripple = true;
-            this.materialCheckbox2.UseVisualStyleBackColor = true;
-            // 
-            // materialTextBox23
-            // 
-            this.materialTextBox23.AnimateReadOnly = false;
-            resources.ApplyResources(this.materialTextBox23, "materialTextBox23");
-            this.materialTextBox23.CharacterCasing = System.Windows.Forms.CharacterCasing.Normal;
-            this.materialTextBox23.Depth = 0;
-            this.materialTextBox23.HideSelection = true;
-            this.materialTextBox23.LeadingIcon = null;
-            this.materialTextBox23.MaxLength = 32767;
-            this.materialTextBox23.MouseState = MaterialSkin.MouseState.OUT;
-            this.materialTextBox23.Name = "materialTextBox23";
-            this.materialTextBox23.PasswordChar = '\0';
-            this.materialTextBox23.ReadOnly = false;
-            this.materialTextBox23.SelectedText = "";
-            this.materialTextBox23.SelectionLength = 0;
-            this.materialTextBox23.SelectionStart = 0;
-            this.materialTextBox23.ShortcutsEnabled = true;
-            this.materialTextBox23.TabStop = false;
-            this.materialTextBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
-            this.materialTextBox23.TrailingIcon = null;
-            this.materialTextBox23.UseSystemPasswordChar = false;
-            // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.bt_connect);
+            this.tabPage2.Controls.Add(this.cb_item);
+            this.tabPage2.Controls.Add(this.bt_scanIns);
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.bt_stop);
+            this.tabPage2.Controls.Add(this.list_ins);
+            this.tabPage2.Controls.Add(this.bt_pause);
+            this.tabPage2.Controls.Add(this.tb_res_scope);
+            this.tabPage2.Controls.Add(this.bt_run);
+            this.tabPage2.Controls.Add(this.tb_res_daq);
+            this.tabPage2.Controls.Add(this.ck_chamber);
+            this.tabPage2.Controls.Add(this.tb_res_eload);
+            this.tabPage2.Controls.Add(this.tb_res_chamber);
+            this.tabPage2.Controls.Add(this.tb_res_power);
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.ck_scope);
+            this.tabPage2.Controls.Add(this.ck_meter_out);
+            this.tabPage2.Controls.Add(this.ck_daq);
+            this.tabPage2.Controls.Add(this.tb_res_meter_out);
+            this.tabPage2.Controls.Add(this.ck_eload);
+            this.tabPage2.Controls.Add(this.ck_meter_in);
+            this.tabPage2.Controls.Add(this.ck_power);
+            this.tabPage2.Controls.Add(this.tb_res_meter_in);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // listBox1
+            // list_ins
             // 
-            this.listBox1.FormattingEnabled = true;
-            resources.ApplyResources(this.listBox1, "listBox1");
-            this.listBox1.Name = "listBox1";
+            this.list_ins.FormattingEnabled = true;
+            resources.ApplyResources(this.list_ins, "list_ins");
+            this.list_ins.Name = "list_ins";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.nu_Tf);
+            this.groupBox1.Controls.Add(this.nu_Tr);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.tb_Low_level);
+            this.groupBox1.Controls.Add(this.tb_High_level);
+            this.groupBox1.Controls.Add(this.nu_duty);
+            this.groupBox1.Controls.Add(this.nu_Freq);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label1);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // label3
+            // 
+            resources.ApplyResources(this.label3, "label3");
+            this.label3.Name = "label3";
+            // 
+            // label4
+            // 
+            resources.ApplyResources(this.label4, "label4");
+            this.label4.Name = "label4";
+            // 
+            // nu_Freq
+            // 
+            resources.ApplyResources(this.nu_Freq, "nu_Freq");
+            this.nu_Freq.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nu_Freq.Name = "nu_Freq";
+            // 
+            // nu_duty
+            // 
+            resources.ApplyResources(this.nu_duty, "nu_duty");
+            this.nu_duty.Name = "nu_duty";
+            // 
+            // tb_High_level
+            // 
+            resources.ApplyResources(this.tb_High_level, "tb_High_level");
+            this.tb_High_level.Name = "tb_High_level";
+            // 
+            // tb_Low_level
+            // 
+            resources.ApplyResources(this.tb_Low_level, "tb_Low_level");
+            this.tb_Low_level.Name = "tb_Low_level";
+            // 
+            // nu_Tf
+            // 
+            resources.ApplyResources(this.nu_Tf, "nu_Tf");
+            this.nu_Tf.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nu_Tf.Name = "nu_Tf";
+            // 
+            // nu_Tr
+            // 
+            resources.ApplyResources(this.nu_Tr, "nu_Tr");
+            this.nu_Tr.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nu_Tr.Name = "nu_Tr";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
+            // 
+            // label6
+            // 
+            resources.ApplyResources(this.label6, "label6");
+            this.label6.Name = "label6";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.nu_swire_num);
+            this.groupBox2.Controls.Add(this.label12);
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.tb_initial_bin);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.tb_wave_path);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.tb_bin);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.nu_slave);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.CK_I2c);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // CK_I2c
+            // 
+            resources.ApplyResources(this.CK_I2c, "CK_I2c");
+            this.CK_I2c.Name = "CK_I2c";
+            this.CK_I2c.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // nu_slave
+            // 
+            this.nu_slave.Hexadecimal = true;
+            resources.ApplyResources(this.nu_slave, "nu_slave");
+            this.nu_slave.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_slave.Name = "nu_slave";
+            this.nu_slave.Value = new decimal(new int[] {
+            70,
+            0,
+            0,
+            0});
+            // 
+            // label8
+            // 
+            resources.ApplyResources(this.label8, "label8");
+            this.label8.Name = "label8";
+            // 
+            // tb_res_scope
+            // 
+            resources.ApplyResources(this.tb_res_scope, "tb_res_scope");
+            this.tb_res_scope.Name = "tb_res_scope";
+            // 
+            // tb_res_daq
+            // 
+            resources.ApplyResources(this.tb_res_daq, "tb_res_daq");
+            this.tb_res_daq.Name = "tb_res_daq";
+            // 
+            // tb_res_eload
+            // 
+            resources.ApplyResources(this.tb_res_eload, "tb_res_eload");
+            this.tb_res_eload.Name = "tb_res_eload";
+            // 
+            // tb_res_power
+            // 
+            resources.ApplyResources(this.tb_res_power, "tb_res_power");
+            this.tb_res_power.Name = "tb_res_power";
+            // 
+            // tb_bin
+            // 
+            resources.ApplyResources(this.tb_bin, "tb_bin");
+            this.tb_bin.Name = "tb_bin";
+            // 
+            // tb_wave_path
+            // 
+            resources.ApplyResources(this.tb_wave_path, "tb_wave_path");
+            this.tb_wave_path.Name = "tb_wave_path";
+            // 
+            // label9
+            // 
+            resources.ApplyResources(this.label9, "label9");
+            this.label9.Name = "label9";
+            // 
+            // label10
+            // 
+            resources.ApplyResources(this.label10, "label10");
+            this.label10.Name = "label10";
+            // 
+            // tb_initial_bin
+            // 
+            resources.ApplyResources(this.tb_initial_bin, "tb_initial_bin");
+            this.tb_initial_bin.Name = "tb_initial_bin";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.cb_chamber);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.ck_chaber_en);
+            this.groupBox3.Controls.Add(this.nu_steady);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.tb_templist);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Controls.Add(this.ck_slave);
+            this.groupBox3.Controls.Add(this.ck_multi_chamber);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // cb_chamber
+            // 
+            this.cb_chamber.FormattingEnabled = true;
+            resources.ApplyResources(this.cb_chamber, "cb_chamber");
+            this.cb_chamber.Name = "cb_chamber";
+            // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label15
+            // 
+            resources.ApplyResources(this.label15, "label15");
+            this.label15.Name = "label15";
+            // 
+            // ck_chaber_en
+            // 
+            resources.ApplyResources(this.ck_chaber_en, "ck_chaber_en");
+            this.ck_chaber_en.Name = "ck_chaber_en";
+            this.ck_chaber_en.UseVisualStyleBackColor = true;
+            // 
+            // nu_steady
+            // 
+            resources.ApplyResources(this.nu_steady, "nu_steady");
+            this.nu_steady.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_steady.Name = "nu_steady";
+            this.nu_steady.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label14
+            // 
+            resources.ApplyResources(this.label14, "label14");
+            this.label14.Name = "label14";
+            // 
+            // tb_templist
+            // 
+            resources.ApplyResources(this.tb_templist, "tb_templist");
+            this.tb_templist.Name = "tb_templist";
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
+            // 
+            // ck_slave
+            // 
+            resources.ApplyResources(this.ck_slave, "ck_slave");
+            this.ck_slave.Name = "ck_slave";
+            this.ck_slave.UseVisualStyleBackColor = true;
+            // 
+            // ck_multi_chamber
+            // 
+            resources.ApplyResources(this.ck_multi_chamber, "ck_multi_chamber");
+            this.ck_multi_chamber.Name = "ck_multi_chamber";
+            this.ck_multi_chamber.UseVisualStyleBackColor = true;
+            // 
+            // ck_scope
+            // 
+            resources.ApplyResources(this.ck_scope, "ck_scope");
+            this.ck_scope.Name = "ck_scope";
+            this.ck_scope.UseVisualStyleBackColor = true;
+            // 
+            // ck_daq
+            // 
+            resources.ApplyResources(this.ck_daq, "ck_daq");
+            this.ck_daq.Name = "ck_daq";
+            this.ck_daq.UseVisualStyleBackColor = true;
+            // 
+            // ck_eload
+            // 
+            resources.ApplyResources(this.ck_eload, "ck_eload");
+            this.ck_eload.Name = "ck_eload";
+            this.ck_eload.UseVisualStyleBackColor = true;
+            // 
+            // ck_power
+            // 
+            resources.ApplyResources(this.ck_power, "ck_power");
+            this.ck_power.Name = "ck_power";
+            this.ck_power.UseVisualStyleBackColor = true;
+            // 
+            // ck_meter_in
+            // 
+            resources.ApplyResources(this.ck_meter_in, "ck_meter_in");
+            this.ck_meter_in.Name = "ck_meter_in";
+            this.ck_meter_in.UseVisualStyleBackColor = true;
+            // 
+            // tb_res_meter_in
+            // 
+            resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
+            this.tb_res_meter_in.Name = "tb_res_meter_in";
+            // 
+            // ck_meter_out
+            // 
+            resources.ApplyResources(this.ck_meter_out, "ck_meter_out");
+            this.ck_meter_out.Name = "ck_meter_out";
+            this.ck_meter_out.UseVisualStyleBackColor = true;
+            // 
+            // tb_res_meter_out
+            // 
+            resources.ApplyResources(this.tb_res_meter_out, "tb_res_meter_out");
+            this.tb_res_meter_out.Name = "tb_res_meter_out";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            resources.ApplyResources(this.dataGridView1, "dataGridView1");
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            // 
+            // nu_swire_num
+            // 
+            this.nu_swire_num.Hexadecimal = true;
+            resources.ApplyResources(this.nu_swire_num, "nu_swire_num");
+            this.nu_swire_num.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_swire_num.Name = "nu_swire_num";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.ck_Iout_mode);
+            this.groupBox4.Controls.Add(this.bt_eload_sub);
+            this.groupBox4.Controls.Add(this.bt_eload_add);
+            this.groupBox4.Controls.Add(this.tb_Iout);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.Eload_DG);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // tb_Iout
+            // 
+            resources.ApplyResources(this.tb_Iout, "tb_Iout");
+            this.tb_Iout.Name = "tb_Iout";
+            // 
+            // label16
+            // 
+            resources.ApplyResources(this.label16, "label16");
+            this.label16.Name = "label16";
+            // 
+            // Eload_DG
+            // 
+            this.Eload_DG.AllowUserToAddRows = false;
+            this.Eload_DG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.Eload_DG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            resources.ApplyResources(this.Eload_DG, "Eload_DG");
+            this.Eload_DG.Name = "Eload_DG";
+            this.Eload_DG.RowHeadersVisible = false;
+            this.Eload_DG.RowTemplate.Height = 24;
+            // 
+            // Column1
+            // 
+            resources.ApplyResources(this.Column1, "Column1");
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            resources.ApplyResources(this.Column2, "Column2");
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            resources.ApplyResources(this.Column3, "Column3");
+            this.Column3.Name = "Column3";
+            // 
+            // tb_Vin
+            // 
+            resources.ApplyResources(this.tb_Vin, "tb_Vin");
+            this.tb_Vin.Name = "tb_Vin";
+            // 
+            // label18
+            // 
+            resources.ApplyResources(this.label18, "label18");
+            this.label18.Name = "label18";
+            // 
+            // bt_eload_add
+            // 
+            resources.ApplyResources(this.bt_eload_add, "bt_eload_add");
+            this.bt_eload_add.Name = "bt_eload_add";
+            this.bt_eload_add.UseVisualStyleBackColor = true;
+            // 
+            // bt_eload_sub
+            // 
+            resources.ApplyResources(this.bt_eload_sub, "bt_eload_sub");
+            this.bt_eload_sub.Name = "bt_eload_sub";
+            this.bt_eload_sub.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.label18);
+            this.groupBox5.Controls.Add(this.tb_Vin);
+            resources.ApplyResources(this.groupBox5, "groupBox5");
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.TabStop = false;
+            // 
+            // ck_Iout_mode
+            // 
+            resources.ApplyResources(this.ck_Iout_mode, "ck_Iout_mode");
+            this.ck_Iout_mode.Name = "ck_Iout_mode";
+            this.ck_Iout_mode.UseVisualStyleBackColor = true;
+            // 
+            // ck_chamber
+            // 
+            resources.ApplyResources(this.ck_chamber, "ck_chamber");
+            this.ck_chamber.Name = "ck_chamber";
+            this.ck_chamber.UseVisualStyleBackColor = true;
+            // 
+            // tb_res_chamber
+            // 
+            resources.ApplyResources(this.tb_res_chamber, "tb_res_chamber");
+            this.tb_res_chamber.Name = "tb_res_chamber";
+            // 
+            // bt_run
+            // 
+            resources.ApplyResources(this.bt_run, "bt_run");
+            this.bt_run.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
+            this.bt_run.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_run.Depth = 0;
+            this.bt_run.HighEmphasis = true;
+            this.bt_run.Icon = null;
+            this.bt_run.MouseState = MaterialSkin.MouseState.HOVER;
+            this.bt_run.Name = "bt_run";
+            this.bt_run.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_run.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.bt_run.UseAccentColor = false;
+            this.bt_run.UseVisualStyleBackColor = true;
+            // 
+            // bt_pause
+            // 
+            resources.ApplyResources(this.bt_pause, "bt_pause");
+            this.bt_pause.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
+            this.bt_pause.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_pause.Depth = 0;
+            this.bt_pause.HighEmphasis = true;
+            this.bt_pause.Icon = null;
+            this.bt_pause.MouseState = MaterialSkin.MouseState.HOVER;
+            this.bt_pause.Name = "bt_pause";
+            this.bt_pause.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_pause.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.bt_pause.UseAccentColor = false;
+            this.bt_pause.UseVisualStyleBackColor = true;
+            // 
+            // bt_stop
+            // 
+            resources.ApplyResources(this.bt_stop, "bt_stop");
+            this.bt_stop.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
+            this.bt_stop.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.bt_stop.Depth = 0;
+            this.bt_stop.HighEmphasis = true;
+            this.bt_stop.Icon = null;
+            this.bt_stop.MouseState = MaterialSkin.MouseState.HOVER;
+            this.bt_stop.Name = "bt_stop";
+            this.bt_stop.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.bt_stop.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.bt_stop.UseAccentColor = false;
+            this.bt_stop.UseVisualStyleBackColor = true;
+            // 
+            // cb_item
+            // 
+            this.cb_item.FormattingEnabled = true;
+            this.cb_item.Items.AddRange(new object[] {
+            resources.GetString("cb_item.Items")});
+            resources.ApplyResources(this.cb_item, "cb_item");
+            this.cb_item.Name = "cb_item";
+            // 
+            // label17
+            // 
+            resources.ApplyResources(this.label17, "label17");
+            this.label17.Name = "label17";
             // 
             // main
             // 
@@ -346,8 +715,27 @@ namespace OLEDLite
             this.Name = "main";
             this.Resize += new System.EventHandler(this.main_Resize);
             this.materialTabControl1.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Tr)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -356,24 +744,79 @@ namespace OLEDLite
 
         private MaterialSkin.Controls.MaterialTabSelector materialTabSelector1;
         private MaterialSkin.Controls.MaterialTabControl materialTabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox21;
-        private MaterialSkin.Controls.MaterialCheckbox materialCheckbox1;
         private MaterialSkin.Controls.MaterialButton bt_connect;
-        private MaterialSkin.Controls.MaterialCheckbox materialCheckbox2;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox22;
-        private MaterialSkin.Controls.MaterialCheckbox materialCheckbox3;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox23;
-        private MaterialSkin.Controls.MaterialCheckbox materialCheckbox4;
-        private MaterialSkin.Controls.MaterialTextBox2 materialTextBox24;
-        private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private MaterialSkin.Controls.MaterialButton bt_write;
-        private MaterialSkin.Controls.MaterialButton bt_query;
-        private MaterialSkin.Controls.MaterialMultiLineTextBox2 materialMultiLineTextBox21;
         private MaterialSkin.Controls.MaterialButton bt_scanIns;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox list_ins;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown nu_Freq;
+        private System.Windows.Forms.NumericUpDown nu_duty;
+        private System.Windows.Forms.NumericUpDown nu_Tf;
+        private System.Windows.Forms.NumericUpDown nu_Tr;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.TextBox tb_Low_level;
+        private System.Windows.Forms.TextBox tb_High_level;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox CK_I2c;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown nu_slave;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox tb_res_scope;
+        private System.Windows.Forms.TextBox tb_res_daq;
+        private System.Windows.Forms.TextBox tb_res_eload;
+        private System.Windows.Forms.TextBox tb_res_power;
+        private System.Windows.Forms.TextBox tb_bin;
+        private System.Windows.Forms.TextBox tb_wave_path;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox tb_initial_bin;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ComboBox cb_chamber;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox ck_chaber_en;
+        private System.Windows.Forms.NumericUpDown nu_steady;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tb_templist;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox ck_slave;
+        private System.Windows.Forms.CheckBox ck_multi_chamber;
+        private System.Windows.Forms.CheckBox ck_scope;
+        private System.Windows.Forms.CheckBox ck_daq;
+        private System.Windows.Forms.CheckBox ck_eload;
+        private System.Windows.Forms.CheckBox ck_power;
+        private System.Windows.Forms.CheckBox ck_meter_in;
+        private System.Windows.Forms.TextBox tb_res_meter_in;
+        private System.Windows.Forms.CheckBox ck_meter_out;
+        private System.Windows.Forms.TextBox tb_res_meter_out;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.NumericUpDown nu_swire_num;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox tb_Iout;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.DataGridView Eload_DG;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.TextBox tb_Vin;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button bt_eload_add;
+        private System.Windows.Forms.Button bt_eload_sub;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox ck_Iout_mode;
+        private System.Windows.Forms.CheckBox ck_chamber;
+        private System.Windows.Forms.TextBox tb_res_chamber;
+        private MaterialSkin.Controls.MaterialButton bt_run;
+        private MaterialSkin.Controls.MaterialButton bt_pause;
+        private MaterialSkin.Controls.MaterialButton bt_stop;
+        private System.Windows.Forms.ComboBox cb_item;
+        private System.Windows.Forms.Label label17;
     }
 }
 
