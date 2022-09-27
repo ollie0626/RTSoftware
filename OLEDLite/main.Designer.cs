@@ -245,7 +245,7 @@ namespace OLEDLite
             0});
             this.nu_Tf.Name = "nu_Tf";
             this.nu_Tf.Value = new decimal(new int[] {
-            30,
+            10,
             0,
             0,
             0});
@@ -260,7 +260,7 @@ namespace OLEDLite
             0});
             this.nu_Tr.Name = "nu_Tr";
             this.nu_Tr.Value = new decimal(new int[] {
-            30,
+            10,
             0,
             0,
             0});
@@ -307,10 +307,10 @@ namespace OLEDLite
             0});
             this.nu_Freq.Name = "nu_Freq";
             this.nu_Freq.Value = new decimal(new int[] {
-            100,
+            3,
             0,
             0,
-            0});
+            65536});
             // 
             // label4
             // 
@@ -405,6 +405,7 @@ namespace OLEDLite
             0,
             0});
             this.nu_swire_num.Name = "nu_swire_num";
+            this.nu_swire_num.ValueChanged += new System.EventHandler(this.nu_swire_num_ValueChanged);
             // 
             // label12
             // 
@@ -413,6 +414,7 @@ namespace OLEDLite
             // 
             // swireTable
             // 
+            this.swireTable.AllowUserToAddRows = false;
             this.swireTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             resources.ApplyResources(this.swireTable, "swireTable");
             this.swireTable.Name = "swireTable";

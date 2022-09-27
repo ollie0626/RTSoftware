@@ -1006,31 +1006,6 @@ namespace InsLibDotNet
             string gogoCMD = ":MEASure:HISTogram:PP HISTogram";
             doCommand(gogoCMD);
         }
-        private double Meas_AVE(string CHx)
-        {
-
-            double buf;
-            string gogoCMD = ":MEASure:VAVE?";
-            doCommand(CHx);
-            buf = doQueryNumber(gogoCMD);
-            return buf;
-        }
-        public double Meas_CH1AVE()
-        {
-            return Meas_MIN(MEAS_CH1);
-        }
-        public double Meas_CH2AVE()
-        {
-            return Meas_MIN(MEAS_CH2);
-        }
-        public double Meas_CH3AVE()
-        {
-            return Meas_MIN(MEAS_CH3);
-        }
-        public double Meas_CH4AVE()
-        {
-            return Meas_MIN(MEAS_CH4);
-        }
 
         public double Meas_AVG(string CHx)
         {

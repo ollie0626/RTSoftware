@@ -61,43 +61,33 @@ namespace OLEDLite
             {
                 case 0:
                     InsControl._scope = new AgilentOSC(res);
-                    if (InsControl._scope.InsState()) ck_scope.Checked = true;
-                    else ck_scope.Checked = false;
                     break;
                 case 1:
                     InsControl._power = new PowerModule(res);
-                    if (InsControl._power.InsState()) ck_power.Checked = true;
-                    else ck_power.Checked = false;
+
                     break;
                 case 2:
                     InsControl._eload = new EloadModule(res);
-                    if (InsControl._eload.InsState()) ck_eload.Checked = true;
-                    else ck_eload.Checked = true;
+
                     break;
                 case 3:
                     InsControl._34970A = new MultiChannelModule(res);
-                    if (InsControl._34970A.InsState()) ck_daq.Checked = true;
-                    else ck_daq.Checked = false;
+
                     break;
                 case 4:
                     InsControl._funcgen = new FuncGenModule(res);
-                    if (InsControl._funcgen.InsState()) ck_func.Checked = true;
-                    else ck_func.Checked = false;
+
                     break;
                 case 5:
                     InsControl._dmm1 = new DMMModule(res);
-                    if (InsControl._dmm1.InsState()) ck_meter_in.Checked = true;
-                    else ck_meter_in.Checked = false;
+
                     break;
                 case 6:
                     InsControl._dmm2 = new DMMModule(res);
-                    if (InsControl._dmm2.InsState()) ck_meter_out.Checked = true;
-                    else ck_meter_out.Checked = false;
+
                     break;
                 case 7:
                     InsControl._chamber = new ChamberModule(res);
-                    if (InsControl._chamber.InsState()) ck_chamber.Checked = true;
-                    else ck_chamber.Checked = false;
                     break;
             }
 
@@ -119,6 +109,25 @@ namespace OLEDLite
             await ConnectTask(tb_res_meter_in.Text, 5);
             await ConnectTask(tb_res_meter_out.Text, 6);
             await ConnectTask(tb_res_chamber.Text, 7);
+
+
+            if (InsControl._scope.InsState()) ck_scope.Checked = true;
+            else ck_scope.Checked = false;
+
+            if (InsControl._power.InsState()) ck_power.Checked = true;
+            else ck_power.Checked = false;
+            if (InsControl._eload.InsState()) ck_eload.Checked = true;
+            else ck_eload.Checked = true;
+            if (InsControl._34970A.InsState()) ck_daq.Checked = true;
+            else ck_daq.Checked = false;
+            if (InsControl._funcgen.InsState()) ck_func.Checked = true;
+            else ck_func.Checked = false;
+            if (InsControl._dmm1.InsState()) ck_meter_in.Checked = true;
+            else ck_meter_in.Checked = false;
+            if (InsControl._dmm2.InsState()) ck_meter_out.Checked = true;
+            else ck_meter_out.Checked = false;
+            if (InsControl._chamber.InsState()) ck_chamber.Checked = true;
+            else ck_chamber.Checked = false;
         }
 
         private void bt_scanIns_Click(object sender, EventArgs e)
@@ -154,7 +163,7 @@ namespace OLEDLite
             double lo = Convert.ToDouble(lo_str[0]);
 
             InsControl._funcgen.CH1_ContinuousMode();
-            InsControl._funcgen.CH1_Frequency((double)nu_Freq.Value);
+            InsControl._funcgen.CH1_Frequency((double)(nu_Freq.Value * 1000));
             InsControl._funcgen.CH1_DutyCycle((double)nu_duty.Value);
             InsControl._funcgen.CH1_LoadImpedanceHiz();
             InsControl._funcgen.SetCH1_TrTfFunc((double)nu_Tr.Value, (double)nu_Tf.Value);
@@ -207,6 +216,7 @@ namespace OLEDLite
             {
                 test_parameter.swireList.Add((string)swireTable[0, i].Value);
             }
+            test_parameter.swire_20 = true;
         }
 
 
@@ -230,6 +240,11 @@ namespace OLEDLite
         private void Run_Single_Task(object idx)
         {
             ate_table[(int)idx].ATETask();
+        }
+
+        private void nu_swire_num_ValueChanged(object sender, EventArgs e)
+        {
+            swireTable.RowCount = (int)nu_swire_num.Value;
         }
     }
 }

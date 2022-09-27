@@ -163,7 +163,7 @@
     <value>102</value>
   </data>
   <data name="tb_res_func.Text" xml:space="preserve">
-    <value>GPIB0::17::INSTR</value>
+    <value>GPIB0::11::INSTR</value>
   </data>
   <data name="&gt;&gt;tb_res_func.Name" xml:space="preserve">
     <value>tb_res_func</value>
@@ -265,7 +265,7 @@
     <value>9</value>
   </data>
   <data name="label5.Text" xml:space="preserve">
-    <value>Tf (ns)</value>
+    <value>Tf (us)</value>
   </data>
   <data name="&gt;&gt;label5.Name" xml:space="preserve">
     <value>label5</value>
@@ -295,7 +295,7 @@
     <value>8</value>
   </data>
   <data name="label6.Text" xml:space="preserve">
-    <value>Tr (ns)</value>
+    <value>Tr (us)</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -2080,7 +2080,7 @@
     <value>93</value>
   </data>
   <data name="tb_Vin.Text" xml:space="preserve">
-    <value>12</value>
+    <value>5,4,3.5</value>
   </data>
   <data name="&gt;&gt;tb_Vin.Name" xml:space="preserve">
     <value>tb_Vin</value>

@@ -40,12 +40,18 @@ namespace OLEDLite
         {
             InsControl._scope.AgilentOSC_RST();
             MyLib.WaveformCheck();
+
+            InsControl._scope.TimeScale((1 / (test_parameter.Freq * 1000)) / 10);
+            
             InsControl._scope.CH1_On();
             InsControl._scope.CH2_On();
             InsControl._scope.CH1_Level(5);
             InsControl._scope.CH2_Level(5);
             InsControl._scope.CH1_Offset(0);
             InsControl._scope.CH2_Offset(0);
+
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH2_BWLimitOn();
 
             InsControl._scope.DoCommand(":MEASure:VAVG CHANnel2");
             InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
@@ -77,13 +83,20 @@ namespace OLEDLite
             InsControl._scope.Root_Clear();
             MyLib.Delay1s(1);
             InsControl._scope.Root_RUN();
-
+            InsControl._scope.CH1_Level((VinH - VinL) / 3);
+            InsControl._scope.CH1_Offset(VinH);
             InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
             string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+            InsControl._scope.Trigger_CH1();
+            InsControl._scope.TriggerLevel_CH1((VinH + VinL) / 2);
+            InsControl._scope.SetTriggerMode("TIMeout");
+            InsControl._scope.SetTimeoutSource(1);
+            InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.8) * Math.Pow(10,9));
 
             // measure real VinHi, VinLo
             meas_VinHi = Convert.ToDouble(res[0]);
-            meas_VinLo = Convert.ToDouble(res[2]);
+            meas_VinLo = Convert.ToDouble(res[1]);
+            double VinH_in = VinH, VinL_in = VinL;
 
             
             while (meas_VinHi < (VinH - margin) || meas_VinHi > (VinH + margin))
@@ -95,14 +108,14 @@ namespace OLEDLite
 
                 if (meas_VinHi < (VinH - margin))
                 {
-                    VinH += Offset;
-                    MyLib.FuncGen_loopparameter(VinH, VinL);
+                    VinH_in += Offset;
+                    MyLib.FuncGen_loopparameter(VinH_in, VinL);
                 }
 
-                if(meas_VinHi < (VinH + margin))
+                if(meas_VinHi > (VinH + margin))
                 {
-                    VinH -= Offset;
-                    MyLib.FuncGen_loopparameter(VinH, VinL);
+                    VinH_in -= Offset;
+                    MyLib.FuncGen_loopparameter(VinH_in, VinL);
                 }
                 // out of loop
                 VinH_cnt++;
@@ -115,18 +128,18 @@ namespace OLEDLite
                 InsControl._scope.Root_Clear();
                 InsControl._scope.Root_RUN();
                 res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
-                meas_VinLo = Convert.ToDouble(res[2]);
+                meas_VinLo = Convert.ToDouble(res[1]);
 
                 if (meas_VinLo < (VinL - margin))
                 {
-                    VinL += Offset;
-                    MyLib.FuncGen_loopparameter(VinH, VinL);
+                    VinL_in += Offset;
+                    MyLib.FuncGen_loopparameter(VinH_in, VinL_in);
                 }
 
-                if (meas_VinLo < (VinL + margin))
+                if (meas_VinLo > (VinL + margin))
                 {
-                    VinL -= Offset;
-                    MyLib.FuncGen_loopparameter(VinH, VinL);
+                    VinL_in -= Offset;
+                    MyLib.FuncGen_loopparameter(VinH_in, VinL_in);
                 }
                 // out of loop
                 VinL_cnt++;
@@ -136,12 +149,18 @@ namespace OLEDLite
 
         private void VoResize()
         {
-            double Vo_offset = InsControl._scope.Meas_CH2AVE();
+            double Vo_offset = InsControl._scope.Meas_CH2AVG();
 
             InsControl._scope.CH2_Offset(Vo_offset);
             InsControl._scope.CH2_Level(0.1); // 100mV
             MyLib.WaveformCheck();
-            InsControl._scope.CH2_Offset(Vo_offset);
+
+            for(int i = 0; i < 3; i++)
+            {
+                Vo_offset = InsControl._scope.Meas_CH2AVG();
+                InsControl._scope.CH2_Offset(Vo_offset);
+            }
+
             double abs_vo = Math.Abs(Vo_offset);
             if (abs_vo < 5) InsControl._scope.CH2_Level(0.01);
             else if (5 < abs_vo && abs_vo < 10) InsControl._scope.CH2_Level(0.02);
@@ -156,12 +175,18 @@ namespace OLEDLite
             binList = MyLib.ListBinFile(test_parameter.bin_path);
             bin_cnt = binList.Length;
 
+            InsControl._power.AutoSelPowerOn(test_parameter.HiLo_table[0].Highlevel + 0.5);
+            MyLib.FuncGen_Fixedparameter(test_parameter.Freq * 1000,
+                                         test_parameter.duty,
+                                         test_parameter.tr,
+                                         test_parameter.tf);
             OSCInint();
             for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
             {
-                for(int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? test_parameter.swireList.Count : bin_cnt); interface_idx++) // interface
+                for(int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++) // interface
                 {
                     OSCRest();
+                    InsControl._power.AutoSelPowerOn(test_parameter.HiLo_table[func_idx].Highlevel + 0.5);
                     MyLib.FuncGen_loopparameter(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
 
                     if(test_parameter.i2c_enable)
@@ -179,6 +204,21 @@ namespace OLEDLite
                     MyLib.EloadFixChannel();
                     ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                     VoResize();
+
+                    // measure part
+                    double zoomout_peak = InsControl._scope.Meas_CH2MAX();
+                    double zoomout_neg_peak = InsControl._scope.Meas_CH2MIN();
+                    double on_time = (1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100);
+                    double off_time = (1 / (test_parameter.Freq * 1000)) * ((100 - test_parameter.duty) / 100);
+
+                    InsControl._scope.TimeScale(on_time / 20);
+                    double hi_peak = InsControl._scope.Meas_CH2MAX();
+                    double hi_neg_peak = InsControl._scope.Meas_CH2MIN();
+
+                    InsControl._scope.TimeScale(on_time / 10);
+                    InsControl._scope.TimeBasePosition(on_time);
+                    double lo_peak = InsControl._scope.Meas_CH2MAX();
+                    double lo_neg_peak = InsControl._scope.Meas_CH2MIN();
 
                     // power off
                     InsControl._funcgen.CH1_Off();
