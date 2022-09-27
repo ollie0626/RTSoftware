@@ -14,6 +14,7 @@ namespace MulanLite
         {
             RTDev.BoardInit();
             timer1.Enabled = false;
+            RTDev.POREnable();
             Console.WriteLine("one time shot timer !!!");
         }
 

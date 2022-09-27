@@ -22,6 +22,7 @@ namespace OLEDLite
         public static string special_file;
         public static List<string> swireList = new List<string>();
         public static bool i2c_enable;
+        public static bool swire_20;
 
         // power
         public static List<double> vinList = new List<double>();
@@ -29,15 +30,19 @@ namespace OLEDLite
         // ELoad
         public static List<double> ioutList = new List<double>();
         public static bool eload_select;
-        
+
         // FuncGen
+        public static List<double> HiLevel = new List<double>();
+        public static List<double> LoLevel = new List<double>();
         public static List<Hi_Lo> HiLo_table = new List<Hi_Lo>();
         public static double Freq;
         public static double duty;
         public static double tr;
         public static double tf;
 
-
+        // eload enable
+        public static bool[] eload_en;
+        public static double[] eload_iout;
 
 
     }

@@ -9,7 +9,6 @@ using System.Diagnostics;
 using System.Drawing;
 
 
-
 namespace BuckTool
 {
     public class TaskRun : ITask

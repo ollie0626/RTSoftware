@@ -131,6 +131,7 @@ namespace MulanLite
             connected_status = RTDev.BoardInit();
             if (connected_status) this.Text = win_name + " - Connected";
             else this.Text = win_name + "- Disconected";
+            RTDev.POREnable();
         }
 
         public main()
@@ -2103,6 +2104,26 @@ namespace MulanLite
             WF9.Value = RF9.Value;
 
 
+        }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i < 50000; i++)
+            {
+                //RTDev.POREnable();
+
+
+                //byte id = (byte)nu_persentid.Value;
+                //byte[] RData = RTDev.ReadFunc(id, 0x00, 0x34);
+                //byte[] WData = new byte[1];
+                //WData[0] = (byte)((RCLK_DIV.SelectedIndex << 4) | (ck_CH0_en.Checked ? 0x01 : 0x00) | (ck_CH1_en.Checked ? 0x02 : 0x00) | (ck_CH2_en.Checked ? 0x04 : 0x00) | (ck_CH3_en.Checked ? 0x08 : 0x00));
+                //RTDev.WriteFunc(id, WriteCmd, 0x34, 0x00, WData);
+
+
+                byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
+                //RTDev.PORDisable();
+                
+            }
         }
     }
 }
