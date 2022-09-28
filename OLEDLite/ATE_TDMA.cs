@@ -90,8 +90,9 @@ namespace OLEDLite
             InsControl._scope.Trigger_CH1();
             InsControl._scope.TriggerLevel_CH1((VinH + VinL) / 2);
             InsControl._scope.SetTriggerMode("TIMeout");
+            InsControl._scope.SetTimeoutCondition(true);
             InsControl._scope.SetTimeoutSource(1);
-            InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.8) * Math.Pow(10,9));
+            InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.5) * Math.Pow(10,9));
 
             // measure real VinHi, VinLo
             meas_VinHi = Convert.ToDouble(res[0]);
@@ -204,6 +205,9 @@ namespace OLEDLite
                     MyLib.EloadFixChannel();
                     ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                     VoResize();
+                    // save waveform full case
+                    InsControl._scope.SaveWaveform(test_parameter.wave_path, "full");
+
 
                     // measure part
                     double zoomout_peak = InsControl._scope.Meas_CH2MAX();
@@ -211,16 +215,44 @@ namespace OLEDLite
                     double on_time = (1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100);
                     double off_time = (1 / (test_parameter.Freq * 1000)) * ((100 - test_parameter.duty) / 100);
 
+                    InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.8) * Math.Pow(10, 9));
                     InsControl._scope.TimeScale(on_time / 20);
+                    InsControl._scope.TimeBasePosition(on_time + ((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.8));
                     double hi_peak = InsControl._scope.Meas_CH2MAX();
                     double hi_neg_peak = InsControl._scope.Meas_CH2MIN();
 
-                    InsControl._scope.TimeScale(on_time / 10);
-                    InsControl._scope.TimeBasePosition(on_time);
+                    //InsControl._scope.SetTrigModeEdge(true)
+                    InsControl._scope.SetTimeoutCondition(false);
+                    InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * ((100 - test_parameter.duty) / 100) * 0.8) * Math.Pow(10, 9));
+                    InsControl._scope.TimeScale(off_time / 20);
+                    InsControl._scope.TimeBasePosition(off_time + ((1 / (test_parameter.Freq * 1000) * ((100 - test_parameter.duty) / 100)) * 0.8));
                     double lo_peak = InsControl._scope.Meas_CH2MAX();
                     double lo_neg_peak = InsControl._scope.Meas_CH2MIN();
 
+
+                    // save waveform rising case
+                    double rising_trigger_time = on_time * 0.2 * Math.Pow(10, 9);
+                    double rising_scale = on_time / 20;
+                    InsControl._scope.SetTimeoutCondition(true);
+                    InsControl._scope.SetTimeoutTime(rising_trigger_time);
+                    InsControl._scope.TimeScale(rising_scale);
+                    InsControl._scope.TimeBasePosition(rising_scale * -3.5);
+                    InsControl._scope.SaveWaveform(test_parameter.wave_path, "rising");
+
+                    // save waveform falling case 
+                    double falling_trigger_time = off_time * 0.2 * Math.Pow(10, 9);
+                    double falling_scale = off_time / 20;
+                    InsControl._scope.SetTimeoutCondition(false);
+                    InsControl._scope.SetTimeoutTime(falling_trigger_time);
+                    InsControl._scope.TimeScale(falling_scale);
+                    InsControl._scope.TimeBasePosition(falling_scale * -3.5);
+                    InsControl._scope.SaveWaveform(test_parameter.wave_path, "falling");
+
+
                     // power off
+                    //InsControl._scope.SetTrigModeEdge(false);
+                    InsControl._scope.TimeBasePosition(0);
+                    InsControl._scope.TimeScale((1 / (test_parameter.Freq * 1000)) / 10);
                     InsControl._funcgen.CH1_Off();
                 }
             }
