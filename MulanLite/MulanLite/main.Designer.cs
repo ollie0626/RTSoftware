@@ -762,7 +762,6 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.uiButton10 = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -10452,6 +10451,7 @@ namespace MulanLite
             this.bt_virus_pattern.Style = Sunny.UI.UIStyle.Custom;
             this.bt_virus_pattern.TabIndex = 72;
             this.bt_virus_pattern.Text = "Mulan Virus Pattern";
+            this.bt_virus_pattern.Visible = false;
             this.bt_virus_pattern.Click += new System.EventHandler(this.bt_virus_pattern_Click);
             // 
             // groupBox36
@@ -11986,7 +11986,6 @@ namespace MulanLite
             // 
             // uiGroupBox22
             // 
-            this.uiGroupBox22.Controls.Add(this.uiButton10);
             this.uiGroupBox22.Controls.Add(this.uiButton1);
             this.uiGroupBox22.Controls.Add(this.uiLabel76);
             this.uiGroupBox22.Controls.Add(this.uiLabel77);
@@ -12210,19 +12209,6 @@ namespace MulanLite
             this.ck_CH1_en.Text = "CH1 EN";
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
-            // 
-            // uiButton10
-            // 
-            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton10.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton10.Location = new System.Drawing.Point(12, 152);
-            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton10.Name = "uiButton10";
-            this.uiButton10.Size = new System.Drawing.Size(100, 29);
-            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton10.TabIndex = 62;
-            this.uiButton10.Text = "Read";
-            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
             // 
             // main
             // 
@@ -13383,7 +13369,6 @@ namespace MulanLite
         private Sunny.UI.UIButton uiButton9;
         private Sunny.UI.UIButton uiButton8;
         private Sunny.UI.UIButton by_tm_read_to_write;
-        private Sunny.UI.UIButton uiButton10;
     }
 }
 

@@ -41,8 +41,9 @@ namespace OLEDLite
             //GUI_Design();
             materialTabControl1.SelectedIndex = 1;
             ATEItemInit();
-        }
 
+            ChamGroup.Enabled = false;
+        }
 
         private void ATEItemInit()
         {
@@ -245,6 +246,17 @@ namespace OLEDLite
         private void nu_swire_num_ValueChanged(object sender, EventArgs e)
         {
             swireTable.RowCount = (int)nu_swire_num.Value;
+        }
+
+        private void cb_item_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(cb_item.SelectedIndex)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+            }
         }
     }
 }

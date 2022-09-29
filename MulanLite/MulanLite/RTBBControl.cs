@@ -459,6 +459,7 @@ namespace MulanLite
             buf[4] = 0x00;
             buf[5] = addr;
             buf[6] = 0x00; // for FPGA dummy byte
+            //Repeat:
             /* write command */
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
             //System.Threading.Thread.Sleep(2);
@@ -476,6 +477,10 @@ namespace MulanLite
             spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)(Buffer_tmp.Length), 0xAC, Buffer_tmp);
             for (int i = 0; i < Buffer_tmp.Length; i++) Console.Write("{0:X}, ", Buffer_tmp[i]);
             Console.WriteLine();
+
+
+            //if (Enumerable.SequenceEqual(Buffer_tmp, new byte[13]))
+            //{ goto Repeat; }
 
             byte item = 0xac;
             int idx = Array.IndexOf(Buffer_tmp, item);

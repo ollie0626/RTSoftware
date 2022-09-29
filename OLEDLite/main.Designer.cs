@@ -79,7 +79,7 @@ namespace OLEDLite
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ChamGroup = new System.Windows.Forms.GroupBox();
             this.cb_chamber = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -133,7 +133,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
             this.groupBox5.SuspendLayout();
-            this.groupBox3.SuspendLayout();
+            this.ChamGroup.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -184,7 +184,7 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.tb_res_chamber);
             this.tabPage2.Controls.Add(this.tb_res_power);
             this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.ChamGroup);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.ck_scope);
             this.tabPage2.Controls.Add(this.ck_meter_out);
@@ -355,6 +355,7 @@ namespace OLEDLite
             resources.GetString("cb_item.Items")});
             resources.ApplyResources(this.cb_item, "cb_item");
             this.cb_item.Name = "cb_item";
+            this.cb_item.SelectedIndexChanged += new System.EventHandler(this.cb_item_SelectedIndexChanged);
             // 
             // bt_scanIns
             // 
@@ -578,21 +579,21 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_Vin, "tb_Vin");
             this.tb_Vin.Name = "tb_Vin";
             // 
-            // groupBox3
+            // ChamGroup
             // 
-            this.groupBox3.Controls.Add(this.cb_chamber);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.ck_chaber_en);
-            this.groupBox3.Controls.Add(this.nu_steady);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.tb_templist);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.ck_slave);
-            this.groupBox3.Controls.Add(this.ck_multi_chamber);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.TabStop = false;
+            this.ChamGroup.Controls.Add(this.cb_chamber);
+            this.ChamGroup.Controls.Add(this.label11);
+            this.ChamGroup.Controls.Add(this.label15);
+            this.ChamGroup.Controls.Add(this.ck_chaber_en);
+            this.ChamGroup.Controls.Add(this.nu_steady);
+            this.ChamGroup.Controls.Add(this.label14);
+            this.ChamGroup.Controls.Add(this.tb_templist);
+            this.ChamGroup.Controls.Add(this.label13);
+            this.ChamGroup.Controls.Add(this.ck_slave);
+            this.ChamGroup.Controls.Add(this.ck_multi_chamber);
+            resources.ApplyResources(this.ChamGroup, "ChamGroup");
+            this.ChamGroup.Name = "ChamGroup";
+            this.ChamGroup.TabStop = false;
             // 
             // cb_chamber
             // 
@@ -886,8 +887,8 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.ChamGroup.ResumeLayout(false);
+            this.ChamGroup.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -937,7 +938,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tb_initial_bin;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox ChamGroup;
         private System.Windows.Forms.ComboBox cb_chamber;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
