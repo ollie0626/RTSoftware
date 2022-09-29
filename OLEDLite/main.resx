@@ -319,7 +319,7 @@
     <value>7</value>
   </data>
   <data name="tb_Low_level.Text" xml:space="preserve">
-    <value>3,2.8,3.2</value>
+    <value>3,2.8</value>
   </data>
   <data name="&gt;&gt;tb_Low_level.Name" xml:space="preserve">
     <value>tb_Low_level</value>
