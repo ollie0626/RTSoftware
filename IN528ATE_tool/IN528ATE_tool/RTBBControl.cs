@@ -11,6 +11,7 @@ namespace IN528ATE_tool
     public class RTBBControl
     {
         private const int GPIO2_0 = 32;
+        private const int GPIO2_1 = 33;
 
         private BridgeBoard hDevice;
         private BridgeBoardEnum hEnum;
@@ -45,7 +46,10 @@ namespace IN528ATE_tool
             gpioModule.RTBB_GPIOWrite(1, 0xffff, 1);
 
             gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_0, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_1, true);
+
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
         }
 
         public void GpEn_Enable()
@@ -59,6 +63,20 @@ namespace IN528ATE_tool
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
         }
+
+        public void Gp2En_Enable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, true);
+        }
+
+        public void Gp2En_Disable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
+        }
+
+
 
 
         public void RelayOn(int num)

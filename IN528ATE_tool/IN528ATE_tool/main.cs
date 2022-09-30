@@ -47,10 +47,12 @@ namespace IN528ATE_tool
         string templist;
         int item_sel;
 
+        //private ChamberLink chamberlink = new ChamberLink();
+
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.5";
+            this.Text = "ATE Tool v2.6 s+";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 

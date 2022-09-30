@@ -154,6 +154,12 @@ namespace IN528ATE_tool
                             return;
                         }
 
+                        MyLib.Delay1ms(50);
+                        // p2.0 enable
+                        RTDev.GpEn_Enable();
+                        MyLib.Delay1ms(50);
+                        RTDev.Gp2En_Enable();
+
                         // adjust ch1 level
                         InsControl._scope.CH1_Level(1);
                         System.Threading.Thread.Sleep(500);
@@ -198,6 +204,10 @@ namespace IN528ATE_tool
 
                         if(Math.Abs(vout) < 0.15)
                         {
+                            RTDev.Gp2En_Disable();
+                            MyLib.Delay1ms(50);
+                            RTDev.GpEn_Disable();
+                            MyLib.Delay1ms(50);
                             InsControl._power.AutoPowerOff();
                             InsControl._eload.CH1_Loading(0);
                             InsControl._eload.AllChannel_LoadOff();
