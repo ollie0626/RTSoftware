@@ -17,10 +17,16 @@ namespace IN528ATE_tool
         AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK, AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW, AX, AY, AZ,
     };
 
-    public interface TaskRun
+    public interface ITask
     {
         void ATETask();
+    }
 
+    public class TaskRun : ITask
+    {
+        public double temp = 25;
+        virtual public void ATETask()
+        { }
     }
 
     public class MyLib

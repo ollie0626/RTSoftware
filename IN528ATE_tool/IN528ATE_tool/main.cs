@@ -13,6 +13,8 @@ using InsLibDotNet;
 using System.Diagnostics;
 using System.Threading;
 using System.IO;
+using System.Net.Sockets;
+using System.Net;
 // this's new basic branch
 
 using System.Text.RegularExpressions;
@@ -21,10 +23,10 @@ namespace IN528ATE_tool
 {
     public partial class main : Sunny.UI.UIForm
     {
-        
         delegate void MyDelegate();
         MyDelegate Message;
         FolderBrowserDialog FolderBrow;
+        ChamberCtr chamberCtr = new ChamberCtr();
 
         RTBBControl RTDev;
         MyLib myLib;
@@ -82,15 +84,13 @@ namespace IN528ATE_tool
             Console.WriteLine(tb_chamber.Text);
             test_parameter.run_stop = false;
             test_parameter.chamber_en = false;
+            cb_mode_sel.SelectedIndex = 0;
         }
 
         public main()
         {
             InitializeComponent();
             GUIInit();
-
-            // 2 ^ 10
-            //Console.WriteLine(Math.Pow(10, 10));
         }
 
         private void MessageCallback()
@@ -274,13 +274,15 @@ namespace IN528ATE_tool
                 test_parameter_copy();
                 item_sel = cb_item.SelectedIndex;
 
-                ChamberCtr.ChamberName = tb_chamber.Text;
+                //ChamberCtr.ChamberName = tb_chamber.Text;
                 SteadyTime = (int)nu_steady.Value;
 
                 if (ck_multi_chamber.Checked && ck_chaber_en.Checked)
                 {
-                    ATETask = new Thread(MultiChamber_Task);
-                    ATETask.Start();
+                    //ATETask = new Thread(MultiChamber_Task);
+                    p_thread = new ParameterizedThreadStart(multi_ate_process);
+                    ATETask = new Thread(p_thread);
+                    ATETask.Start(cb_item.SelectedIndex);
                 }
                 else if (ck_chaber_en.Checked)
                 {
@@ -290,13 +292,11 @@ namespace IN528ATE_tool
                 else
                 {
                     // single no chamber conditions
-                    _ate_ripple.temp = 25;
-                    _ate_poweron.temp = 25;
-                    _ate_code_inrush.temp = 25;
-                    _ate_current_limit.temp = 25;
-                    _ate_uvp.temp = 25;
-                    _ate_dly.temp = 25;
 
+                    for(int i = 0; i < ate_table.Length; i++)
+                    {
+                        ate_table[i].temp = 25;
+                    }
 
                     if (ck_all_test.Checked)
                     {
@@ -318,54 +318,43 @@ namespace IN528ATE_tool
             }
         }
 
-        // ATE Process: MultiChamber_Task, Chamber_Task, Run_Task_Flow, Run_Single_Task
+        private List<int> TemperatureList = new List<int>();
 
-        public async void MultiChamber_Task()
+        private void GetTemperature(string input)
         {
-            ChamberCtr.IsTCPConnected = false;
-            ChamberCtr.ChamberName = tb_chamber.Text;
-            ChamberCtr.CreatShareChamberFolder();
+            TemperatureList.Clear();
+            string[] temp = input.Split(',');
+            foreach (string str in temp)
+            {
+                TemperatureList.Add(Convert.ToInt32(str));
+            }
+        }
+
+        private async void multi_ate_process(object idx)
+        {
             
-            if (!ck_slave.Checked)
-            {
-                // master
-                ChamberCtr.DeleteShareChamberFile();
-                ChamberCtr.CreatTempList(templist);
-            }
-            else
-            {
-                // slave
-                System.Threading.Thread.Sleep(1000);
-                templist = ChamberCtr.ReadTempList();
-                isChamberEn = !string.IsNullOrEmpty(templist);
-                tempList = templist.Split(',');
-            }
+            int timer;
+            MyLib myLib = new MyLib();
+            //myLib.time = (int)nu_steady.Value;
+            chamberCtr.Init(tb_templist.Text);
 
-            ChamberCtr.InitTCPTimer(!ck_slave.Checked);
-            ChamberCtr.CurrentStateMaster = "Busy,-999";
-            ChamberCtr.CurrenStateSlave = "Busy,-999";
-            ChamberCtr.IsTCPNoConnected = !ck_multi_chamber.Checked;
-            ChamberCtr.SetTCPTimerState(true);
-            Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-
-            //if (!await TaskConnect(300)) return;// connect
-
-            for (int i = 0; i < tempList.Length; i++)
+            if (chamberCtr.Role == "Master")
             {
-                if(ck_slave.Checked)
+                GetTemperature(tb_templist.Text);
+                chamberCtr.Dispose();
+
+                foreach (int Temp in TemperatureList)
                 {
-                    ChamberCtr.CurrenStateSlave = "Idle," + tempList[i].ToString();
-                }
-                else
-                {
-                    ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
+                    ate_table[(int)idx].temp = Temp;
+
+                    Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     SteadyTime = (int)nu_steady.Value;
                     InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
                     InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
                     bool res = InsControl._chamber.InsState();
-                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                    await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    await InsControl._chamber.ChamberStable(Convert.ToDouble(Temp));
 
                     for (; SteadyTime > 0;)
                     {
@@ -373,59 +362,187 @@ namespace IN528ATE_tool
                         uiProcessBar1.Value = SteadyTime;
                         label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
                     }
-                    ChamberCtr.CurrentStateMaster = "Idle," + tempList[i].ToString();
-                }
 
-                ChamberCtr.CheckTCP_ChamberIdle();
-                if (ck_slave.Checked) Console.WriteLine("Slave----------Start Run------------------");
-                else Console.WriteLine("Master----------Start Run------------------");
-                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Busy," + tempList[i].ToString();
-                else ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
-
-                // ripple test
-                _ate_ripple.temp = Convert.ToDouble(tempList[i]);
-                _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
-                _ate_poweron.temp = Convert.ToDouble(tempList[i]);
-                _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
-
-                //_ate_current_limit.temp = 25;
-                _ate_uvp.temp = Convert.ToDouble(tempList[i]);
-                _ate_dly.temp = Convert.ToDouble(tempList[i]);
-
-                if (!test_parameter.all_en)
-                {
-                    switch (item_sel)
+                    //STATUS: WAIT
+                    //Get N ready for RUN
+                    timer = 0;
+                    while (true)
                     {
-                        case 0:
-                            _ate_ripple.ATETask();
+                        if (chamberCtr.CheckAllClientStatus("ready"))
+                        {
+                            chamberCtr.MasterStatus = "RUN";
                             break;
-                        case 1:
-                            _ate_code_inrush.ATETask();
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "RUN";
+                            Console.WriteLine("[Master]: Time's UP! Change to RUN status.");
                             break;
-                        case 2:
-                            _ate_poweron.ATETask();
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    ate_table[(int)idx].ATETask();
+
+                    //STATUS: RUN
+                    //Get N over for STOP
+                    timer = 0;
+                    while (true)
+                    {
+                        if (chamberCtr.CheckAllClientStatus("idle"))
+                        {
+                            chamberCtr.MasterStatus = "STOP";
                             break;
-                        case 3:
-                            _ate_current_limit.ATETask();
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "STOP";
                             break;
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
                     }
                 }
-                else
-                {
-                    _ate_ripple.ATETask();
-                    _ate_code_inrush.ATETask();
-                }
-
-                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Idle,9999";
-                else ChamberCtr.CurrentStateMaster = "Idle,9999";
-                if (ck_slave.Checked) Console.WriteLine("Slave----------WaitFIN------------------");
-                else Console.WriteLine("Master----------WaitFIN------------------");
-                ChamberCtr.CheckTCP_ChamberIdle();
-                if (ck_slave.Checked) Console.WriteLine("Slave----------FIN------------------");
-                else Console.WriteLine("Master----------FIN------------------");
-                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
             }
+            else if (chamberCtr.Role == "Slave")
+            {
+                GetTemperature(chamberCtr.SendRequest("temperature"));
+
+                foreach (int Temp in TemperatureList)
+                {
+                    ate_table[(int)idx].temp = Temp;
+                    //status: ready.
+                    //sent status and request master status 
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("ready") == "RUN")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    ate_table[(int)idx].ATETask();
+
+                    //status: over.
+                    //
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("idle") == "STOP")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                }
+                chamberCtr.Exit();
+            }
+
         }
+
+        // ATE Process: MultiChamber_Task, Chamber_Task, Run_Task_Flow, Run_Single_Task
+
+        //public async void MultiChamber_Task()
+        //{
+        //    ChamberCtr.IsTCPConnected = false;
+        //    ChamberCtr.ChamberName = tb_chamber.Text;
+        //    ChamberCtr.CreatShareChamberFolder();
+
+        //    if (!ck_slave.Checked)
+        //    {
+        //        // master
+        //        ChamberCtr.DeleteShareChamberFile();
+        //        ChamberCtr.CreatTempList(templist);
+        //    }
+        //    else
+        //    {
+        //        // slave
+        //        System.Threading.Thread.Sleep(1000);
+        //        templist = ChamberCtr.ReadTempList();
+        //        isChamberEn = !string.IsNullOrEmpty(templist);
+        //        tempList = templist.Split(',');
+        //    }
+
+        //    ChamberCtr.InitTCPTimer(!ck_slave.Checked);
+        //    ChamberCtr.CurrentStateMaster = "Busy,-999";
+        //    ChamberCtr.CurrenStateSlave = "Busy,-999";
+        //    ChamberCtr.IsTCPNoConnected = !ck_multi_chamber.Checked;
+        //    ChamberCtr.SetTCPTimerState(true);
+        //    Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+
+        //    //if (!await TaskConnect(300)) return;// connect
+
+        //    for (int i = 0; i < tempList.Length; i++)
+        //    {
+        //        if(ck_slave.Checked)
+        //        {
+        //            ChamberCtr.CurrenStateSlave = "Idle," + tempList[i].ToString();
+        //        }
+        //        else
+        //        {
+        //            ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
+        //            SteadyTime = (int)nu_steady.Value;
+        //            InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
+        //            InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
+        //            bool res = InsControl._chamber.InsState();
+        //            InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+        //            InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+        //            await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
+
+        //            for (; SteadyTime > 0;)
+        //            {
+        //                await TaskRecount();
+        //                uiProcessBar1.Value = SteadyTime;
+        //                label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+        //            }
+        //            ChamberCtr.CurrentStateMaster = "Idle," + tempList[i].ToString();
+        //        }
+
+        //        ChamberCtr.CheckTCP_ChamberIdle();
+        //        if (ck_slave.Checked) Console.WriteLine("Slave----------Start Run------------------");
+        //        else Console.WriteLine("Master----------Start Run------------------");
+        //        if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Busy," + tempList[i].ToString();
+        //        else ChamberCtr.CurrentStateMaster = "Busy," + tempList[i].ToString();
+
+        //        // ripple test
+        //        _ate_ripple.temp = Convert.ToDouble(tempList[i]);
+        //        _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
+        //        _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+        //        _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
+
+        //        //_ate_current_limit.temp = 25;
+        //        _ate_uvp.temp = Convert.ToDouble(tempList[i]);
+        //        _ate_dly.temp = Convert.ToDouble(tempList[i]);
+
+        //        if (!test_parameter.all_en)
+        //        {
+        //            switch (item_sel)
+        //            {
+        //                case 0:
+        //                    _ate_ripple.ATETask();
+        //                    break;
+        //                case 1:
+        //                    _ate_code_inrush.ATETask();
+        //                    break;
+        //                case 2:
+        //                    _ate_poweron.ATETask();
+        //                    break;
+        //                case 3:
+        //                    _ate_current_limit.ATETask();
+        //                    break;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            _ate_ripple.ATETask();
+        //            _ate_code_inrush.ATETask();
+        //        }
+
+        //        if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Idle,9999";
+        //        else ChamberCtr.CurrentStateMaster = "Idle,9999";
+        //        if (ck_slave.Checked) Console.WriteLine("Slave----------WaitFIN------------------");
+        //        else Console.WriteLine("Master----------WaitFIN------------------");
+        //        ChamberCtr.CheckTCP_ChamberIdle();
+        //        if (ck_slave.Checked) Console.WriteLine("Slave----------FIN------------------");
+        //        else Console.WriteLine("Master----------FIN------------------");
+        //        if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+        //    }
+        //}
 
         public async void Chamber_Task()
         {
@@ -762,6 +879,57 @@ namespace IN528ATE_tool
                     swireTable[0, i].Value = buf;
                     //swireTable[1, i].Value = buf[1];
                 }
+            }
+        }
+
+        private void cb_mode_sel_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if(cb_mode_sel.SelectedIndex == 0)
+            {
+                bt_start.Text = "START";
+                chamberCtr.Role = "Master";
+                bt_stop.Enabled = true;
+            }
+            else
+            {
+                bt_start.Text = "Connect";
+                chamberCtr.Role = "Slave";
+                bt_stop.Enabled = false;
+            }
+            
+        }
+
+        private void bt_ipaddress_Click(object sender, EventArgs e)
+        {
+            IPAddress[] ipa = Dns.GetHostAddresses(Dns.GetHostName());
+            tb_IPAddress.Text = ipa[1].ToString();
+        }
+
+        private void bt_start_Click(object sender, EventArgs e)
+        {
+            if (cb_mode_sel.SelectedIndex == 0)
+            {
+                chamberCtr.MasterLisening();
+            }
+            else
+            {
+                chamberCtr.ClientConnect(tb_IPAddress.Text);
+            }
+        }
+
+        private void bt_stop_Click(object sender, EventArgs e)
+        {
+
+            if(cb_mode_sel.SelectedIndex == 0)
+            {
+                foreach (var c in ChamberCtr.Socket_List)
+                {
+                    c.Shutdown(SocketShutdown.Both);
+                    c.Close();
+                }
+                //serverSocket.Close();
+                chamberCtr.ClientNowStatus.Clear();
+                ChamberCtr.Socket_List.Clear();
             }
         }
     }

@@ -55,7 +55,7 @@ namespace IN528ATE_tool
             InsControl._scope.Measure_Clear();
         }
 
-        public void ATETask()
+        public override void ATETask()
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();

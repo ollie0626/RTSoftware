@@ -61,7 +61,6 @@ namespace IN528ATE_tool
             this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
-            this.ck_slave = new System.Windows.Forms.CheckBox();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -137,6 +136,14 @@ namespace IN528ATE_tool
             this.bt_SwireLoad = new System.Windows.Forms.Button();
             this.bt_SwireSave = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.bt_ipaddress = new System.Windows.Forms.Button();
+            this.bt_stop = new System.Windows.Forms.Button();
+            this.bt_start = new System.Windows.Forms.Button();
+            this.tb_IPAddress = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.cb_mode_sel = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -176,13 +183,14 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tb_vinList);
             this.groupBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox1.Location = new System.Drawing.Point(286, 260);
+            this.groupBox1.Location = new System.Drawing.Point(286, 240);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -203,7 +211,7 @@ namespace IN528ATE_tool
             // 
             this.groupBox2.Controls.Add(this.tb_ioutList);
             this.groupBox2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(286, 317);
+            this.groupBox2.Location = new System.Drawing.Point(286, 297);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -550,7 +558,6 @@ namespace IN528ATE_tool
             this.uibt_chamber.Symbol = 61633;
             this.uibt_chamber.TabIndex = 4;
             this.uibt_chamber.Text = "Chamber Connect";
-            this.uibt_chamber.Visible = false;
             this.uibt_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_chamber.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
@@ -611,23 +618,13 @@ namespace IN528ATE_tool
             // ck_multi_chamber
             // 
             this.ck_multi_chamber.AutoSize = true;
-            this.ck_multi_chamber.Location = new System.Drawing.Point(8, 105);
+            this.ck_multi_chamber.Location = new System.Drawing.Point(9, 24);
             this.ck_multi_chamber.Name = "ck_multi_chamber";
-            this.ck_multi_chamber.Size = new System.Drawing.Size(107, 19);
+            this.ck_multi_chamber.Size = new System.Drawing.Size(77, 19);
             this.ck_multi_chamber.TabIndex = 44;
-            this.ck_multi_chamber.Text = "Multi Chamber";
+            this.ck_multi_chamber.Text = "Multi-ATE";
             this.ck_multi_chamber.UseVisualStyleBackColor = true;
             this.ck_multi_chamber.CheckedChanged += new System.EventHandler(this.ck_multi_chamber_CheckedChanged);
-            // 
-            // ck_slave
-            // 
-            this.ck_slave.AutoSize = true;
-            this.ck_slave.Location = new System.Drawing.Point(9, 130);
-            this.ck_slave.Name = "ck_slave";
-            this.ck_slave.Size = new System.Drawing.Size(55, 19);
-            this.ck_slave.TabIndex = 45;
-            this.ck_slave.Text = "Slave";
-            this.ck_slave.UseVisualStyleBackColor = true;
             // 
             // tb_templist
             // 
@@ -657,11 +654,9 @@ namespace IN528ATE_tool
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.tb_templist);
             this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.ck_slave);
-            this.groupBox3.Controls.Add(this.ck_multi_chamber);
-            this.groupBox3.Location = new System.Drawing.Point(15, 211);
+            this.groupBox3.Location = new System.Drawing.Point(15, 240);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 227);
+            this.groupBox3.Size = new System.Drawing.Size(265, 182);
             this.groupBox3.TabIndex = 48;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Ctrl";
@@ -677,7 +672,7 @@ namespace IN528ATE_tool
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(5, 162);
+            this.label1.Location = new System.Drawing.Point(3, 116);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(101, 15);
             this.label1.TabIndex = 50;
@@ -687,7 +682,7 @@ namespace IN528ATE_tool
             // 
             this.uiProcessBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(235)))), ((int)(((byte)(243)))), ((int)(((byte)(255)))));
             this.uiProcessBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiProcessBar1.Location = new System.Drawing.Point(5, 182);
+            this.uiProcessBar1.Location = new System.Drawing.Point(5, 142);
             this.uiProcessBar1.MinimumSize = new System.Drawing.Size(70, 3);
             this.uiProcessBar1.Name = "uiProcessBar1";
             this.uiProcessBar1.Size = new System.Drawing.Size(245, 27);
@@ -699,7 +694,7 @@ namespace IN528ATE_tool
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(95, 131);
+            this.label15.Location = new System.Drawing.Point(110, 116);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(83, 15);
             this.label15.TabIndex = 11;
@@ -708,7 +703,7 @@ namespace IN528ATE_tool
             // ck_chaber_en
             // 
             this.ck_chaber_en.AutoSize = true;
-            this.ck_chaber_en.Location = new System.Drawing.Point(9, 22);
+            this.ck_chaber_en.Location = new System.Drawing.Point(6, 22);
             this.ck_chaber_en.Name = "ck_chaber_en";
             this.ck_chaber_en.Size = new System.Drawing.Size(115, 19);
             this.ck_chaber_en.TabIndex = 48;
@@ -718,7 +713,7 @@ namespace IN528ATE_tool
             // nu_steady
             // 
             this.nu_steady.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_steady.Location = new System.Drawing.Point(184, 129);
+            this.nu_steady.Location = new System.Drawing.Point(199, 114);
             this.nu_steady.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_steady.Maximum = new decimal(new int[] {
             6000,
@@ -726,7 +721,7 @@ namespace IN528ATE_tool
             0,
             0});
             this.nu_steady.Name = "nu_steady";
-            this.nu_steady.Size = new System.Drawing.Size(66, 23);
+            this.nu_steady.Size = new System.Drawing.Size(51, 23);
             this.nu_steady.TabIndex = 10;
             this.nu_steady.Value = new decimal(new int[] {
             5,
@@ -747,7 +742,7 @@ namespace IN528ATE_tool
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.nu_addr);
             this.groupBox4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(286, 372);
+            this.groupBox4.Location = new System.Drawing.Point(286, 352);
             this.groupBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -998,7 +993,7 @@ namespace IN528ATE_tool
             // ck_all_test
             // 
             this.ck_all_test.AutoSize = true;
-            this.ck_all_test.Location = new System.Drawing.Point(527, 182);
+            this.ck_all_test.Location = new System.Drawing.Point(436, 210);
             this.ck_all_test.Name = "ck_all_test";
             this.ck_all_test.Size = new System.Drawing.Size(105, 19);
             this.ck_all_test.TabIndex = 51;
@@ -1009,7 +1004,7 @@ namespace IN528ATE_tool
             // ck_vin_trigger
             // 
             this.ck_vin_trigger.AutoSize = true;
-            this.ck_vin_trigger.Location = new System.Drawing.Point(292, 211);
+            this.ck_vin_trigger.Location = new System.Drawing.Point(31, 211);
             this.ck_vin_trigger.Name = "ck_vin_trigger";
             this.ck_vin_trigger.Size = new System.Drawing.Size(84, 19);
             this.ck_vin_trigger.TabIndex = 56;
@@ -1097,7 +1092,7 @@ namespace IN528ATE_tool
             // nu_offtime_scale
             // 
             this.nu_offtime_scale.DecimalPlaces = 3;
-            this.nu_offtime_scale.Location = new System.Drawing.Point(170, 181);
+            this.nu_offtime_scale.Location = new System.Drawing.Point(117, 181);
             this.nu_offtime_scale.Name = "nu_offtime_scale";
             this.nu_offtime_scale.Size = new System.Drawing.Size(62, 23);
             this.nu_offtime_scale.TabIndex = 61;
@@ -1111,7 +1106,7 @@ namespace IN528ATE_tool
             // ck_en_trigger
             // 
             this.ck_en_trigger.AutoSize = true;
-            this.ck_en_trigger.Location = new System.Drawing.Point(292, 236);
+            this.ck_en_trigger.Location = new System.Drawing.Point(117, 210);
             this.ck_en_trigger.Name = "ck_en_trigger";
             this.ck_en_trigger.Size = new System.Drawing.Size(79, 19);
             this.ck_en_trigger.TabIndex = 63;
@@ -1121,7 +1116,7 @@ namespace IN528ATE_tool
             // nu_ch1_trigger_level
             // 
             this.nu_ch1_trigger_level.DecimalPlaces = 2;
-            this.nu_ch1_trigger_level.Location = new System.Drawing.Point(378, 210);
+            this.nu_ch1_trigger_level.Location = new System.Drawing.Point(202, 211);
             this.nu_ch1_trigger_level.Name = "nu_ch1_trigger_level";
             this.nu_ch1_trigger_level.Size = new System.Drawing.Size(66, 23);
             this.nu_ch1_trigger_level.TabIndex = 65;
@@ -1225,7 +1220,7 @@ namespace IN528ATE_tool
             this.groupBox5.Controls.Add(this.nu_mtp_data);
             this.groupBox5.Controls.Add(this.nu_mtp_addr);
             this.groupBox5.Controls.Add(this.label16);
-            this.groupBox5.Location = new System.Drawing.Point(15, 443);
+            this.groupBox5.Location = new System.Drawing.Point(15, 558);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(622, 56);
             this.groupBox5.TabIndex = 73;
@@ -1235,7 +1230,7 @@ namespace IN528ATE_tool
             // nu_measure_level
             // 
             this.nu_measure_level.DecimalPlaces = 2;
-            this.nu_measure_level.Location = new System.Drawing.Point(540, 210);
+            this.nu_measure_level.Location = new System.Drawing.Point(364, 211);
             this.nu_measure_level.Name = "nu_measure_level";
             this.nu_measure_level.Size = new System.Drawing.Size(66, 23);
             this.nu_measure_level.TabIndex = 74;
@@ -1249,7 +1244,7 @@ namespace IN528ATE_tool
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(448, 212);
+            this.label18.Location = new System.Drawing.Point(272, 213);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(85, 15);
             this.label18.TabIndex = 75;
@@ -1265,7 +1260,7 @@ namespace IN528ATE_tool
             this.groupBox6.Controls.Add(this.label19);
             this.groupBox6.Controls.Add(this.nu_CVSetting);
             this.groupBox6.Controls.Add(this.label11);
-            this.groupBox6.Location = new System.Drawing.Point(15, 505);
+            this.groupBox6.Location = new System.Drawing.Point(15, 620);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(621, 53);
             this.groupBox6.TabIndex = 76;
@@ -1620,11 +1615,97 @@ namespace IN528ATE_tool
             this.tabPage2.Text = "SST Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.bt_ipaddress);
+            this.groupBox9.Controls.Add(this.bt_stop);
+            this.groupBox9.Controls.Add(this.bt_start);
+            this.groupBox9.Controls.Add(this.tb_IPAddress);
+            this.groupBox9.Controls.Add(this.label29);
+            this.groupBox9.Controls.Add(this.cb_mode_sel);
+            this.groupBox9.Controls.Add(this.label28);
+            this.groupBox9.Controls.Add(this.ck_multi_chamber);
+            this.groupBox9.Location = new System.Drawing.Point(15, 428);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(622, 126);
+            this.groupBox9.TabIndex = 80;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Master / Slave Select";
+            // 
+            // bt_ipaddress
+            // 
+            this.bt_ipaddress.Location = new System.Drawing.Point(372, 58);
+            this.bt_ipaddress.Name = "bt_ipaddress";
+            this.bt_ipaddress.Size = new System.Drawing.Size(92, 23);
+            this.bt_ipaddress.TabIndex = 51;
+            this.bt_ipaddress.Text = "IP Address";
+            this.bt_ipaddress.UseVisualStyleBackColor = true;
+            this.bt_ipaddress.Click += new System.EventHandler(this.bt_ipaddress_Click);
+            // 
+            // bt_stop
+            // 
+            this.bt_stop.Location = new System.Drawing.Point(470, 22);
+            this.bt_stop.Name = "bt_stop";
+            this.bt_stop.Size = new System.Drawing.Size(92, 23);
+            this.bt_stop.TabIndex = 50;
+            this.bt_stop.Text = "Stop";
+            this.bt_stop.UseVisualStyleBackColor = true;
+            this.bt_stop.Click += new System.EventHandler(this.bt_stop_Click);
+            // 
+            // bt_start
+            // 
+            this.bt_start.Location = new System.Drawing.Point(372, 21);
+            this.bt_start.Name = "bt_start";
+            this.bt_start.Size = new System.Drawing.Size(92, 23);
+            this.bt_start.TabIndex = 49;
+            this.bt_start.Text = "Start";
+            this.bt_start.UseVisualStyleBackColor = true;
+            this.bt_start.Click += new System.EventHandler(this.bt_start_Click);
+            // 
+            // tb_IPAddress
+            // 
+            this.tb_IPAddress.Location = new System.Drawing.Point(152, 58);
+            this.tb_IPAddress.Name = "tb_IPAddress";
+            this.tb_IPAddress.Size = new System.Drawing.Size(195, 23);
+            this.tb_IPAddress.TabIndex = 48;
+            this.tb_IPAddress.Text = "168.254.95.1";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(6, 61);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(140, 15);
+            this.label29.TabIndex = 47;
+            this.label29.Text = "Master / Link IP Address";
+            // 
+            // cb_mode_sel
+            // 
+            this.cb_mode_sel.FormattingEnabled = true;
+            this.cb_mode_sel.Items.AddRange(new object[] {
+            "Master",
+            "Slave"});
+            this.cb_mode_sel.Location = new System.Drawing.Point(187, 20);
+            this.cb_mode_sel.Name = "cb_mode_sel";
+            this.cb_mode_sel.Size = new System.Drawing.Size(121, 23);
+            this.cb_mode_sel.TabIndex = 46;
+            this.cb_mode_sel.SelectedIndexChanged += new System.EventHandler(this.cb_mode_sel_SelectedIndexChanged);
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(92, 25);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(89, 15);
+            this.label28.TabIndex = 45;
+            this.label28.Text = "Master / Slave ";
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(1027, 575);
+            this.ClientSize = new System.Drawing.Size(1027, 696);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lab_scope);
             this.Controls.Add(this.groupBox6);
@@ -1738,6 +1819,8 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1774,7 +1857,6 @@ namespace IN528ATE_tool
         private System.Windows.Forms.NumericUpDown nu_ontime_scale;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox ck_multi_chamber;
-        private System.Windows.Forms.CheckBox ck_slave;
         private System.Windows.Forms.TextBox tb_templist;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.GroupBox groupBox3;
@@ -1852,6 +1934,14 @@ namespace IN528ATE_tool
         private System.Windows.Forms.RadioButton RB20;
         private System.Windows.Forms.RadioButton RB21;
         private System.Windows.Forms.CheckBox ck_swire;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.ComboBox cb_mode_sel;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox tb_IPAddress;
+        private System.Windows.Forms.Button bt_start;
+        private System.Windows.Forms.Button bt_stop;
+        private System.Windows.Forms.Button bt_ipaddress;
     }
 }
 
