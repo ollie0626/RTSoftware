@@ -217,6 +217,9 @@ namespace OLEDLite
                 test_parameter.swireList.Add((string)swireTable[0, i].Value);
             }
             test_parameter.swire_20 = true;
+
+
+            test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
         }
 
 
@@ -225,9 +228,22 @@ namespace OLEDLite
             try
             {
                 test_parameter_copy();
-                p_thread = new ParameterizedThreadStart(Run_Single_Task);
-                ATETask = new Thread(p_thread);
-                ATETask.Start(cb_item.SelectedIndex);
+
+                if(ck_multi_chamber.Checked && ck_chamber.Checked)
+                {
+
+                }
+                else if(ck_chamber.Checked)
+                {
+
+                }
+                else
+                {
+                    // Lab run ate item
+                    p_thread = new ParameterizedThreadStart(Run_Single_Task);
+                    ATETask = new Thread(p_thread);
+                    ATETask.Start(cb_item.SelectedIndex);
+                }
             }
             catch (Exception ex)
             {
@@ -246,6 +262,15 @@ namespace OLEDLite
         {
             swireTable.RowCount = (int)nu_swire_num.Value;
         }
+
+        public async void Chamber_Task()
+        {
+            //for (int i = 0; i < tb_templist.l)
+        }
+
+
+
+
 
         private void cb_item_SelectedIndexChanged(object sender, EventArgs e)
         {

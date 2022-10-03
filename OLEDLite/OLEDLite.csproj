@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ATE_TDMA.cs" />
+    <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>

@@ -45,5 +45,8 @@ namespace OLEDLite
         public static double[] eload_iout;
 
 
+        // chamber parameter
+        public static List<double> tempList = new List<double>();
+
     }
 }
