@@ -35,7 +35,7 @@ namespace OLEDLite
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.ck_func = new System.Windows.Forms.CheckBox();
             this.tb_res_func = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.group_funcgen = new System.Windows.Forms.GroupBox();
             this.bt_func_set = new System.Windows.Forms.Button();
             this.nu_Tf = new System.Windows.Forms.NumericUpDown();
             this.nu_Tr = new System.Windows.Forms.NumericUpDown();
@@ -53,7 +53,7 @@ namespace OLEDLite
             this.cb_item = new System.Windows.Forms.ComboBox();
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
             this.label17 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.group_interface = new System.Windows.Forms.GroupBox();
             this.nu_swire_num = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.swireTable = new System.Windows.Forms.DataGridView();
@@ -76,11 +76,10 @@ namespace OLEDLite
             this.tb_res_eload = new System.Windows.Forms.TextBox();
             this.tb_res_chamber = new System.Windows.Forms.TextBox();
             this.tb_res_power = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.group_power = new System.Windows.Forms.GroupBox();
             this.label18 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
-            this.ChamGroup = new System.Windows.Forms.GroupBox();
-            this.cb_chamber = new System.Windows.Forms.ComboBox();
+            this.group_chamber = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.ck_chaber_en = new System.Windows.Forms.CheckBox();
@@ -90,7 +89,7 @@ namespace OLEDLite
             this.label13 = new System.Windows.Forms.Label();
             this.ck_slave = new System.Windows.Forms.CheckBox();
             this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.group_eload = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -121,21 +120,22 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.tb_IP_Addr = new System.Windows.Forms.TextBox();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.group_funcgen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.group_interface.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            this.ChamGroup.SuspendLayout();
+            this.group_power.SuspendLayout();
+            this.group_chamber.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
-            this.groupBox4.SuspendLayout();
+            this.group_eload.SuspendLayout();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load3)).BeginInit();
@@ -167,12 +167,12 @@ namespace OLEDLite
             // 
             this.tabPage2.Controls.Add(this.ck_func);
             this.tabPage2.Controls.Add(this.tb_res_func);
-            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.group_funcgen);
             this.tabPage2.Controls.Add(this.bt_connect);
             this.tabPage2.Controls.Add(this.cb_item);
             this.tabPage2.Controls.Add(this.bt_scanIns);
             this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.group_interface);
             this.tabPage2.Controls.Add(this.bt_stop);
             this.tabPage2.Controls.Add(this.list_ins);
             this.tabPage2.Controls.Add(this.bt_pause);
@@ -183,9 +183,9 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.tb_res_eload);
             this.tabPage2.Controls.Add(this.tb_res_chamber);
             this.tabPage2.Controls.Add(this.tb_res_power);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.ChamGroup);
-            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.group_power);
+            this.tabPage2.Controls.Add(this.group_chamber);
+            this.tabPage2.Controls.Add(this.group_eload);
             this.tabPage2.Controls.Add(this.ck_scope);
             this.tabPage2.Controls.Add(this.ck_meter_out);
             this.tabPage2.Controls.Add(this.ck_daq);
@@ -209,24 +209,24 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_func, "tb_res_func");
             this.tb_res_func.Name = "tb_res_func";
             // 
-            // groupBox1
+            // group_funcgen
             // 
-            this.groupBox1.Controls.Add(this.bt_func_set);
-            this.groupBox1.Controls.Add(this.nu_Tf);
-            this.groupBox1.Controls.Add(this.nu_Tr);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.tb_Low_level);
-            this.groupBox1.Controls.Add(this.tb_High_level);
-            this.groupBox1.Controls.Add(this.nu_duty);
-            this.groupBox1.Controls.Add(this.nu_Freq);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
+            this.group_funcgen.Controls.Add(this.bt_func_set);
+            this.group_funcgen.Controls.Add(this.nu_Tf);
+            this.group_funcgen.Controls.Add(this.nu_Tr);
+            this.group_funcgen.Controls.Add(this.label5);
+            this.group_funcgen.Controls.Add(this.label6);
+            this.group_funcgen.Controls.Add(this.tb_Low_level);
+            this.group_funcgen.Controls.Add(this.tb_High_level);
+            this.group_funcgen.Controls.Add(this.nu_duty);
+            this.group_funcgen.Controls.Add(this.nu_Freq);
+            this.group_funcgen.Controls.Add(this.label4);
+            this.group_funcgen.Controls.Add(this.label3);
+            this.group_funcgen.Controls.Add(this.label2);
+            this.group_funcgen.Controls.Add(this.label1);
+            resources.ApplyResources(this.group_funcgen, "group_funcgen");
+            this.group_funcgen.Name = "group_funcgen";
+            this.group_funcgen.TabStop = false;
             // 
             // bt_func_set
             // 
@@ -378,23 +378,23 @@ namespace OLEDLite
             resources.ApplyResources(this.label17, "label17");
             this.label17.Name = "label17";
             // 
-            // groupBox2
+            // group_interface
             // 
-            this.groupBox2.Controls.Add(this.nu_swire_num);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.swireTable);
-            this.groupBox2.Controls.Add(this.tb_initial_bin);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Controls.Add(this.tb_wave_path);
-            this.groupBox2.Controls.Add(this.label9);
-            this.groupBox2.Controls.Add(this.tb_bin);
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.nu_slave);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.CK_I2c);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            this.group_interface.Controls.Add(this.nu_swire_num);
+            this.group_interface.Controls.Add(this.label12);
+            this.group_interface.Controls.Add(this.swireTable);
+            this.group_interface.Controls.Add(this.tb_initial_bin);
+            this.group_interface.Controls.Add(this.label10);
+            this.group_interface.Controls.Add(this.tb_wave_path);
+            this.group_interface.Controls.Add(this.label9);
+            this.group_interface.Controls.Add(this.tb_bin);
+            this.group_interface.Controls.Add(this.label8);
+            this.group_interface.Controls.Add(this.nu_slave);
+            this.group_interface.Controls.Add(this.label7);
+            this.group_interface.Controls.Add(this.CK_I2c);
+            resources.ApplyResources(this.group_interface, "group_interface");
+            this.group_interface.Name = "group_interface";
+            this.group_interface.TabStop = false;
             // 
             // nu_swire_num
             // 
@@ -561,13 +561,13 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_power, "tb_res_power");
             this.tb_res_power.Name = "tb_res_power";
             // 
-            // groupBox5
+            // group_power
             // 
-            this.groupBox5.Controls.Add(this.label18);
-            this.groupBox5.Controls.Add(this.tb_Vin);
-            resources.ApplyResources(this.groupBox5, "groupBox5");
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.TabStop = false;
+            this.group_power.Controls.Add(this.label18);
+            this.group_power.Controls.Add(this.tb_Vin);
+            resources.ApplyResources(this.group_power, "group_power");
+            this.group_power.Name = "group_power";
+            this.group_power.TabStop = false;
             // 
             // label18
             // 
@@ -579,27 +579,21 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_Vin, "tb_Vin");
             this.tb_Vin.Name = "tb_Vin";
             // 
-            // ChamGroup
+            // group_chamber
             // 
-            this.ChamGroup.Controls.Add(this.cb_chamber);
-            this.ChamGroup.Controls.Add(this.label11);
-            this.ChamGroup.Controls.Add(this.label15);
-            this.ChamGroup.Controls.Add(this.ck_chaber_en);
-            this.ChamGroup.Controls.Add(this.nu_steady);
-            this.ChamGroup.Controls.Add(this.label14);
-            this.ChamGroup.Controls.Add(this.tb_templist);
-            this.ChamGroup.Controls.Add(this.label13);
-            this.ChamGroup.Controls.Add(this.ck_slave);
-            this.ChamGroup.Controls.Add(this.ck_multi_chamber);
-            resources.ApplyResources(this.ChamGroup, "ChamGroup");
-            this.ChamGroup.Name = "ChamGroup";
-            this.ChamGroup.TabStop = false;
-            // 
-            // cb_chamber
-            // 
-            this.cb_chamber.FormattingEnabled = true;
-            resources.ApplyResources(this.cb_chamber, "cb_chamber");
-            this.cb_chamber.Name = "cb_chamber";
+            this.group_chamber.Controls.Add(this.tb_IP_Addr);
+            this.group_chamber.Controls.Add(this.label11);
+            this.group_chamber.Controls.Add(this.label15);
+            this.group_chamber.Controls.Add(this.ck_chaber_en);
+            this.group_chamber.Controls.Add(this.nu_steady);
+            this.group_chamber.Controls.Add(this.label14);
+            this.group_chamber.Controls.Add(this.tb_templist);
+            this.group_chamber.Controls.Add(this.label13);
+            this.group_chamber.Controls.Add(this.ck_slave);
+            this.group_chamber.Controls.Add(this.ck_multi_chamber);
+            resources.ApplyResources(this.group_chamber, "group_chamber");
+            this.group_chamber.Name = "group_chamber";
+            this.group_chamber.TabStop = false;
             // 
             // label11
             // 
@@ -658,19 +652,20 @@ namespace OLEDLite
             resources.ApplyResources(this.ck_multi_chamber, "ck_multi_chamber");
             this.ck_multi_chamber.Name = "ck_multi_chamber";
             this.ck_multi_chamber.UseVisualStyleBackColor = true;
+            this.ck_multi_chamber.CheckedChanged += new System.EventHandler(this.ck_multi_chamber_CheckedChanged);
             // 
-            // groupBox4
+            // group_eload
             // 
-            this.groupBox4.Controls.Add(this.groupBox6);
-            this.groupBox4.Controls.Add(this.ck_Iout_mode);
-            this.groupBox4.Controls.Add(this.bt_eload_sub);
-            this.groupBox4.Controls.Add(this.bt_eload_add);
-            this.groupBox4.Controls.Add(this.tb_Iout);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.Eload_DG);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
+            this.group_eload.Controls.Add(this.groupBox6);
+            this.group_eload.Controls.Add(this.ck_Iout_mode);
+            this.group_eload.Controls.Add(this.bt_eload_sub);
+            this.group_eload.Controls.Add(this.bt_eload_add);
+            this.group_eload.Controls.Add(this.tb_Iout);
+            this.group_eload.Controls.Add(this.label16);
+            this.group_eload.Controls.Add(this.Eload_DG);
+            resources.ApplyResources(this.group_eload, "group_eload");
+            this.group_eload.Name = "group_eload";
+            this.group_eload.TabStop = false;
             // 
             // groupBox6
             // 
@@ -862,6 +857,11 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // tb_IP_Addr
+            // 
+            resources.ApplyResources(this.tb_IP_Addr, "tb_IP_Addr");
+            this.tb_IP_Addr.Name = "tb_IP_Addr";
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -874,24 +874,24 @@ namespace OLEDLite
             this.materialTabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.group_funcgen.ResumeLayout(false);
+            this.group_funcgen.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.group_interface.ResumeLayout(false);
+            this.group_interface.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.ChamGroup.ResumeLayout(false);
-            this.ChamGroup.PerformLayout();
+            this.group_power.ResumeLayout(false);
+            this.group_power.PerformLayout();
+            this.group_chamber.ResumeLayout(false);
+            this.group_chamber.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
+            this.group_eload.ResumeLayout(false);
+            this.group_eload.PerformLayout();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load4)).EndInit();
@@ -911,7 +911,7 @@ namespace OLEDLite
         private MaterialSkin.Controls.MaterialButton bt_connect;
         private MaterialSkin.Controls.MaterialButton bt_scanIns;
         private System.Windows.Forms.ListBox list_ins;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox group_funcgen;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -924,7 +924,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox tb_Low_level;
         private System.Windows.Forms.TextBox tb_High_level;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox group_interface;
         private System.Windows.Forms.CheckBox CK_I2c;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nu_slave;
@@ -938,8 +938,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox tb_initial_bin;
-        private System.Windows.Forms.GroupBox ChamGroup;
-        private System.Windows.Forms.ComboBox cb_chamber;
+        private System.Windows.Forms.GroupBox group_chamber;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox ck_chaber_en;
@@ -960,7 +959,7 @@ namespace OLEDLite
         private System.Windows.Forms.DataGridView swireTable;
         private System.Windows.Forms.NumericUpDown nu_swire_num;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox group_eload;
         private System.Windows.Forms.TextBox tb_Iout;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.DataGridView Eload_DG;
@@ -971,7 +970,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Button bt_eload_add;
         private System.Windows.Forms.Button bt_eload_sub;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox group_power;
         private System.Windows.Forms.CheckBox ck_Iout_mode;
         private System.Windows.Forms.CheckBox ck_chamber;
         private System.Windows.Forms.TextBox tb_res_chamber;
@@ -996,6 +995,7 @@ namespace OLEDLite
         private System.Windows.Forms.Button bt_func_set;
         private System.Windows.Forms.CheckBox ck_func;
         private System.Windows.Forms.TextBox tb_res_func;
+        private System.Windows.Forms.TextBox tb_IP_Addr;
     }
 }
 

@@ -11,7 +11,7 @@ namespace InsLibDotNet
         private bool E3632Sel;
         private int E3631Sel;
         private bool E3633Sel;
-
+        private bool E3634Sel;
         ~PowerModule()
         {
             InsClose();
@@ -234,10 +234,40 @@ namespace InsLibDotNet
             doCommand(poweron);
         }
 
+        public void E3634_Sel(bool sel)
+        {
+            E3634Sel = sel;
+            if(E3634Sel)
+            {
+                doCommand("VOLTage:RANGe P25V");
+            }
+            else
+            {
+                doCommand("VOLTage:RANGe P50V");
+            }
+        }
+
+        public void E3634_Vol(double vol)
+        {
+            if(E3634Sel)
+            {
+                if (vol > 25) vol = 25;
+            }
+            else
+            {
+                if (vol > 50) vol = 50;
+            }
+            string Voltage = "VOLTage " + String.Format("{0:0.###}", vol);
+            string poweron = "OUTPut ON";
+
+            doCommand(Voltage);
+            doCommand(poweron);
+        }
+
         public void AutoPowerOff()
         {
             string IDN = doQueryIDN();
-            if (IDN.IndexOf("E3632") != -1 || IDN.IndexOf("E3631") != -1)
+            if (IDN.IndexOf("E3632") != -1 || IDN.IndexOf("E3631") != -1 || IDN.IndexOf("E3634") != -1)
                 PowerOff();
             else if (IDN.IndexOf("E3633") != -1)
                 E3633PowerOff();
@@ -279,6 +309,12 @@ namespace InsLibDotNet
             else if (IDN.IndexOf("620") != -1)
             {
                 ChromaVinVoltage(vol);
+            }
+            else if(IDN.IndexOf("E3634") != -1)
+            {
+                bool sel = vol < 25 ? true : false;
+                E3634_Sel(sel);
+                E3634_Vol(vol);
             }
         }
 

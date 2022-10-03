@@ -42,7 +42,6 @@ namespace OLEDLite
             materialTabControl1.SelectedIndex = 1;
             ATEItemInit();
 
-            ChamGroup.Enabled = false;
         }
 
         private void ATEItemInit()
@@ -253,10 +252,23 @@ namespace OLEDLite
             switch(cb_item.SelectedIndex)
             {
                 case 0:
+                    // TDMA
+                    group_power.Enabled = false;
+                    Eload_DG.Enabled = false;
+                    ck_Iout_mode.Checked = false;
+                    ck_Iout_mode.Enabled = false;
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = false;
+                    bt_eload_sub.Enabled = false;
                     break;
                 case 1:
                     break;
             }
+        }
+
+        private void ck_multi_chamber_CheckedChanged(object sender, EventArgs e)
+        {
+            ck_chamber.Checked = true;
         }
     }
 }

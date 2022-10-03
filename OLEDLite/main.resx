@@ -196,7 +196,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bt_func_set.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;bt_func_set.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -220,7 +220,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_Tf.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;nu_Tf.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -244,7 +244,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_Tr.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;nu_Tr.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -274,7 +274,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label5.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -304,7 +304,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label6.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -328,7 +328,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_Low_level.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;tb_Low_level.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -352,7 +352,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_High_level.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;tb_High_level.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -376,7 +376,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_duty.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;nu_duty.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -400,7 +400,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_Freq.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;nu_Freq.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -430,7 +430,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label4.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -460,7 +460,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label3.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -490,7 +490,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>11</value>
@@ -520,33 +520,33 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label1.Parent" xml:space="preserve">
-    <value>groupBox1</value>
+    <value>group_funcgen</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
-  <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="group_funcgen.Location" type="System.Drawing.Point, System.Drawing">
     <value>556, 382</value>
   </data>
-  <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_funcgen.Size" type="System.Drawing.Size, System.Drawing">
     <value>537, 153</value>
   </data>
-  <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
+  <data name="group_funcgen.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
-  <data name="groupBox1.Text" xml:space="preserve">
+  <data name="group_funcgen.Text" xml:space="preserve">
     <value>Func Gen Config</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Name" xml:space="preserve">
-    <value>groupBox1</value>
+  <data name="&gt;&gt;group_funcgen.Name" xml:space="preserve">
+    <value>group_funcgen</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_funcgen.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox1.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_funcgen.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_funcgen.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
   <data name="bt_connect.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
@@ -583,7 +583,7 @@
     <value>0. TDMA</value>
   </data>
   <data name="cb_item.Location" type="System.Drawing.Point, System.Drawing">
-    <value>576, 18</value>
+    <value>661, 18</value>
   </data>
   <data name="cb_item.Size" type="System.Drawing.Size, System.Drawing">
     <value>172, 20</value>
@@ -640,7 +640,7 @@
     <value>True</value>
   </data>
   <data name="label17.Location" type="System.Drawing.Point, System.Drawing">
-    <value>461, 21</value>
+    <value>554, 21</value>
   </data>
   <data name="label17.Size" type="System.Drawing.Size, System.Drawing">
     <value>71, 12</value>
@@ -682,7 +682,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_swire_num.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;nu_swire_num.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -712,7 +712,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label12.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -733,7 +733,7 @@
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;swireTable.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;swireTable.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -757,7 +757,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_initial_bin.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;tb_initial_bin.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -787,7 +787,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label10.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -811,7 +811,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_wave_path.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;tb_wave_path.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -841,7 +841,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label9.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;label9.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -865,7 +865,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_bin.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;tb_bin.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -895,7 +895,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label8.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -919,7 +919,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_slave.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;nu_slave.ZOrder" xml:space="preserve">
     <value>9</value>
@@ -946,7 +946,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label7.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>10</value>
@@ -973,33 +973,33 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;CK_I2c.Parent" xml:space="preserve">
-    <value>groupBox2</value>
+    <value>group_interface</value>
   </data>
   <data name="&gt;&gt;CK_I2c.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
-  <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="group_interface.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 285</value>
   </data>
-  <data name="groupBox2.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_interface.Size" type="System.Drawing.Size, System.Drawing">
     <value>531, 238</value>
   </data>
-  <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
+  <data name="group_interface.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
-  <data name="groupBox2.Text" xml:space="preserve">
+  <data name="group_interface.Text" xml:space="preserve">
     <value>Interface Config</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
-    <value>groupBox2</value>
+  <data name="&gt;&gt;group_interface.Name" xml:space="preserve">
+    <value>group_interface</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_interface.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox2.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_interface.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;groupBox2.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_interface.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
   <data name="bt_stop.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
@@ -1300,7 +1300,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label18.Parent" xml:space="preserve">
-    <value>groupBox5</value>
+    <value>group_power</value>
   </data>
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -1324,54 +1324,57 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_Vin.Parent" xml:space="preserve">
-    <value>groupBox5</value>
+    <value>group_power</value>
   </data>
   <data name="&gt;&gt;tb_Vin.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="groupBox5.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="group_power.Location" type="System.Drawing.Point, System.Drawing">
     <value>556, 54</value>
   </data>
-  <data name="groupBox5.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_power.Size" type="System.Drawing.Size, System.Drawing">
     <value>537, 53</value>
   </data>
-  <data name="groupBox5.TabIndex" type="System.Int32, mscorlib">
+  <data name="group_power.TabIndex" type="System.Int32, mscorlib">
     <value>96</value>
   </data>
-  <data name="groupBox5.Text" xml:space="preserve">
+  <data name="group_power.Text" xml:space="preserve">
     <value>Power Config</value>
   </data>
-  <data name="&gt;&gt;groupBox5.Name" xml:space="preserve">
-    <value>groupBox5</value>
+  <data name="&gt;&gt;group_power.Name" xml:space="preserve">
+    <value>group_power</value>
   </data>
-  <data name="&gt;&gt;groupBox5.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_power.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox5.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_power.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;groupBox5.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_power.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
-  <data name="cb_chamber.Location" type="System.Drawing.Point, System.Drawing">
-    <value>115, 78</value>
+  <data name="tb_IP_Addr.Location" type="System.Drawing.Point, System.Drawing">
+    <value>115, 79</value>
   </data>
-  <data name="cb_chamber.Size" type="System.Drawing.Size, System.Drawing">
-    <value>121, 20</value>
+  <data name="tb_IP_Addr.Size" type="System.Drawing.Size, System.Drawing">
+    <value>152, 22</value>
   </data>
-  <data name="cb_chamber.TabIndex" type="System.Int32, mscorlib">
+  <data name="tb_IP_Addr.TabIndex" type="System.Int32, mscorlib">
     <value>51</value>
   </data>
-  <data name="&gt;&gt;cb_chamber.Name" xml:space="preserve">
-    <value>cb_chamber</value>
+  <data name="tb_IP_Addr.Text" xml:space="preserve">
+    <value>168.254.95.1</value>
   </data>
-  <data name="&gt;&gt;cb_chamber.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ComboBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="&gt;&gt;tb_IP_Addr.Name" xml:space="preserve">
+    <value>tb_IP_Addr</value>
   </data>
-  <data name="&gt;&gt;cb_chamber.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+  <data name="&gt;&gt;tb_IP_Addr.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;cb_chamber.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;tb_IP_Addr.Parent" xml:space="preserve">
+    <value>group_chamber</value>
+  </data>
+  <data name="&gt;&gt;tb_IP_Addr.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
@@ -1396,7 +1399,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label11.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -1423,7 +1426,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label15.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -1450,7 +1453,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ck_chaber_en.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;ck_chaber_en.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -1477,7 +1480,7 @@
     <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;nu_steady.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;nu_steady.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -1504,7 +1507,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label14.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -1528,7 +1531,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_templist.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;tb_templist.ZOrder" xml:space="preserve">
     <value>6</value>
@@ -1540,13 +1543,13 @@
     <value>6, 79</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>78, 12</value>
+    <value>55, 12</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
-    <value>Chamber Name</value>
+    <value>IP Address</value>
   </data>
   <data name="&gt;&gt;label13.Name" xml:space="preserve">
     <value>label13</value>
@@ -1555,7 +1558,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label13.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>7</value>
@@ -1582,7 +1585,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ck_slave.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;ck_slave.ZOrder" xml:space="preserve">
     <value>8</value>
@@ -1609,33 +1612,33 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ck_multi_chamber.Parent" xml:space="preserve">
-    <value>ChamGroup</value>
+    <value>group_chamber</value>
   </data>
   <data name="&gt;&gt;ck_multi_chamber.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
-  <data name="ChamGroup.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="group_chamber.Location" type="System.Drawing.Point, System.Drawing">
     <value>19, 529</value>
   </data>
-  <data name="ChamGroup.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_chamber.Size" type="System.Drawing.Size, System.Drawing">
     <value>531, 122</value>
   </data>
-  <data name="ChamGroup.TabIndex" type="System.Int32, mscorlib">
+  <data name="group_chamber.TabIndex" type="System.Int32, mscorlib">
     <value>71</value>
   </data>
-  <data name="ChamGroup.Text" xml:space="preserve">
+  <data name="group_chamber.Text" xml:space="preserve">
     <value>Chamber Ctrl</value>
   </data>
-  <data name="&gt;&gt;ChamGroup.Name" xml:space="preserve">
-    <value>ChamGroup</value>
+  <data name="&gt;&gt;group_chamber.Name" xml:space="preserve">
+    <value>group_chamber</value>
   </data>
-  <data name="&gt;&gt;ChamGroup.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_chamber.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;ChamGroup.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_chamber.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;ChamGroup.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_chamber.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
@@ -1975,7 +1978,7 @@
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;groupBox6.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
     <value>0</value>
@@ -2005,7 +2008,7 @@
     <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;ck_Iout_mode.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;ck_Iout_mode.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -2032,7 +2035,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bt_eload_sub.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;bt_eload_sub.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -2056,7 +2059,7 @@
     <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;bt_eload_add.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;bt_eload_add.ZOrder" xml:space="preserve">
     <value>3</value>
@@ -2080,7 +2083,7 @@
     <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;tb_Iout.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;tb_Iout.ZOrder" xml:space="preserve">
     <value>4</value>
@@ -2107,7 +2110,7 @@
     <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;label16.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>5</value>
@@ -2146,33 +2149,33 @@
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;Eload_DG.Parent" xml:space="preserve">
-    <value>groupBox4</value>
+    <value>group_eload</value>
   </data>
   <data name="&gt;&gt;Eload_DG.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
-  <data name="groupBox4.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="group_eload.Location" type="System.Drawing.Point, System.Drawing">
     <value>556, 113</value>
   </data>
-  <data name="groupBox4.Size" type="System.Drawing.Size, System.Drawing">
+  <data name="group_eload.Size" type="System.Drawing.Size, System.Drawing">
     <value>537, 263</value>
   </data>
-  <data name="groupBox4.TabIndex" type="System.Int32, mscorlib">
+  <data name="group_eload.TabIndex" type="System.Int32, mscorlib">
     <value>79</value>
   </data>
-  <data name="groupBox4.Text" xml:space="preserve">
+  <data name="group_eload.Text" xml:space="preserve">
     <value>ELoad Config</value>
   </data>
-  <data name="&gt;&gt;groupBox4.Name" xml:space="preserve">
-    <value>groupBox4</value>
+  <data name="&gt;&gt;group_eload.Name" xml:space="preserve">
+    <value>group_eload</value>
   </data>
-  <data name="&gt;&gt;groupBox4.Type" xml:space="preserve">
+  <data name="&gt;&gt;group_eload.Type" xml:space="preserve">
     <value>System.Windows.Forms.GroupBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;groupBox4.Parent" xml:space="preserve">
+  <data name="&gt;&gt;group_eload.Parent" xml:space="preserve">
     <value>tabPage2</value>
   </data>
-  <data name="&gt;&gt;groupBox4.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;group_eload.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
   <data name="ck_scope.AutoSize" type="System.Boolean, mscorlib">
