@@ -289,5 +289,15 @@ namespace OLEDLite
             InsControl._funcgen.CH1_On();
         }
 
+        public static void Switch_ELoadLevel(double level)
+        {
+            if (level < 0.1)
+                InsControl._eload.CCL_Mode();
+            else if (level > 0.1 && level < 1)
+                InsControl._eload.CCM_Mode();
+            else
+                InsControl._eload.CCH_Mode();
+        }
+
     }
 }

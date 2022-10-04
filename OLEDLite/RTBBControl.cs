@@ -174,7 +174,7 @@ namespace OLEDLite
             int pCmdOut = 0;
             int pDataOutCount = 0;
             int ret = customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, pDataOut);
-            Console.WriteLine("ret = {0}", ret);
+            //Console.WriteLine("ret = {0}", ret);
         }
 
     }

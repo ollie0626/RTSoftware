@@ -211,6 +211,7 @@ namespace OLEDLite
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
+            test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
 
             test_parameter.swireList.Clear();
             for (int i = 0; i < swireTable.RowCount; i++)
@@ -229,7 +230,7 @@ namespace OLEDLite
         {
             try
             {
-                bt_run.Enabled = false; 
+                //bt_run.Enabled = false; 
 
                 test_parameter_copy();
 

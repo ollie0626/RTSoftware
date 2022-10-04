@@ -85,14 +85,16 @@ namespace OLEDLite
             MyLib.Delay1s(1);
             InsControl._scope.Root_RUN();
             InsControl._scope.CH1_Level((VinH - VinL) / 3);
-            InsControl._scope.CH1_Offset(VinH);
+            InsControl._scope.CH1_Offset(VinH * 0.95);
             InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
+            InsControl._scope.TimeScale((1 / (test_parameter.Freq * 1000)) / 10);
             string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
             InsControl._scope.Trigger_CH1();
             InsControl._scope.TriggerLevel_CH1((VinH + VinL) / 2);
             InsControl._scope.SetTriggerMode("TIMeout");
+            InsControl._scope.SetTimeoutCondition(true);
             InsControl._scope.SetTimeoutSource(1);
-            InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.8) * Math.Pow(10, 9));
+            InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.5) * Math.Pow(10, 9));
 
             // measure real VinHi, VinLo
             meas_VinHi = Convert.ToDouble(res[0]);
@@ -215,6 +217,8 @@ namespace OLEDLite
                 res += test_parameter.ioutList[i] + ", ";
             _sheet.Cells[2, 2] = res;
             _sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
+#else
+            string res = "";
 #endif
             OSCInint();
             for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
@@ -225,7 +229,7 @@ namespace OLEDLite
                     {
                         if (test_parameter.run_stop == true) goto Stop;
                         res = Path.GetFileNameWithoutExtension(binList[interface_idx]);
-                        string file_name = string.Format("{0}_{1}_Temp={2}C_Line={3:0.##}V->{4:0.##}_iout={5:0.##}A",
+                        string file_name = string.Format("{0}_{1}_Temp={2}C_Line={3:0.##}V_{4:0.##}V_iout={5:0.##}A",
                                                         row - 11, res, temp,
                                                         test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel,
                                                         test_parameter.ioutList[iout_idx]);
@@ -249,6 +253,9 @@ namespace OLEDLite
                         }
 
                         MyLib.EloadFixChannel();
+                        MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
+                        InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
+                        
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
 
@@ -264,17 +271,29 @@ namespace OLEDLite
                         MyLib.Delay1ms(250);
                         double hi_peak = InsControl._scope.Meas_CH2MAX();
                         double hi_neg_peak = InsControl._scope.Meas_CH2MIN();
-                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_Rising");
+                        
 
-                        InsControl._scope.TimeScale(on_time / 10);
+                        InsControl._scope.TimeScale(on_time / 20);
                         InsControl._scope.TimeBasePosition(on_time);
                         MyLib.Delay1ms(250);
                         double lo_peak = InsControl._scope.Meas_CH2MAX();
                         double lo_neg_peak = InsControl._scope.Meas_CH2MIN();
+
+
+                        InsControl._scope.TimeScale(on_time / 7);
+                        InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100) * 0.2) * Math.Pow(10, 9));
+                        InsControl._scope.TimeBasePosition(0);
+                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_Rising");
+
+                        InsControl._scope.SetTimeoutCondition(false);
+                        InsControl._scope.TimeScale(off_time / 7);
+                        InsControl._scope.SetTimeoutTime(((1 / (test_parameter.Freq * 1000)) * ((100 - test_parameter.duty) / 100) * 0.2) * Math.Pow(10, 9));
+                        InsControl._scope.TimeBasePosition(0);
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_Falling");
 
                         // power off
                         InsControl._funcgen.CH1_Off();
+                        InsControl._scope.TimeBasePosition(0);
 
                         // report
                         double[] overshoot_list = new double[] { hi_peak, lo_peak };
@@ -284,8 +303,8 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.L] = temp;
                         _sheet.Cells[row, XLS_Table.M] = test_parameter.HiLo_table[func_idx].Highlevel.ToString() + "->" + test_parameter.HiLo_table[func_idx].LowLevel.ToString();
                         _sheet.Cells[row, XLS_Table.N] = test_parameter.ioutList[iout_idx];
-                        _sheet.Cells[row, XLS_Table.O] = Math.Abs(zoomout_peak - overshoot_list.Max());
-                        _sheet.Cells[row, XLS_Table.P] = Math.Abs(zoomout_neg_peak - undershoot_list.Min());
+                        _sheet.Cells[row, XLS_Table.O] = Math.Abs(zoomout_peak - overshoot_list.Max()) * 1000;
+                        _sheet.Cells[row, XLS_Table.P] = Math.Abs(zoomout_neg_peak - undershoot_list.Min()) * 1000;
 #endif
                         row++;
                     }
