@@ -221,6 +221,7 @@ namespace OLEDLite
 #else
             string res = "";
 #endif
+            // mac github test
             OSCInint();
             start_pos.Add(row);
             for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
