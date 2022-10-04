@@ -432,7 +432,6 @@ namespace IN528ATE_tool
                 }
                 chamberCtr.Exit();
             }
-
         }
 
         // ATE Process: MultiChamber_Task, Chamber_Task, Run_Task_Flow, Run_Single_Task

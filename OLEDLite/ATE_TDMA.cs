@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Diagnostics;
+using System.IO;
 
 
 namespace OLEDLite
@@ -185,6 +187,9 @@ namespace OLEDLite
 
         public override void ATETask()
         {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+
             RTDev.BoadInit();
             int bin_cnt = 1;
             int row = 11;
@@ -198,6 +203,18 @@ namespace OLEDLite
                                          test_parameter.tf);
 #if Report
             ExcelInit();
+            _sheet.Cells[1, 1] = "Vin:";
+            _sheet.Cells[2, 1] = "Iout:";
+            _sheet.Cells[3, 1] = "setting conditions:";
+            string res = "";
+            for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
+                res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
+            _sheet.Cells[1, 2] = res;
+            res = "";
+            for (int i = 0; i < test_parameter.ioutList.Count; i++)
+                res += test_parameter.ioutList[i] + ", ";
+            _sheet.Cells[2, 2] = res;
+            _sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
 #endif
             OSCInint();
             for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
@@ -206,6 +223,15 @@ namespace OLEDLite
                 {
                     for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++) // interface
                     {
+                        if (test_parameter.run_stop == true) goto Stop;
+                        res = Path.GetFileNameWithoutExtension(binList[interface_idx]);
+                        string file_name = string.Format("{0}_{1}_Temp={2}C_Line={3:0.##}V->{4:0.##}_iout={5:0.##}A",
+                                                        row - 11, res, temp,
+                                                        test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel,
+                                                        test_parameter.ioutList[iout_idx]);
+                        if ((func_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
+
+
                         OSCRest();
                         InsControl._power.AutoSelPowerOn(test_parameter.HiLo_table[func_idx].Highlevel + 0.5);
                         MyLib.FuncGen_loopparameter(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
@@ -226,6 +252,8 @@ namespace OLEDLite
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
 
+                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
+
                         // measure part
                         double zoomout_peak = InsControl._scope.Meas_CH2MAX();
                         double zoomout_neg_peak = InsControl._scope.Meas_CH2MIN();
@@ -236,12 +264,14 @@ namespace OLEDLite
                         MyLib.Delay1ms(250);
                         double hi_peak = InsControl._scope.Meas_CH2MAX();
                         double hi_neg_peak = InsControl._scope.Meas_CH2MIN();
+                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_Rising");
 
                         InsControl._scope.TimeScale(on_time / 10);
                         InsControl._scope.TimeBasePosition(on_time);
                         MyLib.Delay1ms(250);
                         double lo_peak = InsControl._scope.Meas_CH2MAX();
                         double lo_neg_peak = InsControl._scope.Meas_CH2MIN();
+                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_Falling");
 
                         // power off
                         InsControl._funcgen.CH1_Off();
@@ -260,7 +290,21 @@ namespace OLEDLite
                         row++;
                     }
                 }
+            
             }
+        Stop:
+            stopWatch.Stop();
+
+#if Report
+            TimeSpan timeSpan = stopWatch.Elapsed;
+            MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_TDMA" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            _book.Close(false);
+            _book = null;
+            _app.Quit();
+            _app = null;
+            GC.Collect();
+#endif
+            System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
         }
 
 

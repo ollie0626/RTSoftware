@@ -46,7 +46,10 @@ namespace OLEDLite
 
 
         // chamber parameter
+        public static bool chamber_en;
         public static List<double> tempList = new List<double>();
+        public static int steadyTime;
+        public static bool run_stop;
 
     }
 }

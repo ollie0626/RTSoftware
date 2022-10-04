@@ -121,7 +121,7 @@ namespace OLEDLite
             return binList;
         }
 
-        public void SaveExcelReport(string path, string fileName, Excel.Workbook _book)
+        public static void SaveExcelReport(string path, string fileName, Excel.Workbook _book)
         {
             string buf = path.Substring(path.Length - 1, 1) == @"\" ? path.Substring(0, path.Length - 1) : path;
             buf = buf + @"\" + fileName + ".xlsx";

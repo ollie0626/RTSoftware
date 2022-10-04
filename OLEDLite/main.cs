@@ -10,6 +10,7 @@ using System.Windows.Forms;
 
 using MaterialSkin;
 using MaterialSkin.Controls;
+using System.IO;
 using InsLibDotNet;
 using System.Threading;
 
@@ -25,6 +26,8 @@ namespace OLEDLite
         private Thread ATETask;
         private ATE_TDMA _ate_tdma = new ATE_TDMA();
         private TaskRun[] ate_table;
+        ChamberCtr chamberCtr = new ChamberCtr();
+        //private static SynchronizationContext _syncContext = null;
 
         public main()
         {
@@ -41,7 +44,6 @@ namespace OLEDLite
             //GUI_Design();
             materialTabControl1.SelectedIndex = 1;
             ATEItemInit();
-
         }
 
         private void ATEItemInit()
@@ -53,7 +55,6 @@ namespace OLEDLite
         {
             materialTabSelector1.Width = this.Width;
         }
-
 
         private int ConnectFunc(string res, int ins_sel)
         {
@@ -220,22 +221,29 @@ namespace OLEDLite
 
 
             test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.steadyTime = (int)nu_steady.Value;
+            test_parameter.run_stop = false;
         }
-
 
         private void bt_run_Click(object sender, EventArgs e)
         {
             try
             {
+                bt_run.Enabled = false; 
+
                 test_parameter_copy();
 
-                if(ck_multi_chamber.Checked && ck_chamber.Checked)
+                if(ck_multi_chamber.Checked && ck_chamber_en.Checked)
                 {
-
+                    p_thread = new ParameterizedThreadStart(multi_ate_process);
+                    ATETask = new Thread(p_thread);
+                    ATETask.Start(cb_item.SelectedIndex);
                 }
-                else if(ck_chamber.Checked)
+                else if(ck_chamber_en.Checked)
                 {
-
+                    p_thread = new ParameterizedThreadStart(Chamber_Task);
+                    ATETask = new Thread(p_thread);
+                    ATETask.Start(cb_item.SelectedIndex);
                 }
                 else
                 {
@@ -253,24 +261,10 @@ namespace OLEDLite
             }
         }
 
-        private void Run_Single_Task(object idx)
-        {
-            ate_table[(int)idx].ATETask();
-        }
-
         private void nu_swire_num_ValueChanged(object sender, EventArgs e)
         {
             swireTable.RowCount = (int)nu_swire_num.Value;
         }
-
-        public async void Chamber_Task()
-        {
-            //for (int i = 0; i < tb_templist.l)
-        }
-
-
-
-
 
         private void cb_item_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -293,7 +287,214 @@ namespace OLEDLite
 
         private void ck_multi_chamber_CheckedChanged(object sender, EventArgs e)
         {
-            ck_chamber.Checked = true;
+            ck_chamber_en.Checked = true;
+        }
+
+        private void Run_Single_Task(object idx)
+        {
+            ate_table[(int)idx].ATETask();
+        }
+
+        // ------------------------------------------------------------------------------------------
+        // Chamber Thread Event
+        // ------------------------------------------------------------------------------------------
+
+        private bool RecountTime()
+        {
+            test_parameter.steadyTime--; System.Threading.Thread.Sleep(1000);
+            return true;
+        }
+
+        private Task<bool> TaskRecount()
+        {
+            return Task.Factory.StartNew(() => RecountTime());
+        }
+
+        private void GetTemperature(string input)
+        {
+            test_parameter.tempList.Clear();
+            string[] temp = input.Split(',');
+            foreach (string str in temp)
+            {
+                test_parameter.tempList.Add(Convert.ToInt32(str));
+            }
+        }
+
+        private async void Chamber_Task(object idx)
+        {
+            for (int i = 0; i < test_parameter.tempList.Count; i++)
+            {
+                if (!Directory.Exists(tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C"))
+                {
+                    Directory.CreateDirectory(tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C");
+                }
+                test_parameter.wave_path = tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C";
+
+                test_parameter.steadyTime = (int)nu_steady.Value;
+                // chamber control
+                InsControl._chamber = new ChamberModule(tb_res_chamber.Text);
+                InsControl._chamber.ConnectChamber(tb_res_chamber.Text);
+                InsControl._chamber.ChamberOn(test_parameter.tempList[i]);
+                InsControl._chamber.ChamberOn(test_parameter.tempList[i]);
+
+                await InsControl._chamber.ChamberStable(test_parameter.tempList[i]);
+
+                for (; test_parameter.steadyTime > 0;)
+                {
+                    await TaskRecount();
+                    progressBar1.Value = test_parameter.steadyTime;
+                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " 
+                    + (test_parameter.steadyTime / 60).ToString() + ":" 
+                    + (test_parameter.steadyTime % 60).ToString()));
+                }
+
+                ate_table[(int)idx].temp = test_parameter.tempList[i];
+                ate_table[(int)idx].ATETask();
+            }
+            if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+        }
+
+        private async void multi_ate_process(object idx)
+        {
+            int timer;
+            //MyLib myLib = new MyLib();
+            //myLib.time = (int)nu_steady.Value;
+            chamberCtr.Init(tb_templist.Text);
+
+            if (chamberCtr.Role == "Master")
+            {
+                GetTemperature(tb_templist.Text);
+                chamberCtr.Dispose();
+
+                foreach (int Temp in test_parameter.tempList)
+                {
+                    ate_table[(int)idx].temp = Temp;
+
+                    Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+                    test_parameter.steadyTime = (int)nu_steady.Value;
+                    InsControl._chamber = new ChamberModule(tb_res_chamber.Text);
+                    InsControl._chamber.ConnectChamber(tb_res_chamber.Text);
+                    bool res = InsControl._chamber.InsState();
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    await InsControl._chamber.ChamberStable(Convert.ToDouble(Temp));
+
+                    for (; test_parameter.steadyTime > 0;)
+                    {
+                        await TaskRecount();
+                        progressBar1.Value = test_parameter.steadyTime;
+                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " 
+                        + (test_parameter.steadyTime / 60).ToString() + ":" 
+                        + (test_parameter.steadyTime % 60).ToString()));
+                    }
+
+                    //STATUS: WAIT
+                    //Get N ready for RUN
+                    timer = 0;
+                    while (true)
+                    {
+                        if (chamberCtr.CheckAllClientStatus("ready"))
+                        {
+                            chamberCtr.MasterStatus = "RUN";
+                            break;
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "RUN";
+                            Console.WriteLine("[Master]: Time's UP! Change to RUN status.");
+                            break;
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    ate_table[(int)idx].ATETask();
+
+                    //STATUS: RUN
+                    //Get N over for STOP
+                    timer = 0;
+                    while (true)
+                    {
+                        if (chamberCtr.CheckAllClientStatus("idle"))
+                        {
+                            chamberCtr.MasterStatus = "STOP";
+                            break;
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "STOP";
+                            break;
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                }
+            }
+            else if (chamberCtr.Role == "Slave")
+            {
+                GetTemperature(chamberCtr.SendRequest("temperature"));
+
+                foreach (int Temp in test_parameter.tempList)
+                {
+                    ate_table[(int)idx].temp = Temp;
+                    //status: ready.
+                    //sent status and request master status 
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("ready") == "RUN")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    ate_table[(int)idx].ATETask();
+
+                    //status: over.
+                    //
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("idle") == "STOP")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                }
+                chamberCtr.Exit();
+            }
+        }
+
+        private void ck_slave_CheckedChanged(object sender, EventArgs e)
+        {
+            if (ck_slave.Checked) nu_steady.Enabled = false;
+            else nu_steady.Enabled = true; 
+        }
+
+        private void bt_stop_Click(object sender, EventArgs e)
+        {
+            test_parameter.run_stop = true;
+            bt_run.Enabled = true;
+            if (ATETask != null)
+            {
+                if (ATETask.IsAlive)
+                {
+                    System.Threading.ThreadState state = ATETask.ThreadState;
+                    if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
+                    ATETask.Abort();
+                    MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
+                    InsControl._power.AutoPowerOff();
+                }
+            }
+        }
+
+        private void bt_pause_Click(object sender, EventArgs e)
+        {
+            if (ATETask == null) return;
+            System.Threading.ThreadState state = ATETask.ThreadState;
+            if (state == System.Threading.ThreadState.Running || state == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                ATETask.Suspend();
+            }
+            else if (state == System.Threading.ThreadState.Suspended)
+            {
+                ATETask.Resume();
+
+            }
         }
     }
 }
