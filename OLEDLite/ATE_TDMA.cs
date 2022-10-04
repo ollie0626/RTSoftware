@@ -184,20 +184,21 @@ namespace OLEDLite
             _sheet.Cells[10, XLS_Table.N] = "Iout(mA)";
             _sheet.Cells[10, XLS_Table.O] = "Overshoot(mV)";
             _sheet.Cells[10, XLS_Table.P] = "Undershoot(mV)";
-
         }
 
         public override void ATETask()
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
+            List<int> start_pos = new List<int>();
+            List<int> stop_pos = new List<int>();
 
             RTDev.BoadInit();
             int bin_cnt = 1;
             int row = 11;
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
-            bin_cnt = binList.Length;
+            bin_cnt = binList.Length == 0 ? 1 : binList.Length;
             InsControl._power.AutoSelPowerOn(test_parameter.HiLo_table[0].Highlevel + 0.5);
             MyLib.FuncGen_Fixedparameter(test_parameter.Freq * 1000,
                                          test_parameter.duty,
@@ -221,6 +222,7 @@ namespace OLEDLite
             string res = "";
 #endif
             OSCInint();
+            start_pos.Add(row);
             for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
             {
                 for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
@@ -309,13 +311,14 @@ namespace OLEDLite
                         row++;
                     }
                 }
-            
             }
+            stop_pos.Add(row - 1);
         Stop:
             stopWatch.Stop();
 
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
+            AddCruve(start_pos, stop_pos);
             MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_TDMA" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -324,6 +327,44 @@ namespace OLEDLite
             GC.Collect();
 #endif
             System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
+        }
+
+        private void AddCruve(List<int> start_pos, List<int> stop_pos)
+        {
+#if Report
+            Excel.Chart chart, chart_lor;
+            Excel.Range range;
+            Excel.SeriesCollection collection, collection_lor;
+            Excel.Series series, series_lor;
+            Excel.Range XRange, YRange;
+            range = _sheet.Range["A16", "I32"];
+            chart = MyLib.CreateChart(_sheet, range, "Overshoot", "idx", "Overshoot(mV)");
+            // for LOR
+            range = _sheet.Range["A38", "I54"];
+            chart_lor = MyLib.CreateChart(_sheet, range, "Undershoot", "idx", "Undershoot(mV)");
+
+            chart.Legend.Delete();
+            chart_lor.Legend.Delete();
+            collection = chart.SeriesCollection();
+            collection_lor = chart_lor.SeriesCollection();
+
+            for (int line = 0; line < start_pos.Count; line++)
+            {
+                series = collection.NewSeries();
+
+                XRange = _sheet.Range["K" + start_pos[line].ToString(), "K" + stop_pos[line].ToString()];
+                YRange = _sheet.Range["O" + start_pos[line].ToString(), "O" + stop_pos[line].ToString()];
+                series.XValues = XRange;
+                series.Values = YRange;
+                series.Name = "line" + (line + 1).ToString();
+
+                series_lor = collection_lor.NewSeries();
+                YRange = _sheet.Range["P" + start_pos[line].ToString(), "P" + stop_pos[line].ToString()];
+                series_lor.XValues = XRange;
+                series_lor.Values = YRange;
+                series_lor.Name = "line" + (line + 1).ToString();
+            }
+#endif
         }
 
 
