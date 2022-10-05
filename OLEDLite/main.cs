@@ -241,7 +241,7 @@ namespace OLEDLite
         {
             try
             {
-                //bt_run.Enabled = false; 
+                bt_run.Enabled = false;
 
                 test_parameter_copy();
 
