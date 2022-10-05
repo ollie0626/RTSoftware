@@ -277,10 +277,10 @@ namespace OLEDLite
                             res = SwireInfo;
                         }
                         
-                        string file_name = string.Format("{0}_{1}_Temp={2}C_Line={3:0.##}V_{4:0.##}V_iout={5:0.##}A",
-                                                        wave_idx, res, temp,
+                        string file_name = string.Format("{0}_Temp={1}_{2}_Vin={3:0.##}V_{4:0.##}V_iout={5:0.##}mA",
+                                                        wave_idx, temp, res,
                                                         test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel,
-                                                        test_parameter.ioutList[iout_idx]);
+                                                        test_parameter.ioutList[iout_idx] * 1000);
                         if ((func_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
 
@@ -308,6 +308,8 @@ namespace OLEDLite
                         VoResize();
 
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
+                        InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
+                        string[] HiLo_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
 
                         // measure part
                         double zoomout_peak = InsControl._scope.Meas_CH2MAX();
@@ -349,15 +351,14 @@ namespace OLEDLite
                         double[] undershoot_list = new double[] { hi_neg_peak, lo_neg_peak };
 
 
-                        InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
-                        string[] HiLo_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+
 
 #if Report
                         _sheet.Cells[row, XLS_Table.K] = wave_idx;
                         _sheet.Cells[row, XLS_Table.L] = temp;
                         _sheet.Cells[row, XLS_Table.M] = Convert.ToDouble(HiLo_res[1]);
                         _sheet.Cells[row, XLS_Table.N] = Convert.ToDouble(HiLo_res[0]);
-                        _sheet.Cells[row, XLS_Table.O] = test_parameter.ioutList[iout_idx];
+                        _sheet.Cells[row, XLS_Table.O] = test_parameter.ioutList[iout_idx] * 1000;
                         _sheet.Cells[row, XLS_Table.P] = Math.Abs(zoomout_peak - overshoot_list.Max()) * 1000;
                         _sheet.Cells[row, XLS_Table.Q] = Math.Abs(zoomout_neg_peak - undershoot_list.Min()) * 1000;
                         _sheet.Cells[row, XLS_Table.R] = vpp * 1000;
