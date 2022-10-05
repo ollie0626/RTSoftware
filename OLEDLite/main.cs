@@ -13,6 +13,8 @@ using MaterialSkin.Controls;
 using System.IO;
 using InsLibDotNet;
 using System.Threading;
+using System.Net.Sockets;
+using System.Net;
 
 
 namespace OLEDLite
@@ -42,7 +44,14 @@ namespace OLEDLite
 
             //this.WindowState = FormWindowState.Maximized;
             //GUI_Design();
+
+            nu_load1.Enabled = false;
+            ck_ch1_en.Enabled = false;
+            cb_mode_sel.SelectedIndex = 0;
             materialTabControl1.SelectedIndex = 1;
+            cb_item.SelectedIndex = 0;
+            nu_swire_num.Value = 1;
+            RB_ASwire.Checked = true;
             ATEItemInit();
         }
 
@@ -224,6 +233,8 @@ namespace OLEDLite
             test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.steadyTime = (int)nu_steady.Value;
             test_parameter.run_stop = false;
+
+            test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
         }
 
         private void bt_run_Click(object sender, EventArgs e)
@@ -460,12 +471,6 @@ namespace OLEDLite
             }
         }
 
-        private void ck_slave_CheckedChanged(object sender, EventArgs e)
-        {
-            if (ck_slave.Checked) nu_steady.Enabled = false;
-            else nu_steady.Enabled = true; 
-        }
-
         private void bt_stop_Click(object sender, EventArgs e)
         {
             test_parameter.run_stop = true;
@@ -496,6 +501,40 @@ namespace OLEDLite
                 ATETask.Resume();
 
             }
+        }
+
+        private void cb_mode_sel_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cb_mode_sel.SelectedIndex == 0)
+            {
+                bt_start.Text = "START";
+                chamberCtr.Role = "Master";
+                button1.Enabled = true;
+            }
+            else
+            {
+                bt_start.Text = "Connect";
+                chamberCtr.Role = "Slave";
+                button1.Enabled = false;
+            }
+        }
+
+        private void bt_start_Click(object sender, EventArgs e)
+        {
+            if (cb_mode_sel.SelectedIndex == 0)
+            {
+                chamberCtr.MasterLisening();
+            }
+            else
+            {
+                chamberCtr.ClientConnect(tb_IPAddress.Text);
+            }
+        }
+
+        private void bt_ipaddress_Click(object sender, EventArgs e)
+        {
+            IPAddress[] ipa = Dns.GetHostAddresses(Dns.GetHostName());
+            tb_IPAddress.Text = ipa[1].ToString();
         }
     }
 }

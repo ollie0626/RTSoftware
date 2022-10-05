@@ -35,7 +35,9 @@ namespace OLEDLite
         Excel.Application _app;
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
-        Excel.Range _range;
+        //Excel.Range _range;
+        string eLoadInfo = "";
+        string SwireInfo = "";
         RTBBControl RTDev = new RTBBControl();
 
         private void OSCInint()
@@ -177,13 +179,6 @@ namespace OLEDLite
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             _sheet.Name = "TDMA";
-
-            _sheet.Cells[10, XLS_Table.K] = "No.";
-            _sheet.Cells[10, XLS_Table.L] = "Temp(C)";
-            _sheet.Cells[10, XLS_Table.M] = "Vin(V)";
-            _sheet.Cells[10, XLS_Table.N] = "Iout(mA)";
-            _sheet.Cells[10, XLS_Table.O] = "Overshoot(mV)";
-            _sheet.Cells[10, XLS_Table.P] = "Undershoot(mV)";
         }
 
         public override void ATETask()
@@ -195,6 +190,7 @@ namespace OLEDLite
 
             RTDev.BoadInit();
             int bin_cnt = 1;
+            int wave_idx = 0;
             int row = 11;
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
@@ -204,37 +200,85 @@ namespace OLEDLite
                                          test_parameter.duty,
                                          test_parameter.tr,
                                          test_parameter.tf);
-#if Report
-            ExcelInit();
-            _sheet.Cells[1, 1] = "Vin:";
-            _sheet.Cells[2, 1] = "Iout:";
-            _sheet.Cells[3, 1] = "setting conditions:";
-            string res = "";
-            for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
-                res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
-            _sheet.Cells[1, 2] = res;
-            res = "";
-            for (int i = 0; i < test_parameter.ioutList.Count; i++)
-                res += test_parameter.ioutList[i] + ", ";
-            _sheet.Cells[2, 2] = res;
-            _sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
-#else
-            string res = "";
-#endif
-            // mac github test
-            // mac gihub test2
+
             OSCInint();
-            start_pos.Add(row);
-            for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
+
+            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++) // interface
             {
-                for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
+#if Report
+                row = 11;
+                ExcelInit();
+#endif
+                for (int func_idx = 0; func_idx < test_parameter.HiLo_table.Count; func_idx++) // functino gen vin 
                 {
-                    for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++) // interface
+#if Report
+                    _sheet.Cells[row - 1, XLS_Table.K] = "VIN=" + test_parameter.HiLo_table[func_idx].LowLevel.ToString().Replace(".", "")
+                                            + test_parameter.HiLo_table[func_idx].Highlevel.ToString().Replace(".", "");
+                    _sheet.Cells[row, XLS_Table.K] = "No.";
+                    _sheet.Cells[row, XLS_Table.L] = "Temp(C)";
+                    _sheet.Cells[row, XLS_Table.M] = "Vin_L(V)";
+                    _sheet.Cells[row, XLS_Table.N] = "Vin_H(V)";
+                    _sheet.Cells[row, XLS_Table.O] = "Iout(mA)";
+                    _sheet.Cells[row, XLS_Table.P] = "Overshoot(mV)";
+                    _sheet.Cells[row, XLS_Table.Q] = "Undershoot(mV)";
+                    _sheet.Cells[row, XLS_Table.R] = "VPP(mV)";
+
+                    _sheet.Cells[1, 1] = "Vin:";
+                    _sheet.Cells[2, 1] = "Iout:";
+                    _sheet.Cells[3, 1] = "setting conditions:";
+                    _sheet.Cells[4, 1] = "Note:";
+                    _sheet.Cells[5, 1] = "Date:";
+                    string res = "";
+                    for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
+                        res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
+                    _sheet.Cells[1, 2] = res;
+                    res = "";
+                    for (int i = 0; i < test_parameter.ioutList.Count; i++)
+                        res += test_parameter.ioutList[i] + ", ";
+                    _sheet.Cells[2, 2] = res;
+                    _sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
+                    SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
+                    int idx = 0;
+                    eLoadInfo = "";
+                    for (int i = 0; i < test_parameter.eload_en.Length; i++)
                     {
+                        if (test_parameter.eload_en[i])
+                        {
+                            _sheet.Cells[row, XLS_Table.S + idx++] = "ELoad" + (i + 1).ToString() + "(mA)";
+                            if (eLoadInfo == "")
+                            {
+                                eLoadInfo = "Wi Load" + (i + 1).ToString() + "=" + test_parameter.eload_iout[i] * 1000 + "mA";
+                            }
+                            else
+                            {
+                                eLoadInfo += "Wi Load" + (i + 1).ToString() + "=" + test_parameter.eload_iout[i] * 1000 + "mA";
+                            }
+                        }
+                    }
+
+                    _sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
+                    _sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
+                    _sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
+#endif
+                    row++;
+                    start_pos.Add(row);
+                    for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
+                    {
+
                         if (test_parameter.run_stop == true) goto Stop;
-                        res = Path.GetFileNameWithoutExtension(binList[interface_idx]);
+
+
+                        if(test_parameter.i2c_enable)
+                        {
+                            res = Path.GetFileNameWithoutExtension(binList[interface_idx]);
+                        }
+                        else
+                        {
+                            res = SwireInfo;
+                        }
+                        
                         string file_name = string.Format("{0}_{1}_Temp={2}C_Line={3:0.##}V_{4:0.##}V_iout={5:0.##}A",
-                                                        row - 11, res, temp,
+                                                        wave_idx, res, temp,
                                                         test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel,
                                                         test_parameter.ioutList[iout_idx]);
                         if ((func_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
@@ -259,7 +303,7 @@ namespace OLEDLite
                         MyLib.EloadFixChannel();
                         MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
-                        
+
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
 
@@ -268,6 +312,7 @@ namespace OLEDLite
                         // measure part
                         double zoomout_peak = InsControl._scope.Meas_CH2MAX();
                         double zoomout_neg_peak = InsControl._scope.Meas_CH2MIN();
+                        double vpp = InsControl._scope.Meas_CH2VPP();
                         double on_time = (1 / (test_parameter.Freq * 1000)) * (test_parameter.duty / 100);
                         double off_time = (1 / (test_parameter.Freq * 1000)) * ((100 - test_parameter.duty) / 100);
 
@@ -275,7 +320,7 @@ namespace OLEDLite
                         MyLib.Delay1ms(250);
                         double hi_peak = InsControl._scope.Meas_CH2MAX();
                         double hi_neg_peak = InsControl._scope.Meas_CH2MIN();
-                        
+
 
                         InsControl._scope.TimeScale(on_time / 20);
                         InsControl._scope.TimeBasePosition(on_time);
@@ -302,69 +347,91 @@ namespace OLEDLite
                         // report
                         double[] overshoot_list = new double[] { hi_peak, lo_peak };
                         double[] undershoot_list = new double[] { hi_neg_peak, lo_neg_peak };
-#if Report
-                        _sheet.Cells[row, XLS_Table.K] = row - 11;
-                        _sheet.Cells[row, XLS_Table.L] = temp;
-                        _sheet.Cells[row, XLS_Table.M] = test_parameter.HiLo_table[func_idx].Highlevel.ToString() + "->" + test_parameter.HiLo_table[func_idx].LowLevel.ToString();
-                        _sheet.Cells[row, XLS_Table.N] = test_parameter.ioutList[iout_idx];
-                        _sheet.Cells[row, XLS_Table.O] = Math.Abs(zoomout_peak - overshoot_list.Max()) * 1000;
-                        _sheet.Cells[row, XLS_Table.P] = Math.Abs(zoomout_neg_peak - undershoot_list.Min()) * 1000;
-#endif
-                        row++;
-                    }
-                }
-            }
-            stop_pos.Add(row - 1);
-        Stop:
-            stopWatch.Stop();
+
+
+                        InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
+                        string[] HiLo_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
 
 #if Report
-            TimeSpan timeSpan = stopWatch.Elapsed;
-            AddCruve(start_pos, stop_pos);
-            MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_TDMA" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
-            _book.Close(false);
-            _book = null;
-            _app.Quit();
-            _app = null;
-            GC.Collect();
+                        _sheet.Cells[row, XLS_Table.K] = wave_idx;
+                        _sheet.Cells[row, XLS_Table.L] = temp;
+                        _sheet.Cells[row, XLS_Table.M] = Convert.ToDouble(HiLo_res[1]);
+                        _sheet.Cells[row, XLS_Table.N] = Convert.ToDouble(HiLo_res[0]);
+                        _sheet.Cells[row, XLS_Table.O] = test_parameter.ioutList[iout_idx];
+                        _sheet.Cells[row, XLS_Table.P] = Math.Abs(zoomout_peak - overshoot_list.Max()) * 1000;
+                        _sheet.Cells[row, XLS_Table.Q] = Math.Abs(zoomout_neg_peak - undershoot_list.Min()) * 1000;
+                        _sheet.Cells[row, XLS_Table.R] = vpp * 1000;
 #endif
+                        row++;
+                        wave_idx++;
+                    } // Eload loop
+                    stop_pos.Add(row - 1);
+                    row += 2;
+                } // Func loop
+                
+#if Report
+                TimeSpan timeSpan = stopWatch.Elapsed;
+                AddCruve(start_pos, stop_pos);
+                string conditions = eLoadInfo == "" ? "" : eLoadInfo + "_";
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_TDMA Data Collection_" + conditions + SwireInfo  + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                _book.Close(false);
+                _book = null;
+                _app.Quit();
+                _app = null;
+                GC.Collect();
+#endif
+            }
+
+        Stop:
             System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
         }
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
 #if Report
-            Excel.Chart chart, chart_lor;
+            Excel.Chart chart, chart_lor, chart_vpp;
             Excel.Range range;
-            Excel.SeriesCollection collection, collection_lor;
-            Excel.Series series, series_lor;
+            Excel.SeriesCollection collection, collection_lor, collection_vpp;
+            Excel.Series series, series_lor, series_vpp;
             Excel.Range XRange, YRange;
             range = _sheet.Range["A16", "I32"];
-            chart = MyLib.CreateChart(_sheet, range, "Overshoot", "idx", "Overshoot(mV)");
+            chart = MyLib.CreateChart(_sheet, range, "TDMA Data Collection @" + SwireInfo , "Load (mA) " + eLoadInfo, "Overshoot(mV)");
             // for LOR
             range = _sheet.Range["A38", "I54"];
-            chart_lor = MyLib.CreateChart(_sheet, range, "Undershoot", "idx", "Undershoot(mV)");
+            chart_lor = MyLib.CreateChart(_sheet, range, "TDMA Data Collection @" + SwireInfo, "Load (mA) " + eLoadInfo, "Undershoot(mV)");
 
-            chart.Legend.Delete();
-            chart_lor.Legend.Delete();
+            range = _sheet.Range["A60", "I76"];
+            chart_vpp = MyLib.CreateChart(_sheet, range, "TDMA Data Collection @" + SwireInfo, "Load (mA) " + eLoadInfo, "VPP(mV)");
+
+            chart.ChartTitle.Font.Size = 14;
+            chart_lor.ChartTitle.Font.Size = 14;
+            chart_vpp.ChartTitle.Font.Size = 14;
+
             collection = chart.SeriesCollection();
             collection_lor = chart_lor.SeriesCollection();
+            collection_vpp = chart_vpp.SeriesCollection();
 
             for (int line = 0; line < start_pos.Count; line++)
             {
                 series = collection.NewSeries();
 
-                XRange = _sheet.Range["K" + start_pos[line].ToString(), "K" + stop_pos[line].ToString()];
-                YRange = _sheet.Range["O" + start_pos[line].ToString(), "O" + stop_pos[line].ToString()];
+                XRange = _sheet.Range["O" + start_pos[line].ToString(), "O" + stop_pos[line].ToString()];
+                YRange = _sheet.Range["P" + start_pos[line].ToString(), "P" + stop_pos[line].ToString()];
                 series.XValues = XRange;
                 series.Values = YRange;
-                series.Name = "line" + (line + 1).ToString();
+                series.Name = _sheet.Cells[start_pos[line] - 2, XLS_Table.K].Value.ToString();
 
                 series_lor = collection_lor.NewSeries();
-                YRange = _sheet.Range["P" + start_pos[line].ToString(), "P" + stop_pos[line].ToString()];
+                YRange = _sheet.Range["Q" + start_pos[line].ToString(), "Q" + stop_pos[line].ToString()];
                 series_lor.XValues = XRange;
                 series_lor.Values = YRange;
-                series_lor.Name = "line" + (line + 1).ToString();
+                series_lor.Name = _sheet.Cells[start_pos[line] - 2, XLS_Table.K].Value.ToString();
+
+                series_vpp = collection_vpp.NewSeries();
+                YRange = _sheet.Range["R" + start_pos[line].ToString(), "R" + stop_pos[line].ToString()];
+                series_vpp.XValues = XRange;
+                series_vpp.Values = YRange;
+                series_vpp.Name = _sheet.Cells[start_pos[line] - 2, XLS_Table.K].Value.ToString();
             }
 #endif
         }

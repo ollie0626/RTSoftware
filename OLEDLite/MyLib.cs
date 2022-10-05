@@ -151,7 +151,8 @@ namespace OLEDLite
 
             page.ChartWizard(
                 System.Type.Missing,
-                Excel.XlChartType.xlXYScatterSmooth,
+                Excel.XlChartType.xlColumnClustered,
+                //Excel.XlChartType.xlXYScatterSmooth,
                 System.Type.Missing,
                 Excel.XlRowCol.xlColumns,
                 0, 0, true,

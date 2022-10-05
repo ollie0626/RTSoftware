@@ -141,6 +141,7 @@ namespace OLEDLite
 
         public void SwirePulse(int num)
         {
+            if (customizedMdoule == null) return;
             // customized transation
             int pCmdIn = test_parameter.swire_20 ? 1 : 2;
             int pDataInCount = 16;

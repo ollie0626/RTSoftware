@@ -80,16 +80,18 @@ namespace OLEDLite
             this.label18 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
             this.group_chamber = new System.Windows.Forms.GroupBox();
+            this.bt_ipaddress = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.tb_IP_Addr = new System.Windows.Forms.TextBox();
+            this.tb_IPAddress = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.ck_chamber_en = new System.Windows.Forms.CheckBox();
             this.nu_steady = new System.Windows.Forms.NumericUpDown();
+            this.bt_start = new System.Windows.Forms.Button();
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.ck_slave = new System.Windows.Forms.CheckBox();
             this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
             this.group_eload = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
@@ -122,9 +124,11 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.bt_ipaddress = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.bt_start = new System.Windows.Forms.Button();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RB_ASwire = new System.Windows.Forms.RadioButton();
+            this.RB_ESwire = new System.Windows.Forms.RadioButton();
+            this.cb_mode_sel = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_funcgen.SuspendLayout();
@@ -146,6 +150,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -384,6 +389,7 @@ namespace OLEDLite
             // 
             // group_interface
             // 
+            this.group_interface.Controls.Add(this.groupBox1);
             this.group_interface.Controls.Add(this.nu_swire_num);
             this.group_interface.Controls.Add(this.label12);
             this.group_interface.Controls.Add(this.swireTable);
@@ -587,9 +593,11 @@ namespace OLEDLite
             // 
             // group_chamber
             // 
+            this.group_chamber.Controls.Add(this.cb_mode_sel);
+            this.group_chamber.Controls.Add(this.label28);
             this.group_chamber.Controls.Add(this.bt_ipaddress);
             this.group_chamber.Controls.Add(this.progressBar1);
-            this.group_chamber.Controls.Add(this.tb_IP_Addr);
+            this.group_chamber.Controls.Add(this.tb_IPAddress);
             this.group_chamber.Controls.Add(this.label11);
             this.group_chamber.Controls.Add(this.button1);
             this.group_chamber.Controls.Add(this.label15);
@@ -599,26 +607,38 @@ namespace OLEDLite
             this.group_chamber.Controls.Add(this.label14);
             this.group_chamber.Controls.Add(this.tb_templist);
             this.group_chamber.Controls.Add(this.label13);
-            this.group_chamber.Controls.Add(this.ck_slave);
             this.group_chamber.Controls.Add(this.ck_multi_chamber);
             resources.ApplyResources(this.group_chamber, "group_chamber");
             this.group_chamber.Name = "group_chamber";
             this.group_chamber.TabStop = false;
+            // 
+            // bt_ipaddress
+            // 
+            resources.ApplyResources(this.bt_ipaddress, "bt_ipaddress");
+            this.bt_ipaddress.Name = "bt_ipaddress";
+            this.bt_ipaddress.UseVisualStyleBackColor = true;
+            this.bt_ipaddress.Click += new System.EventHandler(this.bt_ipaddress_Click);
             // 
             // progressBar1
             // 
             resources.ApplyResources(this.progressBar1, "progressBar1");
             this.progressBar1.Name = "progressBar1";
             // 
-            // tb_IP_Addr
+            // tb_IPAddress
             // 
-            resources.ApplyResources(this.tb_IP_Addr, "tb_IP_Addr");
-            this.tb_IP_Addr.Name = "tb_IP_Addr";
+            resources.ApplyResources(this.tb_IPAddress, "tb_IPAddress");
+            this.tb_IPAddress.Name = "tb_IPAddress";
             // 
             // label11
             // 
             resources.ApplyResources(this.label11, "label11");
             this.label11.Name = "label11";
+            // 
+            // button1
+            // 
+            resources.ApplyResources(this.button1, "button1");
+            this.button1.Name = "button1";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // label15
             // 
@@ -646,6 +666,13 @@ namespace OLEDLite
             0,
             0});
             // 
+            // bt_start
+            // 
+            resources.ApplyResources(this.bt_start, "bt_start");
+            this.bt_start.Name = "bt_start";
+            this.bt_start.UseVisualStyleBackColor = true;
+            this.bt_start.Click += new System.EventHandler(this.bt_start_Click);
+            // 
             // label14
             // 
             resources.ApplyResources(this.label14, "label14");
@@ -660,13 +687,6 @@ namespace OLEDLite
             // 
             resources.ApplyResources(this.label13, "label13");
             this.label13.Name = "label13";
-            // 
-            // ck_slave
-            // 
-            resources.ApplyResources(this.ck_slave, "ck_slave");
-            this.ck_slave.Name = "ck_slave";
-            this.ck_slave.UseVisualStyleBackColor = true;
-            this.ck_slave.CheckedChanged += new System.EventHandler(this.ck_slave_CheckedChanged);
             // 
             // ck_multi_chamber
             // 
@@ -878,23 +898,42 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // bt_ipaddress
+            // groupBox1
             // 
-            resources.ApplyResources(this.bt_ipaddress, "bt_ipaddress");
-            this.bt_ipaddress.Name = "bt_ipaddress";
-            this.bt_ipaddress.UseVisualStyleBackColor = true;
+            this.groupBox1.Controls.Add(this.RB_ESwire);
+            this.groupBox1.Controls.Add(this.RB_ASwire);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
             // 
-            // button1
+            // RB_ASwire
             // 
-            resources.ApplyResources(this.button1, "button1");
-            this.button1.Name = "button1";
-            this.button1.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
+            this.RB_ASwire.Name = "RB_ASwire";
+            this.RB_ASwire.TabStop = true;
+            this.RB_ASwire.UseVisualStyleBackColor = true;
             // 
-            // bt_start
+            // RB_ESwire
             // 
-            resources.ApplyResources(this.bt_start, "bt_start");
-            this.bt_start.Name = "bt_start";
-            this.bt_start.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
+            this.RB_ESwire.Name = "RB_ESwire";
+            this.RB_ESwire.TabStop = true;
+            this.RB_ESwire.UseVisualStyleBackColor = true;
+            // 
+            // cb_mode_sel
+            // 
+            this.cb_mode_sel.FormattingEnabled = true;
+            this.cb_mode_sel.Items.AddRange(new object[] {
+            resources.GetString("cb_mode_sel.Items"),
+            resources.GetString("cb_mode_sel.Items1")});
+            resources.ApplyResources(this.cb_mode_sel, "cb_mode_sel");
+            this.cb_mode_sel.Name = "cb_mode_sel";
+            this.cb_mode_sel.SelectedIndexChanged += new System.EventHandler(this.cb_mode_sel_SelectedIndexChanged_1);
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
             // 
             // main
             // 
@@ -933,6 +972,8 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -980,7 +1021,6 @@ namespace OLEDLite
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tb_templist;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox ck_slave;
         private System.Windows.Forms.CheckBox ck_multi_chamber;
         private System.Windows.Forms.CheckBox ck_scope;
         private System.Windows.Forms.CheckBox ck_daq;
@@ -1029,11 +1069,16 @@ namespace OLEDLite
         private System.Windows.Forms.Button bt_func_set;
         private System.Windows.Forms.CheckBox ck_func;
         private System.Windows.Forms.TextBox tb_res_func;
-        private System.Windows.Forms.TextBox tb_IP_Addr;
+        private System.Windows.Forms.TextBox tb_IPAddress;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.Button bt_ipaddress;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button bt_start;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.RadioButton RB_ASwire;
+        private System.Windows.Forms.RadioButton RB_ESwire;
+        private System.Windows.Forms.ComboBox cb_mode_sel;
+        private System.Windows.Forms.Label label28;
     }
 }
 
