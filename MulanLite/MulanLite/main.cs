@@ -1299,6 +1299,10 @@ namespace MulanLite
 
         private void uibt_read_Click(object sender, EventArgs e)
         {
+            //for(int i = 0; i < 5000; i++)
+            //{
+            //    byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
+            //}
             byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
             if (data.Length < 3) return;
             nuSRead.Value = data[2];
