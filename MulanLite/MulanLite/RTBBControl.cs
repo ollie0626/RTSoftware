@@ -471,9 +471,9 @@ namespace MulanLite
 
             /* read command */
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA1CPOL0);
-            Task.Delay(5).Wait();
+            Task.Delay(2).Wait();
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA1CPOL0);
-            Task.Delay(30).Wait();
+            Task.Delay(2).Wait();
             spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)(Buffer_tmp.Length), 0xAC, Buffer_tmp);
             for (int i = 0; i < Buffer_tmp.Length; i++) Console.Write("{0:X}, ", Buffer_tmp[i]);
             Console.WriteLine();

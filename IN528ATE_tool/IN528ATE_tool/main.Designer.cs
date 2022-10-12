@@ -144,6 +144,7 @@ namespace IN528ATE_tool
             this.label29 = new System.Windows.Forms.Label();
             this.cb_mode_sel = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
+            this.CK_Bwen = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -1700,11 +1701,22 @@ namespace IN528ATE_tool
             this.label28.TabIndex = 45;
             this.label28.Text = "Master / Slave ";
             // 
+            // CK_Bwen
+            // 
+            this.CK_Bwen.AutoSize = true;
+            this.CK_Bwen.Location = new System.Drawing.Point(539, 100);
+            this.CK_Bwen.Name = "CK_Bwen";
+            this.CK_Bwen.Size = new System.Drawing.Size(61, 19);
+            this.CK_Bwen.TabIndex = 81;
+            this.CK_Bwen.Text = "BW En";
+            this.CK_Bwen.UseVisualStyleBackColor = true;
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1027, 696);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.CK_Bwen);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.lab_scope);
@@ -1942,6 +1954,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Button bt_start;
         private System.Windows.Forms.Button bt_stop;
         private System.Windows.Forms.Button bt_ipaddress;
+        private System.Windows.Forms.CheckBox CK_Bwen;
     }
 }
 

@@ -60,6 +60,8 @@ namespace IN528ATE_tool
         public static List<string> swireList = new List<string>();
         public static List<double> voutList = new List<double>();
         public static bool swire_20;
+
+        public static bool bw_en;
     }
 
 

@@ -44,6 +44,9 @@ namespace IN528ATE_tool
             InsControl._scope.TimeScaleMs(5);
             InsControl._scope.CH1_ACoupling();
 
+            if(test_parameter.bw_en)
+                InsControl._scope.CH1_BWLimitOn();
+
             InsControl._scope.CH2_Off();
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_Off();

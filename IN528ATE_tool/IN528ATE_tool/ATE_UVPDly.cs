@@ -34,9 +34,13 @@ namespace IN528ATE_tool
             InsControl._scope.CH2_On();
             InsControl._scope.CH4_On();
             MyLib.WaveformCheck();
-            InsControl._scope.CH1_BWLimitOn();
-            InsControl._scope.CH2_BWLimitOn();
-            InsControl._scope.CH4_BWLimitOn();
+            if(test_parameter.bw_en)
+            {
+                InsControl._scope.CH1_BWLimitOn();
+                InsControl._scope.CH2_BWLimitOn();
+                InsControl._scope.CH4_BWLimitOn();
+            }
+
             InsControl._scope.CH3_Off();
 
             InsControl._scope.CH1_Level(5);

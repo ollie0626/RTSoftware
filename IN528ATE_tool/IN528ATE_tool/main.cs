@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.7 s+";
+            this.Text = "ATE Tool v2.8";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -260,6 +260,7 @@ namespace IN528ATE_tool
             }
             test_parameter.swire_en = ck_swire.Checked;
             test_parameter.swire_20 = RB20.Checked;
+            test_parameter.bw_en = CK_Bwen.Checked;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)
