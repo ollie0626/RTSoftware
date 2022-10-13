@@ -130,7 +130,7 @@ namespace IN528ATE_tool
                         // the file name of waveform
                         string res = binList[bin_idx];
                         string file_name = string.Format("{0}_{1}_Temp={2}C_Vin={3:0.0#}V_{4:0.0#}A",
-                                                        row - 22,
+                                                        idx,
                                                         Path.GetFileNameWithoutExtension(res),
                                                         temp,
                                                         test_parameter.VinList[vin_idx],
@@ -162,10 +162,12 @@ namespace IN528ATE_tool
                         RTDev.GpEn_Enable();
                         MyLib.Delay1ms(50);
                         RTDev.Gp2En_Enable();
+                        MyLib.Delay1s(2);
 
                         // adjust ch1 level
-                        InsControl._scope.CH1_Level(1);
+                        InsControl._scope.CH1_Level(0.1);
                         System.Threading.Thread.Sleep(500);
+                        //InsControl._scope.CH1_Level(0.05);
                         myLib.Channel_LevelSetting(InsControl._scope, 1);
                         System.Threading.Thread.Sleep(1000);
                         // scope open rgb color function

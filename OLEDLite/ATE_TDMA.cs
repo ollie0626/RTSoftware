@@ -179,6 +179,14 @@ namespace OLEDLite
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             _sheet.Name = "TDMA";
+
+            _sheet.Cells[10, XLS_Table.U] = "Ideal";
+            _sheet.Cells[11, XLS_Table.U] = "Iout (mA)";
+            _sheet.Cells[11, XLS_Table.V] = "Overshoot (mV)";
+            _sheet.Cells[11, XLS_Table.W] = "Undershoot (mV)"; 
+            _sheet.Cells[11, XLS_Table.X] = "VPP (mV)";
+            
+            // for iout
         }
 
         public override void ATETask()
@@ -350,9 +358,6 @@ namespace OLEDLite
                         double[] overshoot_list = new double[] { hi_peak, lo_peak };
                         double[] undershoot_list = new double[] { hi_neg_peak, lo_neg_peak };
 
-
-
-
 #if Report
                         _sheet.Cells[row, XLS_Table.K] = wave_idx;
                         _sheet.Cells[row, XLS_Table.L] = temp;
@@ -397,6 +402,7 @@ namespace OLEDLite
             Excel.Range XRange, YRange;
             range = _sheet.Range["A16", "I32"];
             chart = MyLib.CreateChart(_sheet, range, "TDMA Data Collection @" + SwireInfo , "Load (mA) " + eLoadInfo, "Overshoot(mV)");
+
             // for LOR
             range = _sheet.Range["A38", "I54"];
             chart_lor = MyLib.CreateChart(_sheet, range, "TDMA Data Collection @" + SwireInfo, "Load (mA) " + eLoadInfo, "Undershoot(mV)");
@@ -434,6 +440,28 @@ namespace OLEDLite
                 series_vpp.Values = YRange;
                 series_vpp.Name = _sheet.Cells[start_pos[line] - 2, XLS_Table.K].Value.ToString();
             }
+
+            series = collection.NewSeries();
+            series.ChartType = Excel.XlChartType.xlXYScatterLinesNoMarkers;
+            XRange = _sheet.Range["U" + start_pos[0].ToString(), "U" + stop_pos[0].ToString()];
+            YRange = _sheet.Range["V" + start_pos[0].ToString(), "V" + stop_pos[0].ToString()];
+            series.XValues = XRange;
+            series.Values = YRange;
+            series.Name = _sheet.Cells[start_pos[0] - 2, XLS_Table.U].Value.ToString();
+
+            series_lor = collection_lor.NewSeries();
+            series_lor.ChartType = Excel.XlChartType.xlXYScatterLinesNoMarkers;
+            YRange = _sheet.Range["W" + start_pos[0].ToString(), "W" + stop_pos[0].ToString()];
+            series_lor.XValues = XRange;
+            series_lor.Values = YRange;
+            series_lor.Name = _sheet.Cells[start_pos[0] - 2, XLS_Table.U].Value.ToString();
+
+            series_vpp = collection_vpp.NewSeries();
+            series_vpp.ChartType = Excel.XlChartType.xlXYScatterLinesNoMarkers;
+            YRange = _sheet.Range["X" + start_pos[0].ToString(), "X" + stop_pos[0].ToString()];
+            series_vpp.XValues = XRange;
+            series_vpp.Values = YRange;
+            series_vpp.Name = _sheet.Cells[start_pos[0] - 2, XLS_Table.K].Value.ToString();
 #endif
         }
 

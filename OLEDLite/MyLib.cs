@@ -159,6 +159,7 @@ namespace OLEDLite
                 title, x_title, y_title,
                 System.Type.Missing
                 );
+
             return page;
         }
 
