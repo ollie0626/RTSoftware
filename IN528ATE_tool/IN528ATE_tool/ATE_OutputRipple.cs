@@ -231,6 +231,8 @@ namespace IN528ATE_tool
             InsControl._scope.DoCommand(":DISPlay:PERSistence INFinite");
         Stop:
             stopWatch.Stop();
+            InsControl._power.AutoPowerOff();
+            InsControl._eload.AllChannel_LoadOff();
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;

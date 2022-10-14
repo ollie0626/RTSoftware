@@ -83,10 +83,27 @@ namespace OLEDLite
                             return;
                         }
                         // set trigger
+                        // adjust ch1 level
+                        InsControl._scope.CH1_Level(1);
+                        System.Threading.Thread.Sleep(500);
+                        //InsControl._scope.CH1_Level(0.05);
+                        //MyLib.Channel_LevelSetting(1);
+                        System.Threading.Thread.Sleep(1000);
+                        // scope open rgb color function
+                        InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
+                        System.Threading.Thread.Sleep(5000);
+                        double max, min, vpp, vin, vout, iin, iout;
+                        // save waveform
+                        InsControl._scope.Root_STOP();
+                        // measure data
+                        max = InsControl._scope.Meas_CH1MAX() * 1000;
+                        min = InsControl._scope.Meas_CH1MIN() * 1000;
+                        vpp = InsControl._scope.Meas_CH1VPP() * 1000;
+                        vin = InsControl._34970A.Get_100Vol(1);
+                        vout = InsControl._34970A.Get_100Vol(2);
+                        iin = InsControl._power.GetCurrent();
+                        iout = InsControl._eload.GetIout();
 
-                        // resize channel
-
-                        // measure result & catch waveform
 
 
                     }
