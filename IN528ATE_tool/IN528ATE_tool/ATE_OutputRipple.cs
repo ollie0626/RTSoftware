@@ -165,7 +165,7 @@ namespace IN528ATE_tool
                         MyLib.Delay1s(2);
 
                         // adjust ch1 level
-                        InsControl._scope.CH1_Level(0.1);
+                        InsControl._scope.CH1_Level(1);
                         System.Threading.Thread.Sleep(500);
                         //InsControl._scope.CH1_Level(0.05);
                         myLib.Channel_LevelSetting(InsControl._scope, 1);

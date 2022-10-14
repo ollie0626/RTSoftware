@@ -237,6 +237,13 @@ namespace IN528ATE_tool
                 double avg = 0;
                 double vmax = scope.Measure_Ch_Max(channel);
                 double vmin = scope.Measure_Ch_min(channel);
+
+                if (vmax < 0)
+                {
+                    InsControl._scope.CHx_Level(1, 1);
+                    continue;
+                }
+
                 avg = vmax - vmin;
                 scope.CHx_Level(channel, avg / 2);
                 System.Threading.Thread.Sleep(200);

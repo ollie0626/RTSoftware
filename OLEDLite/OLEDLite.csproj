@@ -66,6 +66,7 @@
       <DependentUpon>main.cs</DependentUpon>
     </Compile>
     <Compile Include="MyLib.cs" />
+    <Compile Include="OutputRipple.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RTBBControl.cs" />
