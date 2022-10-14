@@ -769,60 +769,58 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MEASure:VMAX?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:VMAX? " + CHx;
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
 
         public double Meas_CH1MAX()
         {
-            return Meas_MAX(MEAS_CH1);
+            return Meas_MAX(CH1);
         }
 
         public double Meas_CH2MAX()
         {
-            return Meas_MAX(MEAS_CH2);
+            return Meas_MAX(CH2);
         }
 
         public double Meas_CH3MAX()
         {
-            return Meas_MAX(MEAS_CH3);
+            return Meas_MAX(CH3);
         }
 
         public double Meas_CH4MAX()
         {
-            return Meas_MAX(MEAS_CH4);
+            return Meas_MAX(CH4);
         }
 
         private double Meas_MIN(string CHx)
         {
             
             double buf;
-            string gogoCMD = ":MEASure:VMIN?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:VMIN? " + CHx;
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
 
         public double Meas_CH1MIN()
         {
-            return Meas_MIN(MEAS_CH1);
+            return Meas_MIN(CH1);
         }
 
         public double Meas_CH2MIN()
         {
-            return Meas_MIN(MEAS_CH2);
+            return Meas_MIN(CH2);
         }
 
         public double Meas_CH3MIN()
         {
-            return Meas_MIN(MEAS_CH3);
+            return Meas_MIN(CH3);
         }
 
         public double Meas_CH4MIN()
         {
-            return Meas_MIN(MEAS_CH4);
+            return Meas_MIN(CH4);
         }
 
         private double Meas_XDelta(string CHx)
