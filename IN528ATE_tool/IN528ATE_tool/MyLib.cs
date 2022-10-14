@@ -220,32 +220,40 @@ namespace IN528ATE_tool
             return true;
         }
 
-        public void Channel_LevelSetting(AgilentOSC scope, int channel)
+        public void Channel_LevelSetting(int channel)
         {
             int idx = 0;
-            double temp = scope.Meas_CH1VPP();
-            while ((temp > (9.999 * Math.Pow(10, 10))) && (idx <= 100))
-            {
-                scope.CH1_Level(0.05 + (idx * 0.05));
-                temp = scope.Meas_CH1VPP();
-                idx++;
-                System.Threading.Thread.Sleep(10);
-            }
+            double issue_num = 9.99999 * Math.Pow(10, 10);
+            //double temp = InsControl._scope.Meas_CH1VPP();
+            //while ((temp > (9.999 * Math.Pow(10, 10))) && (idx <= 100))
+            //{
+            //    InsControl._scope.CH1_Level(0.05 + (idx * 0.05));
+            //    temp = InsControl._scope.Meas_CH1VPP();
+            //    idx++;
+            //    System.Threading.Thread.Sleep(10);
+            //}
 
             for(int i = 0; i <= 15; i++)
             {
                 double avg = 0;
-                double vmax = scope.Measure_Ch_Max(channel);
-                double vmin = scope.Measure_Ch_min(channel);
+                double vmax = InsControl._scope.Measure_Ch_Max(channel);
+                double vmin = InsControl._scope.Measure_Ch_min(channel);
+                double temp = InsControl._scope.Meas_CH1VPP();
 
-                if (vmax < 0)
+                if (vmax < 0 || vmin > 0)
+                {
+                    InsControl._scope.CHx_Level(1, 1);
+                    continue;
+                }
+
+                if(vmax > issue_num || temp > issue_num)
                 {
                     InsControl._scope.CHx_Level(1, 1);
                     continue;
                 }
 
                 avg = vmax - vmin;
-                scope.CHx_Level(channel, avg / 2);
+                InsControl._scope.CHx_Level(channel, avg / 2);
                 System.Threading.Thread.Sleep(200);
             }
         }
