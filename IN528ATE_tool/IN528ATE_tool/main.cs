@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.8";
+            this.Text = "ATE Tool v2.9";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
