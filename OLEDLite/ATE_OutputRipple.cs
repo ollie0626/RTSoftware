@@ -10,7 +10,7 @@ using System.IO;
 
 namespace OLEDLite
 {
-    public class OutputRipple : TaskRun
+    public class ATE_OutputRipple : TaskRun
     {
         Excel.Application _app;
         Excel.Worksheet _sheet;
@@ -44,29 +44,44 @@ namespace OLEDLite
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             RTDev.BoadInit();
+            int idx = 0;
             int bin_cnt = 1;
             int wave_idx = 0;
             int row = 11;
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
             bin_cnt = binList.Length == 0 ? 1 : binList.Length;
+            double[] ori_vinTable = new double[test_parameter.vinList.Count];
+            Array.Copy(test_parameter.vinList.ToArray(), ori_vinTable, test_parameter.vinList.Count);
             InsControl._power.AutoSelPowerOn(test_parameter.vinList[0]);
 
             OSCInint();
             for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
             {
-                for(int load_idx = 0; load_idx < test_parameter.ioutList.Count; load_idx++)
+                for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
                 {
-                    for(int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
+                    for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
                         //if (test_parameter.run_stop == true) goto Stop;
-
+                        if ((interface_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
+                        string res = binList[interface_idx];
+                        string file_name = string.Format("{0}_{1}_Temp={2}C_Vin={3:0.0#}V_{4:0.0#}A",
+                                                        idx,
+                                                        Path.GetFileNameWithoutExtension(res),
+                                                        temp,
+                                                        test_parameter.vinList[vin_idx],
+                                                        test_parameter.ioutList[iout_idx]);
 
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         MyLib.EloadFixChannel();
-                        MyLib.Switch_ELoadLevel(test_parameter.eload_iout[load_idx]);
-                        InsControl._eload.CH1_Loading(test_parameter.eload_iout[load_idx]);
-
+                        MyLib.Switch_ELoadLevel(test_parameter.eload_iout[iout_idx]);
+                        InsControl._eload.CH1_Loading(test_parameter.eload_iout[iout_idx]);
+                        double tempVin = ori_vinTable[vin_idx];
+                        if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
+                        {
+                            System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                            return;
+                        }
                         // set trigger
 
                         // resize channel

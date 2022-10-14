@@ -235,24 +235,31 @@ namespace IN528ATE_tool
 
             for(int i = 0; i <= 15; i++)
             {
+                string info = "";
                 double avg = 0;
                 double vmax = InsControl._scope.Measure_Ch_Max(channel);
                 double vmin = InsControl._scope.Measure_Ch_min(channel);
                 double temp = InsControl._scope.Meas_CH1VPP();
 
+                info = string.Format("idx = {0}_vmax={1}", i, vmax);
+                MyLib.ScopePrint(info);
+
                 if (vmax < 0 || vmin > 0)
                 {
+                    MyLib.ScopePrint("vmax < 0 || vmin > 0");
                     InsControl._scope.CHx_Level(1, 1);
                     continue;
                 }
 
                 if(vmax > issue_num || temp > issue_num)
                 {
+                    MyLib.ScopePrint("value issue");
                     InsControl._scope.CHx_Level(1, 1);
                     continue;
                 }
 
                 avg = vmax - vmin;
+                info = string.Format("idx = {0}_avg/2={1}", i, avg/2);
                 InsControl._scope.CHx_Level(channel, avg / 2);
                 System.Threading.Thread.Sleep(200);
             }
@@ -373,6 +380,15 @@ namespace IN528ATE_tool
             conditions += "bin file number = " + bin_cnt.ToString();
             sheet.Cells[2, 2] = conditions;
         }
+
+
+        public static void ScopePrint(string info)
+        {
+            //printf("\"Infiniium Test\"");
+            string cmd = ":DISP:LINE " + @"""" + info + @"""";
+            InsControl._scope.DoCommand(cmd);
+        }
+
     }
 
 

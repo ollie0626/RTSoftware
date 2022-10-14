@@ -54,6 +54,9 @@ namespace OLEDLite
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
             this.label17 = new System.Windows.Forms.Label();
             this.group_interface = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.RB_ESwire = new System.Windows.Forms.RadioButton();
+            this.RB_ASwire = new System.Windows.Forms.RadioButton();
             this.nu_swire_num = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.swireTable = new System.Windows.Forms.DataGridView();
@@ -80,6 +83,8 @@ namespace OLEDLite
             this.label18 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
             this.group_chamber = new System.Windows.Forms.GroupBox();
+            this.cb_mode_sel = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
             this.bt_ipaddress = new System.Windows.Forms.Button();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tb_IPAddress = new System.Windows.Forms.TextBox();
@@ -124,11 +129,6 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RB_ASwire = new System.Windows.Forms.RadioButton();
-            this.RB_ESwire = new System.Windows.Forms.RadioButton();
-            this.cb_mode_sel = new System.Windows.Forms.ComboBox();
-            this.label28 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_funcgen.SuspendLayout();
@@ -137,6 +137,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
             this.group_interface.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -150,7 +151,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -361,7 +361,8 @@ namespace OLEDLite
             // 
             this.cb_item.FormattingEnabled = true;
             this.cb_item.Items.AddRange(new object[] {
-            resources.GetString("cb_item.Items")});
+            resources.GetString("cb_item.Items"),
+            resources.GetString("cb_item.Items1")});
             resources.ApplyResources(this.cb_item, "cb_item");
             this.cb_item.Name = "cb_item";
             this.cb_item.SelectedIndexChanged += new System.EventHandler(this.cb_item_SelectedIndexChanged);
@@ -405,6 +406,28 @@ namespace OLEDLite
             resources.ApplyResources(this.group_interface, "group_interface");
             this.group_interface.Name = "group_interface";
             this.group_interface.TabStop = false;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.RB_ESwire);
+            this.groupBox1.Controls.Add(this.RB_ASwire);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // RB_ESwire
+            // 
+            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
+            this.RB_ESwire.Name = "RB_ESwire";
+            this.RB_ESwire.TabStop = true;
+            this.RB_ESwire.UseVisualStyleBackColor = true;
+            // 
+            // RB_ASwire
+            // 
+            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
+            this.RB_ASwire.Name = "RB_ASwire";
+            this.RB_ASwire.TabStop = true;
+            this.RB_ASwire.UseVisualStyleBackColor = true;
             // 
             // nu_swire_num
             // 
@@ -611,6 +634,21 @@ namespace OLEDLite
             resources.ApplyResources(this.group_chamber, "group_chamber");
             this.group_chamber.Name = "group_chamber";
             this.group_chamber.TabStop = false;
+            // 
+            // cb_mode_sel
+            // 
+            this.cb_mode_sel.FormattingEnabled = true;
+            this.cb_mode_sel.Items.AddRange(new object[] {
+            resources.GetString("cb_mode_sel.Items"),
+            resources.GetString("cb_mode_sel.Items1")});
+            resources.ApplyResources(this.cb_mode_sel, "cb_mode_sel");
+            this.cb_mode_sel.Name = "cb_mode_sel";
+            this.cb_mode_sel.SelectedIndexChanged += new System.EventHandler(this.cb_mode_sel_SelectedIndexChanged_1);
+            // 
+            // label28
+            // 
+            resources.ApplyResources(this.label28, "label28");
+            this.label28.Name = "label28";
             // 
             // bt_ipaddress
             // 
@@ -898,43 +936,6 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.RB_ESwire);
-            this.groupBox1.Controls.Add(this.RB_ASwire);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
-            // RB_ASwire
-            // 
-            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
-            this.RB_ASwire.Name = "RB_ASwire";
-            this.RB_ASwire.TabStop = true;
-            this.RB_ASwire.UseVisualStyleBackColor = true;
-            // 
-            // RB_ESwire
-            // 
-            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
-            this.RB_ESwire.Name = "RB_ESwire";
-            this.RB_ESwire.TabStop = true;
-            this.RB_ESwire.UseVisualStyleBackColor = true;
-            // 
-            // cb_mode_sel
-            // 
-            this.cb_mode_sel.FormattingEnabled = true;
-            this.cb_mode_sel.Items.AddRange(new object[] {
-            resources.GetString("cb_mode_sel.Items"),
-            resources.GetString("cb_mode_sel.Items1")});
-            resources.ApplyResources(this.cb_mode_sel, "cb_mode_sel");
-            this.cb_mode_sel.Name = "cb_mode_sel";
-            this.cb_mode_sel.SelectedIndexChanged += new System.EventHandler(this.cb_mode_sel_SelectedIndexChanged_1);
-            // 
-            // label28
-            // 
-            resources.ApplyResources(this.label28, "label28");
-            this.label28.Name = "label28";
-            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -955,6 +956,8 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
             this.group_interface.ResumeLayout(false);
             this.group_interface.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).EndInit();
@@ -972,8 +975,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
 
         }
