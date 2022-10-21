@@ -55,7 +55,27 @@ namespace OLEDLite
 
         private void OSCReset()
         {
+            // Ch1 measure Lx
             InsControl._scope.TimeScaleUs(100);
+            double unit = Math.Pow(10, -6);
+            double period = InsControl._scope.Meas_CH1Period();
+            double time_scale = (period * 3) / 10;
+            if (period > 9.99 * Math.Pow(10, 10)) time_scale = 100;
+
+            while (period > 9.99 * Math.Pow(10, 10))
+            {
+                period = InsControl._scope.Meas_CH1Period();
+                InsControl._scope.TimeScale(time_scale * unit);
+                time_scale--;
+                if (time_scale < 10) break;
+            }
+
+            for(int i = 0; i < 15; i++)
+            {
+                period = InsControl._scope.Meas_CH1Period();
+                time_scale = (period * 3) / 10;
+                InsControl._scope.TimeScale(time_scale);
+            }
         }
 
         public override void ATETask()
