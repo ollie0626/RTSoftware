@@ -247,6 +247,36 @@ namespace OLEDLite
             timer_cnt = 0;
         }
 
+        public static void Channel_LevelSetting(int channel)
+        {
+            int idx = 0;
+            double issue_num = 9.99999 * Math.Pow(10, 10);
+            for (int i = 0; i <= 15; i++)
+            {
+                string info = "";
+                double avg = 0;
+                double vmax = InsControl._scope.Meas_CH1MAX();
+                double vmin = InsControl._scope.Meas_CH1MIN();
+                double temp = InsControl._scope.Meas_CH1VPP();
+
+                if (vmax < 0)
+                {
+                    InsControl._scope.CHx_Level(1, 1);
+                    continue;
+                }
+
+                if (vmax > issue_num || temp > issue_num)
+                {
+                    InsControl._scope.CHx_Level(1, 1);
+                    continue;
+                }
+
+                avg = vmax - vmin;
+                InsControl._scope.CHx_Level(channel, avg / 2);
+                System.Threading.Thread.Sleep(500);
+            }
+        }
+
         public static void EloadFixChannel()
         {
             for(int i = 0; i < test_parameter.eload_iout.Length; i++)

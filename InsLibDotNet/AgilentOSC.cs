@@ -12,10 +12,10 @@ namespace InsLibDotNet
         // 1. override docommand
         // 2. :PDER?
         // 3. :ADER?
-        string MEAS_CH1 = ":MEASure:SOURce CHANnel1";
-        string MEAS_CH2 = ":MEASure:SOURce CHANnel2";
-        string MEAS_CH3 = ":MEASure:SOURce CHANnel3";
-        string MEAS_CH4 = ":MEASure:SOURce CHANnel4";
+        string MEAS_CH1 = "CHANnel1";
+        string MEAS_CH2 = "CHANnel2";
+        string MEAS_CH3 = "CHANnel3";
+        string MEAS_CH4 = "CHANnel4";
         string CH1 = "CHANnel1";
         string CH2 = "CHANnel2";
         string CH3 = "CHANnel3";
@@ -40,7 +40,6 @@ namespace InsLibDotNet
         {
             LinkingIns(Addr);
         }
-
 
         public void AgilentOSC_RST()
         {
@@ -152,8 +151,8 @@ namespace InsLibDotNet
 
         public void SlewRate_90Range(string CHx)
         {
-            doCommand(CHx);
-            double amp = doQueryNumber(":MEASure:VAMPlitude?");
+            //doCommand(CHx);
+            double amp = doQueryNumber(":MEASure:VAMPlitude? " + CHx);
             double hi = amp * 0.9;
             double mid = amp * 0.5;
             double lo = amp * 0.1;
@@ -529,6 +528,16 @@ namespace InsLibDotNet
             doCommand(":TRIGger:TIMeout:TIME " + delay_s.ToString());
         }
 
+        public void SetTrigModeTrans(bool isGthan = true, int source = 1, double time_ns, bool isRising = true)
+        {
+            string cmd = isGthan ? "GTHan" : "LTHan";
+            doCommand(":TRIGger:TRANsition1:DIRection " + cmd);
+            doCommand(":TRIGger:TRANsition1:SOURce " + "CHANnel" + source.ToString());
+            doCommand(":TRIGger:TRANsition:TIME " + time_ns * Math.Pow(10, -9));
+            doCommand(":TRIGger:TRANsition1:TYPE " + (isRising ? "RISetime" : "FALLtime"));
+        }
+
+
         public double Meas_DeltaTime(int CH1, int CH2)
         {
             string cmd = string.Format(":MEASure:DELTatime? CHANnel{0}, CHANnel{1}", CH1, CH2);
@@ -600,8 +609,7 @@ namespace InsLibDotNet
         private double Meas_Rise(string CHx)
         {
             double buf;
-            string gogoCMD = ":MEASure:RISetime?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:RISetime? " + CHx;
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -609,7 +617,7 @@ namespace InsLibDotNet
         private double Meas_Fall(string CHx)
         {
             double buf;
-            string gogoCMD = ":MEASure:FALLtime?";
+            string gogoCMD = ":MEASure:FALLtime? " + CHx;
             doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
@@ -654,8 +662,8 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MEASure:VTOP?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:VTOP? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -680,8 +688,8 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MEASure:VBASE?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:VBASE? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -709,8 +717,8 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MEASure:FREQuency?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:FREQuency? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -739,8 +747,8 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MEASure:PERiod?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:PERiod? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -827,8 +835,8 @@ namespace InsLibDotNet
         {
             
             double buf;
-            string gogoCMD = ":MARKer:XDELta?";
-            doCommand(CHx);
+            string gogoCMD = ":MARKer:XDELta? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -852,8 +860,8 @@ namespace InsLibDotNet
         private double Meas_Duty(string CHx)
         {
             double buf;
-            string gogoCMD = ":MEASure:DUTYcycle?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:DUTYcycle? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }
@@ -882,8 +890,8 @@ namespace InsLibDotNet
         private double Meas_VPP(string CHx)
         {
             double buf;
-            string gogoCMD = ":MEASure:VPP?";
-            doCommand(CHx);
+            string gogoCMD = ":MEASure:VPP? " + CHx;
+            //doCommand(CHx);
             buf = doQueryNumber(gogoCMD);
             return buf;
         }

@@ -20,6 +20,21 @@ namespace OLEDLite
         string SwireInfo = "";
         RTBBControl RTDev = new RTBBControl();
 
+        public delegate void FinishNotification();
+
+        FinishNotification delegate_mess;
+
+
+        public ATE_OutputRipple()
+        {
+            delegate_mess = new FinishNotification(MessageNotify);
+        }
+
+        private void MessageNotify()
+        {
+            System.Windows.Forms.MessageBox.Show("Output ripple test finished!!!", "OLED-Lit Tool", System.Windows.Forms.MessageBoxButtons.OK);
+        }
+
 
         private void OSCInint()
         {
@@ -38,16 +53,26 @@ namespace OLEDLite
 
         }
 
+        private void OSCReset()
+        {
+            InsControl._scope.TimeScaleUs(100);
+        }
+
         public override void ATETask()
         {
-
+            // board and timer initial
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             RTDev.BoadInit();
+
+            // variable declare
             int idx = 0;
             int bin_cnt = 1;
             int wave_idx = 0;
             int row = 11;
+            string res = "";
+            string SwireInfo = "";
+
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
             bin_cnt = binList.Length == 0 ? 1 : binList.Length;
@@ -60,22 +85,51 @@ namespace OLEDLite
             {
                 for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
                 {
+
+                    SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
+
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
-                        //if (test_parameter.run_stop == true) goto Stop;
+                        if (test_parameter.run_stop == true) goto Stop;
+
+                        if (test_parameter.i2c_enable)
+                        {
+                            res = Path.GetFileNameWithoutExtension(binList[interface_idx]);
+                        }
+                        else
+                        {
+                            res = SwireInfo;
+                        }
+
+
                         if ((interface_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-                        string res = binList[interface_idx];
-                        string file_name = string.Format("{0}_{1}_Temp={2}C_Vin={3:0.0#}V_{4:0.0#}A",
-                                                        idx,
-                                                        Path.GetFileNameWithoutExtension(res),
-                                                        temp,
-                                                        test_parameter.vinList[vin_idx],
-                                                        test_parameter.ioutList[iout_idx]);
+                        string file_name = string.Format("{0}_Temp={1}C_Vin={2:0.0#}V_{3:0.0#}A_{4}",
+                                                            idx,
+                                                            temp,
+                                                            test_parameter.vinList[vin_idx],
+                                                            test_parameter.ioutList[iout_idx],
+                                                            res // i2c or swire interface
+                                                        );
+
 
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         MyLib.EloadFixChannel();
                         MyLib.Switch_ELoadLevel(test_parameter.eload_iout[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.eload_iout[iout_idx]);
+
+                        if (test_parameter.i2c_enable)
+                        {
+                            // i2c interface
+                            RTDev.I2C_WriteBin(test_parameter.slave, 0x00, binList[interface_idx]);
+                        }
+                        else
+                        {
+                            // swire
+                            int[] pulse_tmp = test_parameter.swireList[interface_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                        }
+
+
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
@@ -83,11 +137,14 @@ namespace OLEDLite
                             return;
                         }
                         // set trigger
+                        OSCReset();
+
+
                         // adjust ch1 level
                         InsControl._scope.CH1_Level(1);
                         System.Threading.Thread.Sleep(500);
                         //InsControl._scope.CH1_Level(0.05);
-                        //MyLib.Channel_LevelSetting(1);
+                        MyLib.Channel_LevelSetting(1);
                         System.Threading.Thread.Sleep(1000);
                         // scope open rgb color function
                         InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
@@ -106,9 +163,31 @@ namespace OLEDLite
 
 
 
+                        InsControl._eload.CH1_Loading(0);
+                        InsControl._eload.AllChannel_LoadOff();
+                        if (Math.Abs(vout) < 0.15)
+                        {
+                            InsControl._power.AutoPowerOff();
+                            System.Threading.Thread.Sleep(500);
+                            InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
+                            InsControl._scope.CH1_Level(1);
+                            System.Threading.Thread.Sleep(250);
+                        }
+
+
+
+                        row++; idx++;
                     }
                 }
             }
+
+        Stop:
+            stopWatch.Stop();
+            InsControl._power.AutoPowerOff();
+            InsControl._eload.AllChannel_LoadOff();
+
+
+            delegate_mess.Invoke();
 
         }
     }

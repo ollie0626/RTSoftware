@@ -241,8 +241,8 @@ namespace IN528ATE_tool
                 double vmin = InsControl._scope.Meas_CH1MIN();
                 double temp = InsControl._scope.Meas_CH1VPP();
 
-                info = string.Format("idx = {0}_vmax={1}", i, vmax);
-                MyLib.ScopePrint(info);
+                //info = string.Format("idx = {0}_vmax={1}", i, vmax);
+                //MyLib.ScopePrint(info);
 
                 if (vmax < 0)
                 {
@@ -259,8 +259,8 @@ namespace IN528ATE_tool
                 }
 
                 avg = vmax - vmin;
-                info = string.Format("idx = {0}_avg/2={1}", i, avg/2);
-                MyLib.ScopePrint(info);
+                //info = string.Format("idx = {0}_avg/2={1}", i, avg/2);
+                //MyLib.ScopePrint(info);
                 InsControl._scope.CHx_Level(channel, avg / 2);
                 System.Threading.Thread.Sleep(500);
             }

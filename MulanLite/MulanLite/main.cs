@@ -481,8 +481,8 @@ namespace MulanLite
             byte[] buffer = new byte[]{
                 (byte)(start_offset1 & 0xFF), (byte)((start_offset1 & 0xFF00) >> 8), (byte)((start_offset1 & 0x030000) >> 16),
                 (byte)(start_offset2 & 0xFF), (byte)((start_offset2 & 0xFF00) >> 8), (byte)((start_offset2 & 0x030000) >> 16),
-                (byte)(start_offset4 & 0xFF), (byte)((start_offset4 & 0xFF00) >> 8), (byte)((start_offset3 & 0x030000) >> 16),
-                (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8), (byte)((start_offset4 & 0x030000) >> 16),
+                (byte)(start_offset3 & 0xFF), (byte)((start_offset3 & 0xFF00) >> 8), (byte)((start_offset3 & 0x030000) >> 16),
+                (byte)(start_offset4 & 0xFF), (byte)((start_offset4 & 0xFF00) >> 8), (byte)((start_offset4 & 0x030000) >> 16),
             };
             await WDataTask(id, 0x18, (byte)(buffer.Length - 1), buffer);
             System.Threading.Thread.Sleep(200);
@@ -1301,8 +1301,8 @@ namespace MulanLite
         {
             //for (int i = 0; i < 50000; i++)
             //{
-            //    RTDev.POREnable();
-            //    RTDev.PORDisable();
+            //    //RTDev.POREnable();
+            //    //RTDev.PORDisable();
             //    byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
             //}
             byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
