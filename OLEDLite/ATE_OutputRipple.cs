@@ -106,7 +106,7 @@ namespace OLEDLite
                 for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
                 {
 
-                    SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
+                    SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
 
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
@@ -159,19 +159,19 @@ namespace OLEDLite
                         // set trigger
                         OSCReset();
 
-
                         // adjust ch1 level
                         InsControl._scope.CH1_Level(1);
-                        System.Threading.Thread.Sleep(500);
-                        //InsControl._scope.CH1_Level(0.05);
+                        MyLib.Delay1ms(500);
                         MyLib.Channel_LevelSetting(1);
-                        System.Threading.Thread.Sleep(1000);
+                        MyLib.Delay1ms(500);
                         // scope open rgb color function
                         InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
-                        System.Threading.Thread.Sleep(5000);
+                        MyLib.Delay1s(5);
                         double max, min, vpp, vin, vout, iin, iout;
                         // save waveform
                         InsControl._scope.Root_STOP();
+
+                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                         // measure data
                         max = InsControl._scope.Meas_CH1MAX() * 1000;
                         min = InsControl._scope.Meas_CH1MIN() * 1000;
@@ -182,7 +182,7 @@ namespace OLEDLite
                         iout = InsControl._eload.GetIout();
 
 
-
+                        MyLib.Delay1ms(500);
                         InsControl._eload.CH1_Loading(0);
                         InsControl._eload.AllChannel_LoadOff();
                         if (Math.Abs(vout) < 0.15)
@@ -193,8 +193,6 @@ namespace OLEDLite
                             InsControl._scope.CH1_Level(1);
                             System.Threading.Thread.Sleep(250);
                         }
-
-
 
                         row++; idx++;
                     }
