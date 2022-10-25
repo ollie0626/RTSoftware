@@ -61,7 +61,6 @@ namespace OLEDLite
             string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
             double period_max = Convert.ToDouble(res[0]);
 
-
             InsControl._scope.TimeScaleUs(100);
             double unit = Math.Pow(10, -6);
             //double period = InsControl._scope.Meas_CH1Period();
@@ -78,17 +77,19 @@ namespace OLEDLite
                 if (time_scale < 10) break;
             }
 
-            for(int i = 0; i < 6; i++)
+            InsControl._scope.NormalTrigger();
+            InsControl._scope.Root_Clear();
+            InsControl._scope.Root_Single();
+            for (int i = 0; i < 120; i++)
             {
-                InsControl._scope.Root_Clear();
-                MyLib.Delay1s(3);
+                InsControl._scope.Root_Single();
                 res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
                 period_max = Convert.ToDouble(res[0]);
-                //period = InsControl._scope.Meas_CH1Period();
                 time_scale = (period_max * 4) / 10;
                 InsControl._scope.TimeScale(time_scale);
-                
+                MyLib.Delay1ms(20);
             }
+            InsControl._scope.Root_RUN();
         }
 
         public override void ATETask()
@@ -172,24 +173,39 @@ namespace OLEDLite
                             return;
                         }
                         // set trigger
-
-                        if(!ccm_enable)
-                        {
-                            OSCReset();
-                            InsControl._scope.Root_Clear();
-                            MyLib.Delay1s(2);
-                            InsControl._scope.DoCommand(":MEASure:STATistics MAX");
-                            string[] temp = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
-                            double period_max = Convert.ToDouble(temp[0]);
-                            InsControl._scope.DoCommand(":MEASure:STATistics MIN");
-                            temp = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
-                            double period_min = Convert.ToDouble(temp[0]);
-
-                            if (!(period_max * 0.7 > period_min)) ccm_enable = true;
-                        }
-
+                        InsControl._scope.TimeScaleUs(50);
+                        InsControl._scope.AutoTrigger();
                         // adjust ch1 level
                         InsControl._scope.CH1_Level(2.5);
+                        double trigger_level = InsControl._scope.Meas_CH1VPP();
+                        double vol_min = InsControl._scope.Measure_Ch_Min(1);
+                        if (vol_min < -2) InsControl._scope.CH1_Level(0);
+                        else InsControl._scope.CH1_Level(trigger_level / 3);
+
+                        InsControl._scope.Root_Clear();
+                        double threshold = 9.99 * Math.Pow(10, 20);
+                        double burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
+
+                        if (burst_period < threshold)
+                        {
+                            // pulse skip mode
+                            for(int i = 0; i < 3; i++)
+                            {
+                                InsControl._scope.Root_Single();
+                                burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
+                                InsControl._scope.TimeScale(burst_period);
+                                MyLib.Delay1ms(150);
+                            }
+                            InsControl._scope.Root_RUN();
+                        }
+                        else if(!ccm_enable)
+                        {
+                            // time scale calculate in CCM mode
+                            OSCReset();
+                            ccm_enable = true;
+                        }
+
+
                         MyLib.Delay1ms(250);
                         MyLib.Channel_LevelSetting(1);
                         MyLib.Channel_LevelSetting(2);

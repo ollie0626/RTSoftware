@@ -51,5 +51,8 @@ namespace OLEDLite
         public static int steadyTime;
         public static bool run_stop;
 
+        // burst period
+        public static double burst_period;
+
     }
 }

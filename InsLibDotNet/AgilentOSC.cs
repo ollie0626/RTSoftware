@@ -81,10 +81,10 @@ namespace InsLibDotNet
             doCommand(":TRIGger:SWEep TRIGgered");
         }
 
-        public void SingleTrigger()
-        {
-            doCommand(":TRIGger:SWEep SINGle");
-        }
+        //public void SingleTrigger()
+        //{
+        //    doCommand(":TRIGger:SWEep SINGle");
+        //}
 
         public void TimeBasePositionUs(double position)
         {
@@ -1196,10 +1196,7 @@ namespace InsLibDotNet
             double result;
             doCommand(":MEASure:STATistics ON");
             doCommand(":MEASure:STATistics COUNt");
-
             result = doQueryNumber(":MEASure:RESults?");
-            result *= 1000;
-
             return result;
         }
 
