@@ -27,6 +27,7 @@ namespace OLEDLite
         private ParameterizedThreadStart p_thread;
         private Thread ATETask;
         private ATE_TDMA _ate_tdma = new ATE_TDMA();
+        private ATE_OutputRipple _ate_outputripple = new ATE_OutputRipple();
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
         //private static SynchronizationContext _syncContext = null;
@@ -57,7 +58,7 @@ namespace OLEDLite
 
         private void ATEItemInit()
         {
-            ate_table = new TaskRun[] { _ate_tdma };
+            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple };
         }
 
         private void main_Resize(object sender, EventArgs e)
@@ -200,6 +201,7 @@ namespace OLEDLite
             test_parameter.HiLo_table.Clear();
             test_parameter.HiLevel = tb_High_level.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.LoLevel = tb_Low_level.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
             Hi_Lo level = new Hi_Lo();
             for (int hi_index = 0; hi_index < test_parameter.HiLevel.Count; hi_index++)
             {
@@ -242,9 +244,7 @@ namespace OLEDLite
             try
             {
                 bt_run.Enabled = false;
-
                 test_parameter_copy();
-
                 if(ck_multi_chamber.Checked && ck_chamber_en.Checked)
                 {
                     p_thread = new ParameterizedThreadStart(multi_ate_process);
@@ -293,6 +293,13 @@ namespace OLEDLite
                     bt_eload_sub.Enabled = false;
                     break;
                 case 1:
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = true;
+                    ck_Iout_mode.Checked = true;
+                    ck_Iout_mode.Enabled = true;
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = true;
+                    bt_eload_sub.Enabled = true;
                     break;
             }
         }

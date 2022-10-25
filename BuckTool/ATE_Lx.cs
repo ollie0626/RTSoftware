@@ -229,7 +229,7 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.L] = string.Format("{0:0.000}", rise * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
             _sheet.Cells[row, XLS_Table.R] = InsControl._scope.Measure_Ch_Max(1);
-            _sheet.Cells[row, XLS_Table.S] = InsControl._scope.Measure_Ch_min(1);
+            _sheet.Cells[row, XLS_Table.S] = InsControl._scope.Measure_Ch_Min(1);
 #endif
             InsControl._scope.TimeScale(rise * 2);
             // Rise save waveform
@@ -254,7 +254,7 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.N] = string.Format("{0:0.000}", fall * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
             _sheet.Cells[row, XLS_Table.T] = InsControl._scope.Measure_Ch_Max(1);
-            _sheet.Cells[row, XLS_Table.U] = InsControl._scope.Measure_Ch_min(1);
+            _sheet.Cells[row, XLS_Table.U] = InsControl._scope.Measure_Ch_Min(1);
 #endif
             // fall wave waveform
             InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Fall");

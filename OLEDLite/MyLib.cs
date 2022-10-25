@@ -255,25 +255,25 @@ namespace OLEDLite
             {
                 string info = "";
                 double avg = 0;
-                double vmax = InsControl._scope.Meas_CH1MAX();
-                double vmin = InsControl._scope.Meas_CH1MIN();
-                double temp = InsControl._scope.Meas_CH1VPP();
+                double vmax = InsControl._scope.Measure_Ch_Max(channel);
+                double vmin = InsControl._scope.Measure_Ch_Min(channel);
+                double temp = InsControl._scope.Measure_Ch_Vpp(channel);
 
                 if (vmax < 0)
                 {
-                    InsControl._scope.CHx_Level(1, 1);
+                    InsControl._scope.CHx_Level(channel, 3);
                     continue;
                 }
 
                 if (vmax > issue_num || temp > issue_num)
                 {
-                    InsControl._scope.CHx_Level(1, 1);
+                    InsControl._scope.CHx_Level(channel, 3);
                     continue;
                 }
 
                 avg = vmax - vmin;
-                InsControl._scope.CHx_Level(channel, avg / 2);
-                System.Threading.Thread.Sleep(500);
+                InsControl._scope.CHx_Level(channel, avg / 3);
+                System.Threading.Thread.Sleep(250);
             }
         }
 

@@ -56,25 +56,38 @@ namespace OLEDLite
         private void OSCReset()
         {
             // Ch1 measure Lx
+            InsControl._scope.DoCommand(":MEASure:PERiod CHANnel1");
+            InsControl._scope.DoCommand(":MEASure:STATistics MAX");
+            string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+            double period_max = Convert.ToDouble(res[0]);
+
+
             InsControl._scope.TimeScaleUs(100);
             double unit = Math.Pow(10, -6);
-            double period = InsControl._scope.Meas_CH1Period();
-            double time_scale = (period * 3) / 10;
-            if (period > 9.99 * Math.Pow(10, 10)) time_scale = 100;
+            //double period = InsControl._scope.Meas_CH1Period();
+            double time_scale = (period_max * 3) / 10;
+            if (period_max > 9.99 * Math.Pow(10, 10)) time_scale = 100;
 
-            while (period > 9.99 * Math.Pow(10, 10))
+            while (period_max > 9.99 * Math.Pow(10, 10))
             {
-                period = InsControl._scope.Meas_CH1Period();
+                res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                period_max = Convert.ToDouble(res[0]);
+                //period_max = InsControl._scope.Meas_CH1Period();
                 InsControl._scope.TimeScale(time_scale * unit);
                 time_scale--;
                 if (time_scale < 10) break;
             }
 
-            for(int i = 0; i < 15; i++)
+            for(int i = 0; i < 6; i++)
             {
-                period = InsControl._scope.Meas_CH1Period();
-                time_scale = (period * 3) / 10;
+                InsControl._scope.Root_Clear();
+                MyLib.Delay1s(3);
+                res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                period_max = Convert.ToDouble(res[0]);
+                //period = InsControl._scope.Meas_CH1Period();
+                time_scale = (period_max * 4) / 10;
                 InsControl._scope.TimeScale(time_scale);
+                
             }
         }
 
@@ -87,6 +100,7 @@ namespace OLEDLite
 
             // variable declare
             int idx = 0;
+            bool ccm_enable = false;    
             int bin_cnt = 1;
             int wave_idx = 0;
             int row = 11;
@@ -103,6 +117,7 @@ namespace OLEDLite
             OSCInint();
             for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
             {
+                ccm_enable = false;
                 for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
                 {
 
@@ -134,8 +149,8 @@ namespace OLEDLite
 
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         MyLib.EloadFixChannel();
-                        MyLib.Switch_ELoadLevel(test_parameter.eload_iout[iout_idx]);
-                        InsControl._eload.CH1_Loading(test_parameter.eload_iout[iout_idx]);
+                        MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
+                        InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
 
                         if (test_parameter.i2c_enable)
                         {
@@ -157,15 +172,30 @@ namespace OLEDLite
                             return;
                         }
                         // set trigger
-                        OSCReset();
+
+                        if(!ccm_enable)
+                        {
+                            OSCReset();
+                            InsControl._scope.Root_Clear();
+                            MyLib.Delay1s(2);
+                            InsControl._scope.DoCommand(":MEASure:STATistics MAX");
+                            string[] temp = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                            double period_max = Convert.ToDouble(temp[0]);
+                            InsControl._scope.DoCommand(":MEASure:STATistics MIN");
+                            temp = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                            double period_min = Convert.ToDouble(temp[0]);
+
+                            if (!(period_max * 0.7 > period_min)) ccm_enable = true;
+                        }
 
                         // adjust ch1 level
-                        InsControl._scope.CH1_Level(1);
-                        MyLib.Delay1ms(500);
+                        InsControl._scope.CH1_Level(2.5);
+                        MyLib.Delay1ms(250);
                         MyLib.Channel_LevelSetting(1);
-                        MyLib.Delay1ms(500);
+                        MyLib.Channel_LevelSetting(2);
+                        MyLib.Delay1ms(250);
                         // scope open rgb color function
-                        InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
+                        //InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
                         MyLib.Delay1s(5);
                         double max, min, vpp, vin, vout, iin, iout;
                         // save waveform
@@ -193,7 +223,7 @@ namespace OLEDLite
                             InsControl._scope.CH1_Level(1);
                             System.Threading.Thread.Sleep(250);
                         }
-
+                        InsControl._scope.Root_RUN();
                         row++; idx++;
                     }
                 }
