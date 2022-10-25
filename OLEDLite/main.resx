@@ -118,6 +118,55 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="label23.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="label23.Location" type="System.Drawing.Point, System.Drawing">
+    <value>807, 627</value>
+  </data>
+  <data name="label23.Size" type="System.Drawing.Size, System.Drawing">
+    <value>73, 12</value>
+  </data>
+  <data name="label23.TabIndex" type="System.Int32, mscorlib">
+    <value>105</value>
+  </data>
+  <data name="label23.Text" xml:space="preserve">
+    <value>Sys_Clk(KHz)</value>
+  </data>
+  <data name="&gt;&gt;label23.Name" xml:space="preserve">
+    <value>label23</value>
+  </data>
+  <data name="&gt;&gt;label23.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label23.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="nu_Sys_clk.Location" type="System.Drawing.Point, System.Drawing">
+    <value>921, 625</value>
+  </data>
+  <data name="nu_Sys_clk.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 22</value>
+  </data>
+  <data name="nu_Sys_clk.TabIndex" type="System.Int32, mscorlib">
+    <value>104</value>
+  </data>
+  <data name="&gt;&gt;nu_Sys_clk.Name" xml:space="preserve">
+    <value>nu_Sys_clk</value>
+  </data>
+  <data name="&gt;&gt;nu_Sys_clk.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nu_Sys_clk.Parent" xml:space="preserve">
+    <value>tabPage2</value>
+  </data>
+  <data name="&gt;&gt;nu_Sys_clk.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
   <data name="ck_func.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -128,7 +177,6 @@
   <data name="ck_func.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>Off</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="ck_func.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 252</value>
   </data>
@@ -151,7 +199,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_func.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
   </data>
   <data name="tb_res_func.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 250</value>
@@ -175,7 +223,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_func.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="bt_func_set.Location" type="System.Drawing.Point, System.Drawing">
     <value>390, 15</value>
@@ -547,7 +595,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;group_funcgen.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="bt_connect.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -577,7 +625,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bt_connect.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="cb_item.Items" xml:space="preserve">
     <value>0. TDMA</value>
@@ -604,7 +652,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;cb_item.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="bt_scanIns.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -637,7 +685,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bt_scanIns.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>7</value>
   </data>
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -664,7 +712,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
-    <value>6</value>
+    <value>8</value>
   </data>
   <data name="RB_ESwire.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1084,7 +1132,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;group_interface.ZOrder" xml:space="preserve">
-    <value>7</value>
+    <value>9</value>
   </data>
   <data name="bt_stop.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -1117,7 +1165,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bt_stop.ZOrder" xml:space="preserve">
-    <value>8</value>
+    <value>10</value>
   </data>
   <data name="list_ins.ItemHeight" type="System.Int32, mscorlib">
     <value>12</value>
@@ -1141,7 +1189,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;list_ins.ZOrder" xml:space="preserve">
-    <value>9</value>
+    <value>11</value>
   </data>
   <data name="bt_pause.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -1174,7 +1222,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bt_pause.ZOrder" xml:space="preserve">
-    <value>10</value>
+    <value>12</value>
   </data>
   <data name="tb_res_scope.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 54</value>
@@ -1198,7 +1246,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_scope.ZOrder" xml:space="preserve">
-    <value>11</value>
+    <value>13</value>
   </data>
   <data name="bt_run.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
@@ -1231,7 +1279,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;bt_run.ZOrder" xml:space="preserve">
-    <value>12</value>
+    <value>14</value>
   </data>
   <data name="tb_res_daq.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 82</value>
@@ -1255,7 +1303,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_daq.ZOrder" xml:space="preserve">
-    <value>13</value>
+    <value>15</value>
   </data>
   <data name="ck_chamber.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1288,7 +1336,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_chamber.ZOrder" xml:space="preserve">
-    <value>14</value>
+    <value>16</value>
   </data>
   <data name="tb_res_eload.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 110</value>
@@ -1312,7 +1360,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_eload.ZOrder" xml:space="preserve">
-    <value>15</value>
+    <value>17</value>
   </data>
   <data name="tb_res_chamber.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 222</value>
@@ -1336,7 +1384,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_chamber.ZOrder" xml:space="preserve">
-    <value>16</value>
+    <value>18</value>
   </data>
   <data name="tb_res_power.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 138</value>
@@ -1360,7 +1408,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_power.ZOrder" xml:space="preserve">
-    <value>17</value>
+    <value>19</value>
   </data>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -1435,7 +1483,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;group_power.ZOrder" xml:space="preserve">
-    <value>18</value>
+    <value>20</value>
   </data>
   <data name="cb_mode_sel.Items" xml:space="preserve">
     <value>Master</value>
@@ -1843,7 +1891,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;group_chamber.ZOrder" xml:space="preserve">
-    <value>19</value>
+    <value>21</value>
   </data>
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2380,7 +2428,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;group_eload.ZOrder" xml:space="preserve">
-    <value>20</value>
+    <value>22</value>
   </data>
   <data name="ck_scope.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2413,7 +2461,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_scope.ZOrder" xml:space="preserve">
-    <value>21</value>
+    <value>23</value>
   </data>
   <data name="ck_meter_out.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2446,7 +2494,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_meter_out.ZOrder" xml:space="preserve">
-    <value>22</value>
+    <value>24</value>
   </data>
   <data name="ck_daq.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2479,7 +2527,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_daq.ZOrder" xml:space="preserve">
-    <value>23</value>
+    <value>25</value>
   </data>
   <data name="tb_res_meter_out.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 194</value>
@@ -2503,7 +2551,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_meter_out.ZOrder" xml:space="preserve">
-    <value>24</value>
+    <value>26</value>
   </data>
   <data name="ck_eload.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2536,7 +2584,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_eload.ZOrder" xml:space="preserve">
-    <value>25</value>
+    <value>27</value>
   </data>
   <data name="ck_meter_in.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2569,7 +2617,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_meter_in.ZOrder" xml:space="preserve">
-    <value>26</value>
+    <value>28</value>
   </data>
   <data name="ck_power.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -2602,7 +2650,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;ck_power.ZOrder" xml:space="preserve">
-    <value>27</value>
+    <value>29</value>
   </data>
   <data name="tb_res_meter_in.Location" type="System.Drawing.Point, System.Drawing">
     <value>95, 166</value>
@@ -2626,7 +2674,7 @@
     <value>tabPage2</value>
   </data>
   <data name="&gt;&gt;tb_res_meter_in.ZOrder" xml:space="preserve">
-    <value>28</value>
+    <value>30</value>
   </data>
   <data name="tabPage2.Location" type="System.Drawing.Point, System.Drawing">
     <value>4, 22</value>

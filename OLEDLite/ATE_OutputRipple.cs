@@ -80,14 +80,16 @@ namespace OLEDLite
             InsControl._scope.NormalTrigger();
             InsControl._scope.Root_Clear();
             InsControl._scope.Root_Single();
-            for (int i = 0; i < 120; i++)
+            for (int i = 0; i < 10; i++)
             {
                 InsControl._scope.Root_Single();
+                MyLib.Delay1ms(150);
                 res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                MyLib.Delay1ms(50);
                 period_max = Convert.ToDouble(res[0]);
                 time_scale = (period_max * 4) / 10;
                 InsControl._scope.TimeScale(time_scale);
-                MyLib.Delay1ms(20);
+                MyLib.Delay1ms(150);
             }
             InsControl._scope.Root_RUN();
         }
@@ -172,34 +174,46 @@ namespace OLEDLite
                             System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
-                        // set trigger
-                        InsControl._scope.TimeScaleUs(50);
-                        InsControl._scope.AutoTrigger();
-                        // adjust ch1 level
-                        InsControl._scope.CH1_Level(2.5);
-                        double trigger_level = InsControl._scope.Meas_CH1VPP();
-                        double vol_min = InsControl._scope.Measure_Ch_Min(1);
-                        if (vol_min < -2) InsControl._scope.CH1_Level(0);
-                        else InsControl._scope.CH1_Level(trigger_level / 3);
 
-                        InsControl._scope.Root_Clear();
+                        if (!ccm_enable) InsControl._scope.TimeScaleUs(50);
                         double threshold = 9.99 * Math.Pow(10, 20);
                         double burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
-
                         if (burst_period < threshold)
                         {
+                            // set trigger
+                            InsControl._scope.TimeScaleUs(50);
+                            InsControl._scope.Root_Clear();
+                            InsControl._scope.AutoTrigger();
+                            // adjust ch1 level
+                            InsControl._scope.CH1_Level(2.5);
+                            double trigger_level = InsControl._scope.Meas_CH1VPP();
+                            double vol_min = InsControl._scope.Measure_Ch_Min(1);
+                            if (vol_min < -2) InsControl._scope.TriggerLevel_CH1(0);
+                            else InsControl._scope.CH1_Level(trigger_level / 3);
                             // pulse skip mode
-                            for(int i = 0; i < 3; i++)
+                            for (int i = 0; i < 3; i++)
                             {
                                 InsControl._scope.Root_Single();
+                                MyLib.Delay1ms(500);
                                 burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
+                               
                                 InsControl._scope.TimeScale(burst_period);
-                                MyLib.Delay1ms(150);
+                                MyLib.Delay1ms(250);
                             }
                             InsControl._scope.Root_RUN();
                         }
                         else if(!ccm_enable)
                         {
+                            // set trigger
+                            InsControl._scope.TimeScaleUs(50);
+                            InsControl._scope.Root_Clear();
+                            InsControl._scope.AutoTrigger();
+                            // adjust ch1 level
+                            InsControl._scope.CH1_Level(2.5);
+                            double trigger_level = InsControl._scope.Meas_CH1VPP();
+                            double vol_min = InsControl._scope.Measure_Ch_Min(1);
+                            if (vol_min < -2) InsControl._scope.TriggerLevel_CH1(0);
+                            else InsControl._scope.CH1_Level(trigger_level / 3);
                             // time scale calculate in CCM mode
                             OSCReset();
                             ccm_enable = true;

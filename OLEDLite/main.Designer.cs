@@ -129,6 +129,8 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.nu_Sys_clk = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_funcgen.SuspendLayout();
@@ -151,6 +153,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -174,6 +177,8 @@ namespace OLEDLite
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.nu_Sys_clk);
             this.tabPage2.Controls.Add(this.ck_func);
             this.tabPage2.Controls.Add(this.tb_res_func);
             this.tabPage2.Controls.Add(this.group_funcgen);
@@ -936,6 +941,27 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // nu_Sys_clk
+            // 
+            this.nu_Sys_clk.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_Sys_clk, "nu_Sys_clk");
+            this.nu_Sys_clk.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.nu_Sys_clk.Name = "nu_Sys_clk";
+            this.nu_Sys_clk.Value = new decimal(new int[] {
+            1450,
+            0,
+            0,
+            0});
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -975,6 +1001,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1080,6 +1107,8 @@ namespace OLEDLite
         private System.Windows.Forms.RadioButton RB_ESwire;
         private System.Windows.Forms.ComboBox cb_mode_sel;
         private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.NumericUpDown nu_Sys_clk;
     }
 }
 

@@ -273,7 +273,7 @@ namespace OLEDLite
 
                 avg = vmax - vmin;
                 InsControl._scope.CHx_Level(channel, avg / 3);
-                System.Threading.Thread.Sleep(250);
+                System.Threading.Thread.Sleep(100);
             }
         }
 

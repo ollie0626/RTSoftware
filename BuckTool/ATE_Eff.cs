@@ -141,8 +141,11 @@ namespace BuckTool
                 } // vin loop
             } // freq loop
 
-            
-        Stop:
+
+            Stop:
+            InsControl._power.AutoPowerOff();
+            InsControl._eload.CH1_Loading(0);
+
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
 #if Report

@@ -52,7 +52,7 @@ namespace OLEDLite
         public static bool run_stop;
 
         // burst period
-        public static double burst_period;
+        public static double burst_period = 1/(1.45 * Math.Pow(10, 6));
 
     }
 }

@@ -237,6 +237,7 @@ namespace OLEDLite
             test_parameter.run_stop = false;
 
             test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
+            test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 3)));
         }
 
         private void bt_run_Click(object sender, EventArgs e)
