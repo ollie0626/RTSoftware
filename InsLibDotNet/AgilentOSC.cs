@@ -972,42 +972,42 @@ namespace InsLibDotNet
         {
             return doQueryString(":MEASure:RESults?");
         }
-        public void SetCHx_MeasureVmin(int channel)
+        public void ShowCHx_MeasureVmin(int channel)
         {
             string gogoCMD = ":MEASure:VMIN CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasureVmax(int channel)
+        public void ShowCHx_MeasureVmax(int channel)
         {
             string gogoCMD = ":MEASure:VMAX CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasureVbase(int channel)
+        public void ShowCHx_MeasureVbase(int channel)
         {
             string gogoCMD = ":MEASure:VBASe CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasureVtop(int channel)
+        public void ShowCHx_MeasureVtop(int channel)
         {
             string gogoCMD = ":MEASure:VTOP CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasureVave(int channel)
+        public void ShowCHx_MeasureVave(int channel)
         {
             string gogoCMD = ":MEASure:VAVerage DISPLAY, CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasureVpp(int channel)
+        public void ShowCHx_MeasureVpp(int channel)
         {
             string gogoCMD = ":MEASure:VPP CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetCHx_MeasurePPulses(int channel)
+        public void ShowCHx_MeasurePPulses(int channel)
         {
             string gogoCMD = ":MEASure:PPULses CHANnel" + channel.ToString();
             doCommand(gogoCMD);
         }
-        public void SetMeasureHisTogram()
+        public void ShowMeasureHisTogram()
         {
             string gogoCMD = ":MEASure:HISTogram:PP HISTogram";
             doCommand(gogoCMD);
@@ -1039,15 +1039,9 @@ namespace InsLibDotNet
             return Meas_AVG(CH4);
         }
 
-        //public new void doCommand(string cmd)
-        //{
-        //    doCommand(cmd);
-        //}
-
         public void DoCommand(string cmd)
         {
             doCommand(cmd);
-            //doCommandViWrite(cmd + "\r\n");
         }
 
         public string doQeury(string cmd)
@@ -1069,11 +1063,9 @@ namespace InsLibDotNet
 
         private double Meas_PWidth(string CHx)
         {
-            string cmd = ":MEASure:PWIDth?";
-            DoCommand(CHx);
+            string cmd = ":MEASure:PWIDth? " + CHx;
             return doQueryNumber(cmd);
         }
-
 
         public double Meas_CH1PWidth()
         {
@@ -1248,9 +1240,6 @@ namespace InsLibDotNet
             DoCommand(string.Format(":TRIGger:TIMeout:TIME {0}ns", ns));
         }
 
-
-
-
         // save waveform data for csv
         public void SaveWaveformData(int Ch, ref double SSR, out double[] OutData, bool IsFunc = false)
         {
@@ -1307,6 +1296,13 @@ namespace InsLibDotNet
             }*/
             Arr = null;
         }
+
+        public double Meas_BurstPeriod(int CHx, double idel_time)
+        {
+            string cmd = ":MEASure:BPERiod? " + "CHANnel" + CHx.ToString() + ", " + idel_time.ToString();
+            return doQueryNumber(cmd);
+        }
+
     }
 }
 
