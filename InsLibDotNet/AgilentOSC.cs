@@ -528,7 +528,7 @@ namespace InsLibDotNet
             doCommand(":TRIGger:TIMeout:TIME " + delay_s.ToString());
         }
 
-        public void SetTrigModeTrans(bool isGthan = true, int source = 1, double time_ns, bool isRising = true)
+        public void SetTrigModeTrans(double time_ns, bool isGthan = true, int source = 1, bool isRising = true)
         {
             string cmd = isGthan ? "GTHan" : "LTHan";
             doCommand(":TRIGger:TRANsition1:DIRection " + cmd);
@@ -1153,12 +1153,17 @@ namespace InsLibDotNet
 
         public double Measure_Ch_Max(int channel)
         {
-            return Meas_MAX(":MEASure:SOURce CHANnel"+channel);
+            return Meas_MAX("CHANnel" + channel);
         }
 
-        public double Measure_Ch_min(int channel)
+        public double Measure_Ch_Min(int channel)
         {
-            return Meas_MIN(":MEASure:SOURce CHANnel" + channel);
+            return Meas_MIN("CHANnel" + channel);
+        }
+
+        public double Measure_Ch_Vpp(int channel)
+        {
+            return Meas_VPP("CHANnel" + channel);
         }
 
         public double Measure_Top(int channel)
