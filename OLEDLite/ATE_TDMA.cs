@@ -103,7 +103,6 @@ namespace OLEDLite
             meas_VinLo = Convert.ToDouble(res[1]);
             double VinH_in = VinH, VinL_in = VinL;
 
-
             while (meas_VinHi < (VinH - margin) || meas_VinHi > (VinH + margin))
             {
                 InsControl._scope.Root_Clear();

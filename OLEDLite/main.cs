@@ -32,6 +32,14 @@ namespace OLEDLite
         ChamberCtr chamberCtr = new ChamberCtr();
         //private static SynchronizationContext _syncContext = null;
 
+        public delegate void FinishNotification();
+        FinishNotification delegate_mess;
+
+        public void GUIUpdate()
+        {
+            bt_run.Enabled = true;
+        }
+
         public main()
         {
             InitializeComponent();
@@ -54,6 +62,7 @@ namespace OLEDLite
             nu_swire_num.Value = 1;
             RB_ASwire.Checked = true;
             ATEItemInit();
+            delegate_mess = new FinishNotification(GUIUpdate);
         }
 
         private void ATEItemInit()
@@ -313,6 +322,7 @@ namespace OLEDLite
         private void Run_Single_Task(object idx)
         {
             ate_table[(int)idx].ATETask();
+            delegate_mess.Invoke();
         }
 
         // ------------------------------------------------------------------------------------------
@@ -372,6 +382,7 @@ namespace OLEDLite
                 ate_table[(int)idx].ATETask();
             }
             if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+            delegate_mess.Invoke();
         }
 
         private async void multi_ate_process(object idx)
@@ -477,6 +488,7 @@ namespace OLEDLite
                 }
                 chamberCtr.Exit();
             }
+            delegate_mess.Invoke();
         }
 
         private void bt_stop_Click(object sender, EventArgs e)
