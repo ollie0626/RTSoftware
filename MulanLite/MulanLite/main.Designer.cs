@@ -683,7 +683,8 @@ namespace MulanLite
             this.label109 = new System.Windows.Forms.Label();
             this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
             this.cb_debug_en = new System.Windows.Forms.ComboBox();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.R98 = new System.Windows.Forms.TabPage();
+            this.label133 = new System.Windows.Forms.Label();
             this.by_tm_read_to_write = new Sunny.UI.UIButton();
             this.uiButton9 = new Sunny.UI.UIButton();
             this.uiButton8 = new Sunny.UI.UIButton();
@@ -700,6 +701,7 @@ namespace MulanLite
             this.bt_testmode_read_all = new Sunny.UI.UIButton();
             this.bt_testmode_write_all = new Sunny.UI.UIButton();
             this.groupBox37 = new System.Windows.Forms.GroupBox();
+            this.W98 = new System.Windows.Forms.NumericUpDown();
             this.WF9 = new System.Windows.Forms.NumericUpDown();
             this.WF8 = new System.Windows.Forms.NumericUpDown();
             this.W97 = new System.Windows.Forms.NumericUpDown();
@@ -712,6 +714,7 @@ namespace MulanLite
             this.W90 = new System.Windows.Forms.NumericUpDown();
             this.W70 = new System.Windows.Forms.NumericUpDown();
             this.groupBox38 = new System.Windows.Forms.GroupBox();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.R70 = new System.Windows.Forms.NumericUpDown();
             this.R90 = new System.Windows.Forms.NumericUpDown();
             this.R91 = new System.Windows.Forms.NumericUpDown();
@@ -1100,12 +1103,13 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_ridge_raise)).BeginInit();
             this.groupBox21.SuspendLayout();
             this.groupBox27.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.R98.SuspendLayout();
             this.groupBox40.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RE2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RE3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sel)).BeginInit();
             this.groupBox37.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.W98)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WF9)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WF8)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W97)).BeginInit();
@@ -1118,6 +1122,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W90)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W70)).BeginInit();
             this.groupBox38.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R70)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R90)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.R91)).BeginInit();
@@ -4777,7 +4782,7 @@ namespace MulanLite
             this.uiTabControl1.Controls.Add(this.tabPage2);
             this.uiTabControl1.Controls.Add(this.tabPage3);
             this.uiTabControl1.Controls.Add(this.tabPage4);
-            this.uiTabControl1.Controls.Add(this.tabPage5);
+            this.uiTabControl1.Controls.Add(this.R98);
             this.uiTabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.uiTabControl1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.uiTabControl1.ItemSize = new System.Drawing.Size(150, 25);
@@ -11102,41 +11107,51 @@ namespace MulanLite
             this.cb_debug_en.TabIndex = 43;
             this.cb_debug_en.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
             // 
-            // tabPage5
+            // R98
             // 
-            this.tabPage5.Controls.Add(this.by_tm_read_to_write);
-            this.tabPage5.Controls.Add(this.uiButton9);
-            this.tabPage5.Controls.Add(this.uiButton8);
-            this.tabPage5.Controls.Add(this.ui_exit_test_mode);
-            this.tabPage5.Controls.Add(this.groupBox40);
-            this.tabPage5.Controls.Add(this.nu_Sel);
-            this.tabPage5.Controls.Add(this.label141);
-            this.tabPage5.Controls.Add(this.label138);
-            this.tabPage5.Controls.Add(this.bt_NR);
-            this.tabPage5.Controls.Add(this.label143);
-            this.tabPage5.Controls.Add(this.bt_PGM);
-            this.tabPage5.Controls.Add(this.bt_testmode_read_all);
-            this.tabPage5.Controls.Add(this.bt_testmode_write_all);
-            this.tabPage5.Controls.Add(this.groupBox37);
-            this.tabPage5.Controls.Add(this.groupBox38);
-            this.tabPage5.Controls.Add(this.ui_test_mode);
-            this.tabPage5.Controls.Add(this.label122);
-            this.tabPage5.Controls.Add(this.label123);
-            this.tabPage5.Controls.Add(this.label124);
-            this.tabPage5.Controls.Add(this.label125);
-            this.tabPage5.Controls.Add(this.label126);
-            this.tabPage5.Controls.Add(this.label127);
-            this.tabPage5.Controls.Add(this.label132);
-            this.tabPage5.Controls.Add(this.label128);
-            this.tabPage5.Controls.Add(this.label131);
-            this.tabPage5.Controls.Add(this.label129);
-            this.tabPage5.Controls.Add(this.label130);
-            this.tabPage5.Location = new System.Drawing.Point(0, 25);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Size = new System.Drawing.Size(1377, 643);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Richtek Test Mode";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.R98.Controls.Add(this.label133);
+            this.R98.Controls.Add(this.by_tm_read_to_write);
+            this.R98.Controls.Add(this.uiButton9);
+            this.R98.Controls.Add(this.uiButton8);
+            this.R98.Controls.Add(this.ui_exit_test_mode);
+            this.R98.Controls.Add(this.groupBox40);
+            this.R98.Controls.Add(this.nu_Sel);
+            this.R98.Controls.Add(this.label141);
+            this.R98.Controls.Add(this.label138);
+            this.R98.Controls.Add(this.bt_NR);
+            this.R98.Controls.Add(this.label143);
+            this.R98.Controls.Add(this.bt_PGM);
+            this.R98.Controls.Add(this.bt_testmode_read_all);
+            this.R98.Controls.Add(this.bt_testmode_write_all);
+            this.R98.Controls.Add(this.groupBox37);
+            this.R98.Controls.Add(this.groupBox38);
+            this.R98.Controls.Add(this.ui_test_mode);
+            this.R98.Controls.Add(this.label122);
+            this.R98.Controls.Add(this.label123);
+            this.R98.Controls.Add(this.label124);
+            this.R98.Controls.Add(this.label125);
+            this.R98.Controls.Add(this.label126);
+            this.R98.Controls.Add(this.label127);
+            this.R98.Controls.Add(this.label132);
+            this.R98.Controls.Add(this.label128);
+            this.R98.Controls.Add(this.label131);
+            this.R98.Controls.Add(this.label129);
+            this.R98.Controls.Add(this.label130);
+            this.R98.Location = new System.Drawing.Point(0, 25);
+            this.R98.Name = "R98";
+            this.R98.Size = new System.Drawing.Size(1377, 643);
+            this.R98.TabIndex = 4;
+            this.R98.Text = "Richtek Test Mode";
+            this.R98.UseVisualStyleBackColor = true;
+            // 
+            // label133
+            // 
+            this.label133.AutoSize = true;
+            this.label133.Location = new System.Drawing.Point(162, 289);
+            this.label133.Name = "label133";
+            this.label133.Size = new System.Drawing.Size(28, 15);
+            this.label133.TabIndex = 143;
+            this.label133.Text = "98h";
             // 
             // by_tm_read_to_write
             // 
@@ -11339,6 +11354,7 @@ namespace MulanLite
             // 
             // groupBox37
             // 
+            this.groupBox37.Controls.Add(this.W98);
             this.groupBox37.Controls.Add(this.WF9);
             this.groupBox37.Controls.Add(this.WF8);
             this.groupBox37.Controls.Add(this.W97);
@@ -11354,16 +11370,31 @@ namespace MulanLite
             this.groupBox37.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.groupBox37.Location = new System.Drawing.Point(196, 15);
             this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(62, 340);
+            this.groupBox37.Size = new System.Drawing.Size(62, 381);
             this.groupBox37.TabIndex = 111;
             this.groupBox37.TabStop = false;
             this.groupBox37.Text = "Write";
+            // 
+            // W98
+            // 
+            this.W98.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.W98.Hexadecimal = true;
+            this.W98.Location = new System.Drawing.Point(9, 275);
+            this.W98.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.W98.Name = "W98";
+            this.W98.Size = new System.Drawing.Size(42, 22);
+            this.W98.TabIndex = 13;
+            this.W98.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // WF9
             // 
             this.WF9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WF9.Hexadecimal = true;
-            this.WF9.Location = new System.Drawing.Point(9, 303);
+            this.WF9.Location = new System.Drawing.Point(9, 350);
             this.WF9.Maximum = new decimal(new int[] {
             255,
             0,
@@ -11378,7 +11409,7 @@ namespace MulanLite
             // 
             this.WF8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.WF8.Hexadecimal = true;
-            this.WF8.Location = new System.Drawing.Point(9, 275);
+            this.WF8.Location = new System.Drawing.Point(9, 322);
             this.WF8.Maximum = new decimal(new int[] {
             255,
             0,
@@ -11526,6 +11557,7 @@ namespace MulanLite
             // 
             // groupBox38
             // 
+            this.groupBox38.Controls.Add(this.numericUpDown2);
             this.groupBox38.Controls.Add(this.R70);
             this.groupBox38.Controls.Add(this.R90);
             this.groupBox38.Controls.Add(this.R91);
@@ -11541,10 +11573,25 @@ namespace MulanLite
             this.groupBox38.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.groupBox38.Location = new System.Drawing.Point(264, 15);
             this.groupBox38.Name = "groupBox38";
-            this.groupBox38.Size = new System.Drawing.Size(54, 340);
+            this.groupBox38.Size = new System.Drawing.Size(54, 381);
             this.groupBox38.TabIndex = 112;
             this.groupBox38.TabStop = false;
             this.groupBox38.Text = "Read";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown2.Hexadecimal = true;
+            this.numericUpDown2.Location = new System.Drawing.Point(6, 275);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(42, 22);
+            this.numericUpDown2.TabIndex = 29;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // R70
             // 
@@ -11625,7 +11672,7 @@ namespace MulanLite
             // 
             this.RF9.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RF9.Hexadecimal = true;
-            this.RF9.Location = new System.Drawing.Point(6, 303);
+            this.RF9.Location = new System.Drawing.Point(6, 350);
             this.RF9.Maximum = new decimal(new int[] {
             255,
             0,
@@ -11655,7 +11702,7 @@ namespace MulanLite
             // 
             this.RF8.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.RF8.Hexadecimal = true;
-            this.RF8.Location = new System.Drawing.Point(6, 275);
+            this.RF8.Location = new System.Drawing.Point(6, 322);
             this.RF8.Maximum = new decimal(new int[] {
             255,
             0,
@@ -11781,7 +11828,7 @@ namespace MulanLite
             // label132
             // 
             this.label132.AutoSize = true;
-            this.label132.Location = new System.Drawing.Point(127, 319);
+            this.label132.Location = new System.Drawing.Point(127, 372);
             this.label132.Name = "label132";
             this.label132.Size = new System.Drawing.Size(63, 15);
             this.label132.TabIndex = 123;
@@ -11799,7 +11846,7 @@ namespace MulanLite
             // label131
             // 
             this.label131.AutoSize = true;
-            this.label131.Location = new System.Drawing.Point(127, 291);
+            this.label131.Location = new System.Drawing.Point(127, 344);
             this.label131.Name = "label131";
             this.label131.Size = new System.Drawing.Size(63, 15);
             this.label131.TabIndex = 122;
@@ -12591,13 +12638,14 @@ namespace MulanLite
             this.groupBox21.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
-            this.tabPage5.PerformLayout();
+            this.R98.ResumeLayout(false);
+            this.R98.PerformLayout();
             this.groupBox40.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.RE2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RE3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sel)).EndInit();
             this.groupBox37.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.W98)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WF9)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WF8)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W97)).EndInit();
@@ -12610,6 +12658,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W90)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W70)).EndInit();
             this.groupBox38.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R70)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R90)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.R91)).EndInit();
@@ -13299,7 +13348,7 @@ namespace MulanLite
         private Sunny.UI.UILabel uiLabel57;
         private System.Windows.Forms.NumericUpDown nu_Lot_type;
         private Sunny.UI.UIButton ui_read_Tracking;
-        public System.Windows.Forms.TabPage tabPage5;
+        public System.Windows.Forms.TabPage R98;
         private Sunny.UI.UIButton ui_test_mode;
         private System.Windows.Forms.GroupBox groupBox37;
         private System.Windows.Forms.NumericUpDown WF9;
@@ -13369,6 +13418,9 @@ namespace MulanLite
         private Sunny.UI.UIButton uiButton9;
         private Sunny.UI.UIButton uiButton8;
         private Sunny.UI.UIButton by_tm_read_to_write;
+        private System.Windows.Forms.Label label133;
+        private System.Windows.Forms.NumericUpDown W98;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }
 
