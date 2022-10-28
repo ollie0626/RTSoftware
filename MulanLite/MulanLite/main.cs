@@ -1800,7 +1800,7 @@ namespace MulanLite
             byte[] WData = new byte[8];
             NumericUpDown[] Table = new NumericUpDown[]
             {
-                W90, W91, W92, W93, W94, W95, W96, W97
+                W90, W91, W92, W93, W94, W95, W96, W97, W98
             };
             for (int i = 0; i < 8; i++) WData[i] = (byte)Table[i].Value;
             byte id = (byte)nu_persentid.Value;
@@ -1839,6 +1839,9 @@ namespace MulanLite
             R95.Value = RData[7];
             R96.Value = RData[8];
             R97.Value = RData[9];
+
+            RData = await RDataTask(id, 0x00, 0x98);
+            numericUpDown2.Value = RData[2];
 
             //RData = await RDataTask(id, 0x07, 0x98);
             //R98.Value = RData[2];

@@ -26,7 +26,7 @@ namespace MulanLite
         {
             if(textBox1.Text == "03155")
             {
-                handle.uiTabControl1.TabPages.Add(handle.tabPage5);
+                handle.uiTabControl1.TabPages.Add(handle.R98);
                 handle.uiTabControl1.SelectedIndex = 4;
                 this.Close();
             }
