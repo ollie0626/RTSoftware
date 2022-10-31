@@ -225,8 +225,7 @@ namespace BuckTool
             test_parameter.duty = (double)nu_duty.Value;
             test_parameter.tr = (double)nu_tr.Value;
             test_parameter.tf = (double)nu_tf.Value;
-            test_parameter.vout_ideal = (double)nu_Videa.Value; 
-
+            test_parameter.vout_ideal = (double)nu_Videa.Value;
         }
 
 
@@ -236,7 +235,6 @@ namespace BuckTool
             {
                 test_parameter_copy();
                 test_parameter.run_stop = false;
-
                 if (ck_multi_chamber.Checked && ck_chaber_en.Checked)
                 {
                     ATETask = new Thread(MultiChamber_Task);
@@ -300,7 +298,6 @@ namespace BuckTool
             ChamberCtr.IsTCPNoConnected = !ck_multi_chamber.Checked;
             ChamberCtr.SetTCPTimerState(true);
             Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-
             for (int i = 0; i < test_parameter.temp_table.Count; i++)
             {
                 if (ck_slave.Checked)
@@ -326,8 +323,6 @@ namespace BuckTool
                     }
                     ChamberCtr.CurrentStateMaster = "Idle," + test_parameter.temp_table[i].ToString();
                 }
-
-
                 ChamberCtr.CheckTCP_ChamberIdle();
                 if (ck_slave.Checked) Console.WriteLine("Slave----------Start Run------------------");
                 else Console.WriteLine("Master----------Start Run------------------");
