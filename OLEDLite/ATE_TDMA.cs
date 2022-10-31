@@ -385,7 +385,7 @@ namespace OLEDLite
                 _app = null;
                 GC.Collect();
 #endif
-            }
+            } // interface loop
 
         Stop:
             System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);

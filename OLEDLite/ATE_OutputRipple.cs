@@ -94,16 +94,28 @@ namespace OLEDLite
             InsControl._scope.Root_RUN();
         }
 
+        private void ExcelInit()
+        {
+            _app = new Excel.Application();
+            _app.Visible = true;
+            _book = (Excel.Workbook)_app.Workbooks.Add();
+            _sheet = (Excel.Worksheet)_book.ActiveSheet;
+            _sheet.Name = "Output ripple";
+            // for iout
+        }
+
         public override void ATETask()
         {
             // board and timer initial
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
+            List<int> start_pos = new List<int>();
+            List<int> stop_pos = new List<int>();
             RTDev.BoadInit();
 
             // variable declare
             int idx = 0;
-            bool ccm_enable = false;    
+            bool ccm_enable = false;
             int bin_cnt = 1;
             int wave_idx = 0;
             int row = 11;
@@ -118,14 +130,28 @@ namespace OLEDLite
             InsControl._power.AutoSelPowerOn(test_parameter.vinList[0]);
 
             OSCInint();
-            for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
+            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
             {
-                ccm_enable = false;
-                for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
+
+#if Report
+                row = 11;
+                ExcelInit();
+#endif
+                start_pos.Add(row);
+                for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
                 {
-
+#if Report
+                    _sheet.Cells[row, XLS_Table.P] = "VIN(V)";
+                    _sheet.Cells[row, XLS_Table.Q] = "IIN(mA)";
+                    _sheet.Cells[row, XLS_Table.R] = "VO(V)";
+                    _sheet.Cells[row, XLS_Table.S] = "IO(mA)";
+                    _sheet.Cells[row, XLS_Table.T] = "Ripple(mV)";
+                    _sheet.Cells[row, XLS_Table.U] = "Fluctuation(mV)";
+                    _sheet.Cells[row, XLS_Table.V] = "Vpp(mV)";
+#endif
+                    ccm_enable = false;
                     SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
-
+                    row++;
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
@@ -139,7 +165,6 @@ namespace OLEDLite
                             res = SwireInfo;
                         }
 
-
                         if ((interface_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                         string file_name = string.Format("{0}_Temp={1}C_Vin={2:0.0#}V_{3:0.0#}A_{4}",
                                                             idx,
@@ -148,7 +173,6 @@ namespace OLEDLite
                                                             test_parameter.ioutList[iout_idx],
                                                             res // i2c or swire interface
                                                         );
-
 
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         MyLib.EloadFixChannel();
@@ -166,7 +190,6 @@ namespace OLEDLite
                             int[] pulse_tmp = test_parameter.swireList[interface_idx].Split(',').Select(int.Parse).ToArray();
                             for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
                         }
-
 
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
@@ -196,13 +219,15 @@ namespace OLEDLite
                                 InsControl._scope.Root_Single();
                                 MyLib.Delay1ms(500);
                                 burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
-                               
+
                                 InsControl._scope.TimeScale(burst_period);
                                 MyLib.Delay1ms(250);
                             }
                             InsControl._scope.Root_RUN();
+
+                            
                         }
-                        else if(!ccm_enable)
+                        else if (!ccm_enable)
                         {
                             // set trigger
                             InsControl._scope.TimeScaleUs(50);
@@ -220,6 +245,9 @@ namespace OLEDLite
                         }
 
 
+                        if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "CCM";
+                        else _sheet.Cells[row, XLS_Table.W] = "PSM";
+
                         MyLib.Delay1ms(250);
                         MyLib.Channel_LevelSetting(1);
                         MyLib.Channel_LevelSetting(2);
@@ -228,20 +256,36 @@ namespace OLEDLite
                         //InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
                         MyLib.Delay1s(5);
                         double max, min, vpp, vin, vout, iin, iout;
+                        double fluctulation;
                         // save waveform
                         InsControl._scope.Root_STOP();
 
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                         // measure data
-                        max = InsControl._scope.Meas_CH1MAX() * 1000;
-                        min = InsControl._scope.Meas_CH1MIN() * 1000;
+
+                        string[] meas_res;
+                        InsControl._scope.DoCommand(":MEASure:STATistics MAX");
+                        meas_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                        max = Convert.ToDouble(meas_res[0]) * 1000;
+                        InsControl._scope.DoCommand(":MEASure:STATistics MIN");
+                        meas_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                        min = Convert.ToDouble(meas_res[0]) * 1000;
+                        fluctulation = max - min;
                         vpp = InsControl._scope.Meas_CH1VPP() * 1000;
                         vin = InsControl._34970A.Get_100Vol(1);
                         vout = InsControl._34970A.Get_100Vol(2);
                         iin = InsControl._power.GetCurrent();
                         iout = InsControl._eload.GetIout();
 
-
+#if Report
+                        _sheet.Cells[row, XLS_Table.P] = vin;
+                        _sheet.Cells[row, XLS_Table.Q] = iin;
+                        _sheet.Cells[row, XLS_Table.R] = vout;
+                        _sheet.Cells[row, XLS_Table.S] = iout;
+                        _sheet.Cells[row, XLS_Table.T] = "NA";
+                        _sheet.Cells[row, XLS_Table.U] = fluctulation;
+                        _sheet.Cells[row, XLS_Table.V] = vpp;
+#endif
                         MyLib.Delay1ms(500);
                         InsControl._eload.CH1_Loading(0);
                         InsControl._eload.AllChannel_LoadOff();
@@ -255,17 +299,42 @@ namespace OLEDLite
                         }
                         InsControl._scope.Root_RUN();
                         row++; idx++;
-                    }
-                }
-            }
+                    } // eload loop
+                    stop_pos.Add(row);
+                } // vin loop
+
+#if Report
+                TimeSpan timeSpan = stopWatch.Elapsed;
+                AddCruve(start_pos, stop_pos);
+                string conditions = eLoadInfo == "" ? "" : eLoadInfo + "_";
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Ripple&Flu_" + conditions + SwireInfo + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                _book.Close(false);
+                _book = null;
+                _app.Quit();
+                _app = null;
+                GC.Collect();
+#endif
+            } // interface loop
 
         Stop:
             stopWatch.Stop();
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
-
-
             delegate_mess.Invoke();
+        }
+
+
+        private void AddCruve(List<int> start_pos, List<int> stop_pos)
+        {
+            Excel.Chart ripple_chart, fluc_chart, vpp_chart;
+            Excel.Range range;
+            Excel.SeriesCollection ripple_collect, fluc_collect, vpp_collect;
+            Excel.Series ripple_series, fluc_series, vpp_series;
+            Excel.Range XRange, YRange;
+
+            range = _sheet.Range["A12", "G29"];
+            ripple_chart = MyLib.CreateChart(_sheet, range, "Ripple @" + SwireInfo, "Load (mA)", "Ripple_pk(mV)", true);
+
 
         }
     }

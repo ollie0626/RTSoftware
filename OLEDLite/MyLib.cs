@@ -137,7 +137,7 @@ namespace OLEDLite
             }
         }
 
-        static public Excel.Chart CreateChart(Excel.Worksheet sheet, Excel.Range range, string title, string x_title, string y_title)
+        static public Excel.Chart CreateChart(Excel.Worksheet sheet, Excel.Range range, string title, string x_title, string y_title, bool isXY = false)
         {
             double top = range.Top;
             double left = range.Left;
@@ -151,7 +151,7 @@ namespace OLEDLite
 
             page.ChartWizard(
                 System.Type.Missing,
-                Excel.XlChartType.xlColumnClustered,
+                isXY ? Excel.XlChartType.xlXYScatterSmooth : Excel.XlChartType.xlColumnClustered,
                 //Excel.XlChartType.xlXYScatterSmooth,
                 System.Type.Missing,
                 Excel.XlRowCol.xlColumns,
