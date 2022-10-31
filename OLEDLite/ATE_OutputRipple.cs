@@ -50,7 +50,6 @@ namespace OLEDLite
 
             InsControl._scope.CH1_Level(6);
             InsControl._scope.CH2_Level(1);
-
         }
 
         private void OSCReset()
@@ -154,6 +153,7 @@ namespace OLEDLite
                     row++;
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
+                        InsControl._scope.Measure_Clear();
                         if (test_parameter.run_stop == true) goto Stop;
 
                         if (test_parameter.i2c_enable)
@@ -214,13 +214,17 @@ namespace OLEDLite
                             if (vol_min < -2) InsControl._scope.TriggerLevel_CH1(0);
                             else InsControl._scope.CH1_Level(trigger_level / 3);
                             // pulse skip mode
-                            for (int i = 0; i < 3; i++)
+                            for (int i = 0; i < 5; i++)
                             {
                                 InsControl._scope.Root_Single();
-                                MyLib.Delay1ms(500);
+                                MyLib.Delay1ms(250);
                                 burst_period = InsControl._scope.Meas_BurstPeriod(1, test_parameter.burst_period);
 
-                                InsControl._scope.TimeScale(burst_period);
+                                if(burst_period < (2.5 * Math.Pow(10, -6))) InsControl._scope.TimeScaleUs(10);
+                                else InsControl._scope.TimeScale(burst_period);
+
+
+
                                 MyLib.Delay1ms(250);
                             }
                             InsControl._scope.Root_RUN();
@@ -244,17 +248,24 @@ namespace OLEDLite
                             ccm_enable = true;
                         }
 
-
-                        if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "CCM";
-                        else _sheet.Cells[row, XLS_Table.W] = "PSM";
-
                         MyLib.Delay1ms(250);
                         MyLib.Channel_LevelSetting(1);
                         MyLib.Channel_LevelSetting(2);
                         MyLib.Delay1ms(250);
                         // scope open rgb color function
                         //InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
-                        MyLib.Delay1s(5);
+                        InsControl._scope.DoCommand(":MEASure:PERiod CHANnel1");
+                        InsControl._scope.DoCommand(":MEASure:VPP CHANnel2");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
+                        MyLib.Delay1s(1);
+                        for (int k = 0; k < 20; k++)
+                        {
+                            InsControl._scope.Root_Single();
+                            MyLib.Delay1ms(150);
+                        }
+
+
                         double max, min, vpp, vin, vout, iin, iout;
                         double fluctulation;
                         // save waveform
@@ -262,7 +273,6 @@ namespace OLEDLite
 
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                         // measure data
-
                         string[] meas_res;
                         InsControl._scope.DoCommand(":MEASure:STATistics MAX");
                         meas_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
@@ -271,20 +281,22 @@ namespace OLEDLite
                         meas_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
                         min = Convert.ToDouble(meas_res[0]) * 1000;
                         fluctulation = max - min;
-                        vpp = InsControl._scope.Meas_CH1VPP() * 1000;
+                        vpp = InsControl._scope.Meas_CH2VPP() * 1000;
                         vin = InsControl._34970A.Get_100Vol(1);
                         vout = InsControl._34970A.Get_100Vol(2);
                         iin = InsControl._power.GetCurrent();
                         iout = InsControl._eload.GetIout();
 
 #if Report
-                        _sheet.Cells[row, XLS_Table.P] = vin;
-                        _sheet.Cells[row, XLS_Table.Q] = iin;
-                        _sheet.Cells[row, XLS_Table.R] = vout;
-                        _sheet.Cells[row, XLS_Table.S] = iout;
+                        _sheet.Cells[row, XLS_Table.P] = string.Format("{0:0.00}", vin);
+                        _sheet.Cells[row, XLS_Table.Q] = string.Format("{0:0.00}", iin * 1000);
+                        _sheet.Cells[row, XLS_Table.R] = string.Format("{0:0.00}", vout);
+                        _sheet.Cells[row, XLS_Table.S] = string.Format("{0:0.00}", iout * 1000);
                         _sheet.Cells[row, XLS_Table.T] = "NA";
-                        _sheet.Cells[row, XLS_Table.U] = fluctulation;
-                        _sheet.Cells[row, XLS_Table.V] = vpp;
+                        _sheet.Cells[row, XLS_Table.U] = string.Format("{0:0.00}", fluctulation);
+                        _sheet.Cells[row, XLS_Table.V] = string.Format("{0:0.00}", vpp);
+                        if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "CCM";
+                        else _sheet.Cells[row, XLS_Table.W] = "PSM";
 #endif
                         MyLib.Delay1ms(500);
                         InsControl._eload.CH1_Loading(0);

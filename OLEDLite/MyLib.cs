@@ -251,7 +251,7 @@ namespace OLEDLite
         {
             int idx = 0;
             double issue_num = 9.99999 * Math.Pow(10, 10);
-            for (int i = 0; i <= 15; i++)
+            for (int i = 0; i <= 8; i++)
             {
                 string info = "";
                 double avg = 0;
