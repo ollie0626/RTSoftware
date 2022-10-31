@@ -15,7 +15,7 @@ namespace MulanLite
 {
     public partial class main : UIForm
     {
-        
+
         private const int WriteCmd = 0x2D;
         //private const int ReadCmd = 0x1E;
         //private const int BLUpdateCmd = 0x5A;
@@ -42,7 +42,7 @@ namespace MulanLite
         public void GUIInit()
         {
             RTDev = new RTBBControl();
-            
+
             cb_sticky.SelectedIndex = 0;
             cb_allowone.SelectedIndex = 0;
             cb_ditheren.SelectedIndex = 1;
@@ -126,7 +126,7 @@ namespace MulanLite
                 cb_thresh_clk_missing, cb_pulse_rf, cb_debug_en, cb_debug_out, cb_vhr_open, cb_vhr_short, cb_vhr_hyst, cb_vhr_up,
                 cb_switch_filter_time, cb_open_dgl, cb_ch_num, cb_cal_modex1, cb_cal_modex8, cb_low_drive, cb_range_x8_x1, cb_min_count
             };
-            
+
 
             connected_status = RTDev.BoardInit();
             if (connected_status) this.Text = win_name + " - Connected";
@@ -140,13 +140,13 @@ namespace MulanLite
             GUIInit();
         }
 
-        private Task<int> WDataTask(byte id, byte addr, byte len ,byte[] buf)
+        private Task<int> WDataTask(byte id, byte addr, byte len, byte[] buf)
         {
             //if(initial_wr_en == false)
             //{
             //    return Task.Factory.StartNew(() => 0);
             //}
-            if(!write_enable) return Task.Factory.StartNew(() => 0);
+            if (!write_enable) return Task.Factory.StartNew(() => 0);
             return Task.Factory.StartNew(() => RTDev.WriteFunc(id, WriteCmd, addr, len, buf));
         }
 
@@ -172,7 +172,7 @@ namespace MulanLite
             byte[] buffer = new byte[15];
             // 0x32
             buffer[0] = (byte)(cb_ditheren.SelectedIndex << 4 | cb_sticky.SelectedIndex << 3 |
-                               cb_m_factor.SelectedIndex << 5 | cb_cal_modex1.SelectedIndex << 2 | cb_cal_modex8.SelectedIndex << 1 | 
+                               cb_m_factor.SelectedIndex << 5 | cb_cal_modex1.SelectedIndex << 2 | cb_cal_modex8.SelectedIndex << 1 |
                                cb_centred.SelectedIndex << 7);
             buffer[1] = (byte)(cb_allowone.SelectedIndex | cb_low_drive.SelectedIndex << 7 | cb_range_x8_x1.SelectedIndex << 6 | cb_ldoio.SelectedIndex << 5 |
                                 cb_clkdrive.SelectedIndex << 2 | cb_datdrive.SelectedIndex << 1);
@@ -422,7 +422,7 @@ namespace MulanLite
             int led_data = (int)nu_data.Value;
             int[] data = new int[] { led_data, led_data, led_data, led_data };
 
-            for(int id = (int)nu_startid.Value; id < (nu_mulan_qty.Value + nu_startid.Value); id++)
+            for (int id = (int)nu_startid.Value; id < (nu_mulan_qty.Value + nu_startid.Value); id++)
             {
                 RTDev.LEDPacket((byte)(data.Length - 1), id * 4, data); // id * 4 = zone
                 uiProcessBar1.Value += 1;
@@ -538,7 +538,7 @@ namespace MulanLite
             };
             byte[] RData = RTDev.Inquiry();
             int flag = RData[1] | (RData[2] << 8);
-            if(flag != 0x00)
+            if (flag != 0x00)
             {
                 byte Reg04_bit0 = (byte)((RData[1] & 0x01) >> 0);
                 byte Reg04_bit1 = (byte)((RData[1] & 0x02) >> 1);
@@ -573,7 +573,7 @@ namespace MulanLite
             }
             else
             {
-                for(int i = 0; i < FlagTable.Length; i++) FlagTable[i].Value = 0;
+                for (int i = 0; i < FlagTable.Length; i++) FlagTable[i].Value = 0;
             }
             bt.Enabled = true;
         }
@@ -592,20 +592,20 @@ namespace MulanLite
                 textBox1, textBox2, textBox3, textBox4, textBox5, textBox6, textBox7, textBox13, textBox8, textBox9, textBox10, textBox11, textBox12, textBox13
             };
 
-            for(int flag_idx = 0; flag_idx < FlagTable.Length; flag_idx++)
+            for (int flag_idx = 0; flag_idx < FlagTable.Length; flag_idx++)
             {
                 showFlagTable[flag_idx].Text = "ID:";
-                if(FlagTable[flag_idx].Value == 1)
+                if (FlagTable[flag_idx].Value == 1)
                 {
-                    for(int i = 0; i < nu_fault_qty.Value; i++)
+                    for (int i = 0; i < nu_fault_qty.Value; i++)
                     {
                         //7:4 = Target FLAG number 0..15. 3:0 = ~FLAG
                         byte flag = (byte)(((flag_idx & 0x0F) << 4) | (~flag_idx & 0x0F));
                         byte[] RData = RTDev.ResponesID(flag);
                         if (RData[1] == 0xff)
                         {
-                            if(nu_fault_qty.Value == 1) showFlagTable[flag_idx].Text += "0x" + RData[2].ToString("X");
-                            else                        showFlagTable[flag_idx].Text += "0x" + RData[2].ToString("X") + ", ";
+                            if (nu_fault_qty.Value == 1) showFlagTable[flag_idx].Text += "0x" + RData[2].ToString("X");
+                            else showFlagTable[flag_idx].Text += "0x" + RData[2].ToString("X") + ", ";
                         }
                     }
                 }
@@ -646,7 +646,7 @@ namespace MulanLite
 
         private void bt_readtowrite_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i < WriteTable.Length; i++)
+            for (int i = 0; i < WriteTable.Length; i++)
             {
                 WriteTable[i].Value = ReadTable[i].Value;
             }
@@ -860,7 +860,7 @@ namespace MulanLite
             nu.Enabled = false;
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x00;
-            switch(nu.TabIndex)
+            switch (nu.TabIndex)
             {
                 case 0: addr = 0x3A; break;
                 case 1: addr = 0x50; break;
@@ -878,12 +878,12 @@ namespace MulanLite
             nu.Enabled = true;
         }
 
-        
+
         private async void trackCH0x8SL_ValueChanged(object sender, EventArgs e)
         {
             if (!write_enable) return;
             List<byte> DataList = new List<byte>();
-            for(int i = 0; i < TrackBarTable.Length; i++)
+            for (int i = 0; i < TrackBarTable.Length; i++)
             {
                 LEDCHxTable[i].Value = TrackBarTable[i].Value;
                 DataList.Add((byte)LEDCHxTable[i].Value);
@@ -895,7 +895,7 @@ namespace MulanLite
 
         private void nu_CH0x8_ValueChanged(object sender, EventArgs e)
         {
-            for(int i = 0; i < LEDCHxTable.Length; i++)
+            for (int i = 0; i < LEDCHxTable.Length; i++)
             {
                 TrackBarTable[i].Value = (int)LEDCHxTable[i].Value;
             }
@@ -999,8 +999,8 @@ namespace MulanLite
 
         private void CiEnable_ValueChanged(object sender, bool value)
         {
-            if(CiEnable.Active == true) RTDev.CiEnable();
-            else                        RTDev.CiDisable();
+            if (CiEnable.Active == true) RTDev.CiEnable();
+            else RTDev.CiDisable();
         }
 
         private void track_bl_late_ValueChanged(object sender, EventArgs e)
@@ -1081,7 +1081,7 @@ namespace MulanLite
             nu_efuse_load.Value = bit2;
             nu_tsd_mask.Value = bit1;
             nu_tsd.Value = bit0;
-        
+
             bt.Enabled = true;
         }
 
@@ -1114,7 +1114,7 @@ namespace MulanLite
             byte addr = 0x32;
             byte mask = 0xFB;
             WRReg(id, mask, addr, data);
-            cb.Enabled = true;   
+            cb.Enabled = true;
         }
 
         private void cb_cal_modex8_SelectedIndexChanged(object sender, EventArgs e)
@@ -1175,12 +1175,12 @@ namespace MulanLite
             OpenFileDialog openDlg = new OpenFileDialog();
             openDlg.Filter = "Open Setting|*.bin";
             openDlg.Title = "Open Mulan Lite Setting";
-            if(openDlg.ShowDialog() == DialogResult.OK)
+            if (openDlg.ShowDialog() == DialogResult.OK)
             {
                 string file_name = openDlg.FileName;
                 read_setting(file_name);
             }
-            
+
         }
 
         private void bt_savebin_Click(object sender, EventArgs e)
@@ -1188,7 +1188,7 @@ namespace MulanLite
             SaveFileDialog saveDlg = new SaveFileDialog();
             saveDlg.Filter = "Save Setting|*.bin";
             saveDlg.Title = "Save Mulan Lite Setting";
-            if(saveDlg.ShowDialog() == DialogResult.OK)
+            if (saveDlg.ShowDialog() == DialogResult.OK)
             {
                 string file_name = saveDlg.FileName;
                 write_setting(file_name);
@@ -1200,14 +1200,14 @@ namespace MulanLite
             FileStream fs = File.OpenRead(file_name);
             BinaryReader sr = new BinaryReader(fs);
 
-            for(int i = 0; i < FileTable.Length; i++)
+            for (int i = 0; i < FileTable.Length; i++)
             {
                 string type_name = FileTable[i].GetType().ToString();
                 decimal value;
-                switch(type_name)
+                switch (type_name)
                 {
                     case "System.Windows.Forms.NumericUpDown":
-                        value = (sr.ReadByte() << 8)| sr.ReadByte();
+                        value = (sr.ReadByte() << 8) | sr.ReadByte();
                         ((NumericUpDown)FileTable[i]).Value = value;
                         break;
                     case "System.Windows.Forms.ComboBox":
@@ -1229,7 +1229,7 @@ namespace MulanLite
                 }
             }
 
-            for(int i = 0; i < ReadTable.Length; i++)
+            for (int i = 0; i < ReadTable.Length; i++)
             {
                 WriteTable[i].Value = sr.ReadByte();
             }
@@ -1246,11 +1246,11 @@ namespace MulanLite
             FileStream fs = File.Create(file_name);
             BinaryWriter sw = new BinaryWriter(fs);
             List<byte> gui_setting = new List<byte>();
-            for(int i = 0; i < FileTable.Length; i++)
+            for (int i = 0; i < FileTable.Length; i++)
             {
                 string type_name = FileTable[i].GetType().ToString();
                 byte tmp = 0;
-                switch(type_name)
+                switch (type_name)
                 {
                     case "System.Windows.Forms.NumericUpDown":
                         int value = (int)(((NumericUpDown)FileTable[i]).Value);
@@ -1276,11 +1276,11 @@ namespace MulanLite
                         gui_setting.Add(tmp);
                         break;
                 }
-                
+
             }
             sw.Write(gui_setting.ToArray());
 
-            for(int i = 0; i < WriteTable.Length; i++)
+            for (int i = 0; i < WriteTable.Length; i++)
             {
                 sw.Write((byte)WriteTable[i].Value);
             }
@@ -1333,7 +1333,7 @@ namespace MulanLite
             data = new byte[] { 0xAC, 0x1E, id, (byte)~id, 0x00, 0x00, addr };
             RTDev.SPIWrite(data);
             // step 5, start run real time read
-            data = new byte[] { 0xAD, 0xAE, 0x02};
+            data = new byte[] { 0xAD, 0xAE, 0x02 };
             RTDev.SPIWrite(data);
 
         }
@@ -1376,13 +1376,13 @@ namespace MulanLite
             cb_low_drive.SelectedIndex = (val & 0x80) >> 7;
             cb_range_x8_x1.SelectedIndex = (val & 0x40) >> 6;
             cb_ldoio.SelectedIndex = (val & 0x20) >> 5;
-            
+
         }
 
         private void R32_ValueChanged(object sender, EventArgs e)
         {
             int val = (int)R32.Value;
-            
+
             cb_ditheren.SelectedIndex = (val & 0x10) >> 4;
             cb_m_factor.SelectedIndex = (val & 0x60) >> 5;
             cb_cal_modex1.SelectedIndex = (val & 0x04) >> 2;
@@ -1778,7 +1778,7 @@ namespace MulanLite
             nu_PGM.Value = PGM_ver;
             nu_Fab.Value = Fab_code;
             nu_Lot_type.Value = Lot_type;
-            
+
             bt.Enabled = true;
         }
 
@@ -1797,12 +1797,13 @@ namespace MulanLite
         {
             UIButton bt = (UIButton)sender;
             bt.Enabled = false;
-            byte[] WData = new byte[8];
             NumericUpDown[] Table = new NumericUpDown[]
             {
                 W90, W91, W92, W93, W94, W95, W96, W97, W98
-            };
-            for (int i = 0; i < 8; i++) WData[i] = (byte)Table[i].Value;
+            };          
+            byte[] WData = new byte[Table.Length];
+
+            for (int i = 0; i < Table.Length; i++) WData[i] = (byte)Table[i].Value;
             byte id = (byte)nu_persentid.Value;
             byte addr = 0x90;
             byte len = (byte)(Table.Length - 1);
@@ -1900,7 +1901,7 @@ namespace MulanLite
 
                 }
             }
-            for(int i = 0; i < buf.Count; i+=3)
+            for (int i = 0; i < buf.Count; i += 3)
             {
                 pattern.Add(buf[i] << 16 | buf[i + 1] << 8 | buf[i + 2]);
             }
@@ -1915,7 +1916,7 @@ namespace MulanLite
             int id = (int)nuFirst.Value;
             int end = (int)nuEnd.Value;
             // set mulan-lit zone reg 0x10 ~ 0x17
-            for(int i = id; i < id + 72; i++)
+            for (int i = id; i < id + 72; i++)
             {
                 byte z1 = (byte)(i * 4);
                 byte z2 = (byte)((i * 4) + 1);
@@ -1930,17 +1931,17 @@ namespace MulanLite
             List<int> pattern2 = GetPattern(virus2);
             // send mulan-lit 1 ~ 17
             RTDev.LEDPacket((byte)(pattern1.Count - 1), 0, pattern1.ToArray());
-            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4*20, pattern2.ToArray()); // id 20
-            RTDev.LEDPacket((byte)(pattern1.Count - 1), 4*37, pattern2.ToArray()); // id 37
-            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4*56, pattern2.ToArray()); // id 56
+            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4 * 20, pattern2.ToArray()); // id 20
+            RTDev.LEDPacket((byte)(pattern1.Count - 1), 4 * 37, pattern2.ToArray()); // id 37
+            RTDev.LEDPacket((byte)(pattern2.Count - 1), 4 * 56, pattern2.ToArray()); // id 56
 
             int[] id18_packet = new int[] { 0x39F6, 0x1FF0, 0xD1AC, 0xB81C };
-            RTDev.LEDPacket((byte)(id18_packet.Length - 1), 4*18, id18_packet); // id_18
+            RTDev.LEDPacket((byte)(id18_packet.Length - 1), 4 * 18, id18_packet); // id_18
 
             int[] last_packet = new int[] { 0xB81C, 0xB81C, 0x4FD9, 0x4FD9 };
-            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*19, last_packet); // id 19
-            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*54, last_packet); // id 54
-            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4*55, last_packet); // id 55
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4 * 19, last_packet); // id 19
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4 * 54, last_packet); // id 54
+            RTDev.LEDPacket((byte)(last_packet.Length - 1), 4 * 55, last_packet); // id 55
 
             bt.Enabled = true;
         }
@@ -2103,7 +2104,7 @@ namespace MulanLite
                 R90, R91, R92, R93, R94, R95, R96, R97
             };
 
-            for(int i = 0; i < WRTable.Length; i++)
+            for (int i = 0; i < WRTable.Length; i++)
             {
                 WRTable[i].Value = ReadTable[i].Value;
             }
