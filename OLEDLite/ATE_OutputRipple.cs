@@ -46,7 +46,7 @@ namespace OLEDLite
             InsControl._scope.CH1_BWLimitOn();
             InsControl._scope.CH2_BWLimitOn();
 
-            InsControl._scope.CH1_Level(6);
+            InsControl._scope.CH1_Level(2);
             InsControl._scope.CH2_Level(1);
         }
 
@@ -117,7 +117,7 @@ namespace OLEDLite
             int wave_idx = 0;
             int row = 11;
             string res = "";
-            string SwireInfo = "";
+            //string SwireInfo = "";
 
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
@@ -142,7 +142,7 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.Q] = "IIN(mA)";
                     _sheet.Cells[row, XLS_Table.R] = "VO(V)";
                     _sheet.Cells[row, XLS_Table.S] = "IO(mA)";
-                    _sheet.Cells[row, XLS_Table.T] = "Ripple(mV)";
+                    _sheet.Cells[row, XLS_Table.T] = "Reverse";
                     _sheet.Cells[row, XLS_Table.U] = "Fluctuation(mV)";
                     _sheet.Cells[row, XLS_Table.V] = "Vpp(mV)";
                     _sheet.Cells[row + 1, XLS_Table.P] = "VIN=" + test_parameter.vinList[vin_idx] + "V";
@@ -215,6 +215,12 @@ namespace OLEDLite
                             System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
+
+                        double Vtop = InsControl._scope.Measure_Top(1);
+                        double Vbase = InsControl._scope.Measure_Base(1);
+
+                        if (Vtop < 0) InsControl._scope.TriggerLevel_CH1(0);
+                        else InsControl._scope.TriggerLevel_CH1(Vtop * 0.4);
 
                         if (!ccm_enable) InsControl._scope.TimeScaleUs(50);
                         double threshold = 9.99 * Math.Pow(10, 20);
@@ -306,10 +312,10 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.Q] = string.Format("{0:0.###}", iin * 1000);
                         _sheet.Cells[row, XLS_Table.R] = string.Format("{0:0.###}", vout);
                         _sheet.Cells[row, XLS_Table.S] = string.Format("{0:0.###}", iout * 1000);
-                        _sheet.Cells[row, XLS_Table.T] = "NA";
+                        _sheet.Cells[row, XLS_Table.T] = "";
                         _sheet.Cells[row, XLS_Table.U] = string.Format("{0:0.###}", fluctulation);
                         _sheet.Cells[row, XLS_Table.V] = string.Format("{0:0.###}", vpp);
-                        if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "CCM";
+                        if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "DCM/CCM";
                         else _sheet.Cells[row, XLS_Table.W] = "PSM";
 #endif
                         MyLib.Delay1ms(500);
@@ -326,14 +332,14 @@ namespace OLEDLite
                         InsControl._scope.Root_RUN();
                         row++; idx++;
                     } // eload loop
-                    stop_pos.Add(row);
+                    stop_pos.Add(row - 1);
                 } // vin loop
 
 #if Report
                 TimeSpan timeSpan = stopWatch.Elapsed;
                 AddCruve(start_pos, stop_pos);
-                string conditions = eLoadInfo == "" ? "" : eLoadInfo + "_";
-                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Ripple&Flu_" + conditions + SwireInfo + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                string conditions = eLoadInfo == "" ? "" : eLoadInfo.Replace("\r\n", "") + "_";
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
                 _book.Close(false);
                 _book = null;
                 _app.Quit();
@@ -359,12 +365,12 @@ namespace OLEDLite
             Excel.Range XRange, YRange;
 
             range = _sheet.Range["A12", "G29"];
-            fluc_chart = MyLib.CreateChart(_sheet, range, "Fluctuation @" + SwireInfo, "Load (mA)", "Fluctuation(mV)", true);
+            fluc_chart = MyLib.CreateChart(_sheet, range, "Fluctuation @" + SwireInfo.Replace("\r\n", ""), "Load (mA)", "Fluctuation(mV)", true);
             fluc_chart.ChartTitle.Font.Size = 14;
             fluc_collect = fluc_chart.SeriesCollection();
 
             range = _sheet.Range["A32", "G49"];
-            vpp_chart = MyLib.CreateChart(_sheet, range, "Vpp @" + SwireInfo, "Load (mA)", "Vpp (mV)", true);
+            vpp_chart = MyLib.CreateChart(_sheet, range, "Vpp @" + SwireInfo.Replace("\r\n", ""), "Load (mA)", "Vpp (mV)", true);
             vpp_chart.ChartTitle.Font.Size = 14;
             vpp_collect = vpp_chart.SeriesCollection();
 
@@ -378,7 +384,7 @@ namespace OLEDLite
                 fluc_series.Name = _sheet.Cells[start_pos[line] - 1, XLS_Table.P].Value.ToString();
 
                 vpp_series = vpp_collect.NewSeries();
-                YRange = _sheet.Cells["V" + start_pos[line], "V" + stop_pos[line]];
+                YRange = _sheet.Range["V" + start_pos[line], "V" + stop_pos[line]];
                 vpp_series.XValues = XRange;
                 vpp_series.Values = YRange;
                 vpp_series.Name = _sheet.Cells[start_pos[line] - 1, XLS_Table.P].Value.ToString();
