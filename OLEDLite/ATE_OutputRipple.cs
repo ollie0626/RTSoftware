@@ -18,12 +18,10 @@ namespace OLEDLite
         //Excel.Range _range;
         string eLoadInfo = "";
         string SwireInfo = "";
+        string VinInfo = "";
         RTBBControl RTDev = new RTBBControl();
-
         public delegate void FinishNotification();
-
         FinishNotification delegate_mess;
-
 
         public ATE_OutputRipple()
         {
@@ -136,7 +134,7 @@ namespace OLEDLite
                 row = 11;
                 ExcelInit();
 #endif
-                start_pos.Add(row);
+                
                 for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
                 {
 #if Report
@@ -147,10 +145,30 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.T] = "Ripple(mV)";
                     _sheet.Cells[row, XLS_Table.U] = "Fluctuation(mV)";
                     _sheet.Cells[row, XLS_Table.V] = "Vpp(mV)";
+                    _sheet.Cells[row + 1, XLS_Table.P] = "VIN=" + test_parameter.vinList[vin_idx] + "V";
+                    _sheet.Cells[1, 1] = "Vin:";
+                    _sheet.Cells[2, 1] = "Iout:";
+                    _sheet.Cells[3, 1] = "setting conditions:";
+                    _sheet.Cells[4, 1] = "Note:";
+                    _sheet.Cells[5, 1] = "Date:";
+
+                    VinInfo = "Vin=";
+                    VinInfo += test_parameter.vinList[0] + "V ~ "
+                            + test_parameter.vinList[test_parameter.vinList.Count - 1] + "V\r\n";
+
+                    eLoadInfo += test_parameter.ioutList[0] + "mA ~" 
+                            + test_parameter.ioutList[test_parameter.ioutList.Count - 1] + "mA\r\n";
+                    SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
+                    _sheet.Cells[1, 2] = VinInfo;
+                    _sheet.Cells[2, 2] = eLoadInfo;
+                    _sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
+                    _sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
+                    _sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
 #endif
                     ccm_enable = false;
-                    SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
-                    row++;
+                    
+                    row+=2;
+                    start_pos.Add(row);
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
                         InsControl._scope.Measure_Clear();
@@ -222,9 +240,6 @@ namespace OLEDLite
 
                                 if(burst_period < (2.5 * Math.Pow(10, -6))) InsControl._scope.TimeScaleUs(10);
                                 else InsControl._scope.TimeScale(burst_period);
-
-
-
                                 MyLib.Delay1ms(250);
                             }
                             InsControl._scope.Root_RUN();
@@ -265,7 +280,6 @@ namespace OLEDLite
                             MyLib.Delay1ms(150);
                         }
 
-
                         double max, min, vpp, vin, vout, iin, iout;
                         double fluctulation;
                         // save waveform
@@ -288,13 +302,13 @@ namespace OLEDLite
                         iout = InsControl._eload.GetIout();
 
 #if Report
-                        _sheet.Cells[row, XLS_Table.P] = string.Format("{0:0.00}", vin);
-                        _sheet.Cells[row, XLS_Table.Q] = string.Format("{0:0.00}", iin * 1000);
-                        _sheet.Cells[row, XLS_Table.R] = string.Format("{0:0.00}", vout);
-                        _sheet.Cells[row, XLS_Table.S] = string.Format("{0:0.00}", iout * 1000);
+                        _sheet.Cells[row, XLS_Table.P] = string.Format("{0:0.###}", vin);
+                        _sheet.Cells[row, XLS_Table.Q] = string.Format("{0:0.###}", iin * 1000);
+                        _sheet.Cells[row, XLS_Table.R] = string.Format("{0:0.###}", vout);
+                        _sheet.Cells[row, XLS_Table.S] = string.Format("{0:0.###}", iout * 1000);
                         _sheet.Cells[row, XLS_Table.T] = "NA";
-                        _sheet.Cells[row, XLS_Table.U] = string.Format("{0:0.00}", fluctulation);
-                        _sheet.Cells[row, XLS_Table.V] = string.Format("{0:0.00}", vpp);
+                        _sheet.Cells[row, XLS_Table.U] = string.Format("{0:0.###}", fluctulation);
+                        _sheet.Cells[row, XLS_Table.V] = string.Format("{0:0.###}", vpp);
                         if (ccm_enable) _sheet.Cells[row, XLS_Table.W] = "CCM";
                         else _sheet.Cells[row, XLS_Table.W] = "PSM";
 #endif
@@ -338,16 +352,37 @@ namespace OLEDLite
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {
-            Excel.Chart ripple_chart, fluc_chart, vpp_chart;
+            Excel.Chart fluc_chart, vpp_chart;
             Excel.Range range;
-            Excel.SeriesCollection ripple_collect, fluc_collect, vpp_collect;
-            Excel.Series ripple_series, fluc_series, vpp_series;
+            Excel.SeriesCollection fluc_collect, vpp_collect;
+            Excel.Series fluc_series, vpp_series;
             Excel.Range XRange, YRange;
 
             range = _sheet.Range["A12", "G29"];
-            ripple_chart = MyLib.CreateChart(_sheet, range, "Ripple @" + SwireInfo, "Load (mA)", "Ripple_pk(mV)", true);
+            fluc_chart = MyLib.CreateChart(_sheet, range, "Fluctuation @" + SwireInfo, "Load (mA)", "Fluctuation(mV)", true);
+            fluc_chart.ChartTitle.Font.Size = 14;
+            fluc_collect = fluc_chart.SeriesCollection();
 
+            range = _sheet.Range["A32", "G49"];
+            vpp_chart = MyLib.CreateChart(_sheet, range, "Vpp @" + SwireInfo, "Load (mA)", "Vpp (mV)", true);
+            vpp_chart.ChartTitle.Font.Size = 14;
+            vpp_collect = vpp_chart.SeriesCollection();
 
+            for (int line = 0; line < start_pos.Count; line++)
+            {
+                fluc_series = fluc_collect.NewSeries();
+                XRange = _sheet.Range["S" + start_pos[line], "S" + stop_pos[line]];
+                YRange = _sheet.Range["U" + start_pos[line], "U" + stop_pos[line]];
+                fluc_series.XValues = XRange;
+                fluc_series.Values = YRange;
+                fluc_series.Name = _sheet.Cells[start_pos[line] - 1, XLS_Table.P].Value.ToString();
+
+                vpp_series = vpp_collect.NewSeries();
+                YRange = _sheet.Cells["V" + start_pos[line], "V" + stop_pos[line]];
+                vpp_series.XValues = XRange;
+                vpp_series.Values = YRange;
+                vpp_series.Name = _sheet.Cells[start_pos[line] - 1, XLS_Table.P].Value.ToString();
+            }
         }
     }
 }

@@ -33,6 +33,9 @@ namespace OLEDLite
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
+            this.label23 = new System.Windows.Forms.Label();
+            this.nu_Sys_clk = new System.Windows.Forms.NumericUpDown();
             this.ck_func = new System.Windows.Forms.CheckBox();
             this.tb_res_func = new System.Windows.Forms.TextBox();
             this.group_funcgen = new System.Windows.Forms.GroupBox();
@@ -129,10 +132,9 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.nu_Sys_clk = new System.Windows.Forms.NumericUpDown();
-            this.label23 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
             this.group_funcgen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tr)).BeginInit();
@@ -153,7 +155,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -177,6 +178,8 @@ namespace OLEDLite
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.materialButton1);
             this.tabPage2.Controls.Add(this.label23);
             this.tabPage2.Controls.Add(this.nu_Sys_clk);
             this.tabPage2.Controls.Add(this.ck_func);
@@ -210,7 +213,43 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.tb_res_meter_in);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // materialButton1
+            // 
+            resources.ApplyResources(this.materialButton1, "materialButton1");
+            this.materialButton1.CharacterCasing = MaterialSkin.Controls.MaterialButton.CharacterCasingEnum.Normal;
+            this.materialButton1.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            this.materialButton1.Depth = 0;
+            this.materialButton1.HighEmphasis = true;
+            this.materialButton1.Icon = null;
+            this.materialButton1.MouseState = MaterialSkin.MouseState.HOVER;
+            this.materialButton1.Name = "materialButton1";
+            this.materialButton1.NoAccentTextColor = System.Drawing.Color.Empty;
+            this.materialButton1.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            this.materialButton1.UseAccentColor = false;
+            this.materialButton1.UseVisualStyleBackColor = true;
+            this.materialButton1.Click += new System.EventHandler(this.materialButton1_Click);
+            // 
+            // label23
+            // 
+            resources.ApplyResources(this.label23, "label23");
+            this.label23.Name = "label23";
+            // 
+            // nu_Sys_clk
+            // 
+            this.nu_Sys_clk.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_Sys_clk, "nu_Sys_clk");
+            this.nu_Sys_clk.Maximum = new decimal(new int[] {
+            10000000,
+            0,
+            0,
+            0});
+            this.nu_Sys_clk.Name = "nu_Sys_clk";
+            this.nu_Sys_clk.Value = new decimal(new int[] {
+            14,
+            0,
+            0,
+            65536});
             // 
             // ck_func
             // 
@@ -941,27 +980,6 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // nu_Sys_clk
-            // 
-            this.nu_Sys_clk.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_Sys_clk, "nu_Sys_clk");
-            this.nu_Sys_clk.Maximum = new decimal(new int[] {
-            10000000,
-            0,
-            0,
-            0});
-            this.nu_Sys_clk.Name = "nu_Sys_clk";
-            this.nu_Sys_clk.Value = new decimal(new int[] {
-            1450,
-            0,
-            0,
-            0});
-            // 
-            // label23
-            // 
-            resources.ApplyResources(this.label23, "label23");
-            this.label23.Name = "label23";
-            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -974,6 +992,7 @@ namespace OLEDLite
             this.materialTabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).EndInit();
             this.group_funcgen.ResumeLayout(false);
             this.group_funcgen.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).EndInit();
@@ -1001,7 +1020,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1109,6 +1127,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.NumericUpDown nu_Sys_clk;
+        private MaterialSkin.Controls.MaterialButton materialButton1;
     }
 }
 

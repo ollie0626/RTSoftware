@@ -15,14 +15,15 @@ using InsLibDotNet;
 using System.Threading;
 using System.Net.Sockets;
 using System.Net;
+using System.Diagnostics;
 
 
 namespace OLEDLite
 {
-    public partial class main : MaterialSkin.Controls.MaterialForm
+    public partial class main : Form
     {
         private string win_name = "OLED sATE tool v1.0";
-        private readonly MaterialSkinManager materialSkinManager;
+        //private readonly MaterialSkinManager materialSkinManager;
 
         private ParameterizedThreadStart p_thread;
         private Thread ATETask;
@@ -32,27 +33,21 @@ namespace OLEDLite
         ChamberCtr chamberCtr = new ChamberCtr();
         //private static SynchronizationContext _syncContext = null;
 
-        public delegate void FinishNotification();
-        FinishNotification delegate_mess;
-
-        public void GUIUpdate()
+        public void UpdateRunButton()
         {
-            bt_run.Enabled = true;
+            this.Invoke((Action)(() => bt_run.Enabled = true));
         }
 
         public main()
         {
             InitializeComponent();
-            materialSkinManager = MaterialSkinManager.Instance;
-            materialSkinManager.AddFormToManage(this);
-            //materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
+            //materialSkinManager = MaterialSkinManager.Instance;
+            //materialSkinManager.AddFormToManage(this);
+            ////materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
+            //materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             materialTabSelector1.Width = this.Width;
             materialTabSelector1.Height = 25;
             this.Text = win_name;
-
-            //this.WindowState = FormWindowState.Maximized;
-            //GUI_Design();
 
             nu_load1.Enabled = false;
             ck_ch1_en.Enabled = false;
@@ -60,9 +55,10 @@ namespace OLEDLite
             materialTabControl1.SelectedIndex = 1;
             cb_item.SelectedIndex = 0;
             nu_swire_num.Value = 1;
+            swireTable.Columns[0].Name = "Swire Conditions";
+            swireTable.Columns[0].Width = 280;
             RB_ASwire.Checked = true;
             ATEItemInit();
-            delegate_mess = new FinishNotification(GUIUpdate);
         }
 
         private void ATEItemInit()
@@ -129,7 +125,6 @@ namespace OLEDLite
             await ConnectTask(tb_res_meter_in.Text, 5);
             await ConnectTask(tb_res_meter_out.Text, 6);
             await ConnectTask(tb_res_chamber.Text, 7);
-
 
             if (InsControl._scope.InsState()) ck_scope.Checked = true;
             else ck_scope.Checked = false;
@@ -231,22 +226,29 @@ namespace OLEDLite
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
-            test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+            switch(cb_item.SelectedIndex)
+            {
+                case 0:
+                    test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                    break;
+                case 1:
+                    test_parameter.ioutList = MyLib.DGData(Eload_DG);
+                    break;
+            }
+            
 
             test_parameter.swireList.Clear();
+            if (swireTable.RowCount == 0) test_parameter.swireList.Add("0");
             for (int i = 0; i < swireTable.RowCount; i++)
             {
                 test_parameter.swireList.Add((string)swireTable[0, i].Value);
             }
             test_parameter.swire_20 = true;
-
-
             test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.steadyTime = (int)nu_steady.Value;
             test_parameter.run_stop = false;
-
             test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
-            test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 3)));
+            test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 6)));
         }
 
         private void bt_run_Click(object sender, EventArgs e)
@@ -303,11 +305,12 @@ namespace OLEDLite
                     bt_eload_sub.Enabled = false;
                     break;
                 case 1:
+                    // output ripple
                     group_power.Enabled = true;
                     Eload_DG.Enabled = true;
                     ck_Iout_mode.Checked = true;
                     ck_Iout_mode.Enabled = true;
-                    tb_Iout.Enabled = true;
+                    tb_Iout.Enabled = false;
                     bt_eload_add.Enabled = true;
                     bt_eload_sub.Enabled = true;
                     break;
@@ -322,7 +325,7 @@ namespace OLEDLite
         private void Run_Single_Task(object idx)
         {
             ate_table[(int)idx].ATETask();
-            delegate_mess.Invoke();
+            UpdateRunButton();
         }
 
         // ------------------------------------------------------------------------------------------
@@ -382,7 +385,7 @@ namespace OLEDLite
                 ate_table[(int)idx].ATETask();
             }
             if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
-            delegate_mess.Invoke();
+            UpdateRunButton();
         }
 
         private async void multi_ate_process(object idx)
@@ -488,7 +491,7 @@ namespace OLEDLite
                 }
                 chamberCtr.Exit();
             }
-            delegate_mess.Invoke();
+            UpdateRunButton();
         }
 
         private void bt_stop_Click(object sender, EventArgs e)
@@ -555,6 +558,16 @@ namespace OLEDLite
         {
             IPAddress[] ipa = Dns.GetHostAddresses(Dns.GetHostName());
             tb_IPAddress.Text = ipa[1].ToString();
+        }
+
+        private void materialButton1_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.Arguments = "/im EXCEL.EXE /f";
+            psi.FileName = "taskkill";
+            Process p = new Process();
+            p.StartInfo = psi;
+            p.Start();
         }
     }
 }
