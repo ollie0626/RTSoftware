@@ -56,12 +56,6 @@ namespace OLEDLite
 
             InsControl._scope.CH1_BWLimitOn();
             InsControl._scope.CH2_BWLimitOn();
-
-            InsControl._scope.DoCommand(":MEASure:VAVG CHANnel2");
-            InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
-            InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
-            InsControl._scope.DoCommand(":MEASure:VBASE CHANnel1");
-            InsControl._scope.DoCommand(":MEASure:VTOP CHANnel1");
         }
 
         private void OSCRest()
@@ -271,7 +265,7 @@ namespace OLEDLite
                     start_pos.Add(row);
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
-
+                        InsControl._scope.Measure_Clear();
                         if (test_parameter.run_stop == true) goto Stop;
 
 
@@ -314,6 +308,14 @@ namespace OLEDLite
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
 
+                        InsControl._scope.DoCommand(":MEASure:RISEtime CHANnel1"); // rising
+                        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel1"); // falling
+                        InsControl._scope.DoCommand(":MEASure:VAVG CHANnel2");
+                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
+                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
+                        InsControl._scope.DoCommand(":MEASure:VBASE CHANnel1");
+                        InsControl._scope.DoCommand(":MEASure:VTOP CHANnel1");
+                        MyLib.Delay1ms(300);
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                         InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
                         string[] HiLo_res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');

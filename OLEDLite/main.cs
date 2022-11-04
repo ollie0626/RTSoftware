@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private string win_name = "OLED sATE tool v1.0";
+        private string win_name = "OLED sATE tool v1.1";
         //private readonly MaterialSkinManager materialSkinManager;
 
         private ParameterizedThreadStart p_thread;
@@ -187,7 +187,7 @@ namespace OLEDLite
             InsControl._funcgen.CH1_On();
         }
 
-        private void test_parameter_copy()
+        private bool test_parameter_copy()
         {
             // interface
             test_parameter.i2c_enable = CK_I2c.Checked;
@@ -236,19 +236,28 @@ namespace OLEDLite
                     break;
             }
             
-
-            test_parameter.swireList.Clear();
-            if (swireTable.RowCount == 0) test_parameter.swireList.Add("0");
-            for (int i = 0; i < swireTable.RowCount; i++)
+            if(!CK_I2c.Checked)
             {
-                test_parameter.swireList.Add((string)swireTable[0, i].Value);
+                test_parameter.swireList.Clear();
+                if (swireTable.RowCount == 0) test_parameter.swireList.Add("0");
+                for (int i = 0; i < swireTable.RowCount; i++)
+                {
+                    test_parameter.swireList.Add((string)swireTable[0, i].Value);
+                    if (swireTable[0, i].Value == null)
+                    {
+                        MessageBox.Show("Please input swire conditions", win_name);
+                        return false;
+                    }
+                }
             }
+
             test_parameter.swire_20 = true;
             test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.steadyTime = (int)nu_steady.Value;
             test_parameter.run_stop = false;
             test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
             test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 6)));
+            return true;
         }
 
         private void bt_run_Click(object sender, EventArgs e)
@@ -256,7 +265,12 @@ namespace OLEDLite
             try
             {
                 bt_run.Enabled = false;
-                test_parameter_copy();
+                if (!test_parameter_copy())
+                {
+                    bt_run.Enabled = true; 
+                    return;
+                }
+
                 if(ck_multi_chamber.Checked && ck_chamber_en.Checked)
                 {
                     p_thread = new ParameterizedThreadStart(multi_ate_process);
