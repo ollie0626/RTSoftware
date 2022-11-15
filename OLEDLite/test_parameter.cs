@@ -54,5 +54,14 @@ namespace OLEDLite
         // burst period
         public static double burst_period = 1/(1.45 * Math.Pow(10, 6));
 
+
+        // code inrush
+        public static double vol_max;
+        public static double vol_min;
+        public static double ontime_scale_ms;
+        public static int code_max;
+        public static int code_min;
+        public static byte addr;
+
     }
 }

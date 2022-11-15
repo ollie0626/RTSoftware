@@ -27,8 +27,11 @@ namespace OLEDLite
 
         private ParameterizedThreadStart p_thread;
         private Thread ATETask;
+        // test item instance
         private ATE_TDMA _ate_tdma = new ATE_TDMA();
         private ATE_OutputRipple _ate_outputripple = new ATE_OutputRipple();
+        private ATE_CodeInrush _ate_codeinrush = new ATE_CodeInrush();
+
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
         //private static SynchronizationContext _syncContext = null;
@@ -48,7 +51,8 @@ namespace OLEDLite
             materialTabSelector1.Width = this.Width;
             materialTabSelector1.Height = 25;
             this.Text = win_name;
-
+            CK_I2c.Checked = true;
+            CK_I2c.Checked = false;
             nu_load1.Enabled = false;
             ck_ch1_en.Enabled = false;
             cb_mode_sel.SelectedIndex = 0;
@@ -63,7 +67,7 @@ namespace OLEDLite
 
         private void ATEItemInit()
         {
-            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple };
+            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple, _ate_codeinrush };
         }
 
         private void main_Resize(object sender, EventArgs e)
@@ -582,6 +586,24 @@ namespace OLEDLite
             Process p = new Process();
             p.StartInfo = psi;
             p.Start();
+        }
+
+        private void CK_I2c_CheckedChanged(object sender, EventArgs e)
+        {
+            if(CK_I2c.Checked)
+            {
+                nu_addr.Visible = true;
+                nu_code_max.Hexadecimal = true;
+                nu_code_min.Hexadecimal = true;
+                label29.Visible = true;
+            }
+            else
+            {
+                nu_addr.Visible = false;
+                nu_code_max.Hexadecimal = false;
+                nu_code_min.Hexadecimal = false;
+                label29.Visible = false;
+            }
         }
     }
 }

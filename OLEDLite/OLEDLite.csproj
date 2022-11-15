@@ -56,6 +56,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ATE_CodeInrush.cs" />
     <Compile Include="ATE_TDMA.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
