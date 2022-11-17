@@ -86,7 +86,7 @@ namespace OLEDLite
                 period_max = Convert.ToDouble(res[0]);
                 time_scale = (period_max * 4) / 10;
                 InsControl._scope.TimeScale(time_scale);
-                MyLib.Delay1ms(150);
+                MyLib.Delay1ms(300);
             }
             InsControl._scope.Root_RUN();
         }
@@ -236,7 +236,7 @@ namespace OLEDLite
                             double trigger_level = InsControl._scope.Meas_CH1VPP();
                             double vol_min = InsControl._scope.Measure_Ch_Min(1);
                             if (vol_min < -2) InsControl._scope.TriggerLevel_CH1(0);
-                            else InsControl._scope.CH1_Level(trigger_level / 3);
+                            else InsControl._scope.TriggerLevel_CH1(trigger_level / 3);
                             // pulse skip mode
                             for (int i = 0; i < 5; i++)
                             {
@@ -326,7 +326,7 @@ namespace OLEDLite
                             InsControl._power.AutoPowerOff();
                             System.Threading.Thread.Sleep(500);
                             InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
-                            InsControl._scope.CH1_Level(1);
+                            //InsControl._scope.CH1_Level(1);
                             System.Threading.Thread.Sleep(250);
                         }
                         InsControl._scope.Root_RUN();

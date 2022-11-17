@@ -1168,12 +1168,12 @@ namespace InsLibDotNet
 
         public double Measure_Top(int channel)
         {
-            return Meas_Top(":MEASure:SOURce CHANnel" + channel);
+            return Meas_Top("CHANnel" + channel);
         }
 
         public double Measure_Base(int channel)
         {
-            return Meas_Base(":MEASure:SOURce CHANnel" + channel);
+            return Meas_Base("CHANnel" + channel);
         }
 
         public void Trigger_Level(int channel, double level)

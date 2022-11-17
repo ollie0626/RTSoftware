@@ -256,8 +256,11 @@ namespace OLEDLite
                 string info = "";
                 double avg = 0;
                 double vmax = InsControl._scope.Measure_Ch_Max(channel);
+                System.Threading.Thread.Sleep(100);
                 double vmin = InsControl._scope.Measure_Ch_Min(channel);
+                System.Threading.Thread.Sleep(100);
                 double temp = InsControl._scope.Measure_Ch_Vpp(channel);
+                System.Threading.Thread.Sleep(100);
 
                 if (vmax < 0)
                 {
@@ -273,7 +276,7 @@ namespace OLEDLite
 
                 avg = vmax - vmin;
                 InsControl._scope.CHx_Level(channel, avg / 3);
-                System.Threading.Thread.Sleep(100);
+                System.Threading.Thread.Sleep(300);
             }
         }
 

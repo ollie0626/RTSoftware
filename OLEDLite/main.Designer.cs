@@ -58,6 +58,8 @@ namespace OLEDLite
             this.label17 = new System.Windows.Forms.Label();
             this.group_interface = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.nu_timeScale = new System.Windows.Forms.NumericUpDown();
             this.label24 = new System.Windows.Forms.Label();
             this.nu_vol_min = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
@@ -143,8 +145,6 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.label30 = new System.Windows.Forms.Label();
-            this.nu_timeScale = new System.Windows.Forms.NumericUpDown();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
@@ -155,6 +155,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
             this.group_interface.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).BeginInit();
@@ -174,7 +175,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -492,6 +492,27 @@ namespace OLEDLite
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.TabStop = false;
             // 
+            // label30
+            // 
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
+            // 
+            // nu_timeScale
+            // 
+            this.nu_timeScale.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_timeScale, "nu_timeScale");
+            this.nu_timeScale.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.nu_timeScale.Name = "nu_timeScale";
+            this.nu_timeScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // label24
             // 
             resources.ApplyResources(this.label24, "label24");
@@ -508,10 +529,10 @@ namespace OLEDLite
             -2147483648});
             this.nu_vol_min.Name = "nu_vol_min";
             this.nu_vol_min.Value = new decimal(new int[] {
-            7,
+            55,
             0,
             0,
-            0});
+            65536});
             // 
             // label25
             // 
@@ -529,7 +550,7 @@ namespace OLEDLite
             -2147483648});
             this.nu_vol_max.Name = "nu_vol_max";
             this.nu_vol_max.Value = new decimal(new int[] {
-            135,
+            79,
             0,
             0,
             65536});
@@ -554,6 +575,11 @@ namespace OLEDLite
             0,
             0});
             this.nu_code_min.Name = "nu_code_min";
+            this.nu_code_min.Value = new decimal(new int[] {
+            54,
+            0,
+            0,
+            0});
             // 
             // nu_code_max
             // 
@@ -566,7 +592,7 @@ namespace OLEDLite
             0});
             this.nu_code_max.Name = "nu_code_max";
             this.nu_code_max.Value = new decimal(new int[] {
-            65,
+            78,
             0,
             0,
             0});
@@ -1122,27 +1148,6 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // label30
-            // 
-            resources.ApplyResources(this.label30, "label30");
-            this.label30.Name = "label30";
-            // 
-            // nu_timeScale
-            // 
-            this.nu_timeScale.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_timeScale, "nu_timeScale");
-            this.nu_timeScale.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.nu_timeScale.Name = "nu_timeScale";
-            this.nu_timeScale.Value = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1165,6 +1170,7 @@ namespace OLEDLite
             this.group_interface.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).EndInit();
@@ -1189,7 +1195,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).EndInit();
             this.ResumeLayout(false);
 
         }

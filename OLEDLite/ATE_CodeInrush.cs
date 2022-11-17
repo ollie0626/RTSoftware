@@ -51,20 +51,21 @@ namespace OLEDLite
 
             double level_max = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
             double level_min = Math.Abs(test_parameter.vol_max) < Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
-            //bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? true : false;
+            bool neg_vol = test_parameter.vol_min < 0;
+            // -3, -6
             double ch_level = (level_max - level_min) / 4;
             InsControl._scope.CH1_Level(ch_level);
             InsControl._scope.CH4_Level(0.2);
 
             InsControl._scope.CH4_Offset(0.2 * 3);
-            InsControl._scope.CH1_Offset(level_min + (ch_level * 3));
+            InsControl._scope.CH1_Offset(neg_vol ? (level_min + (ch_level * 3)) * -1 : level_min + (ch_level * 3));
 
             System.Threading.Thread.Sleep(1000);
             InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             System.Threading.Thread.Sleep(1000);
 
             System.Threading.Thread.Sleep(1000);
-            double trigger_level = level_max * 0.8;
+            double trigger_level = neg_vol ? (level_max * 0.8) * -1 : level_max * 0.8;
             InsControl._scope.TriggerLevel_CH1(trigger_level);
             System.Threading.Thread.Sleep(500);
 
@@ -166,8 +167,9 @@ namespace OLEDLite
 #endif
                         /* min to max code */
                         InsControl._scope.Root_RUN();
-                        if(ispos) InsControl._scope.SetTrigModeEdge(false);
-                        else InsControl._scope.SetTrigModeEdge(true);
+                        InsControl._scope.SetTrigModeEdge(false);
+                        //if (ispos) 
+                        //else InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.NormalTrigger();
 
                         if(test_parameter.i2c_enable)
@@ -187,7 +189,9 @@ namespace OLEDLite
 
                         InsControl._scope.Root_STOP();
                         InsControl._scope.Measure_Clear();
+                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                         InsControl._scope.DoCommand(":MEASure:RISetime CHANnel1");
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement1");
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_min");
 
                         imax = InsControl._scope.Meas_CH4MAX();
@@ -202,8 +206,9 @@ namespace OLEDLite
                         System.Threading.Thread.Sleep(2000);
 
                         /* max to min code */
-                        if (ispos) InsControl._scope.SetTrigModeEdge(true);
-                        else InsControl._scope.SetTrigModeEdge(false);
+                        InsControl._scope.SetTrigModeEdge(true);
+                        //if (ispos) InsControl._scope.SetTrigModeEdge(true);
+                        //else InsControl._scope.SetTrigModeEdge(false);
 
                         //InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.Root_RUN();
@@ -214,7 +219,9 @@ namespace OLEDLite
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.Measure_Clear();
+                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
                         InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel1");
+                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement1");
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_max");
                         imax = InsControl._scope.Meas_CH4MAX();
                         max = InsControl._scope.Meas_CH1MAX();
