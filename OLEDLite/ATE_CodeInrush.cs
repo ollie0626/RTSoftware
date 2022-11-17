@@ -130,7 +130,7 @@ namespace OLEDLite
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
-                        string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                        string res = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : "Swire_" + test_parameter.code_min + "_" + test_parameter.code_max;
                         string file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_iout={4:0.##}A",
                                                         row - 22, res, temp,
                                                         test_parameter.vinList[vin_idx],

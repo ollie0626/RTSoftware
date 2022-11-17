@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private string win_name = "OLED sATE tool v1.1";
+        private string win_name = "OLED sATE tool v1.2";
         //private readonly MaterialSkinManager materialSkinManager;
 
         private ParameterizedThreadStart p_thread;
@@ -333,6 +333,16 @@ namespace OLEDLite
                     bt_eload_sub.Enabled = false;
                     break;
                 case 1:
+                    // output ripple
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = true;
+                    ck_Iout_mode.Checked = true;
+                    ck_Iout_mode.Enabled = true;
+                    tb_Iout.Enabled = false;
+                    bt_eload_add.Enabled = true;
+                    bt_eload_sub.Enabled = true;
+                    break;
+                case 2:
                     // output ripple
                     group_power.Enabled = true;
                     Eload_DG.Enabled = true;

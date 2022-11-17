@@ -339,7 +339,7 @@ namespace OLEDLite
                 TimeSpan timeSpan = stopWatch.Elapsed;
                 AddCruve(start_pos, stop_pos);
                 string conditions = eLoadInfo == "" ? "" : eLoadInfo.Replace("\r\n", "") + "_";
-                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "C_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
                 _book.Close(false);
                 _book = null;
                 _app.Quit();
