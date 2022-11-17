@@ -146,7 +146,7 @@ namespace OLEDLite
                             return;
                         }
                         //if (test_parameter.specify_bin != "") RTDev.I2C_WriteBin((byte)(test_parameter.specify_id >> 1), 0x00, test_parameter.specify_bin);
-                        if (binList[0] != "") RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
+                        if (binList[0] != "" && test_parameter.i2c_enable) RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
 
                         /* test conditonss */
                         byte[] buf_min = new byte[1] { (byte)test_parameter.code_min };
@@ -161,7 +161,7 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin;
-                        _sheet.Cells[row, XLS_Table.E] = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : test_parameter.code_min + "→" + test_parameter.code_max;
 #endif
                         /* min to max code */
                         InsControl._scope.Root_RUN();
@@ -169,10 +169,24 @@ namespace OLEDLite
                         else InsControl._scope.SetTrigModeEdge(true);
 
                         InsControl._scope.NormalTrigger();
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
-                        System.Threading.Thread.Sleep(500);
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_max : buf_min);
-                        System.Threading.Thread.Sleep(2000);
+
+                        if(test_parameter.i2c_enable)
+                        {
+                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
+                            System.Threading.Thread.Sleep(500);
+                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_max : buf_min);
+                            System.Threading.Thread.Sleep(2000);
+                        }
+                        else
+                        {
+                            RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
+                            System.Threading.Thread.Sleep(500);
+                            RTDev.SwirePulse(ispos ? test_parameter.code_max : test_parameter.code_min);
+                            System.Threading.Thread.Sleep(2000);
+                        }
+
+
+
                         InsControl._scope.Root_STOP();
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_min");
 

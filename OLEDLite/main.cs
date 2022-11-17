@@ -261,6 +261,14 @@ namespace OLEDLite
             test_parameter.run_stop = false;
             test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
             test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 6)));
+
+            // code Inrush
+            test_parameter.addr = (byte)nu_addr.Value;
+            test_parameter.code_min = (int)nu_code_min.Value;
+            test_parameter.code_max = (int)nu_code_max.Value;
+            test_parameter.vol_max = (double)nu_vol_max.Value;
+            test_parameter.vol_min = (double)nu_vol_min.Value;
+
             return true;
         }
 
