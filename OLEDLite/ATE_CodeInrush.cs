@@ -49,26 +49,27 @@ namespace OLEDLite
             InsControl._scope.CH4_On();
             InsControl._scope.CH4_1Mohm();
 
-            double level = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
-            bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? true : false;
-
-            InsControl._scope.CH1_Level(level / 5);
-            //InsControl._scope.CH2_Level((level / 5) * 1.5);
+            double level_max = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
+            double level_min = Math.Abs(test_parameter.vol_max) < Math.Abs(test_parameter.vol_min) ? Math.Abs(test_parameter.vol_max) : Math.Abs(test_parameter.vol_min);
+            //bool ispos = Math.Abs(test_parameter.vol_max) > Math.Abs(test_parameter.vol_min) ? true : false;
+            double ch_level = (level_max - level_min) / 4;
+            InsControl._scope.CH1_Level(ch_level);
             InsControl._scope.CH4_Level(0.2);
 
-
-            //InsControl._scope.CH2_Offset(ispos ? ((level / 5) * 1.5) * 2 : ((level / 5) * 1.5) * 2 * -1);
             InsControl._scope.CH4_Offset(0.2 * 3);
-            InsControl._scope.CH1_Offset(ispos ? (level / 5) * 2 : (level / 5) * 2 * -1);
+            InsControl._scope.CH1_Offset(level_min + (ch_level * 3));
 
             System.Threading.Thread.Sleep(1000);
             InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             System.Threading.Thread.Sleep(1000);
 
             System.Threading.Thread.Sleep(1000);
-            double trigger_level = test_parameter.vol_max - test_parameter.vol_min;
-            InsControl._scope.TriggerLevel_CH1((trigger_level / 2) + test_parameter.vol_min);
+            double trigger_level = level_max * 0.8;
+            InsControl._scope.TriggerLevel_CH1(trigger_level);
             System.Threading.Thread.Sleep(500);
+
+            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
+            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,0");
         }
 
 
@@ -167,7 +168,6 @@ namespace OLEDLite
                         InsControl._scope.Root_RUN();
                         if(ispos) InsControl._scope.SetTrigModeEdge(false);
                         else InsControl._scope.SetTrigModeEdge(true);
-
                         InsControl._scope.NormalTrigger();
 
                         if(test_parameter.i2c_enable)
@@ -185,9 +185,9 @@ namespace OLEDLite
                             System.Threading.Thread.Sleep(2000);
                         }
 
-
-
                         InsControl._scope.Root_STOP();
+                        InsControl._scope.Measure_Clear();
+                        InsControl._scope.DoCommand(":MEASure:RISetime CHANnel1");
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_min");
 
                         imax = InsControl._scope.Meas_CH4MAX();
@@ -213,6 +213,8 @@ namespace OLEDLite
                         else                            RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
+                        InsControl._scope.Measure_Clear();
+                        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel1");
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_max");
                         imax = InsControl._scope.Meas_CH4MAX();
                         max = InsControl._scope.Meas_CH1MAX();

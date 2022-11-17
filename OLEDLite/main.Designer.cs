@@ -57,6 +57,17 @@ namespace OLEDLite
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
             this.label17 = new System.Windows.Forms.Label();
             this.group_interface = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.nu_vol_min = new System.Windows.Forms.NumericUpDown();
+            this.label25 = new System.Windows.Forms.Label();
+            this.nu_vol_max = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.nu_code_min = new System.Windows.Forms.NumericUpDown();
+            this.nu_code_max = new System.Windows.Forms.NumericUpDown();
+            this.label29 = new System.Windows.Forms.Label();
+            this.nu_addr = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.RB_ESwire = new System.Windows.Forms.RadioButton();
             this.RB_ASwire = new System.Windows.Forms.RadioButton();
@@ -132,17 +143,8 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.nu_vol_min = new System.Windows.Forms.NumericUpDown();
-            this.label25 = new System.Windows.Forms.Label();
-            this.nu_vol_max = new System.Windows.Forms.NumericUpDown();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.nu_code_min = new System.Windows.Forms.NumericUpDown();
-            this.nu_code_max = new System.Windows.Forms.NumericUpDown();
-            this.label29 = new System.Windows.Forms.Label();
-            this.nu_addr = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.nu_timeScale = new System.Windows.Forms.NumericUpDown();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
@@ -152,6 +154,12 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
             this.group_interface.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
@@ -166,12 +174,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -470,6 +473,124 @@ namespace OLEDLite
             resources.ApplyResources(this.group_interface, "group_interface");
             this.group_interface.Name = "group_interface";
             this.group_interface.TabStop = false;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label30);
+            this.groupBox4.Controls.Add(this.nu_timeScale);
+            this.groupBox4.Controls.Add(this.label24);
+            this.groupBox4.Controls.Add(this.nu_vol_min);
+            this.groupBox4.Controls.Add(this.label25);
+            this.groupBox4.Controls.Add(this.nu_vol_max);
+            this.groupBox4.Controls.Add(this.label26);
+            this.groupBox4.Controls.Add(this.label27);
+            this.groupBox4.Controls.Add(this.nu_code_min);
+            this.groupBox4.Controls.Add(this.nu_code_max);
+            this.groupBox4.Controls.Add(this.label29);
+            this.groupBox4.Controls.Add(this.nu_addr);
+            resources.ApplyResources(this.groupBox4, "groupBox4");
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.TabStop = false;
+            // 
+            // label24
+            // 
+            resources.ApplyResources(this.label24, "label24");
+            this.label24.Name = "label24";
+            // 
+            // nu_vol_min
+            // 
+            this.nu_vol_min.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_vol_min, "nu_vol_min");
+            this.nu_vol_min.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.nu_vol_min.Name = "nu_vol_min";
+            this.nu_vol_min.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
+            // label25
+            // 
+            resources.ApplyResources(this.label25, "label25");
+            this.label25.Name = "label25";
+            // 
+            // nu_vol_max
+            // 
+            this.nu_vol_max.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_vol_max, "nu_vol_max");
+            this.nu_vol_max.Minimum = new decimal(new int[] {
+            100,
+            0,
+            0,
+            -2147483648});
+            this.nu_vol_max.Name = "nu_vol_max";
+            this.nu_vol_max.Value = new decimal(new int[] {
+            135,
+            0,
+            0,
+            65536});
+            // 
+            // label26
+            // 
+            resources.ApplyResources(this.label26, "label26");
+            this.label26.Name = "label26";
+            // 
+            // label27
+            // 
+            resources.ApplyResources(this.label27, "label27");
+            this.label27.Name = "label27";
+            // 
+            // nu_code_min
+            // 
+            this.nu_code_min.Hexadecimal = true;
+            resources.ApplyResources(this.nu_code_min, "nu_code_min");
+            this.nu_code_min.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_code_min.Name = "nu_code_min";
+            // 
+            // nu_code_max
+            // 
+            this.nu_code_max.Hexadecimal = true;
+            resources.ApplyResources(this.nu_code_max, "nu_code_max");
+            this.nu_code_max.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_code_max.Name = "nu_code_max";
+            this.nu_code_max.Value = new decimal(new int[] {
+            65,
+            0,
+            0,
+            0});
+            // 
+            // label29
+            // 
+            resources.ApplyResources(this.label29, "label29");
+            this.label29.Name = "label29";
+            // 
+            // nu_addr
+            // 
+            this.nu_addr.Hexadecimal = true;
+            resources.ApplyResources(this.nu_addr, "nu_addr");
+            this.nu_addr.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_addr.Name = "nu_addr";
+            this.nu_addr.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             // 
             // groupBox1
             // 
@@ -1001,118 +1122,23 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // groupBox4
+            // label30
             // 
-            this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.nu_vol_min);
-            this.groupBox4.Controls.Add(this.label25);
-            this.groupBox4.Controls.Add(this.nu_vol_max);
-            this.groupBox4.Controls.Add(this.label26);
-            this.groupBox4.Controls.Add(this.label27);
-            this.groupBox4.Controls.Add(this.nu_code_min);
-            this.groupBox4.Controls.Add(this.nu_code_max);
-            this.groupBox4.Controls.Add(this.label29);
-            this.groupBox4.Controls.Add(this.nu_addr);
-            resources.ApplyResources(this.groupBox4, "groupBox4");
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.TabStop = false;
+            resources.ApplyResources(this.label30, "label30");
+            this.label30.Name = "label30";
             // 
-            // label24
+            // nu_timeScale
             // 
-            resources.ApplyResources(this.label24, "label24");
-            this.label24.Name = "label24";
-            // 
-            // nu_vol_min
-            // 
-            this.nu_vol_min.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_vol_min, "nu_vol_min");
-            this.nu_vol_min.Minimum = new decimal(new int[] {
+            this.nu_timeScale.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_timeScale, "nu_timeScale");
+            this.nu_timeScale.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.nu_vol_min.Name = "nu_vol_min";
-            this.nu_vol_min.Value = new decimal(new int[] {
-            7,
-            0,
-            0,
-            0});
-            // 
-            // label25
-            // 
-            resources.ApplyResources(this.label25, "label25");
-            this.label25.Name = "label25";
-            // 
-            // nu_vol_max
-            // 
-            this.nu_vol_max.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_vol_max, "nu_vol_max");
-            this.nu_vol_max.Minimum = new decimal(new int[] {
-            100,
-            0,
-            0,
-            -2147483648});
-            this.nu_vol_max.Name = "nu_vol_max";
-            this.nu_vol_max.Value = new decimal(new int[] {
-            135,
-            0,
-            0,
-            65536});
-            // 
-            // label26
-            // 
-            resources.ApplyResources(this.label26, "label26");
-            this.label26.Name = "label26";
-            // 
-            // label27
-            // 
-            resources.ApplyResources(this.label27, "label27");
-            this.label27.Name = "label27";
-            // 
-            // nu_code_min
-            // 
-            this.nu_code_min.Hexadecimal = true;
-            resources.ApplyResources(this.nu_code_min, "nu_code_min");
-            this.nu_code_min.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nu_code_min.Name = "nu_code_min";
-            // 
-            // nu_code_max
-            // 
-            this.nu_code_max.Hexadecimal = true;
-            resources.ApplyResources(this.nu_code_max, "nu_code_max");
-            this.nu_code_max.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nu_code_max.Name = "nu_code_max";
-            this.nu_code_max.Value = new decimal(new int[] {
-            65,
-            0,
-            0,
-            0});
-            // 
-            // label29
-            // 
-            resources.ApplyResources(this.label29, "label29");
-            this.label29.Name = "label29";
-            // 
-            // nu_addr
-            // 
-            this.nu_addr.Hexadecimal = true;
-            resources.ApplyResources(this.nu_addr, "nu_addr");
-            this.nu_addr.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nu_addr.Name = "nu_addr";
-            this.nu_addr.Value = new decimal(new int[] {
-            3,
+            this.nu_timeScale.Name = "nu_timeScale";
+            this.nu_timeScale.Value = new decimal(new int[] {
+            2,
             0,
             0,
             0});
@@ -1137,6 +1163,13 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
             this.group_interface.ResumeLayout(false);
             this.group_interface.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).EndInit();
@@ -1156,13 +1189,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_vol_max)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1282,6 +1309,8 @@ namespace OLEDLite
         private System.Windows.Forms.NumericUpDown nu_code_max;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.NumericUpDown nu_addr;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.NumericUpDown nu_timeScale;
     }
 }
 

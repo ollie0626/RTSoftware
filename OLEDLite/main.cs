@@ -269,7 +269,7 @@ namespace OLEDLite
             test_parameter.code_max = (int)nu_code_max.Value;
             test_parameter.vol_max = (double)nu_vol_max.Value;
             test_parameter.vol_min = (double)nu_vol_min.Value;
-            test_parameter.ontime_scale_ms = 5;
+            test_parameter.ontime_scale_ms = (double)nu_timeScale.Value;
 
             return true;
         }
