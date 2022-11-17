@@ -209,7 +209,8 @@ namespace OLEDLite
                         InsControl._scope.Root_RUN();
                         //RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
                         System.Threading.Thread.Sleep(500);
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
+                        if (test_parameter.i2c_enable)  RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
+                        else                            RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_max");

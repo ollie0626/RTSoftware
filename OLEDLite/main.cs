@@ -233,6 +233,7 @@ namespace OLEDLite
             switch(cb_item.SelectedIndex)
             {
                 case 0:
+                case 2:
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 case 1:
@@ -268,6 +269,7 @@ namespace OLEDLite
             test_parameter.code_max = (int)nu_code_max.Value;
             test_parameter.vol_max = (double)nu_vol_max.Value;
             test_parameter.vol_min = (double)nu_vol_min.Value;
+            test_parameter.ontime_scale_ms = 5;
 
             return true;
         }
