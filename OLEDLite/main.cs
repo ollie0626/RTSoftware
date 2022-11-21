@@ -479,6 +479,7 @@ namespace OLEDLite
                         timer += 1;
                         System.Threading.Thread.Sleep(3000);
                     }
+                    //ate_table[(int)idx].temp = test_parameter.tempList[i];
                     ate_table[(int)idx].ATETask();
 
                     //STATUS: RUN

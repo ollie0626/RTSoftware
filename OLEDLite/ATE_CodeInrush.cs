@@ -78,8 +78,13 @@ namespace OLEDLite
         {
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
+            List<int> start_pos = new List<int>();
+            List<int> stop_pos = new List<int>();
+
+
+
             MyLib = new MyLib();
-            int row = 22;
+            int row = 11;
             int idx = 0;
             int bin_cnt = 1;
             string[] binList = new string[1];
@@ -92,41 +97,47 @@ namespace OLEDLite
             Array.Copy(test_parameter.vinList.ToArray(), ori_vinTable, vin_cnt);
 
             RTDev.BoadInit();
-#if Report
-            _app = new Excel.Application();
-            _app.Visible = true;
-            _book = (Excel.Workbook)_app.Workbooks.Add();
-            _sheet = (Excel.Worksheet)_book.ActiveSheet;
-            //MyLib.ExcelReportInit(_sheet);
-            //MyLib.testCondition(_sheet, "Code Inrush", bin_cnt, temp);
-            _sheet.Cells[row, XLS_Table.A] = "No.";
-            _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
-            _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
-            _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin File" : "Swire";
-            _sheet.Cells[row, XLS_Table.F] = "Imax(mA)_min";
-            _sheet.Cells[row, XLS_Table.G] = "Vmax(V)_min";
-            _sheet.Cells[row, XLS_Table.H] = "Vmin(V)_min";
-            _sheet.Cells[row, XLS_Table.I] = "Imax(mA)_max";
-            _sheet.Cells[row, XLS_Table.J] = "Vmax(V)_max";
-            _sheet.Cells[row, XLS_Table.K] = "Vmin(V)_max";
-            _range = _sheet.Range["A" + row, "K" + row];
-            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-            _range = _sheet.Range["A" + row.ToString(), "E" + row.ToString()];
-            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-
-            _range = _sheet.Range["F" + row.ToString(), "K" + row.ToString()];
-            _range.Interior.Color = Color.FromArgb(30, 144, 255);
-            row++;
-#endif
 
             OSCInit();
             InsControl._power.AutoPowerOff();
-            for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
+
+            for (int bin_idx = 0; bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); bin_idx++)
             {
-                for (int bin_idx = 0; bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); bin_idx++)
+#if Report
+                _app = new Excel.Application();
+                _app.Visible = true;
+                _book = (Excel.Workbook)_app.Workbooks.Add();
+                _sheet = (Excel.Worksheet)_book.ActiveSheet;
+#endif
+
+                for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
+#if Report
+                    //MyLib.ExcelReportInit(_sheet);
+                    //MyLib.testCondition(_sheet, "Code Inrush", bin_cnt, temp);
+                    _sheet.Cells[row, XLS_Table.A] = "No.";
+                    _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
+                    _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
+                    _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
+                    _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin File" : "Swire";
+                    _sheet.Cells[row, XLS_Table.F] = "Imax(mA)_min";
+                    _sheet.Cells[row, XLS_Table.G] = "Vmax(V)_min";
+                    _sheet.Cells[row, XLS_Table.H] = "Vmin(V)_min";
+                    _sheet.Cells[row, XLS_Table.I] = "Imax(mA)_max";
+                    _sheet.Cells[row, XLS_Table.J] = "Vmax(V)_max";
+                    _sheet.Cells[row, XLS_Table.K] = "Vmin(V)_max";
+                    _range = _sheet.Range["A" + row, "K" + row];
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _range = _sheet.Range["A" + row.ToString(), "E" + row.ToString()];
+                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                    _range = _sheet.Range["F" + row.ToString(), "K" + row.ToString()];
+                    _range.Interior.Color = Color.FromArgb(30, 144, 255);
+                    row++;
+#endif
+                    start_pos.Add(row);
+
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
@@ -172,7 +183,7 @@ namespace OLEDLite
                         //else InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.NormalTrigger();
 
-                        if(test_parameter.i2c_enable)
+                        if (test_parameter.i2c_enable)
                         {
                             RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
                             System.Threading.Thread.Sleep(500);
@@ -214,8 +225,8 @@ namespace OLEDLite
                         InsControl._scope.Root_RUN();
                         //RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
                         System.Threading.Thread.Sleep(500);
-                        if (test_parameter.i2c_enable)  RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
-                        else                            RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
+                        if (test_parameter.i2c_enable) RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
+                        else RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.Measure_Clear();
@@ -240,8 +251,10 @@ namespace OLEDLite
                         row++; idx++;
 
                     } // iout loop
-                } // bin loop
-            } // power loop
+                } // power loop
+
+
+            } // vin loop
 
             InsControl._scope.AutoTrigger();
             InsControl._scope.Root_RUN();
