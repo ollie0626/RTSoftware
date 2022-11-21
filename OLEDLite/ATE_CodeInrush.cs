@@ -17,6 +17,8 @@ namespace OLEDLite
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
+        string SwireInfo;
+        string eLoadInfo;
 
         public double temp;
         MyLib MyLib;
@@ -106,27 +108,6 @@ namespace OLEDLite
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
-            _sheet.Cells[row, XLS_Table.A] = "No.";
-            _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
-            _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
-            _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin File" : "Swire";
-            _sheet.Cells[row, XLS_Table.F] = "Iout (mA)";
-            _sheet.Cells[row, XLS_Table.G] = "Imax(mA)_min";
-            _sheet.Cells[row, XLS_Table.H] = "Vmax(V)_min";
-            _sheet.Cells[row, XLS_Table.I] = "Vmin(V)_min";
-            _sheet.Cells[row, XLS_Table.J] = "Imax(mA)_max";
-            _sheet.Cells[row, XLS_Table.K] = "Vmax(V)_max";
-            _sheet.Cells[row, XLS_Table.L] = "Vmin(V)_max";
-            _range = _sheet.Range["A" + row, "L" + row];
-            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-            _range = _sheet.Range["A" + row.ToString(), "F" + row.ToString()];
-            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-
-            _range = _sheet.Range["G" + row.ToString(), "L" + row.ToString()];
-            _range.Interior.Color = Color.FromArgb(30, 144, 255);
-            row++;
 #endif
 
             OSCInit();
@@ -134,6 +115,30 @@ namespace OLEDLite
 
             for (int bin_idx = 0; bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); bin_idx++)
             {
+#if Report
+                _sheet.Cells[row, XLS_Table.A] = "No.";
+                _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
+                _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
+                _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
+                _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin File" : "Swire";
+                _sheet.Cells[row, XLS_Table.F] = "Iout (mA)";
+                _sheet.Cells[row, XLS_Table.G] = "Imax(mA)_min";
+                _sheet.Cells[row, XLS_Table.H] = "Vmax(V)_min";
+                _sheet.Cells[row, XLS_Table.I] = "Vmin(V)_min";
+                _sheet.Cells[row, XLS_Table.J] = "Imax(mA)_max";
+                _sheet.Cells[row, XLS_Table.K] = "Vmax(V)_max";
+                _sheet.Cells[row, XLS_Table.L] = "Vmin(V)_max";
+                _range = _sheet.Range["A" + row, "L" + row];
+                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                _range = _sheet.Range["A" + row.ToString(), "F" + row.ToString()];
+                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                _range = _sheet.Range["G" + row.ToString(), "L" + row.ToString()];
+                _range.Interior.Color = Color.FromArgb(30, 144, 255);
+                row++;
+#endif
+                start_pos.Add(row);
                 for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
@@ -258,7 +263,7 @@ namespace OLEDLite
                     } // iout loop
                 } // power loop
 
-
+                stop_pos.Add(row - 1);
             } // vin loop
 
             InsControl._scope.AutoTrigger();
@@ -272,7 +277,7 @@ namespace OLEDLite
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
-
+            AddCurve(start_pos, stop_pos);
             MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_CodeInrush_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -282,5 +287,36 @@ namespace OLEDLite
 #endif
             delegate_mess.Invoke();
         }
+
+
+
+        private void AddCurve(List<int> start_pos, List<int> stop_pos)
+        {
+            Excel.Chart chart;
+            Excel.Range range;
+            Excel.SeriesCollection collection;
+            Excel.Series series;
+            Excel.Range XRange, YRange;
+
+            range = _sheet.Range["A16", "I32"];
+            chart = MyLib.CreateChart(_sheet, range, "Code Inrush @" + SwireInfo, "Load (mA) " + eLoadInfo, "Current (mA)");
+            chart.ChartTitle.Font.Size = 14;
+            collection = chart.SeriesCollection();
+            
+            for(int i = 0; i < stop_pos.Count; i++)
+            {
+                series = collection.NewSeries();
+                XRange = _sheet.Range[""];
+                YRange = _sheet.Range[""];
+                series.XValues = XRange;
+                series.Values = YRange;
+                series.Name = "VIN=2.7V";
+            }
+
+
+        }
+
+
+
     }
 }
