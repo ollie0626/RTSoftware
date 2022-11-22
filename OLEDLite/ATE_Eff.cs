@@ -91,6 +91,11 @@ namespace OLEDLite
                         // Io12, Io3, Io4
                         double[] Iout = InsControl._eload.GetAllChannel_Iout();
 
+                        double Pin = measure_data[0] * Iin;
+                        double Pvo12 = measure_data[1] * Iout[0];
+                        double Pvo3 = measure_data[2] * Iout[1];
+                        double Pvo4 = measure_data[3] * Iout[2];
+
 
 
 
