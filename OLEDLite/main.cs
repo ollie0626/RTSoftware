@@ -130,9 +130,9 @@ namespace OLEDLite
             await ConnectTask(tb_res_meter_out.Text, 6);
             await ConnectTask(tb_res_chamber.Text, 7);
 
+            MyLib.Delay1s(1);
             if (InsControl._scope.InsState()) ck_scope.Checked = true;
             else ck_scope.Checked = false;
-
             if (InsControl._power.InsState()) ck_power.Checked = true;
             else ck_power.Checked = false;
             if (InsControl._eload.InsState()) ck_eload.Checked = true;

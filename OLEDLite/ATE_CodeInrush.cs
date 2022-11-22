@@ -17,8 +17,6 @@ namespace OLEDLite
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
-        string SwireInfo;
-        string eLoadInfo;
 
         public double temp;
         MyLib MyLib;
@@ -108,6 +106,26 @@ namespace OLEDLite
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
+            string eload_condition = test_parameter.ioutList[0] + " ~ " + test_parameter.ioutList[test_parameter.ioutList.Count - 1];
+            string swire_condition = "Swire:" + test_parameter.code_min + "→" + test_parameter.code_max;
+            string vin_condition = "";
+            for (int i = 0; i < test_parameter.vinList.Count; i++)
+            {
+                if (i == test_parameter.vinList.Count - 1) vin_condition += test_parameter.vinList[i];
+                else vin_condition += test_parameter.vinList[i] + ",";
+            }
+            _sheet.Cells[1, XLS_Table.A] = "Vin";
+            _sheet.Cells[2, XLS_Table.A] = "Iout";
+            _sheet.Cells[3, XLS_Table.A] = "Swire";
+            _sheet.Cells[4, XLS_Table.A] = "Date";
+            _sheet.Cells[5, XLS_Table.A] = "Note";
+
+
+            _sheet.Cells[1, XLS_Table.B] = vin_condition;
+            _sheet.Cells[2, XLS_Table.B] = eload_condition;
+            _sheet.Cells[3, XLS_Table.B] = (test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1")
+                + "\r\n" + swire_condition;
+            _sheet.Cells[4, XLS_Table.B] = DateTime.Now.ToString("yyyyMMdd");
 #endif
 
             OSCInit();
@@ -136,6 +154,8 @@ namespace OLEDLite
 
                 _range = _sheet.Range["G" + row.ToString(), "L" + row.ToString()];
                 _range.Interior.Color = Color.FromArgb(30, 144, 255);
+
+
                 row++;
 #endif
                 start_pos.Add(row);
@@ -184,7 +204,8 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin * 1000;
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : "setting: " + test_parameter.swireList[bin_idx] + "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : 
+                            "setting: " + test_parameter.swireList[bin_idx] + "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
                         _sheet.Cells[row, XLS_Table.F] = iout;
 #endif
                         /* min to max code */
@@ -276,7 +297,7 @@ namespace OLEDLite
             string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
-            _sheet.Cells[2, 2] = str_temp;
+            _sheet.Cells[2, XLS_Table.D] = str_temp;
             AddCurve(start_pos, stop_pos);
             MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_CodeInrush_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
@@ -292,25 +313,36 @@ namespace OLEDLite
 
         private void AddCurve(List<int> start_pos, List<int> stop_pos)
         {
-            Excel.Chart chart;
+            Excel.Chart chart, chart_hi_low;
             Excel.Range range;
-            Excel.SeriesCollection collection;
-            Excel.Series series;
+            Excel.SeriesCollection collection, collection_hi_low;
+            Excel.Series series, series_hi_low;
             Excel.Range XRange, YRange;
 
-            range = _sheet.Range["A16", "I32"];
-            chart = MyLib.CreateChart(_sheet, range, "Code Inrush @" + SwireInfo, "Load (mA) " + eLoadInfo, "Current (mA)");
+            range = _sheet.Range["N12", "Y28"];
+            chart = MyLib.CreateChart(_sheet, range, "Code Inrush Rising Lo to Hi @ Swire " + test_parameter.code_min + "→" + test_parameter.code_max, "Load (mA) ", "Inrush (mA)");
             chart.ChartTitle.Font.Size = 14;
             collection = chart.SeriesCollection();
-            
-            for(int i = 0; i < stop_pos.Count; i++)
+
+            range = _sheet.Range["N32", "Y47"];
+            chart_hi_low = MyLib.CreateChart(_sheet, range, "Code Inrush Rising Hi to Lo @ Swire " + test_parameter.code_min + "→" + test_parameter.code_max, "Load (mA) ", "Inrush (mA)");
+            chart_hi_low.ChartTitle.Font.Size = 14;
+            collection_hi_low = chart_hi_low.SeriesCollection();
+
+            for (int i = 0; i < start_pos.Count; i++)
             {
                 series = collection.NewSeries();
-                XRange = _sheet.Range[""];
-                YRange = _sheet.Range[""];
+                XRange = _sheet.Range["F" + start_pos[i], "F" + stop_pos[i]];
+                YRange = _sheet.Range["G" + start_pos[i], "G" + stop_pos[i]];
                 series.XValues = XRange;
                 series.Values = YRange;
-                series.Name = "VIN=2.7V";
+                series.Name = string.Format("VIN={0:0.0}", _sheet.Cells[start_pos[i], XLS_Table.C].Value);
+
+                series_hi_low = collection_hi_low.NewSeries();
+                YRange = _sheet.Range["J" + start_pos[i], "J" + stop_pos[i]];
+                series_hi_low.XValues = XRange;
+                series_hi_low.Values = YRange;
+                series_hi_low.Name = string.Format("VIN={0:0.0}", _sheet.Cells[start_pos[i], XLS_Table.C].Value);
             }
 
 
