@@ -83,8 +83,6 @@ namespace OLEDLite
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
 
-
-
             MyLib = new MyLib();
             int row = 11;
             int idx = 0;

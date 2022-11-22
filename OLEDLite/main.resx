@@ -669,6 +669,9 @@
   <data name="cb_item.Items2" xml:space="preserve">
     <value>2. Code Inrush</value>
   </data>
+  <data name="cb_item.Items3" xml:space="preserve">
+    <value>3. Eff/Load regulation</value>
+  </data>
   <data name="cb_item.Location" type="System.Drawing.Point, System.Drawing">
     <value>661, 18</value>
   </data>
@@ -3109,10 +3112,10 @@
     <value>Microsoft Sans Serif, 14px</value>
   </data>
   <data name="materialTabSelector1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>737, 540</value>
+    <value>562, 540</value>
   </data>
   <data name="materialTabSelector1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 27</value>
+    <value>525, 27</value>
   </data>
   <data name="materialTabSelector1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>

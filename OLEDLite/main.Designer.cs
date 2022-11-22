@@ -428,7 +428,8 @@ namespace OLEDLite
             this.cb_item.Items.AddRange(new object[] {
             resources.GetString("cb_item.Items"),
             resources.GetString("cb_item.Items1"),
-            resources.GetString("cb_item.Items2")});
+            resources.GetString("cb_item.Items2"),
+            resources.GetString("cb_item.Items3")});
             resources.ApplyResources(this.cb_item, "cb_item");
             this.cb_item.Name = "cb_item";
             this.cb_item.SelectedIndexChanged += new System.EventHandler(this.cb_item_SelectedIndexChanged);

@@ -343,7 +343,17 @@ namespace OLEDLite
                     bt_eload_sub.Enabled = true;
                     break;
                 case 2:
-                    // output ripple
+                    // code Inrush
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = true;
+                    ck_Iout_mode.Checked = true;
+                    ck_Iout_mode.Enabled = true;
+                    tb_Iout.Enabled = false;
+                    bt_eload_add.Enabled = true;
+                    bt_eload_sub.Enabled = true;
+                    break;
+                case 3:
+                    // Eff and Load regulation
                     group_power.Enabled = true;
                     Eload_DG.Enabled = true;
                     ck_Iout_mode.Checked = true;
