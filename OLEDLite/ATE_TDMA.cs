@@ -204,7 +204,7 @@ namespace OLEDLite
 
             OSCInint();
 
-            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++) // interface
+            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt); interface_idx++) // interface
             {
 #if Report
                 row = 11;
@@ -224,11 +224,10 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.Q] = "Undershoot(mV)";
                     _sheet.Cells[row, XLS_Table.R] = "VPP(mV)";
 
-                    _sheet.Cells[1, 1] = "Vin:";
-                    _sheet.Cells[2, 1] = "Iout:";
-                    _sheet.Cells[3, 1] = "setting conditions:";
-                    _sheet.Cells[4, 1] = "Note:";
-                    _sheet.Cells[5, 1] = "Date:";
+                    _sheet.Cells[1, XLS_Table.A] = "Vin:";
+                    _sheet.Cells[2, XLS_Table.A] = "Iout:";
+                    _sheet.Cells[2, XLS_Table.A] = "Date:";
+                    _sheet.Cells[3, XLS_Table.A] = "Note:";
                     string res = "";
                     for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
                         res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
@@ -237,8 +236,9 @@ namespace OLEDLite
                     for (int i = 0; i < test_parameter.ioutList.Count; i++)
                         res += test_parameter.ioutList[i] + ", ";
                     _sheet.Cells[2, 2] = res;
-                    _sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
-                    SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
+                    //TODO: TDMA swire info revice
+                    //_sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
+                    //SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
                     int idx = 0;
                     eLoadInfo = "";
                     for (int i = 0; i < test_parameter.eload_en.Length; i++)
@@ -258,7 +258,8 @@ namespace OLEDLite
                     }
 
                     _sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
-                    _sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
+                    //TODO:
+                    //_sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
                     _sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
 #endif
                     row++;
@@ -296,9 +297,17 @@ namespace OLEDLite
                         }
                         else
                         {
-                            // swire
-                            int[] pulse_tmp = test_parameter.swireList[interface_idx].Split(',').Select(int.Parse).ToArray();
-                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                            // ic setting
+                            int[] pulse_tmp;
+                            bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                            int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                            pulse_tmp = test_parameter.ESwireList[interface_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+
+                            pulse_tmp = test_parameter.ASwireList[interface_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+
+                            for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
                         }
 
                         MyLib.EloadFixChannel();

@@ -11,12 +11,18 @@ namespace OLEDLite
     public class RTBBControl
     {
         private const int GPIO2_0 = 32;
+        private const int GPIO2_1 = 33;
+        private const int GPIO2_2 = 34;
 
-        private BridgeBoard hDevice;
-        private BridgeBoardEnum hEnum;
-        private I2CModule i2cModule;
-        private GPIOModule gpioModule;
-        private ExtCustomizedCommandModule customizedMdoule;
+        public static int ESwire = GPIO2_0;
+        public static int ASwire = GPIO2_1;
+        public static int ENVO4 = GPIO2_2;
+
+        private static BridgeBoard hDevice;
+        private static BridgeBoardEnum hEnum;
+        private static I2CModule i2cModule;
+        private static GPIOModule gpioModule;
+        private static ExtCustomizedCommandModule customizedMdoule;
 
         public static int[] in_gpio_table = new int[] { 32, 33, 36, 40, 41, 42, 46, 47 };
         public static int[] out_gpio_table = new int[] { 48, 49, 50, 51, 52, 53, 54, 55 };
@@ -45,22 +51,19 @@ namespace OLEDLite
             gpioModule.RTBB_GPIOWrite(1, 0xffff, 1);
 
             gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_0, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_1, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_2, true);
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
 
-        public void GpEn_Enable()
+        public static void Swire_Control(int swire, bool state)
         {
             if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, true);
+            gpioModule.RTBB_GPIOSingleWrite(swire, state);
         }
-
-        public void GpEn_Disable()
-        {
-            if (gpioModule == null) return;
-            gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
-        }
-
-
+        
         public void RelayOn(int num)
         {
             if (gpioModule == null) return;
@@ -139,11 +142,11 @@ namespace OLEDLite
         }
 
 
-        public void SwirePulse(int num)
+        public static void SwirePulse(bool EASwire, int num)
         {
             if (customizedMdoule == null) return;
             // customized transation
-            int pCmdIn = test_parameter.swire_20 ? 1 : 2;
+            int pCmdIn = EASwire ? ESwire : ASwire;
             int pDataInCount = 16;
             byte[] pDataIn = new byte[pDataInCount];
             byte[] pDataOut = new byte[pDataInCount];

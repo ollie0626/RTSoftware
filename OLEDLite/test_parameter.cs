@@ -15,14 +15,26 @@ namespace OLEDLite
 
     public static class test_parameter
     {
+        // test condition
+        public static string vin_info;
+        public static string eload_info;
+        public static string swire_info;
+        public static string date_info;
+        public static string ver_info;
+
         // interface
         public static byte slave;
         public static string bin_path;
         public static string wave_path;
         public static string special_file;
-        public static List<string> swireList = new List<string>();
+        public static int swire_cnt;
+        public static List<string> ESwireList = new List<string>();
+        public static List<string> ASwireList = new List<string>();
+        public static bool ESwire_state;
+        public static bool ASwire_state;
+        public static bool ENVO4_state;
         public static bool i2c_enable;
-        public static bool swire_20;
+        public static bool CodeInrush_ESwire;
 
         // power
         public static List<double> vinList = new List<double>();

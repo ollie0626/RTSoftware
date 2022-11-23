@@ -29,6 +29,7 @@ namespace OLEDLite
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
             List<string> Channel_num = new List<string>();
+
             Channel_num.Add("101"); // vin
             Channel_num.Add("102"); // vo12
             Channel_num.Add("103"); // vo3
@@ -53,17 +54,40 @@ namespace OLEDLite
 
             _sheet.Cells[1, XLS_Table.A] = "Vin";
             _sheet.Cells[2, XLS_Table.A] = "Iout";
-            _sheet.Cells[3, XLS_Table.A] = "Swire";
             _sheet.Cells[4, XLS_Table.A] = "Date";
             _sheet.Cells[5, XLS_Table.A] = "Note";
+
+
+            _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+            _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
 #endif
             InsControl._power.AutoPowerOff();
             for(int bin_idx = 0; 
-                bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count);
+                bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt);
                 bin_idx++)
             {
                 for(int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
+#if Report
+                    _sheet.Cells[row, XLS_Table.A] = "VIN (V)";
+                    _sheet.Cells[row, XLS_Table.B] = "Iin (mA)";
+                    _sheet.Cells[row, XLS_Table.C] = "VO12 (V)";
+                    _sheet.Cells[row, XLS_Table.D] = "VO3 (V)";
+                    _sheet.Cells[row, XLS_Table.E] = "VO4 (V)";
+                    _sheet.Cells[row, XLS_Table.F] = "IO12 (mA)";
+                    _sheet.Cells[row, XLS_Table.G] = "IO3 (mA)";
+                    _sheet.Cells[row, XLS_Table.H] = "IO4 (mA)";
+                    _sheet.Cells[row, XLS_Table.I] = "Pin";
+                    _sheet.Cells[row, XLS_Table.J] = "Po";
+                    _sheet.Cells[row, XLS_Table.K] = "Eff(%)";
+                    _range = _sheet.Range["A" + row, "K" + row];
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    row++;
+                    _sheet.Cells[row, XLS_Table.A] = string.Format("{0:0.00}", test_parameter.vinList[vin_idx]);
+                    _sheet.Cells[row, XLS_Table.B] = "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx];
+                    row++;
+#endif
                     for(int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
                         //if (test_parameter.run_stop == true) goto Stop;
@@ -74,15 +98,23 @@ namespace OLEDLite
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
-                            System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                            System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
                         if (binList[0] != "" && test_parameter.i2c_enable) RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
                         else
                         {
                             // ic setting
-                            int[] pulse_tmp = test_parameter.swireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                            int[] pulse_tmp;
+                            bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                            int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                            pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+
+                            pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+
+                            for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
                         }
 
                         // vin, vo12, vo3, vo4
@@ -92,15 +124,23 @@ namespace OLEDLite
                         double[] Iout = InsControl._eload.GetAllChannel_Iout();
 
                         double Pin = measure_data[0] * Iin;
-                        double Pvo12 = measure_data[1] * Iout[0];
-                        double Pvo3 = measure_data[2] * Iout[1];
-                        double Pvo4 = measure_data[3] * Iout[2];
+                        //double Pvo12 = Math.Abs(measure_data[1] * Iout[0]);
+                        //double Pvo3 = Math.Abs(measure_data[2] * Iout[1]);
+                        //double Pvo4 = Math.Abs(measure_data[3] * Iout[2]);
 
-
-
-
-
-
+                        _sheet.Cells[row, XLS_Table.A] = string.Format("{0:0.000}", measure_data[0]);
+                        _sheet.Cells[row, XLS_Table.B] = string.Format("{0:0.000}", Iin * 1000);
+                        _sheet.Cells[row, XLS_Table.C] = string.Format("{0:0.000}", measure_data[1]);
+                        _sheet.Cells[row, XLS_Table.D] = string.Format("{0:0.000}", measure_data[2]);
+                        _sheet.Cells[row, XLS_Table.E] = string.Format("{0:0.000}", measure_data[3]);
+                        _sheet.Cells[row, XLS_Table.F] = string.Format("{0:0.000}", Iout[0] * 1000);
+                        _sheet.Cells[row, XLS_Table.G] = string.Format("{0:0.000}", Iout[1] * 1000);
+                        _sheet.Cells[row, XLS_Table.H] = string.Format("{0:0.000}", Iout[2] * 1000);
+                        _sheet.Cells[row, XLS_Table.I] = "=ABS(A" + row + "*B" + row + ")"; // pin
+                        _sheet.Cells[row, XLS_Table.J] = "=ABS(C" + row + "*F" + row +
+                                                             "+D" + row + "*G" + row +
+                                                             "+E" + row + "*H" + row + ")";
+                        _sheet.Cells[row, XLS_Table.K] = "=(J" + row + "/J" + row + ")*100";
                     }
                 }
 

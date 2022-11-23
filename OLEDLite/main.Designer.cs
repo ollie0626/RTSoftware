@@ -71,8 +71,6 @@ namespace OLEDLite
             this.label29 = new System.Windows.Forms.Label();
             this.nu_addr = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.RB_ESwire = new System.Windows.Forms.RadioButton();
-            this.RB_ASwire = new System.Windows.Forms.RadioButton();
             this.nu_swire_num = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.swireTable = new System.Windows.Forms.DataGridView();
@@ -145,6 +143,12 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.CK_ESwire = new System.Windows.Forms.CheckBox();
+            this.CK_ASwire = new System.Windows.Forms.CheckBox();
+            this.CK_ENVO4 = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RB_ESwire = new System.Windows.Forms.RadioButton();
+            this.RB_ASwire = new System.Windows.Forms.RadioButton();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
@@ -175,6 +179,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -457,11 +462,12 @@ namespace OLEDLite
             // 
             // group_interface
             // 
+            this.group_interface.Controls.Add(this.groupBox2);
             this.group_interface.Controls.Add(this.groupBox4);
-            this.group_interface.Controls.Add(this.groupBox1);
             this.group_interface.Controls.Add(this.nu_swire_num);
             this.group_interface.Controls.Add(this.label12);
             this.group_interface.Controls.Add(this.swireTable);
+            this.group_interface.Controls.Add(this.groupBox1);
             this.group_interface.Controls.Add(this.tb_initial_bin);
             this.group_interface.Controls.Add(this.label10);
             this.group_interface.Controls.Add(this.tb_wave_path);
@@ -621,25 +627,12 @@ namespace OLEDLite
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.RB_ESwire);
-            this.groupBox1.Controls.Add(this.RB_ASwire);
+            this.groupBox1.Controls.Add(this.CK_ENVO4);
+            this.groupBox1.Controls.Add(this.CK_ESwire);
+            this.groupBox1.Controls.Add(this.CK_ASwire);
             resources.ApplyResources(this.groupBox1, "groupBox1");
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
-            // 
-            // RB_ESwire
-            // 
-            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
-            this.RB_ESwire.Name = "RB_ESwire";
-            this.RB_ESwire.TabStop = true;
-            this.RB_ESwire.UseVisualStyleBackColor = true;
-            // 
-            // RB_ASwire
-            // 
-            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
-            this.RB_ASwire.Name = "RB_ASwire";
-            this.RB_ASwire.TabStop = true;
-            this.RB_ASwire.UseVisualStyleBackColor = true;
             // 
             // nu_swire_num
             // 
@@ -1149,6 +1142,46 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // CK_ESwire
+            // 
+            resources.ApplyResources(this.CK_ESwire, "CK_ESwire");
+            this.CK_ESwire.Name = "CK_ESwire";
+            this.CK_ESwire.UseVisualStyleBackColor = true;
+            // 
+            // CK_ASwire
+            // 
+            resources.ApplyResources(this.CK_ASwire, "CK_ASwire");
+            this.CK_ASwire.Name = "CK_ASwire";
+            this.CK_ASwire.UseVisualStyleBackColor = true;
+            // 
+            // CK_ENVO4
+            // 
+            resources.ApplyResources(this.CK_ENVO4, "CK_ENVO4");
+            this.CK_ENVO4.Name = "CK_ENVO4";
+            this.CK_ENVO4.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.RB_ASwire);
+            this.groupBox2.Controls.Add(this.RB_ESwire);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // RB_ESwire
+            // 
+            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
+            this.RB_ESwire.Name = "RB_ESwire";
+            this.RB_ESwire.TabStop = true;
+            this.RB_ESwire.UseVisualStyleBackColor = true;
+            // 
+            // RB_ASwire
+            // 
+            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
+            this.RB_ASwire.Name = "RB_ASwire";
+            this.RB_ASwire.TabStop = true;
+            this.RB_ASwire.UseVisualStyleBackColor = true;
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1196,6 +1229,8 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1297,8 +1332,6 @@ namespace OLEDLite
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button bt_start;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.RadioButton RB_ASwire;
-        private System.Windows.Forms.RadioButton RB_ESwire;
         private System.Windows.Forms.ComboBox cb_mode_sel;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label23;
@@ -1317,6 +1350,12 @@ namespace OLEDLite
         private System.Windows.Forms.NumericUpDown nu_addr;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.NumericUpDown nu_timeScale;
+        private System.Windows.Forms.CheckBox CK_ASwire;
+        private System.Windows.Forms.CheckBox CK_ESwire;
+        private System.Windows.Forms.CheckBox CK_ENVO4;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton RB_ASwire;
+        private System.Windows.Forms.RadioButton RB_ESwire;
     }
 }
 

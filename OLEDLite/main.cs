@@ -22,7 +22,8 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private string win_name = "OLED sATE tool v1.2";
+        private static string ver = "v1.2";
+        private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
         private ParameterizedThreadStart p_thread;
@@ -31,6 +32,7 @@ namespace OLEDLite
         private ATE_TDMA _ate_tdma = new ATE_TDMA();
         private ATE_OutputRipple _ate_outputripple = new ATE_OutputRipple();
         private ATE_CodeInrush _ate_codeinrush = new ATE_CodeInrush();
+        private ATE_Eff _ate_eff = new ATE_Eff();
 
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
@@ -59,15 +61,19 @@ namespace OLEDLite
             materialTabControl1.SelectedIndex = 1;
             cb_item.SelectedIndex = 0;
             nu_swire_num.Value = 1;
-            swireTable.Columns[0].Name = "Swire Conditions";
-            swireTable.Columns[0].Width = 280;
-            RB_ASwire.Checked = true;
+
+            swireTable.ColumnCount = 2;
+            swireTable.Columns[0].Name = "ESwire";
+            swireTable.Columns[0].Width = 150;
+            swireTable.Columns[1].Name = "ASwire";
+            swireTable.Columns[1].Width = 150;
+            //RB_ASwire.Checked = true;
             ATEItemInit();
         }
 
         private void ATEItemInit()
         {
-            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple, _ate_codeinrush };
+            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple, _ate_codeinrush, _ate_eff };
         }
 
         private void main_Resize(object sender, EventArgs e)
@@ -243,12 +249,20 @@ namespace OLEDLite
             
             if(!CK_I2c.Checked)
             {
-                test_parameter.swireList.Clear();
-                if (swireTable.RowCount == 0) test_parameter.swireList.Add("0");
+
+                test_parameter.ESwire_state = CK_ESwire.Checked;
+                test_parameter.ASwire_state = CK_ASwire.Checked;
+                test_parameter.ENVO4_state = CK_ENVO4.Checked;
+
+                test_parameter.swire_cnt = (int)nu_swire_num.Value;
+                test_parameter.ESwireList.Clear();
+                test_parameter.ASwireList.Clear();
+
                 for (int i = 0; i < swireTable.RowCount; i++)
                 {
-                    test_parameter.swireList.Add((string)swireTable[0, i].Value);
-                    if (swireTable[0, i].Value == null)
+                    test_parameter.ESwireList.Add((string)swireTable[0, i].Value);
+                    test_parameter.ASwireList.Add((string)swireTable[1, i].Value);
+                    if (swireTable[0, i].Value == null || swireTable[1, i].Value == null)
                     {
                         MessageBox.Show("Please input swire conditions", win_name);
                         return false;
@@ -256,12 +270,11 @@ namespace OLEDLite
                 }
             }
 
-            test_parameter.swire_20 = true;
             test_parameter.tempList = tb_templist.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.steadyTime = (int)nu_steady.Value;
             test_parameter.run_stop = false;
-            test_parameter.swire_20 = RB_ASwire.Checked ? true : false;
             test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 6)));
+            
 
             // code Inrush
             test_parameter.addr = (byte)nu_addr.Value;
@@ -270,6 +283,15 @@ namespace OLEDLite
             test_parameter.vol_max = (double)nu_vol_max.Value;
             test_parameter.vol_min = (double)nu_vol_min.Value;
             test_parameter.ontime_scale_ms = (double)nu_timeScale.Value;
+            test_parameter.CodeInrush_ESwire = RB_ESwire.Checked;
+
+            // test condition
+            test_parameter.vin_info = tb_Vin.Text;
+            test_parameter.eload_info = test_parameter.ioutList[0] * 1000 + "0A~" + test_parameter.ioutList[test_parameter.ioutList.Count - 1] * 1000 + "mA";
+            test_parameter.ver_info = win_name;
+            test_parameter.date_info = DateTime.Now.ToString("yyyyMMdd");
+            
+
 
             return true;
         }

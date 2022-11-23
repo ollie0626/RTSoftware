@@ -42,6 +42,9 @@ namespace OLEDLite
             InsControl._scope.CH1_On(); // Lx
             InsControl._scope.CH2_On(); // output
 
+            InsControl._scope.CH1_1Mohm();
+            InsControl._scope.CH2_1Mohm();
+
             InsControl._scope.CH2_ACoupling();
             InsControl._scope.CH1_BWLimitOn();
             InsControl._scope.CH2_BWLimitOn();
@@ -127,7 +130,7 @@ namespace OLEDLite
             InsControl._power.AutoSelPowerOn(test_parameter.vinList[0]);
 
             OSCInint();
-            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); interface_idx++)
+            for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt); interface_idx++)
             {
 
 #if Report
@@ -148,22 +151,29 @@ namespace OLEDLite
                     _sheet.Cells[row + 1, XLS_Table.P] = "VIN=" + test_parameter.vinList[vin_idx] + "V";
                     _sheet.Cells[1, 1] = "Vin:";
                     _sheet.Cells[2, 1] = "Iout:";
-                    _sheet.Cells[3, 1] = "setting conditions:";
+                    _sheet.Cells[3, 1] = "Date:";
                     _sheet.Cells[4, 1] = "Note:";
-                    _sheet.Cells[5, 1] = "Date:";
+                    _sheet.Cells[5, 1] = "Version:";
 
-                    VinInfo = "Vin=";
-                    VinInfo += test_parameter.vinList[0] + "V ~ "
-                            + test_parameter.vinList[test_parameter.vinList.Count - 1] + "V\r\n";
+                    _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+                    _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+                    _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+                    _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
 
-                    eLoadInfo += test_parameter.ioutList[0] + "mA ~" 
-                            + test_parameter.ioutList[test_parameter.ioutList.Count - 1] + "mA\r\n";
-                    SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
-                    _sheet.Cells[1, 2] = VinInfo;
-                    _sheet.Cells[2, 2] = eLoadInfo;
-                    _sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
-                    _sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
-                    _sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
+                    //VinInfo = "Vin=";
+                    //VinInfo += test_parameter.vinList[0] + "V ~ "
+                    //        + test_parameter.vinList[test_parameter.vinList.Count - 1] + "V\r\n";
+
+                    //eLoadInfo += test_parameter.ioutList[0] + "mA ~" 
+                    //        + test_parameter.ioutList[test_parameter.ioutList.Count - 1] + "mA\r\n";
+                    ////TODO: Output Ripple swire info revice
+                    ////SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
+                    //_sheet.Cells[1, 2] = VinInfo;
+                    //_sheet.Cells[2, 2] = eLoadInfo;
+                    //_sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
+                    ////TODO:
+                    ////_sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
+                    //_sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
 #endif
                     ccm_enable = false;
                     
@@ -204,15 +214,23 @@ namespace OLEDLite
                         }
                         else
                         {
-                            // swire
-                            int[] pulse_tmp = test_parameter.swireList[interface_idx].Split(',').Select(int.Parse).ToArray();
-                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                            // ic setting
+                            int[] pulse_tmp;
+                            bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                            int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                            pulse_tmp = test_parameter.ESwireList[interface_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+
+                            pulse_tmp = test_parameter.ASwireList[interface_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+
+                            for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
                         }
 
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
-                            System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                            System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
 

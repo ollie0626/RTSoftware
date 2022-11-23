@@ -114,22 +114,22 @@ namespace OLEDLite
             }
             _sheet.Cells[1, XLS_Table.A] = "Vin";
             _sheet.Cells[2, XLS_Table.A] = "Iout";
-            _sheet.Cells[3, XLS_Table.A] = "Swire";
-            _sheet.Cells[4, XLS_Table.A] = "Date";
-            _sheet.Cells[5, XLS_Table.A] = "Note";
+            _sheet.Cells[3, XLS_Table.A] = "Date";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
 
-
-            _sheet.Cells[1, XLS_Table.B] = vin_condition;
-            _sheet.Cells[2, XLS_Table.B] = eload_condition;
-            _sheet.Cells[3, XLS_Table.B] = (test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1")
-                + "\r\n" + swire_condition;
-            _sheet.Cells[4, XLS_Table.B] = DateTime.Now.ToString("yyyyMMdd");
+            _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+            _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+            //TODO:
+            //_sheet.Cells[3, XLS_Table.B] = (test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1")
+            //    + "\r\n" + swire_condition;
+            //_sheet.Cells[4, XLS_Table.B] = DateTime.Now.ToString("yyyyMMdd");
 #endif
 
             OSCInit();
             InsControl._power.AutoPowerOff();
 
-            for (int bin_idx = 0; bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swireList.Count); bin_idx++)
+            for (int bin_idx = 0; bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt); bin_idx++)
             {
 #if Report
                 _sheet.Cells[row, XLS_Table.A] = "No.";
@@ -176,7 +176,7 @@ namespace OLEDLite
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
-                            System.Windows.Forms.MessageBox.Show("34970 沒有連結 !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                            System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
                         
@@ -184,8 +184,16 @@ namespace OLEDLite
                         else
                         {
                             // ic setting
-                            int[] pulse_tmp = test_parameter.swireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTDev.SwirePulse(pulse_tmp[pulse_idx]);
+                            int[] pulse_tmp;
+                            bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                            int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                            pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+
+                            pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                            for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+
+                            for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
                         }
 
                         /* test conditonss */
@@ -202,12 +210,14 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin * 1000;
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : 
-                            "setting: " + test_parameter.swireList[bin_idx] + "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
+                        //TODO: CodeChange Inrush swire info revice
+                        //_sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : 
+                        //    "setting: " + test_parameter.swireList[bin_idx] + "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
                         _sheet.Cells[row, XLS_Table.F] = iout;
 #endif
                         /* min to max code */
                         InsControl._scope.Root_RUN();
+                        // rising trigger
                         if (ispos) InsControl._scope.SetTrigModeEdge(false);
                         else InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.NormalTrigger();
@@ -221,9 +231,9 @@ namespace OLEDLite
                         }
                         else
                         {
-                            RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
+                            RTBBControl.SwirePulse(test_parameter.CodeInrush_ESwire, ispos ? test_parameter.code_min : test_parameter.code_max);
                             System.Threading.Thread.Sleep(500);
-                            RTDev.SwirePulse(ispos ? test_parameter.code_max : test_parameter.code_min);
+                            RTBBControl.SwirePulse(test_parameter.CodeInrush_ESwire, ispos ? test_parameter.code_max : test_parameter.code_min);
                             System.Threading.Thread.Sleep(2000);
                         }
 
@@ -246,16 +256,12 @@ namespace OLEDLite
                         System.Threading.Thread.Sleep(2000);
 
                         /* max to min code */
+                        // falling trigger
                         InsControl._scope.SetTrigModeEdge(true);
-                        //if (ispos) InsControl._scope.SetTrigModeEdge(true);
-                        //else InsControl._scope.SetTrigModeEdge(false);
-
-                        //InsControl._scope.SetTrigModeEdge(true);
                         InsControl._scope.Root_RUN();
-                        //RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, buf_max);
                         System.Threading.Thread.Sleep(500);
                         if (test_parameter.i2c_enable) RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.addr, ispos ? buf_min : buf_max);
-                        else RTDev.SwirePulse(ispos ? test_parameter.code_min : test_parameter.code_max);
+                        else RTBBControl.SwirePulse(test_parameter.CodeInrush_ESwire, ispos ? test_parameter.code_min : test_parameter.code_max);
                         System.Threading.Thread.Sleep(2000);
                         InsControl._scope.Root_STOP();
                         InsControl._scope.Measure_Clear();
