@@ -223,22 +223,23 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.P] = "Overshoot(mV)";
                     _sheet.Cells[row, XLS_Table.Q] = "Undershoot(mV)";
                     _sheet.Cells[row, XLS_Table.R] = "VPP(mV)";
+                    row++;
+                    _sheet.Cells[row, XLS_Table.K] = "ESwire:" + test_parameter.ESwireList[interface_idx] + "_ASwire:" + test_parameter.ASwireList[interface_idx];
+                    row++;
 
                     _sheet.Cells[1, XLS_Table.A] = "Vin:";
                     _sheet.Cells[2, XLS_Table.A] = "Iout:";
                     _sheet.Cells[2, XLS_Table.A] = "Date:";
                     _sheet.Cells[3, XLS_Table.A] = "Note:";
+                    _sheet.Cells[4, XLS_Table.A] = "Version";
                     string res = "";
                     for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
                         res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
-                    _sheet.Cells[1, 2] = res;
-                    res = "";
-                    for (int i = 0; i < test_parameter.ioutList.Count; i++)
-                        res += test_parameter.ioutList[i] + ", ";
-                    _sheet.Cells[2, 2] = res;
-                    //TODO: TDMA swire info revice
-                    //_sheet.Cells[3, 2] = test_parameter.i2c_enable ? binList.Length : test_parameter.swireList.Count;
-                    //SwireInfo = test_parameter.i2c_enable ? "" : "Swire=" + test_parameter.swireList[interface_idx];
+                    _sheet.Cells[1, XLS_Table.B] = res;
+                    _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+                    _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+                    _sheet.Cells[4, XLS_Table.B] = test_parameter.ver_info;
+
                     int idx = 0;
                     eLoadInfo = "";
                     for (int i = 0; i < test_parameter.eload_en.Length; i++)
@@ -256,11 +257,6 @@ namespace OLEDLite
                             }
                         }
                     }
-
-                    _sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
-                    //TODO:
-                    //_sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
-                    _sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
 #endif
                     row++;
                     start_pos.Add(row);

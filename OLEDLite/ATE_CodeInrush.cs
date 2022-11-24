@@ -116,16 +116,13 @@ namespace OLEDLite
             _sheet.Cells[2, XLS_Table.A] = "Iout";
             _sheet.Cells[3, XLS_Table.A] = "Date";
             _sheet.Cells[4, XLS_Table.A] = "Note";
+            _sheet.Cells[5, XLS_Table.A] = "Version";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
-            //TODO:
-            //_sheet.Cells[3, XLS_Table.B] = (test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1")
-            //    + "\r\n" + swire_condition;
-            //_sheet.Cells[4, XLS_Table.B] = DateTime.Now.ToString("yyyyMMdd");
+            _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
 #endif
-
             OSCInit();
             InsControl._power.AutoPowerOff();
 
@@ -136,7 +133,7 @@ namespace OLEDLite
                 _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
                 _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
                 _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
-                _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin File" : "Swire";
+                _sheet.Cells[row, XLS_Table.E] = "ESwire:" + test_parameter.ESwireList[bin_idx] + "_ASwire:" + test_parameter.ASwireList[bin_idx];
                 _sheet.Cells[row, XLS_Table.F] = "Iout (mA)";
                 _sheet.Cells[row, XLS_Table.G] = "Imax(mA)_min";
                 _sheet.Cells[row, XLS_Table.H] = "Vmax(V)_min";
@@ -152,8 +149,6 @@ namespace OLEDLite
 
                 _range = _sheet.Range["G" + row.ToString(), "L" + row.ToString()];
                 _range.Interior.Color = Color.FromArgb(30, 144, 255);
-
-
                 row++;
 #endif
                 start_pos.Add(row);
@@ -200,7 +195,6 @@ namespace OLEDLite
                         byte[] buf_min = new byte[1] { (byte)test_parameter.code_min };
                         byte[] buf_max = new byte[1] { (byte)test_parameter.code_max };
 
-
                         double max, min, vin, iin, imax, iout;
                         vin = InsControl._34970A.Get_100Vol(1);
                         iin = InsControl._power.GetCurrent();
@@ -210,9 +204,9 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin * 1000;
-                        //TODO: CodeChange Inrush swire info revice
-                        //_sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : 
-                        //    "setting: " + test_parameter.swireList[bin_idx] + "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) :
+                                                        "ESwire:" + test_parameter.ESwireList[bin_idx] + "_ASwire:" + test_parameter.ASwireList[bin_idx] +
+                                                        "_Channel pulse: " + test_parameter.code_min + "→" + test_parameter.code_max;
                         _sheet.Cells[row, XLS_Table.F] = iout;
 #endif
                         /* min to max code */

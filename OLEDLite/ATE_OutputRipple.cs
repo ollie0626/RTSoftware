@@ -117,10 +117,9 @@ namespace OLEDLite
             int idx = 0;
             bool ccm_enable = false;
             int bin_cnt = 1;
-            int wave_idx = 0;
+            //int wave_idx = 0;
             int row = 11;
             string res = "";
-            //string SwireInfo = "";
 
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
@@ -149,31 +148,18 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.U] = "Fluctuation(mV)";
                     _sheet.Cells[row, XLS_Table.V] = "Vpp(mV)";
                     _sheet.Cells[row + 1, XLS_Table.P] = "VIN=" + test_parameter.vinList[vin_idx] + "V";
-                    _sheet.Cells[1, 1] = "Vin:";
-                    _sheet.Cells[2, 1] = "Iout:";
-                    _sheet.Cells[3, 1] = "Date:";
-                    _sheet.Cells[4, 1] = "Note:";
-                    _sheet.Cells[5, 1] = "Version:";
+                    _sheet.Cells[row + 1, XLS_Table.Q] = "ESwire:" + test_parameter.ESwireList[interface_idx] + "_ASwire:" + test_parameter.ASwireList[interface_idx];
+
+                    _sheet.Cells[1, XLS_Table.A] = "Vin:";
+                    _sheet.Cells[2, XLS_Table.A] = "Iout:";
+                    _sheet.Cells[3, XLS_Table.A] = "Date:";
+                    _sheet.Cells[4, XLS_Table.A] = "Note:";
+                    _sheet.Cells[5, XLS_Table.A] = "Version:";
 
                     _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
                     _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
                     _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
-
-                    //VinInfo = "Vin=";
-                    //VinInfo += test_parameter.vinList[0] + "V ~ "
-                    //        + test_parameter.vinList[test_parameter.vinList.Count - 1] + "V\r\n";
-
-                    //eLoadInfo += test_parameter.ioutList[0] + "mA ~" 
-                    //        + test_parameter.ioutList[test_parameter.ioutList.Count - 1] + "mA\r\n";
-                    ////TODO: Output Ripple swire info revice
-                    ////SwireInfo = test_parameter.i2c_enable ? binList[interface_idx] : "Swire=" + test_parameter.swireList[interface_idx];
-                    //_sheet.Cells[1, 2] = VinInfo;
-                    //_sheet.Cells[2, 2] = eLoadInfo;
-                    //_sheet.Cells[3, 2] = (test_parameter.i2c_enable) ? Path.GetFileNameWithoutExtension(binList[interface_idx]) : SwireInfo;
-                    ////TODO:
-                    ////_sheet.Cells[4, 2] = (test_parameter.i2c_enable) ? "" : test_parameter.swire_20 ? "ASwire=1, ESwire=0" : "ASwire=0, ESwire=1";
-                    //_sheet.Cells[5, 2] = DateTime.Now.ToString("yyyyMMdd");
 #endif
                     ccm_enable = false;
                     

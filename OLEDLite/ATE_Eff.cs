@@ -56,11 +56,12 @@ namespace OLEDLite
             _sheet.Cells[2, XLS_Table.A] = "Iout";
             _sheet.Cells[4, XLS_Table.A] = "Date";
             _sheet.Cells[5, XLS_Table.A] = "Note";
-
+            _sheet.Cells[6, XLS_Table.A] = "Version";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+            _sheet.Cells[6, XLS_Table.B] = test_parameter.ver_info;
 #endif
             InsControl._power.AutoPowerOff();
             for(int bin_idx = 0; 
@@ -124,22 +125,18 @@ namespace OLEDLite
                         double[] Iout = InsControl._eload.GetAllChannel_Iout();
 
                         double Pin = measure_data[0] * Iin;
-                        //double Pvo12 = Math.Abs(measure_data[1] * Iout[0]);
-                        //double Pvo3 = Math.Abs(measure_data[2] * Iout[1]);
-                        //double Pvo4 = Math.Abs(measure_data[3] * Iout[2]);
-
                         _sheet.Cells[row, XLS_Table.A] = string.Format("{0:0.000}", measure_data[0]);
                         _sheet.Cells[row, XLS_Table.B] = string.Format("{0:0.000}", Iin * 1000);
-                        _sheet.Cells[row, XLS_Table.C] = string.Format("{0:0.000}", measure_data[1]);
-                        _sheet.Cells[row, XLS_Table.D] = string.Format("{0:0.000}", measure_data[2]);
-                        _sheet.Cells[row, XLS_Table.E] = string.Format("{0:0.000}", measure_data[3]);
-                        _sheet.Cells[row, XLS_Table.F] = string.Format("{0:0.000}", Iout[0] * 1000);
-                        _sheet.Cells[row, XLS_Table.G] = string.Format("{0:0.000}", Iout[1] * 1000);
-                        _sheet.Cells[row, XLS_Table.H] = string.Format("{0:0.000}", Iout[2] * 1000);
+                        _sheet.Cells[row, XLS_Table.C] = test_parameter.ESwire_state ? string.Format("{0:0.000}", measure_data[1]) : "0";
+                        _sheet.Cells[row, XLS_Table.D] = test_parameter.ASwire_state ? string.Format("{0:0.000}", measure_data[2]) : "0";
+                        _sheet.Cells[row, XLS_Table.E] = test_parameter.ENVO4_state ? string.Format("{0:0.000}", measure_data[3]) : "0";
+                        _sheet.Cells[row, XLS_Table.F] = test_parameter.ESwire_state ? string.Format("{0:0.000}", Iout[0] * 1000) : "0";
+                        _sheet.Cells[row, XLS_Table.G] = test_parameter.ASwire_state ? string.Format("{0:0.000}", Iout[1] * 1000) : "0";
+                        _sheet.Cells[row, XLS_Table.H] = test_parameter.ENVO4_state ? string.Format("{0:0.000}", Iout[2] * 1000) : "0";
                         _sheet.Cells[row, XLS_Table.I] = "=ABS(A" + row + "*B" + row + ")"; // pin
                         _sheet.Cells[row, XLS_Table.J] = "=ABS(C" + row + "*F" + row +
                                                              "+D" + row + "*G" + row +
-                                                             "+E" + row + "*H" + row + ")";
+                                                             "+E" + row + "*H" + row + ")"; // pout
                         _sheet.Cells[row, XLS_Table.K] = "=(J" + row + "/J" + row + ")*100";
                     }
                 }

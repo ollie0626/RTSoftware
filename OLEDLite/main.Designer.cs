@@ -1145,12 +1145,16 @@ namespace OLEDLite
             // CK_ESwire
             // 
             resources.ApplyResources(this.CK_ESwire, "CK_ESwire");
+            this.CK_ESwire.Checked = true;
+            this.CK_ESwire.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CK_ESwire.Name = "CK_ESwire";
             this.CK_ESwire.UseVisualStyleBackColor = true;
             // 
             // CK_ASwire
             // 
             resources.ApplyResources(this.CK_ASwire, "CK_ASwire");
+            this.CK_ASwire.Checked = true;
+            this.CK_ASwire.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CK_ASwire.Name = "CK_ASwire";
             this.CK_ASwire.UseVisualStyleBackColor = true;
             // 
@@ -1171,6 +1175,7 @@ namespace OLEDLite
             // RB_ESwire
             // 
             resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
+            this.RB_ESwire.Checked = true;
             this.RB_ESwire.Name = "RB_ESwire";
             this.RB_ESwire.TabStop = true;
             this.RB_ESwire.UseVisualStyleBackColor = true;
@@ -1179,7 +1184,6 @@ namespace OLEDLite
             // 
             resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
             this.RB_ASwire.Name = "RB_ASwire";
-            this.RB_ASwire.TabStop = true;
             this.RB_ASwire.UseVisualStyleBackColor = true;
             // 
             // main
