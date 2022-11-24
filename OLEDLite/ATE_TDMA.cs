@@ -65,6 +65,13 @@ namespace OLEDLite
             InsControl._scope.CH1_Offset(0);
             InsControl._scope.CH2_Offset(0);
             MyLib.WaveformCheck();
+            InsControl._scope.DoCommand(":MEASure:RISEtime CHANnel1"); // rising
+            InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel1"); // falling
+            InsControl._scope.DoCommand(":MEASure:VAVG CHANnel2");
+            InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
+            InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
+            InsControl._scope.DoCommand(":MEASure:VBASE CHANnel1");
+            InsControl._scope.DoCommand(":MEASure:VTOP CHANnel1");
         }
 
         // VinH : Hi target
@@ -83,6 +90,7 @@ namespace OLEDLite
             InsControl._scope.CH1_Level((VinH - VinL) / 3);
             InsControl._scope.CH1_Offset(VinH * 0.95);
             InsControl._scope.DoCommand(":MEASure:STATistics MEAN");
+            MyLib.Delay1s(1);
             InsControl._scope.TimeScale((1 / (test_parameter.Freq * 1000)) / 10);
             string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
             InsControl._scope.Trigger_CH1();
@@ -262,7 +270,7 @@ namespace OLEDLite
                     start_pos.Add(row);
                     for (int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
                     {
-                        InsControl._scope.Measure_Clear();
+                        //InsControl._scope.Measure_Clear();
                         if (test_parameter.run_stop == true) goto Stop;
 
 
@@ -310,16 +318,11 @@ namespace OLEDLite
                         MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
 
+
+
+
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
-
-                        InsControl._scope.DoCommand(":MEASure:RISEtime CHANnel1"); // rising
-                        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel1"); // falling
-                        InsControl._scope.DoCommand(":MEASure:VAVG CHANnel2");
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2");
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2");
-                        InsControl._scope.DoCommand(":MEASure:VBASE CHANnel1");
-                        InsControl._scope.DoCommand(":MEASure:VTOP CHANnel1");
                         MyLib.Delay1ms(300);
                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                         InsControl._scope.DoCommand(":MEASure:STATistics MEAN");

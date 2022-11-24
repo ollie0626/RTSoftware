@@ -137,7 +137,8 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.J] = "=ABS(C" + row + "*F" + row +
                                                              "+D" + row + "*G" + row +
                                                              "+E" + row + "*H" + row + ")"; // pout
-                        _sheet.Cells[row, XLS_Table.K] = "=(J" + row + "/J" + row + ")*100";
+                        _sheet.Cells[row, XLS_Table.K] = "=(J" + row + "/I" + row + ")*100";
+                        row++;
                     }
                 }
 

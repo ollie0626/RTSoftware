@@ -146,7 +146,7 @@ namespace OLEDLite
         {
             if (customizedMdoule == null) return;
             // customized transation
-            int pCmdIn = EASwire ? ESwire : ASwire;
+            int pCmdIn = EASwire ? 1 : 2;
             int pDataInCount = 16;
             byte[] pDataIn = new byte[pDataInCount];
             byte[] pDataOut = new byte[pDataInCount];
@@ -177,7 +177,9 @@ namespace OLEDLite
 
             int pCmdOut = 0;
             int pDataOutCount = 0;
-            int ret = customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, pDataOut);
+            int ret;
+            if (num != 0) ret = customizedMdoule.RTBB_EXTCFW_Transact(ref pCmdIn, ref pDataInCount, pDataIn, ref pCmdOut, ref pDataOutCount, pDataOut);
+
             //Console.WriteLine("ret = {0}", ret);
         }
 

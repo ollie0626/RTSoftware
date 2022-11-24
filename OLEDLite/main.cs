@@ -243,6 +243,7 @@ namespace OLEDLite
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 case 1:
+                case 3:
                     test_parameter.ioutList = MyLib.DGData(Eload_DG);
                     break;
             }
