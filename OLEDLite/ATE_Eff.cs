@@ -21,7 +21,6 @@ namespace OLEDLite
         public double temp;
         RTBBControl RTDev = new RTBBControl();
 
-
         public override void ATETask()
         {
             Stopwatch stopWatch = new Stopwatch();
