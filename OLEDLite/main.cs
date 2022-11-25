@@ -46,10 +46,6 @@ namespace OLEDLite
         public main()
         {
             InitializeComponent();
-            //materialSkinManager = MaterialSkinManager.Instance;
-            //materialSkinManager.AddFormToManage(this);
-            ////materialSkinManager.Theme = MaterialSkinManager.Themes.LIGHT;
-            //materialSkinManager.ColorScheme = new ColorScheme(Primary.BlueGrey800, Primary.BlueGrey900, Primary.BlueGrey500, Accent.LightBlue200, TextShade.WHITE);
             materialTabSelector1.Width = this.Width;
             materialTabSelector1.Height = 25;
             this.Text = win_name;
@@ -61,6 +57,8 @@ namespace OLEDLite
             materialTabControl1.SelectedIndex = 1;
             cb_item.SelectedIndex = 0;
             nu_swire_num.Value = 1;
+            CBEload.SelectedIndex = 0;
+            CBIinSelect.SelectedIndex = 0;
 
             swireTable.ColumnCount = 2;
             swireTable.Columns[0].Name = "ESwire";
@@ -228,6 +226,8 @@ namespace OLEDLite
             }
 
             // fix iout different channel
+            test_parameter.eload_ch_select = CBEload.SelectedIndex;
+            test_parameter.eload_iin_select = CBIinSelect.SelectedIndex;
             test_parameter.eload_en = new bool[4] { ck_ch1_en.Checked, 
                                                     ck_ch2_en.Checked, 
                                                     ck_ch3_en.Checked, 
@@ -238,10 +238,12 @@ namespace OLEDLite
                                                         (double)nu_load4.Value };
             switch(cb_item.SelectedIndex)
             {
+                // TDMA, Code Inrush
                 case 0:
                 case 2:
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
+                // Ripple, Efficicency
                 case 1:
                 case 3:
                     test_parameter.ioutList = MyLib.DGData(Eload_DG);
@@ -354,6 +356,11 @@ namespace OLEDLite
                     tb_Iout.Enabled = true;
                     bt_eload_add.Enabled = false;
                     bt_eload_sub.Enabled = false;
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = false;
+
+                    CBIinSelect.SelectedIndex = 0;
+                    CBIinSelect.Enabled = false;
                     break;
                 case 1:
                     // output ripple
@@ -364,6 +371,10 @@ namespace OLEDLite
                     tb_Iout.Enabled = false;
                     bt_eload_add.Enabled = true;
                     bt_eload_sub.Enabled = true;
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = false;
+                    CBIinSelect.SelectedIndex = 0;
+                    CBIinSelect.Enabled = false;
                     break;
                 case 2:
                     // code Inrush
@@ -374,6 +385,10 @@ namespace OLEDLite
                     tb_Iout.Enabled = false;
                     bt_eload_add.Enabled = true;
                     bt_eload_sub.Enabled = true;
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = false;
+
+                    CBIinSelect.Enabled = false;
                     break;
                 case 3:
                     // Eff and Load regulation
@@ -384,6 +399,11 @@ namespace OLEDLite
                     tb_Iout.Enabled = false;
                     bt_eload_add.Enabled = true;
                     bt_eload_sub.Enabled = true;
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = true;
+
+                    CBIinSelect.Enabled = true;
+                    CBIinSelect.SelectedIndex = 0;
                     break;
             }
         }

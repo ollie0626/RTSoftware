@@ -61,6 +61,20 @@ namespace OLEDLite
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
             _sheet.Cells[6, XLS_Table.B] = test_parameter.ver_info;
+
+            string X_axis = "";
+            switch (test_parameter.eload_ch_select)
+            {
+                case 0:
+                    X_axis = "F";
+                    break;
+                case 1:
+                    X_axis = "G";
+                    break;
+                case 2:
+                    X_axis = "H";
+                    break;
+            }
 #endif
             InsControl._power.AutoPowerOff();
             for(int bin_idx = 0; 
@@ -88,13 +102,41 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.B] = "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx];
                     row++;
 #endif
+                    start_pos.Add(row);
                     for(int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
-                        //if (test_parameter.run_stop == true) goto Stop;
+                        if (test_parameter.run_stop == true) goto Stop;
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         System.Threading.Thread.Sleep(500);
+
+
+                        switch (test_parameter.eload_ch_select)
+                        {
+                            case 0:
+                                InsControl._eload.DoCommand(InsControl._eload.CH1);
+                                break;
+                            case 1:
+                                InsControl._eload.DoCommand(InsControl._eload.CH2);
+                                break;
+                            case 2:
+                                InsControl._eload.DoCommand(InsControl._eload.CH3);
+                                break;
+                        }
                         MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
-                        InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
+
+                        switch (test_parameter.eload_ch_select)
+                        {
+                            case 0:
+                                InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
+                                break;
+                            case 1:
+                                InsControl._eload.CH2_Loading(test_parameter.ioutList[iout_idx]);
+                                break;
+                            case 2:
+                                InsControl._eload.CH3_Loading(test_parameter.ioutList[iout_idx]);
+                                break;
+                        }
+                        
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
@@ -119,7 +161,21 @@ namespace OLEDLite
 
                         // vin, vo12, vo3, vo4
                         double[] measure_data = InsControl._34970A.QuickMEasureDefine(100, Channel_num);
-                        double Iin = InsControl._dmm1.GetCurrent(3);
+                        double Iin = 0;
+                        
+                        switch (test_parameter.eload_iin_select)
+                        {
+                            case 0: // 10A level
+                                Iin = InsControl._dmm1.GetCurrent(3);
+                                break;
+                            case 1: // power supply 
+                                Iin = InsControl._power.GetCurrent();
+                                break;
+                            case 2: // 400mA level
+                                Iin = InsControl._dmm1.GetCurrent(1);
+                                break;
+                        }
+
                         // Io12, Io3, Io4
                         double[] Iout = InsControl._eload.GetAllChannel_Iout();
 
@@ -138,11 +194,68 @@ namespace OLEDLite
                                                              "+E" + row + "*H" + row + ")"; // pout
                         _sheet.Cells[row, XLS_Table.K] = "=(J" + row + "/I" + row + ")*100";
                         row++;
-                    }
-                }
-
+                    } // eload loop
+                } // power loop
+#if Report
+                stop_pos.Add(row - 1);
+                TimeSpan timeSpan = stopWatch.Elapsed;
+                Excel.Range range_pos;
+                range_pos = _sheet.Range["O11", "U24"];
+                AddCurve(
+                    _sheet,
+                    range_pos,
+                    "Efficiency @ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx],
+                    "Load (mA)",
+                    "Eff (%)",
+                    X_axis,     // X axis
+                    "K",     // Y axis
+                    start_pos,
+                    stop_pos
+                    );
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Efficiency @ ESwire=" + test_parameter.ESwireList[bin_idx]
+                                      + "ASsire=" + test_parameter.ASwireList[bin_idx] + DateTime.Now.ToString("yyyyMMdd"), _book);
+                _book.Close(false);
+                _book = null;
+                _app.Quit();
+                _app = null;
+                GC.Collect();
+#endif
             } // interface loop
+        Stop:
+            System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
+        }
 
+
+
+        private void AddCurve(
+                              Excel.Worksheet sheet,
+                              Excel.Range range_pos,
+                              string title,
+                              string Xtitle,
+                              string Ytitle,
+                              string X, string Y,
+                              List<int> start_pos,
+                              List<int>stop_pos)
+        {
+            Excel.Chart chart;
+            Excel.SeriesCollection collection;
+            Excel.Series series;
+            Excel.Range XRange, YRange;
+
+            chart = MyLib.CreateChart(sheet, range_pos, title, Xtitle, Ytitle);
+            chart.ChartTitle.Font.Size = 14;
+            collection = chart.SeriesCollection();
+
+            for(int line = 0; line < start_pos.Count; line++)
+            {
+                series = collection.NewSeries();
+                XRange = sheet.Range[X + start_pos[line], X + stop_pos[line]];
+                YRange = sheet.Range[Y + start_pos[line], Y + stop_pos[line]];
+
+                series.Name = "VIN=" + sheet.Cells[X + start_pos[line]].Value.ToString();
+                series.XValues = XRange;
+                series.Values = YRange;
+            }
         }
     }
 }

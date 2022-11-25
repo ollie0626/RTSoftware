@@ -42,6 +42,8 @@ namespace OLEDLite
         // ELoad
         public static List<double> ioutList = new List<double>();
         public static bool eload_select;
+        public static int eload_ch_select;
+        public static int eload_iin_select;
 
         // FuncGen
         public static List<double> HiLevel = new List<double>();

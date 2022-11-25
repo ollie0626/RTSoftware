@@ -149,6 +149,10 @@ namespace OLEDLite
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.RB_ESwire = new System.Windows.Forms.RadioButton();
             this.RB_ASwire = new System.Windows.Forms.RadioButton();
+            this.CBEload = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.CBIinSelect = new System.Windows.Forms.ComboBox();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
@@ -207,6 +211,7 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.materialButton1);
             this.tabPage2.Controls.Add(this.materialTabSelector1);
             this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.ck_Iout_mode);
             this.tabPage2.Controls.Add(this.nu_Sys_clk);
             this.tabPage2.Controls.Add(this.ck_func);
             this.tabPage2.Controls.Add(this.tb_res_func);
@@ -941,8 +946,11 @@ namespace OLEDLite
             // 
             // group_eload
             // 
+            this.group_eload.Controls.Add(this.CBIinSelect);
+            this.group_eload.Controls.Add(this.label32);
+            this.group_eload.Controls.Add(this.label31);
+            this.group_eload.Controls.Add(this.CBEload);
             this.group_eload.Controls.Add(this.groupBox6);
-            this.group_eload.Controls.Add(this.ck_Iout_mode);
             this.group_eload.Controls.Add(this.bt_eload_sub);
             this.group_eload.Controls.Add(this.bt_eload_add);
             this.group_eload.Controls.Add(this.tb_Iout);
@@ -1186,6 +1194,36 @@ namespace OLEDLite
             this.RB_ASwire.Name = "RB_ASwire";
             this.RB_ASwire.UseVisualStyleBackColor = true;
             // 
+            // CBEload
+            // 
+            resources.ApplyResources(this.CBEload, "CBEload");
+            this.CBEload.FormattingEnabled = true;
+            this.CBEload.Items.AddRange(new object[] {
+            resources.GetString("CBEload.Items"),
+            resources.GetString("CBEload.Items1"),
+            resources.GetString("CBEload.Items2")});
+            this.CBEload.Name = "CBEload";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Name = "label31";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // CBIinSelect
+            // 
+            resources.ApplyResources(this.CBIinSelect, "CBIinSelect");
+            this.CBIinSelect.FormattingEnabled = true;
+            this.CBIinSelect.Items.AddRange(new object[] {
+            resources.GetString("CBIinSelect.Items"),
+            resources.GetString("CBIinSelect.Items1"),
+            resources.GetString("CBIinSelect.Items2")});
+            this.CBIinSelect.Name = "CBIinSelect";
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1360,6 +1398,10 @@ namespace OLEDLite
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton RB_ASwire;
         private System.Windows.Forms.RadioButton RB_ESwire;
+        private System.Windows.Forms.ComboBox CBEload;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.ComboBox CBIinSelect;
     }
 }
 
