@@ -186,6 +186,7 @@ namespace OLEDLite
             double lo = Convert.ToDouble(lo_str[0]);
 
             InsControl._funcgen.CH1_ContinuousMode();
+            InsControl._funcgen.CH1_PulseMode();
             InsControl._funcgen.CH1_Frequency((double)(nu_Freq.Value * 1000));
             InsControl._funcgen.CH1_DutyCycle((double)nu_duty.Value);
             InsControl._funcgen.CH1_LoadImpedanceHiz();
@@ -294,8 +295,6 @@ namespace OLEDLite
             test_parameter.ver_info = win_name;
             test_parameter.date_info = DateTime.Now.ToString("yyyyMMdd");
             
-
-
             return true;
         }
 
@@ -415,6 +414,7 @@ namespace OLEDLite
 
         private void Run_Single_Task(object idx)
         {
+            ate_table[(int)idx].temp = 25;
             ate_table[(int)idx].ATETask();
             UpdateRunButton();
         }

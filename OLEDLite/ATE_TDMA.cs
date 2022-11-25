@@ -318,9 +318,6 @@ namespace OLEDLite
                         MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
 
-
-
-
                         ViResize(test_parameter.HiLo_table[func_idx].Highlevel, test_parameter.HiLo_table[func_idx].LowLevel);
                         VoResize();
                         MyLib.Delay1ms(300);
