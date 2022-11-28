@@ -10,440 +10,280 @@ using System.Drawing;
 using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
-using MetroFramework.Controls;
 using System.Globalization;
 
-namespace DP_ATE_Tool
+namespace FFT_Single
 {
-    class ATE_Lx : ITask
+    public enum XLS_Table
     {
-        public int Mode;
-        
-        public string PSU_Ori;
-        public List<double> PSU_List = new List<double>();
-
-        public int topology; // 0: Buck,Inverting 1:Boost 2:Buck-Boost
-
-        public string Bin_Path;
-        public byte Bin_SlaveID;
-
-        public string Freq_Ori;
-        public List<double> Freq_List = new List<double>();
-
-        public string Duty_Ori;
-        public List<double> Duty_List = new List<double>();
-
-        public string Code_Ori;
-        public byte Code_DataAddr;
-        List<two_byte> Code_List = new List<two_byte>();
-
-        public bool inverting;
-        public bool buck = false;
-        public bool boost;
-        public bool buck_boost;
-        public bool[] ItemEn = new bool[3]; // 0=Freq, 1=Slew Rate, 2=Jitter
-
-        // Excel variable
-        Excel.Application app;
-        Excel.Workbook book;
-        Excel.Worksheet sheet, sheet_2;
-        Excel.Range range;
-
-        // DEVICE
-        public PowerModule _PSU;
-        public AgilentOSC _scope;
-        public MultiChannelModule _34970A;
-        public FuncGenModule _fun_gen;
-        public I2CModule _i2cModule;
-        BridgeBoardEnum hEnum;
-        BridgeBoard hDevice;
-
-        string[] BinFileList = null;
-
-        int X_Yindex = 0;
-        //string[] XRange = new string[] { "W", "AE", "AM", "AU" };
-        //string[] YRange = new string[] { "AB", "AK", "AS", "BA" };
-
-        string[] XRange = new string[] { "Y", "AH", "AQ", "AZ" };
-        string[] YRange = new string[] { "AE", "AN", "AW", "BF" };
-
-        MyLib MyLib = new MyLib();
-        DataHandle datahandle = new DataHandle();
-        CultureInfo culture = new CultureInfo("en-US");
-
-        //INSTRUMENT
-        private void RTBBConnect()
-        {
-            hEnum = BridgeBoardEnum.GetBoardEnum();
-            hDevice = BridgeBoard.ConnectByDefault(hEnum);
-            if (hDevice != null)
-            {
-                _i2cModule = hDevice.GetI2CModule();
-                _i2cModule.RTBB_I2CSetFrequency(GlobalVariable.ERTI2CFrequency.eRTI2CFreq50KHz, 50);
-            }
-        }
-        private void device_init()
-        {
-            _scope.AgilentOSC_RST();
-            _PSU.AutoSetOCP(7);
-            _PSU.AutoSelPowerOn(PSU_List[0]);
-        }
+        A = 1, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK, AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW, AX, AY, AZ,
+    };
 
 
+    public class ATE_FFT
+    {
+        Excel.Application _app;
+        Excel.Worksheet _sheet;
+        Excel.Workbook _book;
+        Excel.Range _range;
 
-        private void CreateExcel()
-        {
-            app = new Excel.Application();
-            app.Visible = true;
-            book = app.Workbooks.Add();
-        }
+
+        public double temp;
+        RTBBControl RTDev = new RTBBControl();
 
         private void func_gen_fixed_parameter(double freq, double duty)
         {
-            //_fun_gen.CH1_Off();
-            _fun_gen.CH1_ContinuousMode();
-            _fun_gen.CH1_PulseMode();
-            MyLib.DelayMs(500);
-
-            _fun_gen.CH1_Frequency(freq);
-            MyLib.DelayMs(500);
-
-            _fun_gen.CH1_DutyCycle(duty);
-            _fun_gen.CHl1_HiLevel(1.6);
-        }
-
-        private void Time_ReScale(ref double time_scale, ref double freq, int channel)
-        {
-            while (freq > (100000 * 1000))
-            {
-                time_scale += 1;
-                _scope.TimeScaleUs(time_scale);
-                freq = _scope.Measure_Freq(channel);
-                if (time_scale >= 100) break;
-            }
-        }
-
-        private void Channel_LevelInit(int channel)
-        {
-            if (inverting)
-                _scope.Ch_Offset(channel, 0.5);
-            else if (buck)
-                _scope.CHx_Level(channel, 4);
-            else if (boost)
-            {
-                _scope.CHx_Level(channel, 10);
-                _scope.Ch_Offset(channel, 5);
-            }
-
-        }
-
-        private void Channel_LevelSetting(int channel)
-        {
-            double Vmax, Vmin, avg = 0;
-            if (buck || boost)
-            {
-                for (int i = 0; i <= 1; i++)
-                {
-                    Vmax = _scope.Measure_Ch_Max(channel);
-                    Vmin = _scope.Measure_Ch_min(channel);
-                    avg = Vmax - Vmin;
-                    _scope.CHx_Level(channel, avg / 5);
-                    System.Threading.Thread.Sleep(10);
-                    _scope.Ch_Offset(channel, avg / 2);
-                }
-            }
-            else if (inverting)
-            {
-                for (int i = 0; i <= 1; i++)
-                {
-                    Vmax = Math.Abs(_scope.Measure_Ch_Max(channel));
-                    Vmin = Math.Abs(_scope.Measure_Ch_min(channel));
-                    if (Vmax > Vmin)
-                        avg = Vmax;
-                    else if (Vmax < Vmin)
-                        avg = Vmin;
-                    double value = avg / 3;
-                    _scope.CHx_Level(channel, value);
-                }
-            }
-        }
-
-        private void Channel_TriggerLevel(int channel)
-        {
-            double Vtop, Vbase;
-            double trigger_level;
-
-            if (buck || inverting)
-            {
-                _scope.SetTrigModeEdge(false);
-                Vtop = _scope.Measure_Top(channel);
-                Vbase = _scope.Measure_Base(channel);
-                trigger_level = 0.65 * Vtop + 0.35 * Vbase;
-                _scope.Trigger_Level(channel, trigger_level);
-            }
-            else if (boost)
-            {
-                _scope.SetTrigModeEdge(true);
-                Vtop = _scope.Measure_Top(channel);
-                Vbase = _scope.Measure_Base(channel);
-                trigger_level = 0.45 * Vtop + 0.65 * Vbase;
-                _scope.Trigger_Level(channel, trigger_level);
-            }
+            InsControl._funcgen.CH1_ContinuousMode();
+            InsControl._funcgen.CH1_PulseMode();
+            MyLib.Delay1ms(500);
+            InsControl._funcgen.CH1_Frequency(freq);
+            MyLib.Delay1ms(500);
+            InsControl._funcgen.CH1_DutyCycle(duty);
+            InsControl._funcgen.CHl1_HiLevel(1.6);
         }
 
 
-        private void FFT_Task()
+        private void FFT_Task(int row)
         {
-            MessageBox.Show("Please setting FFT Function !!");
-
-            int channel = 1;
-            double meas_dm_level = 100;
-
-            _scope.Measure_Clear();
-            _scope.Measure_Freq(channel);
-            _scope.DoCommand(":MARKer:MODE OFF");
+            int channel = test_parameter.channel;
+            InsControl._scope.Measure_Clear();
+            InsControl._scope.Measure_Freq(channel);
+            InsControl._scope.DoCommand(":MARKer:MODE OFF");
             System.Threading.Thread.Sleep(1000);
-            _scope.Bandwidth_Limit_On(channel);
-            _scope.Ch_On(1);
-            _scope.TimeScaleUs(20);
-            MyLib.DelayMs(100);
+            InsControl._scope.Bandwidth_Limit_On(channel);
+            InsControl._scope.Ch_On(1);
+            InsControl._scope.TimeScaleUs(20);
+            MyLib.Delay1ms(100);
             /* time scale setting */
-            double time_scale = 0.02;
-            double freq = _scope.Measure_Freq(channel);
-            Time_ReScale(ref time_scale, ref freq, channel);
-            time_scale = ((1 / freq) * 1000000 * 3) / 10;
-            _scope.CHx_Level(channel, 20);
-            _scope.Ch_Offset(channel, 40);
-            _scope.Trigger(channel);
-            _scope.TimeScaleUs(time_scale);
-            _scope.TimeBasePosition(0);
-            MyLib.DelayMs(500);
-            Channel_LevelInit(channel);
-            Channel_LevelSetting(channel);
-            Channel_TriggerLevel(channel);
-            Channel_LevelSetting(channel);
-            // _scope.Measurement_Threshold_Percent_Mode(channel);
+            double freq = InsControl._scope.Measure_Freq(channel);
+            double period = 1 / freq;
+            double time_scale = period * 30;
+            double ch_level = 20;
+            InsControl._scope.TriggerLevel_CH1(15);
+            InsControl._scope.Trigger_CH1();
+            InsControl._scope.CHx_Level(channel, ch_level);
+            InsControl._scope.Ch_Offset(channel, ch_level * 2);
+            InsControl._scope.Trigger(channel);
+            InsControl._scope.TimeScaleUs(time_scale);
+            InsControl._scope.TimeBasePosition(0);
+            MyLib.Delay1ms(500);
+            double Vmax = InsControl._scope.Meas_CH1MAX();
+            InsControl._scope.CH1_Level(Vmax / 4);
 
-            _scope.DoCommand(":FUNCtion1:FFTMagnitude CHANnel1");
+            InsControl._scope.DoCommand(":FUNCtion1:FFTMagnitude CHANnel" + channel);
             // _scope.DoCommand(":FUNCtion1:FFT:DETector:TYPE NORMal");
             // _scope.DoCommand(":FUNCtion1:FFT:DETector:POINts 5");
-            _scope.DoCommand(":FUNCtion:FFT:PEAK:SORT IFRequency");
-            _scope.DoCommand(":FUNCtion1:FFT:VUNits DBUV");
-            _scope.DoCommand(":FUNCtion1:FFT:HSCale LOG");
-            _scope.DoCommand(":FUNCTION1:DISPLAY ON");
+            InsControl._scope.DoCommand(":FUNCtion:FFT:PEAK:SORT IFRequency");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:VUNits DBUV");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:HSCale LOG");
+            InsControl._scope.DoCommand(":FUNCTION1:DISPLAY ON");
             // need to input parameter by user
             // Start 150K, Stop 30M. RBW 9K
-            _scope.DoCommand(":FUNCtion1:FFT:STOP 30E6");
-            _scope.DoCommand(":FUNCtion1:FFT:START 150E3");
-            _scope.DoCommand(":FUNCtion1:FFT:RESolution 9000");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:STOP 30E6");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:START 150E3");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:RESolution 9000");
             // _scope.DoCommand(":FUNCtion1:FFT:PEAK:STATe ON"); 
 
             //:MEASure
-            _scope.DoCommand(":FUNC1:SCALe 50");
-            _scope.DoCommand(":FUNC1:OFFSet 200");
-            double max = _scope.doQueryNumber(":MEASure:VMAX? FUNC1");
+            InsControl._scope.DoCommand(":FUNC1:SCALe 50");
+            InsControl._scope.DoCommand(":FUNC1:OFFSet 200");
+            double max = InsControl._scope.doQueryNumber(":MEASure:VMAX? FUNC1");
 
-            _scope.DoCommand(":FUNC1:SCALe " + (max / 10));
-            _scope.DoCommand(":FUNC1:OFFSet " + (max + 30));
+            InsControl._scope.DoCommand(":FUNC1:SCALe " + (max / 10));
+            InsControl._scope.DoCommand(":FUNC1:OFFSet " + (max + 30));
 
 
-            double peak1 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 1, " + meas_dm_level);
-            double peak2 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 2, " + meas_dm_level);
-            double peak3 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 3, " + meas_dm_level);
-            double peak4 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 4, " + meas_dm_level);
-            double peak5 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 5, " + meas_dm_level);
+            double peak1 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 1, " + test_parameter.peak_level1);
+            double peak2 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 2, " + test_parameter.peak_level1);
+            double peak3 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 3, " + test_parameter.peak_level1);
+            double peak4 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 4, " + test_parameter.peak_level1);
+            double peak5 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 5, " + test_parameter.peak_level1);
 
-            double magn1 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 1, " + meas_dm_level);
-            double magn2 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 2, " + meas_dm_level);
-            double magn3 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 3, " + meas_dm_level);
-            double magn4 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 4, " + meas_dm_level);
-            double magn5 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 5, " + meas_dm_level);
+            double magn1 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 1, " + test_parameter.peak_level1);
+            double magn2 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 2, " + test_parameter.peak_level1);
+            double magn3 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 3, " + test_parameter.peak_level1);
+            double magn4 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 4, " + test_parameter.peak_level1);
+            double magn5 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 5, " + test_parameter.peak_level1);
 
-            MyLib.DelayMs(500);
+            _sheet.Cells[row, XLS_Table.G] = peak1;
+            _sheet.Cells[row, XLS_Table.H] = peak2;
+            _sheet.Cells[row, XLS_Table.I] = peak3;
+            _sheet.Cells[row, XLS_Table.J] = peak4;
+            _sheet.Cells[row, XLS_Table.K] = peak5;
+            _sheet.Cells[row, XLS_Table.L] = magn1;
+            _sheet.Cells[row, XLS_Table.M] = magn2;
+            _sheet.Cells[row, XLS_Table.N] = magn3;
+            _sheet.Cells[row, XLS_Table.O] = magn4;
+            _sheet.Cells[row, XLS_Table.P] = magn5;
+
+            MyLib.Delay1ms(500);
             // Start 30M, Stop 200M. RBW 120K
-            _scope.DoCommand(":FUNCtion1:FFT:STOP 200E6");
-            _scope.DoCommand(":FUNCtion1:FFT:START 30E6");
-            _scope.DoCommand(":FUNCtion1:FFT:RESolution 120E3");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:STOP 200E6");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:START 30E6");
+            InsControl._scope.DoCommand(":FUNCtion1:FFT:RESolution 120E3");
 
-            peak1 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 1," + meas_dm_level);
-            peak2 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 2," + meas_dm_level);
-            peak3 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 3," + meas_dm_level);
-            peak4 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 4," + meas_dm_level);
-            peak5 = _scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 5," + meas_dm_level);
+            peak1 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 1," + test_parameter.peak_level2);
+            peak2 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 2," + test_parameter.peak_level2);
+            peak3 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 3," + test_parameter.peak_level2);
+            peak4 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 4," + test_parameter.peak_level2);
+            peak5 = InsControl._scope.doQueryNumber(":MEASure:FFT:FREQuency? FUNC1, 5," + test_parameter.peak_level2);
+
+            magn1 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 1," + test_parameter.peak_level2);
+            magn2 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 2," + test_parameter.peak_level2);
+            magn3 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 3," + test_parameter.peak_level2);
+            magn4 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 4," + test_parameter.peak_level2);
+            magn5 = InsControl._scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 5," + test_parameter.peak_level2);
+
+            _sheet.Cells[row, XLS_Table.Q] = peak1;
+            _sheet.Cells[row, XLS_Table.R] = peak2;
+            _sheet.Cells[row, XLS_Table.S] = peak3;
+            _sheet.Cells[row, XLS_Table.T] = peak4;
+            _sheet.Cells[row, XLS_Table.U] = peak5;
+            _sheet.Cells[row, XLS_Table.V] = magn1;
+            _sheet.Cells[row, XLS_Table.W] = magn2;
+            _sheet.Cells[row, XLS_Table.X] = magn3;
+            _sheet.Cells[row, XLS_Table.Y] = magn4;
+            _sheet.Cells[row, XLS_Table.Z] = magn5;
             
-            magn1 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 1," + meas_dm_level);
-            magn2 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 2," + meas_dm_level);
-            magn3 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 3," + meas_dm_level);
-            magn4 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 4," + meas_dm_level);
-            magn5 = _scope.doQueryNumber(":MEASure:FFT:MAGNitude? FUNC1, 5," + meas_dm_level);
-
-            _scope.DoCommand(":FUNCTION1:DISPLAY OFF");
         }
 
-
-
-        //BIN & FUNCTION GEN
-        private void DealwithBins()
+        private void OSCInint()
         {
-            if (Bin_Path != null && Bin_Path != "")
-            {
-                DirectoryInfo di = new DirectoryInfo(Bin_Path);
-                BinFileList = Directory.GetFiles(Bin_Path, "*.bin");
-            }
-        }
-        private void dealWithByte(string str, ref List<two_byte> list)
-        {
-            list.Clear();
-            string[] tmp = str.Split(',');
+            InsControl._scope.AgilentOSC_RST();
+            MyLib.WaveformCheck();
 
-            two_byte tb = new two_byte();
-            for (int i = 0; i < tmp.Length; i++)
-            {
-                byte[] res = datahandle.to2Byte(tmp[i]);
-                tb.LSB = res[0];
-                tb.MSB = res[1];
-
-                list.Add(tb);
-            }
-        }
-
-        private void main_loop(Excel.Worksheet sheet, int channel)
-        {
-            int row = 28;
-            int waveRow = 28;
-
-            for (int layer_psu = 0; layer_psu < PSU_List.Count; layer_psu++)
-            {
-                _PSU.AutoSelPowerOn(PSU_List[layer_psu]);
-
-                int BinCount = BinFileList != null ? BinFileList.Length : 1;
-                for (int layer_bin = 0; layer_bin < BinCount; layer_bin++)
-                {
-                    int CodeNum = Code_List.Count == 0 ? 1 : Code_List.Count;
-                    for (int layer_code = 0; layer_code < CodeNum; layer_code++)
-                    {
-                        int FreqNum = Freq_List.Count == 0 ? 1 : Freq_List.Count;
-                        for (int layer_freq = 0; layer_freq < FreqNum; layer_freq++)
-                        {
-                            int DutyNum = Duty_List.Count == 0 ? 1 : Duty_List.Count;
-                            for(int layer_duty = 0; layer_duty < DutyNum; layer_duty++)
-                            {
-                                if(Mode == 0)
-                                    func_gen_fixed_parameter(Freq_List[layer_freq] * 1000, Duty_List[layer_duty]);
-                                else
-                                {
-                                    byte[] c1 = new byte[] { Code_List[layer_code].LSB, Code_List[layer_code].MSB };
-                                    if (_i2cModule != null)
-                                        _i2cModule.RTBB_I2CWrite(Bin_SlaveID >> 1, 0x01, Code_DataAddr, 0x02, c1);
-                                }    
-                                printTitle(sheet, ref row);
-
-                                if (BinFileList != null)
-                                    MyLib.runBin(ref _i2cModule, BinFileList[layer_bin], Bin_SlaveID);
-
-                                X_Yindex = 0;
-                                _PSU.AutoSelPowerOn(PSU_List[layer_psu]);
-
-                                if (layer_bin == 0)
-                                    MyLib.DelayMs(5000);
-
-                                double vin = _34970A.Get_100Vol(1); //_PSU.GetVoltage();
-                                double iin = _PSU.GetCurrent() * 1000;
-                                double vout = _34970A.Get_100Vol(2);
-
-                                sheet.Cells[row, XLS_Table.B] = main.ChamberEn ? main.temperature.ToString() : "";
-                                sheet.Cells[row, XLS_Table.C] = "LINK";
-                                sheet.Cells[row, XLS_Table.D] = vin;
-                                sheet.Cells[row, XLS_Table.E] = iin;
-
-                                if (BinFileList != null)
-                                    sheet.Cells[row, XLS_Table.F] = Path.GetFileName(BinFileList[layer_bin]);
-
-
-
-                                if (Mode == 0)
-                                {
-                                    sheet.Cells[row, XLS_Table.G] = string.Format("{0:#.##}", Freq_List[layer_freq]);
-                                    sheet.Cells[row, XLS_Table.H] = string.Format("{0:#.##}", Duty_List[layer_duty]);
-                                }
-                                else
-                                    sheet.Cells[row, XLS_Table.H] = string.Format("{0:X02}{1:X02}", Code_List[layer_code].MSB, Code_List[layer_code].LSB);
-
-                                sheet.Cells[row, XLS_Table.I] = vout;
-                                range = sheet.Range["A" + row, "W" + row];
-                                range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                bool check_freq_valid = true;
-
-                                X_Yindex = 0;
-                                if (ItemEn[0])
-                                    check_freq_valid = FreqTask(row, waveRow, sheet, PSU_List[layer_psu], channel);
-
-                                X_Yindex = 1;
-                                if (check_freq_valid && ItemEn[1])
-                                    SlewRateTask(row, waveRow, sheet, channel);
-
-                                if (check_freq_valid && ItemEn[2])
-                                    JitterTask(row, waveRow, sheet, channel);
-
-                                _scope.SetTrigModeEdge(false);
-                                waveRow += 20;
-                                row++;
-                            }
-                            
-                        }
-                    }
-                }
-
-                _PSU.AutoPowerOff();
-                MyLib.DelayMs(2000);
-            }
+            InsControl._scope.CH1_On(); // LX
+            InsControl._scope.CH1_Level(20);
+            InsControl._scope.CH1_Offset(40);
+            InsControl._scope.CH1_BWLimitOn();
         }
 
         public void ATE_Task()
         {
-            RTBBConnect();
-            device_init();
+            
+            string[] binList = new string[1];
+            binList = MyLib.ListBinFile(test_parameter.bin_path);
+            int bin_cnt = 1;
+            bin_cnt = binList.Length;
+            double[] ori_vinTable = new double[test_parameter.vinList.Count];
+            Array.Copy(test_parameter.vinList.ToArray(), ori_vinTable, test_parameter.vinList.Count);
+            RTDev.BoadInit();
+            int row = 6;
+            int idx = 0;
+#if true
+            _app = new Excel.Application();
+            _app.Visible = true;
+            _book = (Excel.Workbook)_app.Workbooks.Add();
+            _sheet = (Excel.Worksheet)_book.ActiveSheet;
 
-            CreateExcel();
-            FillSheet(sheet);
-            ReportInit(topology);
+            _sheet.Cells[1, XLS_Table.A] = "Vin";
+            _sheet.Cells[2, XLS_Table.A] = "Iout";
+            _sheet.Cells[3, XLS_Table.A] = "Date";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
+            _sheet.Cells[5, XLS_Table.A] = "Version";
 
-            DealwithBins();
-            if (Mode == 1)
-                datahandle.str_to_TwoByteList(Code_Ori, ref Code_List);
+            _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+            _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+            _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
 
-            InputTitleAndUserInput();
 
-            if (topology == 0 || topology == 1)
-                main_loop(sheet, 1);
-            else
+            _sheet.Cells[row, XLS_Table.A] = "Temp (C)";
+            _sheet.Cells[row, XLS_Table.B] = "VIN (V)";
+            _sheet.Cells[row, XLS_Table.C] = "Iin (mA)";
+            _sheet.Cells[row, XLS_Table.D] = "Iout (mA)";
+            _sheet.Cells[row, XLS_Table.E] = "Bin";
+            _sheet.Cells[row, XLS_Table.F] = "Code / Duty";
+
+            _sheet.Cells[row, XLS_Table.G] = "Meas1 peak1 Freq";
+            _sheet.Cells[row, XLS_Table.H] = "Meas1 peak2 Freq";
+            _sheet.Cells[row, XLS_Table.I] = "Meas1 peak3 Freq";
+            _sheet.Cells[row, XLS_Table.J] = "Meas1 peak4 Freq";
+            _sheet.Cells[row, XLS_Table.K] = "Meas1 peak5 Freq";
+            _sheet.Cells[row, XLS_Table.L] = "Meas1 peak1 Magn";
+            _sheet.Cells[row, XLS_Table.M] = "Meas1 peak2 Magn";
+            _sheet.Cells[row, XLS_Table.N] = "Meas1 peak3 Magn";
+            _sheet.Cells[row, XLS_Table.O] = "Meas1 peak4 Magn";
+            _sheet.Cells[row, XLS_Table.P] = "Meas1 peak5 Magn";
+
+            _sheet.Cells[row, XLS_Table.Q] = "Meas2 peak1 Freq";
+            _sheet.Cells[row, XLS_Table.R] = "Meas2 peak2 Freq";
+            _sheet.Cells[row, XLS_Table.S] = "Meas2 peak3 Freq";
+            _sheet.Cells[row, XLS_Table.T] = "Meas2 peak4 Freq";
+            _sheet.Cells[row, XLS_Table.U] = "Meas2 peak5 Freq";
+            _sheet.Cells[row, XLS_Table.V] = "Meas2 peak1 Magn";
+            _sheet.Cells[row, XLS_Table.W] = "Meas2 peak2 Magn";
+            _sheet.Cells[row, XLS_Table.X] = "Meas2 peak3 Magn";
+            _sheet.Cells[row, XLS_Table.Y] = "Meas2 peak4 Magn";
+            _sheet.Cells[row, XLS_Table.Z] = "Meas2 peak5 Magn";
+            _range = _sheet.Range["A" + row, "P" + row];
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+#endif
+            
+            OSCInint();
+            MessageBox.Show("Please setting FFT Function !!");
+            for (int vin_idx = 0; vin_idx < test_parameter.vinList.Count; vin_idx++)
             {
-                inverting = true;
-                boost = false;
-                main_loop(sheet, 1);
+                for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
+                {
+                    string file_name = string.Format("{0}_Temp={1}_Vin={2}_{3}_{4}",
+                                        idx,
+                                        temp,
+                                        vin_idx,
+                                        test_parameter.brightness_sel ? 
+                                        "I2C_Code=" + test_parameter.i2c_code :
+                                        "Duty=" + test_parameter.duty,
+                                        Path.GetFileNameWithoutExtension(binList[bin_idx])
+                                        );
+                    //for(int iout_idx = 0; iout_idx < test_parameter.ioutList.Count; iout_idx++)
+                    //{
+                    if (test_parameter.run_stop == true) goto Stop;
 
-                inverting = false;
-                boost = true;
-                main_loop(sheet_2, 3);
-            }
+                    InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
+                    //MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
+                    //InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
 
-            var culture = new CultureInfo("en-US");
-            sheet.Cells[3, XLS_Table.J] = string.Format("{0}", DateTime.Now.ToString(culture));
+                    if (test_parameter.brightness_sel)
+                    {
+                        byte MSB = (byte)((test_parameter.i2c_code & 0xFF00) >> 8);
+                        byte LSB = (byte)(test_parameter.i2c_code & 0xFF);
+                        // brightness code
+                    }
+                    else
+                    {
+                        func_gen_fixed_parameter(test_parameter.freq, test_parameter.duty);
+                    }
 
-            for (int i = 1; i <= 38; i++)
-                sheet.Columns[i].AutoFit();
 
-            if (topology == 3)
-            {
-                sheet_2.Cells[3, XLS_Table.J] = string.Format("{0}", DateTime.Now.ToString(culture));
-                for (int i = 1; i <= 38; i++)
-                    sheet_2.Columns[i].AutoFit();
-            }
+                    double tempVin = ori_vinTable[vin_idx];
+                    if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
+                    {
+                        System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                        return;
+                    }
+#if true
+                    double vin, iin, iout;
+                    vin = InsControl._power.GetVoltage();
+                    iin = InsControl._power.GetCurrent() * 1000;
+                    iout = InsControl._eload.GetIout() * 1000;
+                    _sheet.Cells[row, XLS_Table.A] = vin;
+                    _sheet.Cells[row, XLS_Table.B] = iin;
+                    _sheet.Cells[row, XLS_Table.C] = iout;
+                    _sheet.Cells[row, XLS_Table.D] = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                    _sheet.Cells[row, XLS_Table.E] = test_parameter.brightness_sel ? "Code" : "Duty";
+#endif
+                    FFT_Task(row);
+                    InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
+                    row++; idx++;
+                    //} // iout loop
+                } // bin loop
+            } // vin loop
 
-            MyLib.SaveExcelReport(main.Report_Path, "Lx_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), book);
-            book.Close(false);
-            app.Quit();
+        Stop:
+            InsControl._scope.DoCommand(":FUNCTION1:DISPLAY OFF");
+            System.Windows.Forms.MessageBox.Show("Test finished!!!", "FFT Item", System.Windows.Forms.MessageBoxButtons.OK);
+
         }
     }
 }
