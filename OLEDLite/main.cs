@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.2";
+        private static string ver = "v1.3";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -336,6 +336,8 @@ namespace OLEDLite
                 MessageBox.Show(ex.StackTrace);
             }
         }
+        // TODO: FFT funciton
+        //:MEASure:FFT:MAGNitude?\sFUNCtion1,1
 
         private void nu_swire_num_ValueChanged(object sender, EventArgs e)
         {
