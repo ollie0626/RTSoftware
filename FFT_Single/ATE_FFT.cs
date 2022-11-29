@@ -256,12 +256,12 @@ namespace FFT_Single
                     }
 
 
-                    double tempVin = ori_vinTable[vin_idx];
-                    if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
-                    {
-                        System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
-                        return;
-                    }
+                    //double tempVin = ori_vinTable[vin_idx];
+                    //if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
+                    //{
+                    //    System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+                    //    return;
+                    //}
 #if true
                     double vin, iin, iout;
                     vin = InsControl._power.GetVoltage();
