@@ -54,26 +54,26 @@ namespace OLEDLite
 
             _sheet.Cells[1, XLS_Table.A] = "Vin";
             _sheet.Cells[2, XLS_Table.A] = "Iout";
-            _sheet.Cells[4, XLS_Table.A] = "Date";
-            _sheet.Cells[5, XLS_Table.A] = "Note";
-            _sheet.Cells[6, XLS_Table.A] = "Version";
+            _sheet.Cells[3, XLS_Table.A] = "Date";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
+            _sheet.Cells[5, XLS_Table.A] = "Version";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
-            _sheet.Cells[6, XLS_Table.B] = test_parameter.ver_info;
+            _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
 
             string X_axis = "";
             switch (test_parameter.eload_ch_select)
             {
                 case 0:
-                    X_axis = "F";
-                    break;
-                case 1:
                     X_axis = "G";
                     break;
-                case 2:
+                case 1:
                     X_axis = "H";
+                    break;
+                case 2:
+                    X_axis = "I";
                     break;
             }
 #endif
@@ -97,7 +97,7 @@ namespace OLEDLite
                     _sheet.Cells[row, XLS_Table.J] = "Pin";
                     _sheet.Cells[row, XLS_Table.K] = "Po";
                     _sheet.Cells[row, XLS_Table.L] = "Eff(%)";
-                    _range = _sheet.Range["A" + row, "K" + row];
+                    _range = _sheet.Range["A" + row, "L" + row];
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     row++;
                     _sheet.Cells[row, XLS_Table.A] = string.Format("VIN={0:0.00}", test_parameter.vinList[vin_idx]);
@@ -138,7 +138,8 @@ namespace OLEDLite
                                 InsControl._eload.CH3_Loading(test_parameter.ioutList[iout_idx]);
                                 break;
                         }
-                        
+                        MyLib.EloadFixChannel();
+
                         double tempVin = ori_vinTable[vin_idx];
                         if (!MyLib.Vincompensation(ori_vinTable[vin_idx], ref tempVin))
                         {
@@ -198,12 +199,14 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.L] = "=(K" + row + "/J" + row + ")*100";
                         row++;
                     } // eload loop
+
+                    stop_pos.Add(row - 1);
                 } // power loop
 #if Report
-                stop_pos.Add(row - 1);
+                
                 TimeSpan timeSpan = stopWatch.Elapsed;
                 AddAllCurve(start_pos, stop_pos, bin_idx, X_axis);
-                LORData(start_pos);
+                LORData(start_pos, stop_pos);
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Efficiency @ ESwire=" + test_parameter.ESwireList[bin_idx]
                                       + "ASsire=" + test_parameter.ASwireList[bin_idx] + DateTime.Now.ToString("yyyyMMdd"), _book);
                 _book.Close(false);
@@ -225,35 +228,43 @@ namespace OLEDLite
             info.Xtitle = "Load (mA)";
             info.Ytitle = "Eff (%)";
             info.X = X_axis;
-            info.Y = "K";
+            info.Y = "L";
 
-            range_pos = _sheet.Range["O11", "U24"];
+            range_pos = _sheet.Range["D2", "J15"];
             AddCurve(
                 _sheet, range_pos, info, start_pos, stop_pos
                 );
 
-            info.title = "LOR VO12@ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
-            info.Ytitle = "VO12";
+            info.title = "LOR ELVDD @ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
+            info.Ytitle = "ELVDD(V)";
             info.Y = "C";
-            range_pos = _sheet.Range["O28", "U41"];
+            range_pos = _sheet.Range["D18", "J31"];
             AddCurve(
                 _sheet, range_pos, info, start_pos, stop_pos
                 );
 
 
-            info.title = "LOR VO3@ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
-            info.Ytitle = "VO3";
+            info.title = "LOR ELVSS @ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
+            info.Ytitle = "ELVSS(V)";
             info.Y = "D";
-            range_pos = _sheet.Range["X11", "AD24"];
+            range_pos = _sheet.Range["D34", "J47"];
             AddCurve(
             _sheet, range_pos, info, start_pos, stop_pos
             );
 
 
-            info.title = "LOR VO4@ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
-            info.Ytitle = "VO4";
+            info.title = "LOR AVDD @ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
+            info.Ytitle = "AVDD(V)";
             info.Y = "E";
-            range_pos = _sheet.Range["X28", "AD41"];
+            range_pos = _sheet.Range["D50", "J63"];
+            AddCurve(
+            _sheet, range_pos, info, start_pos, stop_pos
+            );
+
+            info.title = "LOR DVDD @ ESwire=" + test_parameter.ESwireList[bin_idx] + "ASsire=" + test_parameter.ASwireList[bin_idx];
+            info.Ytitle = "DVDD(V)";
+            info.Y = "F";
+            range_pos = _sheet.Range["D66", "J79"];
             AddCurve(
             _sheet, range_pos, info, start_pos, stop_pos
             );
@@ -280,7 +291,7 @@ namespace OLEDLite
             Excel.Series series;
             Excel.Range XRange, YRange;
 
-            chart = MyLib.CreateChart(sheet, range_pos, info.title, info.Xtitle, info.Ytitle);
+            chart = MyLib.CreateChart(sheet, range_pos, info.title, info.Xtitle, info.Ytitle, true);
             chart.ChartTitle.Font.Size = 14;
             collection = chart.SeriesCollection();
 
@@ -290,80 +301,87 @@ namespace OLEDLite
                 XRange = sheet.Range[info.X + start_pos[line], info.X + stop_pos[line]];
                 YRange = sheet.Range[info.Y + start_pos[line], info.Y + stop_pos[line]];
 
-                series.Name = "VIN=" + sheet.Cells[info.X + start_pos[line]].Value.ToString();
+                series.Name = "VIN=" + sheet.Range["A" + (start_pos[line] - 1)].Value.ToString();
                 series.XValues = XRange;
                 series.Values = YRange;
             }
         }
 
-        private void LORData(List<int> start_pos)
+        private void LORData(List<int> start_pos, List<int> stop_pos)
         {
-            int row = 45;
+            int row = 12;
             int interval = test_parameter.vinList.Count;
             // ELVDD
-            _sheet.Cells[row + interval * 0, XLS_Table.Q] = "Max (V)";
-            _sheet.Cells[row + interval * 0, XLS_Table.R] = "Min (V)";
-            _sheet.Cells[row + interval * 0, XLS_Table.S] = "Offset (mV)";
-            _sheet.Cells[row + interval * 0, XLS_Table.T] = "PLOR (mV)";
-            _sheet.Cells[row + interval * 0, XLS_Table.U] = "NLOR (mV)";
-            _sheet.Cells[row + interval * 0, XLS_Table.V] = "MaxIO (mA)";
-            // ELVSS
-            _sheet.Cells[row + interval * 1, XLS_Table.Q] = "Max (V)";
-            _sheet.Cells[row + interval * 1, XLS_Table.R] = "Min (V)";
-            _sheet.Cells[row + interval * 1, XLS_Table.S] = "Offset (mV)";
-            _sheet.Cells[row + interval * 1, XLS_Table.T] = "PLOR (mV)";
-            _sheet.Cells[row + interval * 1, XLS_Table.U] = "NLOR (mV)";
-            _sheet.Cells[row + interval * 1, XLS_Table.V] = "MaxIO (mA)";
-            // AVDD
-            _sheet.Cells[row + interval * 2, XLS_Table.Q] = "Max (V)";
-            _sheet.Cells[row + interval * 2, XLS_Table.R] = "Min (V)";
-            _sheet.Cells[row + interval * 2, XLS_Table.S] = "Offset (mV)";
-            _sheet.Cells[row + interval * 2, XLS_Table.T] = "PLOR (mV)";
-            _sheet.Cells[row + interval * 2, XLS_Table.U] = "NLOR (mV)";
-            _sheet.Cells[row + interval * 2, XLS_Table.V] = "MaxIO (mA)";
-            // DVDD
-            _sheet.Cells[row + interval * 3, XLS_Table.Q] = "Max (V)";
-            _sheet.Cells[row + interval * 3, XLS_Table.R] = "Min (V)";
-            _sheet.Cells[row + interval * 3, XLS_Table.S] = "Offset (mV)";
-            _sheet.Cells[row + interval * 3, XLS_Table.T] = "PLOR (mV)";
-            _sheet.Cells[row + interval * 3, XLS_Table.U] = "NLOR (mV)";
-            _sheet.Cells[row + interval * 3, XLS_Table.V] = "MaxIO (mA)";
+            _sheet.Cells[row + interval * 0, XLS_Table.O] = "ELVDD";
+            _sheet.Cells[row + interval * 0, XLS_Table.P] = "Max (V)";
+            _sheet.Cells[row + interval * 0, XLS_Table.Q] = "Min (V)";
+            _sheet.Cells[row + interval * 0, XLS_Table.R] = "Offset (mV)";
+            _sheet.Cells[row + interval * 0, XLS_Table.S] = "PLOR (mV)";
+            _sheet.Cells[row + interval * 0, XLS_Table.T] = "NLOR (mV)";
+            _sheet.Cells[row + interval * 0, XLS_Table.U] = "MaxIO (mA)";
             row++;
-
-            for(int line = 0; line < test_parameter.vinList.Count; line++)
+            // ELVSS
+            _sheet.Cells[row + interval * 1, XLS_Table.O] = "ELVSS";
+            _sheet.Cells[row + interval * 1, XLS_Table.P] = "Max (V)";
+            _sheet.Cells[row + interval * 1, XLS_Table.Q] = "Min (V)";
+            _sheet.Cells[row + interval * 1, XLS_Table.R] = "Offset (mV)";
+            _sheet.Cells[row + interval * 1, XLS_Table.S] = "PLOR (mV)";
+            _sheet.Cells[row + interval * 1, XLS_Table.T] = "NLOR (mV)";
+            _sheet.Cells[row + interval * 1, XLS_Table.U] = "MaxIO (mA)";
+            row++;
+            // AVDD
+            _sheet.Cells[row + interval * 2, XLS_Table.O] = "AVDD";
+            _sheet.Cells[row + interval * 2, XLS_Table.P] = "Max (V)";
+            _sheet.Cells[row + interval * 2, XLS_Table.Q] = "Min (V)";
+            _sheet.Cells[row + interval * 2, XLS_Table.R] = "Offset (mV)";
+            _sheet.Cells[row + interval * 2, XLS_Table.S] = "PLOR (mV)";
+            _sheet.Cells[row + interval * 2, XLS_Table.T] = "NLOR (mV)";
+            _sheet.Cells[row + interval * 2, XLS_Table.U] = "MaxIO (mA)";
+            row++;
+            // DVDD
+            _sheet.Cells[row + interval * 3, XLS_Table.O] = "DVDD";
+            _sheet.Cells[row + interval * 3, XLS_Table.P] = "Max (V)";
+            _sheet.Cells[row + interval * 3, XLS_Table.Q] = "Min (V)";
+            _sheet.Cells[row + interval * 3, XLS_Table.R] = "Offset (mV)";
+            _sheet.Cells[row + interval * 3, XLS_Table.S] = "PLOR (mV)";
+            _sheet.Cells[row + interval * 3, XLS_Table.T] = "NLOR (mV)";
+            _sheet.Cells[row + interval * 3, XLS_Table.U] = "MaxIO (mA)";
+            row++;
+            row = 12;
+            for (int line = 0; line < test_parameter.vinList.Count; line++)
             {
                 // ELVDD
-                _sheet.Cells[row + (interval * 0), XLS_Table.P] = _sheet.Range["A" + start_pos[line]].Value;
-                _sheet.Cells[row + (interval * 0), XLS_Table.Q] = "=MAX(C" + start_pos[line] + ":C" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 0), XLS_Table.R] = "=MIN(C" + start_pos[line] + ":C" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 0), XLS_Table.S] = "=Q" + (row + interval * 0) + "-R" + (row + interval * 0);
-                _sheet.Cells[row + (interval * 0), XLS_Table.T] = "=(Q" + (row + interval * 0) + "-C" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 0), XLS_Table.U] = "=(R" + (row + interval * 0) + "-C" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 0), XLS_Table.V] = "=MAX(G" + start_pos[line] + ":G" + test_parameter.ioutList.Count + ")";
+                _sheet.Cells[row + 1, XLS_Table.O] = _sheet.Range["A" + start_pos[line]].Value;
+                _sheet.Cells[row + 1, XLS_Table.P] = "=MAX(C" + start_pos[line] + ":C" + stop_pos[line] + ")";
+                _sheet.Cells[row + 1, XLS_Table.Q] = "=MIN(C" + start_pos[line] + ":C" + stop_pos[line] + ")";
+                _sheet.Cells[row + 1, XLS_Table.R] = "=P" + (row + 1) + "-Q" + (row + 1);
+                _sheet.Cells[row + 1, XLS_Table.S] = "=(P" + (row + 1) + "-C" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + 1, XLS_Table.T] = "=(Q" + (row + 1) + "-C" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + 1, XLS_Table.U] = "=MAX(G" + start_pos[line] + ":G" + stop_pos[line] + ")";
                 // ELVSS
-                _sheet.Cells[row + (interval * 1), XLS_Table.P] = _sheet.Range["A" + start_pos[line]].Value;
-                _sheet.Cells[row + (interval * 1), XLS_Table.Q] = "=MAX(D" + start_pos[line] + ":D" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 1), XLS_Table.R] = "=MIN(D" + start_pos[line] + ":D" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 1), XLS_Table.S] = "=Q" + (row + interval * 1) + "-R" + (row + interval * 0);;
-                _sheet.Cells[row + (interval * 1), XLS_Table.T] = "=(Q" + (row + interval * 1) + "-D" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 1), XLS_Table.U] = "=(R" + (row + interval * 1) + "-D" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 1), XLS_Table.V] = "=MAX(G" + start_pos[line] + ":G" + test_parameter.ioutList.Count + ")";
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.O] = _sheet.Range["A" + start_pos[line]].Value;
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.P] = "=MAX(D" + start_pos[line] + ":D" + stop_pos[line] + ")";
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.Q] = "=MIN(D" + start_pos[line] + ":D" + stop_pos[line] + ")";
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.R] = "=P" + (row + interval * 1 + 2) + "-Q" + (row + interval * 1 + 2);
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.S] = "=(P" + (row + interval * 1 + 2) + "-D" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.T] = "=(Q" + (row + interval * 1 + 2) + "-D" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + interval * 1 + 2, XLS_Table.U] = "=MAX(G" + start_pos[line] + ":G" + stop_pos[line] + ")";
                 // AVDD
-                _sheet.Cells[row + (interval * 2), XLS_Table.P] = _sheet.Range["A" + start_pos[line]].Value;
-                _sheet.Cells[row + (interval * 2), XLS_Table.Q] = "=MAX(E" + start_pos[line] + ":E" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 2), XLS_Table.R] = "=MIN(E" + start_pos[line] + ":E" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 2), XLS_Table.S] = "=Q" + (row + interval * 2) + "-R" + (row + interval * 0); ;
-                _sheet.Cells[row + (interval * 2), XLS_Table.T] = "=(Q" + (row + interval * 2) + "-E" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 2), XLS_Table.U] = "=(R" + (row + interval * 2) + "-E" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 2), XLS_Table.V] = "=MAX(H" + start_pos[line] + ":H" + test_parameter.ioutList.Count + ")";
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.O] = _sheet.Range["A" + start_pos[line]].Value;
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.P] = "=MAX(E" + start_pos[line] + ":E" + stop_pos[line] + ")";
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.Q] = "=MIN(E" + start_pos[line] + ":E" + stop_pos[line] + ")";
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.R] = "=P" + (row + interval * 2 + 3) + "-Q" + (row + interval * 2 + 3);
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.S] = "=(P" + (row + interval * 2 + 3) + "-E" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.T] = "=(Q" + (row + interval * 2 + 3) + "-E" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + (interval * 2) + 3, XLS_Table.U] = "=MAX(H" + start_pos[line] + ":H" + stop_pos[line] + ")";
                 // DVDD
-                _sheet.Cells[row + (interval * 3), XLS_Table.P] = _sheet.Range["A" + start_pos[line]].Value;
-                _sheet.Cells[row + (interval * 3), XLS_Table.Q] = "=MAX(F" + start_pos[line] + ":F" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 3), XLS_Table.R] = "=MIN(F" + start_pos[line] + ":F" + test_parameter.ioutList.Count + ")";
-                _sheet.Cells[row + (interval * 3), XLS_Table.S] = "=Q" + (row + interval * 2) + "-R" + (row + interval * 0); ;
-                _sheet.Cells[row + (interval * 3), XLS_Table.T] = "=(Q" + (row + interval * 2) + "-F" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 3), XLS_Table.U] = "=(R" + (row + interval * 2) + "-F" + start_pos[line] + ")*1000";
-                _sheet.Cells[row + (interval * 3), XLS_Table.V] = "=MAX(I" + start_pos[line] + ":I" + test_parameter.ioutList.Count + ")";
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.O] = _sheet.Range["A" + start_pos[line]].Value;
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.P] = "=MAX(F" + start_pos[line] + ":F" + stop_pos[line] + ")";
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.Q] = "=MIN(F" + start_pos[line] + ":F" + stop_pos[line] + ")";
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.R] = "=P" + (row + interval * 3 + 4) + "-Q" + (row + interval * 3 + 4);
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.S] = "=(P" + (row + interval * 3 + 4) + "-F" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.T] = "=(Q" + (row + interval * 3 + 4) + "-F" + start_pos[line] + ")*1000";
+                _sheet.Cells[row + (interval * 3) + 4, XLS_Table.U] = "=MAX(I" + start_pos[line] + ":I" + stop_pos[line] + ")";
 
                 row++;
             }
