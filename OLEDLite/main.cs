@@ -278,7 +278,6 @@ namespace OLEDLite
             test_parameter.steadyTime = (int)nu_steady.Value;
             test_parameter.run_stop = false;
             test_parameter.burst_period = (1 / ((double)nu_Sys_clk.Value * Math.Pow(10, 6)));
-            
 
             // code Inrush
             test_parameter.addr = (byte)nu_addr.Value;
@@ -290,10 +289,10 @@ namespace OLEDLite
             test_parameter.CodeInrush_ESwire = RB_ESwire.Checked;
 
             // test condition
-            test_parameter.vin_info = tb_Vin.Text;
-            test_parameter.eload_info = test_parameter.ioutList[0] * 1000 + "0A~" + test_parameter.ioutList[test_parameter.ioutList.Count - 1] * 1000 + "mA";
+            test_parameter.vin_info = tb_Vin.Text + "V";
+            test_parameter.eload_info = test_parameter.ioutList[0] * 1000 + "mA~" + test_parameter.ioutList[test_parameter.ioutList.Count - 1] * 1000 + "mA";
             test_parameter.ver_info = win_name;
-            test_parameter.date_info = DateTime.Now.ToString("yyyyMMdd");
+            test_parameter.date_info = DateTime.Now.ToString("yyyyMMdd_hhmm");
             
             return true;
         }

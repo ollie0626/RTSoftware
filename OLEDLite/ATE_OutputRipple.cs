@@ -155,11 +155,13 @@ namespace OLEDLite
                     _sheet.Cells[3, XLS_Table.A] = "Date:";
                     _sheet.Cells[4, XLS_Table.A] = "Note:";
                     _sheet.Cells[5, XLS_Table.A] = "Version:";
+                    _sheet.Cells[6, XLS_Table.A] = "Temperature";
 
                     _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
                     _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
                     _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
+                    _sheet.Cells[6, XLS_Table.B] = temp;
 #endif
                     ccm_enable = false;
                     
@@ -343,7 +345,7 @@ namespace OLEDLite
                 TimeSpan timeSpan = stopWatch.Elapsed;
                 AddCruve(start_pos, stop_pos);
                 string conditions = eLoadInfo == "" ? "" : eLoadInfo.Replace("\r\n", "") + "_";
-                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "C_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "C_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
                 _book.Close(false);
                 _book = null;
                 _app.Quit();

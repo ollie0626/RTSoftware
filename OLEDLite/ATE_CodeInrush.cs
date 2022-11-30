@@ -117,11 +117,13 @@ namespace OLEDLite
             _sheet.Cells[3, XLS_Table.A] = "Date";
             _sheet.Cells[4, XLS_Table.A] = "Note";
             _sheet.Cells[5, XLS_Table.A] = "Version";
+            _sheet.Cells[6, XLS_Table.A] = "Temperatrue";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
             _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
+            _sheet.Cells[6, XLS_Table.B] = temp;
 #endif
             OSCInit();
             InsControl._power.AutoPowerOff();
@@ -166,6 +168,7 @@ namespace OLEDLite
 
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         System.Threading.Thread.Sleep(500);
+                        MyLib.EloadFixChannel();
                         MyLib.Switch_ELoadLevel(test_parameter.ioutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.ioutList[iout_idx]);
                         double tempVin = ori_vinTable[vin_idx];

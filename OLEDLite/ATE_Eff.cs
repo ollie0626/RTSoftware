@@ -11,6 +11,16 @@ using System.Drawing;
 
 namespace OLEDLite
 {
+    public struct CurveInfo
+    {
+        public string title;
+        public string Xtitle;
+        public string Ytitle;
+        public string X;
+        public string Y;
+    };
+
+
     public class ATE_Eff : TaskRun
     {
         Excel.Application _app;
@@ -57,11 +67,13 @@ namespace OLEDLite
             _sheet.Cells[3, XLS_Table.A] = "Date";
             _sheet.Cells[4, XLS_Table.A] = "Note";
             _sheet.Cells[5, XLS_Table.A] = "Version";
+            _sheet.Cells[6, XLS_Table.A] = "Temperature";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
             _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
             _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
+            _sheet.Cells[6, XLS_Table.B] = temp;
 
             string X_axis = "";
             switch (test_parameter.eload_ch_select)
@@ -100,7 +112,7 @@ namespace OLEDLite
                     _range = _sheet.Range["A" + row, "L" + row];
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     row++;
-                    _sheet.Cells[row, XLS_Table.A] = string.Format("VIN={0:0.00}", test_parameter.vinList[vin_idx]);
+                    _sheet.Cells[row, XLS_Table.A] = string.Format("VIN={0:0.00}V", test_parameter.vinList[vin_idx]);
                     _sheet.Cells[row, XLS_Table.B] = "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx];
                     row++;
 #endif
@@ -158,7 +170,6 @@ namespace OLEDLite
 
                             pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
                             for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
-
                             for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
                         }
 
@@ -208,7 +219,7 @@ namespace OLEDLite
                 AddAllCurve(start_pos, stop_pos, bin_idx, X_axis);
                 LORData(start_pos, stop_pos);
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Efficiency @ ESwire=" + test_parameter.ESwireList[bin_idx]
-                                      + "ASsire=" + test_parameter.ASwireList[bin_idx] + DateTime.Now.ToString("yyyyMMdd"), _book);
+                                      + "ASsire=" + test_parameter.ASwireList[bin_idx] + "_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
                 _book.Close(false);
                 _book = null;
                 _app.Quit();
@@ -269,15 +280,6 @@ namespace OLEDLite
             _sheet, range_pos, info, start_pos, stop_pos
             );
         }
-
-        public struct CurveInfo
-        {
-            public string title;
-            public string Xtitle;
-            public string Ytitle;
-            public string X;
-            public string Y;
-        };
 
         private void AddCurve(
                               Excel.Worksheet sheet,

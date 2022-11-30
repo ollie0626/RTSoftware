@@ -240,6 +240,7 @@ namespace OLEDLite
                     _sheet.Cells[2, XLS_Table.A] = "Date:";
                     _sheet.Cells[3, XLS_Table.A] = "Note:";
                     _sheet.Cells[4, XLS_Table.A] = "Version";
+                    _sheet.Cells[5, XLS_Table.A] = "Temperature";
                     string res = "";
                     for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
                         res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
@@ -247,6 +248,7 @@ namespace OLEDLite
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
                     _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
                     _sheet.Cells[4, XLS_Table.B] = test_parameter.ver_info;
+                    _sheet.Cells[5, XLS_Table.B] = temp;
 
                     int idx = 0;
                     eLoadInfo = "";
@@ -385,7 +387,7 @@ namespace OLEDLite
                 TimeSpan timeSpan = stopWatch.Elapsed;
                 AddCruve(start_pos, stop_pos);
                 string conditions = eLoadInfo == "" ? "" : eLoadInfo + "_";
-                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_TDMA Data Collection_" + conditions + SwireInfo  + "_" + DateTime.Now.ToString("yyyyMMdd"), _book);
+                MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_TDMA Data Collection_" + conditions + SwireInfo  + "_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
                 _book.Close(false);
                 _book = null;
                 _app.Quit();
