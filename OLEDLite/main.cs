@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.3";
+        private static string ver = "v1.4";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -33,6 +33,9 @@ namespace OLEDLite
         private ATE_OutputRipple _ate_outputripple = new ATE_OutputRipple();
         private ATE_CodeInrush _ate_codeinrush = new ATE_CodeInrush();
         private ATE_Eff _ate_eff = new ATE_Eff();
+        private ATE_Line _ate_line = new ATE_Line();
+        private ATE_UVPDly _ate_uvp_dly = new ATE_UVPDly();
+        private ATE_UVPLevel _ate_uvp_level = new ATE_UVPLevel();
 
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
@@ -71,7 +74,15 @@ namespace OLEDLite
 
         private void ATEItemInit()
         {
-            ate_table = new TaskRun[] { _ate_tdma, _ate_outputripple, _ate_codeinrush, _ate_eff };
+            ate_table = new TaskRun[] { 
+                _ate_tdma,
+                _ate_outputripple,
+                _ate_codeinrush,
+                _ate_eff,
+                _ate_line,
+                _ate_uvp_dly,
+                _ate_uvp_level
+            };
         }
 
         private void main_Resize(object sender, EventArgs e)
@@ -237,11 +248,23 @@ namespace OLEDLite
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
-            switch(cb_item.SelectedIndex)
+
+            //0.TDMA
+            //1.Ripple
+            //2.Code Inrush
+            //3.Eff / Load regulation
+            //4.Line regulation
+            //5.UVP Delay
+            //6.UVP Level
+
+            switch (cb_item.SelectedIndex)
             {
-                // TDMA, Code Inrush
+                // TDMA, Code Inrush, Line regulation
                 case 0:
                 case 2:
+                case 4:
+                case 5:
+                case 6:
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 // Ripple, Efficicency
@@ -250,8 +273,8 @@ namespace OLEDLite
                     test_parameter.ioutList = MyLib.DGData(Eload_DG);
                     break;
             }
-            
-            if(!CK_I2c.Checked)
+
+            if (!CK_I2c.Checked)
             {
 
                 test_parameter.ESwire_state = CK_ESwire.Checked;
@@ -293,7 +316,12 @@ namespace OLEDLite
             test_parameter.eload_info = test_parameter.ioutList[0] * 1000 + "mA~" + test_parameter.ioutList[test_parameter.ioutList.Count - 1] * 1000 + "mA";
             test_parameter.ver_info = win_name;
             test_parameter.date_info = DateTime.Now.ToString("yyyyMMdd_hhmm");
-            
+
+            // Eload CV setting
+            test_parameter.cv_setting = (double)nu_CVSetting.Value;
+            test_parameter.cv_step = (double)nu_CVStep.Value;
+            test_parameter.cv_wait = (double)nu_CVwait.Value;
+
             return true;
         }
 

@@ -77,5 +77,10 @@ namespace OLEDLite
         public static int code_min;
         public static byte addr;
 
+        // current limit
+        public static double cv_setting;
+        public static double cv_wait;
+        public static double cv_step;
+
     }
 }

@@ -35,6 +35,7 @@ namespace OLEDLite
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.label23 = new System.Windows.Forms.Label();
+            this.ck_Iout_mode = new System.Windows.Forms.CheckBox();
             this.nu_Sys_clk = new System.Windows.Forms.NumericUpDown();
             this.ck_func = new System.Windows.Forms.CheckBox();
             this.tb_res_func = new System.Windows.Forms.TextBox();
@@ -57,6 +58,9 @@ namespace OLEDLite
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
             this.label17 = new System.Windows.Forms.Label();
             this.group_interface = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.RB_ASwire = new System.Windows.Forms.RadioButton();
+            this.RB_ESwire = new System.Windows.Forms.RadioButton();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
             this.nu_timeScale = new System.Windows.Forms.NumericUpDown();
@@ -70,10 +74,13 @@ namespace OLEDLite
             this.nu_code_max = new System.Windows.Forms.NumericUpDown();
             this.label29 = new System.Windows.Forms.Label();
             this.nu_addr = new System.Windows.Forms.NumericUpDown();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.nu_swire_num = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.swireTable = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.CK_ENVO4 = new System.Windows.Forms.CheckBox();
+            this.CK_ESwire = new System.Windows.Forms.CheckBox();
+            this.CK_ASwire = new System.Windows.Forms.CheckBox();
             this.tb_initial_bin = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.tb_wave_path = new System.Windows.Forms.TextBox();
@@ -113,6 +120,10 @@ namespace OLEDLite
             this.label13 = new System.Windows.Forms.Label();
             this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
             this.group_eload = new System.Windows.Forms.GroupBox();
+            this.CBIinSelect = new System.Windows.Forms.ComboBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.CBEload = new System.Windows.Forms.ComboBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -126,7 +137,6 @@ namespace OLEDLite
             this.ck_ch3_en = new System.Windows.Forms.CheckBox();
             this.ck_ch2_en = new System.Windows.Forms.CheckBox();
             this.ck_ch1_en = new System.Windows.Forms.CheckBox();
-            this.ck_Iout_mode = new System.Windows.Forms.CheckBox();
             this.bt_eload_sub = new System.Windows.Forms.Button();
             this.bt_eload_add = new System.Windows.Forms.Button();
             this.tb_Iout = new System.Windows.Forms.TextBox();
@@ -143,16 +153,15 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.CK_ESwire = new System.Windows.Forms.CheckBox();
-            this.CK_ASwire = new System.Windows.Forms.CheckBox();
-            this.CK_ENVO4 = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.RB_ESwire = new System.Windows.Forms.RadioButton();
-            this.RB_ASwire = new System.Windows.Forms.RadioButton();
-            this.CBEload = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.CBIinSelect = new System.Windows.Forms.ComboBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.nu_CVwait = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
+            this.label35 = new System.Windows.Forms.Label();
+            this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
@@ -162,6 +171,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_duty)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
             this.group_interface.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vol_min)).BeginInit();
@@ -169,9 +179,9 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).BeginInit();
-            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
             this.group_power.SuspendLayout();
             this.group_chamber.SuspendLayout();
@@ -183,7 +193,11 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -208,6 +222,7 @@ namespace OLEDLite
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.materialButton1);
             this.tabPage2.Controls.Add(this.materialTabSelector1);
             this.tabPage2.Controls.Add(this.label23);
@@ -265,6 +280,12 @@ namespace OLEDLite
             // 
             resources.ApplyResources(this.label23, "label23");
             this.label23.Name = "label23";
+            // 
+            // ck_Iout_mode
+            // 
+            resources.ApplyResources(this.ck_Iout_mode, "ck_Iout_mode");
+            this.ck_Iout_mode.Name = "ck_Iout_mode";
+            this.ck_Iout_mode.UseVisualStyleBackColor = true;
             // 
             // nu_Sys_clk
             // 
@@ -439,7 +460,10 @@ namespace OLEDLite
             resources.GetString("cb_item.Items"),
             resources.GetString("cb_item.Items1"),
             resources.GetString("cb_item.Items2"),
-            resources.GetString("cb_item.Items3")});
+            resources.GetString("cb_item.Items3"),
+            resources.GetString("cb_item.Items4"),
+            resources.GetString("cb_item.Items5"),
+            resources.GetString("cb_item.Items6")});
             resources.ApplyResources(this.cb_item, "cb_item");
             this.cb_item.Name = "cb_item";
             this.cb_item.SelectedIndexChanged += new System.EventHandler(this.cb_item_SelectedIndexChanged);
@@ -485,6 +509,28 @@ namespace OLEDLite
             resources.ApplyResources(this.group_interface, "group_interface");
             this.group_interface.Name = "group_interface";
             this.group_interface.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.RB_ASwire);
+            this.groupBox2.Controls.Add(this.RB_ESwire);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // RB_ASwire
+            // 
+            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
+            this.RB_ASwire.Name = "RB_ASwire";
+            this.RB_ASwire.UseVisualStyleBackColor = true;
+            // 
+            // RB_ESwire
+            // 
+            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
+            this.RB_ESwire.Checked = true;
+            this.RB_ESwire.Name = "RB_ESwire";
+            this.RB_ESwire.TabStop = true;
+            this.RB_ESwire.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -630,15 +676,6 @@ namespace OLEDLite
             0,
             0});
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.CK_ENVO4);
-            this.groupBox1.Controls.Add(this.CK_ESwire);
-            this.groupBox1.Controls.Add(this.CK_ASwire);
-            resources.ApplyResources(this.groupBox1, "groupBox1");
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.TabStop = false;
-            // 
             // nu_swire_num
             // 
             this.nu_swire_num.Hexadecimal = true;
@@ -663,6 +700,37 @@ namespace OLEDLite
             resources.ApplyResources(this.swireTable, "swireTable");
             this.swireTable.Name = "swireTable";
             this.swireTable.RowTemplate.Height = 24;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.CK_ENVO4);
+            this.groupBox1.Controls.Add(this.CK_ESwire);
+            this.groupBox1.Controls.Add(this.CK_ASwire);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // CK_ENVO4
+            // 
+            resources.ApplyResources(this.CK_ENVO4, "CK_ENVO4");
+            this.CK_ENVO4.Name = "CK_ENVO4";
+            this.CK_ENVO4.UseVisualStyleBackColor = true;
+            // 
+            // CK_ESwire
+            // 
+            resources.ApplyResources(this.CK_ESwire, "CK_ESwire");
+            this.CK_ESwire.Checked = true;
+            this.CK_ESwire.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CK_ESwire.Name = "CK_ESwire";
+            this.CK_ESwire.UseVisualStyleBackColor = true;
+            // 
+            // CK_ASwire
+            // 
+            resources.ApplyResources(this.CK_ASwire, "CK_ASwire");
+            this.CK_ASwire.Checked = true;
+            this.CK_ASwire.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CK_ASwire.Name = "CK_ASwire";
+            this.CK_ASwire.UseVisualStyleBackColor = true;
             // 
             // tb_initial_bin
             // 
@@ -960,6 +1028,36 @@ namespace OLEDLite
             this.group_eload.Name = "group_eload";
             this.group_eload.TabStop = false;
             // 
+            // CBIinSelect
+            // 
+            resources.ApplyResources(this.CBIinSelect, "CBIinSelect");
+            this.CBIinSelect.FormattingEnabled = true;
+            this.CBIinSelect.Items.AddRange(new object[] {
+            resources.GetString("CBIinSelect.Items"),
+            resources.GetString("CBIinSelect.Items1"),
+            resources.GetString("CBIinSelect.Items2")});
+            this.CBIinSelect.Name = "CBIinSelect";
+            // 
+            // label32
+            // 
+            resources.ApplyResources(this.label32, "label32");
+            this.label32.Name = "label32";
+            // 
+            // label31
+            // 
+            resources.ApplyResources(this.label31, "label31");
+            this.label31.Name = "label31";
+            // 
+            // CBEload
+            // 
+            resources.ApplyResources(this.CBEload, "CBEload");
+            this.CBEload.FormattingEnabled = true;
+            this.CBEload.Items.AddRange(new object[] {
+            resources.GetString("CBEload.Items"),
+            resources.GetString("CBEload.Items1"),
+            resources.GetString("CBEload.Items2")});
+            this.CBEload.Name = "CBEload";
+            // 
             // groupBox6
             // 
             this.groupBox6.Controls.Add(this.label22);
@@ -1045,12 +1143,6 @@ namespace OLEDLite
             resources.ApplyResources(this.ck_ch1_en, "ck_ch1_en");
             this.ck_ch1_en.Name = "ck_ch1_en";
             this.ck_ch1_en.UseVisualStyleBackColor = true;
-            // 
-            // ck_Iout_mode
-            // 
-            resources.ApplyResources(this.ck_Iout_mode, "ck_Iout_mode");
-            this.ck_Iout_mode.Name = "ck_Iout_mode";
-            this.ck_Iout_mode.UseVisualStyleBackColor = true;
             // 
             // bt_eload_sub
             // 
@@ -1150,79 +1242,97 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // CK_ESwire
+            // groupBox3
             // 
-            resources.ApplyResources(this.CK_ESwire, "CK_ESwire");
-            this.CK_ESwire.Checked = true;
-            this.CK_ESwire.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CK_ESwire.Name = "CK_ESwire";
-            this.CK_ESwire.UseVisualStyleBackColor = true;
+            this.groupBox3.Controls.Add(this.nu_eloadch2);
+            this.groupBox3.Controls.Add(this.label33);
+            this.groupBox3.Controls.Add(this.nu_CVwait);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.nu_CVStep);
+            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Controls.Add(this.nu_CVSetting);
+            this.groupBox3.Controls.Add(this.label36);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
             // 
-            // CK_ASwire
+            // nu_eloadch2
             // 
-            resources.ApplyResources(this.CK_ASwire, "CK_ASwire");
-            this.CK_ASwire.Checked = true;
-            this.CK_ASwire.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CK_ASwire.Name = "CK_ASwire";
-            this.CK_ASwire.UseVisualStyleBackColor = true;
+            this.nu_eloadch2.DecimalPlaces = 3;
+            this.nu_eloadch2.Increment = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.nu_eloadch2, "nu_eloadch2");
+            this.nu_eloadch2.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nu_eloadch2.Name = "nu_eloadch2";
+            this.nu_eloadch2.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
             // 
-            // CK_ENVO4
+            // label33
             // 
-            resources.ApplyResources(this.CK_ENVO4, "CK_ENVO4");
-            this.CK_ENVO4.Name = "CK_ENVO4";
-            this.CK_ENVO4.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
             // 
-            // groupBox2
+            // nu_CVwait
             // 
-            this.groupBox2.Controls.Add(this.RB_ASwire);
-            this.groupBox2.Controls.Add(this.RB_ESwire);
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            resources.ApplyResources(this.nu_CVwait, "nu_CVwait");
+            this.nu_CVwait.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nu_CVwait.Name = "nu_CVwait";
+            this.nu_CVwait.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
             // 
-            // RB_ESwire
+            // label34
             // 
-            resources.ApplyResources(this.RB_ESwire, "RB_ESwire");
-            this.RB_ESwire.Checked = true;
-            this.RB_ESwire.Name = "RB_ESwire";
-            this.RB_ESwire.TabStop = true;
-            this.RB_ESwire.UseVisualStyleBackColor = true;
+            resources.ApplyResources(this.label34, "label34");
+            this.label34.Name = "label34";
             // 
-            // RB_ASwire
+            // nu_CVStep
             // 
-            resources.ApplyResources(this.RB_ASwire, "RB_ASwire");
-            this.RB_ASwire.Name = "RB_ASwire";
-            this.RB_ASwire.UseVisualStyleBackColor = true;
+            this.nu_CVStep.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_CVStep, "nu_CVStep");
+            this.nu_CVStep.Name = "nu_CVStep";
+            this.nu_CVStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
-            // CBEload
+            // label35
             // 
-            resources.ApplyResources(this.CBEload, "CBEload");
-            this.CBEload.FormattingEnabled = true;
-            this.CBEload.Items.AddRange(new object[] {
-            resources.GetString("CBEload.Items"),
-            resources.GetString("CBEload.Items1"),
-            resources.GetString("CBEload.Items2")});
-            this.CBEload.Name = "CBEload";
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
             // 
-            // label31
+            // nu_CVSetting
             // 
-            resources.ApplyResources(this.label31, "label31");
-            this.label31.Name = "label31";
+            this.nu_CVSetting.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_CVSetting, "nu_CVSetting");
+            this.nu_CVSetting.Name = "nu_CVSetting";
+            this.nu_CVSetting.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
             // 
-            // label32
+            // label36
             // 
-            resources.ApplyResources(this.label32, "label32");
-            this.label32.Name = "label32";
-            // 
-            // CBIinSelect
-            // 
-            resources.ApplyResources(this.CBIinSelect, "CBIinSelect");
-            this.CBIinSelect.FormattingEnabled = true;
-            this.CBIinSelect.Items.AddRange(new object[] {
-            resources.GetString("CBIinSelect.Items"),
-            resources.GetString("CBIinSelect.Items1"),
-            resources.GetString("CBIinSelect.Items2")});
-            this.CBIinSelect.Name = "CBIinSelect";
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
             // 
             // main
             // 
@@ -1244,6 +1354,8 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
             this.group_interface.ResumeLayout(false);
             this.group_interface.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_timeScale)).EndInit();
@@ -1252,10 +1364,10 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_min)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_code_max)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_addr)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_swire_num)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).EndInit();
             this.group_power.ResumeLayout(false);
             this.group_power.PerformLayout();
@@ -1271,8 +1383,12 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1402,6 +1518,15 @@ namespace OLEDLite
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.ComboBox CBIinSelect;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.NumericUpDown nu_eloadch2;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown nu_CVwait;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.NumericUpDown nu_CVStep;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.NumericUpDown nu_CVSetting;
+        private System.Windows.Forms.Label label36;
     }
 }
 
