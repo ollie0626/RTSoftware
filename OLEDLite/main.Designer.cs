@@ -33,6 +33,15 @@ namespace OLEDLite
             this.materialTabSelector1 = new MaterialSkin.Controls.MaterialTabSelector();
             this.materialTabControl1 = new MaterialSkin.Controls.MaterialTabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.nu_CVwait = new System.Windows.Forms.NumericUpDown();
+            this.label34 = new System.Windows.Forms.Label();
+            this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
+            this.label35 = new System.Windows.Forms.Label();
+            this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
             this.materialButton1 = new MaterialSkin.Controls.MaterialButton();
             this.label23 = new System.Windows.Forms.Label();
             this.ck_Iout_mode = new System.Windows.Forms.CheckBox();
@@ -153,17 +162,13 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.nu_eloadch2 = new System.Windows.Forms.NumericUpDown();
-            this.label33 = new System.Windows.Forms.Label();
-            this.nu_CVwait = new System.Windows.Forms.NumericUpDown();
-            this.label34 = new System.Windows.Forms.Label();
-            this.nu_CVStep = new System.Windows.Forms.NumericUpDown();
-            this.label35 = new System.Windows.Forms.Label();
-            this.nu_CVSetting = new System.Windows.Forms.NumericUpDown();
-            this.label36 = new System.Windows.Forms.Label();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).BeginInit();
             this.group_funcgen.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Tf)).BeginInit();
@@ -193,11 +198,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -259,6 +259,98 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.tb_res_meter_in);
             resources.ApplyResources(this.tabPage2, "tabPage2");
             this.tabPage2.Name = "tabPage2";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.nu_eloadch2);
+            this.groupBox3.Controls.Add(this.label33);
+            this.groupBox3.Controls.Add(this.nu_CVwait);
+            this.groupBox3.Controls.Add(this.label34);
+            this.groupBox3.Controls.Add(this.nu_CVStep);
+            this.groupBox3.Controls.Add(this.label35);
+            this.groupBox3.Controls.Add(this.nu_CVSetting);
+            this.groupBox3.Controls.Add(this.label36);
+            resources.ApplyResources(this.groupBox3, "groupBox3");
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.TabStop = false;
+            // 
+            // nu_eloadch2
+            // 
+            this.nu_eloadch2.DecimalPlaces = 3;
+            this.nu_eloadch2.Increment = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            resources.ApplyResources(this.nu_eloadch2, "nu_eloadch2");
+            this.nu_eloadch2.Maximum = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.nu_eloadch2.Name = "nu_eloadch2";
+            this.nu_eloadch2.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            // 
+            // label33
+            // 
+            resources.ApplyResources(this.label33, "label33");
+            this.label33.Name = "label33";
+            // 
+            // nu_CVwait
+            // 
+            resources.ApplyResources(this.nu_CVwait, "nu_CVwait");
+            this.nu_CVwait.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.nu_CVwait.Name = "nu_CVwait";
+            this.nu_CVwait.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label34
+            // 
+            resources.ApplyResources(this.label34, "label34");
+            this.label34.Name = "label34";
+            // 
+            // nu_CVStep
+            // 
+            this.nu_CVStep.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_CVStep, "nu_CVStep");
+            this.nu_CVStep.Name = "nu_CVStep";
+            this.nu_CVStep.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label35
+            // 
+            resources.ApplyResources(this.label35, "label35");
+            this.label35.Name = "label35";
+            // 
+            // nu_CVSetting
+            // 
+            this.nu_CVSetting.DecimalPlaces = 3;
+            resources.ApplyResources(this.nu_CVSetting, "nu_CVSetting");
+            this.nu_CVSetting.Name = "nu_CVSetting";
+            this.nu_CVSetting.Value = new decimal(new int[] {
+            90,
+            0,
+            0,
+            0});
+            // 
+            // label36
+            // 
+            resources.ApplyResources(this.label36, "label36");
+            this.label36.Name = "label36";
             // 
             // materialButton1
             // 
@@ -463,7 +555,8 @@ namespace OLEDLite
             resources.GetString("cb_item.Items3"),
             resources.GetString("cb_item.Items4"),
             resources.GetString("cb_item.Items5"),
-            resources.GetString("cb_item.Items6")});
+            resources.GetString("cb_item.Items6"),
+            resources.GetString("cb_item.Items7")});
             resources.ApplyResources(this.cb_item, "cb_item");
             this.cb_item.Name = "cb_item";
             this.cb_item.SelectedIndexChanged += new System.EventHandler(this.cb_item_SelectedIndexChanged);
@@ -1242,98 +1335,6 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.nu_eloadch2);
-            this.groupBox3.Controls.Add(this.label33);
-            this.groupBox3.Controls.Add(this.nu_CVwait);
-            this.groupBox3.Controls.Add(this.label34);
-            this.groupBox3.Controls.Add(this.nu_CVStep);
-            this.groupBox3.Controls.Add(this.label35);
-            this.groupBox3.Controls.Add(this.nu_CVSetting);
-            this.groupBox3.Controls.Add(this.label36);
-            resources.ApplyResources(this.groupBox3, "groupBox3");
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.TabStop = false;
-            // 
-            // nu_eloadch2
-            // 
-            this.nu_eloadch2.DecimalPlaces = 3;
-            this.nu_eloadch2.Increment = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            resources.ApplyResources(this.nu_eloadch2, "nu_eloadch2");
-            this.nu_eloadch2.Maximum = new decimal(new int[] {
-            20,
-            0,
-            0,
-            0});
-            this.nu_eloadch2.Name = "nu_eloadch2";
-            this.nu_eloadch2.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            131072});
-            // 
-            // label33
-            // 
-            resources.ApplyResources(this.label33, "label33");
-            this.label33.Name = "label33";
-            // 
-            // nu_CVwait
-            // 
-            resources.ApplyResources(this.nu_CVwait, "nu_CVwait");
-            this.nu_CVwait.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.nu_CVwait.Name = "nu_CVwait";
-            this.nu_CVwait.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // label34
-            // 
-            resources.ApplyResources(this.label34, "label34");
-            this.label34.Name = "label34";
-            // 
-            // nu_CVStep
-            // 
-            this.nu_CVStep.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_CVStep, "nu_CVStep");
-            this.nu_CVStep.Name = "nu_CVStep";
-            this.nu_CVStep.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // label35
-            // 
-            resources.ApplyResources(this.label35, "label35");
-            this.label35.Name = "label35";
-            // 
-            // nu_CVSetting
-            // 
-            this.nu_CVSetting.DecimalPlaces = 3;
-            resources.ApplyResources(this.nu_CVSetting, "nu_CVSetting");
-            this.nu_CVSetting.Name = "nu_CVSetting";
-            this.nu_CVSetting.Value = new decimal(new int[] {
-            90,
-            0,
-            0,
-            0});
-            // 
-            // label36
-            // 
-            resources.ApplyResources(this.label36, "label36");
-            this.label36.Name = "label36";
-            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1345,6 +1346,12 @@ namespace OLEDLite
             this.materialTabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Sys_clk)).EndInit();
             this.group_funcgen.ResumeLayout(false);
             this.group_funcgen.PerformLayout();
@@ -1383,12 +1390,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_eloadch2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVwait)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVStep)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_CVSetting)).EndInit();
             this.ResumeLayout(false);
 
         }

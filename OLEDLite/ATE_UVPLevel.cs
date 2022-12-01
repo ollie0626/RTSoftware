@@ -229,9 +229,9 @@ namespace OLEDLite
                     InsControl._scope.DoCommand(":MEASure:SOURce FUNCtion2");
                     InsControl._scope.DoCommand(":MEASure:VMAX FUNCtion2");
                     InsControl._scope.DoCommand(":MEASure:VMIN FUNCtion2");
-                    double UVP_amp = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude?");
-                    double UVP_max = InsControl._scope.doQueryNumber(":MEASure:VMAX?");
-                    double UVP_min = InsControl._scope.doQueryNumber(":MEASure:VMIN?");
+                    double UVP_amp = InsControl._scope.doQueryNumber(":MEASure:VAMPlitude? CHAN1");
+                    double UVP_max = InsControl._scope.doQueryNumber(":MEASure:VMAX? CHAN1");
+                    double UVP_min = InsControl._scope.doQueryNumber(":MEASure:VMIN? CHAN1");
 
 
                     //:MEASure:PPULses CHANNEL2

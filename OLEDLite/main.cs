@@ -36,6 +36,7 @@ namespace OLEDLite
         private ATE_Line _ate_line = new ATE_Line();
         private ATE_UVPDly _ate_uvp_dly = new ATE_UVPDly();
         private ATE_UVPLevel _ate_uvp_level = new ATE_UVPLevel();
+        private ATE_CurrentLimit _ate_ocp = new ATE_CurrentLimit();
 
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
@@ -81,7 +82,8 @@ namespace OLEDLite
                 _ate_eff,
                 _ate_line,
                 _ate_uvp_dly,
-                _ate_uvp_level
+                _ate_uvp_level,
+                _ate_ocp
             };
         }
 
@@ -225,7 +227,7 @@ namespace OLEDLite
             test_parameter.HiLo_table.Clear();
             test_parameter.HiLevel = tb_High_level.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.LoLevel = tb_Low_level.Text.Split(',').Select(double.Parse).ToList();
-            test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+            
             Hi_Lo level = new Hi_Lo();
             for (int hi_index = 0; hi_index < test_parameter.HiLevel.Count; hi_index++)
             {
@@ -257,6 +259,17 @@ namespace OLEDLite
             //5.UVP Delay
             //6.UVP Level
 
+            if (cb_item.SelectedIndex == 4)
+            {
+                //test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+                test_parameter.vinList = MyLib.TBData(tb_Vin);
+            }
+            else
+            {
+                test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+            }
+
+
             switch (cb_item.SelectedIndex)
             {
                 // TDMA, Code Inrush, Line regulation
@@ -276,7 +289,6 @@ namespace OLEDLite
 
             if (!CK_I2c.Checked)
             {
-
                 test_parameter.ESwire_state = CK_ESwire.Checked;
                 test_parameter.ASwire_state = CK_ASwire.Checked;
                 test_parameter.ENVO4_state = CK_ENVO4.Checked;
@@ -433,6 +445,62 @@ namespace OLEDLite
                     CBIinSelect.Enabled = true;
                     CBIinSelect.SelectedIndex = 0;
                     break;
+                case 4:
+                    // line regulation
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = false;
+                    ck_Iout_mode.Checked = false;
+                    ck_Iout_mode.Enabled = false;
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = false;
+                    bt_eload_sub.Enabled = false;
+
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = true;
+
+                    CBIinSelect.SelectedIndex = 1;
+                    CBIinSelect.Enabled = false;
+                    break;
+                case 5:
+                    // UVP Delay
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = false;
+
+                    ck_Iout_mode.Checked = false;
+                    ck_Iout_mode.Enabled = false;
+
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = false;
+                    bt_eload_sub.Enabled = false;
+
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = true;
+
+                    CBIinSelect.SelectedIndex = 1;
+                    CBIinSelect.Enabled = false;
+                    break;
+                case 6:
+                    // UVP level
+                    break;
+                case 7:
+                    // Current limit
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = false;
+
+                    ck_Iout_mode.Checked = false;
+                    ck_Iout_mode.Enabled = false;
+
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = false;
+                    bt_eload_sub.Enabled = false;
+
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = true;
+
+                    CBIinSelect.SelectedIndex = 1;
+                    CBIinSelect.Enabled = false;
+                    break;
+
             }
         }
 

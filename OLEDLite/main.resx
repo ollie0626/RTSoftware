@@ -942,6 +942,9 @@
   <data name="cb_item.Items6" xml:space="preserve">
     <value>6. UVP Level</value>
   </data>
+  <data name="cb_item.Items7" xml:space="preserve">
+    <value>7. Current Limit</value>
+  </data>
   <data name="cb_item.Location" type="System.Drawing.Point, System.Drawing">
     <value>771, 18</value>
   </data>
