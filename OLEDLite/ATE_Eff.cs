@@ -39,11 +39,16 @@ namespace OLEDLite
             List<int> stop_pos = new List<int>();
             List<string> Channel_num = new List<string>();
 
-            Channel_num.Add("101"); // vin
-            Channel_num.Add("102"); // vo1
-            Channel_num.Add("103"); // vo2
-            Channel_num.Add("104"); // vo3
-            Channel_num.Add("105"); // vo4
+            Channel_num.Add("101"); // VIN
+            Channel_num.Add("102"); // ELVDD
+            Channel_num.Add("103"); // ELVSS
+            Channel_num.Add("104"); // AVDD
+            Channel_num.Add("105"); // DVDD
+            // -----------------------------------
+            // Eload Channel 1 -> ELVDD + ELVSS
+            // Eload Channel 2 -> AVDD
+            // Eload Channel 3 -> DVDD
+
 
             int row = 11;
             int bin_cnt = 1;
@@ -204,7 +209,7 @@ namespace OLEDLite
                         _sheet.Cells[row, XLS_Table.H] = test_parameter.ASwire_state ? string.Format("{0:0.000}", Iout[1] * 1000) : "0";
                         _sheet.Cells[row, XLS_Table.I] = test_parameter.ENVO4_state ? string.Format("{0:0.000}", Iout[2] * 1000) : "0";
                         _sheet.Cells[row, XLS_Table.J] = "=ABS(A" + row + "*B" + row + ")"; // pin
-                        _sheet.Cells[row, XLS_Table.K] = "=(C" + row + "*ABS(D" + row + "))*G" + row
+                        _sheet.Cells[row, XLS_Table.K] = "=(C" + row + "+ABS(D" + row + "))*G" + row
                                                        + "+E" + row + "*H" + row
                                                        + "+F" + row + "*I" + row;
                         _sheet.Cells[row, XLS_Table.L] = "=(K" + row + "/J" + row + ")*100";
