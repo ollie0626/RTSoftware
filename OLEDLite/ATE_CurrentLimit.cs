@@ -89,7 +89,6 @@ namespace OLEDLite
             stopWatch.Start();
             MyLib = new MyLib();
 
-
             InsControl._scope.AgilentOSC_RST();
             MyLib.WaveformCheck();
             InsControl._scope.CH1_BWLimitOn();
@@ -215,7 +214,7 @@ namespace OLEDLite
                     InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
                     InsControl._scope.Root_RUN();
 #if Report
-                    _sheet.Cells[row, XLS_Table.A] = row - 22;
+                    _sheet.Cells[row, XLS_Table.A] = row - 11;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.vinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = test_parameter.cv_setting;

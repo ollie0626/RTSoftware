@@ -182,7 +182,7 @@ namespace OLEDLite
                     InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name);
 
 #if Report
-                    _sheet.Cells[row, XLS_Table.A] = row - 22;
+                    _sheet.Cells[row, XLS_Table.A] = row - 11;
                     _sheet.Cells[row, XLS_Table.B] = temp;
                     _sheet.Cells[row, XLS_Table.C] = test_parameter.vinList[vin_idx];
                     _sheet.Cells[row, XLS_Table.D] = "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx];

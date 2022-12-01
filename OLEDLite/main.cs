@@ -481,6 +481,21 @@ namespace OLEDLite
                     break;
                 case 6:
                     // UVP level
+                    group_power.Enabled = true;
+                    Eload_DG.Enabled = false;
+
+                    ck_Iout_mode.Checked = false;
+                    ck_Iout_mode.Enabled = false;
+
+                    tb_Iout.Enabled = true;
+                    bt_eload_add.Enabled = false;
+                    bt_eload_sub.Enabled = false;
+
+                    CBEload.SelectedIndex = 0;
+                    CBEload.Enabled = true;
+
+                    CBIinSelect.SelectedIndex = 1;
+                    CBIinSelect.Enabled = false;
                     break;
                 case 7:
                     // Current limit
