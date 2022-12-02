@@ -28,7 +28,7 @@ namespace OLEDLite
         Excel.Workbook _book;
         Excel.Range _range;
 
-        public double temp;
+        //public double temp;
         RTBBControl RTDev = new RTBBControl();
 
         public override void ATETask()
@@ -73,6 +73,7 @@ namespace OLEDLite
             _sheet.Cells[4, XLS_Table.A] = "Note";
             _sheet.Cells[5, XLS_Table.A] = "Version";
             _sheet.Cells[6, XLS_Table.A] = "Temperature";
+            _sheet.Cells[7, XLS_Table.A] = "test time";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
@@ -219,8 +220,11 @@ namespace OLEDLite
                     stop_pos.Add(row - 1);
                 } // power loop
 #if Report
-                
+
+                stopWatch.Stop();
                 TimeSpan timeSpan = stopWatch.Elapsed;
+                string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                _sheet.Cells[7, XLS_Table.B] = time;
                 AddAllCurve(start_pos, stop_pos, bin_idx, X_axis);
                 LORData(start_pos, stop_pos);
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Efficiency @ ESwire=" + test_parameter.ESwireList[bin_idx]

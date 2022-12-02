@@ -18,7 +18,7 @@ namespace OLEDLite
         Excel.Workbook _book;
         Excel.Range _range;
 
-        public double temp;
+        //public double temp;
         MyLib MyLib;
         RTBBControl RTDev = new RTBBControl();
 
@@ -118,6 +118,7 @@ namespace OLEDLite
             _sheet.Cells[4, XLS_Table.A] = "Note";
             _sheet.Cells[5, XLS_Table.A] = "Version";
             _sheet.Cells[6, XLS_Table.A] = "Temperatrue";
+            _sheet.Cells[7, XLS_Table.A] = "test time";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
@@ -135,7 +136,7 @@ namespace OLEDLite
                 _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
                 _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
                 _sheet.Cells[row, XLS_Table.D] = "Iin(mA)";
-                _sheet.Cells[row, XLS_Table.E] = "ESwire:" + test_parameter.ESwireList[bin_idx] + "_ASwire:" + test_parameter.ASwireList[bin_idx];
+                _sheet.Cells[row, XLS_Table.E] = test_parameter.i2c_enable ? "Bin" : "Swire"; ;
                 _sheet.Cells[row, XLS_Table.F] = "Iout (mA)";
                 _sheet.Cells[row, XLS_Table.G] = "Imax(mA)_min";
                 _sheet.Cells[row, XLS_Table.H] = "Vmax(V)_min";
@@ -161,7 +162,7 @@ namespace OLEDLite
                         if (test_parameter.run_stop == true) goto Stop;
                         string res = test_parameter.i2c_enable ? Path.GetFileNameWithoutExtension(binList[bin_idx]) : "Swire_" + test_parameter.code_min + "_" + test_parameter.code_max;
                         string file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_iout={4:0.##}A",
-                                                        row - 22, res, temp,
+                                                        row - 11, res, temp,
                                                         test_parameter.vinList[vin_idx],
                                                         test_parameter.ioutList[iout_idx]);
                         if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
@@ -295,10 +296,8 @@ namespace OLEDLite
             stopWatch.Stop();
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
-            string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-            str_temp += "\r\n" + time;
-            _sheet.Cells[2, XLS_Table.D] = str_temp;
+            _sheet.Cells[7, XLS_Table.B] = time;
             AddCurve(start_pos, stop_pos);
             MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_CodeInrush_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
@@ -309,7 +308,6 @@ namespace OLEDLite
 #endif
             delegate_mess.Invoke();
         }
-
 
 
         private void AddCurve(List<int> start_pos, List<int> stop_pos)
@@ -348,8 +346,5 @@ namespace OLEDLite
 
 
         }
-
-
-
     }
 }

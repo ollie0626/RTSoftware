@@ -192,8 +192,7 @@ namespace OLEDLite
 
         public override void ATETask()
         {
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
+
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
 
@@ -215,6 +214,8 @@ namespace OLEDLite
             for (int interface_idx = 0; interface_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt); interface_idx++) // interface
             {
 #if Report
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
                 row = 11;
                 ExcelInit();
 #endif
@@ -237,18 +238,20 @@ namespace OLEDLite
 
                     _sheet.Cells[1, XLS_Table.A] = "Vin:";
                     _sheet.Cells[2, XLS_Table.A] = "Iout:";
-                    _sheet.Cells[2, XLS_Table.A] = "Date:";
-                    _sheet.Cells[3, XLS_Table.A] = "Note:";
-                    _sheet.Cells[4, XLS_Table.A] = "Version";
-                    _sheet.Cells[5, XLS_Table.A] = "Temperature";
+                    _sheet.Cells[3, XLS_Table.A] = "Date:";
+                    _sheet.Cells[4, XLS_Table.A] = "Note:";
+                    _sheet.Cells[5, XLS_Table.A] = "Version";
+                    _sheet.Cells[6, XLS_Table.A] = "Temperature";
+                    _sheet.Cells[7, XLS_Table.A] = "test time";
+
                     string res = "";
                     for (int i = 0; i < test_parameter.HiLo_table.Count; i++)
                         res += test_parameter.HiLo_table[i].Highlevel + "->" + test_parameter.HiLo_table[i].LowLevel + ", ";
                     _sheet.Cells[1, XLS_Table.B] = res;
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
                     _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
-                    _sheet.Cells[4, XLS_Table.B] = test_parameter.ver_info;
-                    _sheet.Cells[5, XLS_Table.B] = temp;
+                    _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
+                    _sheet.Cells[6, XLS_Table.B] = temp;
 
                     int idx = 0;
                     eLoadInfo = "";
@@ -382,9 +385,11 @@ namespace OLEDLite
                     stop_pos.Add(row - 1);
                     row += 2;
                 } // Func loop
-                
 #if Report
+                stopWatch.Stop();
                 TimeSpan timeSpan = stopWatch.Elapsed;
+                string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                _sheet.Cells[7, XLS_Table.B] = time;
                 AddCruve(start_pos, stop_pos);
                 string conditions = eLoadInfo == "" ? "" : eLoadInfo + "_";
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_TDMA Data Collection_" + conditions + SwireInfo  + "_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
@@ -472,8 +477,5 @@ namespace OLEDLite
             series_vpp.Name = _sheet.Cells[start_pos[0] - 2, XLS_Table.K].Value.ToString();
 #endif
         }
-
-
-
     }
 }

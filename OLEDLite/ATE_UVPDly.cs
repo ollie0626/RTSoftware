@@ -19,7 +19,7 @@ namespace OLEDLite
         Excel.Workbook _book;
         Excel.Range _range;
 
-        public double temp;
+        //public double temp;
         MyLib MyLib = new MyLib();
         RTBBControl RTDev = new RTBBControl();
 
@@ -81,10 +81,25 @@ namespace OLEDLite
             //MyLib.ExcelReportInit(_sheet);
             //MyLib.testCondition(_sheet, "UVP_Dly", bin_cnt, temp);
 
+            _sheet.Cells[1, XLS_Table.A] = "Vin (V)";
+            _sheet.Cells[2, XLS_Table.A] = "CV (%)";
+            _sheet.Cells[3, XLS_Table.A] = "Date";
+            _sheet.Cells[4, XLS_Table.A] = "Version";
+            _sheet.Cells[5, XLS_Table.A] = "Temperature";
+            _sheet.Cells[6, XLS_Table.A] = "Note";
+            _sheet.Cells[7, XLS_Table.A] = "test time";
+
+            _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.cv_setting;
+            _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+            _sheet.Cells[4, XLS_Table.B] = test_parameter.ver_info;
+            _sheet.Cells[5, XLS_Table.B] = temp;
+
+
             _sheet.Cells[row, XLS_Table.A] = "No.";
             _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.D] = "Bin file";
+            _sheet.Cells[row, XLS_Table.D] = test_parameter.i2c_enable ? "Bin" : "Swire";
             _sheet.Cells[row, XLS_Table.E] = "UVP_DLY(ms)";
             _sheet.Cells[row, XLS_Table.F] = "Vout(V)";
             _range = _sheet.Range["A" + row, "D" + row];
@@ -114,7 +129,7 @@ namespace OLEDLite
                     if (!test_parameter.i2c_enable)
                     {
                         file_name = string.Format("{0}_Temp={1}_vin={2:0.##}V_CV={3:0.##}%_Pulse={4}",
-                                    row - 22, temp,
+                                    row - 11, temp,
                                     test_parameter.vinList[vin_idx],
                                     test_parameter.cv_setting,
                                     "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx]
@@ -202,11 +217,8 @@ namespace OLEDLite
             stopWatch.Stop();
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
-
-            string str_temp = _sheet.Cells[2, 2].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-            str_temp += "\r\n" + time;
-            _sheet.Cells[2, 2] = str_temp;
+            _sheet.Cells[7, XLS_Table.B] = time;
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             MyLib.SaveExcelReport(test_parameter.wave_path, temp + "C_UVPDly_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);

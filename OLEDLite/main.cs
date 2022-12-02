@@ -75,7 +75,7 @@ namespace OLEDLite
 
         private void ATEItemInit()
         {
-            ate_table = new TaskRun[] { 
+            ate_table = new TaskRun[] {
                 _ate_tdma,
                 _ate_outputripple,
                 _ate_codeinrush,
@@ -189,7 +189,7 @@ namespace OLEDLite
         private void bt_func_set_Click(object sender, EventArgs e)
         {
             if (InsControl._funcgen == null ||
-                tb_High_level.Text  == "" ||
+                tb_High_level.Text == "" ||
                 tb_Low_level.Text == "") return;
 
             string[] hi_str = tb_High_level.Text.Split(',');
@@ -227,7 +227,7 @@ namespace OLEDLite
             test_parameter.HiLo_table.Clear();
             test_parameter.HiLevel = tb_High_level.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.LoLevel = tb_Low_level.Text.Split(',').Select(double.Parse).ToList();
-            
+
             Hi_Lo level = new Hi_Lo();
             for (int hi_index = 0; hi_index < test_parameter.HiLevel.Count; hi_index++)
             {
@@ -242,47 +242,45 @@ namespace OLEDLite
             // fix iout different channel
             test_parameter.eload_ch_select = CBEload.SelectedIndex;
             test_parameter.eload_iin_select = CBIinSelect.SelectedIndex;
-            test_parameter.eload_en = new bool[4] { ck_ch1_en.Checked, 
-                                                    ck_ch2_en.Checked, 
-                                                    ck_ch3_en.Checked, 
+            test_parameter.eload_en = new bool[4] { ck_ch1_en.Checked,
+                                                    ck_ch2_en.Checked,
+                                                    ck_ch3_en.Checked,
                                                     ck_ch4_en.Checked };
             test_parameter.eload_iout = new double[4] { (double)nu_load1.Value,
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
 
-            //0.TDMA
-            //1.Ripple
-            //2.Code Inrush
-            //3.Eff / Load regulation
-            //4.Line regulation
-            //5.UVP Delay
-            //6.UVP Level
-
-            if (cb_item.SelectedIndex == 4)
+            switch (cb_item.SelectedIndex)
             {
-                //test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
-                test_parameter.vinList = MyLib.TBData(tb_Vin);
+                case 4:
+                    test_parameter.vinList = MyLib.TBData(tb_Vin);
+                    break;
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 5:
+                case 6:
+                case 7:
+                    test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+                    break;
             }
-            else
-            {
-                test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
-            }
-
 
             switch (cb_item.SelectedIndex)
             {
                 // TDMA, Code Inrush, Line regulation
-                case 0:
-                case 2:
-                case 4:
-                case 5:
-                case 6:
+                case 0: // TDMA
+                case 2: // Code Inrush
+                case 4: // Line Regulation
+                case 5: // UVP Dealy time
+                case 6: // UVP Level
+                case 7: // Current limit
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
-                // Ripple, Efficicency
-                case 1:
-                case 3:
+                
+                case 1: // Ripple
+                case 3: // Efficiency
                     test_parameter.ioutList = MyLib.DGData(Eload_DG);
                     break;
             }
@@ -344,17 +342,17 @@ namespace OLEDLite
                 bt_run.Enabled = false;
                 if (!test_parameter_copy())
                 {
-                    bt_run.Enabled = true; 
+                    bt_run.Enabled = true;
                     return;
                 }
 
-                if(ck_multi_chamber.Checked && ck_chamber_en.Checked)
+                if (ck_multi_chamber.Checked && ck_chamber_en.Checked)
                 {
                     p_thread = new ParameterizedThreadStart(multi_ate_process);
                     ATETask = new Thread(p_thread);
                     ATETask.Start(cb_item.SelectedIndex);
                 }
-                else if(ck_chamber_en.Checked)
+                else if (ck_chamber_en.Checked)
                 {
                     p_thread = new ParameterizedThreadStart(Chamber_Task);
                     ATETask = new Thread(p_thread);
@@ -375,147 +373,74 @@ namespace OLEDLite
                 MessageBox.Show(ex.StackTrace);
             }
         }
-        // TODO: FFT funciton
-        //:MEASure:FFT:MAGNitude?\sFUNCtion1,1
 
         private void nu_swire_num_ValueChanged(object sender, EventArgs e)
         {
             swireTable.RowCount = (int)nu_swire_num.Value;
         }
 
+        private void EloadGD_Config(bool state)
+        {
+            Eload_DG.Enabled = state;
+            bt_eload_add.Enabled = state;
+            bt_eload_sub.Enabled = state;
+
+            tb_Iout.Enabled = !state;
+        }
+
+        private void EloadMeasure_Sel(bool state)
+        {
+            CBEload.SelectedIndex = 0;
+            CBEload.Enabled = state;
+
+            CBIinSelect.SelectedIndex = 0;
+            CBIinSelect.Enabled = state;
+        }
+
         private void cb_item_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(cb_item.SelectedIndex)
+            switch (cb_item.SelectedIndex)
             {
-                case 0:
-                    // TDMA
+                case 0: // TDMA
                     group_power.Enabled = false;
-                    Eload_DG.Enabled = false;
-                    ck_Iout_mode.Checked = false;
-                    ck_Iout_mode.Enabled = false;
-                    tb_Iout.Enabled = true;
-                    bt_eload_add.Enabled = false;
-                    bt_eload_sub.Enabled = false;
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = false;
-
-                    CBIinSelect.SelectedIndex = 0;
-                    CBIinSelect.Enabled = false;
+                    group_funcgen.Enabled = true;
+                    group_CV.Enabled = false;
+                    group_Code.Enabled = false;
+                    group_SwireSel.Enabled = false;
+                    EloadMeasure_Sel(false);
+                    EloadGD_Config(false);
                     break;
-                case 1:
-                    // output ripple
+                case 1: // Ripple
+                case 3: // Eff / Load regulation
                     group_power.Enabled = true;
-                    Eload_DG.Enabled = true;
-                    ck_Iout_mode.Checked = true;
-                    ck_Iout_mode.Enabled = true;
-                    tb_Iout.Enabled = false;
-                    bt_eload_add.Enabled = true;
-                    bt_eload_sub.Enabled = true;
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = false;
-                    CBIinSelect.SelectedIndex = 0;
-                    CBIinSelect.Enabled = false;
+                    group_funcgen.Enabled = false;
+                    group_CV.Enabled = false;
+                    group_Code.Enabled = false;
+                    group_SwireSel.Enabled = false;
+                    EloadMeasure_Sel(cb_item.SelectedIndex == 3 ? true : false);
+                    EloadGD_Config(true);
                     break;
-                case 2:
-                    // code Inrush
+                case 2: // Code Inrush
+                case 4: // Line regulation (start, stop, step)
                     group_power.Enabled = true;
-                    Eload_DG.Enabled = true;
-                    ck_Iout_mode.Checked = true;
-                    ck_Iout_mode.Enabled = true;
-                    tb_Iout.Enabled = false;
-                    bt_eload_add.Enabled = true;
-                    bt_eload_sub.Enabled = true;
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = false;
-
-                    CBIinSelect.Enabled = false;
+                    group_funcgen.Enabled = false;
+                    group_CV.Enabled = false;
+                    group_Code.Enabled = cb_item.SelectedIndex == 2 ? true : false;
+                    group_SwireSel.Enabled = cb_item.SelectedIndex == 2 ? true : false;
+                    EloadMeasure_Sel(false);
+                    EloadGD_Config(false);
                     break;
-                case 3:
-                    // Eff and Load regulation
+                case 5: // UVP Delay time
+                case 6: // UVP Level
+                case 7: // Current limit
                     group_power.Enabled = true;
-                    Eload_DG.Enabled = true;
-                    ck_Iout_mode.Checked = true;
-                    ck_Iout_mode.Enabled = true;
-                    tb_Iout.Enabled = false;
-                    bt_eload_add.Enabled = true;
-                    bt_eload_sub.Enabled = true;
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = true;
-
-                    CBIinSelect.Enabled = true;
-                    CBIinSelect.SelectedIndex = 0;
+                    group_funcgen.Enabled = false;
+                    group_CV.Enabled = true;
+                    group_Code.Enabled = false;
+                    group_SwireSel.Enabled = false;
+                    EloadMeasure_Sel(false);
+                    EloadGD_Config(false);
                     break;
-                case 4:
-                    // line regulation
-                    group_power.Enabled = true;
-                    Eload_DG.Enabled = false;
-                    ck_Iout_mode.Checked = false;
-                    ck_Iout_mode.Enabled = false;
-                    tb_Iout.Enabled = true;
-                    bt_eload_add.Enabled = false;
-                    bt_eload_sub.Enabled = false;
-
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = true;
-
-                    CBIinSelect.SelectedIndex = 1;
-                    CBIinSelect.Enabled = false;
-                    break;
-                case 5:
-                    // UVP Delay
-                    group_power.Enabled = true;
-                    Eload_DG.Enabled = false;
-
-                    ck_Iout_mode.Checked = false;
-                    ck_Iout_mode.Enabled = false;
-
-                    tb_Iout.Enabled = true;
-                    bt_eload_add.Enabled = false;
-                    bt_eload_sub.Enabled = false;
-
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = true;
-
-                    CBIinSelect.SelectedIndex = 1;
-                    CBIinSelect.Enabled = false;
-                    break;
-                case 6:
-                    // UVP level
-                    group_power.Enabled = true;
-                    Eload_DG.Enabled = false;
-
-                    ck_Iout_mode.Checked = false;
-                    ck_Iout_mode.Enabled = false;
-
-                    tb_Iout.Enabled = true;
-                    bt_eload_add.Enabled = false;
-                    bt_eload_sub.Enabled = false;
-
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = true;
-
-                    CBIinSelect.SelectedIndex = 1;
-                    CBIinSelect.Enabled = false;
-                    break;
-                case 7:
-                    // Current limit
-                    group_power.Enabled = true;
-                    Eload_DG.Enabled = false;
-
-                    ck_Iout_mode.Checked = false;
-                    ck_Iout_mode.Enabled = false;
-
-                    tb_Iout.Enabled = true;
-                    bt_eload_add.Enabled = false;
-                    bt_eload_sub.Enabled = false;
-
-                    CBEload.SelectedIndex = 0;
-                    CBEload.Enabled = true;
-
-                    CBIinSelect.SelectedIndex = 1;
-                    CBIinSelect.Enabled = false;
-                    break;
-
             }
         }
 
@@ -579,8 +504,8 @@ namespace OLEDLite
                 {
                     await TaskRecount();
                     progressBar1.Value = test_parameter.steadyTime;
-                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " 
-                    + (test_parameter.steadyTime / 60).ToString() + ":" 
+                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: "
+                    + (test_parameter.steadyTime / 60).ToString() + ":"
                     + (test_parameter.steadyTime % 60).ToString()));
                 }
 
@@ -620,8 +545,8 @@ namespace OLEDLite
                     {
                         await TaskRecount();
                         progressBar1.Value = test_parameter.steadyTime;
-                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " 
-                        + (test_parameter.steadyTime / 60).ToString() + ":" 
+                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: "
+                        + (test_parameter.steadyTime / 60).ToString() + ":"
                         + (test_parameter.steadyTime % 60).ToString()));
                     }
 
@@ -776,7 +701,7 @@ namespace OLEDLite
 
         private void CK_I2c_CheckedChanged(object sender, EventArgs e)
         {
-            if(CK_I2c.Checked)
+            if (CK_I2c.Checked)
             {
                 nu_addr.Visible = true;
                 nu_code_max.Hexadecimal = true;

@@ -18,7 +18,7 @@ namespace OLEDLite
         //Excel.Range _range;
         string eLoadInfo = "";
         string SwireInfo = "";
-        string VinInfo = "";
+        //string VinInfo = "";
         RTBBControl RTDev = new RTBBControl();
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
@@ -32,7 +32,6 @@ namespace OLEDLite
         {
             System.Windows.Forms.MessageBox.Show("Output ripple test finished!!!", "OLED-Lit Tool", System.Windows.Forms.MessageBoxButtons.OK);
         }
-
 
         private void OSCInint()
         {
@@ -101,14 +100,10 @@ namespace OLEDLite
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             _sheet.Name = "Output ripple";
-            // for iout
         }
 
         public override void ATETask()
         {
-            // board and timer initial
-            Stopwatch stopWatch = new Stopwatch();
-            stopWatch.Start();
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
             RTDev.BoadInit();
@@ -133,6 +128,8 @@ namespace OLEDLite
             {
 
 #if Report
+                Stopwatch stopWatch = new Stopwatch();
+                stopWatch.Start();
                 row = 11;
                 ExcelInit();
 #endif
@@ -156,6 +153,7 @@ namespace OLEDLite
                     _sheet.Cells[4, XLS_Table.A] = "Note:";
                     _sheet.Cells[5, XLS_Table.A] = "Version:";
                     _sheet.Cells[6, XLS_Table.A] = "Temperature";
+                    _sheet.Cells[7, XLS_Table.A] = "test time";
 
                     _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
@@ -342,7 +340,10 @@ namespace OLEDLite
                 } // vin loop
 
 #if Report
+                stopWatch.Stop();
                 TimeSpan timeSpan = stopWatch.Elapsed;
+                string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                _sheet.Cells[7, XLS_Table.B] = time;
                 AddCruve(start_pos, stop_pos);
                 string conditions = eLoadInfo == "" ? "" : eLoadInfo.Replace("\r\n", "") + "_";
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "C_Ripple&Flu_" + conditions + SwireInfo.Replace("\r\n", "") + "_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
@@ -355,12 +356,11 @@ namespace OLEDLite
             } // interface loop
 
         Stop:
-            stopWatch.Stop();
+            
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
             delegate_mess.Invoke();
         }
-
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
         {

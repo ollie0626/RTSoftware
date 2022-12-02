@@ -17,7 +17,7 @@ namespace OLEDLite
         Excel.Workbook _book;
         Excel.Range _range;
 
-        public double temp;
+        //public double temp;
         RTBBControl RTDev = new RTBBControl();
 
         public override void ATETask()
@@ -56,6 +56,7 @@ namespace OLEDLite
             _sheet.Cells[4, XLS_Table.A] = "Note";
             _sheet.Cells[5, XLS_Table.A] = "Version";
             _sheet.Cells[6, XLS_Table.A] = "Temperature";
+            _sheet.Cells[7, XLS_Table.A] = "test time";
 
             _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
             _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
@@ -64,18 +65,7 @@ namespace OLEDLite
             _sheet.Cells[6, XLS_Table.B] = temp;
 #endif
             string X_axis = "A";
-            //switch (test_parameter.eload_ch_select)
-            //{
-            //    case 0:
-            //        X_axis = "G";
-            //        break;
-            //    case 1:
-            //        X_axis = "H";
-            //        break;
-            //    case 2:
-            //        X_axis = "I";
-            //        break;
-            //}
+
             InsControl._power.AutoPowerOff();
             for (int bin_idx = 0;
                 bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt);
@@ -161,19 +151,7 @@ namespace OLEDLite
                         // vin, vo12, vo3, vo4
                         double[] measure_data = InsControl._34970A.QuickMEasureDefine(100, Channel_num);
                         double Iin = 0;
-
-                        switch (test_parameter.eload_iin_select)
-                        {
-                            case 0: // 10A level
-                                Iin = InsControl._dmm1.GetCurrent(3);
-                                break;
-                            case 1: // power supply 
-                                Iin = InsControl._power.GetCurrent();
-                                break;
-                            case 2: // 400mA level
-                                Iin = InsControl._dmm1.GetCurrent(1);
-                                break;
-                        }
+                        Iin = InsControl._power.GetCurrent();
 
                         // Io12, Io3, Io4
                         double[] Iout = InsControl._eload.GetAllChannel_Iout();
@@ -192,8 +170,12 @@ namespace OLEDLite
                 }
 
 #if Report
-                
+
+                stopWatch.Stop();
                 TimeSpan timeSpan = stopWatch.Elapsed;
+                string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+                _sheet.Cells[7, XLS_Table.B] = time;
+
                 AddAllCurve(start_pos, stop_pos, bin_idx, X_axis);
                 LIRData(start_pos, stop_pos);
                 MyLib.SaveExcelReport(test_parameter.wave_path, "Temp=" + temp + "_Line Regulation @ ESwire=" + test_parameter.ESwireList[bin_idx]
