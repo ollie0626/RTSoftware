@@ -82,5 +82,11 @@ namespace OLEDLite
         public static double cv_wait;
         public static double cv_step;
 
+        // Lx trigger
+        public static bool buck;
+        public static bool boost;
+        public static bool inverting;
+        public static bool[] LX_item = new bool[3]; // freq, sr, jitter
+
     }
 }
