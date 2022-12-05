@@ -1,369 +1,278 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.ComponentModel;
+using System.Data;
+using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
 using System.Text;
-using System.Threading;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
+using System.Net.Sockets;
+using System.Net;
+using System.IO;
 
 namespace BuckTool
 {
     public class ChamberCtr
     {
-        static string ChamberDirPath = @"\\192.168.10.144\temp\DPBU\Chamber\";
-        static public string ChamberName = "PMIC2_0";
-        static private bool IsFolderExist;
-        static public bool IsTCPConnected = false;
-        static public int FailCnt = 0;
-        static string ChamberTemps = "";
-        static string GetMasterIP = "";
-        //static string GetMasterIP = "";
-        static public TcpListener myTcpListener = null;
-        static public Socket mySocket = null;
-        //宣告網路資料流變數
-        static NetworkStream myNetworkStream = null;
-        //宣告 Tcp 用戶端物件
-        static TcpClient myTcpClient;
-        static byte[] receiveBytes = new byte[512];
-        //Socket mySocket = myTcpListener.AcceptSocket();
-        static System.Timers.Timer Mytimer;
-        static bool MasterFlag = true;
-        static int FailCNT = 0;
-        static public bool IsTCPNoConnected = false;
-        static public double CurrentTemp = 0.0;
-        static public string CurrentStateMaster = "Idle,25";
-        static public string CurrenStateSlave = "No,25";
+        public bool Enable = false;
+        private const int PORT = 36000;
+        public string Role = ""; // Master or Slave
+        private const int BUFFER_SIZE = 2048;
+        private static readonly byte[] buffer = new byte[BUFFER_SIZE];
+        public string Temperature;
 
+        //server
+        public static Socket serverSocket;
+        public static List<Socket> Socket_List = new List<Socket>();
+        public Dictionary<int, string> ClientNowStatus = new Dictionary<int, string>();
+        public string MasterStatus = "WAIT"; // RUN | WAIT | STOP
 
-        static public void CreatShareChamberFolder()
+        //client
+        private static Socket clientSocket;
+        public string SlaveStatus; // READY or OVER
+
+        private delegate void getInfo();
+        private delegate void UpdateUI(string sMessage);
+
+        /******************* PUBLIC *******************/
+        public int GetClientNumber()
         {
-            System.IO.Directory.CreateDirectory(ChamberDirPath + ChamberName);
-            IsFolderExist = Directory.Exists(ChamberDirPath + ChamberName);
-            FailCnt = 0;
+            return Socket_List.Count;
         }
-
-        static public void InitTCPTimer(bool IsMaster)
+        public bool CheckAllClientStatus(string input)
         {
-            int interval = 5000;
-            FailCNT = 0;
-            // IsTCPNoConnected = false;
-            if (Mytimer == null)
+            foreach (var d in ClientNowStatus)
             {
-                Mytimer = new System.Timers.Timer(interval);
-                //設定重複計時
-                Mytimer.AutoReset = true;
-                //設定執行System.Timers.Timer.Elapsed事件
-                Mytimer.Elapsed += new System.Timers.ElapsedEventHandler(Mytimer_tick);
+                if (d.Value != input)
+                    return false;
             }
-            Mytimer.Stop();
-            MasterFlag = IsMaster;
-            Console.WriteLine("Init TCP Timer");
-        }
-
-        static public void SetTCPTimerState(bool IsRun)
-        {
-            FailCNT = 0;
-            //IsTCPNoConnected = false;
-            if (Mytimer != null)
-            {
-                if (IsRun) Mytimer.Start();
-                else
-                {
-                    IsTCPNoConnected = true;
-                    try
-                    {
-                        Console.WriteLine("TCP Stop");
-                        Mytimer.Stop();
-                        mySocket.Close();
-                        myTcpListener.Stop();
-                    }
-                    catch { }
-                }
-            }
-        }
-
-        static private void Mytimer_tick(object sender, System.Timers.ElapsedEventArgs e)
-        {
-            try
-            {
-                if (MasterFlag)
-                    CreatTCPServer();
-                else
-                    CreatSlaveConnect();
-            }
-            catch { }
-            //Console.WriteLine("IsSameState :" + ChamberCtr.CheckAllIdle() + "   Fail:" + FailCNT.ToString());
-            Console.WriteLine("{3}:Master {0}, Slave {1}  --- {2}", CurrentStateMaster, CurrenStateSlave, FailCNT, MasterFlag);
-
-        }
-
-        static public bool CreatTCPServer()
-        {
-            //if(IsTCPConnected && myTcpListener != null)
-            // myTcpListener.Stop();
-
-            //IsTCPConnected = false;
-            /* if (mySocket != null)
-             {
-                 mySocket.Close();
-             }*/
-            if (FailCNT > 2) CurrenStateSlave = "";
-            if (IsTCPNoConnected) return true;
-            if (FailCNT > 60) IsTCPNoConnected = true;
-            else IsTCPNoConnected = false;
-            if (myTcpListener == null)
-            {
-                IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-                IPAddress[] addr = ipEntry.AddressList;
-                for (int i = 0; i < addr.Length; i++)
-                {
-                    Console.WriteLine("IP Address {0}: {1} ", i, addr[i].ToString());
-                }
-                // myTcpListener = new TcpListener(addr[addr.Length - 1], 36000);
-                myTcpListener = new TcpListener(addr[addr.Length - 1], 36000);
-            }
-            myTcpListener.Start();
-
-            try
-            {
-                if (myTcpListener.Pending())
-                {
-                    FailCNT = 0;
-                    mySocket = myTcpListener.AcceptSocket();
-                    ///向客戶端傳送一條訊息
-                    byte[] date = System.Text.Encoding.UTF8.GetBytes(CurrentStateMaster);//轉換成為bytes陣列
-                    mySocket.Send(date);
-                    ///接收一條客戶端的訊息
-                    //byte[] dateBuffer = new byte[1024];
-                    int count = mySocket.Receive(receiveBytes);
-                    CurrenStateSlave = System.Text.Encoding.UTF8.GetString(receiveBytes, 0, count);
-                    //Console.WriteLine("Back : " + CurrenStateSlave);
-                    Thread.Sleep(50);
-                    mySocket.Close();
-                    myTcpListener.Stop();
-                }
-                else
-                {
-                    //   Console.WriteLine("Slave {0} 通訊埠 {1} 無法連接  !!", GetMasterIP, 360000);
-                    FailCNT++;
-                }
-            }
-            catch { FailCNT++; }
             return true;
         }
-
-        static public bool CreatSlaveConnect()
+        private void GetInfo_Role()
         {
-            /*  if(myTcpClient == null)
-
-              if(IsTCPConnected)
-              {
-                  myTcpClient.Close();
-                  IsTCPConnected = false;
-              }
-                  */
-            if (FailCNT > 2) CurrentStateMaster = "";
-            if (IsTCPNoConnected) return true;
-
-            if (IsTCPConnected)
+            //if (this.InvokeRequired)
+            //{
+            //    getInfo del = new getInfo(GetInfo_Role);
+            //    this.Invoke(del);
+            //}
+            //else
+            //{
+            //    //Role = $[1];
+            //}
+        }
+        public void Init(string temperature)
+        {
+            //GetInfo_Role();
+            switch (Role)
             {
-                myTcpClient.Close();
-                IsTCPConnected = false;
-            }
+                case "Master":
+                    Temperature = temperature;
+                    break;
 
-            if (FailCNT > 60) IsTCPNoConnected = true;
-            else IsTCPNoConnected = false;
+                case "Slave":
+                    break;
+
+                default:
+                    break;
+            }
+        }
+        public void End()
+        {
+            switch (Role)
+            {
+                case "Master":
+                    Socket_List.Clear();
+                    ClientNowStatus.Clear();
+                    break;
+
+                case "Slave":
+                    break;
+
+                default:
+                    break;
+            }
+        }
+
+        /******************* MASTER *******************/
+
+        private void ReceiveCallback(IAsyncResult AR)
+        {
+            Socket current = (Socket)AR.AsyncState;
+            int received;
 
             try
             {
-                myTcpClient = new TcpClient();
-                //測試連線至遠端主機 
-                myTcpClient.Connect(GetMasterIP, 36000);
-                NetworkStream ns = myTcpClient.GetStream();
-                int Len = ns.Read(receiveBytes, 0, receiveBytes.Length);
-                CurrentStateMaster = Encoding.Default.GetString(receiveBytes, 0, Len);
-                //Console.WriteLine(CurrentStateMaster);
-                FailCNT = 0;
-                byte[] msgByte = Encoding.Default.GetBytes(CurrenStateSlave);
-                ns.Write(msgByte, 0, msgByte.Length);
-                Thread.Sleep(50);
-                myTcpClient.Close();
-                return true;
+                received = current.EndReceive(AR);
             }
-            catch
+            catch (SocketException)
             {
-                //Console.WriteLine ("主機 {0} 通訊埠 {1} 無法連接  !!", GetMasterIP, 360000);
-                FailCNT++;
+                ClientNowStatus.Remove(Socket_List.IndexOf(current));
+                Console.WriteLine(string.Format("[Client {0}]: forcefully disconnected.", Socket_List.IndexOf(current)));
+                current.Close();
+                Socket_List.Remove(current);
+                return;
             }
-            myTcpClient.Close();
-            return false;
-        }
 
-        static public bool CheckAllIdle()
-        {
-            if (CurrentStateMaster.Contains("Idle") && CurrenStateSlave.Contains("Idle"))
+            byte[] recBuf = new byte[received];
+            Array.Copy(buffer, recBuf, received);
+            string text = Encoding.ASCII.GetString(recBuf);
+
+            if (text.ToLower() == "temperature")
             {
-                if (CurrentStateMaster == CurrenStateSlave) return true;
-                return false;
+                Console.WriteLine(string.Format("[Client {0}]: request temperature.", Socket_List.IndexOf(current)));
+                byte[] data = Encoding.ASCII.GetBytes(Temperature);
+                current.Send(data);
             }
-            return false;
-        }
-        //寫入資料
-        static public void WriteData2Master()
-        {
-            String strTest = "SlaveTestOK";
-            //將字串轉 byte 陣列，使用 ASCII 編碼
-            Byte[] myBytes = Encoding.ASCII.GetBytes(strTest);
-            myNetworkStream = myTcpClient.GetStream();
-            myNetworkStream.Write(myBytes, 0, myBytes.Length);
-        }
-
-        static public void DeleteShareChamberFile()
-        {
-            if (IsFolderExist)
+            else if (text.ToLower() == "status")
             {
-                System.IO.DirectoryInfo di = new DirectoryInfo(ChamberDirPath + ChamberName);
-
-                foreach (FileInfo file in di.GetFiles())
-                {
-                    file.Delete();
-                }
+                Console.WriteLine(string.Format("[Client {0}]: request status.", Socket_List.IndexOf(current)));
+                byte[] data = Encoding.ASCII.GetBytes(MasterStatus);
+                current.Send(data);
             }
-        }
-
-        static public void DeleteFolder()
-        {
-            if (IsFolderExist)
-                System.IO.Directory.Delete(ChamberDirPath + ChamberName, true);
-        }
-
-        static public void CreatTempList(string TempList)
-        {
-            if (IsFolderExist)
+            else if (text.ToLower() == "ready")
             {
-                string time = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string path = string.Format("{0}\\{1}_TempList_{2}", ChamberDirPath + ChamberName, time, TempList);
-                using (StreamWriter sw = File.CreateText(path))
-                {
-                    sw.WriteLine(GetIP());
-                    sw.Close();
-                }
-                FailCnt = 0;
+                ClientNowStatus[Socket_List.IndexOf(current)] = "ready";
+                Console.WriteLine(string.Format("[Client {0}]: ready. Return status now: {1}", Socket_List.IndexOf(current), MasterStatus));
+                byte[] data = Encoding.ASCII.GetBytes(MasterStatus);
+                current.Send(data);
             }
-        }
-
-        static public string ReadTempList()
-        {
-            //IsTCPConnected = false;
-            if (IsFolderExist)
+            else if (text.ToLower() == "idle")
             {
-                DirectoryInfo di = new DirectoryInfo(ChamberDirPath + ChamberName);
-                FileInfo[] afi = di.GetFiles();
-
-                for (int i = 0; i < afi.Length; ++i)
-                {
-                    Console.WriteLine(afi[i]);
-                    if (afi[i].Name.Contains("TempList"))
-                    {
-                        GetMasterIP = File.ReadAllText(afi[i].FullName);
-                        GetMasterIP = GetMasterIP.Substring(0, GetMasterIP.Length - 2);
-                        Console.WriteLine(GetMasterIP);
-                        return afi[i].Name.Split('_')[2];
-                    }
-                }
-                return "";
+                ClientNowStatus[Socket_List.IndexOf(current)] = "idle";
+                Console.WriteLine(string.Format("[Client {0}]: idle. Return status now: {1}", Socket_List.IndexOf(current), MasterStatus));
+                byte[] data = Encoding.ASCII.GetBytes(MasterStatus);
+                current.Send(data);
             }
-            return "";
+            else if (text.ToLower() == "exit")
+            {
+                Console.WriteLine(string.Format("[Client {0}]: Disconnected", Socket_List.IndexOf(current)));
+                current.Shutdown(SocketShutdown.Both);
+                current.Close();
+                Socket_List.Remove(current);
+                return;
+            }
+            else
+            {
+                Console.WriteLine("Invalid request!");
+                byte[] data = Encoding.ASCII.GetBytes("Server Response: Invalid request!");
+                current.Send(data);
+                current.Shutdown(SocketShutdown.Both);
+                current.Close();
+            }
+
+            current.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, current);
         }
 
-        static public bool CheckTCP_ChamberIdle()
+        private void AcceptCallback(IAsyncResult AR)
         {
-            int Time_1S = 9999999;
-            string tmpObj1 = "";
-            string tmpObj2 = "";
-            int CNT = 0;
-            int CNT2 = 0;
-     
-            for (int i = 0; i < Time_1S; ++i)
+            Socket socket;
+
+            try
             {
-                if (IsTCPNoConnected)
-                {
-                    Console.WriteLine("TCP No Connected....");
-                    return true;
-                }
-                Console.WriteLine("*******State 1: {0}----, 2:{1} , {2}", CurrentStateMaster, CurrenStateSlave, CNT2);
-                if (!string.IsNullOrEmpty(CurrentStateMaster) && !string.IsNullOrEmpty(CurrenStateSlave))
-                {
-                    if (CheckAllIdle()) ++CNT;
-                    if (CNT > 5)
-                    {
-                        CNT2++;
-                    }
-                    if (CNT2 > 10) return true;
-                    string[] str1 = CurrentStateMaster.Split(',');
-                    string[] str2 = CurrenStateSlave.Split(',');
+                socket = serverSocket.EndAccept(AR);
+            }
+            catch (ObjectDisposedException) // I cannot seem to avoid this (on exit when properly closing sockets)
+            {
+                return;
+            }
 
-                    tmpObj1 = "[Slave] : " + CurrenStateSlave + "  " + (i).ToString();
-                    tmpObj2 = "[Mater] : " + CurrentStateMaster + "  " + (i).ToString();
+            Socket_List.Add(socket);
+            ClientNowStatus.Add(Socket_List.IndexOf(socket), "idle");
+            socket.BeginReceive(buffer, 0, BUFFER_SIZE, SocketFlags.None, ReceiveCallback, socket);
+            //string str = string.Format("[Client {0}] connected, waiting for request...", Socket_List.IndexOf(socket));
+            //UpdateServerBoard(str);
+            Console.WriteLine(string.Format("[Client {0}] connected, waiting for request...", Socket_List.IndexOf(socket)));
+            serverSocket.BeginAccept(AcceptCallback, null);
+        }
 
-                    
-                    //MyControl.SendPercentage(0, MasterFlag ? tmpObj1 : tmpObj2);
-                    //Console.WriteLine("[Slave] : " + CurrenStateSlave + "  " + CNT.ToString() + "  " + CNT2.ToString());
-                    //Console.WriteLine("[Mater] : " + CurrentStateMaster + "  " + CNT.ToString() + "  " + CNT2.ToString());
-                }
+        public void SetupServer()
+        {
+            //UpdateServerBoard("Setting up server...");
+            Console.WriteLine("Setting up server...");
+            serverSocket.Bind(new IPEndPoint(IPAddress.Any, PORT));
+            serverSocket.Listen(0);
+            serverSocket.BeginAccept(AcceptCallback, null);
+            //UpdateServerBoard("Server setup complete.");
+            Console.WriteLine("Server setup complete.");
+        }
 
+        public void MasterLisening()
+        {
+            IPAddress[] ipa = Dns.GetHostAddresses(Dns.GetHostName());
+            serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            SetupServer();
+        }
+
+
+        public void MasterStop()
+        {
+            foreach (var c in Socket_List)
+            {
+                c.Shutdown(SocketShutdown.Both);
+                c.Close();
+            }
+            //serverSocket.Close();
+            ClientNowStatus.Clear();
+            Socket_List.Clear();
+        }
+
+        public void Dispose()
+        {
+            serverSocket.Dispose();
+        }
+
+        ///******************* SLAVE *******************/
+        public void ClientConnect(string ip)
+        {
+            clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+
+            while (!clientSocket.Connected)
+            {
                 try
                 {
-                    System.Threading.Thread.Sleep(2000);
+                    clientSocket.Connect(ip, PORT);
                 }
-                catch
+                catch (SocketException)
                 {
+                    Console.WriteLine("Connect Fail!");
                 }
-                
             }
-            return true;
+
+             Console.WriteLine("Connected.");
         }
 
-        static public void WriteCurrTemp()
+        public string ReceiveResponse()
         {
-            if (IsFolderExist)
-            {
-                string time = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string path = string.Format("{0}\\{1}_CurrTemp_{2}", ChamberDirPath + ChamberName, time, 10);
-                using (StreamWriter sw = File.CreateText(path)) { }
-            }
+            var buffer = new byte[2048];
+            int received = clientSocket.Receive(buffer, SocketFlags.None);
+            if (received == 0)
+                return "Fail";
+
+            var data = new byte[received];
+            Array.Copy(buffer, data, received);
+            string str = Encoding.ASCII.GetString(data);
+            return str;
         }
 
-        static public void WriteTestFin(bool IsSlave = true)
+        public void SendString(string str)
         {
-            string str = !IsSlave ? "{0}\\{1}_MasterFin_{2}" : "{0}\\{1}_SlaveFin_{2}";
-            if (IsFolderExist)
-            {
-                string time = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string path = string.Format(str, ChamberDirPath + ChamberName, time, 10);
-                using (StreamWriter sw = File.CreateText(path)) { }
-            }
+            byte[] buffer = Encoding.ASCII.GetBytes(str);
+            clientSocket.Send(buffer, 0, buffer.Length, SocketFlags.None);
         }
-
-        static public void WriteDeviceAlive(bool IsSlave = true)
+        public string SendRequest(string str)
         {
-            string str = !IsSlave ? "{0}\\{1}_MasterLive_{2}" : "{0}\\{1}_SlaveLive_{2}";
-            if (IsFolderExist)
-            {
-                string time = DateTime.Now.ToString("yyyyMMddHHmmss");
-                string path = string.Format(str, ChamberDirPath + ChamberName, time, 10);
-                using (StreamWriter sw = File.CreateText(path)) { }
-            }
+            SendString(str);
+            string result = ReceiveResponse();
+            return result;
         }
-
-        static public string GetIP()
+        public void Exit()
         {
-            IPHostEntry ipEntry = Dns.GetHostEntry(Dns.GetHostName());
-            //IPAddress[] addr = ;
-            return ipEntry.AddressList.Last().ToString();
+            SendString("exit");
+            clientSocket.Shutdown(SocketShutdown.Both);
+            clientSocket.Close();
         }
     }
 }

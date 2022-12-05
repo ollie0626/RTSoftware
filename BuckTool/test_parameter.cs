@@ -19,6 +19,8 @@ namespace BuckTool
         public static List<double> Iout_table = new List<double>();
         public static List<double> Vin_table = new List<double>();
         public static List<string> temp_table = new List<string>();
+
+        public static List<double> tempList = new List<double>();
         public static List<Hi_Lo> HiLo_table = new List<Hi_Lo>();
 
         public static List<double> HiLevel = new List<double>();
@@ -42,6 +44,10 @@ namespace BuckTool
         public static double duty;
         public static double tr;
         public static double tf;
+
+        // chamber parameter
+        //public static int item;
+        //public static int steadyTime;
 
     }
 }

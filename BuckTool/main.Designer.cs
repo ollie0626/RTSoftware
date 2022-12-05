@@ -66,18 +66,6 @@ namespace BuckTool
             this.tb_freqdes1 = new System.Windows.Forms.TextBox();
             this.ck_freq2 = new System.Windows.Forms.CheckBox();
             this.ck_freq1 = new System.Windows.Forms.CheckBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cb_chamber = new System.Windows.Forms.ComboBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.uiProcessBar1 = new Sunny.UI.UIProcessBar();
-            this.label15 = new System.Windows.Forms.Label();
-            this.ck_chaber_en = new System.Windows.Forms.CheckBox();
-            this.nu_steady = new System.Windows.Forms.NumericUpDown();
-            this.label14 = new System.Windows.Forms.Label();
-            this.tb_templist = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.ck_slave = new System.Windows.Forms.CheckBox();
-            this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
             this.uibt_specify = new Sunny.UI.UISymbolButton();
             this.uibt_Wavepath = new Sunny.UI.UISymbolButton();
             this.uibut_binfile = new Sunny.UI.UISymbolButton();
@@ -113,6 +101,22 @@ namespace BuckTool
             this.nu_Videa = new System.Windows.Forms.NumericUpDown();
             this.tb_lineVin = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
+            this.group_chamber = new System.Windows.Forms.GroupBox();
+            this.cb_mode_sel = new System.Windows.Forms.ComboBox();
+            this.label28 = new System.Windows.Forms.Label();
+            this.bt_ipaddress = new System.Windows.Forms.Button();
+            this.uiProcessBar1 = new System.Windows.Forms.ProgressBar();
+            this.tb_IPAddress = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
+            this.ck_chamber_en = new System.Windows.Forms.CheckBox();
+            this.nu_steady = new System.Windows.Forms.NumericUpDown();
+            this.bt_start = new System.Windows.Forms.Button();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tb_templist = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -120,8 +124,6 @@ namespace BuckTool
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
             this.groupBox2.SuspendLayout();
-            this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm1)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -131,6 +133,8 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_funcgen)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Videa)).BeginInit();
+            this.group_chamber.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.SuspendLayout();
             // 
             // led_chamber
@@ -675,142 +679,6 @@ namespace BuckTool
             this.ck_freq1.Text = "Freq 2.5MHz";
             this.ck_freq1.UseVisualStyleBackColor = true;
             // 
-            // groupBox3
-            // 
-            this.groupBox3.Controls.Add(this.cb_chamber);
-            this.groupBox3.Controls.Add(this.label3);
-            this.groupBox3.Controls.Add(this.uiProcessBar1);
-            this.groupBox3.Controls.Add(this.label15);
-            this.groupBox3.Controls.Add(this.ck_chaber_en);
-            this.groupBox3.Controls.Add(this.nu_steady);
-            this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Controls.Add(this.tb_templist);
-            this.groupBox3.Controls.Add(this.label13);
-            this.groupBox3.Controls.Add(this.ck_slave);
-            this.groupBox3.Controls.Add(this.ck_multi_chamber);
-            this.groupBox3.Location = new System.Drawing.Point(426, 274);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(265, 227);
-            this.groupBox3.TabIndex = 70;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Chamber Ctrl";
-            // 
-            // cb_chamber
-            // 
-            this.cb_chamber.FormattingEnabled = true;
-            this.cb_chamber.Location = new System.Drawing.Point(102, 79);
-            this.cb_chamber.Name = "cb_chamber";
-            this.cb_chamber.Size = new System.Drawing.Size(121, 23);
-            this.cb_chamber.TabIndex = 51;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(5, 162);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(101, 15);
-            this.label3.TabIndex = 50;
-            this.label3.Text = "count down: 5:00";
-            // 
-            // uiProcessBar1
-            // 
-            this.uiProcessBar1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
-            this.uiProcessBar1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiProcessBar1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiProcessBar1.Location = new System.Drawing.Point(5, 182);
-            this.uiProcessBar1.MinimumSize = new System.Drawing.Size(70, 3);
-            this.uiProcessBar1.Name = "uiProcessBar1";
-            this.uiProcessBar1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
-            this.uiProcessBar1.Size = new System.Drawing.Size(245, 27);
-            this.uiProcessBar1.Style = Sunny.UI.UIStyle.Gray;
-            this.uiProcessBar1.TabIndex = 49;
-            this.uiProcessBar1.Text = "uiProcessBar1";
-            this.uiProcessBar1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(95, 131);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(83, 15);
-            this.label15.TabIndex = 11;
-            this.label15.Text = "Steady time(s)";
-            // 
-            // ck_chaber_en
-            // 
-            this.ck_chaber_en.AutoSize = true;
-            this.ck_chaber_en.Location = new System.Drawing.Point(9, 22);
-            this.ck_chaber_en.Name = "ck_chaber_en";
-            this.ck_chaber_en.Size = new System.Drawing.Size(115, 19);
-            this.ck_chaber_en.TabIndex = 48;
-            this.ck_chaber_en.Text = "Chamber Enable";
-            this.ck_chaber_en.UseVisualStyleBackColor = true;
-            // 
-            // nu_steady
-            // 
-            this.nu_steady.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_steady.Location = new System.Drawing.Point(184, 129);
-            this.nu_steady.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nu_steady.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.nu_steady.Name = "nu_steady";
-            this.nu_steady.Size = new System.Drawing.Size(66, 23);
-            this.nu_steady.TabIndex = 10;
-            this.nu_steady.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(6, 50);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(87, 15);
-            this.label14.TabIndex = 46;
-            this.label14.Text = "Chamber Temp";
-            // 
-            // tb_templist
-            // 
-            this.tb_templist.Location = new System.Drawing.Point(102, 47);
-            this.tb_templist.Name = "tb_templist";
-            this.tb_templist.Size = new System.Drawing.Size(152, 23);
-            this.tb_templist.TabIndex = 47;
-            this.tb_templist.Text = "25,40,80";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 79);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(90, 15);
-            this.label13.TabIndex = 42;
-            this.label13.Text = "Chamber Name";
-            // 
-            // ck_slave
-            // 
-            this.ck_slave.AutoSize = true;
-            this.ck_slave.Location = new System.Drawing.Point(9, 130);
-            this.ck_slave.Name = "ck_slave";
-            this.ck_slave.Size = new System.Drawing.Size(55, 19);
-            this.ck_slave.TabIndex = 45;
-            this.ck_slave.Text = "Slave";
-            this.ck_slave.UseVisualStyleBackColor = true;
-            // 
-            // ck_multi_chamber
-            // 
-            this.ck_multi_chamber.AutoSize = true;
-            this.ck_multi_chamber.Location = new System.Drawing.Point(8, 105);
-            this.ck_multi_chamber.Name = "ck_multi_chamber";
-            this.ck_multi_chamber.Size = new System.Drawing.Size(107, 19);
-            this.ck_multi_chamber.TabIndex = 44;
-            this.ck_multi_chamber.Text = "Multi Chamber";
-            this.ck_multi_chamber.UseVisualStyleBackColor = true;
-            // 
             // uibt_specify
             // 
             this.uibt_specify.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1308,11 +1176,196 @@ namespace BuckTool
             this.label12.TabIndex = 90;
             this.label12.Text = "Line Vin";
             // 
+            // group_chamber
+            // 
+            this.group_chamber.Controls.Add(this.cb_mode_sel);
+            this.group_chamber.Controls.Add(this.label28);
+            this.group_chamber.Controls.Add(this.bt_ipaddress);
+            this.group_chamber.Controls.Add(this.uiProcessBar1);
+            this.group_chamber.Controls.Add(this.tb_IPAddress);
+            this.group_chamber.Controls.Add(this.label3);
+            this.group_chamber.Controls.Add(this.button1);
+            this.group_chamber.Controls.Add(this.label15);
+            this.group_chamber.Controls.Add(this.ck_chamber_en);
+            this.group_chamber.Controls.Add(this.nu_steady);
+            this.group_chamber.Controls.Add(this.bt_start);
+            this.group_chamber.Controls.Add(this.label14);
+            this.group_chamber.Controls.Add(this.tb_templist);
+            this.group_chamber.Controls.Add(this.label13);
+            this.group_chamber.Controls.Add(this.ck_multi_chamber);
+            this.group_chamber.Location = new System.Drawing.Point(426, 274);
+            this.group_chamber.Name = "group_chamber";
+            this.group_chamber.Size = new System.Drawing.Size(302, 302);
+            this.group_chamber.TabIndex = 92;
+            this.group_chamber.TabStop = false;
+            this.group_chamber.Text = "Chamber Ctrl";
+            // 
+            // cb_mode_sel
+            // 
+            this.cb_mode_sel.FormattingEnabled = true;
+            this.cb_mode_sel.Items.AddRange(new object[] {
+            "Master",
+            "Slave"});
+            this.cb_mode_sel.Location = new System.Drawing.Point(122, 230);
+            this.cb_mode_sel.Name = "cb_mode_sel";
+            this.cb_mode_sel.Size = new System.Drawing.Size(123, 23);
+            this.cb_mode_sel.TabIndex = 56;
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label28.Location = new System.Drawing.Point(119, 212);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(89, 15);
+            this.label28.TabIndex = 55;
+            this.label28.Text = "Master / Slave ";
+            // 
+            // bt_ipaddress
+            // 
+            this.bt_ipaddress.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.bt_ipaddress.Location = new System.Drawing.Point(9, 269);
+            this.bt_ipaddress.Name = "bt_ipaddress";
+            this.bt_ipaddress.Size = new System.Drawing.Size(107, 23);
+            this.bt_ipaddress.TabIndex = 54;
+            this.bt_ipaddress.Text = "IP Address";
+            this.bt_ipaddress.UseVisualStyleBackColor = true;
+            this.bt_ipaddress.Click += new System.EventHandler(this.bt_ipaddress_Click);
+            // 
+            // uiProcessBar1
+            // 
+            this.uiProcessBar1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.uiProcessBar1.Location = new System.Drawing.Point(9, 180);
+            this.uiProcessBar1.Name = "uiProcessBar1";
+            this.uiProcessBar1.Size = new System.Drawing.Size(271, 23);
+            this.uiProcessBar1.TabIndex = 52;
+            // 
+            // tb_IPAddress
+            // 
+            this.tb_IPAddress.Location = new System.Drawing.Point(7, 98);
+            this.tb_IPAddress.Name = "tb_IPAddress";
+            this.tb_IPAddress.Size = new System.Drawing.Size(273, 23);
+            this.tb_IPAddress.TabIndex = 51;
+            this.tb_IPAddress.Text = "168.254.95.1";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label3.Location = new System.Drawing.Point(7, 161);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(101, 15);
+            this.label3.TabIndex = 50;
+            this.label3.Text = "count down: 5:00";
+            // 
+            // button1
+            // 
+            this.button1.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.button1.Location = new System.Drawing.Point(9, 239);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(107, 23);
+            this.button1.TabIndex = 53;
+            this.button1.Text = "Stop";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label15.Location = new System.Drawing.Point(7, 132);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(83, 15);
+            this.label15.TabIndex = 11;
+            this.label15.Text = "Steady time(s)";
+            // 
+            // ck_chamber_en
+            // 
+            this.ck_chamber_en.AutoSize = true;
+            this.ck_chamber_en.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ck_chamber_en.Location = new System.Drawing.Point(10, 22);
+            this.ck_chamber_en.Name = "ck_chamber_en";
+            this.ck_chamber_en.Size = new System.Drawing.Size(115, 19);
+            this.ck_chamber_en.TabIndex = 48;
+            this.ck_chamber_en.Text = "Chamber Enable";
+            this.ck_chamber_en.UseVisualStyleBackColor = true;
+            // 
+            // nu_steady
+            // 
+            this.nu_steady.Font = new System.Drawing.Font("Calibri", 9.75F);
+            this.nu_steady.Location = new System.Drawing.Point(97, 128);
+            this.nu_steady.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_steady.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_steady.Name = "nu_steady";
+            this.nu_steady.Size = new System.Drawing.Size(77, 23);
+            this.nu_steady.TabIndex = 10;
+            this.nu_steady.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nu_steady.ValueChanged += new System.EventHandler(this.nu_steady_ValueChanged);
+            // 
+            // bt_start
+            // 
+            this.bt_start.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.bt_start.Location = new System.Drawing.Point(9, 210);
+            this.bt_start.Name = "bt_start";
+            this.bt_start.Size = new System.Drawing.Size(107, 23);
+            this.bt_start.TabIndex = 52;
+            this.bt_start.Text = "Start";
+            this.bt_start.UseVisualStyleBackColor = true;
+            this.bt_start.Click += new System.EventHandler(this.bt_start_Click);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label14.Location = new System.Drawing.Point(7, 50);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(87, 15);
+            this.label14.TabIndex = 46;
+            this.label14.Text = "Chamber Temp";
+            // 
+            // tb_templist
+            // 
+            this.tb_templist.Location = new System.Drawing.Point(106, 47);
+            this.tb_templist.Name = "tb_templist";
+            this.tb_templist.Size = new System.Drawing.Size(177, 23);
+            this.tb_templist.TabIndex = 47;
+            this.tb_templist.Text = "25,40,80";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.label13.Location = new System.Drawing.Point(7, 79);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(140, 15);
+            this.label13.TabIndex = 42;
+            this.label13.Text = "Master / Link IP Address";
+            // 
+            // ck_multi_chamber
+            // 
+            this.ck_multi_chamber.AutoSize = true;
+            this.ck_multi_chamber.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.ck_multi_chamber.Location = new System.Drawing.Point(136, 21);
+            this.ck_multi_chamber.Name = "ck_multi_chamber";
+            this.ck_multi_chamber.Size = new System.Drawing.Size(77, 19);
+            this.ck_multi_chamber.TabIndex = 44;
+            this.ck_multi_chamber.Text = "Multi-ATE";
+            this.ck_multi_chamber.UseVisualStyleBackColor = true;
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.ClientSize = new System.Drawing.Size(699, 730);
+            this.ClientSize = new System.Drawing.Size(738, 730);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.Controls.Add(this.group_chamber);
             this.Controls.Add(this.tb_lineVin);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.nu_Videa);
@@ -1335,7 +1388,6 @@ namespace BuckTool
             this.Controls.Add(this.tbWave);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tb_Vin);
             this.Controls.Add(this.label2);
@@ -1379,9 +1431,6 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_dmm1)).EndInit();
             this.groupBox4.ResumeLayout(false);
@@ -1392,6 +1441,9 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_Freq)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_funcgen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_Videa)).EndInit();
+            this.group_chamber.ResumeLayout(false);
+            this.group_chamber.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1432,18 +1484,6 @@ namespace BuckTool
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.CheckBox ck_freq1;
         private System.Windows.Forms.CheckBox ck_freq2;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.ComboBox cb_chamber;
-        private System.Windows.Forms.Label label3;
-        private Sunny.UI.UIProcessBar uiProcessBar1;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.CheckBox ck_chaber_en;
-        private System.Windows.Forms.NumericUpDown nu_steady;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.TextBox tb_templist;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.CheckBox ck_slave;
-        private System.Windows.Forms.CheckBox ck_multi_chamber;
         private Sunny.UI.UISymbolButton uibt_specify;
         private Sunny.UI.UISymbolButton uibt_Wavepath;
         private Sunny.UI.UISymbolButton uibut_binfile;
@@ -1483,6 +1523,22 @@ namespace BuckTool
         private System.Windows.Forms.NumericUpDown nu_Videa;
         private System.Windows.Forms.TextBox tb_lineVin;
         private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.GroupBox group_chamber;
+        private System.Windows.Forms.ComboBox cb_mode_sel;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.Button bt_ipaddress;
+        private System.Windows.Forms.ProgressBar uiProcessBar1;
+        private System.Windows.Forms.TextBox tb_IPAddress;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox ck_chamber_en;
+        private System.Windows.Forms.NumericUpDown nu_steady;
+        private System.Windows.Forms.Button bt_start;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tb_templist;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox ck_multi_chamber;
     }
 }
 

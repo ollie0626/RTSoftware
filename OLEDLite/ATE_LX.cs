@@ -36,6 +36,7 @@ namespace OLEDLite
             stopWatch.Start();
             List<int> start_pos = new List<int>();
             List<int> stop_pos = new List<int>();
+            string file_name;
 
             int row = 11;
             int bin_cnt = 1;
@@ -104,6 +105,15 @@ namespace OLEDLite
                 {
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
+                        file_name = string.Format("{0}_Temp={1}_VIN={2}_IOUT={3}_{4}",
+                                        row - 11,
+                                        temp,
+                                        test_parameter.vinList[vin_idx],
+                                        test_parameter.ioutList[iout_idx],
+                                        "ESwire=" + test_parameter.ESwireList[bin_idx] + ", ASwire=" + test_parameter.ASwireList[bin_idx]
+                                        );
+
+
                         if (test_parameter.run_stop == true) goto Stop;
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         System.Threading.Thread.Sleep(500);
@@ -168,7 +178,7 @@ namespace OLEDLite
                                         _sheet.Cells[row, XLS_Table.H] = string.Format("{0:##.000}", freq_mean);
                                         _sheet.Cells[row, XLS_Table.I] = string.Format("{0:##.000}", freq_max);
                                         _sheet.Cells[row, XLS_Table.J] = string.Format("{0:##.000}", freq_min);
-                                        //TODO: Save waveform
+                                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_freq");
                                         InsControl._scope.Root_RUN();
                                         break;
                                     case 1:
@@ -176,7 +186,7 @@ namespace OLEDLite
                                         RiseTask();
                                         double rise = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel1,RISing");
                                         double rise_time = InsControl._scope.Meas_CH1Rise();
-                                        //TODO: Save waveform
+                                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_rising");
                                         InsControl._scope.Root_RUN();
 
                                         // Falling task
@@ -188,7 +198,7 @@ namespace OLEDLite
                                         _sheet.Cells[row, XLS_Table.M] = string.Format("{0:##.000}", fall_time * Math.Pow(10, 9));
                                         _sheet.Cells[row, XLS_Table.N] = string.Format("{0:##.000}", fall * Math.Pow(10, -6));
 
-                                        //TODO: Save waveform
+                                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "falling");
                                         InsControl._scope.Root_RUN();
                                         break;
                                     case 2:
@@ -202,7 +212,7 @@ namespace OLEDLite
                                         _sheet.Cells[row, XLS_Table.O] = MeaPKPK;
                                         _sheet.Cells[row, XLS_Table.P] = MeaStdDev;
                                         //_sheet.Cells[row, XLS_Table.Q] = "=O" + row + "*" + freq_mean + "*100 * 10 ^-9";
-                                        //TODO: Save waveform
+                                        InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_jitter");
                                         InsControl._scope.Root_RUN();
                                         InsControl._scope.DoCommand(":HISTogram:MODE OFF");
                                         InsControl._scope.DoCommand("DISPlay:CGRade OFF");

@@ -15,6 +15,8 @@ using System.Threading;
 using System.Diagnostics;
 using System.IO;
 
+using System.Net;
+
 namespace BuckTool
 {
     public interface ITask
@@ -49,6 +51,8 @@ namespace BuckTool
         TaskRun[] ate_table;
         string App_name = "Buck Tool v1.5.5";
 
+        ChamberCtr chamberCtr = new ChamberCtr();
+
         public void GUInit()
         {
             cb_item.SelectedIndex = 0;
@@ -64,11 +68,11 @@ namespace BuckTool
             led_37940.Color = Color.Red;
             led_funcgen.Color = Color.Red;
 
-            for (int i = 1; i < 21; i++)
-            {
-                cb_chamber.Items.Add("ATE_" + i.ToString());
-            }
-            cb_chamber.SelectedIndex = 0;
+            //for (int i = 1; i < 21; i++)
+            //{
+            //    cb_chamber.Items.Add("ATE_" + i.ToString());
+            //}
+            //cb_chamber.SelectedIndex = 0;
             this.Text = App_name;
         }
 
@@ -226,6 +230,10 @@ namespace BuckTool
             test_parameter.tr = (double)nu_tr.Value;
             test_parameter.tf = (double)nu_tf.Value;
             test_parameter.vout_ideal = (double)nu_Videa.Value;
+
+            //test_parameter.item = cb_item.SelectedIndex;
+
+            chamberCtr.Role = cb_mode_sel.Text;
         }
 
 
@@ -235,15 +243,15 @@ namespace BuckTool
             {
                 test_parameter_copy();
                 test_parameter.run_stop = false;
-                if (ck_multi_chamber.Checked && ck_chaber_en.Checked)
+                if (ck_multi_chamber.Checked && ck_chamber_en.Checked)
                 {
-                    ATETask = new Thread(MultiChamber_Task);
-                    ATETask.Start();
+                    ATETask = new Thread(multi_ate_process);
+                    ATETask.Start(cb_item.SelectedIndex);
                 }
-                else if (ck_chaber_en.Checked)
+                else if (ck_chamber_en.Checked)
                 {
                     ATETask = new Thread(Chamber_Task);
-                    ATETask.Start();
+                    ATETask.Start(cb_item.SelectedIndex);
                 }
                 else
                 {
@@ -269,103 +277,140 @@ namespace BuckTool
             return Task.Factory.StartNew(() => RecountTime());
         }
 
-
-        private async void MultiChamber_Task()
+        public void UpdateRunButton()
         {
-            //test_parameter.temp_table --> List<string> need to converter to double
-            ChamberCtr.IsTCPConnected = false;
-            ChamberCtr.ChamberName = cb_chamber.Text;
-            ChamberCtr.CreatShareChamberFolder();
-            if (!ck_slave.Checked)
-            {
-                // master
-                ChamberCtr.DeleteShareChamberFile();
-                ChamberCtr.CreatTempList(tb_templist.Text);
-                test_parameter.temp_table = tb_templist.Text.Split(',').ToList();
-            }
-            else
-            {
-                // slave
-                System.Threading.Thread.Sleep(1000);
-                tempList = ChamberCtr.ReadTempList();
-                isChamberEn = !string.IsNullOrEmpty(tempList);
-                test_parameter.temp_table = tempList.Split(',').ToList();
-            }
+            this.Invoke((Action)(() => uibt_run.Enabled = true));
+        }
 
-            ChamberCtr.InitTCPTimer(!ck_slave.Checked);
-            ChamberCtr.CurrentStateMaster = "Busy,-999";
-            ChamberCtr.CurrenStateSlave = "Busy,-999";
-            ChamberCtr.IsTCPNoConnected = !ck_multi_chamber.Checked;
-            ChamberCtr.SetTCPTimerState(true);
-            Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            for (int i = 0; i < test_parameter.temp_table.Count; i++)
+
+        private void GetTemperature(string input)
+        {
+            test_parameter.tempList.Clear();
+            string[] temp = input.Split(',');
+            foreach (string str in temp)
             {
-                if (ck_slave.Checked)
+                test_parameter.tempList.Add(Convert.ToInt32(str));
+            }
+        }
+
+        private async void multi_ate_process(object idx)
+        {
+            int timer;
+            //MyLib myLib = new MyLib();
+            //myLib.time = (int)nu_steady.Value;
+            chamberCtr.Init(tb_templist.Text);
+
+            if (chamberCtr.Role == "Master")
+            {
+                GetTemperature(tb_templist.Text);
+                chamberCtr.Dispose();
+
+                foreach (int Temp in test_parameter.tempList)
                 {
-                    ChamberCtr.CurrenStateSlave = "Idle," + test_parameter.temp_table[i].ToString();
-                }
-                else
-                {
-                    ChamberCtr.CurrentStateMaster = "Busy," + test_parameter.temp_table[i].ToString();
+                    ate_table[(int)idx].temp = Temp;
+
+                    Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     SteadyTime = (int)nu_steady.Value;
                     InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
                     InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
                     bool res = InsControl._chamber.InsState();
-                    InsControl._chamber.ChamberOn(Convert.ToDouble(test_parameter.temp_table[i]));
-                    InsControl._chamber.ChamberOn(Convert.ToDouble(test_parameter.temp_table[i]));
-                    await InsControl._chamber.ChamberStable(Convert.ToDouble(test_parameter.temp_table[i]));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(Temp));
+                    await InsControl._chamber.ChamberStable(Convert.ToDouble(Temp));
 
                     for (; SteadyTime > 0;)
                     {
                         await TaskRecount();
-                        uiProcessBar1.Value = SteadyTime;
-                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+                        //progressBar1.Value = test_parameter.steadyTime;
+                        uiProcessBar1.Invoke((MethodInvoker)(() => uiProcessBar1.Value = SteadyTime));
+                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: "
+                        + (SteadyTime / 60).ToString() + ":"
+                        + (SteadyTime % 60).ToString()));
                     }
-                    ChamberCtr.CurrentStateMaster = "Idle," + test_parameter.temp_table[i].ToString();
-                }
-                ChamberCtr.CheckTCP_ChamberIdle();
-                if (ck_slave.Checked) Console.WriteLine("Slave----------Start Run------------------");
-                else Console.WriteLine("Master----------Start Run------------------");
-                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Busy," + test_parameter.temp_table[i].ToString();
-                else ChamberCtr.CurrentStateMaster = "Busy," + test_parameter.temp_table[i].ToString();
 
-                // ATE test task
-                if(cb_item.SelectedIndex == 5)
-                {
-                    for (int j = 0; j < 2; j++)
+                    //STATUS: WAIT
+                    //Get N ready for RUN
+                    timer = 0;
+                    while (true)
                     {
-                        ate_table[j].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                        ate_table[j].ATETask();
+                        if (chamberCtr.CheckAllClientStatus("ready"))
+                        {
+                            chamberCtr.MasterStatus = "RUN";
+                            break;
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "RUN";
+                            Console.WriteLine("[Master]: Time's UP! Change to RUN status.");
+                            break;
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    //ate_table[(int)idx].temp = test_parameter.tempList[i];
+                    ate_table[(int)idx].ATETask();
+
+                    //STATUS: RUN
+                    //Get N over for STOP
+                    timer = 0;
+                    while (true)
+                    {
+                        if (chamberCtr.CheckAllClientStatus("idle"))
+                        {
+                            chamberCtr.MasterStatus = "STOP";
+                            break;
+                        }
+                        if (timer > 9600) // wait for 8 Hour at most
+                        {
+                            chamberCtr.MasterStatus = "STOP";
+                            break;
+                        }
+                        timer += 1;
+                        System.Threading.Thread.Sleep(3000);
                     }
                 }
-                else
-                {
-                    ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                    ate_table[cb_item.SelectedIndex].ATETask();
-                }    
-
-                if (ck_slave.Checked) ChamberCtr.CurrenStateSlave = "Idle,9999";
-                else ChamberCtr.CurrentStateMaster = "Idle,9999";
-                if (ck_slave.Checked) Console.WriteLine("Slave----------WaitFIN------------------");
-                else Console.WriteLine("Master----------WaitFIN------------------");
-                ChamberCtr.CheckTCP_ChamberIdle();
-                if (ck_slave.Checked) Console.WriteLine("Slave----------FIN------------------");
-                else Console.WriteLine("Master----------FIN------------------");
-                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
             }
+            else if (chamberCtr.Role == "Slave")
+            {
+                GetTemperature(chamberCtr.SendRequest("temperature"));
 
+                foreach (int Temp in test_parameter.tempList)
+                {
+                    ate_table[(int)idx].temp = Temp;
+                    //status: ready.
+                    //sent status and request master status 
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("ready") == "RUN")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                    ate_table[(int)idx].ATETask();
+
+                    //status: over.
+                    //
+                    while (true)
+                    {
+                        if (chamberCtr.SendRequest("idle") == "STOP")
+                            break;
+                        System.Threading.Thread.Sleep(3000);
+                    }
+                }
+                chamberCtr.Exit();
+            }
+            UpdateRunButton();
         }
 
-        private async void Chamber_Task()
+        private async void Chamber_Task(object idx)
         {
             test_parameter.temp_table = tb_templist.Text.Split(',').ToList();
             for(int i = 0; i < test_parameter.temp_table.Count; i++)
             {
-                if (!Directory.Exists(tbWave.Text + @"\" + tempList[i] + "C"))
+                if (!Directory.Exists(tbWave.Text + @"\" + test_parameter.temp_table[i] + "C"))
                 {
-                    Directory.CreateDirectory(tbWave.Text + @"\" + tempList[i] + "C");
+                    Directory.CreateDirectory(tbWave.Text + @"\" + test_parameter.temp_table[i] + "C");
                 }
-                test_parameter.waveform_path = tbWave.Text + @"\" + tempList[i] + "C";
+                test_parameter.waveform_path = tbWave.Text + @"\" + test_parameter.temp_table[i] + "C";
 
 
                 SteadyTime = (int)nu_steady.Value;
@@ -377,12 +422,14 @@ namespace BuckTool
                 for (; SteadyTime > 0;)
                 {
                     await TaskRecount();
-                    uiProcessBar1.Value = SteadyTime;
-                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+                    //uiProcessBar1.Value = SteadyTime;
+
+                    uiProcessBar1.Invoke((MethodInvoker)(() => uiProcessBar1.Value = SteadyTime));
+                    label3.Invoke((MethodInvoker)(() => label3.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
                     //label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
                 }
 
-                if(cb_item.SelectedIndex == 5)
+                if((int)idx == 5)
                 {
                     for (int j = 0; j < 2; j++)
                     {
@@ -392,8 +439,8 @@ namespace BuckTool
                 }
                 else
                 {
-                    ate_table[cb_item.SelectedIndex].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                    ate_table[cb_item.SelectedIndex].ATETask();
+                    ate_table[(int)idx].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                    ate_table[(int)idx].ATETask();
                 }
             }
             // test finish chamber to 25C
@@ -537,7 +584,7 @@ namespace BuckTool
             /* chamber info */
             //settings += "23.Chamber_en=$" + (ck_chaber_en.Checked ? "1" : "0") + "$\r\n";
             settings += "23.Chamber_info=$" + tb_templist.Text + "$\r\n";
-            settings += "24.Chamber_name=$" + cb_chamber.SelectedIndex.ToString() + "$\r\n";
+            settings += "24.Chamber_name=$" + tb_IPAddress.Text + "$\r\n";
             settings += "25.Chamber_time=$" + nu_steady.Value.ToString() + "$\r\n";
             
 
@@ -573,7 +620,7 @@ namespace BuckTool
             {
                 textBox1, tbWave, textBox2, tb_Vin, ck_freq1, tb_freqdes1, ck_freq2, tb_freqdes2, nu_Freq, nu_duty, nu_tr,
                 nu_tf, tb_Highlevel, tb_Lowlevel, tb_Iout, tb_osc, nu_power, nu_eload, nu_34970A, nu_chamber, nu_dmm1,
-                nu_dmm2, nu_funcgen, tb_templist, cb_chamber, nu_steady, tb_lineVin, Eload_DG
+                nu_dmm2, nu_funcgen, tb_templist, tb_IPAddress, nu_steady, tb_lineVin, Eload_DG
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -626,6 +673,34 @@ namespace BuckTool
                 
 
             }
+        }
+
+        private void bt_ipaddress_Click(object sender, EventArgs e)
+        {
+            IPAddress[] ipa = Dns.GetHostAddresses(Dns.GetHostName());
+            tb_IPAddress.Text = ipa[1].ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt_start_Click(object sender, EventArgs e)
+        {
+            if (cb_mode_sel.SelectedIndex == 0)
+            {
+                chamberCtr.MasterLisening();
+            }
+            else
+            {
+                chamberCtr.ClientConnect(tb_IPAddress.Text);
+            }
+        }
+
+        private void nu_steady_ValueChanged(object sender, EventArgs e)
+        {
+            uiProcessBar1.Value = (int)nu_steady.Value;
         }
     }
 }
