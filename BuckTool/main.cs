@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.5.5";
+        string App_name = "Buck Tool v1.5.6";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -80,8 +80,7 @@ namespace BuckTool
         public main()
         {
             InitializeComponent();
-            RTBBControl.BoardInit();
-            RTBBControl.GpioInit();
+
             GUInit();
         }
 
@@ -128,14 +127,12 @@ namespace BuckTool
                         led_chamber.Color = Color.Red;
                     break;
                 case 5:
-
                     InsControl._dmm1 = new DMMModule((int)nu_dmm1.Value);
                     if (InsControl._dmm1.InsState())
                         led_dmm1.Color = Color.LightGreen;
                     else
                         led_dmm1.Color = Color.Red;
                     break;
-
                 case 6:
                     InsControl._dmm2 = new DMMModule((int)nu_dmm2.Value);
                     if (InsControl._dmm2.InsState())
@@ -143,7 +140,6 @@ namespace BuckTool
                     else
                         led_dmm2.Color = Color.Red;
                     break;
-
                 case 7:
                     InsControl._funcgen = new FuncGenModule((int)nu_funcgen.Value);
                     if (InsControl._funcgen.InsState())
@@ -241,6 +237,8 @@ namespace BuckTool
         {
             try
             {
+                RTBBControl.BoardInit();
+                RTBBControl.GpioInit();
                 test_parameter_copy();
                 test_parameter.run_stop = false;
                 if (ck_multi_chamber.Checked && ck_chamber_en.Checked)
@@ -260,9 +258,11 @@ namespace BuckTool
                     ATETask.Start(cb_item.SelectedIndex);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine("Error Message:" + ex.Message);
+                Console.WriteLine("StackTrace:" + ex.StackTrace);
+                MessageBox.Show(ex.StackTrace);
             }
         }
 
@@ -406,11 +406,11 @@ namespace BuckTool
             test_parameter.temp_table = tb_templist.Text.Split(',').ToList();
             for(int i = 0; i < test_parameter.temp_table.Count; i++)
             {
-                if (!Directory.Exists(tbWave.Text + @"\" + test_parameter.temp_table[i] + "C"))
+                if (!Directory.Exists(tbWave.Text + test_parameter.temp_table[i] + "C"))
                 {
-                    Directory.CreateDirectory(tbWave.Text + @"\" + test_parameter.temp_table[i] + "C");
+                    Directory.CreateDirectory(tbWave.Text + test_parameter.temp_table[i] + "C");
                 }
-                test_parameter.waveform_path = tbWave.Text + @"\" + test_parameter.temp_table[i] + "C";
+                test_parameter.waveform_path = tbWave.Text + test_parameter.temp_table[i] + "C";
 
 
                 SteadyTime = (int)nu_steady.Value;
