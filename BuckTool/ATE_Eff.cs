@@ -156,7 +156,7 @@ namespace BuckTool
             for (int i = 1; i < 10; i++) _sheet.Columns[i].AutoFit();
 
             AddCruve(start_pos, stop_pos);
-            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Eff" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Eff_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();
