@@ -62,7 +62,7 @@ namespace BuckTool
                 for(int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                 {
                     double Iin, level;
-                    meter1_10A_en = false;
+                    
                     meter2_10A_en = false;
                     MyLib.Relay_Reset(true);
 #if Report
@@ -80,27 +80,36 @@ namespace BuckTool
                     //if (!meter1_10A_en)
                     //    MyLib.Relay_Process(RTBBControl.GPIO2_0, Iin, 0, true, sw400mA, ref meter1_10A_en);
 
-                    if (Iin > 0.3 && !meter1_10A_en)
-                    {
-                        InsControl._power.AutoPowerOff();
-                        InsControl._eload.AllChannel_LoadOff();
-                        InsControl._dmm1.ChangeCurrentLevel(false); // select 10A level
-                        RTBBControl.Meter10A(RTBBControl.GPIO2_0);  // switch relay
-                        InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);      // re-power on
-                        InsControl._eload.CH1_Loading(level);       // turn on loading
-                        meter1_10A_en = true;
-                    }
+
 
                     start_pos.Add(row);
                     for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                     {
                         double Vin, Vout, Iout;
-
+                        meter1_10A_en = false;
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                         double target = test_parameter.Vin_table[vin_idx];
                         InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
+
+                        //Iin = InsControl._power.GetCurrent();
+                        if (Iin > 0.3 && !meter1_10A_en)
+                        {
+                            InsControl._power.AutoPowerOff();
+                            InsControl._eload.AllChannel_LoadOff();
+                            InsControl._dmm1.ChangeCurrentLevel(false); // select 10A level
+                            RTBBControl.Meter10A(RTBBControl.GPIO2_0);  // switch relay
+                            InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[0]);      // re-power on
+                            InsControl._eload.CH1_Loading(level);       // turn on loading
+                            meter1_10A_en = true;
+                        }
+
+
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
+
+
+
+
                         MyLib.Delay1ms(250);
                         Vin = InsControl._34970A.Get_100Vol(1);
                         Vout = InsControl._34970A.Get_100Vol(2);

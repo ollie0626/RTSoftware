@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.5.6";
+        string App_name = "Buck Tool v1.5.7";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -433,7 +433,20 @@ namespace BuckTool
                 {
                     for (int j = 0; j < 2; j++)
                     {
-                        ate_table[j].temp = 25;
+
+                        test_parameter.Vin_table.Clear();
+                        test_parameter.Iout_table.Clear();
+                        if (j == 0)
+                        {
+                            test_parameter.Vin_table = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
+                            test_parameter.Iout_table = MyLib.DGData(Eload_DG);
+                        }
+                        else if (j == 1)
+                        {
+                            test_parameter.Vin_table = MyLib.TBData(tb_lineVin);
+                            test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
+                        }
+                        ate_table[j].temp = Convert.ToDouble(test_parameter.temp_table[i]);
                         ate_table[j].ATETask();
                     }
                 }

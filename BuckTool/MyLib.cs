@@ -242,7 +242,7 @@ namespace BuckTool
                     vin = Convert.ToDouble(string.Format("{0:##.0000}", InsControl._34970A.Get_100Vol(1)));
                     Console.WriteLine(vin);
 
-                    if (Math.Abs(targetV - vin) < 0.003) goto DONE;
+                    if (Math.Abs(targetV - vin) < 0.03) goto DONE;
                     if (vin < (targetV * 1.0002) || vin > (targetV * 0.9998))
                         if (vin > (targetV * 1.0002) || vin < (targetV * 0.9998))
                         {
