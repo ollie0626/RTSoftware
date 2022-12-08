@@ -233,7 +233,7 @@ namespace BuckTool
             test_parameter.vout_ideal = (double)nu_Videa.Value;
 
             //test_parameter.item = cb_item.SelectedIndex;
-
+            test_parameter.chamber_en = ck_chamber_en.Checked;
             chamberCtr.Role = cb_mode_sel.Text;
         }
 

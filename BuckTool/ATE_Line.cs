@@ -75,11 +75,13 @@ namespace BuckTool
                     {
                         InsControl._dmm1.ChangeCurrentLevel(false); // select 10A level
                         RTBBControl.Meter10A(RTBBControl.GPIO2_0);  // switch relay
+                        meter1_10A_en = true;
                     }
                     else
                     {
                         InsControl._dmm1.ChangeCurrentLevel(true); // select 400mA level
                         RTBBControl.Meter400mA(RTBBControl.GPIO2_0);  // switch relay
+                        meter1_10A_en = false;
                     }
 
                     MyLib.Switch_ELoadLevel(level);
@@ -148,8 +150,7 @@ namespace BuckTool
                 } // iout loop
             } // freq loop
 
-            Stop:
-            stopWatch.Stop();
+
 
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
@@ -167,6 +168,8 @@ namespace BuckTool
             _app = null;
             GC.Collect();
 #endif
+            Stop:
+            stopWatch.Stop();
 
         } // ATETask
 
