@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.5.7";
+        string App_name = "Buck Tool v1.5.9";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -718,7 +718,9 @@ namespace BuckTool
 
         private void nu_steady_ValueChanged(object sender, EventArgs e)
         {
+            uiProcessBar1.Maximum = (int)nu_steady.Value;
             uiProcessBar1.Value = (int)nu_steady.Value;
+            
         }
     }
 }

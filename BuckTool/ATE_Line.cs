@@ -62,7 +62,7 @@ namespace BuckTool
                 for(int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                 {
                     double Iin, level;
-                    
+                    meter1_10A_en = false;
                     meter2_10A_en = false;
                     MyLib.Relay_Reset(true);
 #if Report
@@ -86,13 +86,14 @@ namespace BuckTool
                     for (int vin_idx = 0; vin_idx < test_parameter.Vin_table.Count; vin_idx++)
                     {
                         double Vin, Vout, Iout;
-                        meter1_10A_en = false;
+                        
                         if (test_parameter.run_stop == true) goto Stop;
                         if ((iout_idx % 20) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
                         double target = test_parameter.Vin_table[vin_idx];
                         InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
 
-                        //Iin = InsControl._power.GetCurrent();
+                        
+                        
                         if (Iin > 0.3 && !meter1_10A_en)
                         {
                             InsControl._power.AutoPowerOff();
@@ -103,6 +104,44 @@ namespace BuckTool
                             InsControl._eload.CH1_Loading(level);       // turn on loading
                             meter1_10A_en = true;
                         }
+                        else if(!meter1_10A_en)
+                        {
+                            InsControl._power.AutoPowerOff();
+                            InsControl._eload.AllChannel_LoadOff();
+
+                            InsControl._dmm1.ChangeCurrentLevel(false); // select 10A level
+                            RTBBControl.Meter10A(RTBBControl.GPIO2_0);  // switch relay
+                            InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
+                            InsControl._eload.CH1_Loading(level);
+                            double mease_10 = InsControl._dmm1.GetCurrent(3);
+                            InsControl._power.AutoPowerOff();
+                            InsControl._eload.AllChannel_LoadOff();
+
+                            InsControl._dmm1.ChangeCurrentLevel(true); // select 400mA level
+                            RTBBControl.Meter400mA(RTBBControl.GPIO2_0);  // switch relay
+                            InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
+                            InsControl._eload.CH1_Loading(level);
+                            double mease_400 = InsControl._dmm1.GetCurrent(1);
+                            InsControl._power.AutoPowerOff();
+                            InsControl._eload.AllChannel_LoadOff();
+
+                            if(mease_10 > mease_400)
+                            {
+                                InsControl._dmm1.ChangeCurrentLevel(false); // select 10A level
+                                RTBBControl.Meter10A(RTBBControl.GPIO2_0);  // switch relay
+                                meter1_10A_en = true;
+                            }
+                            else
+                            {
+                                InsControl._dmm1.ChangeCurrentLevel(true); // select 400mA level
+                                RTBBControl.Meter400mA(RTBBControl.GPIO2_0);  // switch relay
+                                meter1_10A_en = false;
+                            }
+
+
+                            InsControl._power.AutoSelPowerOn(test_parameter.Vin_table[vin_idx]);
+                            InsControl._eload.CH1_Loading(level);
+                        }
 
 
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
@@ -110,9 +149,22 @@ namespace BuckTool
                         MyLib.Delay1ms(250);
                         Vin = InsControl._34970A.Get_100Vol(1);
                         Vout = InsControl._34970A.Get_100Vol(2);
-                        Iin = meter1_10A_en ? InsControl._dmm1.GetCurrent(3) : InsControl._dmm1.GetCurrent(1);
-                        MyLib.Delay1ms(250);
-                        Iout = meter2_10A_en ? InsControl._dmm2.GetCurrent(3) : InsControl._dmm2.GetCurrent(1);
+                        Iout = 0;
+                        for (int meter_idx = 0; meter_idx < 3; meter_idx++)
+                        {
+                            try
+                            {
+                                Iin = meter1_10A_en ? InsControl._dmm1.GetCurrent(3) : InsControl._dmm1.GetCurrent(1);
+                                Iout = meter2_10A_en ? InsControl._dmm2.GetCurrent(3) : InsControl._dmm2.GetCurrent(1);
+                            }
+                            catch
+                            {
+                                Iin = meter1_10A_en ? InsControl._dmm1.GetCurrent(3) : InsControl._dmm1.GetCurrent(1);
+                                Iout = meter2_10A_en ? InsControl._dmm2.GetCurrent(3) : InsControl._dmm2.GetCurrent(1);
+                            }
+                        }
+
+
 
 #if Report
                         _sheet.Cells[row, XLS_Table.A] = vin_idx;

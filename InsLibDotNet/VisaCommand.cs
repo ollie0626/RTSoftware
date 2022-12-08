@@ -79,7 +79,7 @@ public class VisaCommand
             visaState = visa32.viFlush(device, visa32.VI_WRITE_BUF);
             visaState = visa32.viFlush(device, visa32.VI_READ_BUF);
             str = Encoding.ASCII.GetString(buffer, 0, count_out).Split(',');
-            if (str[0] != "")
+            if (str[0] != "" || str.Length > 1)
             {
                 temp = Convert.ToDouble(str[0]);
                 return temp;
