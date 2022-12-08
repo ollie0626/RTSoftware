@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31729.503
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IN528ATE_tool", "IN528ATE_tool\IN528ATE_tool\IN528ATE_tool.csproj", "{1A1B522E-34A4-43AE-8137-9AAE9B1C1569}"
 EndProject
@@ -16,8 +16,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuckTool", "BuckTool\BuckTool.csproj", "{53EED6CB-2DEC-4B02-B46A-05DC213DACFE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OLEDLite", "OLEDLite\OLEDLite.csproj", "{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FFT_Single", "FFT_Single\FFT_Single.csproj", "{0404DF42-D119-4530-834B-8455983E0A49}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,14 +81,6 @@ Global
 		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|x86.ActiveCfg = Release|Any CPU
 		{533DA7D3-3B43-4A44-9968-E6D5DB670F8A}.Release|x86.Build.0 = Release|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Debug|x86.Build.0 = Debug|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Release|x86.ActiveCfg = Release|Any CPU
-		{0404DF42-D119-4530-834B-8455983E0A49}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

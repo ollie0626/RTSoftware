@@ -40,7 +40,7 @@ namespace BuckTool
         ParameterizedThreadStart p_thread;
         public static bool isChamberEn = false;
         int SteadyTime;
-        string tempList;
+        //string tempList;
 
         ATE_Eff _ate_eff = new ATE_Eff();
         ATE_Line _ate_line = new ATE_Line();
@@ -80,8 +80,6 @@ namespace BuckTool
         public main()
         {
             InitializeComponent();
-            RTBBControl.BoardInit();
-            RTBBControl.GpioInit();
             GUInit();
         }
 
@@ -236,11 +234,12 @@ namespace BuckTool
             chamberCtr.Role = cb_mode_sel.Text;
         }
 
-
         private void uibt_run_Click(object sender, EventArgs e)
         {
             try
             {
+                RTBBControl.BoardInit();
+                RTBBControl.GpioInit();
                 test_parameter_copy();
                 test_parameter.run_stop = false;
                 if (ck_multi_chamber.Checked && ck_chamber_en.Checked)
@@ -260,9 +259,11 @@ namespace BuckTool
                     ATETask.Start(cb_item.SelectedIndex);
                 }
             }
-            catch
+            catch (Exception ex)
             {
-
+                Console.WriteLine("Error Message:" + ex.Message);
+                Console.WriteLine("StackTrace:" + ex.StackTrace);
+                MessageBox.Show(ex.StackTrace);
             }
         }
 
@@ -281,7 +282,6 @@ namespace BuckTool
         {
             this.Invoke((Action)(() => uibt_run.Enabled = true));
         }
-
 
         private void GetTemperature(string input)
         {
