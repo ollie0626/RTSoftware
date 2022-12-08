@@ -107,13 +107,11 @@ namespace BuckTool
 
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
 
-
-
-
                         MyLib.Delay1ms(250);
                         Vin = InsControl._34970A.Get_100Vol(1);
                         Vout = InsControl._34970A.Get_100Vol(2);
                         Iin = meter1_10A_en ? InsControl._dmm1.GetCurrent(3) : InsControl._dmm1.GetCurrent(1);
+                        MyLib.Delay1ms(250);
                         Iout = meter2_10A_en ? InsControl._dmm2.GetCurrent(3) : InsControl._dmm2.GetCurrent(1);
 
 #if Report

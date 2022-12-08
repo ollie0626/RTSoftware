@@ -186,8 +186,6 @@ namespace OLEDLite
             _sheet.Cells[11, XLS_Table.V] = "Overshoot (mV)";
             _sheet.Cells[11, XLS_Table.W] = "Undershoot (mV)"; 
             _sheet.Cells[11, XLS_Table.X] = "VPP (mV)";
-            
-            // for iout
         }
 
         public override void ATETask()

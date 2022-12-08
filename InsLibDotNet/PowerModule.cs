@@ -12,6 +12,10 @@ namespace InsLibDotNet
         private int E3631Sel;
         private bool E3633Sel;
         private bool E3634Sel;
+
+        private string IDN;
+
+
         ~PowerModule()
         {
             InsClose();
@@ -20,26 +24,31 @@ namespace InsLibDotNet
         public PowerModule()
         {
             LinkingIns("GPIB0::5::INSTR");
+            IDN = doQueryIDN();
         }
 
         public PowerModule(string Addr)
         {
             LinkingIns(Addr);
+            IDN = doQueryIDN();
         }
 
         public PowerModule(int Addr)
         {
             LinkingIns("GPIB0::" + Addr.ToString() + "::INSTR");
+            IDN = doQueryIDN();
         }
 
         public void ConnectPowerSupply(string Addr)
         {
             LinkingIns(Addr);
+            IDN = doQueryIDN();
         }
 
         public void ConnectPowerSupply(int Addr)
         {
             LinkingIns("GPIB0::" + Addr.ToString() + "::INSTR");
+            IDN = doQueryIDN();
         }
 
         public void PowerOff()
@@ -266,7 +275,7 @@ namespace InsLibDotNet
 
         public void AutoPowerOff()
         {
-            string IDN = doQueryIDN();
+            //string IDN = doQueryIDN();
             if (IDN.IndexOf("E3632") != -1 || IDN.IndexOf("E3631") != -1 || IDN.IndexOf("E3634") != -1)
                 PowerOff();
             else if (IDN.IndexOf("E3633") != -1)
@@ -280,7 +289,7 @@ namespace InsLibDotNet
 
         public void AutoSelPowerOn(double vol)
         {
-            string IDN = doQueryIDN();
+            //string IDN = doQueryIDN();
             if (IDN.IndexOf("E3632") != -1)
             {
                 bool sel = vol < 15 ? true : false;
@@ -321,7 +330,7 @@ namespace InsLibDotNet
 
         public void AutoSetOCP(double ocp)
         {
-            string IDN = doQueryIDN();
+            //string IDN = doQueryIDN();
             if (IDN.IndexOf("620") != -1)
                 ChromaCurrentLimit(ocp);
             else

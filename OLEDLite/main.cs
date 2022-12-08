@@ -485,11 +485,11 @@ namespace OLEDLite
         {
             for (int i = 0; i < test_parameter.tempList.Count; i++)
             {
-                if (!Directory.Exists(tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C"))
+                if (!Directory.Exists(tb_wave_path.Text + test_parameter.tempList[i] + "C"))
                 {
-                    Directory.CreateDirectory(tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C");
+                    Directory.CreateDirectory(tb_wave_path.Text + test_parameter.tempList[i] + "C");
                 }
-                test_parameter.wave_path = tb_wave_path.Text + @"\" + test_parameter.tempList[i] + "C";
+                test_parameter.wave_path = tb_wave_path.Text + test_parameter.tempList[i] + "C";
 
                 test_parameter.steadyTime = (int)nu_steady.Value;
                 // chamber control
@@ -530,7 +530,7 @@ namespace OLEDLite
 
                 foreach (int Temp in test_parameter.tempList)
                 {
-                    ate_table[(int)idx].temp = Temp;
+                    
 
                     Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     test_parameter.steadyTime = (int)nu_steady.Value;
@@ -570,6 +570,7 @@ namespace OLEDLite
                         System.Threading.Thread.Sleep(3000);
                     }
                     //ate_table[(int)idx].temp = test_parameter.tempList[i];
+                    ate_table[(int)idx].temp = Temp;
                     ate_table[(int)idx].ATETask();
 
                     //STATUS: RUN

@@ -162,13 +162,16 @@ namespace BuckTool
 
         private void bt_load_add_Click(object sender, EventArgs e)
         {
-            Eload_DG.RowCount = Eload_DG.RowCount + 1;
+            Eload_DG.RowCount++;
         }
 
         private void bt_load_sub_Click(object sender, EventArgs e)
         {
-            if (Eload_DG.RowCount < 1) return;
-            Eload_DG.RowCount = Eload_DG.RowCount - 1;
+            if (Eload_DG.RowCount >= 1)
+            {
+                Eload_DG.RowCount--;
+            }
+
         }
 
 
@@ -213,6 +216,8 @@ namespace BuckTool
                             test_parameter.HiLo_table.Add(level);
                         }
                     }
+                    break;
+                default:
                     break;
             }
             
