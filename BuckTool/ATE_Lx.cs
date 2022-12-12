@@ -31,8 +31,8 @@ namespace BuckTool
             InsControl._scope.CH2_Off();
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_Off();
-            InsControl._scope.CH1_Level(1.3);
-            InsControl._scope.CH1_Offset(1.3 * 1.5);
+            InsControl._scope.CH1_Level(6);
+            InsControl._scope.CH1_Offset(6 * 1.5);
             InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
         }
 

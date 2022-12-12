@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.5.9";
+        string App_name = "Buck Tool v1.6b";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 

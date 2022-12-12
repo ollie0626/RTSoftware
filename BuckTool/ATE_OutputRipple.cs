@@ -30,6 +30,10 @@ namespace BuckTool
             InsControl._scope.CH3_Off();
             InsControl._scope.CH4_On();
 
+            InsControl._scope.CH1_BWLimitOn();
+            InsControl._scope.CH4_BWLimitOn();
+
+
             InsControl._scope.CH1_Level(0.1);
             InsControl._scope.CH1_Offset(-0.1);
             InsControl._scope.CH4_Level(0.3);
@@ -39,6 +43,8 @@ namespace BuckTool
             InsControl._scope.TimeScaleUs(20);
             InsControl._scope.TimeBasePositionUs(0);
             InsControl._scope.DoCommand(":MEASure:VPP CHANnel1");
+            InsControl._scope.DoCommand(":MEASure:PERIOD CHANnel4");
+            InsControl._scope.DoCommand(":ANALyze:AEDGes ON");
             MyLib.WaveformCheck();
         }
 
@@ -101,6 +107,7 @@ namespace BuckTool
                         InsControl._eload.CH1_Loading(test_parameter.Iout_table[iout_idx]);
                         MyLib.Delay1ms(150);
                         MyLib.Vincompensation(target, ref vinList[vin_idx]);
+                        MyLib.Delay1ms(500);
                         ChannelResize();
                         InsControl._scope.Root_STOP();
 
@@ -129,7 +136,7 @@ namespace BuckTool
                         _sheet.Cells[row, XLS_Table.F] = string.Format("{0:00.00}", vout);
                         _sheet.Cells[row, XLS_Table.G] = string.Format("{0:00.00}", iout * 1000);
                         _sheet.Cells[row, XLS_Table.H] = string.Format("{0:00.0000}", vpp * 1000);
-                        _sheet.Cells[row, XLS_Table.I] = ((Math.Abs(vpp) - test_parameter.vout_ideal) / test_parameter.vout_ideal) * 100;
+                        _sheet.Cells[row, XLS_Table.I] = Math.Abs((Math.Abs(vpp) / test_parameter.vout_ideal) * 100);
 #endif
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                         InsControl._scope.Root_RUN();
@@ -139,9 +146,10 @@ namespace BuckTool
                 }
             }
 
-        Stop:
+            Stop:
             stopWatch.Stop();
-
+            InsControl._power.AutoPowerOff();
+            InsControl._eload.AllChannel_LoadOff();
 #if Report
             TimeSpan timeSpan = stopWatch.Elapsed;
             string str_temp = _sheet.Cells[2, 2].Value;
@@ -171,19 +179,31 @@ namespace BuckTool
 
                 vpp = InsControl._scope.Meas_CH1VPP();
                 InsControl._scope.CH1_Level(vpp / 3);
+                MyLib.Delay1ms(250);
 
             }
-            InsControl._scope.TriggerLevel_CH4(max * 0.75);
+            InsControl._scope.TriggerLevel_CH4(max * 0.95);
             InsControl._scope.TimeScaleUs(100);
             MyLib.WaveformCheck();
 
-            period = InsControl._scope.Meas_CH4Period();
-            InsControl._scope.TimeScale(period / 2);
-            MyLib.Delay1ms(250);
-            //InsControl._scope.TimeScaleUs(100);
-            period = InsControl._scope.Meas_CH4Period();
-            InsControl._scope.TimeScale(period / 2);
-            MyLib.Delay1ms(250);
+            for(int i = 0; i < 2; i++)
+            {
+                double threshold = 9.99 * Math.Pow(10, 20);
+                double burst_period = InsControl._scope.Meas_BurstPeriod(4, 5 * Math.Pow(10, -6));
+
+                if(burst_period < threshold)
+                {
+                    InsControl._scope.TimeScale(burst_period);
+                }
+                else
+                {
+                    period = InsControl._scope.Meas_CH4Period();
+                    InsControl._scope.TimeScale(period);
+                }
+                MyLib.Delay1ms(250);
+            }
+
+
         }
 
         private void AddCruve(List<int> start_pos, List<int> stop_pos)
