@@ -25,9 +25,11 @@ namespace OLEDLite
             InsControl._scope.AgilentOSC_RST();
             MyLib.WaveformCheck();
             InsControl._scope.CH1_On();
-            InsControl._scope.CH1_Level(5);
-            InsControl._scope.CH1_Offset(5 * 1.5);
+            InsControl._scope.CH1_Level(6);
+            InsControl._scope.CH1_Offset(6* 1);
             InsControl._scope.CH1_BWLimitOn();
+            //SYSTem:CONTrol "ExpandAbout -1 xpandCenter"
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
         }
 
         public override void ATETask()
@@ -90,18 +92,18 @@ namespace OLEDLite
                 _sheet.Cells[row, XLS_Table.M] = "Fall Time(ns)";
                 _sheet.Cells[row, XLS_Table.N] = "Fall SR(V/us)";
                 _sheet.Cells[row, XLS_Table.O] = "Jitter(ns)";
-                _sheet.Cells[row, XLS_Table.P] = "Std Dev(ns)";
-                _sheet.Cells[row, XLS_Table.Q] = "Jitter(%)";
-                _range = _sheet.Range["A" + row, "Q" + row];
+                //_sheet.Cells[row, XLS_Table.P] = "Std Dev(ns)";
+                //_sheet.Cells[row, XLS_Table.Q] = "Jitter(%)";
+                _range = _sheet.Range["A" + row, "O" + row];
                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                 _sheet.Range["A" + row, "G" + row].Interior.Color = Color.FromArgb(0xff, 0xff, 0x66);
                 _sheet.Range["H" + row, "J" + row].Interior.Color = Color.FromArgb(0, 204, 0);
                 _sheet.Range["K" + row, "N" + row].Interior.Color = Color.FromArgb(0xB2, 0xFF, 0x66);
-                _sheet.Range["O" + row, "Q" + row].Interior.Color = Color.FromArgb(0, 204, 0);
+                _sheet.Range["O" + row, "O" + row].Interior.Color = Color.FromArgb(0, 204, 0);
                 row++;
 #endif
 
-                for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
+                for (int bin_idx = 0; bin_idx < test_parameter.swire_cnt; bin_idx++)
                 {
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
@@ -203,19 +205,29 @@ namespace OLEDLite
                                         break;
                                     case 2:
                                         JitterTask();
-                                        double MeaPKPK = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?") * Math.Pow(10, 9);
-                                        //double MeaMean = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?");
-                                        double MeaStdDev = InsControl._scope.doQueryNumber(":MEASure:HISTogram:STDDev?") * Math.Pow(10, 9);
-                                        InsControl._scope.DoCommand(":HISTogram:MODE OFF");
-                                        InsControl._scope.DoCommand("DISPlay:CGRade OFF");
+                                        InsControl._scope.DoCommand(":MEASure:STATistics MAX");
+                                        string[] res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                                        double with_max = Convert.ToDouble(res[0]);
 
-                                        _sheet.Cells[row, XLS_Table.O] = MeaPKPK;
-                                        _sheet.Cells[row, XLS_Table.P] = MeaStdDev;
+                                        InsControl._scope.DoCommand(":MEASure:STATistics MIN");
+                                        res = InsControl._scope.doQeury(":MEASure:RESults?").Split(',');
+                                        double with_min = Convert.ToDouble(res[0]);
+
+                                        double jitter = with_max - with_min;
+                                        //double MeaPKPK = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?") * Math.Pow(10, 9);
+                                        ////double MeaMean = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?");
+                                        //double MeaStdDev = InsControl._scope.doQueryNumber(":MEASure:HISTogram:STDDev?") * Math.Pow(10, 9);
+                                        //InsControl._scope.DoCommand(":HISTogram:MODE OFF");
+                                        //InsControl._scope.DoCommand("DISPlay:CGRade OFF");
+
+                                        _sheet.Cells[row, XLS_Table.O] = jitter * Math.Pow(10, 9);
+                                        //_sheet.Cells[row, XLS_Table.P] = MeaStdDev;
                                         //_sheet.Cells[row, XLS_Table.Q] = "=O" + row + "*" + freq_mean + "*100 * 10 ^-9";
                                         InsControl._scope.SaveWaveform(test_parameter.wave_path, file_name + "_jitter");
                                         InsControl._scope.Root_RUN();
-                                        InsControl._scope.DoCommand(":HISTogram:MODE OFF");
-                                        InsControl._scope.DoCommand("DISPlay:CGRade OFF");
+                                        InsControl._scope.DoCommand(":ANALyze:AEDGes OFF");
+                                        //InsControl._scope.DoCommand(":HISTogram:MODE OFF");
+                                        InsControl._scope.DoCommand(":DISPlay:CGRade OFF");
                                         break;
                                 }
                             }
@@ -238,13 +250,13 @@ namespace OLEDLite
                 for (int i = 0; i < 4; i++)
                 {
                     double Vpp = InsControl._scope.Meas_CH1VPP();
-                    InsControl._scope.CH1_Level(Vpp / 5);
+                    InsControl._scope.CH1_Level(Vpp / 4);
                     MyLib.Delay1ms(20);
 
                     if (Vpp > error)
                     {
                         i = 0;
-                        InsControl._scope.CH1_Level(5);
+                        InsControl._scope.CH1_Level(6);
                         MyLib.Delay1ms(20);
                     }
                 }
@@ -324,12 +336,14 @@ namespace OLEDLite
             InsControl._scope.DoCommand(":MARKer:MODE ON");
             InsControl._scope.SlewRate20_80Range();
             InsControl._scope.DoCommand(":MEASURE:RISetime CHANnel1");
-            MyLib.Delay1ms(200);
-            double XDelta = InsControl._scope.Meas_CH1XDelta();
-            double XDelta_standard = Math.Pow(10, -9);
-            time_scale = XDelta * 2;
+            MyLib.Delay1ms(400);
+            //double XDelta = InsControl._scope.Meas_CH1XDelta();
+            //double XDelta_standard = Math.Pow(10, -9);
+            double rise = InsControl._scope.Meas_CH1Rise();
+            time_scale = rise;
             InsControl._scope.TimeScale(time_scale);
             InsControl._scope.TimeBasePosition(time_scale);
+            MyLib.Delay1ms(250);
             InsControl._scope.Root_STOP();
         }
 
@@ -342,46 +356,60 @@ namespace OLEDLite
             InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
             InsControl._scope.DoCommand(":MEASURE:FALLtime CHANnel1");
             InsControl._scope.DoCommand(":MARKer:MODE ON");
-            MyLib.Delay1ms(200);
-            double XDelta = InsControl._scope.Meas_CH1XDelta();
-            double time_scale = XDelta * 2;
-            InsControl._scope.TimeScale(time_scale * 2);
+            MyLib.Delay1ms(400);
+            double fall = InsControl._scope.Meas_CH1Fall();
+            //double XDelta = InsControl._scope.Meas_CH1XDelta();
+            double time_scale = fall;
+            InsControl._scope.TimeScale(time_scale);
             InsControl._scope.TimeBasePosition(time_scale);
+            MyLib.Delay1ms(250);
             InsControl._scope.Root_STOP();
         }
 
         private void JitterTask()
         {
+
+            string[] res;
             InsControl._scope.Measure_Clear();
-            InsControl._scope.DoCommand(":MEASURE:FREQ CHANnel1");
+            //InsControl._scope.DoCommand(":MEASURE:FREQ CHANnel1");
             InsControl._scope.DoCommand(":MARKer:MODE OFF");
             InsControl._scope.TimeScaleUs(5);
             InsControl._scope.TimeBasePosition(0);
 
             double period = InsControl._scope.Meas_CH1Period();
-            double time_scale = period * 1.5; // show 1.5 cycle
+            double time_scale = period / 10; // show 1 cycle
             InsControl._scope.TimeScale(time_scale);
             InsControl._scope.TimeBasePosition(time_scale * 3);
             InsControl._scope.CH1_Level(5);
             ChannelResize();
             ChannelTrigger();
+            InsControl._scope.DoCommand(":ANALyze:AEDGes ON");
 
-            double Rlimit = (time_scale * 6.4);
-            double Llimit = (time_scale * 0.2);
-            double Vtop = InsControl._scope.Meas_CH1Top();
-            double Vbase = InsControl._scope.Meas_CH1Base();
-            double histogramLevel = Vtop * 0.5 + Vbase * 0.5;
-            InsControl._scope.DoCommand(":HISTogram:MODE OFF");
+            // buck, inverting, buck-boost - trigger rising (PWidth)
+            // boost - trigger falling - trigger falling (NWidth)
+
+            if (test_parameter.boost)                                   InsControl._scope.DoCommand(":MEASure:NWIDth CHAN1");
+            else if(test_parameter.buck || test_parameter.inverting)    InsControl._scope.DoCommand(":MEASure:PWIDth CHAN1");
             InsControl._scope.DoCommand(":DISPlay:CGRade 1");
-            InsControl._scope.DoCommand(":HISTogram:SCALe:SIZE 2");
-            InsControl._scope.DoCommand(":HISTogram:MODE WAVeform");
-            InsControl._scope.DoCommand(":HISTogram:WINDow:SOURce CHANnel1");
-            InsControl._scope.DoCommand(":HISTogram:WINDow:LLIMit " + Llimit);
-            InsControl._scope.DoCommand(":HISTogram:WINDow:RLIMit " + Rlimit);
-            InsControl._scope.DoCommand(":HISTogram:WINDow:TLIMit " + (histogramLevel * 1.05));
-            InsControl._scope.DoCommand(":HISTogram:WINDow:BLIMit " + (histogramLevel * 0.95));
+
+
+            //double Rlimit = (time_scale * 6.4);
+            //double Llimit = (time_scale * 0.2);
+            //double Vtop = InsControl._scope.Meas_CH1Top();
+            //double Vbase = InsControl._scope.Meas_CH1Base();
+            //double histogramLevel = Vtop * 0.5 + Vbase * 0.5;
+            //InsControl._scope.DoCommand(":HISTogram:MODE OFF");
+            //InsControl._scope.DoCommand(":DISPlay:CGRade 1");
+            //InsControl._scope.DoCommand(":HISTogram:SCALe:SIZE 2");
+            //InsControl._scope.DoCommand(":HISTogram:MODE WAVeform");
+            //InsControl._scope.DoCommand(":HISTogram:WINDow:SOURce CHANnel1");
+            //InsControl._scope.DoCommand(":HISTogram:WINDow:LLIMit " + Llimit);
+            //InsControl._scope.DoCommand(":HISTogram:WINDow:RLIMit " + Rlimit);
+            //InsControl._scope.DoCommand(":HISTogram:WINDow:TLIMit " + (histogramLevel * 1.05));
+            //InsControl._scope.DoCommand(":HISTogram:WINDow:BLIMit " + (histogramLevel * 0.95));
             MyLib.Delay1ms(6000);
             InsControl._scope.Root_STOP();
+
         }
 
     }

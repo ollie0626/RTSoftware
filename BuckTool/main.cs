@@ -171,7 +171,6 @@ namespace BuckTool
             {
                 Eload_DG.RowCount--;
             }
-
         }
 
 

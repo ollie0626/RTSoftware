@@ -37,6 +37,7 @@ namespace OLEDLite
         private ATE_UVPDly _ate_uvp_dly = new ATE_UVPDly();
         private ATE_UVPLevel _ate_uvp_level = new ATE_UVPLevel();
         private ATE_CurrentLimit _ate_ocp = new ATE_CurrentLimit();
+        private ATE_LX _ate_lx = new ATE_LX();
 
         private TaskRun[] ate_table;
         ChamberCtr chamberCtr = new ChamberCtr();
@@ -83,7 +84,8 @@ namespace OLEDLite
                 _ate_line,
                 _ate_uvp_dly,
                 _ate_uvp_level,
-                _ate_ocp
+                _ate_ocp,
+                _ate_lx
             };
         }
 
@@ -263,6 +265,7 @@ namespace OLEDLite
                 case 5:
                 case 6:
                 case 7:
+                case 8:
                     test_parameter.vinList = tb_Vin.Text.Split(',').Select(double.Parse).ToList();
                     break;
             }
@@ -276,6 +279,7 @@ namespace OLEDLite
                 case 5: // UVP Dealy time
                 case 6: // UVP Level
                 case 7: // Current limit
+                case 8:
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
                 
@@ -332,6 +336,10 @@ namespace OLEDLite
             test_parameter.cv_step = (double)nu_CVStep.Value;
             test_parameter.cv_wait = (double)nu_CVwait.Value;
 
+            test_parameter.boost = true;
+            test_parameter.buck = false;
+            test_parameter.inverting = false;
+            test_parameter.LX_item = new bool[] { true, true, true };
             return true;
         }
 

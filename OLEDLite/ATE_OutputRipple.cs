@@ -50,6 +50,7 @@ namespace OLEDLite
 
             InsControl._scope.CH1_Level(2);
             InsControl._scope.CH2_Level(1);
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandCenter\"");
         }
 
         private void OSCReset()

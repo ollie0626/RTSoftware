@@ -54,6 +54,8 @@ namespace OLEDLite
             InsControl._scope.Root_Clear();
             InsControl._scope.Root_RUN();
             InsControl._scope.Measure_Clear();
+
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
         }
 
         public override void ATETask()

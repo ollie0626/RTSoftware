@@ -56,6 +56,7 @@ namespace OLEDLite
 
             InsControl._scope.CH1_BWLimitOn();
             InsControl._scope.CH2_BWLimitOn();
+            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandCenter\"");
         }
 
         private void OSCRest()
