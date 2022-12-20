@@ -57,8 +57,6 @@ namespace InsLibDotNet
             DoCommand(cmd);
         }
 
-
-
         public void ConnectELoad(int Addr)
         {
             LinkingIns("GPIB0::" + Addr.ToString() + "::INSTR");
@@ -102,6 +100,24 @@ namespace InsLibDotNet
         public void CV_Mode()
         {
             string mode = "MODE CVH";
+            doCommand(mode);
+        }
+
+        public void SWDL_Mode()
+        {
+            string mode = "MODE SWDL";
+            doCommand(mode);
+        }
+
+        public void SWDM_Mode()
+        {
+            string mode = "MODE SWDM";
+            doCommand(mode);
+        }
+
+        public void SWDH_Mode()
+        {
+            string mode = "MODE SWDH";
             doCommand(mode);
         }
 
@@ -467,5 +483,24 @@ namespace InsLibDotNet
             doCommand(cmd);
         }
 
+        // support sine wave Eload
+
+        public void SetAdvanceSine_Freq(double freq_hz)
+        {
+            string cmd = string.Format("ADV:SINE:FREQ {0}", freq_hz);
+            doCommand(cmd);
+        }
+
+        public void SetAdvanceSine_IAC(double IAC)
+        {
+            string cmd = string.Format("ADV:SINE:IAC {0}", IAC);
+            doCommand(cmd);
+        }
+
+        public void SetAdvanceSine_IDC(double IDC)
+        {
+            string cmd = string.Format("ADV:SINE:IDC {0}", IDC);
+            doCommand(cmd);
+        }
     }
 }

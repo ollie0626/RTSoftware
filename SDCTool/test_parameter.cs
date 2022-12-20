@@ -18,21 +18,18 @@ namespace SDCTool
         // test condition
         public static string vin_info;
         public static string eload_info;
+
         //public static string swire_info;
         public static string date_info;
         public static string ver_info;
 
-        // interface
         public static byte slave;
         public static string bin_path;
 
-        // power
         public static List<double> vinList = new List<double>();
-
-        // ELoad
+        // loading include AC and DC setting
         public static List<double> ioutList = new List<double>();
 
-        // chamber parameter
         public static bool chamber_en;
         public static List<double> tempList = new List<double>();
         public static int steadyTime;
