@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v2.9 Debug_a";
+            this.Text = "ATE Tool v3.0";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -548,11 +548,11 @@ namespace IN528ATE_tool
         {
             for (int i = 0; i < tempList.Length; i++)
             {
-                if (!Directory.Exists(tbWave.Text + @"\" + tempList[i] + "C"))
+                if (!Directory.Exists(tbWave.Text + tempList[i] + "C"))
                 {
-                    Directory.CreateDirectory(tbWave.Text + @"\" + tempList[i] + "C");
+                    Directory.CreateDirectory(tbWave.Text + tempList[i] + "C");
                 }
-                test_parameter.waveform_path = tbWave.Text + @"\" + tempList[i] + "C";
+                test_parameter.waveform_path = tbWave.Text + tempList[i] + "C";
 
                 SteadyTime = (int)nu_steady.Value;
                 InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
