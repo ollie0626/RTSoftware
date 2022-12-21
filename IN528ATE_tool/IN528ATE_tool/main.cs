@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v3.0";
+            this.Text = "ATE Tool v3.0_Debug A";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -546,60 +546,71 @@ namespace IN528ATE_tool
 
         public async void Chamber_Task()
         {
-            for (int i = 0; i < tempList.Length; i++)
+            try
             {
-                if (!Directory.Exists(tbWave.Text + tempList[i] + "C"))
+                for (int i = 0; i < tempList.Length; i++)
                 {
-                    Directory.CreateDirectory(tbWave.Text + tempList[i] + "C");
-                }
-                test_parameter.waveform_path = tbWave.Text + tempList[i] + "C";
-
-                SteadyTime = (int)nu_steady.Value;
-                InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
-                InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
-                InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
-                for (; SteadyTime > 0;)
-                {
-                    await TaskRecount();
-                    uiProcessBar1.Value = SteadyTime;
-                    label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
-                    //label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
-                }
-                _ate_ripple.temp = Convert.ToDouble(tempList[i]);
-                _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
-                _ate_poweron.temp = Convert.ToDouble(tempList[i]);
-                _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
-
-                if (!test_parameter.all_en)
-                {
-                    //await Ripple_Task(item_sel);
-
-                    switch (item_sel)
+                    if (!Directory.Exists(tbWave.Text +tempList[i] + "C"))
                     {
-                        case 0:
-                            _ate_ripple.ATETask();
-                            break;
-                        case 1:
-                            _ate_code_inrush.ATETask();
-                            break;
-                        case 2:
-                            _ate_poweron.ATETask();
-                            break;
-                        case 3:
-                            _ate_current_limit.ATETask();
-                            break;
+                        Directory.CreateDirectory(tbWave.Text  + tempList[i] + "C");
                     }
-                }
-                else
-                {
-                    _ate_ripple.ATETask();
-                    _ate_code_inrush.ATETask();
-                }
+                    test_parameter.waveform_path = tbWave.Text + tempList[i] + "C";
 
+                    SteadyTime = (int)nu_steady.Value;
+                    InsControl._chamber = new ChamberModule((int)nu_chamber.Value);
+                    InsControl._chamber.ConnectChamber((int)nu_chamber.Value);
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                    InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
+                    //await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
+                    for (; SteadyTime > 0;)
+                    {
+                        await TaskRecount();
+                        uiProcessBar1.Value = SteadyTime;
+                        label1.Invoke((MethodInvoker)(() => label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString()));
+                        //label1.Text = "count down: " + (SteadyTime / 60).ToString() + ":" + (SteadyTime % 60).ToString();
+                    }
+                    _ate_ripple.temp = Convert.ToDouble(tempList[i]);
+                    _ate_code_inrush.temp = Convert.ToDouble(tempList[i]);
+                    _ate_poweron.temp = Convert.ToDouble(tempList[i]);
+                    _ate_current_limit.temp = Convert.ToDouble(tempList[i]);
+
+                    if (!test_parameter.all_en)
+                    {
+                        //await Ripple_Task(item_sel);
+
+                        switch (item_sel)
+                        {
+                            case 0:
+                                _ate_ripple.ATETask();
+                                break;
+                            case 1:
+                                _ate_code_inrush.ATETask();
+                                break;
+                            case 2:
+                                _ate_poweron.ATETask();
+                                break;
+                            case 3:
+                                _ate_current_limit.ATETask();
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        _ate_ripple.ATETask();
+                        _ate_code_inrush.ATETask();
+                    }
+
+                }
+                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
             }
-            if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.StackTrace, "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+            }
+            finally
+            {
+                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+            }
         }
 
         private void Run_Task_Flow()
