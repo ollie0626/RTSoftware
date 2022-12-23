@@ -70,6 +70,7 @@
     <Compile Include="ATE_UVPLevel.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="Dbt.cs" />
+    <Compile Include="DebugInfo.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
