@@ -222,7 +222,7 @@ namespace IN528ATE_tool
 
         public void Channel_LevelSetting(int channel)
         {
-            int idx = 0;
+            //int idx = 0;
             double issue_num = 9.99999 * Math.Pow(10, 10);
             //double temp = InsControl._scope.Meas_CH1VPP();
             //while ((temp > (9.999 * Math.Pow(10, 10))) && (idx <= 100))
@@ -235,10 +235,10 @@ namespace IN528ATE_tool
 
             for(int i = 0; i <= 15; i++)
             {
-                string info = "";
-                double avg = 0;
+                //string info = "";
+                //double avg = 0;
                 double vmax = InsControl._scope.Meas_CH1MAX();
-                double vmin = InsControl._scope.Meas_CH1MIN();
+                //double vmin = InsControl._scope.Meas_CH1MIN();
                 double temp = InsControl._scope.Meas_CH1VPP();
 
                 //info = string.Format("idx = {0}_vmax={1}", i, vmax);
@@ -247,21 +247,23 @@ namespace IN528ATE_tool
                 if (vmax < 0)
                 {
                     //MyLib.ScopePrint(string.Format("{0}_vmax < 0 || vmin > 0", i));
-                    InsControl._scope.CHx_Level(1, 1);
+                    InsControl._scope.CHx_Level(channel, 1);
+                    i = 5;
                     continue;
                 }
 
-                if(vmax > issue_num || temp > issue_num)
+                if(temp > issue_num)
                 {
                     //MyLib.ScopePrint(string.Format("{0}_value issue", i));
-                    InsControl._scope.CHx_Level(1, 1);
+                    InsControl._scope.CHx_Level(channel, 1);
+                    i = 5;
                     continue;
                 }
 
-                avg = vmax - vmin;
+                //avg = vmax - vmin;
                 //info = string.Format("idx = {0}_avg/2={1}", i, avg/2);
                 //MyLib.ScopePrint(info);
-                InsControl._scope.CHx_Level(channel, avg / 2);
+                InsControl._scope.CHx_Level(channel, temp / 2);
                 System.Threading.Thread.Sleep(500);
             }
         }
