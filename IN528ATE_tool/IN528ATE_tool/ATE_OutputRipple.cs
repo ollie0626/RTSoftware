@@ -185,17 +185,19 @@ namespace IN528ATE_tool
                         iin = InsControl._power.GetCurrent();
                         iout = InsControl._eload.GetIout();
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+
 #if Report
                         _sheet.Cells[row, XLS_Table.A] = idx;
                         _sheet.Cells[row, XLS_Table.B] = temp;
                         _sheet.Cells[row, XLS_Table.C] = vin;
                         _sheet.Cells[row, XLS_Table.D] = iin * 1000;
-                        _sheet.Cells[row, XLS_Table.E] = iout;
+                        _sheet.Cells[row, XLS_Table.E] = iout * 1000;
                         _sheet.Cells[row, XLS_Table.F] = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                         _sheet.Cells[row, XLS_Table.G] = vout;
                         _sheet.Cells[row, XLS_Table.H] = vpp;
                         _sheet.Cells[row, XLS_Table.I] = max;
                         _sheet.Cells[row, XLS_Table.J] = min;
+                        
                         _range = _sheet.Range["A" + row, "J" + row];
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                         for(int i = 1; i < 11; i++) _sheet.Columns[i].AutoFit();
