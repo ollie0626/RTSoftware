@@ -2112,7 +2112,25 @@ namespace MulanLite
             W70.Value = R70.Value;
             WF8.Value = RF8.Value;
             WF9.Value = RF9.Value;
+        }
 
+        private bool quiescent_pattern_en = false;  
+        private void uiBT_pattern_en_Click(object sender, EventArgs e)
+        {
+            if(!quiescent_pattern_en)
+            {
+                byte[] data = new byte[] { 0xAD, 0xAE, 0xCC };
+                RTDev.SPIWrite(data);
+                quiescent_pattern_en = true;
+                uiBT_pattern_en.Text = "Quiescent pattern Dis";
+            }
+            else
+            {
+                byte[] data = new byte[] { 0xAD, 0xAE, 0x33 };
+                RTDev.SPIWrite(data);
+                quiescent_pattern_en = false;
+                uiBT_pattern_en.Text = "Quiescent pattern En";
+            }
 
         }
     }

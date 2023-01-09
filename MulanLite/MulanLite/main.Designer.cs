@@ -765,6 +765,7 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
+            this.uiBT_pattern_en = new Sunny.UI.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -12033,6 +12034,7 @@ namespace MulanLite
             // 
             // uiGroupBox22
             // 
+            this.uiGroupBox22.Controls.Add(this.uiBT_pattern_en);
             this.uiGroupBox22.Controls.Add(this.uiButton1);
             this.uiGroupBox22.Controls.Add(this.uiLabel76);
             this.uiGroupBox22.Controls.Add(this.uiLabel77);
@@ -12256,6 +12258,19 @@ namespace MulanLite
             this.ck_CH1_en.Text = "CH1 EN";
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
+            // 
+            // uiBT_pattern_en
+            // 
+            this.uiBT_pattern_en.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiBT_pattern_en.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiBT_pattern_en.Location = new System.Drawing.Point(12, 144);
+            this.uiBT_pattern_en.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiBT_pattern_en.Name = "uiBT_pattern_en";
+            this.uiBT_pattern_en.Size = new System.Drawing.Size(184, 29);
+            this.uiBT_pattern_en.Style = Sunny.UI.UIStyle.Custom;
+            this.uiBT_pattern_en.TabIndex = 62;
+            this.uiBT_pattern_en.Text = "Quiescent pattern En";
+            this.uiBT_pattern_en.Click += new System.EventHandler(this.uiBT_pattern_en_Click);
             // 
             // main
             // 
@@ -13421,6 +13436,7 @@ namespace MulanLite
         private System.Windows.Forms.Label label133;
         private System.Windows.Forms.NumericUpDown W98;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private Sunny.UI.UIButton uiBT_pattern_en;
     }
 }
 

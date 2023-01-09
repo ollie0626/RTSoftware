@@ -59,6 +59,7 @@
     <Compile Include="ATE_CodeInrush.cs" />
     <Compile Include="ATE_CurrentLimit.cs" />
     <Compile Include="ATE_Eff.cs" />
+    <Compile Include="ATE_IDNL.cs" />
     <Compile Include="ATE_Line.cs" />
     <Compile Include="ATE_LX.cs" />
     <Compile Include="ATE_TDMA.cs" />
