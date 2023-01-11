@@ -9,7 +9,10 @@ namespace SoftStartTiming
     static public class test_parameter
     {
         public static List<double> VinList = new List<double>();
-        public static List<double> IoutList = new List<double>();
+        public static List<double> IoutList1 = new List<double>();
+        public static List<double> IoutList2 = new List<double>();
+        public static List<double> IoutList3 = new List<double>();
+        public static List<double> IoutList4 = new List<double>();
         public static string bin_path;
         public static byte slave;
         //public static byte specify_id;

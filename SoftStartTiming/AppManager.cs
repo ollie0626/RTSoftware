@@ -10,6 +10,8 @@ namespace SoftStartTiming
         private void SoftStartTiming_Load(object sender, EventArgs e)
         {
             this.Text = win_name;
+
+            ate_table = new TaskRun[] { _ate_sst };
         }
     }
 }

@@ -62,7 +62,6 @@ namespace SoftStartTiming
                 InsControl._scope.CH4_BWLimitOn();
             }
 
-
             InsControl._scope.CH2_Level(6);
             //InsControl._scope.CH3_Level(6);
             //InsControl._scope.CH4_Level(0.5);
@@ -144,7 +143,8 @@ namespace SoftStartTiming
             RTDev.GpioInit();
 
             int vin_cnt = test_parameter.VinList.Count;
-            int iout_cnt = test_parameter.IoutList.Count;
+            int iout_cnt = test_parameter.IoutList1.Count * test_parameter.IoutList2.Count * 
+                            test_parameter.IoutList3.Count * test_parameter.IoutList4.Count;
             int row = 22;
             string[] binList;
             double[] ori_vinTable = new double[vin_cnt];
@@ -185,6 +185,7 @@ namespace SoftStartTiming
             {
                 for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                 {
+                    //for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
                         if (test_parameter.run_stop == true) goto Stop;
@@ -198,20 +199,22 @@ namespace SoftStartTiming
                         string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                         file_name = string.Format("{0}_{1}_Temp={2}C_vin={3:0.##}V_iout={4:0.##}A",
                                                     row - 22, res, temp,
-                                                    test_parameter.VinList[vin_idx],
-                                                    test_parameter.IoutList[iout_idx]
+                                                    test_parameter.VinList[vin_idx]
+                                                    //test_parameter.IoutList[iout_idx]
                                                     );
                         // inside has auto trigger
                         Scope_Channel_Resize(vin_idx, binList[bin_idx]);
 
                         //:MARKer:MEASurement:MEASurement {MEASurement<N>}
+
                         //Mylib.eLoadLevelSwich(InsControl._eload, test_parameter.IoutList[iout_idx]);
-                        InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
+                        //InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
                         double tempVin = ori_vinTable[vin_idx];
                         InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
                         InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                         MyLib.WaveformCheck();
                         InsControl._scope.NormalTrigger();
+
                         //InsControl._scope.Root_Single();
                         //InsControl._scope.SingleTrigger();
                         if (test_parameter.trigger_vin_en)

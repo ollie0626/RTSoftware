@@ -31,16 +31,16 @@ namespace SoftStartTiming
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.nu_offtime_scale = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tb_ioutList = new System.Windows.Forms.TextBox();
+            this.tb_iout1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nuslave = new System.Windows.Forms.NumericUpDown();
             this.led_osc = new System.Windows.Forms.TextBox();
@@ -71,6 +71,13 @@ namespace SoftStartTiming
             this.BTRun = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
+            this.tb_iout2 = new System.Windows.Forms.TextBox();
+            this.tb_iout3 = new System.Windows.Forms.TextBox();
+            this.tb_iout4 = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -89,7 +96,7 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(18, 193);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(816, 251);
+            this.tabControl1.Size = new System.Drawing.Size(816, 284);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -101,20 +108,9 @@ namespace SoftStartTiming
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(808, 225);
+            this.tabPage2.Size = new System.Drawing.Size(808, 258);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(725, 446);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(102, 23);
-            this.button1.TabIndex = 66;
-            this.button1.Text = "Wave Path";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // groupBox4
             // 
@@ -177,7 +173,14 @@ namespace SoftStartTiming
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.tb_ioutList);
+            this.groupBox2.Controls.Add(this.label8);
+            this.groupBox2.Controls.Add(this.label7);
+            this.groupBox2.Controls.Add(this.label6);
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.tb_iout4);
+            this.groupBox2.Controls.Add(this.tb_iout3);
+            this.groupBox2.Controls.Add(this.tb_iout2);
+            this.groupBox2.Controls.Add(this.tb_iout1);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -185,18 +188,18 @@ namespace SoftStartTiming
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(351, 51);
+            this.groupBox2.Size = new System.Drawing.Size(351, 157);
             this.groupBox2.TabIndex = 58;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Iout Range (A)";
             // 
-            // tb_ioutList
+            // tb_iout1
             // 
-            this.tb_ioutList.Location = new System.Drawing.Point(6, 21);
-            this.tb_ioutList.Name = "tb_ioutList";
-            this.tb_ioutList.Size = new System.Drawing.Size(308, 22);
-            this.tb_ioutList.TabIndex = 50;
-            this.tb_ioutList.Text = "0.1";
+            this.tb_iout1.Location = new System.Drawing.Point(43, 30);
+            this.tb_iout1.Name = "tb_iout1";
+            this.tb_iout1.Size = new System.Drawing.Size(259, 22);
+            this.tb_iout1.TabIndex = 50;
+            this.tb_iout1.Text = "0.1";
             // 
             // groupBox1
             // 
@@ -220,6 +223,17 @@ namespace SoftStartTiming
             this.tb_vinList.Size = new System.Drawing.Size(308, 22);
             this.tb_vinList.TabIndex = 49;
             this.tb_vinList.Text = "3.3,3.5,4.5,5";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(274, 79);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(83, 23);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Test button";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
             // 
@@ -363,6 +377,7 @@ namespace SoftStartTiming
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.progressBar1);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label15);
@@ -372,7 +387,7 @@ namespace SoftStartTiming
             this.groupBox3.Controls.Add(this.tb_templist);
             this.groupBox3.Location = new System.Drawing.Point(467, 78);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(363, 108);
+            this.groupBox3.Size = new System.Drawing.Size(363, 117);
             this.groupBox3.TabIndex = 58;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Crtl";
@@ -508,13 +523,72 @@ namespace SoftStartTiming
             this.BTPause.Text = "Pause";
             this.BTPause.UseVisualStyleBackColor = true;
             // 
+            // tb_iout2
+            // 
+            this.tb_iout2.Location = new System.Drawing.Point(43, 58);
+            this.tb_iout2.Name = "tb_iout2";
+            this.tb_iout2.Size = new System.Drawing.Size(259, 22);
+            this.tb_iout2.TabIndex = 51;
+            this.tb_iout2.Text = "0.1";
+            // 
+            // tb_iout3
+            // 
+            this.tb_iout3.Location = new System.Drawing.Point(43, 86);
+            this.tb_iout3.Name = "tb_iout3";
+            this.tb_iout3.Size = new System.Drawing.Size(259, 22);
+            this.tb_iout3.TabIndex = 52;
+            this.tb_iout3.Text = "0.1";
+            // 
+            // tb_iout4
+            // 
+            this.tb_iout4.Location = new System.Drawing.Point(43, 114);
+            this.tb_iout4.Name = "tb_iout4";
+            this.tb_iout4.Size = new System.Drawing.Size(259, 22);
+            this.tb_iout4.TabIndex = 53;
+            this.tb_iout4.Text = "0.1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(7, 33);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(30, 12);
+            this.label5.TabIndex = 64;
+            this.label5.Text = "CH1";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(7, 61);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(30, 12);
+            this.label6.TabIndex = 65;
+            this.label6.Text = "CH2";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 89);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(30, 12);
+            this.label7.TabIndex = 66;
+            this.label7.Text = "CH3";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(7, 117);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(30, 12);
+            this.label8.TabIndex = 67;
+            this.label8.Text = "CH4";
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(843, 461);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(843, 511);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.BTStop);
             this.Controls.Add(this.BTRun);
@@ -584,7 +658,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox tb_ioutList;
+        private System.Windows.Forms.TextBox tb_iout1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox ck_chamber_en;
         private System.Windows.Forms.Label label14;
@@ -606,6 +680,13 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTStop;
         private System.Windows.Forms.Button BTPause;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox tb_iout4;
+        private System.Windows.Forms.TextBox tb_iout3;
+        private System.Windows.Forms.TextBox tb_iout2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
     }
 }
 
