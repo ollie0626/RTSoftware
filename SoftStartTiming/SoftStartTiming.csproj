@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{86DF4046-8D6B-49A1-9540-8C60980BFAE9}</ProjectGuid>
+    <ProjectGuid>{8DA6C783-C24D-4D70-9B92-EE95F18F93E1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>SDCTool</RootNamespace>
-    <AssemblyName>SDCTool</AssemblyName>
+    <RootNamespace>SoftStartTiming</RootNamespace>
+    <AssemblyName>SoftStartTiming</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="InsLibDotNet">
+    <Reference Include="InsLibDotNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\LibDll\InsLibDotNet.dll</HintPath>
     </Reference>
     <Reference Include="RTBBLibDotNet, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
@@ -52,22 +53,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form.cs">
+    <Compile Include="AppManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form.Designer.cs">
-      <DependentUpon>Form.cs</DependentUpon>
-    </Compile>
+    <Compile Include="ATE_SoftStartTiming.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="MyLib.cs" />
+    <Compile Include="RTBBControl.cs" />
+    <Compile Include="SoftStartTiming.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SoftStartTiming.Designer.cs">
+      <DependentUpon>SoftStartTiming.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RTBBControl.cs" />
-    <Compile Include="SDCTesting.cs" />
     <Compile Include="test_parameter.cs" />
-    <EmbeddedResource Include="Form.resx">
-      <DependentUpon>Form.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,6 +78,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="SoftStartTiming.resx">
+      <DependentUpon>SoftStartTiming.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

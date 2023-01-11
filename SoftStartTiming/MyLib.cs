@@ -9,8 +9,22 @@ using System.IO;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Drawing;
 
-namespace SDCTool
+namespace SoftStartTiming
 {
+
+    public interface ITask
+    {
+        void ATETask();
+    }
+
+    public class TaskRun : ITask
+    {
+        public double temp = 25;
+        virtual public void ATETask()
+        { }
+    }
+
+
     public class MyLib
     {
         static System.Timers.Timer timer = new System.Timers.Timer();
@@ -280,49 +294,6 @@ namespace SDCTool
             }
         }
 
-        //public static void EloadFixChannel()
-        //{
-        //    for(int i = 0; i < test_parameter.eload_iout.Length; i++)
-        //    {
-        //        if(test_parameter.eload_en[i])
-        //        {
-        //            switch(i)
-        //            {
-        //                case 0:
-        //                    InsControl._eload.CH1_Loading(test_parameter.eload_iout[i]);
-        //                    break;
-        //                case 1:
-        //                    InsControl._eload.CH2_Loading(test_parameter.eload_iout[i]);
-        //                    break;
-        //                case 2:
-        //                    InsControl._eload.CH3_Loading(test_parameter.eload_iout[i]);
-        //                    break;
-        //                case 3:
-        //                    InsControl._eload.CH4_Loading(test_parameter.eload_iout[i]);
-        //                    break;
-        //            }
-        //        }
-        //    }
-        //}
-
-        public static void FuncGen_Fixedparameter(double freq, double duty, double tr, double tf)
-        {
-            InsControl._funcgen.CH1_ContinuousMode();
-            InsControl._funcgen.CH1_PulseMode();
-            InsControl._funcgen.CH1_Frequency(freq);
-            InsControl._funcgen.CH1_DutyCycle(duty);
-            InsControl._funcgen.SetCH1_TrTfFunc(tr, tf);
-            InsControl._funcgen.CHl1_HiLevel(0.1);
-            InsControl._funcgen.CH1_LoLevel(0);
-            InsControl._funcgen.CH1_LoadImpedanceHiz();
-        }
-
-        public static void FuncGen_loopparameter(double hi, double lo)
-        {
-            InsControl._funcgen.CHl1_HiLevel(hi);
-            InsControl._funcgen.CH1_LoLevel(lo);
-            InsControl._funcgen.CH1_On();
-        }
 
         public static void Switch_ELoadLevel(double level)
         {

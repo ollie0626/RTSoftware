@@ -1,0 +1,611 @@
+﻿
+namespace SoftStartTiming
+{
+    partial class SoftStartTiming
+    {
+        /// <summary>
+        /// 設計工具所需的變數。
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// 清除任何使用中的資源。
+        /// </summary>
+        /// <param name="disposing">如果應該處置受控資源則為 true，否則為 false。</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form 設計工具產生的程式碼
+
+        /// <summary>
+        /// 此為設計工具支援所需的方法 - 請勿使用程式碼編輯器修改
+        /// 這個方法的內容。
+        /// </summary>
+        private void InitializeComponent()
+        {
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.nu_offtime_scale = new System.Windows.Forms.NumericUpDown();
+            this.label3 = new System.Windows.Forms.Label();
+            this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_ioutList = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_vinList = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nuslave = new System.Windows.Forms.NumericUpDown();
+            this.led_osc = new System.Windows.Forms.TextBox();
+            this.tb_osc = new System.Windows.Forms.TextBox();
+            this.uibt_osc_connect = new System.Windows.Forms.Button();
+            this.led_power = new System.Windows.Forms.TextBox();
+            this.led_eload = new System.Windows.Forms.TextBox();
+            this.led_chamber = new System.Windows.Forms.TextBox();
+            this.led_daq = new System.Windows.Forms.TextBox();
+            this.tbWave = new System.Windows.Forms.TextBox();
+            this.tbBin = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath = new System.Windows.Forms.Button();
+            this.BTSelectWavePath = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.ck_chamber_en = new System.Windows.Forms.CheckBox();
+            this.nu_steady = new System.Windows.Forms.NumericUpDown();
+            this.label14 = new System.Windows.Forms.Label();
+            this.tb_templist = new System.Windows.Forms.TextBox();
+            this.tb_power = new System.Windows.Forms.TextBox();
+            this.tb_eload = new System.Windows.Forms.TextBox();
+            this.tb_chamber = new System.Windows.Forms.TextBox();
+            this.tb_daq = new System.Windows.Forms.TextBox();
+            this.BTRun = new System.Windows.Forms.Button();
+            this.BTStop = new System.Windows.Forms.Button();
+            this.BTPause = new System.Windows.Forms.Button();
+            this.tabControl1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Location = new System.Drawing.Point(18, 193);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(816, 251);
+            this.tabControl1.TabIndex = 0;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(808, 225);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Test Page";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(725, 446);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(102, 23);
+            this.button1.TabIndex = 66;
+            this.button1.Text = "Wave Path";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Controls.Add(this.nu_offtime_scale);
+            this.groupBox4.Controls.Add(this.label3);
+            this.groupBox4.Controls.Add(this.nu_ontime_scale);
+            this.groupBox4.Location = new System.Drawing.Point(373, 17);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(257, 81);
+            this.groupBox4.TabIndex = 75;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Time Scale Setting";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(16, 53);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(156, 12);
+            this.label4.TabIndex = 63;
+            this.label4.Text = "Power Off Time Scale (ms)";
+            // 
+            // nu_offtime_scale
+            // 
+            this.nu_offtime_scale.DecimalPlaces = 3;
+            this.nu_offtime_scale.Location = new System.Drawing.Point(175, 51);
+            this.nu_offtime_scale.Name = "nu_offtime_scale";
+            this.nu_offtime_scale.Size = new System.Drawing.Size(62, 22);
+            this.nu_offtime_scale.TabIndex = 62;
+            this.nu_offtime_scale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_offtime_scale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(16, 25);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(153, 12);
+            this.label3.TabIndex = 42;
+            this.label3.Text = "Power On Time Scale (ms)";
+            // 
+            // nu_ontime_scale
+            // 
+            this.nu_ontime_scale.DecimalPlaces = 3;
+            this.nu_ontime_scale.Location = new System.Drawing.Point(175, 23);
+            this.nu_ontime_scale.Name = "nu_ontime_scale";
+            this.nu_ontime_scale.Size = new System.Drawing.Size(62, 22);
+            this.nu_ontime_scale.TabIndex = 41;
+            this.nu_ontime_scale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_ontime_scale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tb_ioutList);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox2.Location = new System.Drawing.Point(16, 74);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(351, 51);
+            this.groupBox2.TabIndex = 58;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Iout Range (A)";
+            // 
+            // tb_ioutList
+            // 
+            this.tb_ioutList.Location = new System.Drawing.Point(6, 21);
+            this.tb_ioutList.Name = "tb_ioutList";
+            this.tb_ioutList.Size = new System.Drawing.Size(308, 22);
+            this.tb_ioutList.TabIndex = 50;
+            this.tb_ioutList.Text = "0.1";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tb_vinList);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox1.Location = new System.Drawing.Point(16, 17);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(351, 53);
+            this.groupBox1.TabIndex = 56;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Vin Range (V)";
+            // 
+            // tb_vinList
+            // 
+            this.tb_vinList.Location = new System.Drawing.Point(6, 21);
+            this.tb_vinList.Name = "tb_vinList";
+            this.tb_vinList.Size = new System.Drawing.Size(308, 22);
+            this.tb_vinList.TabIndex = 49;
+            this.tb_vinList.Text = "3.3,3.5,4.5,5";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 18);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Slave ID";
+            // 
+            // nuslave
+            // 
+            this.nuslave.Hexadecimal = true;
+            this.nuslave.Location = new System.Drawing.Point(75, 13);
+            this.nuslave.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuslave.Name = "nuslave";
+            this.nuslave.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuslave.Size = new System.Drawing.Size(69, 22);
+            this.nuslave.TabIndex = 2;
+            this.nuslave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuslave.Value = new decimal(new int[] {
+            74,
+            0,
+            0,
+            0});
+            // 
+            // led_osc
+            // 
+            this.led_osc.BackColor = System.Drawing.Color.Red;
+            this.led_osc.Location = new System.Drawing.Point(18, 50);
+            this.led_osc.Name = "led_osc";
+            this.led_osc.Size = new System.Drawing.Size(22, 22);
+            this.led_osc.TabIndex = 0;
+            // 
+            // tb_osc
+            // 
+            this.tb_osc.Location = new System.Drawing.Point(46, 50);
+            this.tb_osc.Name = "tb_osc";
+            this.tb_osc.Size = new System.Drawing.Size(256, 22);
+            this.tb_osc.TabIndex = 24;
+            this.tb_osc.Text = "TCPIP0::168.254.95.0::hislip0::INSTR";
+            // 
+            // uibt_osc_connect
+            // 
+            this.uibt_osc_connect.Location = new System.Drawing.Point(308, 50);
+            this.uibt_osc_connect.Name = "uibt_osc_connect";
+            this.uibt_osc_connect.Size = new System.Drawing.Size(153, 23);
+            this.uibt_osc_connect.TabIndex = 0;
+            this.uibt_osc_connect.Text = "Instrument Connect";
+            this.uibt_osc_connect.UseVisualStyleBackColor = true;
+            this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
+            // 
+            // led_power
+            // 
+            this.led_power.BackColor = System.Drawing.Color.Red;
+            this.led_power.Location = new System.Drawing.Point(18, 78);
+            this.led_power.Name = "led_power";
+            this.led_power.Size = new System.Drawing.Size(22, 22);
+            this.led_power.TabIndex = 26;
+            // 
+            // led_eload
+            // 
+            this.led_eload.BackColor = System.Drawing.Color.Red;
+            this.led_eload.Location = new System.Drawing.Point(18, 106);
+            this.led_eload.Name = "led_eload";
+            this.led_eload.Size = new System.Drawing.Size(22, 22);
+            this.led_eload.TabIndex = 45;
+            // 
+            // led_chamber
+            // 
+            this.led_chamber.BackColor = System.Drawing.Color.Red;
+            this.led_chamber.Location = new System.Drawing.Point(18, 164);
+            this.led_chamber.Name = "led_chamber";
+            this.led_chamber.Size = new System.Drawing.Size(22, 22);
+            this.led_chamber.TabIndex = 47;
+            // 
+            // led_daq
+            // 
+            this.led_daq.BackColor = System.Drawing.Color.Red;
+            this.led_daq.Location = new System.Drawing.Point(18, 136);
+            this.led_daq.Name = "led_daq";
+            this.led_daq.Size = new System.Drawing.Size(22, 22);
+            this.led_daq.TabIndex = 46;
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(575, 39);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(255, 22);
+            this.tbWave.TabIndex = 52;
+            // 
+            // tbBin
+            // 
+            this.tbBin.Location = new System.Drawing.Point(575, 12);
+            this.tbBin.Name = "tbBin";
+            this.tbBin.Size = new System.Drawing.Size(255, 22);
+            this.tbBin.TabIndex = 50;
+            this.tbBin.Text = "D:\\";
+            // 
+            // BTSelectBinPath
+            // 
+            this.BTSelectBinPath.Location = new System.Drawing.Point(467, 12);
+            this.BTSelectBinPath.Name = "BTSelectBinPath";
+            this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath.TabIndex = 53;
+            this.BTSelectBinPath.Text = "Bin File Path";
+            this.BTSelectBinPath.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath.Click += new System.EventHandler(this.BTSelectBinPath_Click);
+            // 
+            // BTSelectWavePath
+            // 
+            this.BTSelectWavePath.Location = new System.Drawing.Point(467, 37);
+            this.BTSelectWavePath.Name = "BTSelectWavePath";
+            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectWavePath.TabIndex = 55;
+            this.BTSelectWavePath.Text = "Wave Path";
+            this.BTSelectWavePath.UseVisualStyleBackColor = true;
+            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(150, 13);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(102, 23);
+            this.button6.TabIndex = 56;
+            this.button6.Text = "Save Setting";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(258, 13);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(102, 23);
+            this.button7.TabIndex = 57;
+            this.button7.Text = "Load Setting";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.progressBar1);
+            this.groupBox3.Controls.Add(this.label2);
+            this.groupBox3.Controls.Add(this.label15);
+            this.groupBox3.Controls.Add(this.ck_chamber_en);
+            this.groupBox3.Controls.Add(this.nu_steady);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Controls.Add(this.tb_templist);
+            this.groupBox3.Location = new System.Drawing.Point(467, 78);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(363, 108);
+            this.groupBox3.TabIndex = 58;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Chamber Crtl";
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(127, 17);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(126, 23);
+            this.progressBar1.TabIndex = 62;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(6, 84);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(103, 12);
+            this.label2.TabIndex = 61;
+            this.label2.Text = "count down: 5:00";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(113, 84);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(85, 12);
+            this.label15.TabIndex = 60;
+            this.label15.Text = "Steady time(s)";
+            // 
+            // ck_chamber_en
+            // 
+            this.ck_chamber_en.AutoSize = true;
+            this.ck_chamber_en.Location = new System.Drawing.Point(6, 21);
+            this.ck_chamber_en.Name = "ck_chamber_en";
+            this.ck_chamber_en.Size = new System.Drawing.Size(116, 16);
+            this.ck_chamber_en.TabIndex = 61;
+            this.ck_chamber_en.Text = "Chamber Enable";
+            this.ck_chamber_en.UseVisualStyleBackColor = true;
+            // 
+            // nu_steady
+            // 
+            this.nu_steady.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_steady.Location = new System.Drawing.Point(202, 79);
+            this.nu_steady.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_steady.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_steady.Name = "nu_steady";
+            this.nu_steady.Size = new System.Drawing.Size(51, 23);
+            this.nu_steady.TabIndex = 59;
+            this.nu_steady.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(6, 49);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(90, 12);
+            this.label14.TabIndex = 59;
+            this.label14.Text = "Chamber Temp";
+            // 
+            // tb_templist
+            // 
+            this.tb_templist.Location = new System.Drawing.Point(102, 46);
+            this.tb_templist.Name = "tb_templist";
+            this.tb_templist.Size = new System.Drawing.Size(152, 22);
+            this.tb_templist.TabIndex = 60;
+            this.tb_templist.Text = "25,40,80";
+            // 
+            // tb_power
+            // 
+            this.tb_power.Location = new System.Drawing.Point(46, 78);
+            this.tb_power.Name = "tb_power";
+            this.tb_power.Size = new System.Drawing.Size(256, 22);
+            this.tb_power.TabIndex = 59;
+            this.tb_power.Text = "GPIB0::5::INSTR";
+            // 
+            // tb_eload
+            // 
+            this.tb_eload.Location = new System.Drawing.Point(46, 106);
+            this.tb_eload.Name = "tb_eload";
+            this.tb_eload.Size = new System.Drawing.Size(256, 22);
+            this.tb_eload.TabIndex = 60;
+            this.tb_eload.Text = "GPIB0::7::INSTR";
+            // 
+            // tb_chamber
+            // 
+            this.tb_chamber.Location = new System.Drawing.Point(47, 164);
+            this.tb_chamber.Name = "tb_chamber";
+            this.tb_chamber.Size = new System.Drawing.Size(256, 22);
+            this.tb_chamber.TabIndex = 62;
+            this.tb_chamber.Text = "GPIB0::3::INSTR";
+            // 
+            // tb_daq
+            // 
+            this.tb_daq.Location = new System.Drawing.Point(47, 136);
+            this.tb_daq.Name = "tb_daq";
+            this.tb_daq.Size = new System.Drawing.Size(256, 22);
+            this.tb_daq.TabIndex = 61;
+            this.tb_daq.Text = "GPIB0::6::INSTR";
+            // 
+            // BTRun
+            // 
+            this.BTRun.Location = new System.Drawing.Point(308, 79);
+            this.BTRun.Name = "BTRun";
+            this.BTRun.Size = new System.Drawing.Size(75, 32);
+            this.BTRun.TabIndex = 63;
+            this.BTRun.Text = "Run";
+            this.BTRun.UseVisualStyleBackColor = true;
+            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
+            // 
+            // BTStop
+            // 
+            this.BTStop.Location = new System.Drawing.Point(308, 155);
+            this.BTStop.Name = "BTStop";
+            this.BTStop.Size = new System.Drawing.Size(75, 32);
+            this.BTStop.TabIndex = 64;
+            this.BTStop.Text = "Stop";
+            this.BTStop.UseVisualStyleBackColor = true;
+            // 
+            // BTPause
+            // 
+            this.BTPause.Location = new System.Drawing.Point(308, 117);
+            this.BTPause.Name = "BTPause";
+            this.BTPause.Size = new System.Drawing.Size(75, 32);
+            this.BTPause.TabIndex = 65;
+            this.BTPause.Text = "Pause";
+            this.BTPause.UseVisualStyleBackColor = true;
+            // 
+            // SoftStartTiming
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.Silver;
+            this.ClientSize = new System.Drawing.Size(843, 461);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.BTPause);
+            this.Controls.Add(this.BTStop);
+            this.Controls.Add(this.BTRun);
+            this.Controls.Add(this.tb_chamber);
+            this.Controls.Add(this.tb_daq);
+            this.Controls.Add(this.tb_eload);
+            this.Controls.Add(this.tb_power);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.button7);
+            this.Controls.Add(this.button6);
+            this.Controls.Add(this.BTSelectWavePath);
+            this.Controls.Add(this.BTSelectBinPath);
+            this.Controls.Add(this.tbWave);
+            this.Controls.Add(this.tbBin);
+            this.Controls.Add(this.nuslave);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.led_chamber);
+            this.Controls.Add(this.tabControl1);
+            this.Controls.Add(this.led_daq);
+            this.Controls.Add(this.led_osc);
+            this.Controls.Add(this.led_eload);
+            this.Controls.Add(this.tb_osc);
+            this.Controls.Add(this.uibt_osc_connect);
+            this.Controls.Add(this.led_power);
+            this.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Name = "SoftStartTiming";
+            this.Text = "Form1";
+            this.Load += new System.EventHandler(this.SoftStartTiming_Load);
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nuslave;
+        private System.Windows.Forms.TextBox led_osc;
+        private System.Windows.Forms.TextBox tb_osc;
+        private System.Windows.Forms.Button uibt_osc_connect;
+        private System.Windows.Forms.TextBox led_power;
+        private System.Windows.Forms.TextBox led_chamber;
+        private System.Windows.Forms.TextBox led_daq;
+        private System.Windows.Forms.TextBox led_eload;
+        private System.Windows.Forms.TextBox tbWave;
+        private System.Windows.Forms.TextBox tbBin;
+        private System.Windows.Forms.Button BTSelectBinPath;
+        private System.Windows.Forms.Button BTSelectWavePath;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox tb_vinList;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox tb_ioutList;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox ck_chamber_en;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox tb_templist;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.NumericUpDown nu_steady;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.NumericUpDown nu_ontime_scale;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown nu_offtime_scale;
+        private System.Windows.Forms.TextBox tb_power;
+        private System.Windows.Forms.TextBox tb_eload;
+        private System.Windows.Forms.TextBox tb_chamber;
+        private System.Windows.Forms.TextBox tb_daq;
+        private System.Windows.Forms.Button BTRun;
+        private System.Windows.Forms.Button BTStop;
+        private System.Windows.Forms.Button BTPause;
+        private System.Windows.Forms.Button button1;
+    }
+}
+
