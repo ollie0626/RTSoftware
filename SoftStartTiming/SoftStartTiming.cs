@@ -112,10 +112,10 @@ namespace SoftStartTiming
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
 
-            test_parameter.IoutList1 = tb_iout1.Text.Split(',').Select(double.Parse).ToList();
-            test_parameter.IoutList2 = tb_iout2.Text.Split(',').Select(double.Parse).ToList();
-            test_parameter.IoutList3 = tb_iout3.Text.Split(',').Select(double.Parse).ToList();
-            test_parameter.IoutList4 = tb_iout4.Text.Split(',').Select(double.Parse).ToList();
+            //test_parameter.IoutList1 = tb_iout1.Text.Split(',').Select(double.Parse).ToList();
+            //test_parameter.IoutList2 = tb_iout2.Text.Split(',').Select(double.Parse).ToList();
+            //test_parameter.IoutList3 = tb_iout3.Text.Split(',').Select(double.Parse).ToList();
+            //test_parameter.IoutList4 = tb_iout4.Text.Split(',').Select(double.Parse).ToList();
 
             test_parameter.slave = (byte)nuslave.Value;
             test_parameter.bin_path = tbBin.Text;
@@ -134,7 +134,7 @@ namespace SoftStartTiming
                 if (ck_chamber_en.Checked)
                 {
                     tempList = tb_templist.Text.Split(',');
-                    p_thread = new ParameterizedThreadStart(Run_Single_Task);
+                    p_thread = new ParameterizedThreadStart(Chamber_Task);
                     ATETask = new Thread(p_thread);
                     ATETask.Start(0);
                 }

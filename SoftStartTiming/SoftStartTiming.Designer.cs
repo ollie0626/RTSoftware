@@ -36,8 +36,6 @@ namespace SoftStartTiming
             this.nu_offtime_scale = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tb_iout1 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -71,19 +69,11 @@ namespace SoftStartTiming
             this.BTRun = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
-            this.tb_iout2 = new System.Windows.Forms.TextBox();
-            this.tb_iout3 = new System.Windows.Forms.TextBox();
-            this.tb_iout4 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -103,8 +93,11 @@ namespace SoftStartTiming
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
             this.tabPage2.Controls.Add(this.groupBox4);
-            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.BTSelectBinPath);
+            this.tabPage2.Controls.Add(this.tbBin);
+            this.tabPage2.Controls.Add(this.tbWave);
+            this.tabPage2.Controls.Add(this.BTSelectWavePath);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -118,7 +111,7 @@ namespace SoftStartTiming
             this.groupBox4.Controls.Add(this.nu_offtime_scale);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.nu_ontime_scale);
-            this.groupBox4.Location = new System.Drawing.Point(373, 17);
+            this.groupBox4.Location = new System.Drawing.Point(441, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(257, 81);
             this.groupBox4.TabIndex = 75;
@@ -171,43 +164,13 @@ namespace SoftStartTiming
             0,
             0});
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label8);
-            this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.label6);
-            this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.tb_iout4);
-            this.groupBox2.Controls.Add(this.tb_iout3);
-            this.groupBox2.Controls.Add(this.tb_iout2);
-            this.groupBox2.Controls.Add(this.tb_iout1);
-            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(16, 74);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(351, 157);
-            this.groupBox2.TabIndex = 58;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Iout Range (A)";
-            // 
-            // tb_iout1
-            // 
-            this.tb_iout1.Location = new System.Drawing.Point(43, 30);
-            this.tb_iout1.Name = "tb_iout1";
-            this.tb_iout1.Size = new System.Drawing.Size(259, 22);
-            this.tb_iout1.TabIndex = 50;
-            this.tb_iout1.Text = "0.1";
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.tb_vinList);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(16, 17);
+            this.groupBox1.Location = new System.Drawing.Point(441, 92);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -324,22 +287,22 @@ namespace SoftStartTiming
             // 
             // tbWave
             // 
-            this.tbWave.Location = new System.Drawing.Point(575, 39);
+            this.tbWave.Location = new System.Drawing.Point(114, 219);
             this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(255, 22);
+            this.tbWave.Size = new System.Drawing.Size(298, 22);
             this.tbWave.TabIndex = 52;
             // 
             // tbBin
             // 
-            this.tbBin.Location = new System.Drawing.Point(575, 12);
+            this.tbBin.Location = new System.Drawing.Point(114, 6);
             this.tbBin.Name = "tbBin";
-            this.tbBin.Size = new System.Drawing.Size(255, 22);
+            this.tbBin.Size = new System.Drawing.Size(298, 22);
             this.tbBin.TabIndex = 50;
-            this.tbBin.Text = "D:\\";
+            this.tbBin.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin";
             // 
             // BTSelectBinPath
             // 
-            this.BTSelectBinPath.Location = new System.Drawing.Point(467, 12);
+            this.BTSelectBinPath.Location = new System.Drawing.Point(6, 6);
             this.BTSelectBinPath.Name = "BTSelectBinPath";
             this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath.TabIndex = 53;
@@ -349,7 +312,7 @@ namespace SoftStartTiming
             // 
             // BTSelectWavePath
             // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(467, 37);
+            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 217);
             this.BTSelectWavePath.Name = "BTSelectWavePath";
             this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
             this.BTSelectWavePath.TabIndex = 55;
@@ -385,7 +348,7 @@ namespace SoftStartTiming
             this.groupBox3.Controls.Add(this.nu_steady);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.tb_templist);
-            this.groupBox3.Location = new System.Drawing.Point(467, 78);
+            this.groupBox3.Location = new System.Drawing.Point(467, 13);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(363, 117);
             this.groupBox3.TabIndex = 58;
@@ -523,66 +486,6 @@ namespace SoftStartTiming
             this.BTPause.Text = "Pause";
             this.BTPause.UseVisualStyleBackColor = true;
             // 
-            // tb_iout2
-            // 
-            this.tb_iout2.Location = new System.Drawing.Point(43, 58);
-            this.tb_iout2.Name = "tb_iout2";
-            this.tb_iout2.Size = new System.Drawing.Size(259, 22);
-            this.tb_iout2.TabIndex = 51;
-            this.tb_iout2.Text = "0.1";
-            // 
-            // tb_iout3
-            // 
-            this.tb_iout3.Location = new System.Drawing.Point(43, 86);
-            this.tb_iout3.Name = "tb_iout3";
-            this.tb_iout3.Size = new System.Drawing.Size(259, 22);
-            this.tb_iout3.TabIndex = 52;
-            this.tb_iout3.Text = "0.1";
-            // 
-            // tb_iout4
-            // 
-            this.tb_iout4.Location = new System.Drawing.Point(43, 114);
-            this.tb_iout4.Name = "tb_iout4";
-            this.tb_iout4.Size = new System.Drawing.Size(259, 22);
-            this.tb_iout4.TabIndex = 53;
-            this.tb_iout4.Text = "0.1";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 33);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 12);
-            this.label5.TabIndex = 64;
-            this.label5.Text = "CH1";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(7, 61);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 12);
-            this.label6.TabIndex = 65;
-            this.label6.Text = "CH2";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(7, 89);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 12);
-            this.label7.TabIndex = 66;
-            this.label7.Text = "CH3";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(7, 117);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(30, 12);
-            this.label8.TabIndex = 67;
-            this.label8.Text = "CH4";
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -599,10 +502,6 @@ namespace SoftStartTiming
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.button7);
             this.Controls.Add(this.button6);
-            this.Controls.Add(this.BTSelectWavePath);
-            this.Controls.Add(this.BTSelectBinPath);
-            this.Controls.Add(this.tbWave);
-            this.Controls.Add(this.tbBin);
             this.Controls.Add(this.nuslave);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.led_chamber);
@@ -619,12 +518,11 @@ namespace SoftStartTiming
             this.Load += new System.EventHandler(this.SoftStartTiming_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
@@ -657,8 +555,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.TextBox tb_vinList;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox tb_iout1;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox ck_chamber_en;
         private System.Windows.Forms.Label label14;
@@ -680,13 +576,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTStop;
         private System.Windows.Forms.Button BTPause;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox tb_iout4;
-        private System.Windows.Forms.TextBox tb_iout3;
-        private System.Windows.Forms.TextBox tb_iout2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label6;
     }
 }
 
