@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SDCTool", "SDCTool\SDCTool.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftStartTiming", "SoftStartTiming\SoftStartTiming.csproj", "{8DA6C783-C24D-4D70-9B92-EE95F18F93E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenBinTool", "GenBinTool\GenBinTool\GenBinTool.csproj", "{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,6 +103,14 @@ Global
 		{8DA6C783-C24D-4D70-9B92-EE95F18F93E1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8DA6C783-C24D-4D70-9B92-EE95F18F93E1}.Release|x86.ActiveCfg = Release|Any CPU
 		{8DA6C783-C24D-4D70-9B92-EE95F18F93E1}.Release|x86.Build.0 = Release|Any CPU
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Debug|x86.ActiveCfg = Debug|x86
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Debug|x86.Build.0 = Debug|x86
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Release|x86.ActiveCfg = Release|x86
+		{5A70EF7E-4B93-4F54-A6EF-A59AA20C827B}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
