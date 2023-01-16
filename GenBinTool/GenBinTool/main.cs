@@ -361,15 +361,17 @@ namespace GenBinTool
                                 Array.Copy(mix[idx], tmp, mix[idx].Length);
                                 file_name = MixfileList[idx] + "_";
                                 file_name += NameList[i] + "_" + NoteList[i][data_idx];
+                                tmp[AddList[i]] |= (byte)DataList[i][data_idx];
                             }
                             else
                             {
                                 Array.Copy(defaultBuffer, tmp, defaultBuffer.Length);
                                 //file_name = string.Format("{0}_", file_idx++);
                                 file_name += NameList[i] + "_" + NoteList[i][data_idx];
+                                tmp[AddList[i]] = (byte)DataList[i][data_idx];
                             }
                             //Console.WriteLine(file_name);
-                            tmp[AddList[i]] |= (byte)DataList[i][data_idx];
+                            
                             Console.WriteLine("{0:X}", DataList[i][data_idx]);
                             sum.Add(sum_idx++, tmp);
                             SumfileList.Add(file_name);
@@ -382,7 +384,7 @@ namespace GenBinTool
             {
                 for(int i = 0; i < sum.Count; i++)
                 {
-                    SumfileList[i] = string.Format("{0}_" + SumfileList[i], i);
+                    SumfileList[i] = string.Format("{0}_" + SumfileList[i], i + numericUpDown1.Value);
                     //Console.WriteLine(SumfileList[i]);
 
                     string path = tbPath.Text + @"\" + SumfileList[i] + ".bin";
@@ -398,7 +400,7 @@ namespace GenBinTool
             {
                 for (int i = 0; i < mix.Count; i++)
                 {
-                    MixfileList[i] = string.Format("{0}_" + MixfileList[i], i);
+                    MixfileList[i] = string.Format("{0}_" + MixfileList[i], i + numericUpDown1.Value);
                     //Console.WriteLine(MixfileList[i]);
 
                     string path = tbPath.Text + @"\" + MixfileList[i] + ".bin";

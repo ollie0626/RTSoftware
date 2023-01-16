@@ -261,6 +261,12 @@ namespace InsLibDotNet
             doCommand(cmd);
         }
 
+        public void CHx_On(int CHx)
+        {
+            string cmd = ":CHANnel" + CHx + ":DISPLAY ON";
+            doCommand(cmd);
+        }
+
         public void CH1_On()
         {
             CHx_On(CH1);
@@ -305,6 +311,12 @@ namespace InsLibDotNet
         public void CH4_Off()
         {
             CHx_Off(CH4);
+        }
+
+        public void CHx_Offset(int CHx, double offset)
+        {
+            string gogoCMD = "CHANnel" + CHx + ":OFFSet " + offset.ToString();
+            doCommand(gogoCMD);
         }
 
         private void CHx_Offset(string CHx, double offset)

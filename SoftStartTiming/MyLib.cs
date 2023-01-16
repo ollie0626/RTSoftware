@@ -12,6 +12,12 @@ using System.Drawing;
 namespace SoftStartTiming
 {
 
+    public enum XLS_Table
+    {
+        A = 1, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
+        AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK, AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW, AX, AY, AZ,
+    };
+
     public interface ITask
     {
         void ATETask();
@@ -86,9 +92,9 @@ namespace SoftStartTiming
             string[] binList = new string[1];
             try
             {
-                if (Directory.Exists(test_parameter.bin_path))
+                if (Directory.Exists(path))
                 {
-                    binList = Directory.GetFiles(test_parameter.bin_path, "*.bin");
+                    binList = Directory.GetFiles(path, "*.bin");
                     List<int> numList = new List<int>();
                     // full map
                     for (int i = 0; i < binList.Length; i++)
@@ -122,9 +128,9 @@ namespace SoftStartTiming
             }
             catch
             {
-                if (Directory.Exists(test_parameter.bin_path))
+                if (Directory.Exists(path))
                 {
-                    binList = Directory.GetFiles(test_parameter.bin_path, "*.bin");
+                    binList = Directory.GetFiles(path, "*.bin");
                 }
                 else
                 {

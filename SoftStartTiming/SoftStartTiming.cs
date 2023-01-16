@@ -22,13 +22,16 @@ namespace SoftStartTiming
         string[] tempList;
 
         // test item
-        ATE_SoftStartTiming _ate_sst;
+        ATE_SoftStartTiming _ate_sst = new ATE_SoftStartTiming();
         TaskRun[] ate_table;
 
 
         public SoftStartTiming()
         {
             InitializeComponent();
+
+
+            VisaCommand._IsDebug = false;
         }
 
         private void BTSelectBinPath_Click(object sender, EventArgs e)
@@ -37,6 +40,24 @@ namespace SoftStartTiming
             if (folderBrowser.ShowDialog() == DialogResult.OK)
             {
                 tbBin.Text = folderBrowser.SelectedPath;
+            }
+        }
+
+        private void BTSelectBinPath2_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                tbBin2.Text = folderBrowser.SelectedPath;
+            }
+        }
+
+        private void BTSelectBinPath3_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                tbBin3.Text = folderBrowser.SelectedPath;
             }
         }
 
@@ -108,26 +129,42 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
+            TextBox[] path_table = new TextBox[] { tbBin, tbBin2, tbBin3 };
             test_parameter.chamber_en = ck_chamber_en.Checked;
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
 
-            //test_parameter.IoutList1 = tb_iout1.Text.Split(',').Select(double.Parse).ToList();
-            //test_parameter.IoutList2 = tb_iout2.Text.Split(',').Select(double.Parse).ToList();
-            //test_parameter.IoutList3 = tb_iout3.Text.Split(',').Select(double.Parse).ToList();
-            //test_parameter.IoutList4 = tb_iout4.Text.Split(',').Select(double.Parse).ToList();
-
             test_parameter.slave = (byte)nuslave.Value;
-            test_parameter.bin_path = tbBin.Text;
+            test_parameter.offset_time = (double)nuOffset.Value;
+
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
+
+
+            for(int i = 0; i < test_parameter.bin_path.Length; i++)
+            {
+                test_parameter.bin_path[i] = path_table[i].Text;
+            }
+
+
+            // need to gui configure
+            // scope channel 2 ~ 4
+            for(int i = 0; i < test_parameter.scope_en.Length; i++)
+            {
+                test_parameter.scope_en[i] = ScopeChTable[i].Checked;
+                test_parameter.bin_en[i] = binTable[i].Checked;
+            }
+
+            test_parameter.trigger_event = 0; // test example gpio trigger
+            test_parameter.sleep_mode = false;
+
         }
 
 
         private void BTRun_Click(object sender, EventArgs e)
         {
-            BTRun.Enabled = false;
+            //BTRun.Enabled = false;
             try
             {
                 test_parameter_copy();
@@ -146,7 +183,7 @@ namespace SoftStartTiming
                     ATETask.Start(0);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error Message:" + ex.Message);
                 Console.WriteLine("StackTrace:" + ex.StackTrace);
@@ -212,6 +249,8 @@ namespace SoftStartTiming
 
         private void button1_Click(object sender, EventArgs e)
         {
+
+            InsControl._scope.SaveWaveform(@"D:\", "scope");
             OpenFileDialog opendlg = new OpenFileDialog();
 
             if(opendlg.ShowDialog() == DialogResult.OK)
@@ -237,5 +276,40 @@ namespace SoftStartTiming
                 myFile.Close();
             }
         }
+
+
+        private void BTPause_Click(object sender, EventArgs e)
+        {
+            if (ATETask == null) return;
+            System.Threading.ThreadState state = ATETask.ThreadState;
+            if (state == System.Threading.ThreadState.Running || state == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                ATETask.Suspend();
+                BTPause.ForeColor = Color.Red;
+            }
+            else if (state == System.Threading.ThreadState.Suspended)
+            {
+                ATETask.Resume();
+                BTPause.ForeColor = Color.White;
+            }
+        }
+
+        private void BTStop_Click(object sender, EventArgs e)
+        {
+            test_parameter.run_stop = true;
+            if (ATETask != null)
+            {
+                if (ATETask.IsAlive)
+                {
+                    System.Threading.ThreadState state = ATETask.ThreadState;
+                    if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
+                    ATETask.Abort();
+                    MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
+                    InsControl._power.AutoPowerOff();
+                }
+            }
+        }
+
+
     }
 }

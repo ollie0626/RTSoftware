@@ -31,6 +31,20 @@ namespace SoftStartTiming
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.CkBin2 = new System.Windows.Forms.CheckBox();
+            this.CkBin3 = new System.Windows.Forms.CheckBox();
+            this.CkBin1 = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.CkCH2 = new System.Windows.Forms.CheckBox();
+            this.CkCH3 = new System.Windows.Forms.CheckBox();
+            this.CkCH1 = new System.Windows.Forms.CheckBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.CbTrigger = new System.Windows.Forms.ComboBox();
+            this.BTSelectBinPath3 = new System.Windows.Forms.Button();
+            this.tbBin3 = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath2 = new System.Windows.Forms.Button();
+            this.tbBin2 = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.nu_offtime_scale = new System.Windows.Forms.NumericUpDown();
@@ -38,6 +52,10 @@ namespace SoftStartTiming
             this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath = new System.Windows.Forms.Button();
+            this.tbBin = new System.Windows.Forms.TextBox();
+            this.tbWave = new System.Windows.Forms.TextBox();
+            this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nuslave = new System.Windows.Forms.NumericUpDown();
@@ -48,10 +66,6 @@ namespace SoftStartTiming
             this.led_eload = new System.Windows.Forms.TextBox();
             this.led_chamber = new System.Windows.Forms.TextBox();
             this.led_daq = new System.Windows.Forms.TextBox();
-            this.tbWave = new System.Windows.Forms.TextBox();
-            this.tbBin = new System.Windows.Forms.TextBox();
-            this.BTSelectBinPath = new System.Windows.Forms.Button();
-            this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button7 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -69,8 +83,12 @@ namespace SoftStartTiming
             this.BTRun = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.nuOffset = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
@@ -78,6 +96,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -86,12 +105,20 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(18, 193);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(816, 284);
+            this.tabControl1.Size = new System.Drawing.Size(816, 283);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.groupBox5);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.CbTrigger);
+            this.tabPage2.Controls.Add(this.BTSelectBinPath3);
+            this.tabPage2.Controls.Add(this.tbBin3);
+            this.tabPage2.Controls.Add(this.BTSelectBinPath2);
+            this.tabPage2.Controls.Add(this.tbBin2);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox1);
             this.tabPage2.Controls.Add(this.BTSelectBinPath);
@@ -101,9 +128,158 @@ namespace SoftStartTiming
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(808, 258);
+            this.tabPage2.Size = new System.Drawing.Size(808, 257);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.CkBin2);
+            this.groupBox5.Controls.Add(this.CkBin3);
+            this.groupBox5.Controls.Add(this.CkBin1);
+            this.groupBox5.Location = new System.Drawing.Point(6, 141);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(125, 94);
+            this.groupBox5.TabIndex = 83;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "I2C Setting En";
+            // 
+            // CkBin2
+            // 
+            this.CkBin2.AutoSize = true;
+            this.CkBin2.Checked = true;
+            this.CkBin2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBin2.Location = new System.Drawing.Point(7, 43);
+            this.CkBin2.Name = "CkBin2";
+            this.CkBin2.Size = new System.Drawing.Size(91, 16);
+            this.CkBin2.TabIndex = 2;
+            this.CkBin2.Text = "Bin2 Folder";
+            this.CkBin2.UseVisualStyleBackColor = true;
+            // 
+            // CkBin3
+            // 
+            this.CkBin3.AutoSize = true;
+            this.CkBin3.Location = new System.Drawing.Point(6, 65);
+            this.CkBin3.Name = "CkBin3";
+            this.CkBin3.Size = new System.Drawing.Size(91, 16);
+            this.CkBin3.TabIndex = 1;
+            this.CkBin3.Text = "Bin3 Folder";
+            this.CkBin3.UseVisualStyleBackColor = true;
+            // 
+            // CkBin1
+            // 
+            this.CkBin1.AutoSize = true;
+            this.CkBin1.Checked = true;
+            this.CkBin1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBin1.Location = new System.Drawing.Point(7, 21);
+            this.CkBin1.Name = "CkBin1";
+            this.CkBin1.Size = new System.Drawing.Size(91, 16);
+            this.CkBin1.TabIndex = 0;
+            this.CkBin1.Text = "Bin1 Folder";
+            this.CkBin1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.CkCH2);
+            this.groupBox2.Controls.Add(this.CkCH3);
+            this.groupBox2.Controls.Add(this.CkCH1);
+            this.groupBox2.Location = new System.Drawing.Point(137, 141);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(125, 94);
+            this.groupBox2.TabIndex = 82;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Scope CH Enable";
+            // 
+            // CkCH2
+            // 
+            this.CkCH2.AutoSize = true;
+            this.CkCH2.Checked = true;
+            this.CkCH2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkCH2.Location = new System.Drawing.Point(7, 43);
+            this.CkCH2.Name = "CkCH2";
+            this.CkCH2.Size = new System.Drawing.Size(102, 16);
+            this.CkCH2.TabIndex = 2;
+            this.CkCH2.Text = "CK_Channel3";
+            this.CkCH2.UseVisualStyleBackColor = true;
+            // 
+            // CkCH3
+            // 
+            this.CkCH3.AutoSize = true;
+            this.CkCH3.Location = new System.Drawing.Point(6, 65);
+            this.CkCH3.Name = "CkCH3";
+            this.CkCH3.Size = new System.Drawing.Size(102, 16);
+            this.CkCH3.TabIndex = 1;
+            this.CkCH3.Text = "CK_Channel4";
+            this.CkCH3.UseVisualStyleBackColor = true;
+            // 
+            // CkCH1
+            // 
+            this.CkCH1.AutoSize = true;
+            this.CkCH1.Checked = true;
+            this.CkCH1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkCH1.Location = new System.Drawing.Point(7, 21);
+            this.CkCH1.Name = "CkCH1";
+            this.CkCH1.Size = new System.Drawing.Size(102, 16);
+            this.CkCH1.TabIndex = 0;
+            this.CkCH1.Text = "CK_Channel2";
+            this.CkCH1.UseVisualStyleBackColor = true;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(25, 92);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 12);
+            this.label5.TabIndex = 81;
+            this.label5.Text = "Trigger Event";
+            // 
+            // CbTrigger
+            // 
+            this.CbTrigger.FormattingEnabled = true;
+            this.CbTrigger.Items.AddRange(new object[] {
+            "0 : GPIO (PWRDIS / Sleep)",
+            "1 : I2C (on-going)",
+            "2 : Vin (Power supply)"});
+            this.CbTrigger.Location = new System.Drawing.Point(114, 89);
+            this.CbTrigger.Name = "CbTrigger";
+            this.CbTrigger.Size = new System.Drawing.Size(224, 20);
+            this.CbTrigger.TabIndex = 80;
+            // 
+            // BTSelectBinPath3
+            // 
+            this.BTSelectBinPath3.Location = new System.Drawing.Point(6, 62);
+            this.BTSelectBinPath3.Name = "BTSelectBinPath3";
+            this.BTSelectBinPath3.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath3.TabIndex = 79;
+            this.BTSelectBinPath3.Text = "Bin File Path";
+            this.BTSelectBinPath3.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath3.Click += new System.EventHandler(this.BTSelectBinPath3_Click);
+            // 
+            // tbBin3
+            // 
+            this.tbBin3.Location = new System.Drawing.Point(114, 62);
+            this.tbBin3.Name = "tbBin3";
+            this.tbBin3.Size = new System.Drawing.Size(425, 22);
+            this.tbBin3.TabIndex = 78;
+            this.tbBin3.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin_B3";
+            // 
+            // BTSelectBinPath2
+            // 
+            this.BTSelectBinPath2.Location = new System.Drawing.Point(6, 34);
+            this.BTSelectBinPath2.Name = "BTSelectBinPath2";
+            this.BTSelectBinPath2.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath2.TabIndex = 77;
+            this.BTSelectBinPath2.Text = "Bin File Path";
+            this.BTSelectBinPath2.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath2.Click += new System.EventHandler(this.BTSelectBinPath2_Click);
+            // 
+            // tbBin2
+            // 
+            this.tbBin2.Location = new System.Drawing.Point(114, 34);
+            this.tbBin2.Name = "tbBin2";
+            this.tbBin2.Size = new System.Drawing.Size(425, 22);
+            this.tbBin2.TabIndex = 76;
+            this.tbBin2.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin_B2";
             // 
             // groupBox4
             // 
@@ -111,7 +287,7 @@ namespace SoftStartTiming
             this.groupBox4.Controls.Add(this.nu_offtime_scale);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.nu_ontime_scale);
-            this.groupBox4.Location = new System.Drawing.Point(441, 6);
+            this.groupBox4.Location = new System.Drawing.Point(545, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(257, 81);
             this.groupBox4.TabIndex = 75;
@@ -170,11 +346,11 @@ namespace SoftStartTiming
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(441, 92);
+            this.groupBox1.Location = new System.Drawing.Point(545, 92);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(351, 53);
+            this.groupBox1.Size = new System.Drawing.Size(258, 53);
             this.groupBox1.TabIndex = 56;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Vin Range (V)";
@@ -183,9 +359,44 @@ namespace SoftStartTiming
             // 
             this.tb_vinList.Location = new System.Drawing.Point(6, 21);
             this.tb_vinList.Name = "tb_vinList";
-            this.tb_vinList.Size = new System.Drawing.Size(308, 22);
+            this.tb_vinList.Size = new System.Drawing.Size(231, 22);
             this.tb_vinList.TabIndex = 49;
-            this.tb_vinList.Text = "3.3,3.5,4.5,5";
+            this.tb_vinList.Text = "3.3";
+            // 
+            // BTSelectBinPath
+            // 
+            this.BTSelectBinPath.Location = new System.Drawing.Point(6, 6);
+            this.BTSelectBinPath.Name = "BTSelectBinPath";
+            this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath.TabIndex = 53;
+            this.BTSelectBinPath.Text = "Bin File Path";
+            this.BTSelectBinPath.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath.Click += new System.EventHandler(this.BTSelectBinPath_Click);
+            // 
+            // tbBin
+            // 
+            this.tbBin.Location = new System.Drawing.Point(114, 6);
+            this.tbBin.Name = "tbBin";
+            this.tbBin.Size = new System.Drawing.Size(425, 22);
+            this.tbBin.TabIndex = 50;
+            this.tbBin.Text = "C:\\Users\\westg\\Desktop\\RT5142\\temp";
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(114, 113);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(298, 22);
+            this.tbWave.TabIndex = 52;
+            // 
+            // BTSelectWavePath
+            // 
+            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 111);
+            this.BTSelectWavePath.Name = "BTSelectWavePath";
+            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectWavePath.TabIndex = 55;
+            this.BTSelectWavePath.Text = "Wave Path";
+            this.BTSelectWavePath.UseVisualStyleBackColor = true;
+            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
             // 
             // button1
             // 
@@ -195,7 +406,6 @@ namespace SoftStartTiming
             this.button1.TabIndex = 66;
             this.button1.Text = "Test button";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
@@ -284,41 +494,6 @@ namespace SoftStartTiming
             this.led_daq.Name = "led_daq";
             this.led_daq.Size = new System.Drawing.Size(22, 22);
             this.led_daq.TabIndex = 46;
-            // 
-            // tbWave
-            // 
-            this.tbWave.Location = new System.Drawing.Point(114, 219);
-            this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(298, 22);
-            this.tbWave.TabIndex = 52;
-            // 
-            // tbBin
-            // 
-            this.tbBin.Location = new System.Drawing.Point(114, 6);
-            this.tbBin.Name = "tbBin";
-            this.tbBin.Size = new System.Drawing.Size(298, 22);
-            this.tbBin.TabIndex = 50;
-            this.tbBin.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin";
-            // 
-            // BTSelectBinPath
-            // 
-            this.BTSelectBinPath.Location = new System.Drawing.Point(6, 6);
-            this.BTSelectBinPath.Name = "BTSelectBinPath";
-            this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath.TabIndex = 53;
-            this.BTSelectBinPath.Text = "Bin File Path";
-            this.BTSelectBinPath.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath.Click += new System.EventHandler(this.BTSelectBinPath_Click);
-            // 
-            // BTSelectWavePath
-            // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 217);
-            this.BTSelectWavePath.Name = "BTSelectWavePath";
-            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectWavePath.TabIndex = 55;
-            this.BTSelectWavePath.Text = "Wave Path";
-            this.BTSelectWavePath.UseVisualStyleBackColor = true;
-            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
             // 
             // button6
             // 
@@ -476,6 +651,7 @@ namespace SoftStartTiming
             this.BTStop.TabIndex = 64;
             this.BTStop.Text = "Stop";
             this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
             // 
             // BTPause
             // 
@@ -485,13 +661,39 @@ namespace SoftStartTiming
             this.BTPause.TabIndex = 65;
             this.BTPause.Text = "Pause";
             this.BTPause.UseVisualStyleBackColor = true;
+            this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(471, 146);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 12);
+            this.label6.TabIndex = 64;
+            this.label6.Text = "Time offset (us)";
+            // 
+            // nuOffset
+            // 
+            this.nuOffset.DecimalPlaces = 3;
+            this.nuOffset.Location = new System.Drawing.Point(572, 141);
+            this.nuOffset.Name = "nuOffset";
+            this.nuOffset.Size = new System.Drawing.Size(62, 22);
+            this.nuOffset.TabIndex = 64;
+            this.nuOffset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuOffset.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(843, 511);
+            this.ClientSize = new System.Drawing.Size(843, 490);
+            this.Controls.Add(this.nuOffset);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.BTStop);
             this.Controls.Add(this.BTRun);
@@ -519,6 +721,10 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).EndInit();
@@ -529,6 +735,7 @@ namespace SoftStartTiming
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -576,6 +783,22 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTStop;
         private System.Windows.Forms.Button BTPause;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BTSelectBinPath2;
+        private System.Windows.Forms.TextBox tbBin2;
+        private System.Windows.Forms.Button BTSelectBinPath3;
+        private System.Windows.Forms.TextBox tbBin3;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox CbTrigger;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.CheckBox CkCH2;
+        private System.Windows.Forms.CheckBox CkCH3;
+        private System.Windows.Forms.CheckBox CkCH1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.CheckBox CkBin2;
+        private System.Windows.Forms.CheckBox CkBin3;
+        private System.Windows.Forms.CheckBox CkBin1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown nuOffset;
     }
 }
 

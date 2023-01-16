@@ -283,7 +283,7 @@ namespace InsLibDotNet
             else if (IDN.IndexOf("620") != -1)
                 ChromaPowerOff();
 
-            System.Threading.Thread.Sleep(5000);
+            //System.Threading.Thread.Sleep(5000);
         }
 
 
