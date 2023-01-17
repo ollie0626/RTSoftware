@@ -387,6 +387,7 @@ namespace SoftStartTiming
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(298, 22);
             this.tbWave.TabIndex = 52;
+            this.tbWave.Text = "D:\\";
             // 
             // BTSelectWavePath
             // 

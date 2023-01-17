@@ -78,6 +78,7 @@ public class VisaCommand
             visa32.viRead(device, buffer, count_in, out count_out);
             visaState = visa32.viFlush(device, visa32.VI_WRITE_BUF);
             visaState = visa32.viFlush(device, visa32.VI_READ_BUF);
+            System.Threading.Thread.Sleep(50);
             str = Encoding.ASCII.GetString(buffer, 0, count_out).Split(',');
             if (str[0] != "" || str.Length > 1)
             {

@@ -16,6 +16,7 @@ namespace SoftStartTiming
     {
         A = 1, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
         AA, AB, AC, AD, AE, AF, AG, AH, AI, AJ, AK, AL, AM, AN, AO, AP, AQ, AR, AS, AT, AU, AV, AW, AX, AY, AZ,
+        BA, BB, BC, BD, BE ,BF
     };
 
     public interface ITask
@@ -309,6 +310,24 @@ namespace SoftStartTiming
                 InsControl._eload.CCM_Mode();
             else
                 InsControl._eload.CCH_Mode();
+        }
+
+
+        public static void PastWaveform(Excel.Worksheet _sheet, Excel.Range _range, string wavePath, string fileName)
+        {
+            string buf = wavePath.Substring(wavePath.Length - 1, 1) == @"/" ? wavePath.Substring(0, wavePath.Length - 1) : wavePath;
+            buf = buf + @"/" + fileName + ".png";
+
+
+            double left = _range.Left;
+            double top = _range.Top;
+            double width = _range.Width;
+            double height = _range.Height;
+
+            _sheet.Shapes.AddPicture(wavePath + "\\" + fileName + ".png",
+                                    Microsoft.Office.Core.MsoTriState.msoFalse,
+                                    Microsoft.Office.Core.MsoTriState.msoTrue,
+                                    (float)left, (float)top, (float)width, (float)height);
         }
 
     }

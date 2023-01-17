@@ -43,6 +43,7 @@ namespace SoftStartTiming
             InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
             InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
             InsControl._scope.Root_RUN();
+            InsControl._scope.DoCommand(":MARKer:MODE OFF");
             InsControl._scope.AutoTrigger();
             InsControl._scope.Trigger_CH1();
             MyLib.WaveformCheck();
@@ -158,6 +159,7 @@ namespace SoftStartTiming
                 }
             }
             MyLib.Delay1s(1);
+
             for (int i = 0; i < 2; i++)
             {
                 for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
@@ -172,20 +174,7 @@ namespace SoftStartTiming
                 }
             }
 
-            switch (test_parameter.trigger_event)
-            {
-                case 0: // gpio power disable
-                    if (test_parameter.sleep_mode)
-                        RTDev.GpEn_Disable();
-                    else
-                        RTDev.GpEn_Enable();
-                    break;
-                case 1:
-                    break;
-                case 2: // vin trigger
-                    InsControl._power.AutoPowerOff();
-                    break;
-            }
+            PowerOffEvent();
             InsControl._scope.TimeScale(time_scale);
             MyLib.Delay1ms(250);
         }
@@ -198,35 +187,60 @@ namespace SoftStartTiming
             RTDev.GpioInit();
 
             int vin_cnt = test_parameter.VinList.Count;
-            int row = 22;
+            int row = 8;
+            int wave_row = 8;
+            int wave_pos = 0;
             string[] binList;
             double[] ori_vinTable = new double[vin_cnt];
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if false
+#if true
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 
-            _sheet.Cells[row, XLS_Table.A] = "No.";
-            _sheet.Cells[row, XLS_Table.B] = "Temp(C)";
-            _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.D] = "Bin file";
-            _sheet.Cells[row, XLS_Table.E] = "delay time(ms)";
-            _sheet.Cells[row, XLS_Table.F] = "Soft Start(us)";
-            _sheet.Cells[row, XLS_Table.G] = "Vmax(V)";
-            _range = _sheet.Range["A" + row, "E" + row];
+            _sheet.Cells[1, XLS_Table.A] = "Item";
+            _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
+            _sheet.Cells[3, XLS_Table.A] = "Result";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
+            _range = _sheet.Range["A1", "A4"];
+            _range.Font.Bold = true;
+            _range.Interior.Color = Color.FromArgb(255, 178, 102);
+            _range = _sheet.Range["A2"];
+            _range.RowHeight = 100;
+            _range = _sheet.Range["B1"];
+            _range.ColumnWidth = 60;
+            _range = _sheet.Range["A1", "B4"];
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+            // print test conditions
+
+
+            _sheet.Cells[row, XLS_Table.D] = "No.";
+            _sheet.Cells[row, XLS_Table.E] = "Temp(C)";
+            _sheet.Cells[row, XLS_Table.F] = "Vin(V)";
+            _sheet.Cells[row, XLS_Table.G] = "Bin file";
+            _range = _sheet.Range["D" + row, "G" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
-            _range = _sheet.Range["F" + row, "J" + row];
+
+            _sheet.Cells[row, XLS_Table.H] = "DT1 (ms)";
+            _sheet.Cells[row, XLS_Table.I] = "SST1 (us)";
+            _sheet.Cells[row, XLS_Table.J] = "DT2 (ms)";
+            _sheet.Cells[row, XLS_Table.K] = "SST2 (us)";
+            _sheet.Cells[row, XLS_Table.L] = "DT3 (ms)";
+            _sheet.Cells[row, XLS_Table.M] = "SST3 (us)";
+
+            _range = _sheet.Range["H" + row, "M" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             row++;
 #endif
             InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
+            int cnt = 0;
             for (int select_idx = 0; select_idx < test_parameter.bin_en.Length; select_idx++)
             {
                 if (test_parameter.bin_en[select_idx])
@@ -241,8 +255,9 @@ namespace SoftStartTiming
 
                         for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                         {
-                            if (test_parameter.run_stop == true) goto Stop;
+                            int retry_cnt = 0;
 
+                            if (test_parameter.run_stop == true) goto Stop;
                             if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
                             /* test initial setting */
@@ -255,14 +270,13 @@ namespace SoftStartTiming
                             InsControl._scope.Measure_Clear();
                             MyLib.Delay1s(1);
 
-                            //:MEASure: RISetime\sCHAN2
+                            // Call Measure display to waveform
                             for (int i = 0; i < test_parameter.scope_en.Length; i++)
                             {
                                 if (test_parameter.scope_en[i])
                                     InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (i + 2).ToString());
                             }
-
-
+                            // Call Measure display to waveform
                             for (int i = 0; i < test_parameter.scope_en.Length; i++)
                             {
                                 if (test_parameter.scope_en[i])
@@ -297,9 +311,18 @@ namespace SoftStartTiming
                             double tempVin = ori_vinTable[vin_idx];
                             MyLib.WaveformCheck();
                         retest:;
+
+                            if (retry_cnt > 3)
+                            {
+                                _sheet.Cells[row, XLS_Table.F] = "sATE test fail_" + res;
+                                InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                                retry_cnt = 0;
+                                row++;
+                                continue;
+                            }
+
                             InsControl._scope.NormalTrigger();
                             MyLib.Delay1ms(800);
-
                             switch (test_parameter.trigger_event)
                             {
                                 case 0:
@@ -329,10 +352,8 @@ namespace SoftStartTiming
                                     MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                                     break;
                             }
-
                             InsControl._scope.Root_STOP();
                             MyLib.Delay1s(1);
-
 
                             time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
                             string reslult_lits = InsControl._scope.doQeury(":MEASure:RESults?");
@@ -353,28 +374,38 @@ namespace SoftStartTiming
                             }
 
                             double delay_time_res = 0;
-
+                            double sst_res = 0;
                             switch (select_idx)
                             {
                                 case 0:
                                     delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel2");
+                                    sst_res = InsControl._scope.Meas_CH2Rise();
                                     break;
                                 case 1:
                                     delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel3");
+                                    sst_res = InsControl._scope.Meas_CH3Rise();
                                     break;
                                 case 2:
                                     delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel4");
+                                    sst_res = InsControl._scope.Meas_CH4Rise();
                                     break;
                             }
 
                             if (delay_time_res >= time_scale * 4)
                             {
-                                if(delay_time_res > 0)
+                                if (delay_time_res > Math.Pow(10, 20))
+                                {
+                                    retry_cnt++;
+                                    InsControl._scope.Root_RUN();
+                                    PowerOffEvent();
+                                    InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                                    goto retest;
+                                }
+                                if (delay_time_res > 0)
                                 {
                                     double temp = (delay_time_res * 1.2) / 4;
                                     InsControl._scope.TimeScale(temp);
                                     InsControl._scope.TimeBasePosition(temp * 3);
-                                    //InsControl._scope.TimeBasePosition((delay_time_res * 1.2) / 4) * 3);
                                 }
                                 else
                                 {
@@ -382,71 +413,134 @@ namespace SoftStartTiming
                                     InsControl._scope.TimeBasePosition(test_parameter.ontime_scale_ms * 3);
                                 }
                                 InsControl._scope.Root_RUN();
-
-                                switch (test_parameter.trigger_event)
-                                {
-                                    case 0: // gpio power disable
-                                        if (test_parameter.sleep_mode)
-                                            RTDev.GpEn_Disable();
-                                        else
-                                            RTDev.GpEn_Enable();
-                                        break;
-                                    case 1:
-                                        break;
-                                    case 2: // vin trigger
-                                        InsControl._power.AutoPowerOff();
-                                        break;
-                                }
+                                PowerOffEvent();
                                 goto retest;
                             }
-                            else if (delay_time_res <= time_scale)
+                            else if (delay_time_res < time_scale)
                             {
-                                InsControl._scope.TimeScale(delay_time_res);
-                                InsControl._scope.TimeBasePosition(delay_time_res * 3);
-                                InsControl._scope.Root_RUN();
-
-                                switch (test_parameter.trigger_event)
+                                if(delay_time_res < sst_res)
                                 {
-                                    case 0: // gpio power disable
-                                        if (test_parameter.sleep_mode)
-                                            RTDev.GpEn_Disable();
-                                        else
-                                            RTDev.GpEn_Enable();
-                                        break;
-                                    case 1:
-                                        break;
-                                    case 2: // vin trigger
-                                        InsControl._power.AutoPowerOff();
-                                        break;
+                                    InsControl._scope.TimeScale(sst_res);
+                                    InsControl._scope.TimeBasePosition(sst_res * 3);
                                 }
-                                goto retest;
+                                else
+                                {
+                                    InsControl._scope.TimeScale(delay_time_res / 2);
+                                    InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
+                                }
+                                //InsControl._scope.Root_RUN();
+                                //PowerOffEvent();
+                                //goto retest;
+                            }
+                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, res);
+
+
+#if true
+                            double vin, dt1, dt2, dt3, sst1, sst2, sst3;
+                            vin = InsControl._power.GetVoltage();
+
+
+                            _sheet.Cells[row, XLS_Table.D] = cnt++;
+                            _sheet.Cells[row, XLS_Table.E] = temp;
+                            _sheet.Cells[row, XLS_Table.F] = vin;
+                            _sheet.Cells[row, XLS_Table.G] = res;
+
+                            //":MEASure:DELTatime CHANnel1,CHANnel2
+                            if (test_parameter.scope_en[0])
+                            {
+                                dt1 = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,CHANnel2");
+                                _sheet.Cells[row, XLS_Table.H] = dt1 * Math.Pow(10, 3);
+
+                                sst1 = InsControl._scope.Meas_CH2Rise();
+                                _sheet.Cells[row, XLS_Table.I] = sst1 * Math.Pow(10, 6);
                             }
 
-                            InsControl._scope.SaveWaveform(@"D:\", res);
-
-
-                            // need to judge select which channel to re-scale time scale.
-                            //if (delay_time_res >= time_scale_threshold)
-                            //{
-                            //    InsControl._scope.TimeScale((delay_time_res * 1.2));
-                            //    InsControl._scope.TimeBasePosition(((delay_time_res * 1.2)) * 3);
-                            //}
-
-                            InsControl._scope.Root_RUN();
-                            switch (test_parameter.trigger_event)
+                            if (test_parameter.scope_en[1])
                             {
-                                case 0: // gpio power disable
-                                    if (test_parameter.sleep_mode)
-                                        RTDev.GpEn_Disable();
-                                    else
-                                        RTDev.GpEn_Enable();
+                                dt2 = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,CHANnel3");
+                                _sheet.Cells[row, XLS_Table.J] = dt2 * Math.Pow(10, 3);
+
+                                sst2 = InsControl._scope.Meas_CH3Rise();
+                                _sheet.Cells[row, XLS_Table.K] = sst2 * Math.Pow(10, 6);
+                            }
+
+                            if (test_parameter.scope_en[2])
+                            {
+                                dt3 = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1,CHANnel4");
+                                _sheet.Cells[row, XLS_Table.L] = dt3 * Math.Pow(10, 3);
+
+                                sst3 = InsControl._scope.Meas_CH3Rise();
+                                _sheet.Cells[row, XLS_Table.M] = sst3 * Math.Pow(10, 6);
+                            }
+
+                            switch(wave_pos)
+                            {
+                                case 0:
+                                    _sheet.Cells[wave_row, XLS_Table.S] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.T] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.U] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.V] = "Bin file";
+                                    _range = _sheet.Range["S" + wave_row, "V" + wave_row];
+                                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                                    _sheet.Cells[wave_row + 1, XLS_Table.S] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.T] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.U] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.V] = "=G" + row;
+                                    _range = _sheet.Range["S" + (wave_row + 2).ToString(), "AA" + (wave_row + 16).ToString()];
+                                    wave_pos++;
                                     break;
                                 case 1:
+                                    _sheet.Cells[wave_row, XLS_Table.AD] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.AE] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.AF] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.AG] = "Bin file";
+                                    _range = _sheet.Range["AD" + wave_row, "AG" + wave_row];
+                                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=G" + row;
+                                    _range = _sheet.Range["AD" + (wave_row + 2).ToString(), "AL" + (wave_row + 16).ToString()];
+                                    wave_pos++;
                                     break;
-                                case 2: // vin trigger
-                                    InsControl._power.AutoPowerOff();
+                                case 2:
+                                    _sheet.Cells[wave_row, XLS_Table.AO] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.AP] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.AQ] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.AR] = "Bin file";
+                                    _range = _sheet.Range["AO" + wave_row, "AR" + wave_row];
+                                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AP] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AQ] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AR] = "=G" + row;
+                                    _range = _sheet.Range["AO" + (wave_row + 2).ToString(), "AW" + (wave_row + 16).ToString()];
+                                    wave_pos++;
+                                    break;
+                                case 3:
+                                    _sheet.Cells[wave_row, XLS_Table.AZ] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.BA] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.BB] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.BC] = "Bin file";
+                                    _range = _sheet.Range["AZ" + wave_row, "BC" + wave_row];
+                                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BA] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BB] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BC] = "=G" + row;
+                                    _range = _sheet.Range["AZ" + (wave_row + 2).ToString(), "BH" + (wave_row + 16).ToString()];
+                                    wave_pos = 0;  wave_row = wave_row + 19;
                                     break;
                             }
+                            MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, res);
+                            row++;
+#endif
+                            InsControl._scope.Root_RUN();
+                            PowerOffEvent();
                         }
                     }
                 }
@@ -470,6 +564,27 @@ namespace SoftStartTiming
 #endif
 
         }
+
+
+        private void PowerOffEvent()
+        {
+            switch (test_parameter.trigger_event)
+            {
+                case 0: // gpio power disable
+                    if (test_parameter.sleep_mode)
+                        RTDev.GpEn_Disable();
+                    else
+                        RTDev.GpEn_Enable();
+                    break;
+                case 1:
+                    break;
+                case 2: // vin trigger
+                    InsControl._power.AutoPowerOff();
+                    break;
+            }
+        }
+
+
     }
 }
 
