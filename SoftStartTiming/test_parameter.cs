@@ -10,6 +10,13 @@ namespace SoftStartTiming
     {
         public static List<double> VinList = new List<double>();
 
+        public static string vin_conditions;
+        public static string tool_ver;
+        public static string bin_file_cnt;
+        public static int bin1_cnt;
+        public static int bin2_cnt;
+        public static int bin3_cnt;
+        
         // 0: gpio trigger
         // 1: i2c trigger
         // 2: vin trigger

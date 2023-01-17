@@ -11,6 +11,7 @@ using RTBBLibDotNet;
 using InsLibDotNet;
 using System.Threading;
 using System.IO;
+using System.Diagnostics;
 
 namespace SoftStartTiming
 {
@@ -126,27 +127,39 @@ namespace SoftStartTiming
                 led_chamber.BackColor = Color.Red;
         }
 
-
         private void test_parameter_copy()
         {
+            // test condition
+            test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
+            test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
+            test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
+            test_parameter.bin3_cnt = CkBin3.Checked ? MyLib.ListBinFile(tbBin3.Text).Length : 0;
+
+            test_parameter.bin_file_cnt = "Bin1 file cnt : " + test_parameter.bin1_cnt + "\r\n" +
+                                          "Bin2 file cnt : " + test_parameter.bin2_cnt + "\r\n" +
+                                          "Bin3 file cnt : " + test_parameter.bin3_cnt + "\r\n" + 
+                                          "Total cnt : " + (test_parameter.bin1_cnt + test_parameter.bin2_cnt + test_parameter.bin3_cnt).ToString() + " \r\n";
+            test_parameter.tool_ver = win_name + "\r\n";
+
+
+
+
+
             TextBox[] path_table = new TextBox[] { tbBin, tbBin2, tbBin3 };
             test_parameter.chamber_en = ck_chamber_en.Checked;
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
-
             test_parameter.slave = (byte)nuslave.Value;
             test_parameter.offset_time = (double)nuOffset.Value;
-
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
-
+            test_parameter.offset_time = (double)nuOffset.Value;
 
             for(int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
             }
-
 
             // need to gui configure
             // scope channel 2 ~ 4
@@ -156,9 +169,8 @@ namespace SoftStartTiming
                 test_parameter.bin_en[i] = binTable[i].Checked;
             }
 
-            test_parameter.trigger_event = 0; // test example gpio trigger
+            test_parameter.trigger_event = CbTrigger.SelectedIndex; // test example gpio trigger
             test_parameter.sleep_mode = false;
-
         }
 
 
@@ -249,6 +261,14 @@ namespace SoftStartTiming
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.Arguments = "/im EXCEL.EXE /f";
+            psi.FileName = "taskkill";
+            Process p = new Process();
+            p.StartInfo = psi;
+            p.Start();
+
+
 
             InsControl._scope.SaveWaveform(@"D:\", "scope");
             OpenFileDialog opendlg = new OpenFileDialog();

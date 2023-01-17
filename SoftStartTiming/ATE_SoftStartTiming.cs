@@ -48,6 +48,7 @@ namespace SoftStartTiming
             InsControl._scope.Trigger_CH1();
             MyLib.WaveformCheck();
             InsControl._scope.CHx_On(1);
+            InsControl._scope.CHx_Offset(1, 0);
             for (int i = 0; i < test_parameter.scope_en.Length; i++)
             {
                 if (test_parameter.scope_en[i])
@@ -119,7 +120,7 @@ namespace SoftStartTiming
             InsControl._scope.AutoTrigger();
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
-            MyLib.Delay1ms(800);
+            //MyLib.Delay1ms(800);
 
             double time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
 
@@ -132,8 +133,8 @@ namespace SoftStartTiming
             {
                 case 0: // gpio
                     InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
-                    InsControl._scope.CHx_Level(1, 3.3 / 2.5);
-                    InsControl._scope.CHx_Offset(1, 3.3 / 2.5);
+                    InsControl._scope.CHx_Level(1, 3.3 / 2);
+                    InsControl._scope.CHx_Offset(1, 0);
                     if (test_parameter.sleep_mode)
                         RTDev.GpEn_Enable();
                     else
@@ -155,7 +156,8 @@ namespace SoftStartTiming
                 if (test_parameter.scope_en[i])
                 {
                     InsControl._scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
-                    MyLib.Delay1ms(300);
+                    InsControl._scope.CHx_Offset(i + 2, test_parameter.VinList[0] * (i + 1));
+                    MyLib.Delay1ms(800);
                 }
             }
             MyLib.Delay1s(1);
@@ -168,7 +170,7 @@ namespace SoftStartTiming
                     {
                         double vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
                         InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
-                        InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1) * 0.5);
+                        InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
                         MyLib.Delay1ms(800);
                     }
                 }
@@ -195,48 +197,13 @@ namespace SoftStartTiming
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if true
+
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 
-            _sheet.Cells[1, XLS_Table.A] = "Item";
-            _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
-            _sheet.Cells[3, XLS_Table.A] = "Result";
-            _sheet.Cells[4, XLS_Table.A] = "Note";
-            _range = _sheet.Range["A1", "A4"];
-            _range.Font.Bold = true;
-            _range.Interior.Color = Color.FromArgb(255, 178, 102);
-            _range = _sheet.Range["A2"];
-            _range.RowHeight = 100;
-            _range = _sheet.Range["B1"];
-            _range.ColumnWidth = 60;
-            _range = _sheet.Range["A1", "B4"];
-            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-            // print test conditions
-
-
-            _sheet.Cells[row, XLS_Table.D] = "No.";
-            _sheet.Cells[row, XLS_Table.E] = "Temp(C)";
-            _sheet.Cells[row, XLS_Table.F] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.G] = "Bin file";
-            _range = _sheet.Range["D" + row, "G" + row];
-            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-
-            _sheet.Cells[row, XLS_Table.H] = "DT1 (ms)";
-            _sheet.Cells[row, XLS_Table.I] = "SST1 (us)";
-            _sheet.Cells[row, XLS_Table.J] = "DT2 (ms)";
-            _sheet.Cells[row, XLS_Table.K] = "SST2 (us)";
-            _sheet.Cells[row, XLS_Table.L] = "DT3 (ms)";
-            _sheet.Cells[row, XLS_Table.M] = "SST3 (us)";
-
-            _range = _sheet.Range["H" + row, "M" + row];
-            _range.Interior.Color = Color.FromArgb(30, 144, 255);
-            row++;
-#endif
             InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
@@ -245,8 +212,68 @@ namespace SoftStartTiming
             {
                 if (test_parameter.bin_en[select_idx])
                 {
+                    #region "Report initial"
+#if true
+                    _sheet = _book.Worksheets.Add();
+                    _sheet.Name = "CH" + (select_idx + 1).ToString();
+                    row = 8;
+                    wave_row = 8;
+                    wave_pos = 0;
+                    _sheet.Cells[1, XLS_Table.A] = "Item";
+                    _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
+                    _sheet.Cells[3, XLS_Table.A] = "Result";
+                    _sheet.Cells[4, XLS_Table.A] = "Note";
+                    _range = _sheet.Range["A1", "A4"];
+                    _range.Font.Bold = true;
+                    _range.Interior.Color = Color.FromArgb(255, 178, 102);
+                    _range = _sheet.Range["A2"];
+                    _range.RowHeight = 150;
+                    _range = _sheet.Range["B1"];
+                    _range.ColumnWidth = 60;
+                    _range = _sheet.Range["A1", "B4"];
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    // print test conditions
+                    _sheet.Cells[1, XLS_Table.B] = "Delay time/Slot time/Soft-Start time";
+                    _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver + test_parameter.vin_conditions + test_parameter.bin_file_cnt;
+
+
+                    _sheet.Cells[row, XLS_Table.D] = "No.";
+                    _sheet.Cells[row, XLS_Table.E] = "Temp(C)";
+                    _sheet.Cells[row, XLS_Table.F] = "Vin(V)";
+                    _sheet.Cells[row, XLS_Table.G] = "Bin file";
+                    _range = _sheet.Range["D" + row, "G" + row];
+                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    // major measure timing
+                    _sheet.Cells[row, XLS_Table.H] = "DT1 (ms)";
+                    _sheet.Cells[row, XLS_Table.I] = "SST1 (us)";
+                    _sheet.Cells[row, XLS_Table.J] = "DT2 (ms)";
+                    _sheet.Cells[row, XLS_Table.K] = "SST2 (us)";
+                    _sheet.Cells[row, XLS_Table.L] = "DT3 (ms)";
+                    _sheet.Cells[row, XLS_Table.M] = "SST3 (us)";
+
+                    // Add new measure
+                    _sheet.Cells[row, XLS_Table.N] = "V1 Top (V)";
+                    _sheet.Cells[row, XLS_Table.O] = "V2 Top (V)";
+                    _sheet.Cells[row, XLS_Table.P] = "V3 Top (V)";
+                    _sheet.Cells[row, XLS_Table.Q] = "V1 Base (V)";
+                    _sheet.Cells[row, XLS_Table.R] = "V2 Base (V)";
+                    _sheet.Cells[row, XLS_Table.S] = "V3 Base (V)";
+                    _sheet.Cells[row, XLS_Table.T] = "Max (V)";
+                    _sheet.Cells[row, XLS_Table.U] = "Min (V)";
+
+                    _range = _sheet.Range["H" + row, "U" + row];
+                    _range.Interior.Color = Color.FromArgb(30, 144, 255);
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                    row++;
+#endif
+                    #endregion
+
                     binList = MyLib.ListBinFile(test_parameter.bin_path[select_idx]);
-                    bin_cnt = binList.Length;
+                    bin_cnt = binList.Length; 
+                    cnt = 0;
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
                         // repeat i2c setting time scale need to reset to deafult
@@ -396,9 +423,14 @@ namespace SoftStartTiming
                                 if (delay_time_res > Math.Pow(10, 20))
                                 {
                                     retry_cnt++;
+                                    //MyLib.Delay1ms(800);
                                     InsControl._scope.Root_RUN();
+                                    InsControl._scope.AutoTrigger();
+                                    MyLib.Delay1ms(250);
+                                    probe_detect();
                                     PowerOffEvent();
                                     InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                                    InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                                     goto retest;
                                 }
                                 if (delay_time_res > 0)
@@ -433,17 +465,35 @@ namespace SoftStartTiming
                                 //goto retest;
                             }
                             InsControl._scope.SaveWaveform(test_parameter.waveform_path, res);
-
-
 #if true
                             double vin, dt1, dt2, dt3, sst1, sst2, sst3;
+                            double vmax = 0, vmin = 0;
+                            double vtop, vbase;
                             vin = InsControl._power.GetVoltage();
-
 
                             _sheet.Cells[row, XLS_Table.D] = cnt++;
                             _sheet.Cells[row, XLS_Table.E] = temp;
                             _sheet.Cells[row, XLS_Table.F] = vin;
                             _sheet.Cells[row, XLS_Table.G] = res;
+
+                            // Add new measure
+                            switch (select_idx)
+                            {
+                                case 0:
+                                    vmax = InsControl._scope.Meas_CH2MAX();
+                                    vmin = InsControl._scope.Meas_CH2MIN();
+                                    break;
+                                case 1:
+                                    vmax = InsControl._scope.Meas_CH3MAX();
+                                    vmin = InsControl._scope.Meas_CH3MIN();
+                                    break;
+                                case 2:
+                                    vmax = InsControl._scope.Meas_CH4MAX();
+                                    vmin = InsControl._scope.Meas_CH4MIN();
+                                    break;  
+                            }
+                            _sheet.Cells[row, XLS_Table.T] = vmax;
+                            _sheet.Cells[row, XLS_Table.U] = vmin;
 
                             //":MEASure:DELTatime CHANnel1,CHANnel2
                             if (test_parameter.scope_en[0])
@@ -453,6 +503,12 @@ namespace SoftStartTiming
 
                                 sst1 = InsControl._scope.Meas_CH2Rise();
                                 _sheet.Cells[row, XLS_Table.I] = sst1 * Math.Pow(10, 6);
+
+                                vtop = InsControl._scope.Meas_CH2Top();
+                                vbase = InsControl._scope.Meas_CH2Base();
+
+                                _sheet.Cells[row, XLS_Table.N] = vtop;
+                                _sheet.Cells[row, XLS_Table.Q] = vbase;
                             }
 
                             if (test_parameter.scope_en[1])
@@ -462,6 +518,12 @@ namespace SoftStartTiming
 
                                 sst2 = InsControl._scope.Meas_CH3Rise();
                                 _sheet.Cells[row, XLS_Table.K] = sst2 * Math.Pow(10, 6);
+
+                                vtop = InsControl._scope.Meas_CH3Top();
+                                vbase = InsControl._scope.Meas_CH3Base();
+                                _sheet.Cells[row, XLS_Table.O] = vtop;
+                                _sheet.Cells[row, XLS_Table.R] = vbase;
+
                             }
 
                             if (test_parameter.scope_en[2])
@@ -471,68 +533,76 @@ namespace SoftStartTiming
 
                                 sst3 = InsControl._scope.Meas_CH3Rise();
                                 _sheet.Cells[row, XLS_Table.M] = sst3 * Math.Pow(10, 6);
+                                vtop = InsControl._scope.Meas_CH3Top();
+                                vbase = InsControl._scope.Meas_CH3Base();
+                                _sheet.Cells[row, XLS_Table.P] = vtop;
+                                _sheet.Cells[row, XLS_Table.S] = vbase;
                             }
 
                             switch(wave_pos)
                             {
                                 case 0:
-                                    _sheet.Cells[wave_row, XLS_Table.S] = "No.";
-                                    _sheet.Cells[wave_row, XLS_Table.T] = "Temp(C)";
-                                    _sheet.Cells[wave_row, XLS_Table.U] = "Vin(V)";
-                                    _sheet.Cells[wave_row, XLS_Table.V] = "Bin file";
-                                    _range = _sheet.Range["S" + wave_row, "V" + wave_row];
+                                    _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.AD] = "Bin file";
+                                    _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
                                     _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    _sheet.Cells[wave_row + 1, XLS_Table.S] = "=D" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.T] = "=E" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.U] = "=F" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.V] = "=G" + row;
-                                    _range = _sheet.Range["S" + (wave_row + 2).ToString(), "AA" + (wave_row + 16).ToString()];
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
+                                    _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AI" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 1:
-                                    _sheet.Cells[wave_row, XLS_Table.AD] = "No.";
-                                    _sheet.Cells[wave_row, XLS_Table.AE] = "Temp(C)";
-                                    _sheet.Cells[wave_row, XLS_Table.AF] = "Vin(V)";
-                                    _sheet.Cells[wave_row, XLS_Table.AG] = "Bin file";
-                                    _range = _sheet.Range["AD" + wave_row, "AG" + wave_row];
+                                    _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.AO] = "Bin file";
+                                    _range = _sheet.Range["AL" + wave_row, "AO" + wave_row];
                                     _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=D" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=E" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=F" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=G" + row;
-                                    _range = _sheet.Range["AD" + (wave_row + 2).ToString(), "AL" + (wave_row + 16).ToString()];
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
+                                    _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AT" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 2:
-                                    _sheet.Cells[wave_row, XLS_Table.AO] = "No.";
-                                    _sheet.Cells[wave_row, XLS_Table.AP] = "Temp(C)";
-                                    _sheet.Cells[wave_row, XLS_Table.AQ] = "Vin(V)";
-                                    _sheet.Cells[wave_row, XLS_Table.AR] = "Bin file";
-                                    _range = _sheet.Range["AO" + wave_row, "AR" + wave_row];
+                                    _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.AZ] = "Bin file";
+                                    _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
                                     _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=D" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AP] = "=E" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AQ] = "=F" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AR] = "=G" + row;
-                                    _range = _sheet.Range["AO" + (wave_row + 2).ToString(), "AW" + (wave_row + 16).ToString()];
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
+                                    _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 3:
-                                    _sheet.Cells[wave_row, XLS_Table.AZ] = "No.";
-                                    _sheet.Cells[wave_row, XLS_Table.BA] = "Temp(C)";
-                                    _sheet.Cells[wave_row, XLS_Table.BB] = "Vin(V)";
-                                    _sheet.Cells[wave_row, XLS_Table.BC] = "Bin file";
-                                    _range = _sheet.Range["AZ" + wave_row, "BC" + wave_row];
+                                    _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
+                                    _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
+                                    _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
+                                    _sheet.Cells[wave_row, XLS_Table.BK] = "Bin file";
+                                    _range = _sheet.Range["BH" + wave_row, "BK" + wave_row];
                                     _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=D" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.BA] = "=E" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.BB] = "=F" + row;
-                                    _sheet.Cells[wave_row + 1, XLS_Table.BC] = "=G" + row;
-                                    _range = _sheet.Range["AZ" + (wave_row + 2).ToString(), "BH" + (wave_row + 16).ToString()];
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
+                                    _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
+                                    _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BP" + (wave_row + 16).ToString()];
                                     wave_pos = 0;  wave_row = wave_row + 19;
                                     break;
                             }
@@ -549,13 +619,13 @@ namespace SoftStartTiming
         Stop:
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
-#if Report
-            string str_temp = _sheet.Cells[2, 2].Value;
+#if true
+            string str_temp = _sheet.Cells[2, XLS_Table.B].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
 
-            //Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_DT_SST_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_DT_SST_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();
@@ -563,6 +633,33 @@ namespace SoftStartTiming
             GC.Collect();
 #endif
 
+        }
+
+        private void probe_detect()
+        {
+            double time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+            InsControl._scope.TimeScaleUs(1);
+            for (int i = 0; i < 2; i++)
+            {
+                for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
+                {
+                    if (test_parameter.scope_en[ch_idx])
+                    {
+                        double vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
+
+                        if(vmax > Math.Pow(10, 9))
+                        {
+                            InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                            InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
+                            vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
+                        }
+                        InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
+                        InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
+                        MyLib.Delay1ms(800);
+                    }
+                }
+            }
+            InsControl._scope.TimeScale(time_scale);
         }
 
 

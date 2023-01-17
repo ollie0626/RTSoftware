@@ -261,7 +261,6 @@ namespace SoftStartTiming
             this.tbBin3.Name = "tbBin3";
             this.tbBin3.Size = new System.Drawing.Size(425, 22);
             this.tbBin3.TabIndex = 78;
-            this.tbBin3.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin_B3";
             // 
             // BTSelectBinPath2
             // 
@@ -279,7 +278,7 @@ namespace SoftStartTiming
             this.tbBin2.Name = "tbBin2";
             this.tbBin2.Size = new System.Drawing.Size(425, 22);
             this.tbBin2.TabIndex = 76;
-            this.tbBin2.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142 Bin_B2";
+            this.tbBin2.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142_B2";
             // 
             // groupBox4
             // 
@@ -335,7 +334,7 @@ namespace SoftStartTiming
             this.nu_ontime_scale.TabIndex = 41;
             this.nu_ontime_scale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_ontime_scale.Value = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             0});
@@ -379,7 +378,7 @@ namespace SoftStartTiming
             this.tbBin.Name = "tbBin";
             this.tbBin.Size = new System.Drawing.Size(425, 22);
             this.tbBin.TabIndex = 50;
-            this.tbBin.Text = "C:\\Users\\westg\\Desktop\\RT5142\\temp";
+            this.tbBin.Text = "C:\\Users\\westg\\Desktop\\RT5142\\RT5142_B1";
             // 
             // tbWave
             // 
