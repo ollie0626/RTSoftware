@@ -29,8 +29,12 @@ namespace SoftStartTiming
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.RBMs = new System.Windows.Forms.RadioButton();
+            this.RBUs = new System.Windows.Forms.RadioButton();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.CkBin2 = new System.Windows.Forms.CheckBox();
             this.CkBin3 = new System.Windows.Forms.CheckBox();
@@ -85,11 +89,9 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.nuOffset = new System.Windows.Forms.NumericUpDown();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.RBUs = new System.Windows.Forms.RadioButton();
-            this.RBMs = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -100,7 +102,6 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
-            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -109,7 +110,7 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(18, 193);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(816, 283);
+            this.tabControl1.Size = new System.Drawing.Size(816, 312);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -133,9 +134,44 @@ namespace SoftStartTiming
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(808, 257);
+            this.tabPage2.Size = new System.Drawing.Size(808, 286);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.nuOffset);
+            this.groupBox6.Controls.Add(this.RBMs);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Controls.Add(this.RBUs);
+            this.groupBox6.Location = new System.Drawing.Point(545, 150);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(257, 107);
+            this.groupBox6.TabIndex = 84;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Delay time unit";
+            // 
+            // RBMs
+            // 
+            this.RBMs.AutoSize = true;
+            this.RBMs.Location = new System.Drawing.Point(6, 43);
+            this.RBMs.Name = "RBMs";
+            this.RBMs.Size = new System.Drawing.Size(112, 16);
+            this.RBMs.TabIndex = 1;
+            this.RBMs.Text = "Delay time (ms)";
+            this.RBMs.UseVisualStyleBackColor = true;
+            // 
+            // RBUs
+            // 
+            this.RBUs.AutoSize = true;
+            this.RBUs.Checked = true;
+            this.RBUs.Location = new System.Drawing.Point(6, 21);
+            this.RBUs.Name = "RBUs";
+            this.RBUs.Size = new System.Drawing.Size(109, 16);
+            this.RBUs.TabIndex = 0;
+            this.RBUs.TabStop = true;
+            this.RBUs.Text = "Delay time (us)";
+            this.RBUs.UseVisualStyleBackColor = true;
             // 
             // groupBox5
             // 
@@ -411,6 +447,7 @@ namespace SoftStartTiming
             this.button1.TabIndex = 66;
             this.button1.Text = "Test button";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label1
@@ -671,7 +708,7 @@ namespace SoftStartTiming
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(471, 146);
+            this.label6.Location = new System.Drawing.Point(6, 73);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(95, 12);
             this.label6.TabIndex = 64;
@@ -680,7 +717,7 @@ namespace SoftStartTiming
             // nuOffset
             // 
             this.nuOffset.DecimalPlaces = 3;
-            this.nuOffset.Location = new System.Drawing.Point(572, 141);
+            this.nuOffset.Location = new System.Drawing.Point(107, 68);
             this.nuOffset.Name = "nuOffset";
             this.nuOffset.Size = new System.Drawing.Size(62, 22);
             this.nuOffset.TabIndex = 64;
@@ -691,47 +728,12 @@ namespace SoftStartTiming
             0,
             0});
             // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.RBMs);
-            this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(545, 150);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(257, 76);
-            this.groupBox6.TabIndex = 84;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Delay time unit";
-            // 
-            // RBUs
-            // 
-            this.RBUs.AutoSize = true;
-            this.RBUs.Checked = true;
-            this.RBUs.Location = new System.Drawing.Point(6, 21);
-            this.RBUs.Name = "RBUs";
-            this.RBUs.Size = new System.Drawing.Size(109, 16);
-            this.RBUs.TabIndex = 0;
-            this.RBUs.TabStop = true;
-            this.RBUs.Text = "Delay time (us)";
-            this.RBUs.UseVisualStyleBackColor = true;
-            // 
-            // RBMs
-            // 
-            this.RBMs.AutoSize = true;
-            this.RBMs.Location = new System.Drawing.Point(6, 43);
-            this.RBMs.Name = "RBMs";
-            this.RBMs.Size = new System.Drawing.Size(112, 16);
-            this.RBMs.TabIndex = 1;
-            this.RBMs.Text = "Delay time (ms)";
-            this.RBMs.UseVisualStyleBackColor = true;
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(843, 490);
-            this.Controls.Add(this.nuOffset);
-            this.Controls.Add(this.label6);
+            this.ClientSize = new System.Drawing.Size(843, 521);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.BTStop);
             this.Controls.Add(this.BTRun);
@@ -753,12 +755,15 @@ namespace SoftStartTiming
             this.Controls.Add(this.uibt_osc_connect);
             this.Controls.Add(this.led_power);
             this.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SoftStartTiming";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.SoftStartTiming_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -774,8 +779,6 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).EndInit();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
