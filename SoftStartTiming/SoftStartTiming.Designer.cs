@@ -85,6 +85,9 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.nuOffset = new System.Windows.Forms.NumericUpDown();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.RBUs = new System.Windows.Forms.RadioButton();
+            this.RBMs = new System.Windows.Forms.RadioButton();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -97,6 +100,7 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -111,6 +115,7 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.label5);
@@ -686,6 +691,39 @@ namespace SoftStartTiming
             0,
             0});
             // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.RBMs);
+            this.groupBox6.Controls.Add(this.RBUs);
+            this.groupBox6.Location = new System.Drawing.Point(545, 150);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(257, 76);
+            this.groupBox6.TabIndex = 84;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Delay time unit";
+            // 
+            // RBUs
+            // 
+            this.RBUs.AutoSize = true;
+            this.RBUs.Checked = true;
+            this.RBUs.Location = new System.Drawing.Point(6, 21);
+            this.RBUs.Name = "RBUs";
+            this.RBUs.Size = new System.Drawing.Size(109, 16);
+            this.RBUs.TabIndex = 0;
+            this.RBUs.TabStop = true;
+            this.RBUs.Text = "Delay time (us)";
+            this.RBUs.UseVisualStyleBackColor = true;
+            // 
+            // RBMs
+            // 
+            this.RBMs.AutoSize = true;
+            this.RBMs.Location = new System.Drawing.Point(6, 43);
+            this.RBMs.Name = "RBMs";
+            this.RBMs.Size = new System.Drawing.Size(112, 16);
+            this.RBMs.TabIndex = 1;
+            this.RBMs.Text = "Delay time (ms)";
+            this.RBMs.UseVisualStyleBackColor = true;
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -736,6 +774,8 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -799,6 +839,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.CheckBox CkBin1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.NumericUpDown nuOffset;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.RadioButton RBMs;
+        private System.Windows.Forms.RadioButton RBUs;
     }
 }
 

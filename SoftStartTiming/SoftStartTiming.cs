@@ -154,7 +154,7 @@ namespace SoftStartTiming
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
-            test_parameter.offset_time = (double)nuOffset.Value;
+            
 
             for(int i = 0; i < test_parameter.bin_path.Length; i++)
             {
@@ -171,6 +171,8 @@ namespace SoftStartTiming
 
             test_parameter.trigger_event = CbTrigger.SelectedIndex; // test example gpio trigger
             test_parameter.sleep_mode = false;
+            test_parameter.delay_us_en = RBUs.Checked;
+            test_parameter.offset_time = RBUs.Checked ? ((double)nuOffset.Value * Math.Pow(10, -6)) : ((double)nuOffset.Value * Math.Pow(10, -3));
         }
 
 

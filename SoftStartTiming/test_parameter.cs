@@ -33,6 +33,9 @@ namespace SoftStartTiming
         public static double ontime_scale_ms;
         public static double offtime_scale_ms;
         public static double offset_time;
+        public static bool delay_us_en;
+
+
 
         public static bool run_stop;
         public static bool chamber_en;
