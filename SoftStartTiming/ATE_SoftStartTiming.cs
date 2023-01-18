@@ -479,6 +479,9 @@ namespace SoftStartTiming
                                 {
                                     InsControl._scope.TimeScale(delay_time_res / 2);
                                     InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
+                                    InsControl._scope.Root_RUN();
+                                    PowerOffEvent();
+                                    goto retest;
                                 }
                             }
 
