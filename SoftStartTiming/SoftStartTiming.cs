@@ -258,19 +258,18 @@ namespace SoftStartTiming
 
         private void Run_Single_Task(object idx)
         {
+            ate_table[(int)idx].temp = 25;
             ate_table[(int)idx].ATETask();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.Arguments = "/im EXCEL.EXE /f";
-            psi.FileName = "taskkill";
-            Process p = new Process();
-            p.StartInfo = psi;
-            p.Start();
-
-
+            //ProcessStartInfo psi = new ProcessStartInfo();
+            //psi.Arguments = "/im EXCEL.EXE /f";
+            //psi.FileName = "taskkill";
+            //Process p = new Process();
+            //p.StartInfo = psi;
+            //p.Start();
 
             InsControl._scope.SaveWaveform(@"D:\", "scope");
             OpenFileDialog opendlg = new OpenFileDialog();
