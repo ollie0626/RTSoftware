@@ -12,6 +12,7 @@ namespace SoftStartTiming
     {
         private const int GPIO2_0 = 32;
         private const int GPIO2_1 = 33;
+        private const int GPIO2_2 = 34;
 
         private BridgeBoard hDevice;
         private BridgeBoardEnum hEnum;
@@ -47,18 +48,20 @@ namespace SoftStartTiming
 
             gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_0, true);
             gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_1, true);
+            gpioModule.RTBB_GPIOSingleSetIODirection(GPIO2_2, true);
 
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
 
-        public void GpEn_Enable()
+        public void Gp1En_Enable()
         {
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, true);
         }
 
-        public void GpEn_Disable()
+        public void Gp1En_Disable()
         {
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_0, false);
@@ -75,6 +78,20 @@ namespace SoftStartTiming
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_1, false);
         }
+
+        public void Gp3En_Enable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, true);
+        }
+
+        public void Gp3En_Disable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
+        }
+
+
 
 
         public void RelayOn(int num)

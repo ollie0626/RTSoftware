@@ -330,5 +330,70 @@ namespace SoftStartTiming
                                     (float)left, (float)top, (float)width, (float)height);
         }
 
+
+        public static double GetCriteria_time(string info)
+        {
+            double res = 0;
+            int idx = info.IndexOf("check");
+            if (idx == -1) return 0;
+            string tmp = info.Substring(idx);
+            string Criteria = tmp.Split('_')[1];
+            string data;
+            Console.WriteLine(tmp);
+            Console.WriteLine(Criteria);
+            double unit;
+            if (Criteria.IndexOf("ms") != -1)
+            {
+                unit = Math.Pow(10, -3);
+                idx = Criteria.IndexOf("ms");
+                data = Criteria.Substring(0, idx);
+                Console.WriteLine(data);
+            }
+            else if (Criteria.IndexOf("us") != -1)
+            {
+                unit = Math.Pow(10, -6);
+                idx = Criteria.IndexOf("us");
+                data = Criteria.Substring(0, idx);
+                Console.WriteLine(data);
+            }
+            else // s
+            {
+                unit = 1;
+                idx = Criteria.IndexOf("s");
+                data = Criteria.Substring(0, idx);
+            }
+            res = Convert.ToDouble(data) * unit;
+            return res;
+        }
+
+
+        public static double GetCriteria_vol(string info)
+        {
+            double res = 0;
+            int idx = info.IndexOf("check");
+            if (idx == -1) return 0;
+            string tmp = info.Substring(idx);
+            string Criteria = tmp.Split('_')[1];
+            string data;
+            Console.WriteLine(tmp);
+            Console.WriteLine(Criteria);
+            double unit;
+            if (Criteria.IndexOf("mV") != -1)
+            {
+                unit = Math.Pow(10, -3);
+                idx = Criteria.IndexOf("mV");
+                data = Criteria.Substring(0, idx);
+                Console.WriteLine(data);
+            }
+            else // V
+            {
+                unit = 1;
+                idx = Criteria.IndexOf("V");
+                data = Criteria.Substring(0, idx);
+            }
+            res = Convert.ToDouble(data) * unit;
+            return res;
+        }
+
     }
 }

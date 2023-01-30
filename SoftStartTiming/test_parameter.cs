@@ -35,6 +35,11 @@ namespace SoftStartTiming
         public static double offset_time;
         public static bool delay_us_en;
 
+        public static double judge_percent;
+
+
+        // gpio select
+        public static int gpio_pin;
 
 
         public static bool run_stop;

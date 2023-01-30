@@ -141,10 +141,6 @@ namespace SoftStartTiming
                                           "Total cnt : " + (test_parameter.bin1_cnt + test_parameter.bin2_cnt + test_parameter.bin3_cnt).ToString() + " \r\n";
             test_parameter.tool_ver = win_name + "\r\n";
 
-
-
-
-
             TextBox[] path_table = new TextBox[] { tbBin, tbBin2, tbBin3 };
             test_parameter.chamber_en = ck_chamber_en.Checked;
             test_parameter.run_stop = false;
@@ -173,12 +169,15 @@ namespace SoftStartTiming
             test_parameter.sleep_mode = false;
             test_parameter.delay_us_en = RBUs.Checked;
             test_parameter.offset_time = RBUs.Checked ? ((double)nuOffset.Value * Math.Pow(10, -6)) : ((double)nuOffset.Value * Math.Pow(10, -3));
+
+            test_parameter.gpio_pin = CBGPIO.SelectedIndex;
+            test_parameter.judge_percent = ((double)nuCriteria.Value / 100);
         }
 
 
         private void BTRun_Click(object sender, EventArgs e)
         {
-            //BTRun.Enabled = false;
+            BTRun.Enabled = false;
             try
             {
                 test_parameter_copy();
@@ -254,47 +253,52 @@ namespace SoftStartTiming
             {
                 if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
             }
+            BTRun.Invoke((MethodInvoker)(() => BTRun.Enabled = true));
         }
 
         private void Run_Single_Task(object idx)
         {
             ate_table[(int)idx].temp = 25;
             ate_table[(int)idx].ATETask();
+            BTRun.Invoke((MethodInvoker)(() => BTRun.Enabled = true));
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //ProcessStartInfo psi = new ProcessStartInfo();
-            //psi.Arguments = "/im EXCEL.EXE /f";
-            //psi.FileName = "taskkill";
-            //Process p = new Process();
-            //p.StartInfo = psi;
-            //p.Start();
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.Arguments = "/im EXCEL.EXE /f";
+            psi.FileName = "taskkill";
+            Process p = new Process();
+            p.StartInfo = psi;
+            p.Start();
 
-            InsControl._scope.SaveWaveform(@"D:\", "scope");
+            //InsControl._scope.SaveWaveform(@"D:\", "scope");
             OpenFileDialog opendlg = new OpenFileDialog();
 
             if(opendlg.ShowDialog() == DialogResult.OK)
             {
-                string file_name = opendlg.FileName;
-                StreamReader sr = new StreamReader(file_name);
-                string line;
-                List<byte> temp = new List<byte>();
-                line = sr.ReadLine();
-                while(line != null)
-                {
-                    Console.WriteLine(line);
-                    string[] arr = line.Split('\t');
-                    line = sr.ReadLine();
-                    temp.Add(Convert.ToByte(arr[1], 16));
-                }
-                sr.Close();
+                //string file_name = opendlg.FileName;
+                //StreamReader sr = new StreamReader(file_name);
+                //string line;
+                //List<byte> temp = new List<byte>();
+                //line = sr.ReadLine();
+                //while(line != null)
+                //{
+                //    Console.WriteLine(line);
+                //    string[] arr = line.Split('\t');
+                //    line = sr.ReadLine();
+                //    temp.Add(Convert.ToByte(arr[1], 16));
+                //}
+                //sr.Close();
 
-                FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
-                BinaryWriter bwr = new BinaryWriter(myFile);
-                bwr.Write(temp.ToArray(), 0, temp.Count);
-                bwr.Close();
-                myFile.Close();
+                //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
+                //BinaryWriter bwr = new BinaryWriter(myFile);
+                //bwr.Write(temp.ToArray(), 0, temp.Count);
+                //bwr.Close();
+                //myFile.Close();
+
+                string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
+                MyLib.GetCriteria_time(file_name);
             }
         }
 
@@ -317,6 +321,7 @@ namespace SoftStartTiming
 
         private void BTStop_Click(object sender, EventArgs e)
         {
+            BTRun.Enabled = true;
             test_parameter.run_stop = true;
             if (ATETask != null)
             {
@@ -331,6 +336,11 @@ namespace SoftStartTiming
             }
         }
 
+        private void BTScan_Click(object sender, EventArgs e)
+        {
+            string[] List = ViCMD.ScanIns();
 
+            for (int i = 0; i < List.Length; i++) Console.WriteLine(List[i]);
+        }
     }
 }

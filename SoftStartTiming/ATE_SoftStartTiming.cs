@@ -37,6 +37,38 @@ namespace SoftStartTiming
             System.Windows.Forms.MessageBox.Show("Delay time/Soft start time test finished!!!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
         }
 
+        private void GpioOnSelect(int num)
+        {
+            switch (num)
+            {
+                case 0:
+                    RTDev.Gp1En_Enable();
+                    break;
+                case 1:
+                    RTDev.Gp2En_Enable();
+                    break;
+                case 2:
+                    RTDev.Gp3En_Enable();
+                    break;
+            }
+        }
+
+        private void GpioOffSelect(int num)
+        {
+            switch(num)
+            {
+                case 0:
+                    RTDev.Gp1En_Disable();
+                    break;
+                case 1:
+                    RTDev.Gp2En_Disable();
+                    break;
+                case 2:
+                    RTDev.Gp3En_Disable();
+                    break;
+            }
+        }
+
         private void OSCInit()
         {
             InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
@@ -135,9 +167,9 @@ namespace SoftStartTiming
                     InsControl._scope.CHx_Level(1, 3.3 / 2);
                     InsControl._scope.CHx_Offset(1, 0);
                     if (test_parameter.sleep_mode)
-                        RTDev.GpEn_Enable();
+                        GpioOnSelect(test_parameter.gpio_pin);
                     else
-                        RTDev.GpEn_Disable();
+                        GpioOffSelect(test_parameter.gpio_pin);
                     break;
                 case 1: // i2c trigger
                     double vout = InsControl._scope.Meas_CH1MAX();
@@ -278,9 +310,14 @@ namespace SoftStartTiming
                     _sheet.Cells[row, XLS_Table.S] = "V3 Base (V)";
                     _sheet.Cells[row, XLS_Table.T] = "Max (V)";
                     _sheet.Cells[row, XLS_Table.U] = "Min (V)";
+                    _sheet.Cells[row, XLS_Table.V] = "Pass/Fail";
 
                     _range = _sheet.Range["H" + row, "U" + row];
                     _range.Interior.Color = Color.FromArgb(30, 144, 255);
+                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                    _range = _sheet.Range["V" + row, "V" + row];
+                    _range.Interior.Color = Color.FromArgb(124, 252, 0);
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     row++;
 #endif
@@ -381,13 +418,13 @@ namespace SoftStartTiming
                                     {
                                         InsControl._scope.SetTrigModeEdge(false);
                                         MyLib.Delay1ms(800);
-                                        RTDev.GpEn_Enable();
+                                        GpioOnSelect(test_parameter.gpio_pin);
                                     }
                                     else
                                     {
                                         InsControl._scope.SetTrigModeEdge(true);
                                         MyLib.Delay1ms(1000);
-                                        RTDev.GpEn_Disable();
+                                        GpioOffSelect(test_parameter.gpio_pin);
                                     }
                                     time_scale = time_scale * 1000;
                                     MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
@@ -564,6 +601,61 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, XLS_Table.S] = vbase;
                             }
 
+                            double criteria = MyLib.GetCriteria_time(res);
+                            criteria = (test_parameter.delay_us_en ? criteria * Math.Pow(10, 6) : criteria * Math.Pow(10, 9));
+                            double criteria_up = (test_parameter.judge_percent * criteria) + criteria;
+                            double criteria_down = criteria - (test_parameter.judge_percent * criteria);
+                            Console.WriteLine(criteria);
+                            double value = 0;
+                            switch (select_idx)
+                            {
+                                case 0:
+                                    value = Convert.ToDouble( _sheet.Cells[row, XLS_Table.H].Value);
+                                    if(value > criteria_up || value < criteria_down)
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Fail";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.Red;
+                                    }
+                                    else
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Pass";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.LightGreen;
+                                    }
+                                    break;
+                                case 1:
+                                    value = Convert.ToDouble(_sheet.Cells[row, XLS_Table.J].Value);
+                                    if (value > criteria_up || value < criteria_down)
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Fail";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.Red;
+                                    }
+                                    else
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Pass";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.LightGreen;
+                                    }
+                                    break;
+                                case 2:
+                                    value = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
+                                    if (value > criteria_up || value < criteria_down)
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Fail";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.Red;
+                                    }
+                                    else
+                                    {
+                                        _sheet.Cells[row, XLS_Table.V] = "Pass";
+                                        _range = _sheet.Range["V" + row];
+                                        _range.Interior.Color = Color.LightGreen;
+                                    }
+                                    break;
+                            }
+
                             switch (wave_pos)
                             {
                                 case 0:
@@ -631,6 +723,7 @@ namespace SoftStartTiming
                                     wave_pos = 0; wave_row = wave_row + 19;
                                     break;
                             }
+
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             row++;
 #endif
@@ -694,9 +787,9 @@ namespace SoftStartTiming
             {
                 case 0: // gpio power disable
                     if (test_parameter.sleep_mode)
-                        RTDev.GpEn_Disable();
+                        GpioOffSelect(test_parameter.gpio_pin);
                     else
-                        RTDev.GpEn_Enable();
+                        GpioOnSelect(test_parameter.gpio_pin);
                     break;
                 case 1:
                     break;

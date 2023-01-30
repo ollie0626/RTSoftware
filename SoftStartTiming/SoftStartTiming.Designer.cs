@@ -32,6 +32,8 @@ namespace SoftStartTiming
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.CBGPIO = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.nuOffset = new System.Windows.Forms.NumericUpDown();
             this.RBMs = new System.Windows.Forms.RadioButton();
@@ -89,6 +91,10 @@ namespace SoftStartTiming
             this.BTRun = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nuCriteria = new System.Windows.Forms.NumericUpDown();
+            this.BTScan = new System.Windows.Forms.Button();
+            this.Power = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -102,12 +108,13 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(18, 193);
+            this.tabControl1.Location = new System.Drawing.Point(18, 342);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(816, 312);
@@ -116,6 +123,8 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.CBGPIO);
+            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.groupBox6);
             this.tabPage2.Controls.Add(this.groupBox5);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -137,6 +146,27 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(808, 286);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
+            // 
+            // CBGPIO
+            // 
+            this.CBGPIO.FormattingEnabled = true;
+            this.CBGPIO.Items.AddRange(new object[] {
+            "P2.0",
+            "P2.1",
+            "P2.2"});
+            this.CBGPIO.Location = new System.Drawing.Point(114, 141);
+            this.CBGPIO.Name = "CBGPIO";
+            this.CBGPIO.Size = new System.Drawing.Size(148, 20);
+            this.CBGPIO.TabIndex = 86;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(31, 144);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 12);
+            this.label7.TabIndex = 85;
+            this.label7.Text = "GPIO Select";
             // 
             // groupBox6
             // 
@@ -201,7 +231,7 @@ namespace SoftStartTiming
             this.groupBox5.Controls.Add(this.CkBin2);
             this.groupBox5.Controls.Add(this.CkBin3);
             this.groupBox5.Controls.Add(this.CkBin1);
-            this.groupBox5.Location = new System.Drawing.Point(6, 141);
+            this.groupBox5.Location = new System.Drawing.Point(6, 186);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(125, 94);
             this.groupBox5.TabIndex = 83;
@@ -247,7 +277,7 @@ namespace SoftStartTiming
             this.groupBox2.Controls.Add(this.CkCH2);
             this.groupBox2.Controls.Add(this.CkCH3);
             this.groupBox2.Controls.Add(this.CkCH1);
-            this.groupBox2.Location = new System.Drawing.Point(137, 141);
+            this.groupBox2.Location = new System.Drawing.Point(137, 186);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(125, 94);
             this.groupBox2.TabIndex = 82;
@@ -504,14 +534,14 @@ namespace SoftStartTiming
             // led_osc
             // 
             this.led_osc.BackColor = System.Drawing.Color.Red;
-            this.led_osc.Location = new System.Drawing.Point(18, 50);
+            this.led_osc.Location = new System.Drawing.Point(18, 77);
             this.led_osc.Name = "led_osc";
             this.led_osc.Size = new System.Drawing.Size(22, 22);
             this.led_osc.TabIndex = 0;
             // 
             // tb_osc
             // 
-            this.tb_osc.Location = new System.Drawing.Point(46, 50);
+            this.tb_osc.Location = new System.Drawing.Point(849, 217);
             this.tb_osc.Name = "tb_osc";
             this.tb_osc.Size = new System.Drawing.Size(256, 22);
             this.tb_osc.TabIndex = 24;
@@ -519,7 +549,7 @@ namespace SoftStartTiming
             // 
             // uibt_osc_connect
             // 
-            this.uibt_osc_connect.Location = new System.Drawing.Point(308, 50);
+            this.uibt_osc_connect.Location = new System.Drawing.Point(234, 42);
             this.uibt_osc_connect.Name = "uibt_osc_connect";
             this.uibt_osc_connect.Size = new System.Drawing.Size(153, 23);
             this.uibt_osc_connect.TabIndex = 0;
@@ -530,7 +560,7 @@ namespace SoftStartTiming
             // led_power
             // 
             this.led_power.BackColor = System.Drawing.Color.Red;
-            this.led_power.Location = new System.Drawing.Point(18, 78);
+            this.led_power.Location = new System.Drawing.Point(18, 105);
             this.led_power.Name = "led_power";
             this.led_power.Size = new System.Drawing.Size(22, 22);
             this.led_power.TabIndex = 26;
@@ -538,7 +568,7 @@ namespace SoftStartTiming
             // led_eload
             // 
             this.led_eload.BackColor = System.Drawing.Color.Red;
-            this.led_eload.Location = new System.Drawing.Point(18, 106);
+            this.led_eload.Location = new System.Drawing.Point(18, 133);
             this.led_eload.Name = "led_eload";
             this.led_eload.Size = new System.Drawing.Size(22, 22);
             this.led_eload.TabIndex = 45;
@@ -546,7 +576,7 @@ namespace SoftStartTiming
             // led_chamber
             // 
             this.led_chamber.BackColor = System.Drawing.Color.Red;
-            this.led_chamber.Location = new System.Drawing.Point(18, 164);
+            this.led_chamber.Location = new System.Drawing.Point(18, 191);
             this.led_chamber.Name = "led_chamber";
             this.led_chamber.Size = new System.Drawing.Size(22, 22);
             this.led_chamber.TabIndex = 47;
@@ -554,7 +584,7 @@ namespace SoftStartTiming
             // led_daq
             // 
             this.led_daq.BackColor = System.Drawing.Color.Red;
-            this.led_daq.Location = new System.Drawing.Point(18, 136);
+            this.led_daq.Location = new System.Drawing.Point(18, 163);
             this.led_daq.Name = "led_daq";
             this.led_daq.Size = new System.Drawing.Size(22, 22);
             this.led_daq.TabIndex = 46;
@@ -667,7 +697,7 @@ namespace SoftStartTiming
             // 
             // tb_power
             // 
-            this.tb_power.Location = new System.Drawing.Point(46, 78);
+            this.tb_power.Location = new System.Drawing.Point(849, 245);
             this.tb_power.Name = "tb_power";
             this.tb_power.Size = new System.Drawing.Size(256, 22);
             this.tb_power.TabIndex = 59;
@@ -675,7 +705,7 @@ namespace SoftStartTiming
             // 
             // tb_eload
             // 
-            this.tb_eload.Location = new System.Drawing.Point(46, 106);
+            this.tb_eload.Location = new System.Drawing.Point(849, 273);
             this.tb_eload.Name = "tb_eload";
             this.tb_eload.Size = new System.Drawing.Size(256, 22);
             this.tb_eload.TabIndex = 60;
@@ -683,7 +713,7 @@ namespace SoftStartTiming
             // 
             // tb_chamber
             // 
-            this.tb_chamber.Location = new System.Drawing.Point(47, 164);
+            this.tb_chamber.Location = new System.Drawing.Point(850, 331);
             this.tb_chamber.Name = "tb_chamber";
             this.tb_chamber.Size = new System.Drawing.Size(256, 22);
             this.tb_chamber.TabIndex = 62;
@@ -691,7 +721,7 @@ namespace SoftStartTiming
             // 
             // tb_daq
             // 
-            this.tb_daq.Location = new System.Drawing.Point(47, 136);
+            this.tb_daq.Location = new System.Drawing.Point(850, 303);
             this.tb_daq.Name = "tb_daq";
             this.tb_daq.Size = new System.Drawing.Size(256, 22);
             this.tb_daq.TabIndex = 61;
@@ -727,12 +757,56 @@ namespace SoftStartTiming
             this.BTPause.UseVisualStyleBackColor = true;
             this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(471, 177);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(76, 12);
+            this.label8.TabIndex = 66;
+            this.label8.Text = "Criterial (%)";
+            // 
+            // nuCriteria
+            // 
+            this.nuCriteria.Location = new System.Drawing.Point(553, 172);
+            this.nuCriteria.Name = "nuCriteria";
+            this.nuCriteria.Size = new System.Drawing.Size(78, 22);
+            this.nuCriteria.TabIndex = 67;
+            this.nuCriteria.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuCriteria.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            // 
+            // BTScan
+            // 
+            this.BTScan.Location = new System.Drawing.Point(75, 42);
+            this.BTScan.Name = "BTScan";
+            this.BTScan.Size = new System.Drawing.Size(153, 23);
+            this.BTScan.TabIndex = 68;
+            this.BTScan.Text = "Scan Instrument";
+            this.BTScan.UseVisualStyleBackColor = true;
+            this.BTScan.Click += new System.EventHandler(this.BTScan_Click);
+            // 
+            // Power
+            // 
+            this.Power.FormattingEnabled = true;
+            this.Power.Location = new System.Drawing.Point(234, 234);
+            this.Power.Name = "Power";
+            this.Power.Size = new System.Drawing.Size(147, 20);
+            this.Power.TabIndex = 69;
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(843, 521);
+            this.ClientSize = new System.Drawing.Size(1024, 778);
+            this.Controls.Add(this.Power);
+            this.Controls.Add(this.BTScan);
+            this.Controls.Add(this.nuCriteria);
+            this.Controls.Add(this.label8);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.BTStop);
             this.Controls.Add(this.tb_chamber);
@@ -778,6 +852,7 @@ namespace SoftStartTiming
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -844,6 +919,12 @@ namespace SoftStartTiming
         private System.Windows.Forms.GroupBox groupBox6;
         private System.Windows.Forms.RadioButton RBMs;
         private System.Windows.Forms.RadioButton RBUs;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox CBGPIO;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown nuCriteria;
+        private System.Windows.Forms.Button BTScan;
+        private System.Windows.Forms.ComboBox Power;
     }
 }
 
