@@ -792,7 +792,7 @@ namespace SoftStartTiming
             // Power
             // 
             this.Power.FormattingEnabled = true;
-            this.Power.Location = new System.Drawing.Point(234, 234);
+            this.Power.Location = new System.Drawing.Point(75, 219);
             this.Power.Name = "Power";
             this.Power.Size = new System.Drawing.Size(147, 20);
             this.Power.TabIndex = 69;
