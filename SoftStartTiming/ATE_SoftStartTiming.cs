@@ -244,7 +244,6 @@ namespace SoftStartTiming
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;

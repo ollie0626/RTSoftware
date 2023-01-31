@@ -19,6 +19,7 @@ namespace SoftStartTiming
             CbTrigger.SelectedIndex = 0;
             CBGPIO.SelectedIndex = 0;
             CBPower.Enabled = false;
+            CBChannel.Enabled = false;
             ate_table = new TaskRun[] { _ate_sst };
 
             binTable = new CheckBox[] { CkBin1, CkBin2, CkBin3 };

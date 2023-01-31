@@ -99,7 +99,6 @@ namespace SoftStartTiming
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.CBChannel = new System.Windows.Forms.ComboBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -499,11 +498,11 @@ namespace SoftStartTiming
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(274, 79);
+            this.button1.Location = new System.Drawing.Point(312, 632);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(83, 23);
             this.button1.TabIndex = 66;
-            this.button1.Text = "Test button";
+            this.button1.Text = "Excel Kill";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -615,7 +614,6 @@ namespace SoftStartTiming
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.progressBar1);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label15);
@@ -770,7 +768,7 @@ namespace SoftStartTiming
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(401, 640);
+            this.label8.Location = new System.Drawing.Point(401, 637);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 12);
             this.label8.TabIndex = 66;
@@ -778,7 +776,7 @@ namespace SoftStartTiming
             // 
             // nuCriteria
             // 
-            this.nuCriteria.Location = new System.Drawing.Point(483, 635);
+            this.nuCriteria.Location = new System.Drawing.Point(483, 632);
             this.nuCriteria.Name = "nuCriteria";
             this.nuCriteria.Size = new System.Drawing.Size(78, 22);
             this.nuCriteria.TabIndex = 67;
@@ -846,23 +844,13 @@ namespace SoftStartTiming
             this.CBChannel.Size = new System.Drawing.Size(147, 20);
             this.CBChannel.TabIndex = 73;
             // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(145, 274);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 32);
-            this.button2.TabIndex = 74;
-            this.button2.Text = "Power On";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(849, 679);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.CBChannel);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
@@ -993,7 +981,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.ComboBox CBChannel;
-        private System.Windows.Forms.Button button2;
     }
 }
 

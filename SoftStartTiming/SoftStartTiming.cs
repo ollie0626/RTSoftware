@@ -76,7 +76,6 @@ namespace SoftStartTiming
 
         private int ConnectFunc(string res, int ins_sel)
         {
-            //TCPIP0::168.254.95.0::hislip0::INSTR
             switch (ins_sel)
             {
                 case 0: InsControl._scope = new AgilentOSC(res); break;
@@ -87,6 +86,7 @@ namespace SoftStartTiming
             }
             return 0;
         }
+
         private Task<int> ConnectTask(string res, int ins_sel)
         {
             return Task.Factory.StartNew(() => ConnectFunc(res, ins_sel));
@@ -96,44 +96,84 @@ namespace SoftStartTiming
         {
             Button bt = (Button)sender;
             int idx = bt.TabIndex;
+            string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C" };
+            // scope idn name keysight DSOS054A DSO9064A  Tek DPO7054C DSO9064A
 
-            await ConnectTask(tb_osc.Text, 0);
-            await ConnectTask(tb_power.Text, 1);
-            await ConnectTask(tb_eload.Text, 2);
-            await ConnectTask(tb_daq.Text, 3);
-            await ConnectTask(tb_chamber.Text, 4);
+            for(int i = 0; i < 3; i++)
+            {
+                if(Device_map.ContainsKey(scope_name[i]))
+                {
+                    await ConnectTask(Device_map[scope_name[i]], 0);
+                    tb_osc.Text = "Scope:" + scope_name[i];
+                }
+            }
 
+            if (Device_map.ContainsKey("CBPower.Text"))
+            {
+                await ConnectTask(Device_map[CBPower.Text], 1);
+            }
+
+            if (Device_map.ContainsKey("63600-2"))
+            {
+                await ConnectTask(Device_map["63600-2"], 2);
+                tb_eload.Text = "ELoad:63600-2"; 
+            }
+
+            if (Device_map.ContainsKey("34970A"))
+            {
+                await ConnectTask(Device_map["34970A"], 3);
+                tb_daq.Text = "DAQ:34970A";
+            }
+
+            await ConnectTask("GPIB0::3::INSTR", 4);
+
+            // funcgen AFG31022
             MyLib.Delay1s(1);
             check_ins_state();
         }
 
-
         private void check_ins_state()
         {
-            if (InsControl._scope.InsState())
-                led_osc.BackColor = Color.LightGreen;
-            else
-                led_osc.BackColor = Color.Red;
+            if(InsControl._scope != null)
+            {
+                if (InsControl._scope.InsState())
+                    led_osc.BackColor = Color.LightGreen;
+                else
+                    led_osc.BackColor = Color.Red;
+            }
 
-            if (InsControl._power.InsState())
-                led_power.BackColor = Color.LightGreen;
-            else
-                led_power.BackColor = Color.Red;
+            if(InsControl._power != null)
+            {
+                if (InsControl._power.InsState())
+                    led_power.BackColor = Color.LightGreen;
+                else
+                    led_power.BackColor = Color.Red;
+            }
 
-            if (InsControl._eload.InsState())
-                led_eload.BackColor = Color.LightGreen;
-            else
-                led_eload.BackColor = Color.Red;
+            if(InsControl._eload != null)
+            {
+                if (InsControl._eload.InsState())
+                    led_eload.BackColor = Color.LightGreen;
+                else
+                    led_eload.BackColor = Color.Red;
+            }
 
-            if (InsControl._34970A.InsState())
-                led_daq.BackColor = Color.LightGreen;
-            else
-                led_daq.BackColor = Color.Red;
+            if(InsControl._34970A != null)
+            {
+                if (InsControl._34970A.InsState())
+                    led_daq.BackColor = Color.LightGreen;
+                else
+                    led_daq.BackColor = Color.Red;
+            }
 
-            if (InsControl._chamber.InsState())
-                led_chamber.BackColor = Color.LightGreen;
-            else
-                led_chamber.BackColor = Color.Red;
+            if(InsControl._chamber != null)
+            {
+                if (InsControl._chamber.InsState())
+                    led_chamber.BackColor = Color.LightGreen;
+                else
+                    led_chamber.BackColor = Color.Red;
+            }
+
         }
 
         private void test_parameter_copy()
@@ -179,7 +219,6 @@ namespace SoftStartTiming
             test_parameter.judge_percent = ((double)nuCriteria.Value / 100);
             test_parameter.power_mode = CBChannel.Text;
         }
-
 
         private void BTRun_Click(object sender, EventArgs e)
         {
@@ -279,35 +318,34 @@ namespace SoftStartTiming
             p.Start();
 
             //InsControl._scope.SaveWaveform(@"D:\", "scope");
-            OpenFileDialog opendlg = new OpenFileDialog();
+            //OpenFileDialog opendlg = new OpenFileDialog();
 
-            if(opendlg.ShowDialog() == DialogResult.OK)
-            {
-                //string file_name = opendlg.FileName;
-                //StreamReader sr = new StreamReader(file_name);
-                //string line;
-                //List<byte> temp = new List<byte>();
-                //line = sr.ReadLine();
-                //while(line != null)
-                //{
-                //    Console.WriteLine(line);
-                //    string[] arr = line.Split('\t');
-                //    line = sr.ReadLine();
-                //    temp.Add(Convert.ToByte(arr[1], 16));
-                //}
-                //sr.Close();
+            //if(opendlg.ShowDialog() == DialogResult.OK)
+            //{
+            //    //string file_name = opendlg.FileName;
+            //    //StreamReader sr = new StreamReader(file_name);
+            //    //string line;
+            //    //List<byte> temp = new List<byte>();
+            //    //line = sr.ReadLine();
+            //    //while(line != null)
+            //    //{
+            //    //    Console.WriteLine(line);
+            //    //    string[] arr = line.Split('\t');
+            //    //    line = sr.ReadLine();
+            //    //    temp.Add(Convert.ToByte(arr[1], 16));
+            //    //}
+            //    //sr.Close();
 
-                //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
-                //BinaryWriter bwr = new BinaryWriter(myFile);
-                //bwr.Write(temp.ToArray(), 0, temp.Count);
-                //bwr.Close();
-                //myFile.Close();
+            //    //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
+            //    //BinaryWriter bwr = new BinaryWriter(myFile);
+            //    //bwr.Write(temp.ToArray(), 0, temp.Count);
+            //    //bwr.Close();
+            //    //myFile.Close();
 
-                string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
-                MyLib.GetCriteria_time(file_name);
-            }
+            //    string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
+            //    MyLib.GetCriteria_time(file_name);
+            //}
         }
-
 
         private void BTPause_Click(object sender, EventArgs e)
         {
@@ -354,7 +392,10 @@ namespace SoftStartTiming
                 VisaCommand visaCommand = new VisaCommand();
                 visaCommand.LinkingIns(ins);
                 string idn = visaCommand.doQueryIDN();
-                string name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
+                string name = "";
+
+                if(idn.Split(',').Length != 1)
+                    name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
 
                 if (Device_map.ContainsKey(name) == false)
                 {
@@ -375,12 +416,14 @@ namespace SoftStartTiming
 
             InsControl._power = new PowerModule(Device_map[CBPower.Text]);
 
+            tb_power.Text = "Power: " + CBPower.Text;
             if (InsControl._power.InsState())
                 led_power.BackColor = Color.LightGreen;
             else
                 led_power.BackColor = Color.Red;
 
             CBChannel.Items.Clear();
+            CBChannel.Enabled = true;
             switch (CBPower.Text)
             {
                 case "E3631A":
@@ -389,17 +432,17 @@ namespace SoftStartTiming
                     CBChannel.Items.Add("-25V");
                     CBChannel.SelectedIndex = 0;
                     break;
-                case "E3632":
+                case "E3632A":
                     CBChannel.Items.Add("15V");
                     CBChannel.Items.Add("30V");
                     CBChannel.SelectedIndex = 0;
                     break;
-                case "E3633":
+                case "E3633A":
                     CBChannel.Items.Add("8V");
                     CBChannel.Items.Add("20V");
                     CBChannel.SelectedIndex = 0;
                     break;
-                case "E3634":
+                case "E3634A":
                     CBChannel.Items.Add("25V");
                     CBChannel.Items.Add("50V");
                     CBChannel.SelectedIndex = 0;
@@ -413,9 +456,5 @@ namespace SoftStartTiming
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            InsControl._power.AutoSelPowerOn(3.3, CBChannel.Text);
-        }
     }
 }
