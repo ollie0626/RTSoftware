@@ -802,9 +802,6 @@ namespace SoftStartTiming
             // CBPower
             // 
             this.CBPower.FormattingEnabled = true;
-            this.CBPower.Items.AddRange(new object[] {
-            "E3632",
-            "E3633"});
             this.CBPower.Location = new System.Drawing.Point(145, 219);
             this.CBPower.Name = "CBPower";
             this.CBPower.Size = new System.Drawing.Size(147, 20);

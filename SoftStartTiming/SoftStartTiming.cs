@@ -354,7 +354,7 @@ namespace SoftStartTiming
                 VisaCommand visaCommand = new VisaCommand();
                 visaCommand.LinkingIns(ins);
                 string idn = visaCommand.doQueryIDN();
-                string name = idn.Split(',')[1];
+                string name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
 
                 if (Device_map.ContainsKey(name) == false)
                 {
@@ -383,7 +383,7 @@ namespace SoftStartTiming
             CBChannel.Items.Clear();
             switch (CBPower.Text)
             {
-                case "E3631":
+                case "E3631A":
                     CBChannel.Items.Add("+6V");
                     CBChannel.Items.Add("+25V");
                     CBChannel.Items.Add("-25V");
