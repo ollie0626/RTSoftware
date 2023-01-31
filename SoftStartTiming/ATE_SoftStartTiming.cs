@@ -244,12 +244,13 @@ namespace SoftStartTiming
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
+#if true
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
-
+#endif
             InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
