@@ -96,6 +96,10 @@ namespace SoftStartTiming
             this.BTScan = new System.Windows.Forms.Button();
             this.CBPower = new System.Windows.Forms.ComboBox();
             this.list_ins = new System.Windows.Forms.ListBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.CBChannel = new System.Windows.Forms.ComboBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -115,7 +119,7 @@ namespace SoftStartTiming
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(18, 342);
+            this.tabControl1.Location = new System.Drawing.Point(18, 309);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(816, 312);
@@ -535,22 +539,23 @@ namespace SoftStartTiming
             // led_osc
             // 
             this.led_osc.BackColor = System.Drawing.Color.Red;
-            this.led_osc.Location = new System.Drawing.Point(18, 77);
+            this.led_osc.Location = new System.Drawing.Point(338, 44);
             this.led_osc.Name = "led_osc";
             this.led_osc.Size = new System.Drawing.Size(22, 22);
             this.led_osc.TabIndex = 0;
             // 
             // tb_osc
             // 
-            this.tb_osc.Location = new System.Drawing.Point(849, 217);
+            this.tb_osc.Enabled = false;
+            this.tb_osc.Location = new System.Drawing.Point(366, 44);
             this.tb_osc.Name = "tb_osc";
             this.tb_osc.Size = new System.Drawing.Size(256, 22);
             this.tb_osc.TabIndex = 24;
-            this.tb_osc.Text = "TCPIP0::168.254.95.0::hislip0::INSTR";
+            this.tb_osc.Text = "Scope: ";
             // 
             // uibt_osc_connect
             // 
-            this.uibt_osc_connect.Location = new System.Drawing.Point(234, 42);
+            this.uibt_osc_connect.Location = new System.Drawing.Point(177, 42);
             this.uibt_osc_connect.Name = "uibt_osc_connect";
             this.uibt_osc_connect.Size = new System.Drawing.Size(153, 23);
             this.uibt_osc_connect.TabIndex = 0;
@@ -561,7 +566,7 @@ namespace SoftStartTiming
             // led_power
             // 
             this.led_power.BackColor = System.Drawing.Color.Red;
-            this.led_power.Location = new System.Drawing.Point(18, 105);
+            this.led_power.Location = new System.Drawing.Point(338, 72);
             this.led_power.Name = "led_power";
             this.led_power.Size = new System.Drawing.Size(22, 22);
             this.led_power.TabIndex = 26;
@@ -569,7 +574,7 @@ namespace SoftStartTiming
             // led_eload
             // 
             this.led_eload.BackColor = System.Drawing.Color.Red;
-            this.led_eload.Location = new System.Drawing.Point(18, 133);
+            this.led_eload.Location = new System.Drawing.Point(338, 100);
             this.led_eload.Name = "led_eload";
             this.led_eload.Size = new System.Drawing.Size(22, 22);
             this.led_eload.TabIndex = 45;
@@ -577,7 +582,7 @@ namespace SoftStartTiming
             // led_chamber
             // 
             this.led_chamber.BackColor = System.Drawing.Color.Red;
-            this.led_chamber.Location = new System.Drawing.Point(18, 191);
+            this.led_chamber.Location = new System.Drawing.Point(338, 158);
             this.led_chamber.Name = "led_chamber";
             this.led_chamber.Size = new System.Drawing.Size(22, 22);
             this.led_chamber.TabIndex = 47;
@@ -585,7 +590,7 @@ namespace SoftStartTiming
             // led_daq
             // 
             this.led_daq.BackColor = System.Drawing.Color.Red;
-            this.led_daq.Location = new System.Drawing.Point(18, 163);
+            this.led_daq.Location = new System.Drawing.Point(338, 130);
             this.led_daq.Name = "led_daq";
             this.led_daq.Size = new System.Drawing.Size(22, 22);
             this.led_daq.TabIndex = 46;
@@ -618,7 +623,7 @@ namespace SoftStartTiming
             this.groupBox3.Controls.Add(this.nu_steady);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.tb_templist);
-            this.groupBox3.Location = new System.Drawing.Point(467, 13);
+            this.groupBox3.Location = new System.Drawing.Point(338, 186);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(363, 117);
             this.groupBox3.TabIndex = 58;
@@ -698,39 +703,43 @@ namespace SoftStartTiming
             // 
             // tb_power
             // 
-            this.tb_power.Location = new System.Drawing.Point(849, 245);
+            this.tb_power.Enabled = false;
+            this.tb_power.Location = new System.Drawing.Point(366, 72);
             this.tb_power.Name = "tb_power";
             this.tb_power.Size = new System.Drawing.Size(256, 22);
             this.tb_power.TabIndex = 59;
-            this.tb_power.Text = "GPIB0::5::INSTR";
+            this.tb_power.Text = "Power: ";
             // 
             // tb_eload
             // 
-            this.tb_eload.Location = new System.Drawing.Point(849, 273);
+            this.tb_eload.Enabled = false;
+            this.tb_eload.Location = new System.Drawing.Point(366, 100);
             this.tb_eload.Name = "tb_eload";
             this.tb_eload.Size = new System.Drawing.Size(256, 22);
             this.tb_eload.TabIndex = 60;
-            this.tb_eload.Text = "GPIB0::7::INSTR";
+            this.tb_eload.Text = "ELoad:";
             // 
             // tb_chamber
             // 
-            this.tb_chamber.Location = new System.Drawing.Point(850, 331);
+            this.tb_chamber.Enabled = false;
+            this.tb_chamber.Location = new System.Drawing.Point(366, 158);
             this.tb_chamber.Name = "tb_chamber";
             this.tb_chamber.Size = new System.Drawing.Size(256, 22);
             this.tb_chamber.TabIndex = 62;
-            this.tb_chamber.Text = "GPIB0::3::INSTR";
+            this.tb_chamber.Text = "Chanber:GPIB0::3::INSTR";
             // 
             // tb_daq
             // 
-            this.tb_daq.Location = new System.Drawing.Point(850, 303);
+            this.tb_daq.Enabled = false;
+            this.tb_daq.Location = new System.Drawing.Point(366, 130);
             this.tb_daq.Name = "tb_daq";
             this.tb_daq.Size = new System.Drawing.Size(256, 22);
             this.tb_daq.TabIndex = 61;
-            this.tb_daq.Text = "GPIB0::6::INSTR";
+            this.tb_daq.Text = "DAQ:";
             // 
             // BTRun
             // 
-            this.BTRun.Location = new System.Drawing.Point(467, 136);
+            this.BTRun.Location = new System.Drawing.Point(585, 627);
             this.BTRun.Name = "BTRun";
             this.BTRun.Size = new System.Drawing.Size(75, 32);
             this.BTRun.TabIndex = 63;
@@ -740,7 +749,7 @@ namespace SoftStartTiming
             // 
             // BTStop
             // 
-            this.BTStop.Location = new System.Drawing.Point(629, 136);
+            this.BTStop.Location = new System.Drawing.Point(747, 627);
             this.BTStop.Name = "BTStop";
             this.BTStop.Size = new System.Drawing.Size(75, 32);
             this.BTStop.TabIndex = 64;
@@ -750,7 +759,7 @@ namespace SoftStartTiming
             // 
             // BTPause
             // 
-            this.BTPause.Location = new System.Drawing.Point(548, 136);
+            this.BTPause.Location = new System.Drawing.Point(666, 627);
             this.BTPause.Name = "BTPause";
             this.BTPause.Size = new System.Drawing.Size(75, 32);
             this.BTPause.TabIndex = 65;
@@ -761,7 +770,7 @@ namespace SoftStartTiming
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(471, 177);
+            this.label8.Location = new System.Drawing.Point(401, 640);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 12);
             this.label8.TabIndex = 66;
@@ -769,7 +778,7 @@ namespace SoftStartTiming
             // 
             // nuCriteria
             // 
-            this.nuCriteria.Location = new System.Drawing.Point(553, 172);
+            this.nuCriteria.Location = new System.Drawing.Point(483, 635);
             this.nuCriteria.Name = "nuCriteria";
             this.nuCriteria.Size = new System.Drawing.Size(78, 22);
             this.nuCriteria.TabIndex = 67;
@@ -782,7 +791,7 @@ namespace SoftStartTiming
             // 
             // BTScan
             // 
-            this.BTScan.Location = new System.Drawing.Point(75, 42);
+            this.BTScan.Location = new System.Drawing.Point(18, 42);
             this.BTScan.Name = "BTScan";
             this.BTScan.Size = new System.Drawing.Size(153, 23);
             this.BTScan.TabIndex = 68;
@@ -793,26 +802,73 @@ namespace SoftStartTiming
             // CBPower
             // 
             this.CBPower.FormattingEnabled = true;
-            this.CBPower.Location = new System.Drawing.Point(75, 219);
+            this.CBPower.Items.AddRange(new object[] {
+            "E3632",
+            "E3633"});
+            this.CBPower.Location = new System.Drawing.Point(145, 219);
             this.CBPower.Name = "CBPower";
             this.CBPower.Size = new System.Drawing.Size(147, 20);
             this.CBPower.TabIndex = 69;
+            this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
             // list_ins
             // 
             this.list_ins.FormattingEnabled = true;
             this.list_ins.ItemHeight = 12;
-            this.list_ins.Location = new System.Drawing.Point(75, 75);
+            this.list_ins.Location = new System.Drawing.Point(18, 75);
             this.list_ins.Name = "list_ins";
-            this.list_ins.Size = new System.Drawing.Size(236, 136);
+            this.list_ins.Size = new System.Drawing.Size(312, 136);
             this.list_ins.TabIndex = 70;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(16, 222);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(123, 12);
+            this.label9.TabIndex = 71;
+            this.label9.Text = "Power Supply Select:";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(16, 251);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(92, 12);
+            this.label10.TabIndex = 72;
+            this.label10.Text = "Channel Select:";
+            // 
+            // CBChannel
+            // 
+            this.CBChannel.FormattingEnabled = true;
+            this.CBChannel.Items.AddRange(new object[] {
+            "E3632",
+            "E3633"});
+            this.CBChannel.Location = new System.Drawing.Point(145, 248);
+            this.CBChannel.Name = "CBChannel";
+            this.CBChannel.Size = new System.Drawing.Size(147, 20);
+            this.CBChannel.TabIndex = 73;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(145, 274);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 32);
+            this.button2.TabIndex = 74;
+            this.button2.Text = "Power On";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1024, 778);
+            this.ClientSize = new System.Drawing.Size(849, 679);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.CBChannel);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.list_ins);
             this.Controls.Add(this.CBPower);
             this.Controls.Add(this.BTScan);
@@ -937,6 +993,10 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTScan;
         private System.Windows.Forms.ComboBox CBPower;
         private System.Windows.Forms.ListBox list_ins;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox CBChannel;
+        private System.Windows.Forms.Button button2;
     }
 }
 

@@ -26,6 +26,9 @@ namespace SoftStartTiming
         ATE_SoftStartTiming _ate_sst = new ATE_SoftStartTiming();
         TaskRun[] ate_table;
 
+        // device name
+        System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
+
 
         public SoftStartTiming()
         {
@@ -73,6 +76,7 @@ namespace SoftStartTiming
 
         private int ConnectFunc(string res, int ins_sel)
         {
+            //TCPIP0::168.254.95.0::hislip0::INSTR
             switch (ins_sel)
             {
                 case 0: InsControl._scope = new AgilentOSC(res); break;
@@ -100,10 +104,15 @@ namespace SoftStartTiming
             await ConnectTask(tb_chamber.Text, 4);
 
             MyLib.Delay1s(1);
+            check_ins_state();
+        }
 
-            if (InsControl._scope.InsState()) 
+
+        private void check_ins_state()
+        {
+            if (InsControl._scope.InsState())
                 led_osc.BackColor = Color.LightGreen;
-            else 
+            else
                 led_osc.BackColor = Color.Red;
 
             if (InsControl._power.InsState())
@@ -150,8 +159,6 @@ namespace SoftStartTiming
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
-            
-
             for(int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
@@ -164,14 +171,13 @@ namespace SoftStartTiming
                 test_parameter.scope_en[i] = ScopeChTable[i].Checked;
                 test_parameter.bin_en[i] = binTable[i].Checked;
             }
-
             test_parameter.trigger_event = CbTrigger.SelectedIndex; // test example gpio trigger
             test_parameter.sleep_mode = false;
             test_parameter.delay_us_en = RBUs.Checked;
             test_parameter.offset_time = RBUs.Checked ? ((double)nuOffset.Value * Math.Pow(10, -6)) : ((double)nuOffset.Value * Math.Pow(10, -3));
-
             test_parameter.gpio_pin = CBGPIO.SelectedIndex;
             test_parameter.judge_percent = ((double)nuCriteria.Value / 100);
+            test_parameter.power_mode = CBChannel.Text;
         }
 
 
@@ -339,11 +345,77 @@ namespace SoftStartTiming
         private void BTScan_Click(object sender, EventArgs e)
         {
             string[] ins_list = ViCMD.ScanIns();
+            if (ins_list == null) return;
+
             foreach (string ins in ins_list)
             {
                 list_ins.Items.Add(ins);
-                Console.WriteLine(ins);
+
+                VisaCommand visaCommand = new VisaCommand();
+                visaCommand.LinkingIns(ins);
+                string idn = visaCommand.doQueryIDN();
+                string name = idn.Split(',')[1];
+
+                if (Device_map.ContainsKey(name) == false)
+                {
+                    Device_map.Add(name, ins);
+                    if(name.IndexOf("E363") != -1)
+                    {
+                        CBPower.Enabled = true;
+                        CBPower.Items.Add(name);
+                    }
+                }
             }
+
+        }
+
+        private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(Device_map[CBPower.Text]);
+
+            InsControl._power = new PowerModule(Device_map[CBPower.Text]);
+
+            if (InsControl._power.InsState())
+                led_power.BackColor = Color.LightGreen;
+            else
+                led_power.BackColor = Color.Red;
+
+            CBChannel.Items.Clear();
+            switch (CBPower.Text)
+            {
+                case "E3631":
+                    CBChannel.Items.Add("+6V");
+                    CBChannel.Items.Add("+25V");
+                    CBChannel.Items.Add("-25V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3632":
+                    CBChannel.Items.Add("15V");
+                    CBChannel.Items.Add("30V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3633":
+                    CBChannel.Items.Add("8V");
+                    CBChannel.Items.Add("20V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3634":
+                    CBChannel.Items.Add("25V");
+                    CBChannel.Items.Add("50V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "62006P":
+                    CBChannel.Items.Add("600V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+            }
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            InsControl._power.AutoSelPowerOn(3.3, CBChannel.Text);
         }
     }
 }

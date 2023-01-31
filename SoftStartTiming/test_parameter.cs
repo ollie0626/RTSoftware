@@ -40,6 +40,7 @@ namespace SoftStartTiming
 
         // gpio select
         public static int gpio_pin;
+        public static string power_mode;
 
 
         public static bool run_stop;

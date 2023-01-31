@@ -282,36 +282,61 @@ namespace InsLibDotNet
                 E3633PowerOff();
             else if (IDN.IndexOf("620") != -1)
                 ChromaPowerOff();
-
             //System.Threading.Thread.Sleep(5000);
         }
 
 
-        public void AutoSelPowerOn(double vol)
+        public void AutoSelPowerOn(double vol, string mode = "")
         {
             //string IDN = doQueryIDN();
             if (IDN.IndexOf("E3632") != -1)
             {
                 bool sel = vol < 15 ? true : false;
+
+                if(mode != "")
+                {
+                    sel = (mode == "15V") ? true : false;
+                }
+
+
                 E3632_Sel(sel);
                 E3632_Vol(vol);
             }
             else if (IDN.IndexOf("E3633") != -1)
             {
                 bool sel = vol < 8 ? true : false;
+
+                if(mode != "")
+                {
+                    sel = (mode == "8V") ? true : false;
+                }
+
                 E3633_Sel(sel);
                 E3633_Vol(vol);
             }
             else if (IDN.IndexOf("E3631") != -1)
             {
                 int sel = 0;
-                if (vol < 6 && vol > 0)
-                    sel = 0;
-                else if (vol > 6 && vol < 25)
-                    sel = 1;
-                else if (vol < 0)
-                    sel = 2;
 
+                if(mode == "")
+                {
+                    if (vol < 6 && vol > 0)
+                        sel = 0;
+                    else if (vol > 6 && vol < 25)
+                        sel = 1;
+                    else if (vol < 0)
+                        sel = 2;
+                }
+                else
+                {
+                    switch (mode)
+                    {
+                        case "+6V": sel = 0; break;
+                        case "+25V": sel = 1; break;
+                        case "-25V": sel = 2; break;
+                        default: sel = 0; break;
+                    }
+                }
                 E3631_Sel(sel);
                 E3631_Vol(vol);
             }
@@ -322,6 +347,11 @@ namespace InsLibDotNet
             else if(IDN.IndexOf("E3634") != -1)
             {
                 bool sel = vol < 25 ? true : false;
+
+                if(mode != "")
+                {
+                    sel = (mode == "25V") ? true : false;
+                }
                 E3634_Sel(sel);
                 E3634_Vol(vol);
             }

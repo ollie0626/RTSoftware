@@ -18,10 +18,15 @@ namespace SoftStartTiming
 
             CbTrigger.SelectedIndex = 0;
             CBGPIO.SelectedIndex = 0;
+            CBPower.Enabled = false;
             ate_table = new TaskRun[] { _ate_sst };
 
             binTable = new CheckBox[] { CkBin1, CkBin2, CkBin3 };
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };
+
+
+            //Device_map.Add("E3632", "Link 1");
+            //Device_map.Add("E3633", "Link 2");
         }
     }
 }
