@@ -338,9 +338,12 @@ namespace SoftStartTiming
 
         private void BTScan_Click(object sender, EventArgs e)
         {
-            string[] List = ViCMD.ScanIns();
-
-            for (int i = 0; i < List.Length; i++) Console.WriteLine(List[i]);
+            string[] ins_list = ViCMD.ScanIns();
+            foreach (string ins in ins_list)
+            {
+                list_ins.Items.Add(ins);
+                Console.WriteLine(ins);
+            }
         }
     }
 }

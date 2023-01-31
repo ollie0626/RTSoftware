@@ -94,7 +94,8 @@ namespace SoftStartTiming
             this.label8 = new System.Windows.Forms.Label();
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
             this.BTScan = new System.Windows.Forms.Button();
-            this.Power = new System.Windows.Forms.ComboBox();
+            this.CBPower = new System.Windows.Forms.ComboBox();
+            this.list_ins = new System.Windows.Forms.ListBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox6.SuspendLayout();
@@ -789,13 +790,22 @@ namespace SoftStartTiming
             this.BTScan.UseVisualStyleBackColor = true;
             this.BTScan.Click += new System.EventHandler(this.BTScan_Click);
             // 
-            // Power
+            // CBPower
             // 
-            this.Power.FormattingEnabled = true;
-            this.Power.Location = new System.Drawing.Point(75, 219);
-            this.Power.Name = "Power";
-            this.Power.Size = new System.Drawing.Size(147, 20);
-            this.Power.TabIndex = 69;
+            this.CBPower.FormattingEnabled = true;
+            this.CBPower.Location = new System.Drawing.Point(75, 219);
+            this.CBPower.Name = "CBPower";
+            this.CBPower.Size = new System.Drawing.Size(147, 20);
+            this.CBPower.TabIndex = 69;
+            // 
+            // list_ins
+            // 
+            this.list_ins.FormattingEnabled = true;
+            this.list_ins.ItemHeight = 12;
+            this.list_ins.Location = new System.Drawing.Point(75, 75);
+            this.list_ins.Name = "list_ins";
+            this.list_ins.Size = new System.Drawing.Size(236, 136);
+            this.list_ins.TabIndex = 70;
             // 
             // SoftStartTiming
             // 
@@ -803,7 +813,8 @@ namespace SoftStartTiming
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1024, 778);
-            this.Controls.Add(this.Power);
+            this.Controls.Add(this.list_ins);
+            this.Controls.Add(this.CBPower);
             this.Controls.Add(this.BTScan);
             this.Controls.Add(this.nuCriteria);
             this.Controls.Add(this.label8);
@@ -924,7 +935,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.NumericUpDown nuCriteria;
         private System.Windows.Forms.Button BTScan;
-        private System.Windows.Forms.ComboBox Power;
+        private System.Windows.Forms.ComboBox CBPower;
+        private System.Windows.Forms.ListBox list_ins;
     }
 }
 
