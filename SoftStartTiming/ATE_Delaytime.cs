@@ -12,7 +12,7 @@ using System.IO;
 namespace SoftStartTiming
 {
 
-    public class ATE_SoftStartTiming : TaskRun
+    public class ATE_DelayTime : TaskRun
     {
         Excel.Application _app;
         Excel.Worksheet _sheet;
@@ -27,7 +27,7 @@ namespace SoftStartTiming
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
 
-        public ATE_SoftStartTiming()
+        public ATE_DelayTime()
         {
             delegate_mess = new FinishNotification(MessageNotify);
         }

@@ -60,7 +60,8 @@
     <Compile Include="AppManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ATE_SoftStartTiming.cs" />
+    <Compile Include="ATE_SoftStartTime.cs" />
+    <Compile Include="ATE_DelayTime.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="MyLib.cs" />

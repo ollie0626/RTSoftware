@@ -23,7 +23,7 @@ namespace SoftStartTiming
         string[] tempList;
 
         // test item
-        ATE_SoftStartTiming _ate_sst = new ATE_SoftStartTiming();
+        ATE_DelayTime _ate_sst = new ATE_Delaytime();
         TaskRun[] ate_table;
 
         // device name
