@@ -23,7 +23,8 @@ namespace SoftStartTiming
         string[] tempList;
 
         // test item
-        ATE_DelayTime _ate_sst = new ATE_Delaytime();
+        ATE_DelayTime _ate_delay_time = new ATE_DelayTime();
+        ATE_SoftStartTime _ate_sst = new ATE_SoftStartTime();
         TaskRun[] ate_table;
 
         // device name
@@ -218,6 +219,9 @@ namespace SoftStartTiming
             test_parameter.gpio_pin = CBGPIO.SelectedIndex;
             test_parameter.judge_percent = ((double)nuCriteria.Value / 100);
             test_parameter.power_mode = CBChannel.Text;
+
+            test_parameter.LX_Level = (double)nuLX.Value;
+            test_parameter.ILX_Level = (double)nuILX.Value;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -231,14 +235,17 @@ namespace SoftStartTiming
                     tempList = tb_templist.Text.Split(',');
                     p_thread = new ParameterizedThreadStart(Chamber_Task);
                     ATETask = new Thread(p_thread);
-                    ATETask.Start(0);
+                    ATETask.Start(CBItem.SelectedIndex);
                 }
                 else
                 {
                     // none Chamber
-                    p_thread = new ParameterizedThreadStart(Run_Single_Task);
+
+                    // Delay Time / Slot Time
+                    // Soft - Start Time
+                                          p_thread = new ParameterizedThreadStart(Run_Single_Task);
                     ATETask = new Thread(p_thread);
-                    ATETask.Start(0);
+                    ATETask.Start(CBItem.SelectedIndex);
                 }
             }
             catch (Exception ex)
@@ -384,7 +391,6 @@ namespace SoftStartTiming
         {
             string[] ins_list = ViCMD.ScanIns();
             if (ins_list == null) return;
-
             foreach (string ins in ins_list)
             {
                 list_ins.Items.Add(ins);
@@ -407,7 +413,6 @@ namespace SoftStartTiming
                     }
                 }
             }
-
         }
 
         private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
@@ -456,5 +461,33 @@ namespace SoftStartTiming
 
         }
 
+        private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch(CBItem.SelectedIndex)
+            {
+                case 0:
+                    // delay time
+                    group_sst.Visible = false;
+                    group_channel.Visible = true;
+
+                    CkBin1.Checked = true;
+                    CkBin2.Checked = false;
+                    CkBin3.Checked = false;
+                    CkBin2.Enabled = true;
+                    CkBin3.Enabled = true;
+                    break;
+                case 1:
+                    // soft-start time
+                    group_sst.Visible = true;
+                    group_channel.Visible = false;
+
+                    CkBin1.Checked = true;
+                    CkBin2.Checked = false;
+                    CkBin3.Checked = false;
+                    CkBin2.Enabled = false;
+                    CkBin3.Enabled = false;
+                    break;
+            }
+        }
     }
 }

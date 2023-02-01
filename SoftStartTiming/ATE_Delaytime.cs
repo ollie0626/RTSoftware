@@ -281,7 +281,7 @@ namespace SoftStartTiming
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
                     // print test conditions
-                    _sheet.Cells[1, XLS_Table.B] = "Delay time/Slot time/Soft-Start time";
+                    _sheet.Cells[1, XLS_Table.B] = "Delay time/Slot time";
                     _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver + test_parameter.vin_conditions + test_parameter.bin_file_cnt;
 
 
@@ -744,7 +744,7 @@ namespace SoftStartTiming
             stopWatch.Stop();
             //TimeSpan timeSpan = stopWatch.Elapsed;
 #if true
-            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_DT_SST_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_DT_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();

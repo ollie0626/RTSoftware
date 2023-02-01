@@ -34,14 +34,15 @@ namespace SoftStartTiming
         public static double offtime_scale_ms;
         public static double offset_time;
         public static bool delay_us_en;
-
         public static double judge_percent;
+
+        public static double LX_Level;
+        public static double ILX_Level;
 
 
         // gpio select
         public static int gpio_pin;
         public static string power_mode;
-
 
         public static bool run_stop;
         public static bool chamber_en;
