@@ -93,17 +93,13 @@ namespace SoftStartTiming
             InsControl._scope.CH4_BWLimitOn();
 
             InsControl._scope.TriggerLevel_CH1(1);
-
-            //:MEASure:THResholds:GENeral:METHod\sALL,PERCent
-            //:MEASure:THResholds:GENeral:PERCent\sALL,100,50,0
-
             InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:METHod ALL,PERCent");
             InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,1");
 
             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
             InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,1");
             InsControl._scope.Root_RUN();
-            MyLib.Delay1ms(200 + (int)((test_parameter.ontime_scale_ms * 10) * 1.2));
+            MyLib.Delay1ms(1000);
             MyLib.WaveformCheck();
             // measure current delta-time.
             InsControl._scope.DoCommand(":MEASure:STATistics CURRent");
@@ -112,7 +108,7 @@ namespace SoftStartTiming
         private void Scope_Channel_Resize(int idx, string path)
         {
             InsControl._scope.AutoTrigger();
-            //InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
 
             double time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
@@ -179,15 +175,21 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(800);
                     goto re_scale;
                 }
-
-
                 InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
                 InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
                 MyLib.Delay1ms(800);
             }
 
+
+            double trigger_level = 0;
+            InsControl._scope.Trigger_CH2();
+            trigger_level = InsControl._scope.Meas_CH2MAX() * 0.3;
+            InsControl._scope.TriggerLevel_CH2(trigger_level);
+            
+
             PowerOffEvent();
-            InsControl._scope.TimeScale(time_scale);
+            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms);
             MyLib.Delay1ms(250);
         }
 
@@ -213,7 +215,7 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
-            //InsControl._power.AutoPowerOff();
+            InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -319,27 +321,25 @@ namespace SoftStartTiming
                     MyLib.WaveformCheck();
                     InsControl._scope.NormalTrigger();
                     MyLib.Delay1ms(800);
-
+                    InsControl._scope.SetTrigModeEdge(false);
+                    InsControl._scope.Root_Clear();
+                    MyLib.Delay1ms(1500);
                     // power on trigger
                     switch (test_parameter.trigger_event)
                     {
                         case 0:
                             // GPIO trigger event
-                            InsControl._scope.Root_Clear();
                             if (test_parameter.sleep_mode)
                             {
-                                InsControl._scope.SetTrigModeEdge(false);
-                                MyLib.Delay1ms(800);
                                 GpioOnSelect(test_parameter.gpio_pin);
+                                MyLib.Delay1ms(1000);
                             }
                             else
                             {
-                                InsControl._scope.SetTrigModeEdge(true);
-                                MyLib.Delay1ms(1000);
                                 GpioOffSelect(test_parameter.gpio_pin);
+                                MyLib.Delay1ms(1000);
                             }
                             time_scale = time_scale * 1000;
-                            MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                             break;
                         case 1:
                             // I2C trigger event
@@ -347,52 +347,37 @@ namespace SoftStartTiming
                         case 2:
                             // Power supply trigger event
                             InsControl._power.AutoPowerOff();
-                            MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                             break;
                     }
+                    MyLib.Delay1s(1);
                     InsControl._scope.Root_STOP();
-                    MyLib.Delay1ms(500);
+                    MyLib.Delay1ms(1000);
 
                     double delay_time = 0;
-                    time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
-                    if (test_parameter.sleep_mode)
-                    {
-                        // rising to rising
-                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 2);
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel2");
-                    }
-                    else
-                    {
-                        // falling to rising
-                        InsControl._scope.SetDeltaTime(false, 1, 0, true, 1, 2);
-                        delay_time = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel2");
-                    }
+                    delay_time = InsControl._scope.Meas_CH2Rise();
 
-                    double temp_time = (delay_time * 1.2) / 4;
+                    double temp_time = (delay_time) / 4;
                     InsControl._scope.TimeScale(temp_time);
-                    InsControl._scope.TimeBasePosition(temp_time * 3);
+                    InsControl._scope.TimeBasePosition(temp_time * 1);
                     PowerOffEvent();
-                    MyLib.Delay1ms(500);
+                    MyLib.Delay1ms(1000);
                     InsControl._scope.Root_RUN();
+                    InsControl._scope.Root_Clear();
+                    MyLib.Delay1ms(1500);
                     switch (test_parameter.trigger_event)
                     {
                         case 0:
                             // GPIO trigger event
-                            InsControl._scope.Root_Clear();
                             if (test_parameter.sleep_mode)
                             {
-                                InsControl._scope.SetTrigModeEdge(false);
-                                MyLib.Delay1ms(800);
                                 GpioOnSelect(test_parameter.gpio_pin);
+                                MyLib.Delay1ms(1000);
                             }
                             else
                             {
-                                InsControl._scope.SetTrigModeEdge(true);
-                                MyLib.Delay1ms(1000);
                                 GpioOffSelect(test_parameter.gpio_pin);
+                                MyLib.Delay1ms(1000);
                             }
-                            time_scale = time_scale * 1000;
-                            MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                             break;
                         case 1:
                             // I2C trigger event
@@ -400,16 +385,16 @@ namespace SoftStartTiming
                         case 2:
                             // Power supply trigger event
                             InsControl._power.AutoPowerOff();
-                            MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                             break;
                     }
+                    MyLib.Delay1s(1);
                     InsControl._scope.Root_STOP();
                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
 #if true
                     double vin = 0;
                     double sst, vmax, vmin, ilx_max, ilx_min;
                     double[] data = InsControl._scope.doQeury(":MEASure:RESults?").Split(',').Select(double.Parse).ToArray();
-                    //vin = InsControl._power.GetVoltage();
+                    vin = InsControl._power.GetVoltage();
                     sst = data[0] * Math.Pow(10, 6);
                     vmax = data[1];
                     vmin = data[2];
