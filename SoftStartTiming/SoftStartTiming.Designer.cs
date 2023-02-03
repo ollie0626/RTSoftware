@@ -668,6 +668,7 @@ namespace SoftStartTiming
             this.button6.TabIndex = 56;
             this.button6.Text = "Save Setting";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
             // 
             // button7
             // 
@@ -677,6 +678,7 @@ namespace SoftStartTiming
             this.button7.TabIndex = 57;
             this.button7.Text = "Load Setting";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Visible = false;
             // 
             // groupBox3
             // 
