@@ -324,6 +324,7 @@ namespace SoftStartTiming
                     InsControl._scope.SetTrigModeEdge(false);
                     InsControl._scope.Root_Clear();
                     MyLib.Delay1ms(1500);
+
                     // power on trigger
                     switch (test_parameter.trigger_event)
                     {
@@ -349,6 +350,7 @@ namespace SoftStartTiming
                             InsControl._power.AutoPowerOff();
                             break;
                     }
+
                     MyLib.Delay1s(1);
                     InsControl._scope.Root_STOP();
                     MyLib.Delay1ms(1000);
@@ -356,10 +358,11 @@ namespace SoftStartTiming
                     double delay_time = 0;
                     delay_time = InsControl._scope.Meas_CH2Rise();
 
-                    double temp_time = (delay_time) / 4;
+                    double temp_time = (delay_time) / 3.5;
                     InsControl._scope.TimeScale(temp_time);
                     InsControl._scope.TimeBasePosition(temp_time * 1);
                     PowerOffEvent();
+
                     MyLib.Delay1ms(1000);
                     InsControl._scope.Root_RUN();
                     InsControl._scope.Root_Clear();

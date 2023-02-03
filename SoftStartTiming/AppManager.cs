@@ -26,10 +26,6 @@ namespace SoftStartTiming
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };
 
             CBItem.SelectedIndex = 1;
-
-
-            //Device_map.Add("E3632", "Link 1");
-            //Device_map.Add("E3633", "Link 2");
         }
     }
 }
