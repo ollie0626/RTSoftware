@@ -409,36 +409,38 @@ namespace MulanLite
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
         }
 
-        public int WriteBADID(byte id, byte cmd, byte addr, byte len, byte[] buf)
+        public int WriteBADID(byte id, byte cmd, byte addr, byte len, byte[] buf, byte Sync_Cmd = 0xAC)
         {
             if (spiModule == null) return 1;
 
-            byte Sync_Cmd = 0xAC;
             byte invid = (byte)(0xAA ^ id);
             byte addr_M = 0x00;
             byte addr_L = addr;
             byte CmdSize = 0x01;
 
-            byte[] tmp = new byte[len + 10];
+            byte[] tmp = new byte[9 + len]; // add CRC + FPGA dummy
             tmp[0] = cmd;
             tmp[1] = id;
             tmp[2] = invid;
-            tmp[3] = len;
+            tmp[3] = (byte)(len);
             tmp[4] = addr_M;
             tmp[5] = addr_L;
 
-            for (int i = 0; i < len; i++) tmp[i + 6] = buf[i];
+            for (int i = 0; i < len + 1; i++)
+            {
+                tmp[i + 6] = buf[i];
+            }
 
-            byte[] CRC_buf = new byte[len + 10];
+            byte[] CRC_buf = new byte[9 + len];
             Array.Copy(tmp, CRC_buf, CRC_buf.Length);
             byte CRC8 = CRC_8(CRC_buf);
             tmp[tmp.Length - 2] = CRC8;
-            tmp[tmp.Length - 1] = 0x0;
+            tmp[tmp.Length - 1] = 0;    // for FPGA dummy byte
 
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, tmp);
-            System.Threading.Thread.Sleep(20);
+            if (Sync_Cmd == 0xAC) spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, tmp);
+            else spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, new byte[] { 0x00 });
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
             return 0;
         }
@@ -492,6 +494,39 @@ namespace MulanLite
             return data;
         }
 
+        public void RDOFlow_Flag(byte id)
+        {
+            
+            byte CmdSize = 0x01;
+            uint Cmd = 0xAC;
 
+            byte[] buf = new byte[18];
+            buf[0] = 0x1E;
+            buf[1] = id;
+            buf[2] = (byte)~id;
+            buf[3] = 0x00;
+            buf[4] = 0x00;
+            buf[5] = 0x32;
+            buf[6] = 0x00; // for FPGA dummy byte
+
+            buf[7] = 0;
+            buf[8] = 0;
+            buf[9] = 0;
+
+            buf[10] = 0xAC;
+            buf[11] = 0x1E;
+            buf[12] = id;
+            buf[13] = (byte)~id;
+            buf[14] = 0x00;
+            buf[15] = 0x00;
+            buf[16] = 0x32;
+            buf[17] = 0x00; // for FPGA dummy byte
+
+            /* write command */
+            gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
+            spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+            Task.Delay(2).Wait();
+            spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)(buf.Length), Cmd, buf);
+        }
     }
 }

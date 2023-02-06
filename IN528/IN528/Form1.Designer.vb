@@ -425,6 +425,8 @@ Partial Class Form1
         Me.BinCompareToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoadBin1ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.LoadBin2ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.FunctionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.LinkBridgeBoardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox4 = New System.Windows.Forms.GroupBox()
         Me.CheckSum_resvcom = New System.Windows.Forms.Label()
@@ -474,8 +476,6 @@ Partial Class Form1
         Me.CB_A0 = New System.Windows.Forms.ComboBox()
         Me.Label169 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
-        Me.FunctionToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
-        Me.LinkBridgeBoardToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.TabControl.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         CType(Me.W1F, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -4790,6 +4790,19 @@ Partial Class Form1
         Me.LoadBin2ToolStripMenuItem.Size = New System.Drawing.Size(130, 22)
         Me.LoadBin2ToolStripMenuItem.Text = "Load Bin2"
         '
+        'FunctionToolStripMenuItem
+        '
+        Me.FunctionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LinkBridgeBoardToolStripMenuItem})
+        Me.FunctionToolStripMenuItem.Name = "FunctionToolStripMenuItem"
+        Me.FunctionToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
+        Me.FunctionToolStripMenuItem.Text = "Function"
+        '
+        'LinkBridgeBoardToolStripMenuItem
+        '
+        Me.LinkBridgeBoardToolStripMenuItem.Name = "LinkBridgeBoardToolStripMenuItem"
+        Me.LinkBridgeBoardToolStripMenuItem.Size = New System.Drawing.Size(173, 22)
+        Me.LinkBridgeBoardToolStripMenuItem.Text = "Link Bridge Board"
+        '
         'GroupBox1
         '
         Me.GroupBox1.Controls.Add(Me.GroupBox4)
@@ -5070,7 +5083,7 @@ Partial Class Form1
         Me.Label214.Name = "Label214"
         Me.Label214.Size = New System.Drawing.Size(153, 12)
         Me.Label214.TabIndex = 3
-        Me.Label214.Text = "VGL2_DLY <= VGH_DLY"
+        Me.Label214.Text = "VGL2_DLY >= VGH_DLY"
         '
         'Label213
         '
@@ -5281,19 +5294,6 @@ Partial Class Form1
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBox1.TabIndex = 3
         Me.PictureBox1.TabStop = False
-        '
-        'FunctionToolStripMenuItem
-        '
-        Me.FunctionToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LinkBridgeBoardToolStripMenuItem})
-        Me.FunctionToolStripMenuItem.Name = "FunctionToolStripMenuItem"
-        Me.FunctionToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
-        Me.FunctionToolStripMenuItem.Text = "Function"
-        '
-        'LinkBridgeBoardToolStripMenuItem
-        '
-        Me.LinkBridgeBoardToolStripMenuItem.Name = "LinkBridgeBoardToolStripMenuItem"
-        Me.LinkBridgeBoardToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.LinkBridgeBoardToolStripMenuItem.Text = "Link Bridge Board"
         '
         'Form1
         '

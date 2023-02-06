@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class Form1
 
-    Dim main_ver As String = "IN528 Tool v1.4"
+    Dim main_ver As String = "IN528 Tool v1.5"
     Dim byt_Bin1(255) As Byte
     Dim byt_Bin2(255) As Byte
     Dim flagTable() As Boolean = {True, True, True, True, True, True, True, True}
@@ -90,6 +90,90 @@ Public Class Form1
         End If
 
         GUIInitial()
+        InitialCode()
+    End Sub
+
+    Private Sub InitialCode()
+        W00_0.Value = &H1
+        W00_1.Value = &H1
+        W00_2.Value = &H1
+        W00_3.Value = &H1
+        W00_4.Value = &H1
+        W00_5.Value = &H1
+        W00_6.Value = &H0
+        W00_7.Value = &H1
+
+        W01_0.Value = &H1
+        W01_1.Value = &H1
+        W01_4.Value = &H1
+        W01_5.Value = &H1
+
+        W02.Value = &HF
+        W03.Value = &H28
+        W04.Value = &H1E
+        W05.Value = &H1A
+        W06.Value = &H16
+        W07.Value = &HC
+        W08.Value = &H6
+        W09.Value = &H10
+
+        W0B.Value = &H8
+        W0C.Value = &H2
+        W0D.Value = &H2
+        W0E.Value = &H67
+        W0F.Value = &H2
+
+        W10_0.Value = &H5
+        W10_3.Value = &H2
+        W11_0.Value = &H4
+        W11_3.Value = &H1
+
+        W12_0.Value = &H0
+        W13_0.Value = &H3
+        W13_3.Value = &H0
+        W13_5.Value = &H0
+        W13_6.Value = &H0
+
+        W14_0.Value = &H3
+        W14_3.Value = &H0
+
+        W15_0.Value = &H4
+        W15_3.Value = &H1
+        W15_5.Value = &H5
+
+        W16_0.Value = &H2
+        W17_0.Value = &H0
+        W17_2.Value = &H5
+        W17_5.Value = &H1
+
+        W18_0.Value = &H1
+        W18_2.Value = &H5
+        W18_5.Value = &H1
+
+        W19_0.Value = &H2
+        W19_2.Value = &HF
+
+        W1A.Value = &H1
+        W1B_0.Value = &H0
+        W1B_1.Value = &H0
+        W1B_2.Value = &H0
+        W1B_3.Value = &H0
+        W1B_4.Value = &H0
+        W1B_5.Value = &H0
+        W1B_6.Value = &H0
+        W1B_7.Value = &H0
+
+        W1C_0.Value = &H0
+        W1C_2.Value = &H0
+        W1C_4.Value = &H0
+        W1C_5.Value = &H0
+        W1C_6.Value = &H0
+        W1C_7.Value = &H0
+
+        W1D.Value = &H0
+        W1E.Value = &H0
+        W1F.Value = &H0
+
     End Sub
 
     Private Sub CalculateResult()
@@ -110,6 +194,53 @@ Public Class Form1
         CheckSum_resvcom.Text = (Wr_res Xor Rd_res).ToString("X")
 
     End Sub
+
+    Private Sub ShowCheckSum()
+
+        Dim res As Integer
+        Dim Buffer() As Byte = New Byte(255) {}
+        Buffer(&H0) = W00_0.Value Or (W00_1.Value << 1) Or (W00_2.Value << 2) Or (W00_3.Value << 3) Or (W00_4.Value << 4) Or (W00_5.Value << 5) Or (W00_6.Value << 6) Or (W00_7.Value << 7)
+        Buffer(&H1) = W01_0.Value Or (W01_1.Value << 1) Or (W01_4.Value << 4) Or (W01_5.Value << 5)
+        Buffer(&H2) = W02.Value
+        Buffer(&H3) = W03.Value
+        Buffer(&H4) = W04.Value
+        Buffer(&H5) = W05.Value
+        Buffer(&H6) = W06.Value
+        Buffer(&H7) = W07.Value
+        Buffer(&H8) = W08.Value
+        Buffer(&H9) = W09.Value
+        Buffer(&HA) = 0
+        Buffer(&HB) = W0B.Value
+        Buffer(&HC) = W0C.Value
+        Buffer(&HD) = W0D.Value
+        Buffer(&HE) = W0E.Value
+        Buffer(&HF) = W0F.Value
+        Buffer(&H10) = W10_0.Value Or W10_3.Value << 3
+        Buffer(&H11) = W11_0.Value Or W11_3.Value << 3
+        Buffer(&H12) = W12_0.Value
+        Buffer(&H13) = W13_0.Value Or (W13_3.Value << 3) Or (W13_5.Value << 5) Or (W13_6.Value << 6)
+        Buffer(&H14) = W14_0.Value Or (W14_3.Value << 3)
+        Buffer(&H15) = W15_0.Value Or (W15_3.Value << 3) Or (W15_5.Value << 5)
+        Buffer(&H16) = W16_0.Value
+        Buffer(&H17) = W17_0.Value Or W17_2.Value << 2 Or W17_5.Value
+        Buffer(&H18) = W18_0.Value Or W18_2.Value << 2 Or W18_5.Value << 5
+        Buffer(&H19) = W19_0.Value Or W19_2.Value << 2
+        Buffer(&H1A) = W1A.Value
+        Buffer(&H1B) = W1B_0.Value Or (W1B_1.Value << 1) Or (W1B_2.Value << 2) Or (W1B_3.Value << 3) Or (W1B_4.Value << 4) Or (W1B_5.Value << 5) Or (W1B_6.Value << 6) Or (W1B_7.Value << 7)
+        Buffer(&H1C) = W1C_0.Value Or (W1C_2.Value << 2) Or (W1C_4.Value << 4) Or (W1C_5.Value << 5) Or (W1C_6.Value << 6) Or (W1C_7.Value << 7)
+        Buffer(&H1D) = W1D.Value
+        Buffer(&H1E) = W1E.Value
+        Buffer(&H1F) = W1F.Value
+
+        For i As Integer = 0 To Buffer.Length - 1
+            res += Buffer(i)
+        Next
+
+        CheckSum_wrall.Text = res.ToString("X")
+        res -= Buffer(&HE)
+        CheckSum_wrvcom.Text = res.ToString("X")
+    End Sub
+
 
     Private Sub CalculateFlagNum()
         Dim res As Integer = 0
@@ -384,6 +515,7 @@ Public Class Form1
         For i As Integer = 0 To 7
             byt00_ck(i).Checked = byt00_bit(i).Value And &H1
         Next
+        ShowCheckSum()
     End Sub
 
     Private Sub CK01_5_CheckedChanged(sender As Object, e As EventArgs) Handles CK01_5.CheckedChanged, CK01_4.CheckedChanged, CK01_1.CheckedChanged, CK01_0.CheckedChanged
@@ -427,6 +559,7 @@ Public Class Form1
             offset = (&H12 + 2) * 0.05
         End If
         GMA1V.Text = String.Format("{0:0.00}V", AVDD - offset)
+        ShowCheckSum()
     End Sub
 
     Private Sub Bar_VGL1_Scroll(sender As Object, e As ScrollEventArgs) Handles Bar_VGL1.Scroll
@@ -440,6 +573,7 @@ Public Class Form1
             VGL1 = 14.5
         End If
         VGL1V.Text = String.Format("-{0:0.0}V", VGL1)
+        ShowCheckSum()
     End Sub
 
     Private Sub Bar_VGL2_Scroll(sender As Object, e As ScrollEventArgs) Handles Bar_VGL2.Scroll
@@ -453,6 +587,7 @@ Public Class Form1
             VGL2 = 14.5
         End If
         VGL2V.Text = String.Format("-{0:0.0}V", VGL2)
+        ShowCheckSum()
     End Sub
 
     Private Sub Bar_VGH_Scroll(sender As Object, e As ScrollEventArgs) Handles Bar_VGH.Scroll
@@ -478,6 +613,7 @@ Public Class Form1
             flagTable(1) = False
         End If
         CalculateFlagNum()
+        ShowCheckSum()
     End Sub
 
     Private Sub Bar_VGHT_Scroll(sender As Object, e As ScrollEventArgs) Handles Bar_VGHT.Scroll
@@ -617,6 +753,7 @@ Public Class Form1
         End If
         HAVDDV.Text = String.Format("{0:0.00}V", HAVDD)
         'Dim HAVDD As Double = Bar_HAVDD.Value * 
+        ShowCheckSum()
     End Sub
 
     Private Sub W08_ValueChanged(sender As Object, e As EventArgs) Handles W08.ValueChanged
@@ -626,7 +763,7 @@ Public Class Form1
             Vcore = 2
         End If
         VCOREV.Text = String.Format("{0:0.00}V", Vcore)
-
+        ShowCheckSum()
     End Sub
 
     Private Sub W09_ValueChanged(sender As Object, e As EventArgs) Handles W09.ValueChanged
@@ -637,6 +774,7 @@ Public Class Form1
         End If
 
         VIOV.Text = String.Format("{0:0.0}V", VIO)
+        ShowCheckSum()
     End Sub
 
     Private Sub W0B_ValueChanged(sender As Object, e As EventArgs) Handles W0B.ValueChanged
@@ -646,7 +784,7 @@ Public Class Form1
             LDO = 2.8
         End If
         LDOV.Text = String.Format("{0:0.0}V", LDO)
-
+        ShowCheckSum()
     End Sub
 
     Private Sub W06_ValueChanged(sender As Object, e As EventArgs) Handles W06.ValueChanged
@@ -666,7 +804,7 @@ Public Class Form1
             D2_label.Text = "False"
         End If
         CalculateFlagNum()
-
+        ShowCheckSum()
     End Sub
 
     Private Sub W0D_ValueChanged(sender As Object, e As EventArgs) Handles W0D.ValueChanged
@@ -676,18 +814,21 @@ Public Class Form1
             GMA2 = 1
         End If
         GMA2V.Text = String.Format("{0:0.0}V", GMA2)
+        ShowCheckSum()
     End Sub
 
     Private Sub W0E_ValueChanged(sender As Object, e As EventArgs) Handles W0E.ValueChanged
         Bar_VCOM.Value = W0E.Value
         Dim Vcom As Double = (Bar_VCOM.Value * 0.02) + 1.4
         VCOMV.Text = String.Format("{0:0.00}V", Vcom)
+        ShowCheckSum()
     End Sub
 
     Private Sub W0F_ValueChanged(sender As Object, e As EventArgs) Handles W0F.ValueChanged
         Bar_Reset.Value = W0F.Value
         Dim Reset As Double = (Bar_Reset.Value * 0.1) + 2
         RESETV.Text = String.Format("{0:0.0}V", Reset)
+        ShowCheckSum()
     End Sub
 
     Private Sub W10_0_ValueChanged(sender As Object, e As EventArgs) Handles W10_0.ValueChanged
@@ -695,12 +836,14 @@ Public Class Form1
         Dim AVDDLxDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
         AVDD_Lx.Text = AVDDLxDes(W10_0.Value)
         W13_5_ValueChanged(Nothing, Nothing)
+        ShowCheckSum()
     End Sub
 
     Private Sub W10_3_ValueChanged(sender As Object, e As EventArgs) Handles W10_3.ValueChanged
         Bar_AVDDLxSR.Value = W10_3.Value
         Dim AVDDSRDes() As String = {"120%", "120%", "100%", "100%", "80%", "80%", "60%", "60%"}
         AVDD_SR.Text = AVDDSRDes(W10_3.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W11_0_ValueChanged(sender As Object, e As EventArgs) Handles W11_0.ValueChanged
@@ -729,17 +872,20 @@ Public Class Form1
             flagTable(4) = True
         End If
         CalculateFlagNum()
+        ShowCheckSum()
     End Sub
 
     Private Sub W11_3_ValueChanged(sender As Object, e As EventArgs) Handles W11_3.ValueChanged
         Bar_AVDDSST.Value = W11_3.Value
         AVDD_SST.Text = String.Format("{0:0}mS", (W11_3.Value * 2) + 2)
+        ShowCheckSum()
     End Sub
 
     Private Sub W12_0_ValueChanged(sender As Object, e As EventArgs) Handles W12_0.ValueChanged
         Bar_AVDDOCP.Value = W12_0.Value
         Dim AVDDOCPDes() As String = {"2A", "1.5A", "1A", "0.5A", "0.4A", "0.3A", "0.2", "0.2"}
         AVDD_OCP.Text = AVDDOCPDes(W12_0.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W13_0_ValueChanged(sender As Object, e As EventArgs) Handles W13_0.ValueChanged
@@ -778,24 +924,28 @@ Public Class Form1
         End If
 
         CalculateFlagNum()
+        ShowCheckSum()
     End Sub
 
     Private Sub W13_3_ValueChanged(sender As Object, e As EventArgs) Handles W13_3.ValueChanged
         Bar_VGLSST.Value = W13_3.Value
         VGL_SST.Text = String.Format("{0:0}mS", 2 * Bar_VGLSST.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W13_5_ValueChanged(sender As Object, e As EventArgs) Handles W13_5.ValueChanged
         Bar_VGLFreq.Value = W13_5.Value
         Dim AVDDFreq() As Double = {600, 715, 800, 933, 1000, 1225, 1225, 1225}
-        Dim VGLFreX() As Double = {0.5, 1}
-        VGL_Freq.Text = String.Format("{0:0}kHz", AVDDFreq(Bar_AVDDLx.Value) * VGLFreX(Bar_VGLFreq.Value))
+        Dim VGLFreX() As String = {"0.5xAVDD Lx", "AVDD Lx"}
+        VGL_Freq.Text = String.Format("{0}", VGLFreX(Bar_VGLFreq.Value))
+        ShowCheckSum()
     End Sub
 
     Private Sub W13_6_ValueChanged(sender As Object, e As EventArgs) Handles W13_6.ValueChanged
         Bar_VGLMode.Value = W13_6.Value
         Dim Arch() As String = {"mode1 VGL > -(AVDD-0.5V)", "mode2 -14.5V ≦ VGL ≦ -(AVDD-0.5V)", "mode3 VGL<-14.5V", "mode3 VGL<-14.5V"}
         VGL_Mode.Text = Arch(Bar_VGLMode.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W14_0_ValueChanged(sender As Object, e As EventArgs) Handles W14_0.ValueChanged
@@ -831,11 +981,13 @@ Public Class Form1
         End If
 
         CalculateFlagNum()
+        ShowCheckSum()
     End Sub
 
     Private Sub W14_3_ValueChanged(sender As Object, e As EventArgs) Handles W14_3.ValueChanged
         Bar_VGL2SST.Value = W14_3.Value
         VGL2_SST.Text = String.Format("{0:0}mS", Bar_VGL2SST.Value * 2 + 2)
+        ShowCheckSum()
     End Sub
 
     Private Sub W15_0_ValueChanged(sender As Object, e As EventArgs) Handles W15_0.ValueChanged
@@ -872,23 +1024,27 @@ Public Class Form1
         End If
 
         CalculateFlagNum()
+        ShowCheckSum()
     End Sub
 
     Private Sub W15_3_ValueChanged(sender As Object, e As EventArgs) Handles W15_3.ValueChanged
         Bar_VGHSST.Value = W15_3.Value
         VGH_SST.Text = String.Format("{0:0}mS", Bar_VGHSST.Value * 2 + 2)
+        ShowCheckSum()
     End Sub
 
     Private Sub W15_5_ValueChanged(sender As Object, e As EventArgs) Handles W15_5.ValueChanged
         Bar_VGHFreq.Value = W15_5.Value
         Dim VGHFreqDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
         VGH_Freq.Text = VGHFreqDes(Bar_VGHFreq.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W16_0_ValueChanged(sender As Object, e As EventArgs) Handles W16_0.ValueChanged
         Bar_VGHSR.Value = W16_0.Value
         Dim VGHSRDes() As String = {"120%", "120%", "100%", "100%", "80%", "80%", "60%", "60%"}
         VGH_SR.Text = VGHSRDes(Bar_VGHSR.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub Bar_VGL2SST_Scroll(sender As Object, e As ScrollEventArgs) Handles Bar_VGL2SST.Scroll
@@ -898,81 +1054,95 @@ Public Class Form1
     Private Sub W17_0_ValueChanged(sender As Object, e As EventArgs) Handles W17_0.ValueChanged
         Bar_VcoreDly.Value = W17_0.Value
         Vcore_Dly.Text = String.Format("{0:0}mS", Bar_VcoreDly.Value * 3)
+        ShowCheckSum()
     End Sub
 
     Private Sub W17_2_ValueChanged(sender As Object, e As EventArgs) Handles W17_2.ValueChanged
         Bar_VcoreFreq.Value = W17_2.Value
         Dim VcoreFreDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
         Vcore_Freq.Text = VcoreFreDes(Bar_VcoreFreq.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W17_5_ValueChanged(sender As Object, e As EventArgs) Handles W17_5.ValueChanged
         Bar_VcoreSR.Value = W17_5.Value
         Dim VcoreSRDes() As String = {"120%", "100%", "80%", "60%"}
         Vcore_SR.Text = VcoreSRDes(Bar_VcoreSR.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W18_0_ValueChanged(sender As Object, e As EventArgs) Handles W18_0.ValueChanged
         Bar_VioDly.Value = W18_0.Value
         Vio_Dly.Text = String.Format("{0}mS", Bar_VioDly.Value * 3)
+        ShowCheckSum()
     End Sub
 
     Private Sub W18_2_ValueChanged(sender As Object, e As EventArgs) Handles W18_2.ValueChanged
         Bar_VIOFreq.Value = W18_2.Value
         Dim VioFreDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
         Vio_freq.Text = VioFreDes(Bar_VIOFreq.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W18_5_ValueChanged(sender As Object, e As EventArgs) Handles W18_5.ValueChanged
         Bar_VIOSR.Value = W18_5.Value
         Dim VioSRDes() As String = {"120%", "100%", "80%", "60%"}
         VIO_SR.Text = VioSRDes(Bar_VIOSR.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W19_0_ValueChanged(sender As Object, e As EventArgs) Handles W19_0.ValueChanged
         Bar_LDODly.Value = W19_0.Value
-        Dim LDODlyDes() As String = {"0mS", "15mS", "34mS", "45mS"}
+        Dim LDODlyDes() As String = {"0mS", "15mS", "30mS", "45mS"}
         LDO_Dly.Text = LDODlyDes(Bar_LDODly.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W19_2_ValueChanged(sender As Object, e As EventArgs) Handles W19_2.ValueChanged
         Bar_VcomDly.Value = W19_2.Value
         VCOM_Dly.Text = String.Format("{0}mS", 5 * Bar_VcomDly.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1A_ValueChanged(sender As Object, e As EventArgs) Handles W1A.ValueChanged
         Bar_ResetDly.Value = W1A.Value
         Reset_Dly.Text = String.Format("{0}mS", 5 * Bar_ResetDly.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_0_ValueChanged(sender As Object, e As EventArgs) Handles W1B_0.ValueChanged
         Bar_Vcom_power_off.Value = W1B_0.Value
         Dim power_off_Des() As String = {"UVLO_F", "Reset"}
         Vcom_power_off.Text = power_off_Des(Bar_Vcom_power_off.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_1_ValueChanged(sender As Object, e As EventArgs) Handles W1B_1.ValueChanged
         Bar_VcomDisc.Value = W1B_1.Value
         Dim Des() As String = {"Disable", "Enable"}
         Vcom_disc.Text = Des(Bar_VcomDisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_2_ValueChanged(sender As Object, e As EventArgs) Handles W1B_2.ValueChanged
         Bar_VGLDisc.Value = W1B_2.Value
         Dim Des() As String = {"Disable", "Enable"}
         VGL_Disc.Text = Des(Bar_VGLDisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_3_ValueChanged(sender As Object, e As EventArgs) Handles W1B_3.ValueChanged
         Bar_VGHDisc.Value = W1B_3.Value
         Dim Des() As String = {"Disable", "Enable"}
         VGH_Disc.Text = Des(Bar_VGHDisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_4_ValueChanged(sender As Object, e As EventArgs) Handles W1B_4.ValueChanged
         Bar_AVDDDisc.Value = W1B_4.Value
         Dim Des() As String = {"Disable", "Enable"}
         AVDD_Disc.Text = Des(Bar_AVDDDisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_5_ValueChanged(sender As Object, e As EventArgs) Handles W1B_5.ValueChanged
@@ -985,48 +1155,56 @@ Public Class Form1
         Bar_VcoreDisc.Value = W1B_6.Value
         Dim Des() As String = {"Disable", "Enable"}
         Vcore_Disc.Text = Des(Bar_VcoreDisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1B_7_ValueChanged(sender As Object, e As EventArgs) Handles W1B_7.ValueChanged
         Bar_VIODisc.Value = W1B_7.Value
         Dim Des() As String = {"Disable", "Enable"}
         Vio_Disc.Text = Des(Bar_VIODisc.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_0_ValueChanged(sender As Object, e As EventArgs) Handles W1C_0.ValueChanged
         Bar_VcomDiscSR.Value = W1C_0.Value
         Dim Des() As String = {"Slowest", "Slow", "Normal", "Fastest"}
         Vcom_Disc_SR.Text = Des(Bar_VcomDiscSR.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_2_ValueChanged(sender As Object, e As EventArgs) Handles W1C_2.ValueChanged
         Bar_VcomSST.Value = W1C_2.Value
         Dim Des() As String = {"Slowest", "Slow", "Normal", "Fastest"}
         Vcom_SST.Text = Des(Bar_VcomSST.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_4_ValueChanged(sender As Object, e As EventArgs) Handles W1C_4.ValueChanged
         Bar_AVDDMode.Value = W1C_4.Value
         Dim Des() As String = {"PSM Mode", "PWM Mode"}
         AVDD_Mode.Text = Des(Bar_AVDDMode.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_5_ValueChanged(sender As Object, e As EventArgs) Handles W1C_5.ValueChanged
         Bar_VGHMode.Value = W1C_5.Value
         Dim Des() As String = {"PSM Mode", "PWM Mode"}
         VGH_Mode.Text = Des(Bar_VGHMode.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_6_ValueChanged(sender As Object, e As EventArgs) Handles W1C_6.ValueChanged
         Bar_VcoreMode.Value = W1C_6.Value
         Dim Des() As String = {"PSM Mode", "PWM Mode"}
         Vcore_Mode.Text = Des(Bar_VcoreMode.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub W1C_7_ValueChanged(sender As Object, e As EventArgs) Handles W1C_7.ValueChanged
         Bar_VIOMode.Value = W1C_7.Value
         Dim Des() As String = {"PSM Mode", "PWM Mode"}
         Vio_Mode.Text = Des(Bar_VIOMode.Value)
+        ShowCheckSum()
     End Sub
 
     Private Sub LoadBin1ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles LoadBin1ToolStripMenuItem.Click
@@ -1065,7 +1243,7 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub AddCompare_Info(ByVal Addr As Integer, ByRef idx As Integer, ByVal bit_loop() As Byte)
+    Private Sub AddCompare_Info(ByVal Addr As Integer, ByRef idx As Integer, ByVal bit_loop_a() As Byte, ByVal bit_loop_b() As Byte)
 
         Dim X_axis As Integer = 30
         Dim Y_axis As Integer = 30
@@ -1073,28 +1251,31 @@ Public Class Form1
         Dim X_axis_value As Integer = X_axis_addr + 95
         Dim X_axis_info As Integer = X_axis_value + 95
 
-        For bit_idx As Integer = 0 To bit_loop.Length - 1
-            If bit_loop(bit_idx) <> 0 Then
+        For bit_idx As Integer = 0 To bit_loop_a.Length - 1
+            If bit_loop_a(bit_idx) <> bit_loop_b(bit_idx) Then
                 ' print to GUI
+                ' register name
                 Dim Reg_name As Label = New Label()
                 Reg_name.Location = New Point(X_axis, Y_axis * idx)
                 Reg_name.Text = MapList(Addr)(bit_idx)
                 Reg_name.AutoSize = True
                 Panel1.Controls.Add(Reg_name)
 
+                ' register addr
                 Dim Reg_addr As Label = New Label()
                 Reg_addr.Location = New Point(X_axis_addr, Y_axis * idx)
                 Reg_addr.Text = String.Format("{0:X2}h", Addr)
                 Reg_addr.AutoSize = True
                 Panel1.Controls.Add(Reg_addr)
 
+                ' register value
                 Dim Reg_value As Label = New Label()
                 Reg_value.Location = New Point(X_axis_value, Y_axis * idx)
-                Reg_value.Text = String.Format("0x{0:X2}", bit_loop(bit_idx))
+                Reg_value.Text = String.Format("0x{0:X2}", bit_loop_a(bit_idx))
                 Reg_value.AutoSize = True
                 Panel1.Controls.Add(Reg_value)
 
-
+                ' register information
                 Dim Reg_info As Label = New Label()
                 Dim info As String
                 Reg_info.Location = New Point(X_axis_info, Y_axis * idx)
@@ -1104,208 +1285,337 @@ Public Class Form1
                 Select Case (Addr)
                     Case &H0, &H1B, &H1
                         If Addr = &H1B And bit_idx = 0 Then
-                            If bit_loop(bit_idx) = &H1 Then
+                            If bit_loop_a(bit_idx) = &H1 Then
                                 info = "Reset"
                             Else
                                 info = "UVLO_F"
                             End If
                         Else
-                            If bit_loop(bit_idx) = &H1 Then
+                            If bit_loop_a(bit_idx) = &H1 Then
                                 info = "Enable"
                             Else
                                 info = "Disable"
                                 Reg_info.ForeColor = Color.Red
                             End If
                         End If
+
+                        If Addr = &H1B And bit_idx = 0 Then
+                            If bit_loop_b(bit_idx) = &H1 Then
+                                info += "→ Reset"
+                            Else
+                                info += "→ UVLO_F"
+                            End If
+                        Else
+                            If bit_loop_b(bit_idx) = &H1 Then
+                                info += "→ Enable"
+                            Else
+                                info += "→ Disable"
+                                Reg_info.ForeColor = Color.Red
+                            End If
+                        End If
                     Case &H2
-                        Dim AVDD As Double = (bit_loop(bit_idx) * 0.1) + 7
+                        Dim AVDD As Double = (bit_loop_a(bit_idx) * 0.1) + 7
                         If AVDD > 14 Then
                             AVDD = 14
                         End If
                         info = String.Format("{0:0.0}V", AVDD)
+
+                        AVDD = (bit_loop_b(bit_idx) * 0.1) + 7
+                        If AVDD > 14 Then
+                            AVDD = 14
+                        End If
+                        info += String.Format("→ {0:0.0}V", AVDD)
+
                     Case &H3
-                        Dim VGL1 As Double = (bit_loop(bit_idx) * 0.1) + 2
+                        Dim VGL1 As Double = (bit_loop_a(bit_idx) * 0.1) + 2
                         If VGL1 > 14.5 Then
                             VGL1 = 14.5
                         End If
                         info = String.Format("-{0:0.0}V", VGL1)
+
+                        VGL1 = (bit_loop_b(bit_idx) * 0.1) + 2
+                        If VGL1 > 14.5 Then
+                            VGL1 = 14.5
+                        End If
+                        info += String.Format("→ -{0:0.0}V", VGL1)
+
                     Case &H4
-                        Dim VGL2 As Double = (bit_loop(bit_idx) * 0.1) + 2
+                        Dim VGL2 As Double = (bit_loop_a(bit_idx) * 0.1) + 2
                         If VGL2 > 14.5 Then
                             VGL2 = 14.5
                         End If
                         info = String.Format("-{0:0.0}V", VGL2)
+
+                        VGL2 = (bit_loop_a(bit_idx) * 0.1) + 2
+                        If VGL2 > 14.5 Then
+                            VGL2 = 14.5
+                        End If
+                        info += String.Format("→ -{0:0.0}V", VGL2)
+
+
                     Case &H5
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.5) + 5
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.5) + 5
                         If Vol > 35 Then
                             Vol = 35
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_b(bit_idx) * 0.5) + 5
+                        If Vol > 35 Then
+                            Vol = 35
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &H6
-                        Dim Vol As Double = (bit_loop(bit_idx) * 1) + 5
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 1) + 5
                         If Vol > 36 Then
                             Vol = 36
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+
+                        Vol = (bit_loop_b(bit_idx) * 1) + 5
+                        If Vol > 36 Then
+                            Vol = 36
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &H7 ' havdd need excel
                         Dim HAVDD As Double
-                        Dim code As Integer = bit_loop(bit_idx)
+                        Dim code As Integer = bit_loop_a(bit_idx)
                         If code <= 3 Then
                             HAVDD = code * 0.1 + 3.5
                         Else
                             HAVDD = (code - 3) * 0.05 + 3.8
                         End If
                         info = String.Format("{0:0.00}V", HAVDD)
+
+                        code = bit_loop_b(bit_idx)
+                        If code <= 3 Then
+                            HAVDD = code * 0.1 + 3.5
+                        Else
+                            HAVDD = (code - 3) * 0.05 + 3.8
+                        End If
+                        info += String.Format("→ {0:0.00}V", HAVDD)
                     Case &H8
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.05) + 0.8
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.05) + 0.8
                         If Vol > 2 Then
                             Vol = 2
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_b(bit_idx) * 0.05) + 0.8
+                        If Vol > 2 Then
+                            Vol = 2
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &H9
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.05) + 1
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.05) + 1
                         If Vol > 2.8 Then
                             Vol = 2.8
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_b(bit_idx) * 0.05) + 1
+                        If Vol > 2.8 Then
+                            Vol = 2.8
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &HA
                     Case &HB
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.1) + 1.7
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.1) + 1.7
                         If Vol > 2.8 Then
                             Vol = 2.8
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+
+                        Vol = (bit_loop_b(bit_idx) * 0.1) + 1.7
+                        If Vol > 2.8 Then
+                            Vol = 2.8
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &HC ' need avdd
-                        Dim offset As Double = (bit_loop(bit_idx) * 0.05)
+                        Dim offset As Double = (bit_loop_a(bit_idx) * 0.05)
                         info = String.Format("AVDD - {0:0.0}V", offset)
 
+
+                        offset = (bit_loop_b(bit_idx) * 0.05)
+                        info += String.Format("→ AVDD - {0:0.0}V", offset)
+
                     Case &HD
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.05) + 0.1
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.05) + 0.1
                         If Vol > 1 Then
                             Vol = 1
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_a(bit_idx) * 0.05) + 0.1
+                        If Vol > 1 Then
+                            Vol = 1
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &HE
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.02) + 1.4
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.02) + 1.4
                         If Vol > 6.5 Then
                             Vol = 6.5
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_b(bit_idx) * 0.02) + 1.4
+                        If Vol > 6.5 Then
+                            Vol = 6.5
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &HF
-                        Dim Vol As Double = (bit_loop(bit_idx) * 0.1) + 2
+                        Dim Vol As Double = (bit_loop_a(bit_idx) * 0.1) + 2
                         If Vol > 2.7 Then
                             Vol = 2.7
                         End If
                         info = String.Format("{0:0.0}V", Vol)
+
+                        Vol = (bit_loop_b(bit_idx) * 0.1) + 2
+                        If Vol > 2.7 Then
+                            Vol = 2.7
+                        End If
+                        info += String.Format("→ {0:0.0}V", Vol)
                     Case &H10
                         Dim AVDDLxDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
                         Dim AVDDSRDes() As String = {"120%", "120%", "100%", "100%", "80%", "80%", "60%", "60%"}
                         Select Case (bit_idx)
                             Case 0
-                                info = AVDDLxDes(bit_loop(bit_idx))
+                                info = AVDDLxDes(bit_loop_a(bit_idx))
+                                info += "→ " + AVDDLxDes(bit_loop_b(bit_idx))
                             Case 1
-                                info = AVDDSRDes(bit_loop(bit_idx))
+                                info = AVDDSRDes(bit_loop_a(bit_idx))
+                                info += "→ " + AVDDSRDes(bit_loop_b(bit_idx))
                         End Select
                     Case &H11
                         Dim AVDDDlyDes() As String = {"1mS", "2mS", "3mS", "4mS", "5mS", "6mS", "7mS", "12mS"}
                         Select Case (bit_idx)
                             Case 0
-                                info = AVDDDlyDes(bit_loop(bit_idx))
+                                info = AVDDDlyDes(bit_loop_a(bit_idx))
+                                info += "→ " + AVDDDlyDes(bit_loop_b(bit_idx))
                             Case 1
-                                info = String.Format("{0}mS", (bit_loop(bit_idx) * 2) + 2)
+                                info = String.Format("{0}mS", (bit_loop_a(bit_idx) * 2) + 2)
+                                info += String.Format("→ {0}mS", (bit_loop_b(bit_idx) * 2) + 2)
                         End Select
                     Case &H12
                         Dim AVDDOCPDes() As String = {"2A", "1.5A", "1A", "0.5A", "0.4A", "0.3A", "0.2A", "0.2A"}
-                        info = AVDDOCPDes(bit_loop(bit_idx))
+                        info = AVDDOCPDes(bit_loop_a(bit_idx))
+                        info += "→ " + AVDDOCPDes(bit_loop_b(bit_idx))
                     Case &H13
                         Select Case (bit_idx)
                             Case 0
-                                info = String.Format("{0:0}mS", 5 * bit_loop(bit_idx))
+                                info = String.Format("{0:0}mS", 5 * bit_loop_a(bit_idx))
+                                info += String.Format("→ {0:0}mS", 5 * bit_loop_a(bit_idx))
                             Case 1
-                                info = String.Format("{0:0}mS", 2 * bit_loop(bit_idx))
+                                info = String.Format("{0:0}mS", 2 * bit_loop_a(bit_idx))
+                                info += String.Format("→ {0:0}mS", 2 * bit_loop_a(bit_idx))
                             Case 2
-                                Dim AVDDFreq() As Double = {600, 715, 800, 933, 1000, 1225, 1225, 1225}
-                                Dim VGLFreX() As Double = {0.5, 1}
-                                info = String.Format("{0:0}kHz", AVDDFreq(Bar_AVDDLx.Value) * VGLFreX(Bar_VGLFreq.Value))
+
+                                Dim VGLFreX() As String = {"0.5 x AVDD Lx", "AVDD Lx"}
+                                info = VGLFreX(bit_loop_a(bit_idx))
+                                info += "→ " + VGLFreX(bit_loop_b(bit_idx))
                             Case 3
                                 Dim Arch() As String = {"mode1 VGL > -(AVDD-0.5V)", "mode2 -14.5V ≦ VGL ≦ -(AVDD-0.5V)", "mode3 VGL<-14.5V", "mode3 VGL<-14.5V"}
-                                info = Arch(bit_loop(bit_idx))
+                                info = Arch(bit_loop_a(bit_idx))
+                                info += "→ " + Arch(bit_loop_b(bit_idx))
                         End Select
 
                     Case &H14
                         Select Case (bit_idx)
                             Case 0
-                                info = String.Format("{0:0}mS", bit_loop(bit_idx) * 5)
+                                info = String.Format("{0:0}mS", bit_loop_a(bit_idx) * 5)
+                                info += String.Format("→ {0:0}mS", bit_loop_b(bit_idx) * 5)
                             Case 1
-                                info = String.Format("{0:0}mS", bit_loop(bit_idx) * 2 + 2)
+                                info = String.Format("{0:0}mS", bit_loop_a(bit_idx) * 2 + 2)
+                                info += String.Format("→ {0:0}mS", bit_loop_b(bit_idx) * 2 + 2)
                         End Select
                     Case &H15
                         Select Case (bit_idx)
                             Case 0
                                 Dim VGHDlyDes() As String = {"2mS", "7mS", "18mS", "25mS", "34mS", "50mS", "100mS", "150mS"}
-                                info = VGHDlyDes(bit_loop(bit_idx))
+                                info = VGHDlyDes(bit_loop_a(bit_idx))
+                                info += "→ " + VGHDlyDes(bit_loop_b(bit_idx))
                             Case 1
-                                info = String.Format("{0:0}mS", bit_loop(bit_idx) * 2 + 2)
+                                info = String.Format("{0:0}mS", bit_loop_a(bit_idx) * 2 + 2)
+                                info += String.Format("→ {0:0}mS", bit_loop_a(bit_idx) * 2 + 2)
                             Case 2
                                 Dim VGHFreqDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
-                                info = VGHFreqDes(bit_loop(bit_idx))
+                                info = VGHFreqDes(bit_loop_a(bit_idx))
+                                info += "→ " + VGHFreqDes(bit_loop_b(bit_idx))
                         End Select
                     Case &H16
                         Dim VGHSRDes() As String = {"120%", "120%", "100%", "100%", "80%", "80%", "60%", "60%"}
-                        info = VGHSRDes(bit_loop(bit_idx))
+                        info = VGHSRDes(bit_loop_a(bit_idx))
+                        info += "→ " + VGHSRDes(bit_loop_a(bit_idx))
                     Case &H17
                         Select Case (bit_idx)
                             Case 0
-                                info = String.Format("{0:0}mS", bit_loop(bit_idx) * 3)
+                                info = String.Format("{0:0}mS", bit_loop_a(bit_idx) * 3)
+                                info += String.Format("→ {0:0}mS", bit_loop_b(bit_idx) * 3)
                             Case 1
                                 Dim VcoreFreDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
-                                info = VcoreFreDes(bit_loop(bit_idx))
+                                info = VcoreFreDes(bit_loop_a(bit_idx))
+                                info += "→ " + VcoreFreDes(bit_loop_b(bit_idx))
                             Case 2
                                 Dim VcoreSRDes() As String = {"120%", "100%", "80%", "60%"}
-                                info = VcoreSRDes(bit_loop(bit_idx))
+                                info = VcoreSRDes(bit_loop_a(bit_idx))
+                                info += "→ " + VcoreSRDes(bit_loop_b(bit_idx))
                         End Select
                     Case &H18
                         Select Case (bit_idx)
                             Case 0
-                                info = String.Format("{0}mS", bit_loop(bit_idx) * 3)
+                                info = String.Format("{0}mS", bit_loop_a(bit_idx) * 3)
+                                info += String.Format("→ {0}mS", bit_loop_a(bit_idx) * 3)
                             Case 1
                                 Dim VioFreDes() As String = {"600kHz", "715kHz", "800kHz", "933kHz", "1000kHz", "1225kHz", "1225kHz", "1225kHz"}
-                                info = VioFreDes(bit_loop(bit_idx))
+                                info = VioFreDes(bit_loop_a(bit_idx))
+                                info += "→ " + VioFreDes(bit_loop_a(bit_idx))
                             Case 2
                                 Dim VioSRDes() As String = {"120%", "100%", "80%", "60%"}
-                                info = VioSRDes(bit_loop(bit_idx))
+                                info = VioSRDes(bit_loop_a(bit_idx))
+                                info += "→ " + VioSRDes(bit_loop_a(bit_idx))
                         End Select
                     Case &H19
 
                         Select Case bit_idx
                             Case 0
                                 Dim LDODlyDes() As String = {"0mS", "15mS", "34mS", "45mS"}
-                                info = LDODlyDes(bit_loop(bit_idx))
+                                info = LDODlyDes(bit_loop_a(bit_idx))
+                                info += "→ " + LDODlyDes(bit_loop_b(bit_idx))
                             Case 1
-                                info = String.Format("{0}mS", 5 * bit_loop(bit_idx))
+                                info = String.Format("{0}mS", 5 * bit_loop_a(bit_idx))
+                                info += String.Format("→ {0}mS", 5 * bit_loop_b(bit_idx))
                         End Select
                     Case &H1A
-                        info = String.Format("{0}mS", 5 * bit_loop(bit_idx))
+                        info = String.Format("{0}mS", 5 * bit_loop_a(bit_idx))
+                        info += String.Format("→ {0}mS", 5 * bit_loop_b(bit_idx))
                     Case &H1C
                         Select Case bit_idx
                             Case 0
                                 Dim Des1() As String = {"Slowest", "Slow", "Normal", "Fastest"}
-                                info = Des1(bit_loop(bit_idx))
+                                info = Des1(bit_loop_a(bit_idx))
+                                info += "→ " + Des1(bit_loop_b(bit_idx))
                             Case 1
                                 Dim Des2() As String = {"Slowest", "Slow", "Normal", "Fastest"}
-                                info = Des2(bit_loop(bit_idx))
+                                info = Des2(bit_loop_a(bit_idx))
+                                info += "→ " + Des2(bit_loop_b(bit_idx))
                             Case 2
                                 Dim Des3() As String = {"PSM Mode", "PWM Mode"}
-                                info = Des3(bit_loop(bit_idx))
+                                info = Des3(bit_loop_a(bit_idx))
+                                info += "→ " + Des3(bit_loop_b(bit_idx))
                             Case 3
                                 Dim Des4() As String = {"PSM Mode", "PWM Mode"}
-                                info = Des4(bit_loop(bit_idx))
+                                info = Des4(bit_loop_a(bit_idx))
+                                info += "→ " + Des4(bit_loop_b(bit_idx))
                             Case 4
                                 Dim Des5() As String = {"PSM Mode", "PWM Mode"}
-                                info = Des5(bit_loop(bit_idx))
+                                info = Des5(bit_loop_a(bit_idx))
+                                info += "→ " + Des5(bit_loop_b(bit_idx))
                             Case 5
                                 Dim Des6() As String = {"PSM Mode", "PWM Mode"}
-                                info = Des6(bit_loop(bit_idx))
+                                info = Des6(bit_loop_a(bit_idx))
+                                info += "→ " + Des6(bit_loop_b(bit_idx))
                         End Select
                 End Select
                 Reg_info.Text = info
@@ -1321,88 +1631,147 @@ Public Class Form1
         Panel1.Controls.Clear() ' Clear object
         Dim idx As Integer = 1
 
-        ' test code
-        'For i As Integer = 0 To byt_Bin1.Length - 1
-        '    byt_Bin1(i) = &HFF
-        'Next
-
-
         For i As Integer = 0 To (&H1D - &H1)
 
             If byt_Bin1(i) <> byt_Bin2(i) Then
 
                 Select Case (i)
                     Case &H0, &H1B
-                        Dim bit0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H1) >> 0 ' detect bit0
-                        Dim bit1 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H2) >> 1 ' detect bit1
-                        Dim bit2 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H4) >> 2 ' detect bit2
-                        Dim bit3 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H8) >> 3 ' detect bit3
-                        Dim bit4 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H10) >> 4 ' detect bit4
-                        Dim bit5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H20) >> 5 ' detect bit5
-                        Dim bit6 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H40) >> 6 ' detect bit6
-                        Dim bit7 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H80) >> 7 ' detect bit7
-                        Dim bit_loop() As Byte = {bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7}
-                        AddCompare_Info(i, idx, bit_loop)
+                        Dim bit0_a As Byte = (byt_Bin1(i) And &H1) >> 0 ' detect bit0
+                        Dim bit1_a As Byte = (byt_Bin1(i) And &H2) >> 1 ' detect bit1
+                        Dim bit2_a As Byte = (byt_Bin1(i) And &H4) >> 2 ' detect bit2
+                        Dim bit3_a As Byte = (byt_Bin1(i) And &H8) >> 3 ' detect bit3
+                        Dim bit4_a As Byte = (byt_Bin1(i) And &H10) >> 4 ' detect bit4
+                        Dim bit5_a As Byte = (byt_Bin1(i) And &H20) >> 5 ' detect bit5
+                        Dim bit6_a As Byte = (byt_Bin1(i) And &H40) >> 6 ' detect bit6
+                        Dim bit7_a As Byte = (byt_Bin1(i) And &H80) >> 7 ' detect bit7
+
+                        Dim bit0_b As Byte = (byt_Bin2(i) And &H1) >> 0 ' detect bit0
+                        Dim bit1_b As Byte = (byt_Bin2(i) And &H2) >> 1 ' detect bit1
+                        Dim bit2_b As Byte = (byt_Bin2(i) And &H4) >> 2 ' detect bit2
+                        Dim bit3_b As Byte = (byt_Bin2(i) And &H8) >> 3 ' detect bit3
+                        Dim bit4_b As Byte = (byt_Bin2(i) And &H10) >> 4 ' detect bit4
+                        Dim bit5_b As Byte = (byt_Bin2(i) And &H20) >> 5 ' detect bit5
+                        Dim bit6_b As Byte = (byt_Bin2(i) And &H40) >> 6 ' detect bit6
+                        Dim bit7_b As Byte = (byt_Bin2(i) And &H80) >> 7 ' detect bit7
+
+
+                        Dim bit_loop_a() As Byte = {bit0_a, bit1_a, bit2_a, bit3_a, bit4_a, bit5_a, bit6_a, bit7_a}
+                        Dim bit_loop_b() As Byte = {bit0_b, bit1_b, bit2_b, bit3_b, bit4_b, bit5_b, bit6_b, bit7_b}
+                        AddCompare_Info(i, idx, bit_loop_a, bit_loop_b)
                     Case &H1
-                        Dim bit0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H1) >> 0 ' detect bit0
-                        Dim bit1 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H2) >> 1 ' detect bit1
-                        Dim bit4 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H10) >> 4 ' detect bit4
-                        Dim bit5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H20) >> 5 ' detect bit5
-                        Dim bit_loop() As Byte = {bit0, bit1, bit4, bit5}
-                        AddCompare_Info(i, idx, bit_loop)
+                        Dim bit0 As Byte = (byt_Bin1(i) And &H1) >> 0 ' detect bit0
+                        Dim bit1 As Byte = (byt_Bin1(i) And &H2) >> 1 ' detect bit1
+                        Dim bit4 As Byte = (byt_Bin1(i) And &H10) >> 4 ' detect bit4
+                        Dim bit5 As Byte = (byt_Bin1(i) And &H20) >> 5 ' detect bit5
+                        Dim bit_loop_a() As Byte = {bit0, bit1, bit4, bit5}
+
+                        Dim bit0_b As Byte = (byt_Bin2(i) And &H1) >> 0 ' detect bit0
+                        Dim bit1_b As Byte = (byt_Bin2(i) And &H2) >> 1 ' detect bit1
+                        Dim bit4_b As Byte = (byt_Bin2(i) And &H10) >> 4 ' detect bit4
+                        Dim bit5_b As Byte = (byt_Bin2(i) And &H20) >> 5 ' detect bit5
+                        Dim bit_loop_b() As Byte = {bit0_b, bit1_b, bit4_b, bit5_b}
+
+                        AddCompare_Info(i, idx, bit_loop_a, bit_loop_b)
                     Case &H2, &H3, &H4, &H5, &H6, &H7, &H8, &H9, &HA, &HB, &HC, &HD, &HE, &HF
-                        AddCompare_Info(i, idx, New Byte() {byt_Bin1(i)})
+                        AddCompare_Info(i, idx, New Byte() {byt_Bin1(i)}, New Byte() {byt_Bin2(i)})
                     Case &H10, &H11
-                        Dim bit2_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7) >> 0
-                        Dim bit5_3 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H38) >> 3
+                        Dim bit2_0 As Byte = (byt_Bin1(i) And &H7) >> 0
+                        Dim bit5_3 As Byte = (byt_Bin1(i) And &H38) >> 3
                         Dim bit_loop() As Byte = {bit2_0, bit5_3}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit2_0_b As Byte = (byt_Bin1(i) And &H7) >> 0
+                        Dim bit5_3_b As Byte = (byt_Bin1(i) And &H38) >> 3
+                        Dim bit_loop_b() As Byte = {bit2_0_b, bit5_3_b}
+
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H12, &H16
-                        Dim bit2_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7) >> 0
+                        Dim bit2_0 As Byte = (byt_Bin1(i) And &H7) >> 0
                         Dim bit_loop() As Byte = {bit2_0}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit2_0_b As Byte = (byt_Bin2(i) And &H7) >> 0
+                        Dim bit_loop_b() As Byte = {bit2_0_b}
+
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H13
-                        Dim bit2_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7) >> 0
-                        Dim bit4_3 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H18) >> 3
-                        Dim bit5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H20) >> 5
-                        Dim bit7_6 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &HC0) >> 6
+                        Dim bit2_0 As Byte = ((byt_Bin1(i)) And &H7) >> 0
+                        Dim bit4_3 As Byte = ((byt_Bin1(i)) And &H18) >> 3
+                        Dim bit5 As Byte = ((byt_Bin1(i)) And &H20) >> 5
+                        Dim bit7_6 As Byte = ((byt_Bin1(i)) And &HC0) >> 6
                         Dim bit_loop() As Byte = {bit2_0, bit4_3, bit5, bit7_6}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit2_0_b As Byte = ((byt_Bin1(i)) And &H7) >> 0
+                        Dim bit4_3_b As Byte = ((byt_Bin1(i)) And &H18) >> 3
+                        Dim bit5_b As Byte = ((byt_Bin1(i)) And &H20) >> 5
+                        Dim bit7_6_b As Byte = ((byt_Bin1(i)) And &HC0) >> 6
+                        Dim bit_loop_b() As Byte = {bit2_0_b, bit4_3_b, bit5_b, bit7_6_b}
+
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H14
-                        Dim bit2_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7) >> 0
-                        Dim bit4_3 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H18) >> 3
+                        Dim bit2_0 As Byte = ((byt_Bin1(i)) And &H7) >> 0
+                        Dim bit4_3 As Byte = ((byt_Bin1(i)) And &H18) >> 3
                         Dim bit_loop() As Byte = {bit2_0, bit4_3}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit2_0_b As Byte = ((byt_Bin2(i)) And &H7) >> 0
+                        Dim bit4_3_b As Byte = ((byt_Bin2(i)) And &H18) >> 3
+                        Dim bit_loop_b() As Byte = {bit2_0, bit4_3}
+
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H15
-                        Dim bit2_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7) >> 0
-                        Dim bit4_3 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H18) >> 3
-                        Dim bit7_5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &HE0) >> 5
+                        Dim bit2_0 As Byte = ((byt_Bin1(i)) And &H7) >> 0
+                        Dim bit4_3 As Byte = ((byt_Bin1(i)) And &H18) >> 3
+                        Dim bit7_5 As Byte = ((byt_Bin1(i)) And &HE0) >> 5
                         Dim bit_loop() As Byte = {bit2_0, bit4_3, bit7_5}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit2_0_b As Byte = ((byt_Bin2(i)) And &H7) >> 0
+                        Dim bit4_3_b As Byte = ((byt_Bin2(i)) And &H18) >> 3
+                        Dim bit7_5_b As Byte = ((byt_Bin2(i)) And &HE0) >> 5
+                        Dim bit_loop_b() As Byte = {bit2_0_b, bit4_3_b, bit7_5_b}
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H17, &H18
-                        Dim bit1_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H3) >> 0
-                        Dim bit4_2 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H1C) >> 2
-                        Dim bit6_5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H60) >> 5
+                        Dim bit1_0 As Byte = ((byt_Bin1(i)) And &H3) >> 0
+                        Dim bit4_2 As Byte = ((byt_Bin1(i)) And &H1C) >> 2
+                        Dim bit6_5 As Byte = ((byt_Bin1(i)) And &H60) >> 5
                         Dim bit_loop() As Byte = {bit1_0, bit4_2, bit6_5}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit1_0_b As Byte = ((byt_Bin2(i)) And &H3) >> 0
+                        Dim bit4_2_b As Byte = ((byt_Bin2(i)) And &H1C) >> 2
+                        Dim bit6_5_b As Byte = ((byt_Bin2(i)) And &H60) >> 5
+                        Dim bit_loop_b() As Byte = {bit1_0, bit4_2, bit6_5}
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H19
-                        Dim bit1_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H3) >> 0
-                        Dim bit6_2 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H7C) >> 2
+                        Dim bit1_0 As Byte = ((byt_Bin1(i)) And &H3) >> 0
+                        Dim bit6_2 As Byte = ((byt_Bin1(i)) And &H7C) >> 2
                         Dim bit_loop() As Byte = {bit1_0, bit6_2}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit1_0_b As Byte = ((byt_Bin2(i)) And &H3) >> 0
+                        Dim bit6_2_b As Byte = ((byt_Bin2(i)) And &H7C) >> 2
+                        Dim bit_loop_b() As Byte = {bit1_0_b, bit6_2_b}
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H1A
-                        Dim bit3_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &HF) >> 0
+                        Dim bit3_0 As Byte = ((byt_Bin1(i)) And &HF) >> 0
+                        Dim bit3_0_b As Byte = ((byt_Bin2(i)) And &HF) >> 0
                         Dim bit_loop() As Byte = {bit3_0}
-                        AddCompare_Info(i, idx, bit_loop)
+                        Dim bit_loop_b() As Byte = {bit3_0_b}
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                     Case &H1C
-                        Dim bit1_0 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H3) >> 0
-                        Dim bit3_2 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &HC) >> 2
-                        Dim bit4 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H10) >> 4
-                        Dim bit5 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H20) >> 5
-                        Dim bit6 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H40) >> 6
-                        Dim bit7 As Byte = ((byt_Bin1(i) Xor byt_Bin2(i)) And &H80) >> 7
+                        Dim bit1_0 As Byte = ((byt_Bin1(i)) And &H3) >> 0
+                        Dim bit3_2 As Byte = ((byt_Bin1(i)) And &HC) >> 2
+                        Dim bit4 As Byte = ((byt_Bin1(i)) And &H10) >> 4
+                        Dim bit5 As Byte = ((byt_Bin1(i)) And &H20) >> 5
+                        Dim bit6 As Byte = ((byt_Bin1(i)) And &H40) >> 6
+                        Dim bit7 As Byte = ((byt_Bin1(i)) And &H80) >> 7
                         Dim bit_loop() As Byte = {bit1_0, bit3_2, bit4, bit5, bit6, bit7}
-                        AddCompare_Info(i, idx, bit_loop)
+
+                        Dim bit1_0_b As Byte = ((byt_Bin2(i)) And &H3) >> 0
+                        Dim bit3_2_b As Byte = ((byt_Bin2(i)) And &HC) >> 2
+                        Dim bit4_b As Byte = ((byt_Bin2(i)) And &H10) >> 4
+                        Dim bit5_b As Byte = ((byt_Bin2(i)) And &H20) >> 5
+                        Dim bit6_b As Byte = ((byt_Bin2(i)) And &H40) >> 6
+                        Dim bit7_b As Byte = ((byt_Bin2(i)) And &H80) >> 7
+                        Dim bit_loop_b() As Byte = {bit1_0_b, bit3_2_b, bit4_b, bit5_b, bit6_b, bit7_b}
+
+                        AddCompare_Info(i, idx, bit_loop, bit_loop_b)
                 End Select
 
             End If
@@ -1411,6 +1780,22 @@ Public Class Form1
     End Sub
 
     Private Sub BT_WriteAll_Click(sender As Object, e As EventArgs) Handles BT_WriteAll.Click
+        Dim flag_name() As Label = New Label() {Label181, Label212, Label213, Label214, Label215, Label216, Label218, Label217}
+        Dim info As String = "Alarm" + vbNewLine
+        For i As Integer = 0 To flagTable.Length - 1
+            If Not (flagTable(i)) Then
+                info += flag_name(i).Text + vbNewLine
+            End If
+        Next
+
+        For i As Integer = 0 To flagTable.Length - 1
+            If (flagTable(i)) Then
+                MessageBox.Show(info, main_ver)
+                Return
+            End If
+        Next
+
+
 
         Dim len As Integer = WRBuffer.Length
         WRBuffer(&H0) = W00_0.Value Or (W00_1.Value << 1) Or (W00_2.Value << 2) Or (W00_3.Value << 3) Or (W00_4.Value << 4) Or (W00_5.Value << 5) Or (W00_6.Value << 6) Or (W00_7.Value << 7)
@@ -1448,14 +1833,13 @@ Public Class Form1
 
         RTBB_I2CWrite(hDevice, 0, Int(NuSlave.Value / 2), &H1, &H0, len, WRBuffer(0))
 
-        Dim res As Integer = 0
+        'Dim res As Integer = 0
+        'For i As Integer = 0 To WRBuffer.Length - 1
+        '    res += WRBuffer(i)
+        'Next
 
-        For i As Integer = 0 To WRBuffer.Length - 1
-            res += WRBuffer(i)
-        Next
-
-        CheckSum_wrall.Text = res.ToString("X")
-        CheckSum_wrvcom.Text = (res - WRBuffer(&HE)).ToString("X")
+        'CheckSum_wrall.Text = res.ToString("X")
+        'CheckSum_wrvcom.Text = (res - WRBuffer(&HE)).ToString("X")
 
         CalculateResult()
 
@@ -1571,6 +1955,20 @@ Public Class Form1
     End Sub
 
     Private Sub BT_WriteMTP_Click(sender As Object, e As EventArgs) Handles BT_WriteMTP.Click
+        Dim flag_name() As Label = New Label() {Label181, Label212, Label213, Label214, Label215, Label216, Label218, Label217}
+        Dim info As String = "Alarm" + vbNewLine
+        For i As Integer = 0 To flagTable.Length - 1
+            If Not (flagTable(i)) Then
+                info += flag_name(i).Text + vbNewLine
+            End If
+        Next
+
+        For i As Integer = 0 To flagTable.Length - 1
+            If (flagTable(i)) Then
+                MessageBox.Show(info, main_ver)
+                Return
+            End If
+        Next
 
         BT_WriteAll_Click(Nothing, Nothing)
 
@@ -1749,6 +2147,23 @@ Public Class Form1
     End Sub
 
     Private Sub SaveBinToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveBinToolStripMenuItem.Click
+
+        'Dim flag_name() As Label = New Label() {Label181, Label212, Label213, Label214, Label215, Label216, Label218, Label217}
+        ''Dim info As List(Of String) = New List(Of String)()
+        'Dim info As String = "Alarm" + vbNewLine
+        'For i As Integer = 0 To flagTable.Length - 1
+        '    If Not (flagTable(i)) Then
+        '        info += flag_name(i).Text + vbNewLine
+        '    End If
+        'Next
+
+        'For i As Integer = 0 To flagTable.Length - 1
+        '    If (flagTable(i)) Then
+        '        MessageBox.Show(info, main_ver)
+        '        Return
+        '    End If
+        'Next
+
         WRBuffer(0) = W00_0.Value Or (W00_1.Value << 1) Or (W00_2.Value << 2) Or (W00_3.Value << 3) Or (W00_4.Value << 4) Or (W00_5.Value << 5) Or (W00_6.Value << 6) Or (W00_7.Value << 7)
         WRBuffer(1) = W01_0.Value Or (W01_1.Value << 1) Or (W01_4.Value << 4) Or (W01_5.Value << 5)
         WRBuffer(2) = W02.Value
@@ -1904,6 +2319,7 @@ Public Class Form1
         For i As Integer = 0 To byt01_bit.Length - 1
             byt01_ck(i).Checked = byt01_bit(i).Value And &H1
         Next
+        ShowCheckSum()
     End Sub
 
     Private Sub W1D_ValueChanged(sender As Object, e As EventArgs) Handles W1D.ValueChanged

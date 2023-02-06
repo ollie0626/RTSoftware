@@ -100,9 +100,9 @@ namespace SoftStartTiming
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C" };
             // scope idn name keysight DSOS054A DSO9064A  Tek DPO7054C DSO9064A
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
-                if(Device_map.ContainsKey(scope_name[i]))
+                if (Device_map.ContainsKey(scope_name[i]))
                 {
                     await ConnectTask(Device_map[scope_name[i]], 0);
                     tb_osc.Text = "Scope:" + scope_name[i];
@@ -117,7 +117,7 @@ namespace SoftStartTiming
             if (Device_map.ContainsKey("63600-2"))
             {
                 await ConnectTask(Device_map["63600-2"], 2);
-                tb_eload.Text = "ELoad:63600-2"; 
+                tb_eload.Text = "ELoad:63600-2";
             }
 
             if (Device_map.ContainsKey("34970A"))
@@ -135,7 +135,7 @@ namespace SoftStartTiming
 
         private void check_ins_state()
         {
-            if(InsControl._scope != null)
+            if (InsControl._scope != null)
             {
                 if (InsControl._scope.InsState())
                     led_osc.BackColor = Color.LightGreen;
@@ -143,7 +143,7 @@ namespace SoftStartTiming
                     led_osc.BackColor = Color.Red;
             }
 
-            if(InsControl._power != null)
+            if (InsControl._power != null)
             {
                 if (InsControl._power.InsState())
                     led_power.BackColor = Color.LightGreen;
@@ -151,7 +151,7 @@ namespace SoftStartTiming
                     led_power.BackColor = Color.Red;
             }
 
-            if(InsControl._eload != null)
+            if (InsControl._eload != null)
             {
                 if (InsControl._eload.InsState())
                     led_eload.BackColor = Color.LightGreen;
@@ -159,7 +159,7 @@ namespace SoftStartTiming
                     led_eload.BackColor = Color.Red;
             }
 
-            if(InsControl._34970A != null)
+            if (InsControl._34970A != null)
             {
                 if (InsControl._34970A.InsState())
                     led_daq.BackColor = Color.LightGreen;
@@ -167,7 +167,7 @@ namespace SoftStartTiming
                     led_daq.BackColor = Color.Red;
             }
 
-            if(InsControl._chamber != null)
+            if (InsControl._chamber != null)
             {
                 if (InsControl._chamber.InsState())
                     led_chamber.BackColor = Color.LightGreen;
@@ -187,7 +187,7 @@ namespace SoftStartTiming
 
             test_parameter.bin_file_cnt = "Bin1 file cnt : " + test_parameter.bin1_cnt + "\r\n" +
                                           "Bin2 file cnt : " + test_parameter.bin2_cnt + "\r\n" +
-                                          "Bin3 file cnt : " + test_parameter.bin3_cnt + "\r\n" + 
+                                          "Bin3 file cnt : " + test_parameter.bin3_cnt + "\r\n" +
                                           "Total cnt : " + (test_parameter.bin1_cnt + test_parameter.bin2_cnt + test_parameter.bin3_cnt).ToString() + " \r\n";
             test_parameter.tool_ver = win_name + "\r\n";
 
@@ -200,14 +200,14 @@ namespace SoftStartTiming
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
-            for(int i = 0; i < test_parameter.bin_path.Length; i++)
+            for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
             }
 
             // need to gui configure
             // scope channel 2 ~ 4
-            for(int i = 0; i < test_parameter.scope_en.Length; i++)
+            for (int i = 0; i < test_parameter.scope_en.Length; i++)
             {
                 test_parameter.scope_en[i] = ScopeChTable[i].Checked;
                 test_parameter.bin_en[i] = binTable[i].Checked;
@@ -243,7 +243,7 @@ namespace SoftStartTiming
 
                     // Delay Time / Slot Time
                     // Soft - Start Time
-                                          p_thread = new ParameterizedThreadStart(Run_Single_Task);
+                    p_thread = new ParameterizedThreadStart(Run_Single_Task);
                     ATETask = new Thread(p_thread);
                     ATETask.Start(CBItem.SelectedIndex);
                 }
@@ -400,13 +400,13 @@ namespace SoftStartTiming
                 string idn = visaCommand.doQueryIDN();
                 string name = "";
 
-                if(idn.Split(',').Length != 1)
+                if (idn.Split(',').Length != 1)
                     name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
 
                 if (Device_map.ContainsKey(name) == false)
                 {
                     Device_map.Add(name, ins);
-                    if(name.IndexOf("E363") != -1)
+                    if (name.IndexOf("E363") != -1)
                     {
                         CBPower.Enabled = true;
                         CBPower.Items.Add(name);
@@ -463,7 +463,7 @@ namespace SoftStartTiming
 
         private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(CBItem.SelectedIndex)
+            switch (CBItem.SelectedIndex)
             {
                 case 0:
                     // delay time

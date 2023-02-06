@@ -2133,6 +2133,48 @@ namespace MulanLite
             }
 
         }
+
+        private void uiButton10_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+            // bad id
+            byte id = (byte)nu_persentid.Value;
+            byte[] write_buf = new byte[1] { (byte)nuSWrite.Value };
+            RTDev.WriteBADID(id, WriteCmd, (byte)nuSAddr.Value, (byte)0x0, write_buf);
+            bt.Enabled = true;
+        }
+
+        private void uiButton11_Click(object sender, EventArgs e)
+        {
+            UIButton bt = (UIButton)sender;
+            bt.Enabled = false;
+
+            // bad addr
+            byte id = (byte)nu_persentid.Value;
+            byte[] write_buf = new byte[1] { (byte)nuSWrite.Value };
+            RTDev.WriteFunc(id, WriteCmd, (byte)0x63, (byte)0x0, write_buf);
+            bt.Enabled = true;
+        }
+
+        private void uiButton12_Click(object sender, EventArgs e)
+        {
+            // bad len
+            byte[] data = RTDev.ReadFunc((byte)nu_persentid.Value, 0x09, (byte)nuSAddr.Value);
+        }
+
+        private void uiButton14_Click(object sender, EventArgs e)
+        {
+            // RDO flow
+            RTDev.RDOFlow_Flag((byte)nu_persentid.Value);
+        }
+
+        private void uiButton13_Click(object sender, EventArgs e)
+        {
+            // BAD CMD --> flag
+            // reseponse paceket
+            RTDev.ResponesID(0xA0);
+        }
     }
 }
 
