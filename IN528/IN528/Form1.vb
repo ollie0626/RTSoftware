@@ -2148,21 +2148,21 @@ Public Class Form1
 
     Private Sub SaveBinToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles SaveBinToolStripMenuItem.Click
 
-        'Dim flag_name() As Label = New Label() {Label181, Label212, Label213, Label214, Label215, Label216, Label218, Label217}
-        ''Dim info As List(Of String) = New List(Of String)()
-        'Dim info As String = "Alarm" + vbNewLine
-        'For i As Integer = 0 To flagTable.Length - 1
-        '    If Not (flagTable(i)) Then
-        '        info += flag_name(i).Text + vbNewLine
-        '    End If
-        'Next
+        Dim flag_name() As Label = New Label() {Label181, Label212, Label213, Label214, Label215, Label216, Label218, Label217}
+        'Dim info As List(Of String) = New List(Of String)()
+        Dim info As String = "Alarm" + vbNewLine
+        For i As Integer = 0 To flagTable.Length - 1
+            If Not (flagTable(i)) Then
+                info += flag_name(i).Text + vbNewLine
+            End If
+        Next
 
-        'For i As Integer = 0 To flagTable.Length - 1
-        '    If (flagTable(i)) Then
-        '        MessageBox.Show(info, main_ver)
-        '        Return
-        '    End If
-        'Next
+        For i As Integer = 0 To flagTable.Length - 1
+            If (flagTable(i)) Then
+                MessageBox.Show(info, main_ver)
+                Return
+            End If
+        Next
 
         WRBuffer(0) = W00_0.Value Or (W00_1.Value << 1) Or (W00_2.Value << 2) Or (W00_3.Value << 3) Or (W00_4.Value << 4) Or (W00_5.Value << 5) Or (W00_6.Value << 6) Or (W00_7.Value << 7)
         WRBuffer(1) = W01_0.Value Or (W01_1.Value << 1) Or (W01_4.Value << 4) Or (W01_5.Value << 5)
