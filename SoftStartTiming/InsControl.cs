@@ -18,5 +18,8 @@ namespace SoftStartTiming
         public static MultiChannelModule _34970A;
         public static ChamberModule _chamber;
 
+        public static TekTronix7Serise _tek_scope;
+        public static bool _tek_scope_en;
+
     }
 }

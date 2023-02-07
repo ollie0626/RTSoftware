@@ -71,79 +71,119 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
-            InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
-            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
-            InsControl._scope.Root_RUN();
-            InsControl._scope.DoCommand(":MARKer:MODE OFF");
-            InsControl._scope.AutoTrigger();
-            InsControl._scope.Trigger_CH1();
-            MyLib.WaveformCheck();
-            InsControl._scope.CHx_On(1);
-            InsControl._scope.CHx_Offset(1, 0);
-            for (int i = 0; i < test_parameter.scope_en.Length; i++)
+            if(InsControl._tek_scope_en)
             {
-                if (test_parameter.scope_en[i])
+                InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                InsControl._tek_scope.SetTimeBasePosition((test_parameter.ontime_scale_ms / 1000) * 3);
+                InsControl._tek_scope.SetRun();
+                InsControl._tek_scope.SetTriggerMode(); // auto trigger
+                InsControl._tek_scope.SetTriggerSource(1);
+
+                InsControl._tek_scope.CHx_On(1);
+                InsControl._tek_scope.CHx_On(2);
+                InsControl._tek_scope.CHx_On(3);
+                InsControl._tek_scope.CHx_On(4);
+
+                InsControl._tek_scope.CHx_BWlimitOn(1);
+                InsControl._tek_scope.CHx_BWlimitOn(2);
+                InsControl._tek_scope.CHx_BWlimitOn(3);
+                InsControl._tek_scope.CHx_BWlimitOn(4);
+
+                InsControl._tek_scope.CHx_Position(1, 0);
+                InsControl._tek_scope.CHx_Position(2, 1);
+                InsControl._tek_scope.CHx_Position(3, 2);
+                InsControl._tek_scope.CHx_Position(4, 3);
+
+                for(int i = 0; i < test_parameter.scope_en.Length; i++)
                 {
-                    InsControl._scope.CHx_On(i + 2);
-                    InsControl._scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
-                    InsControl._scope.CHx_Offset(i + 2, 0);
+                    if(test_parameter.scope_en[i])
+                    {
+                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                    }
                 }
+
+                InsControl._tek_scope.DoCommand("MEASUrement:IMMed:REFLevel:METHod PERCent");
+                InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:HIGH 100");
+                InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID 50");
+                InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:LOW 1");
+
+            }
+            else
+            {
+                InsControl._scope.DoCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
+                InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
+                InsControl._scope.Root_RUN();
+                InsControl._scope.DoCommand(":MARKer:MODE OFF");
+                InsControl._scope.AutoTrigger();
+                InsControl._scope.Trigger_CH1();
+                MyLib.WaveformCheck();
+                InsControl._scope.CHx_On(1);
+                InsControl._scope.CHx_Offset(1, 0);
+                for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                {
+                    if (test_parameter.scope_en[i])
+                    {
+                        InsControl._scope.CHx_On(i + 2);
+                        InsControl._scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                        InsControl._scope.CHx_Offset(i + 2, 0);
+                    }
+                }
+
+                InsControl._scope.CH1_BWLimitOn();
+                InsControl._scope.CH2_BWLimitOn();
+                InsControl._scope.CH3_BWLimitOn();
+                InsControl._scope.CH4_BWLimitOn();
+
+                InsControl._scope.TriggerLevel_CH1(1);
+
+                //:MEASure:THResholds:GENeral:METHod\sALL,PERCent
+                //:MEASure:THResholds:GENeral:PERCent\sALL,100,50,0
+
+                InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:METHod ALL,PERCent");
+                InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,1");
+
+                InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
+                InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,1");
+                InsControl._scope.Root_RUN();
+                MyLib.Delay1ms(200 + (int)((test_parameter.ontime_scale_ms * 10) * 1.2));
+                MyLib.WaveformCheck();
+
+                InsControl._scope.DoCommand(":MARKer:MODE MANual");
+                InsControl._scope.DoCommand(":MARKer3:ENABle OFF");
+                InsControl._scope.DoCommand(":MARKer4:ENABle OFF");
+                InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
+                InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
+                int marker_idx = 0;
+
+                for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                {
+                    if (test_parameter.scope_en[i])
+                    {
+                        string cmd;
+                        cmd = string.Format(":MARKer{0}:ENABle ON", ++marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+                        cmd = string.Format(":MARKer{0}:SOURce CHANnel1", marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+                        cmd = string.Format(":MARKer{0}:TYPE XMANual", marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+
+                        cmd = string.Format(":MARKer{0}:ENABle ON", ++marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+                        cmd = string.Format(":MARKer{0}:TYPE XMANual", marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+                        cmd = string.Format(":MARKer{0}:SOURce CHANnel1", marker_idx);
+                        InsControl._scope.DoCommand(cmd);
+
+                        cmd = string.Format(":MARKer{0}:DELTa MARKer{1}, ON", marker_idx, marker_idx - 1);
+                        InsControl._scope.DoCommand(cmd);
+                    }
+                }
+
+                // measure current delta-time.
+                InsControl._scope.DoCommand(":MEASure:STATistics CURRent");
             }
 
-            InsControl._scope.CH1_BWLimitOn();
-            InsControl._scope.CH2_BWLimitOn();
-            InsControl._scope.CH3_BWLimitOn();
-            InsControl._scope.CH4_BWLimitOn();
-
-            InsControl._scope.TriggerLevel_CH1(1);
-
-            //:MEASure:THResholds:GENeral:METHod\sALL,PERCent
-            //:MEASure:THResholds:GENeral:PERCent\sALL,100,50,0
-
-            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:METHod ALL,PERCent");
-            InsControl._scope.DoCommand(":MEASure:THResholds:GENeral:PERCent ALL,100,50,1");
-
-            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:METHod ALL,PERCent");
-            InsControl._scope.DoCommand(":MEASure:THResholds:RFALl:PERCent ALL,100,50,1");
-            InsControl._scope.Root_RUN();
-            MyLib.Delay1ms(200 + (int)((test_parameter.ontime_scale_ms * 10) * 1.2));
-            MyLib.WaveformCheck();
-
-            InsControl._scope.DoCommand(":MARKer:MODE MANual");
-            InsControl._scope.DoCommand(":MARKer3:ENABle OFF");
-            InsControl._scope.DoCommand(":MARKer4:ENABle OFF");
-            InsControl._scope.DoCommand(":MARKer3:TYPE XMANual");
-            InsControl._scope.DoCommand(":MARKer4:TYPE XMANual");
-            int marker_idx = 0;
-
-            for (int i = 0; i < test_parameter.scope_en.Length; i++)
-            {
-                if (test_parameter.scope_en[i])
-                {
-                    string cmd;
-                    cmd = string.Format(":MARKer{0}:ENABle ON", ++marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-                    cmd = string.Format(":MARKer{0}:SOURce CHANnel1", marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-                    cmd = string.Format(":MARKer{0}:TYPE XMANual", marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-
-                    cmd = string.Format(":MARKer{0}:ENABle ON", ++marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-                    cmd = string.Format(":MARKer{0}:TYPE XMANual", marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-                    cmd = string.Format(":MARKer{0}:SOURce CHANnel1", marker_idx);
-                    InsControl._scope.DoCommand(cmd);
-
-                    cmd = string.Format(":MARKer{0}:DELTa MARKer{1}, ON", marker_idx, marker_idx - 1);
-                    InsControl._scope.DoCommand(cmd);
-
-                }
-            }
-
-            // measure current delta-time.
-            InsControl._scope.DoCommand(":MEASure:STATistics CURRent");
         }
 
         private void Scope_Channel_Resize(int idx, string path)
@@ -153,9 +193,26 @@ namespace SoftStartTiming
             MyLib.Delay1ms(800);
             //MyLib.Delay1ms(800);
 
-            double time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+            double time_scale = 0; 
+            if(InsControl._tek_scope_en)
+            {
+                time_scale = InsControl._scope.doQueryNumber("HORizontal:SCAle?");
+            }
+            else
+            {
+                time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+            }
+            
 
-            InsControl._scope.TimeScaleUs(1);
+            if(InsControl._tek_scope_en)
+            {
+                InsControl._tek_scope.SetTimeScale((1 / Math.Pow(10, -6)));
+            }
+            else
+            {
+                InsControl._scope.TimeScaleUs(1);
+            }
+            
 
             RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
             MyLib.Delay1ms(800);
@@ -163,21 +220,46 @@ namespace SoftStartTiming
             switch (test_parameter.trigger_event)
             {
                 case 0: // gpio
-                    InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
-                    InsControl._scope.CHx_Level(1, 3.3 / 2);
-                    InsControl._scope.CHx_Offset(1, 0);
+
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SetTriggerSource(1);
+                        InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._tek_scope.CHx_Position(1, 0);
+                    }
+                    else
+                    {
+                        InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
+                        InsControl._scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._scope.CHx_Offset(1, 0);
+                    }
+
                     if (test_parameter.sleep_mode)
                         GpioOnSelect(test_parameter.gpio_pin);
                     else
                         GpioOffSelect(test_parameter.gpio_pin);
                     break;
                 case 1: // i2c trigger
-                    double vout = InsControl._scope.Meas_CH1MAX();
+                    double vout = 0;
+
+
+                    InsControl._scope.Meas_CH1MAX();
                     InsControl._scope.TriggerLevel_CH1(vout * 0.35);
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
-                    InsControl._scope.TriggerLevel_CH1(test_parameter.VinList[idx] * 0.35);
+
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SetTriggerSource(1);
+                        InsControl._tek_scope.SetTriggerLevel(test_parameter.VinList[idx] * 0.35);
+                    }
+                    else
+                    {
+                        InsControl._scope.TriggerLevel_CH1(test_parameter.VinList[idx] * 0.35);
+                    }
+
+
                     break;
             }
             MyLib.Delay1s(1);
@@ -186,9 +268,17 @@ namespace SoftStartTiming
             {
                 if (test_parameter.scope_en[i])
                 {
-                    InsControl._scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
-                    InsControl._scope.CHx_Offset(i + 2, test_parameter.VinList[0] * 3 * (i + 1));
-                    MyLib.Delay1ms(800);
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                        InsControl._tek_scope.CHx_Position(i + 2, i + 1);
+                    }
+                    else
+                    {
+                        InsControl._scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                        InsControl._scope.CHx_Offset(i + 2, test_parameter.VinList[0] * 3 * (i + 1));
+                        MyLib.Delay1ms(800);
+                    }
                 }
             }
             MyLib.Delay1s(1);
@@ -201,7 +291,6 @@ namespace SoftStartTiming
                 re_scale:;
                     if (re_cnt > 3)
                     {
-
                         re_cnt = 0;
                         continue;
                     }
@@ -335,9 +424,18 @@ namespace SoftStartTiming
 
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
-                        // repeat i2c setting time scale need to reset to deafult
-                        InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-                        InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
+                        if(InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                            InsControl._tek_scope.SetTimeBasePosition((test_parameter.ontime_scale_ms / 1000) * 3);
+                        }
+                        else
+                        {
+                            // repeat i2c setting time scale need to reset to deafult
+                            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
+                        }
+
 
                         for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                         {
@@ -351,36 +449,43 @@ namespace SoftStartTiming
                             string file_name;
                             string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                             test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
-                            InsControl._scope.Measure_Clear();
+                            if(!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
                             MyLib.Delay1s(1);
 
-                            // Call Measure display to waveform
-                            for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                            if(InsControl._tek_scope_en)
                             {
-                                if (test_parameter.scope_en[i])
-                                    InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (i + 2).ToString());
+
                             }
-                            // Call Measure display to waveform
-                            for (int i = 0; i < test_parameter.scope_en.Length; i++)
-                            {
-                                if (test_parameter.scope_en[i])
+                            else
+                            {    
+                                // Call Measure display to waveform
+                                for (int i = 0; i < test_parameter.scope_en.Length; i++)
                                 {
-                                    // measure Delta function configure
-                                    // bool isRising1, int start, int level1, bool isRising2, int stop, int level2
-                                    if (!test_parameter.sleep_mode)
-                                    {
-                                        // sleep mode disable: measure point is PWRDIS falling to Rails rising.
-                                        InsControl._scope.SetDeltaTime(false, 1, 0, true, 1, 0);
-                                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
-                                    }
-                                    else
-                                    {
-                                        // sleep mode enable : measure point is Sleep_GPIO rising to Rails rising
-                                        InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 0);
-                                        InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
-                                    }
+                                    if (test_parameter.scope_en[i])
+                                        InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (i + 2).ToString());
                                 }
-                                MyLib.Delay1ms(500);
+                                // Call Measure display to waveform
+                                for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                                {
+                                    if (test_parameter.scope_en[i])
+                                    {
+                                        // measure Delta function configure
+                                        // bool isRising1, int start, int level1, bool isRising2, int stop, int level2
+                                        if (!test_parameter.sleep_mode)
+                                        {
+                                            // sleep mode disable: measure point is PWRDIS falling to Rails rising.
+                                            InsControl._scope.SetDeltaTime(false, 1, 0, true, 1, 0);
+                                            InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
+                                        }
+                                        else
+                                        {
+                                            // sleep mode enable : measure point is Sleep_GPIO rising to Rails rising
+                                            InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 0);
+                                            InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
+                                        }
+                                    }
+                                    MyLib.Delay1ms(500);
+                                }
                             }
 
                             Console.WriteLine(res);
@@ -389,7 +494,17 @@ namespace SoftStartTiming
                                                         test_parameter.VinList[vin_idx]
                                                         );
 
-                            double time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+                            double time_scale = 0;
+
+                            if(InsControl._tek_scope_en)
+                            {
+                                time_scale = InsControl._scope.doQueryNumber("HORizontal:SCAle?");
+                            }
+                            else
+                            {
+                                time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+                            }
+
                             // include test condition
                             Scope_Channel_Resize(vin_idx, binList[bin_idx]);
                             double tempVin = ori_vinTable[vin_idx];

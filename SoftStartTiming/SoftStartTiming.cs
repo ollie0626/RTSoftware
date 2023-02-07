@@ -34,8 +34,6 @@ namespace SoftStartTiming
         public SoftStartTiming()
         {
             InitializeComponent();
-
-
             VisaCommand._IsDebug = false;
         }
 
@@ -79,7 +77,17 @@ namespace SoftStartTiming
         {
             switch (ins_sel)
             {
-                case 0: InsControl._scope = new AgilentOSC(res); break;
+                case 0: 
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope = new TekTronix7Serise(res);
+                    }
+                    else
+                    {
+                        InsControl._scope = new AgilentOSC(res);
+                    }
+                    
+                    break;
                 case 1: InsControl._power = new PowerModule(res); break;
                 case 2: InsControl._eload = new EloadModule(res); break;
                 case 3: InsControl._34970A = new MultiChannelModule(res); break;
@@ -95,12 +103,15 @@ namespace SoftStartTiming
 
         private async void uibt_osc_connect_Click(object sender, EventArgs e)
         {
+
+            BTScan_Click(null, null);
+
             Button bt = (Button)sender;
             int idx = bt.TabIndex;
-            string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C" };
+            string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             // scope idn name keysight DSOS054A DSO9064A  Tek DPO7054C DSO9064A
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < scope_name.Length; i++)
             {
                 if (Device_map.ContainsKey(scope_name[i]))
                 {
@@ -135,12 +146,23 @@ namespace SoftStartTiming
 
         private void check_ins_state()
         {
-            if (InsControl._scope != null)
+            if (InsControl._scope != null || InsControl._tek_scope != null)
             {
-                if (InsControl._scope.InsState())
-                    led_osc.BackColor = Color.LightGreen;
+                if(InsControl._tek_scope_en)
+                {
+                    if (InsControl._tek_scope.InsState())
+                        led_osc.BackColor = Color.LightGreen;
+                    else
+                        led_osc.BackColor = Color.Red;
+                }
                 else
-                    led_osc.BackColor = Color.Red;
+                {
+                    if (InsControl._scope.InsState())
+                        led_osc.BackColor = Color.LightGreen;
+                    else
+                        led_osc.BackColor = Color.Red;
+                }
+
             }
 
             if (InsControl._power != null)
@@ -389,6 +411,7 @@ namespace SoftStartTiming
 
         private void BTScan_Click(object sender, EventArgs e)
         {
+            string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             string[] ins_list = ViCMD.ScanIns();
             if (ins_list == null) return;
             foreach (string ins in ins_list)
@@ -402,6 +425,18 @@ namespace SoftStartTiming
 
                 if (idn.Split(',').Length != 1)
                     name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
+
+                if (idn.Split(',').Length != 1)
+                {
+                    if (idn.Split(',')[0] == "TEKTRONIX")
+                    {
+                        for(int i = 0; i < scope_name.Length; i++)
+                        {
+                            if(name == scope_name[i]) 
+                                InsControl._tek_scope_en = true;
+                        }
+                    }
+                }
 
                 if (Device_map.ContainsKey(name) == false)
                 {
