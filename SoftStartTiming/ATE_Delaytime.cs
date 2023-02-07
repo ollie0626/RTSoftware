@@ -241,8 +241,6 @@ namespace SoftStartTiming
                     break;
                 case 1: // i2c trigger
                     double vout = 0;
-
-
                     InsControl._scope.Meas_CH1MAX();
                     InsControl._scope.TriggerLevel_CH1(vout * 0.35);
                     break;
@@ -295,26 +293,71 @@ namespace SoftStartTiming
                         continue;
                     }
 
-                    double vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
+                    double vmax = 0;
+                    
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SetMeasureSource(ch_idx + 2, 1, "MAXimum");
+                        vmax = InsControl._tek_scope.MeasureMax(1);
+                    }
+                    else
+                        vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
+
+
 
                     if (vmax > Math.Pow(10, 9))
                     {
                         re_cnt++;
-                        InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                        InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
+
+                        if(InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                            InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
+                        }
+                        else
+                        {
+                            InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                            InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
+                        }
                         MyLib.Delay1ms(800);
                         goto re_scale;
                     }
 
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 2.5);
+                    }
+                    else
+                    {
+                        InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
+                        InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
+                    }
 
-                    InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
-                    InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
                     MyLib.Delay1ms(800);
                 }
             }
 
+            for (int i = 0; i < test_parameter.scope_en.Length; i++)
+            {
+                if (test_parameter.scope_en[i])
+                {
+                    if (!test_parameter.sleep_mode)
+                        // pwrdis mode --> falling to rising
+                        InsControl._tek_scope.SetMeasureDelay(i + 1, 1, i + 2, false);
+                    else
+                        // sleep mode --> rising to falling
+                        InsControl._tek_scope.SetMeasureDelay(i + 1, 1, i + 2);
+                }
+            }
+
             PowerOffEvent();
-            InsControl._scope.TimeScale(time_scale);
+
+            if (InsControl._tek_scope_en)
+                InsControl._tek_scope.SetTimeScale(time_scale);
+            else
+                InsControl._scope.TimeScale(time_scale);
+
+
             MyLib.Delay1ms(250);
         }
 
@@ -452,11 +495,8 @@ namespace SoftStartTiming
                             if(!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
                             MyLib.Delay1s(1);
 
-                            if(InsControl._tek_scope_en)
-                            {
 
-                            }
-                            else
+                            if (!InsControl._tek_scope_en)
                             {    
                                 // Call Measure display to waveform
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
@@ -514,13 +554,20 @@ namespace SoftStartTiming
                             if (retry_cnt > 3)
                             {
                                 _sheet.Cells[row, XLS_Table.F] = "sATE test fail_" + res;
-                                InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                                if (InsControl._tek_scope_en)
+                                    InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                                else
+                                    InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+
                                 retry_cnt = 0;
                                 row++;
                                 continue;
                             }
 
-                            InsControl._scope.NormalTrigger();
+                            if (InsControl._tek_scope_en)
+                                InsControl._tek_scope.SetTriggerMode(false);
+                            else
+                                InsControl._scope.NormalTrigger();
                             MyLib.Delay1ms(800);
 
                             // power on trigger
@@ -528,16 +575,29 @@ namespace SoftStartTiming
                             {
                                 case 0:
                                     // GPIO trigger event
-                                    InsControl._scope.Root_Clear();
+                                    if (InsControl._tek_scope_en)
+                                        InsControl._tek_scope.SetClear();
+                                    else
+                                        InsControl._scope.Root_Clear();
+
+
                                     if (test_parameter.sleep_mode)
                                     {
-                                        InsControl._scope.SetTrigModeEdge(false);
+                                        if (InsControl._tek_scope_en)
+                                            InsControl._tek_scope.SetTriggerRise();
+                                        else
+                                            InsControl._scope.SetTrigModeEdge(false);
+
                                         MyLib.Delay1ms(800);
                                         GpioOnSelect(test_parameter.gpio_pin);
                                     }
                                     else
                                     {
-                                        InsControl._scope.SetTrigModeEdge(true);
+                                        if (InsControl._tek_scope_en)
+                                            InsControl._tek_scope.SetTriggerFall();
+                                        else
+                                            InsControl._scope.SetTrigModeEdge(true);
+
                                         MyLib.Delay1ms(1000);
                                         GpioOffSelect(test_parameter.gpio_pin);
                                     }
@@ -553,13 +613,29 @@ namespace SoftStartTiming
                                     MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                                     break;
                             }
-                            InsControl._scope.Root_STOP();
+
+                            if (InsControl._tek_scope_en)
+                                InsControl._tek_scope.SetStop();
+                            else
+                                InsControl._scope.Root_STOP();
+
                             MyLib.Delay1s(1);
 
-                            time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
-                            string reslult_lits = InsControl._scope.doQeury(":MEASure:RESults?");
-                            List<double> delay_time = reslult_lits.Split(',').Select(double.Parse).ToList();
-                            double time_scale_threshold = (time_scale * 5);
+
+
+                            if (InsControl._tek_scope_en)
+                                time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
+                            else
+                                time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+
+                            string reslult_lits = "";
+                            List<double> delay_time = new List<double>();
+                            double time_scale_threshold = 0;
+
+
+                            reslult_lits = InsControl._scope.doQeury(":MEASure:RESults?");
+                            delay_time = reslult_lits.Split(',').Select(double.Parse).ToList();                           
+                            time_scale_threshold = (time_scale * 5);
 
                             int marker_idx = 0;
                             for (int i = 0; i < test_parameter.scope_en.Length; i++)

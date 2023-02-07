@@ -279,6 +279,25 @@ namespace InsLibDotNet
             DoCommand(cmd);
         }
 
+        public void SetMeasureDelay(int meas, int ch1, int ch2,
+            bool _fist_edge_rising = true, bool _second_edge_rising = true)
+        {
+            string cmd = "";
+
+            cmd = string.Format("MEASUrement:MEAS{0}:TYPe DELay", meas);
+            DoCommand(cmd);
+            cmd = string.Format("MEASUrement:MEAS{0}::SOUrce1 CH{1}", meas, ch1);
+            DoCommand(cmd);
+            cmd = string.Format("MEASUrement:MEAS{0}::SOUrce2 CH{1}", meas, ch2);
+            DoCommand(cmd);
+            cmd = string.Format("MEASUrement:MEAS{0}:DELay:EDGE1 {1};EDGE2 {2}",
+                meas, _fist_edge_rising ? "RISe" : "FALL", _second_edge_rising ? "RISe" : "FALL");
+            DoCommand(cmd);
+            cmd = string.Format("MEASUrement:MEAS{0}:STATE ON");
+            DoCommand(cmd);
+                 
+        }
+
         public double MeasureMean(int num)
         {
             string cmd = "";

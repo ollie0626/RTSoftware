@@ -78,7 +78,6 @@ namespace IN528ATE_tool
                 vout = InsControl._scope.Meas_CH2MAX();
                 MyLib.Delay1ms(500);
                 InsControl._scope.CH2_Level(vout / 3);
-                
                 MyLib.WaveformCheck();
             }
             double period = InsControl._scope.Meas_CH4Period();
