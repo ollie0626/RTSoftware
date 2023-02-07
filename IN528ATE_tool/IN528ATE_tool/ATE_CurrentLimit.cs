@@ -63,7 +63,7 @@ namespace IN528ATE_tool
             // Channel1: Vout
             // Channel2: Lx
             // Channel4: ILx
-            vout = InsControl._scope.Meas_CH1MAX();
+            vout = InsControl._scope.Meas_CH2MAX();
             InsControl._scope.TriggerLevel_CH2(vout * 0.6);
             ILx = InsControl._scope.Meas_CH4AVG(); // ILX
             InsControl._scope.CH4_Level(ILx / 3);
