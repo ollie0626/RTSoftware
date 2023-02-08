@@ -90,9 +90,9 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_BWlimitOn(4);
 
                 InsControl._tek_scope.CHx_Position(1, 0);
-                InsControl._tek_scope.CHx_Position(2, 1);
-                InsControl._tek_scope.CHx_Position(3, 2);
-                InsControl._tek_scope.CHx_Position(4, 3);
+                InsControl._tek_scope.CHx_Position(2, -1);
+                InsControl._tek_scope.CHx_Position(3, -2);
+                InsControl._tek_scope.CHx_Position(4, -3);
 
                 for(int i = 0; i < test_parameter.scope_en.Length; i++)
                 {
@@ -187,7 +187,15 @@ namespace SoftStartTiming
 
         private void Scope_Channel_Resize(int idx, string path)
         {
-            InsControl._scope.AutoTrigger();
+            if(InsControl._tek_scope_en)
+            {
+                InsControl._tek_scope.SetTriggerMode();
+            }
+            else
+            {
+                InsControl._scope.AutoTrigger();
+            }
+            
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
             //MyLib.Delay1ms(800);
@@ -195,7 +203,7 @@ namespace SoftStartTiming
             double time_scale = 0; 
             if(InsControl._tek_scope_en)
             {
-                time_scale = InsControl._scope.doQueryNumber("HORizontal:SCAle?");
+                time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
             }
             else
             {
@@ -205,7 +213,7 @@ namespace SoftStartTiming
 
             if(InsControl._tek_scope_en)
             {
-                InsControl._tek_scope.SetTimeScale((1 / Math.Pow(10, -6)));
+                InsControl._tek_scope.SetTimeScale((1 * Math.Pow(10, -6)));
             }
             else
             {
@@ -266,7 +274,7 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
-                        InsControl._tek_scope.CHx_Position(i + 2, i + 1);
+                        InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
                     }
                     else
                     {
@@ -453,7 +461,7 @@ namespace SoftStartTiming
                         if(InsControl._tek_scope_en)
                         {
                             InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                            InsControl._tek_scope.SetTimeBasePosition((test_parameter.ontime_scale_ms / 1000) * 3);
+                            InsControl._tek_scope.SetTimeBasePosition(40);
                         }
                         else
                         {
@@ -751,7 +759,7 @@ namespace SoftStartTiming
                                         MyLib.Delay1ms(250);
                                         PowerOffEvent();
                                         InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                                        InsControl._tek_scope.SetTimeBasePosition((test_parameter.ontime_scale_ms / 1000) * 3);
+                                        InsControl._tek_scope.SetTimeBasePosition(40);
                                     }
                                     else
                                     {
@@ -775,7 +783,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(temp);
-                                        InsControl._tek_scope.SetTimeBasePosition(temp * 3);
+                                        InsControl._tek_scope.SetTimeBasePosition(40);
                                     }
                                     else
                                     {
@@ -788,7 +796,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                                        InsControl._tek_scope.SetTimeBasePosition((test_parameter.ontime_scale_ms / 1000) * 3);
+                                        InsControl._tek_scope.SetTimeBasePosition(40);
                                     }
                                     else
                                     {
@@ -816,7 +824,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(sst_res);
-                                        InsControl._tek_scope.SetTimeBasePosition(sst_res * 3);
+                                        InsControl._tek_scope.SetTimeBasePosition(40);
                                     }
                                     else
                                     {
@@ -830,7 +838,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
-                                        InsControl._tek_scope.SetTimeBasePosition((delay_time_res / 2) * 3);
+                                        InsControl._tek_scope.SetTimeBasePosition(40);
                                         InsControl._tek_scope.SetRun();
                                     }
                                     else
