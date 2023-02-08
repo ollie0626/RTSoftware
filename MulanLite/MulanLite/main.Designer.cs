@@ -771,6 +771,7 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
+            this.groupBox39 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -1150,6 +1151,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).BeginInit();
             this.uiGroupBox5.SuspendLayout();
+            this.groupBox39.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -10405,6 +10407,7 @@ namespace MulanLite
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.groupBox39);
             this.tabPage4.Controls.Add(this.uibt_exit_testmode);
             this.tabPage4.Controls.Add(this.bt_virus_pattern);
             this.tabPage4.Controls.Add(this.groupBox36);
@@ -11115,11 +11118,6 @@ namespace MulanLite
             // 
             // R98
             // 
-            this.R98.Controls.Add(this.uiButton14);
-            this.R98.Controls.Add(this.uiButton13);
-            this.R98.Controls.Add(this.uiButton12);
-            this.R98.Controls.Add(this.uiButton11);
-            this.R98.Controls.Add(this.uiButton10);
             this.R98.Controls.Add(this.label133);
             this.R98.Controls.Add(this.by_tm_read_to_write);
             this.R98.Controls.Add(this.uiButton9);
@@ -11159,7 +11157,7 @@ namespace MulanLite
             // 
             this.uiButton14.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton14.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton14.Location = new System.Drawing.Point(340, 325);
+            this.uiButton14.Location = new System.Drawing.Point(14, 166);
             this.uiButton14.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton14.Name = "uiButton14";
             this.uiButton14.Size = new System.Drawing.Size(84, 29);
@@ -11172,7 +11170,7 @@ namespace MulanLite
             // 
             this.uiButton13.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton13.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton13.Location = new System.Drawing.Point(340, 290);
+            this.uiButton13.Location = new System.Drawing.Point(14, 131);
             this.uiButton13.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton13.Name = "uiButton13";
             this.uiButton13.Size = new System.Drawing.Size(84, 29);
@@ -11185,7 +11183,7 @@ namespace MulanLite
             // 
             this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton12.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton12.Location = new System.Drawing.Point(340, 255);
+            this.uiButton12.Location = new System.Drawing.Point(14, 96);
             this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton12.Name = "uiButton12";
             this.uiButton12.Size = new System.Drawing.Size(84, 29);
@@ -11198,7 +11196,7 @@ namespace MulanLite
             // 
             this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton11.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton11.Location = new System.Drawing.Point(340, 220);
+            this.uiButton11.Location = new System.Drawing.Point(14, 61);
             this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton11.Name = "uiButton11";
             this.uiButton11.Size = new System.Drawing.Size(84, 29);
@@ -11211,7 +11209,7 @@ namespace MulanLite
             // 
             this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.uiButton10.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton10.Location = new System.Drawing.Point(340, 185);
+            this.uiButton10.Location = new System.Drawing.Point(14, 26);
             this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiButton10.Name = "uiButton10";
             this.uiButton10.Size = new System.Drawing.Size(84, 29);
@@ -12347,6 +12345,20 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
+            // groupBox39
+            // 
+            this.groupBox39.Controls.Add(this.uiButton10);
+            this.groupBox39.Controls.Add(this.uiButton14);
+            this.groupBox39.Controls.Add(this.uiButton11);
+            this.groupBox39.Controls.Add(this.uiButton12);
+            this.groupBox39.Controls.Add(this.uiButton13);
+            this.groupBox39.Location = new System.Drawing.Point(463, 48);
+            this.groupBox39.Name = "groupBox39";
+            this.groupBox39.Size = new System.Drawing.Size(130, 204);
+            this.groupBox39.TabIndex = 149;
+            this.groupBox39.TabStop = false;
+            this.groupBox39.Text = "COMM Fault Event";
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -12771,6 +12783,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).EndInit();
             this.uiGroupBox5.ResumeLayout(false);
             this.uiGroupBox5.PerformLayout();
+            this.groupBox39.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -13517,6 +13530,7 @@ namespace MulanLite
         private Sunny.UI.UIButton uiButton12;
         private Sunny.UI.UIButton uiButton14;
         private Sunny.UI.UIButton uiButton13;
+        private System.Windows.Forms.GroupBox groupBox39;
     }
 }
 

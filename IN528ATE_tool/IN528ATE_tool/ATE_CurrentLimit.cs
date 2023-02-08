@@ -236,6 +236,7 @@ namespace IN528ATE_tool
                     MyLib.Delay1s(2);
                     InsControl._scope.NormalTrigger();
                     InsControl._power.AutoPowerOff();
+                    MyLib.Delay1s(2);
                     //MyLib.WaveformCheck();
                     double offset = InsControl._scope.doQueryNumber(":CHAN4:OFFSet?");
                     InsControl._scope.CH4_Offset(offset);
