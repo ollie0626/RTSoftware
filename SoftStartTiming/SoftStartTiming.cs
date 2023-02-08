@@ -411,6 +411,7 @@ namespace SoftStartTiming
 
         private void BTScan_Click(object sender, EventArgs e)
         {
+            list_ins.Items.Clear();
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             string[] ins_list = ViCMD.ScanIns();
             if (ins_list == null) return;

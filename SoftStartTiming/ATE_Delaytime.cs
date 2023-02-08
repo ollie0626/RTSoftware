@@ -528,7 +528,7 @@ namespace SoftStartTiming
 
                             if(InsControl._tek_scope_en)
                             {
-                                time_scale = InsControl._scope.doQueryNumber("HORizontal:SCAle?");
+                                time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
                             }
                             else
                             {
@@ -538,7 +538,7 @@ namespace SoftStartTiming
                             // include test condition
                             Scope_Channel_Resize(vin_idx, binList[bin_idx]);
                             double tempVin = ori_vinTable[vin_idx];
-                            MyLib.WaveformCheck();
+                            if(!InsControl._tek_scope_en) MyLib.WaveformCheck();
                         retest:;
 
                             if (retry_cnt > 3)
