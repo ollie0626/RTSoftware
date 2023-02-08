@@ -10,11 +10,6 @@ namespace InsLibDotNet
     public class TekTronix7Serise : VisaCommand
     {
 
-        string CH1 = "CH1";
-        string CH2 = "CH2";
-        string CH3 = "CH3";
-        string CH4 = "CH4";
-
         public TekTronix7Serise(string Addr)
         {
             LinkingIns(Addr);
@@ -56,8 +51,8 @@ namespace InsLibDotNet
 
         public void SaveWaveform(string path, string filename)
         {
-            string buf = path.Substring(path.Length - 1, 1) == @"/" ? path.Substring(0, path.Length - 1) : path;
-            buf = buf + @"/" + filename + ".png";
+            string buf = path.Substring(path.Length - 1, 1) == @"\" ? path.Substring(0, path.Length - 1) : path;
+            buf = buf + @"\" + filename + ".png";
 
             string waveFmt = "EXP:FORM PNG";
             doCommand(waveFmt);
@@ -255,8 +250,6 @@ namespace InsLibDotNet
             DoCommand(cmd);
         }
 
-
-
         /*
             MEASUrement:MEAS<x>:TYPe {AMPlitude|AREa|
             BURst|CARea|CMEan|CRMs|DELay|DISTDUty|
@@ -269,6 +262,7 @@ namespace InsLibDotNet
             RISe|RMS|RMSJitter|RMSNoise|SIGMA1|SIGMA2|
             SIGMA3|SIXSigmajit|SNRatio|STDdev|UNDEFINED| WAVEFORMS}         
          */
+
         public void SetMeasureSource(int ch, int meas, string type)
         {
             string cmd = "";
@@ -277,6 +271,97 @@ namespace InsLibDotNet
 
             cmd = string.Format("MEASUrement:MEAS{0}:TYPe {1}", meas, type);
             DoCommand(cmd);
+
+            cmd = string.Format("MEASUrement:MEAS{0}:STATE ON", meas);
+            DoCommand(cmd);
+        }
+
+        public double CHx_Meas_AMP(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "AMPlitude");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_MAX(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "MAXimum");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_MIN(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "MINImum");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Mean(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "MEAN");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_High(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "HIGH");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Low(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "LOW");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Rise(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "RISe");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Fall(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "FALL");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Freq(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "FREQuency");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_Period(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "PERIod");
+            res = MeasureMean(meas);
+            return res;
+        }
+
+        public double CHx_Meas_VPP(int ch, int meas)
+        {
+            double res = 0;
+            SetMeasureSource(ch, meas, "PK2Pk");
+            res = MeasureMean(meas);
+            return res;
         }
 
         public void SetMeasureDelay(int meas, int ch1, int ch2,
@@ -293,7 +378,7 @@ namespace InsLibDotNet
             cmd = string.Format("MEASUrement:MEAS{0}:DELay:EDGE1 {1};EDGE2 {2}",
                 meas, _fist_edge_rising ? "RISe" : "FALL", _second_edge_rising ? "RISe" : "FALL");
             DoCommand(cmd);
-            cmd = string.Format("MEASUrement:MEAS{0}:STATE ON");
+            cmd = string.Format("MEASUrement:MEAS{0}:STATE ON", meas);
             DoCommand(cmd);
                  
         }
