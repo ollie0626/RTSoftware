@@ -108,6 +108,11 @@ namespace SoftStartTiming
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:LOW 1");
 
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID2 10");
+
+                InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
+                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                
+
             }
             else
             {
@@ -185,6 +190,8 @@ namespace SoftStartTiming
                 InsControl._scope.DoCommand(":MEASure:STATistics CURRent");
             }
 
+            
+
         }
 
         private void Scope_Channel_Resize(int idx, string path)
@@ -201,7 +208,7 @@ namespace SoftStartTiming
                 InsControl._scope.AutoTrigger();
             }
             
-            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            //InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
             //MyLib.Delay1ms(800);
 
@@ -355,7 +362,10 @@ namespace SoftStartTiming
             PowerOffEvent();
 
             if (InsControl._tek_scope_en)
+            {
                 InsControl._tek_scope.SetTimeScale(time_scale);
+                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+            }
             else
                 InsControl._scope.TimeScale(time_scale);
 
@@ -385,7 +395,7 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
-            InsControl._power.AutoPowerOff();
+            //InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -471,6 +481,7 @@ namespace SoftStartTiming
                         if(InsControl._tek_scope_en)
                         {
                             InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                             InsControl._tek_scope.SetTimeBasePosition(40);
                         }
                         else
@@ -555,7 +566,10 @@ namespace SoftStartTiming
                             {
                                 _sheet.Cells[row, XLS_Table.F] = "sATE test fail_" + res;
                                 if (InsControl._tek_scope_en)
+                                {
                                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                                    InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                }
                                 else
                                     InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
 
@@ -786,6 +800,7 @@ namespace SoftStartTiming
                                         MyLib.Delay1ms(250);
                                         PowerOffEvent();
                                         InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._tek_scope.SetTimeBasePosition(15);
                                     }
                                     else
@@ -810,6 +825,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(temp);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._tek_scope.SetTimeBasePosition(15);
                                     }
                                     else
@@ -823,6 +839,7 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._tek_scope.SetTimeBasePosition(15);
                                     }
                                     else
@@ -851,11 +868,13 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(sst_res);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._tek_scope.SetTimeBasePosition(15);
                                     }
                                     else
                                     {
                                         InsControl._scope.TimeScale(sst_res);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._scope.TimeBasePosition(sst_res * 3);
                                     }
 
@@ -865,12 +884,14 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._tek_scope.SetTimeBasePosition(15);
                                         InsControl._tek_scope.SetRun();
                                     }
                                     else
                                     {
                                         InsControl._scope.TimeScale(delay_time_res / 2);
+                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                         InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
                                         InsControl._scope.Root_RUN();
                                     }
@@ -889,10 +910,10 @@ namespace SoftStartTiming
                             }
                             
 #if true
-                            double vin, dt1 = 0, dt2 = 0, dt3 = 0, sst1 = 0, sst2 = 0, sst3 = 0;
+                            double vin = 0, dt1 = 0, dt2 = 0, dt3 = 0, sst1 = 0, sst2 = 0, sst3 = 0;
                             double vmax = 0, vmin = 0;
                             double vtop = 0, vbase = 0;
-                            vin = InsControl._power.GetVoltage();
+                            //vin = InsControl._power.GetVoltage();
 
                             _sheet.Cells[row, XLS_Table.D] = cnt++;
                             _sheet.Cells[row, XLS_Table.E] = temp;
@@ -983,10 +1004,10 @@ namespace SoftStartTiming
                                 {
                                     if (!test_parameter.sleep_mode)
                                         // pwrdis mode --> falling to rising
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false);
+                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false);
                                     else
                                         // sleep mode --> rising to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
+                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 3);
 
                                     dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
@@ -1016,10 +1037,10 @@ namespace SoftStartTiming
                                 {
                                     if (!test_parameter.sleep_mode)
                                         // pwrdis mode --> falling to rising
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false);
+                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false);
                                     else
                                         // sleep mode --> rising to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
+                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 4);
 
                                     dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
