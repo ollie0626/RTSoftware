@@ -692,7 +692,7 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.DoCommand("CURSor:STATE ON");
 
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
-                                double data = InsControl._tek_scope.MeasureMean(1);
+                                double data = InsControl._tek_scope.MeasureMean(select_idx + 1);
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
 
 
@@ -954,7 +954,7 @@ namespace SoftStartTiming
                                         // sleep mode --> rising to falling
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
 
-                                    dt1 = InsControl._tek_scope.MeasureMean(8);
+                                    dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, 8);
                                     vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
                                     vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
@@ -985,7 +985,7 @@ namespace SoftStartTiming
                                         // sleep mode --> rising to falling
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
 
-                                    dt2 = InsControl._tek_scope.MeasureMean(8);
+                                    dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
                                     vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
                                     vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
@@ -1018,7 +1018,7 @@ namespace SoftStartTiming
                                         // sleep mode --> rising to falling
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
 
-                                    dt3 = InsControl._tek_scope.MeasureMean(8);
+                                    dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
                                     vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
                                     vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);

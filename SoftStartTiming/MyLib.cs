@@ -231,6 +231,7 @@ namespace SoftStartTiming
 
         public static void WaveformCheck()
         {
+            if (InsControl._tek_scope_en) return;
             timer.Start();
             InsControl._scope.DoCommand("*CLS");
             while (!(InsControl._scope.doQeury(":ADER?") == "+1\n"))
@@ -250,6 +251,7 @@ namespace SoftStartTiming
 
         public static void ProcessCheck()
         {
+            if (InsControl._tek_scope_en) return;
             timer.Start();
             InsControl._scope.DoCommand("*CLS");
             while (!(InsControl._scope.doQeury(":PDER?") == "+1\n"))
