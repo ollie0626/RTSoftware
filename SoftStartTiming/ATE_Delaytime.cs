@@ -687,15 +687,18 @@ namespace SoftStartTiming
 
                                 InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
                                 InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH1");
+                                MyLib.Delay1ms(100);
                                 InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH2");
+                                MyLib.Delay1ms(100);
                                 InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                                MyLib.Delay1ms(100);
                                 InsControl._tek_scope.DoCommand("CURSor:STATE ON");
-
+                                MyLib.Delay1ms(100);
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
                                 double data = InsControl._tek_scope.MeasureMean(select_idx + 1);
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
-
-
+                                MyLib.Delay1ms(100);
+                                MyLib.Delay1s(1);
 
                             }
 

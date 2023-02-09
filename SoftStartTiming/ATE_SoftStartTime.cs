@@ -91,9 +91,9 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
 
                 InsControl._tek_scope.CHx_Position(1, 0);
-                InsControl._tek_scope.CHx_Position(2, 1);
-                InsControl._tek_scope.CHx_Position(3, 2);
-                InsControl._tek_scope.CHx_Position(4, 3);
+                InsControl._tek_scope.CHx_Position(2, -1);
+                InsControl._tek_scope.CHx_Position(3, -2);
+                InsControl._tek_scope.CHx_Position(4, -3);
 
                 InsControl._tek_scope.CHx_BWlimitOn(1);
                 InsControl._tek_scope.CHx_BWlimitOn(2);
@@ -151,7 +151,7 @@ namespace SoftStartTiming
                 InsControl._scope.AutoTrigger();
             }
 
-            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            //InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
 
             double time_scale = 0;
@@ -236,7 +236,7 @@ namespace SoftStartTiming
                 InsControl._scope.CHx_Offset(4, 0);
             }
 
-            MyLib.Delay1s(1);
+            MyLib.Delay1s(3);
 
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < 3; ch_idx++)
@@ -293,7 +293,7 @@ namespace SoftStartTiming
             if(InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.SetTriggerSource(2);
-                trigger_level = InsControl._tek_scope.CHx_Meas_MAX(2, 1) * 0.3;
+                trigger_level = InsControl._tek_scope.CHx_Meas_MAX(2, 1) * 0.1;
                 InsControl._tek_scope.SetTriggerLevel(trigger_level);
             }
             else
@@ -344,7 +344,7 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
-            InsControl._power.AutoPowerOff();
+            //InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -532,7 +532,11 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en) delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
                     else delay_time = InsControl._scope.Meas_CH2Rise();
 
-                    double temp_time = (delay_time) / 3.5;
+                    double temp_time = 0;
+                    if (InsControl._tek_scope_en)
+                        temp_time = (delay_time / 4);
+                    else
+                        temp_time = (delay_time) / 3.5;
 
                     if(InsControl._tek_scope_en)
                     {
@@ -587,12 +591,10 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetStop();
-                        InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     }
                     else
                     {
                         InsControl._scope.Root_STOP();
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     }
 
 #if true
@@ -601,12 +603,28 @@ namespace SoftStartTiming
 
                     if(InsControl._tek_scope_en)
                     {
-                        vin         = InsControl._power.GetVoltage();
-                        sst         = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                        //vin         = InsControl._power.GetVoltage();
+                        sst         = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
                         vmax        = InsControl._tek_scope.CHx_Meas_MAX(2, 2);  
                         vmin        = InsControl._tek_scope.CHx_Meas_MIN(2, 3);  
                         ilx_max     = InsControl._tek_scope.CHx_Meas_MIN(4, 4);  
                         ilx_min     = InsControl._tek_scope.CHx_Meas_MIN(4, 5);
+
+                        InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
+                        InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH2");
+                        MyLib.Delay1ms(100);
+                        InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH2");
+                        MyLib.Delay1ms(100);
+                        InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                        MyLib.Delay1ms(100);
+                        InsControl._tek_scope.DoCommand("CURSor:STATE ON");
+                        MyLib.Delay1ms(100);
+
+                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
+                        MyLib.Delay1ms(100);
+                        double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
+                        MyLib.Delay1ms(100);
+                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
                     }
                     else
                     {
@@ -618,8 +636,15 @@ namespace SoftStartTiming
                         ilx_max = data[3] * Math.Pow(10, -3);
                         ilx_min = data[4] * Math.Pow(10, -3);
                     }
-
-
+                    MyLib.Delay1s(1);
+                    if (InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                    }
+                    else
+                    {
+                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                    }
                     _sheet.Cells[row, XLS_Table.D] = cnt++;
                     _sheet.Cells[row, XLS_Table.E] = temp;
                     _sheet.Cells[row, XLS_Table.F] = vin;

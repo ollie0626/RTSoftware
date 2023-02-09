@@ -225,6 +225,7 @@ public class ViCMD
         visa32.viOpenDefaultRM(out Rm);
         //GPIB?*INSTR
         visa32.viFindRsrc(Rm, "GPIB?*INSTR", out vi, out retCount, Desc);
+        //visa32.viFindRsrc(Rm, "?*INSTR", out vi, out retCount, Desc);
         string[] InsList = null;
         if (retCount > 0)
         {
