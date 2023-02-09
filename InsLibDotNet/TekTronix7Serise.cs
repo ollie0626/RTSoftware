@@ -38,6 +38,7 @@ namespace InsLibDotNet
         public void DoCommand(string cmd)
         {
             doCommand(cmd);
+            System.Threading.Thread.Sleep(100);
         }
         public string doQuery(string cmd)
         {
@@ -60,13 +61,13 @@ namespace InsLibDotNet
             string portFile = "HARDCopy:PORT FILE";
             doCommand(portFile);
 
-            string hard_Cp_FileName = "HARDCopy:FILEName " + @"""C:\scope.png"""; /* scope can't save C:\ directly */
+            string hard_Cp_FileName = "HARDCopy:FILEName " + @"""C:\\TekScope\\scope.png"""; /* scope can't save C:\ directly */
             doCommand(hard_Cp_FileName);
 
             string hard_Cp_Start = "HARDCopy STARt";
             doCommand(hard_Cp_Start);
 
-            string FileSystem_ReadFile = "FILESystem:READFile " + @"""C:\scope.png""";
+            string FileSystem_ReadFile = "FILESystem:READFile " + @"""C:\\TekScope\\scope.png""";
             doCommand(FileSystem_ReadFile);
 
 #if DEBUG
@@ -266,7 +267,7 @@ namespace InsLibDotNet
         public void SetMeasureSource(int ch, int meas, string type)
         {
             string cmd = "";
-            cmd = string.Format("MEASUrement:MEAS{1}:SOUrce{0}", meas, ch);
+            cmd = string.Format("MEASUrement:MEAS{1}:SOUrce1 CH{0}", ch, meas);
             DoCommand(cmd);
 
             cmd = string.Format("MEASUrement:MEAS{0}:TYPe {1}", meas, type);
@@ -371,9 +372,9 @@ namespace InsLibDotNet
 
             cmd = string.Format("MEASUrement:MEAS{0}:TYPe DELay", meas);
             DoCommand(cmd);
-            cmd = string.Format("MEASUrement:MEAS{0}::SOUrce1 CH{1}", meas, ch1);
+            cmd = string.Format("MEASUrement:MEAS{0}:SOUrce1 CH{1}", meas, ch1);
             DoCommand(cmd);
-            cmd = string.Format("MEASUrement:MEAS{0}::SOUrce2 CH{1}", meas, ch2);
+            cmd = string.Format("MEASUrement:MEAS{0}:SOUrce2 CH{1}", meas, ch2);
             DoCommand(cmd);
             cmd = string.Format("MEASUrement:MEAS{0}:DELay:EDGE1 {1};EDGE2 {2}",
                 meas, _fist_edge_rising ? "RISe" : "FALL", _second_edge_rising ? "RISe" : "FALL");
