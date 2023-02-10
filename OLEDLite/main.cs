@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.5";
+        private static string ver = "v1.5b";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -73,7 +73,7 @@ namespace OLEDLite
             //RB_ASwire.Checked = true;
             ATEItemInit();
 
-            Console.WriteLine("test \"string test\"");
+            //Console.WriteLine("test \"string test\"");
         }
 
         private void ATEItemInit()
