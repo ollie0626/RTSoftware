@@ -127,11 +127,21 @@ namespace InsLibDotNet
                     doCommand(cmd);
                     MeasCur = "MEAS:CURRent:DC?";
                     break;
+                case 6:
+                    cmd = "FUNC \"CURR\"";
+                    doCommand(cmd);
+                    cmd = "SENS:CURR:RANG:AUTO ON";
+                    doCommand(cmd);
+                    MeasCur = "MEAS:CURRent:DC?";
+                    break;
                 default:
                     MeasCur = "MEAS:CURR:DC?";
                     break;
             }
-            return doQueryNumber(MeasCur) * 1000;
+            if (level <= 3)
+                return doQueryNumber(MeasCur) * 1000;
+            else
+                return doQueryNumber(MeasCur);
         }
     }
 }
