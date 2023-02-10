@@ -61,6 +61,7 @@
     <Compile Include="EloadModule.cs" />
     <Compile Include="FuncGenModule.cs" />
     <Compile Include="MultiChannelModule.cs" />
+    <Compile Include="OscilloscopesModule.cs" />
     <Compile Include="PowerModule.cs" />
     <Compile Include="PowerN6705.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
