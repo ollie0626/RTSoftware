@@ -194,6 +194,12 @@ namespace OLEDLite
                             case 2: // 400mA level
                                 Iin = InsControl._dmm1.GetCurrent(1);
                                 break;
+                            case 3: // DMM6500 10A
+                                Iin = InsControl._dmm1.GetCurrent(4);
+                                break;
+                            case 4: // DMM6500 400mA
+                                Iin = InsControl._dmm1.GetCurrent(5);
+                                break;
                         }
 
                         // Io12, Io3, Io4

@@ -74,6 +74,9 @@ namespace SoftStartTiming
             if (InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
+                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+
                 InsControl._tek_scope.SetTimeBasePosition(25);
                 InsControl._tek_scope.SetRun();
                 InsControl._tek_scope.SetTriggerMode();
@@ -311,6 +314,7 @@ namespace SoftStartTiming
             {
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                 InsControl._tek_scope.SetTimeBasePosition(25);
+                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             }
             else
             {
@@ -412,6 +416,7 @@ namespace SoftStartTiming
                 if(InsControl._tek_scope_en)
                 {
                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                    InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.SetTimeBasePosition(25);
                 }
                 else
@@ -541,6 +546,7 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetTimeScale(temp_time);
+                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     }
                     else
                     {

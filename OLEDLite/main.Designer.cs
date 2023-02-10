@@ -1124,7 +1124,9 @@ namespace OLEDLite
             this.CBIinSelect.Items.AddRange(new object[] {
             resources.GetString("CBIinSelect.Items"),
             resources.GetString("CBIinSelect.Items1"),
-            resources.GetString("CBIinSelect.Items2")});
+            resources.GetString("CBIinSelect.Items2"),
+            resources.GetString("CBIinSelect.Items3"),
+            resources.GetString("CBIinSelect.Items4")});
             this.CBIinSelect.Name = "CBIinSelect";
             // 
             // label32

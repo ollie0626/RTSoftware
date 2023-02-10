@@ -98,6 +98,7 @@ namespace InsLibDotNet
         public double GetCurrent(int level, double customer = 0.4)
         {
             string MeasCur = "";
+            string cmd = "";
             switch (level)
             {
                 case 0:
@@ -111,6 +112,20 @@ namespace InsLibDotNet
                     break;
                 case 3:
                     MeasCur = "MEAS:CURR:DC? 10";
+                    break;
+                case 4: // DMM6500
+                    cmd = "FUNC \"CURR\"";
+                    doCommand(cmd);
+                    cmd = "SENS:CURR:RANG 10";
+                    doCommand(cmd);
+                    MeasCur = "MEAS:CURRent:DC?";
+                    break;
+                case 5: // DMM6500
+                    cmd = "FUNC \"CURR\"";
+                    doCommand(cmd);
+                    cmd = "SENS:CURR:RANG 3";
+                    doCommand(cmd);
+                    MeasCur = "MEAS:CURRent:DC?";
                     break;
                 default:
                     MeasCur = "MEAS:CURR:DC?";

@@ -2659,13 +2659,19 @@
     <value>新細明體, 9pt, style=Bold</value>
   </data>
   <data name="CBIinSelect.Items" xml:space="preserve">
-    <value>Tek : DMM4050</value>
+    <value>Tek : DMM4050_10A</value>
   </data>
   <data name="CBIinSelect.Items1" xml:space="preserve">
     <value>Read Power Supply</value>
   </data>
   <data name="CBIinSelect.Items2" xml:space="preserve">
     <value>Tek : DMM4050_400mA</value>
+  </data>
+  <data name="CBIinSelect.Items3" xml:space="preserve">
+    <value>Tek : DMM6500_10A</value>
+  </data>
+  <data name="CBIinSelect.Items4" xml:space="preserve">
+    <value>Tek : DMM6500_3A</value>
   </data>
   <data name="CBIinSelect.Location" type="System.Drawing.Point, System.Drawing">
     <value>272, 22</value>

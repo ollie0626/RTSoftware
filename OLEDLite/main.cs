@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.4";
+        private static string ver = "v1.5";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -72,6 +72,8 @@ namespace OLEDLite
             swireTable.Columns[1].Width = 150;
             //RB_ASwire.Checked = true;
             ATEItemInit();
+
+            Console.WriteLine("test \"string test\"");
         }
 
         private void ATEItemInit()
@@ -243,6 +245,12 @@ namespace OLEDLite
 
             // fix iout different channel
             test_parameter.eload_ch_select = CBEload.SelectedIndex;
+
+            //0 Tek: DMM4050
+            //1 Read Power Supply
+            //2 Tek: DMM4050_400mA
+            //3 Tek : DMM6500
+            //4 Tek : DMM6500_400mA
             test_parameter.eload_iin_select = CBIinSelect.SelectedIndex;
             test_parameter.eload_en = new bool[4] { ck_ch1_en.Checked,
                                                     ck_ch2_en.Checked,
