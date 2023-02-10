@@ -76,6 +76,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                 InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
                 InsControl._tek_scope.SetTimeBasePosition(25);
                 InsControl._tek_scope.SetRun();
@@ -239,7 +240,7 @@ namespace SoftStartTiming
                 InsControl._scope.CHx_Offset(4, 0);
             }
 
-            MyLib.Delay1s(3);
+            MyLib.Delay1s(4);
 
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < 3; ch_idx++)
@@ -254,6 +255,7 @@ namespace SoftStartTiming
                 double vmax = 0;
                 if (InsControl._tek_scope_en)
                 {
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
                     vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
                 }
                 else
@@ -313,8 +315,9 @@ namespace SoftStartTiming
             if(InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                InsControl._tek_scope.SetTimeBasePosition(25);
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                InsControl._tek_scope.SetTimeBasePosition(25);
             }
             else
             {
@@ -417,6 +420,7 @@ namespace SoftStartTiming
                 {
                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                    InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                     InsControl._tek_scope.SetTimeBasePosition(25);
                 }
                 else
@@ -547,6 +551,7 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTimeScale(temp_time);
                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6O");
                     }
                     else
                     {
