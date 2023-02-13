@@ -254,7 +254,8 @@ namespace OLEDLite
 #endif
             } // interface loop
         Stop:
-            System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
+            if (!test_parameter.chamber_en)
+                System.Windows.Forms.MessageBox.Show("Test finished!!!", "OLED Lite", System.Windows.Forms.MessageBoxButtons.OK);
         }
 
         private void AddAllCurve(List<int> start_pos, List<int> stop_pos, int bin_idx, string X_axis)
