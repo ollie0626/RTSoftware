@@ -32,6 +32,7 @@ namespace OLEDLite
 
     public class ATE_TDMA : TaskRun
     {
+        
         Excel.Application _app;
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
@@ -42,6 +43,7 @@ namespace OLEDLite
 
         private void OSCInint()
         {
+            
             InsControl._scope.AgilentOSC_RST();
             MyLib.WaveformCheck();
 

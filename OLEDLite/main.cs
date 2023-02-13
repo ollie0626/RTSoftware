@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.5c";
+        private static string ver = "v1.6";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -519,7 +519,8 @@ namespace OLEDLite
                 for (; test_parameter.steadyTime > 0;)
                 {
                     await TaskRecount();
-                    progressBar1.Value = test_parameter.steadyTime;
+                    progressBar1.Invoke((MethodInvoker)(() => progressBar1.Value = test_parameter.steadyTime));
+                    //progressBar1.Value = test_parameter.steadyTime;
                     label1.Invoke((MethodInvoker)(() => label1.Text = "count down: "
                     + (test_parameter.steadyTime / 60).ToString() + ":"
                     + (test_parameter.steadyTime % 60).ToString()));
@@ -546,8 +547,6 @@ namespace OLEDLite
 
                 foreach (int Temp in test_parameter.tempList)
                 {
-                    
-
                     Console.WriteLine("StartTime：{0}", DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                     test_parameter.steadyTime = (int)nu_steady.Value;
                     InsControl._chamber = new ChamberModule(tb_res_chamber.Text);

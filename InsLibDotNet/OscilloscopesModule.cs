@@ -103,5 +103,42 @@ namespace InsLibDotNet
                 doCommand(string.Format("CH{0}:BANdwidth TWEnty", Ch));
         }
 
+        public void SetTriggerSource(int ch)
+        {
+            if (tektronix_en)
+                doCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch));
+            else
+                doCommand(string.Format(":TRIGger:EDGE:SOURce CHANnel{0}", ch));
+        }
+
+        public void SetTriggerLevel(int ch, double level)
+        {
+            if (tektronix_en)
+            {
+                doCommand(string.Format("TRIGger: A: EDGE: SOUrce CH{0}", ch));
+                doCommand(string.Format("TRIGger:A:LEVel {0}", level));
+            }
+            else
+            {
+                doCommand(string.Format(":TRIGger:LEVel CHANnel{0}, {1}", ch, level));
+            }
+        }
+
+        public void CHx_On(int ch)
+        {
+            if (tektronix_en)
+                doCommand(string.Format("", ch));
+            else
+                doCommand(string.Format(":CHANnel{0}:DISPLAY ON", ch));
+        }
+
+        public void CHx_Off(int ch)
+        {
+            if (tektronix_en)
+                doCommand(string.Format("", ch));
+            else
+                doCommand(string.Format(":CHANnel{0}:DISPLAY OFF", ch));
+        }
+
     }
 }
