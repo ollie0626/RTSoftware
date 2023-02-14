@@ -27,11 +27,11 @@ namespace InsLibDotNet
             LinkingIns(Addr);
             if (doQueryIDN().Split(',')[0].IndexOf("TEKTRONIX") != -1)
             {
-                tektronix_en = false;
+                osc_sel = 0;
             }
             else
             {
-                tektronix_en = true;
+                osc_sel = 1;
             }
         }
 

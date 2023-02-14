@@ -36,7 +36,7 @@ public class VisaCommand
 #endif
     }
 
-    protected string doQueryString(string cmd)
+    public string doQueryString(string cmd)
     {
 #if true
         if (device == 0) return "";

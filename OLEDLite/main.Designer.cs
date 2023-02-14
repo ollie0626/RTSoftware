@@ -161,6 +161,7 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_CV.SuspendLayout();
@@ -634,6 +635,7 @@ namespace OLEDLite
             // 
             // group_interface
             // 
+            this.group_interface.Controls.Add(this.button2);
             this.group_interface.Controls.Add(this.group_SwireSel);
             this.group_interface.Controls.Add(this.group_Code);
             this.group_interface.Controls.Add(this.nu_swire_num);
@@ -1333,6 +1335,13 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1525,6 +1534,7 @@ namespace OLEDLite
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.NumericUpDown nu_CVSetting;
         private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Button button2;
     }
 }
 

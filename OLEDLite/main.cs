@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.6";
+        private static string ver = "v1.6_test version";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -736,6 +736,12 @@ namespace OLEDLite
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string at = InsControl._chamber.doQueryString("AT");
+            MessageBox.Show(at);
         }
     }
 }

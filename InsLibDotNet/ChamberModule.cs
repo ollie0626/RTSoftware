@@ -74,6 +74,8 @@ namespace InsLibDotNet
         }
 
 
+
+
         public ChamberModule(string Addr)
         {
             LinkingIns(Addr);
@@ -104,6 +106,11 @@ namespace InsLibDotNet
             doCommand(gogoCMD);
             System.Threading.Thread.Sleep(50);
         }
+
+        //public string doQueryString(string cmd)
+        //{
+        //    return doQueryString(cmd);
+        //}
 
         public void ChamberOff()
         {
