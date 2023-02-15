@@ -4762,20 +4762,20 @@ Partial Class Form1
         'SaveBinToolStripMenuItem
         '
         Me.SaveBinToolStripMenuItem.Name = "SaveBinToolStripMenuItem"
-        Me.SaveBinToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.SaveBinToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.SaveBinToolStripMenuItem.Text = "Save Bin"
         '
         'LoadBinToolStripMenuItem
         '
         Me.LoadBinToolStripMenuItem.Name = "LoadBinToolStripMenuItem"
-        Me.LoadBinToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.LoadBinToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.LoadBinToolStripMenuItem.Text = "Load Bin"
         '
         'BinCompareToolStripMenuItem
         '
         Me.BinCompareToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.LoadBin1ToolStripMenuItem, Me.LoadBin2ToolStripMenuItem})
         Me.BinCompareToolStripMenuItem.Name = "BinCompareToolStripMenuItem"
-        Me.BinCompareToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.BinCompareToolStripMenuItem.Size = New System.Drawing.Size(147, 22)
         Me.BinCompareToolStripMenuItem.Text = "Bin Compare"
         '
         'LoadBin1ToolStripMenuItem
@@ -5083,7 +5083,7 @@ Partial Class Form1
         Me.Label214.Name = "Label214"
         Me.Label214.Size = New System.Drawing.Size(153, 12)
         Me.Label214.TabIndex = 3
-        Me.Label214.Text = "VGL2_DLY >= VGH_DLY"
+        Me.Label214.Text = "VGL2_DLY <= VGH_DLY"
         '
         'Label213
         '
@@ -5092,7 +5092,7 @@ Partial Class Form1
         Me.Label213.Name = "Label213"
         Me.Label213.Size = New System.Drawing.Size(153, 12)
         Me.Label213.TabIndex = 2
-        Me.Label213.Text = "VGL1_DLY >= VGH_DLY"
+        Me.Label213.Text = "VGL1_DLY <= VGH_DLY"
         '
         'Label212
         '

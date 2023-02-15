@@ -800,8 +800,10 @@ Public Class Form1
 
         If VGHT >= VGH Then
             D2_label.Text = "True"
+            flagTable(1) = True
         Else
             D2_label.Text = "False"
+            flagTable(1) = False
         End If
         CalculateFlagNum()
         ShowCheckSum()
@@ -898,7 +900,7 @@ Public Class Form1
         Dim AVDDDly() As Integer = {1, 2, 3, 4, 5, 6, 7, 12}
         Dim VGL2Dly As Integer = Bar_VGL2Dly.Value * 5
 
-        If VGLDly >= VGHDly(W15_0.Value) Then
+        If VGLDly <= VGHDly(W15_0.Value) Then
             D3_label.Text = "True"
             flagTable(2) = True
         Else
@@ -956,7 +958,7 @@ Public Class Form1
         Dim AVDDDly() As Integer = {1, 2, 3, 4, 5, 6, 7, 12}
         Dim VGL2Dly As Integer = Bar_VGL2Dly.Value * 5
         Dim VGLDly As Integer = 5 * Bar_VGLDly.Value
-        If VGHDly(W15_0.Value) <= VGL2Dly Then
+        If VGHDly(W15_0.Value) >= VGL2Dly Then
             D4_label.Text = "True"
             flagTable(3) = True
         Else
@@ -1789,7 +1791,7 @@ Public Class Form1
         Next
 
         For i As Integer = 0 To flagTable.Length - 1
-            If (flagTable(i)) Then
+            If Not (flagTable(i)) Then
                 MessageBox.Show(info, main_ver)
                 Return
             End If
@@ -1964,7 +1966,7 @@ Public Class Form1
         Next
 
         For i As Integer = 0 To flagTable.Length - 1
-            If (flagTable(i)) Then
+            If Not (flagTable(i)) Then
                 MessageBox.Show(info, main_ver)
                 Return
             End If
