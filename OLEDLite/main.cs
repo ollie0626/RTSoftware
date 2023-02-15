@@ -349,6 +349,8 @@ namespace OLEDLite
             test_parameter.inverting = false;
             test_parameter.LX_item = new bool[] { true, true, true };
             test_parameter.chamber_en = ck_chamber_en.Checked;
+
+            test_parameter.vin_threshold = (double)nuVin_threshold.Value;
             return true;
         }
 

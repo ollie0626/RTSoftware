@@ -88,5 +88,7 @@ namespace OLEDLite
         public static bool inverting;
         public static bool[] LX_item = new bool[3]; // freq, sr, jitter
 
+        public static double vin_threshold;
+
     }
 }

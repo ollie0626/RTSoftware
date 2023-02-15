@@ -162,6 +162,8 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.nuVin_threshold = new System.Windows.Forms.NumericUpDown();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_CV.SuspendLayout();
@@ -198,6 +200,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -974,6 +977,8 @@ namespace OLEDLite
             // 
             // group_power
             // 
+            this.group_power.Controls.Add(this.nuVin_threshold);
+            this.group_power.Controls.Add(this.label37);
             this.group_power.Controls.Add(this.label18);
             this.group_power.Controls.Add(this.tb_Vin);
             resources.ApplyResources(this.group_power, "group_power");
@@ -1342,6 +1347,22 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.Name = "label37";
+            // 
+            // nuVin_threshold
+            // 
+            this.nuVin_threshold.DecimalPlaces = 3;
+            resources.ApplyResources(this.nuVin_threshold, "nuVin_threshold");
+            this.nuVin_threshold.Name = "nuVin_threshold";
+            this.nuVin_threshold.Value = new decimal(new int[] {
+            55,
+            0,
+            0,
+            65536});
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1397,6 +1418,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1535,6 +1557,8 @@ namespace OLEDLite
         private System.Windows.Forms.NumericUpDown nu_CVSetting;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.NumericUpDown nuVin_threshold;
     }
 }
 

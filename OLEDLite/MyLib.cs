@@ -169,7 +169,7 @@ namespace OLEDLite
             double vin = Convert.ToDouble(string.Format("{0:##.0000}", InsControl._34970A.Get_100Vol(1)));
             double offset = targetV - vin;
 
-            if (Math.Abs(vin) < 0.5)
+            if (Math.Abs(vin) < 0.5 || vin >= test_parameter.vin_threshold)
             {
                 //MessageBox.Show("Please check 34970A connecttion");
                 //Console.WriteLine("Please check 34970A connecttion");
