@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class Form1
 
-    Dim main_ver As String = "IN528 Tool v1.5"
+    Dim main_ver As String = "IN528 Tool v1.6"
     Dim byt_Bin1(255) As Byte
     Dim byt_Bin2(255) As Byte
     Dim flagTable() As Boolean = {True, True, True, True, True, True, True, True}
@@ -173,7 +173,7 @@ Public Class Form1
         W1D.Value = &H0
         W1E.Value = &H0
         W1F.Value = &H0
-
+        CalculateFlagNum()
     End Sub
 
     Private Sub CalculateResult()
@@ -963,7 +963,7 @@ Public Class Form1
             flagTable(3) = True
         Else
             D4_label.Text = "False"
-            flagTable(4) = False
+            flagTable(3) = False
         End If
 
         If AVDDDly(W11_0.Value) <= VGL2Dly Then
@@ -1009,7 +1009,7 @@ Public Class Form1
         End If
 
         Dim VGLDly As Integer = 5 * Bar_VGLDly.Value
-        If VGLDly >= VGHDly(W15_0.Value) Then
+        If VGLDly <= VGHDly(W15_0.Value) Then
             D3_label.Text = "True"
             flagTable(2) = True
         Else
@@ -1017,7 +1017,7 @@ Public Class Form1
             flagTable(2) = False
         End If
 
-        If VGHDly(W15_0.Value) <= Bar_VGL2Dly.Value * 5 Then
+        If VGHDly(W15_0.Value) >= Bar_VGL2Dly.Value * 5 Then
             D4_label.Text = "True"
             flagTable(3) = True
         Else
