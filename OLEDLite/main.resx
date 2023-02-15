@@ -921,6 +921,9 @@
   <data name="button2.Text" xml:space="preserve">
     <value>test button</value>
   </data>
+  <data name="button2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
   <data name="&gt;&gt;button2.Name" xml:space="preserve">
     <value>button2</value>
   </data>
@@ -1411,7 +1414,7 @@
     <value>405, 54</value>
   </data>
   <data name="list_ins.Size" type="System.Drawing.Size, System.Drawing">
-    <value>236, 220</value>
+    <value>236, 184</value>
   </data>
   <data name="list_ins.TabIndex" type="System.Int32, mscorlib">
     <value>16</value>

@@ -73,6 +73,7 @@ namespace OLEDLite
             this.bt_scanIns = new MaterialSkin.Controls.MaterialButton();
             this.label17 = new System.Windows.Forms.Label();
             this.group_interface = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.group_SwireSel = new System.Windows.Forms.GroupBox();
             this.RB_ASwire = new System.Windows.Forms.RadioButton();
             this.RB_ESwire = new System.Windows.Forms.RadioButton();
@@ -161,7 +162,6 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.button2 = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_CV.SuspendLayout();
@@ -647,6 +647,13 @@ namespace OLEDLite
             resources.ApplyResources(this.group_interface, "group_interface");
             this.group_interface.Name = "group_interface";
             this.group_interface.TabStop = false;
+            // 
+            // button2
+            // 
+            resources.ApplyResources(this.button2, "button2");
+            this.button2.Name = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // group_SwireSel
             // 
@@ -1334,13 +1341,6 @@ namespace OLEDLite
             // 
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // main
             // 

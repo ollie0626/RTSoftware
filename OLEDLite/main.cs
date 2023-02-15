@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.6_debug";
+        private static string ver = "v1.6";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
