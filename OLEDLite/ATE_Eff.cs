@@ -34,7 +34,7 @@ namespace OLEDLite
 
         public override void ATETask()
         {
-            MessageBox.Show("Into ATE Task");
+            //MessageBox.Show("Into ATE Task");
 
             try
             {
@@ -68,7 +68,7 @@ namespace OLEDLite
 
 
 
-                MessageBox.Show("Initial Excel before");
+                //MessageBox.Show("Initial Excel before");
 #if Report
                 _app = new Excel.Application();
                 _app.Visible = true;

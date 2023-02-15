@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.6_test version";
+        private static string ver = "v1.6_debug";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -348,6 +348,7 @@ namespace OLEDLite
             test_parameter.buck = false;
             test_parameter.inverting = false;
             test_parameter.LX_item = new bool[] { true, true, true };
+            test_parameter.chamber_en = ck_chamber_en.Checked;
             return true;
         }
 
