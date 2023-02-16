@@ -246,6 +246,9 @@ namespace SoftStartTiming
 
             test_parameter.LX_Level = (double)nuLX.Value;
             test_parameter.ILX_Level = (double)nuILX.Value;
+
+            test_parameter.Rail_en = (byte)nuData1.Value;
+            test_parameter.Rail_addr = (byte)nuAddr.Value;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -516,8 +519,26 @@ namespace SoftStartTiming
                     CBChannel.SelectedIndex = 0;
                     break;
             }
+        }
 
+        private void PowerOffBinDisable()
+        {
+            BTSelectBinPath4.Enabled = false;
+            BTSelectBinPath5.Enabled = false;
+            BTSelectBinPath6.Enabled = false;
+            tbBin4.Enabled = false;
+            tbBin5.Enabled = false;
+            tbBin6.Enabled = false;
+        }
 
+        private void PowerOffBinEnable()
+        {
+            BTSelectBinPath4.Enabled = true;
+            BTSelectBinPath5.Enabled = true;
+            BTSelectBinPath6.Enabled = true;
+            tbBin4.Enabled = true;
+            tbBin5.Enabled = true;
+            tbBin6.Enabled = true;
         }
 
         private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
@@ -525,7 +546,6 @@ namespace SoftStartTiming
             switch (CBItem.SelectedIndex)
             {
                 case 0:
-                    // delay time
                     group_sst.Visible = false;
                     group_channel.Visible = true;
 
@@ -551,6 +571,8 @@ namespace SoftStartTiming
                     tb_connect2.Text = "Rail 1";
                     tb_connect3.Text = "Rail 2";
                     tb_connect4.Text = "Rail 3";
+
+                    PowerOffBinDisable();
                     break;
                 case 1:
                     // soft-start time
@@ -579,6 +601,20 @@ namespace SoftStartTiming
                     tb_connect2.Text = "Vout";
                     tb_connect3.Text = "LX";
                     tb_connect4.Text = "ILX";
+
+                    PowerOffBinDisable();
+                    break;
+                case 2:
+                    // power off delay
+                    group_sst.Visible = false;
+                    group_channel.Visible = true;
+                    PowerOffBinDisable();
+                    break;
+                case 3:
+                    // continue test
+                    group_sst.Visible = false;
+                    group_channel.Visible = true;
+                    PowerOffBinEnable();
                     break;
             }
         }
@@ -589,14 +625,67 @@ namespace SoftStartTiming
             {
                 case 0:
                     tb_connect1.Text = "PWRDIS / Sleep";
+                    CBGPIO.Enabled = true;
+
+                    // ----------------------
+                    // GUI setting
+                    labAddr.Visible = false;
+                    labRail_en.Visible = false;
+                    nuAddr.Visible = false;
+                    nuData1.Visible = false;
                     break;
                 case 1:
                     tb_connect1.Text = "I2C (SCL)";
+                    CBGPIO.Enabled = false;
+
+                    // ----------------------
+                    // GUI setting
+                    labAddr.Visible = true;
+                    labRail_en.Visible = true;
+                    nuAddr.Visible = true;
+                    nuData1.Visible = true;
                     break;
                 case 2:
                     tb_connect1.Text = "Vin";
+                    CBGPIO.Enabled = false;
+
+                    // ----------------------
+                    // GUI setting
+                    labAddr.Visible = false;
+                    labRail_en.Visible = true;
+                    nuAddr.Visible = false;
+                    nuData1.Visible = false;
                     break;
             }
         }
+
+        private void BTSelectBinPath4_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                tbBin4.Text = folderBrowser.SelectedPath;
+            }
+        }
+
+        private void BTSelectBinPath5_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                tbBin5.Text = folderBrowser.SelectedPath;
+            }
+        }
+
+        private void BTSelectBinPath6_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
+            if (folderBrowser.ShowDialog() == DialogResult.OK)
+            {
+                tbBin6.Text = folderBrowser.SelectedPath;
+            }
+        }
+
+
     }
 }

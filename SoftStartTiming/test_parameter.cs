@@ -72,6 +72,10 @@ namespace SoftStartTiming
         public static List<string> swireList = new List<string>();
         public static List<double> voutList = new List<double>();
         public static bool swire_20;
+
+
+        public static byte Rail_addr;
+        public static byte Rail_en;
     }
 
 

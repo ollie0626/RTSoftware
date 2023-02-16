@@ -204,8 +204,21 @@ namespace SoftStartTiming
                         GpioOffSelect(test_parameter.gpio_pin);
                     break;
                 case 1: // i2c trigger
-                    double vout = InsControl._scope.Meas_CH1MAX();
-                    InsControl._scope.TriggerLevel_CH1(vout * 0.35);
+
+                    if(InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SetTriggerLevel(1);
+                        InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._tek_scope.CHx_Position(1, 0);
+                    }
+                    else
+                    {
+                        InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
+                        InsControl._scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._scope.CHx_Offset(1, 0);
+                    }
+
+                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
@@ -307,8 +320,6 @@ namespace SoftStartTiming
                 trigger_level = InsControl._scope.Meas_CH2MAX() * 0.3;
                 InsControl._scope.TriggerLevel_CH2(trigger_level);
             }
-
-
 
             PowerOffEvent();
 
@@ -525,6 +536,9 @@ namespace SoftStartTiming
                             break;
                         case 1:
                             // I2C trigger event
+                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                                            test_parameter.Rail_addr,
+                                            new byte[] { test_parameter.Rail_en });
                             break;
                         case 2:
                             // Power supply trigger event
@@ -795,6 +809,8 @@ namespace SoftStartTiming
                         GpioOnSelect(test_parameter.gpio_pin);
                     break;
                 case 1:
+                    // rails disable
+                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0x00 });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoPowerOff();
