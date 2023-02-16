@@ -69,6 +69,15 @@ namespace SoftStartTiming
             this.tbBin = new System.Windows.Forms.TextBox();
             this.tbWave = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tb_connect4 = new System.Windows.Forms.TextBox();
+            this.tb_connect3 = new System.Windows.Forms.TextBox();
+            this.tb_connect2 = new System.Windows.Forms.TextBox();
+            this.tb_connect1 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.nuslave = new System.Windows.Forms.NumericUpDown();
@@ -119,6 +128,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
@@ -128,6 +138,7 @@ namespace SoftStartTiming
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(18, 309);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -226,7 +237,7 @@ namespace SoftStartTiming
             "P2.2"});
             this.CBGPIO.Location = new System.Drawing.Point(114, 141);
             this.CBGPIO.Name = "CBGPIO";
-            this.CBGPIO.Size = new System.Drawing.Size(148, 20);
+            this.CBGPIO.Size = new System.Drawing.Size(62, 20);
             this.CBGPIO.TabIndex = 86;
             // 
             // label7
@@ -402,12 +413,13 @@ namespace SoftStartTiming
             this.CbTrigger.FormattingEnabled = true;
             this.CbTrigger.Items.AddRange(new object[] {
             "0 : GPIO (PWRDIS / Sleep)",
-            "1 : I2C (on-going)",
+            "1 : I2C",
             "2 : Vin (Power supply)"});
             this.CbTrigger.Location = new System.Drawing.Point(114, 89);
             this.CbTrigger.Name = "CbTrigger";
-            this.CbTrigger.Size = new System.Drawing.Size(224, 20);
+            this.CbTrigger.Size = new System.Drawing.Size(194, 20);
             this.CbTrigger.TabIndex = 80;
+            this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
             // 
             // BTSelectBinPath3
             // 
@@ -562,11 +574,109 @@ namespace SoftStartTiming
             this.BTSelectWavePath.UseVisualStyleBackColor = true;
             this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage1.Controls.Add(this.tb_connect4);
+            this.tabPage1.Controls.Add(this.tb_connect3);
+            this.tabPage1.Controls.Add(this.tb_connect2);
+            this.tabPage1.Controls.Add(this.tb_connect1);
+            this.tabPage1.Controls.Add(this.textBox4);
+            this.tabPage1.Controls.Add(this.textBox3);
+            this.tabPage1.Controls.Add(this.textBox2);
+            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(808, 268);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "How to Connect";
+            // 
+            // tb_connect4
+            // 
+            this.tb_connect4.Enabled = false;
+            this.tb_connect4.Location = new System.Drawing.Point(75, 107);
+            this.tb_connect4.Name = "tb_connect4";
+            this.tb_connect4.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect4.TabIndex = 7;
+            this.tb_connect4.Text = "Rial 3";
+            this.tb_connect4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_connect3
+            // 
+            this.tb_connect3.Enabled = false;
+            this.tb_connect3.Location = new System.Drawing.Point(75, 79);
+            this.tb_connect3.Name = "tb_connect3";
+            this.tb_connect3.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect3.TabIndex = 6;
+            this.tb_connect3.Text = "Rial 2";
+            this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_connect2
+            // 
+            this.tb_connect2.Enabled = false;
+            this.tb_connect2.Location = new System.Drawing.Point(75, 51);
+            this.tb_connect2.Name = "tb_connect2";
+            this.tb_connect2.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect2.TabIndex = 5;
+            this.tb_connect2.Text = "Rial 1";
+            this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_connect1
+            // 
+            this.tb_connect1.Enabled = false;
+            this.tb_connect1.Location = new System.Drawing.Point(75, 23);
+            this.tb_connect1.Name = "tb_connect1";
+            this.tb_connect1.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect1.TabIndex = 4;
+            this.tb_connect1.Text = "Trigger Channel";
+            this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Enabled = false;
+            this.textBox4.Location = new System.Drawing.Point(17, 107);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(52, 22);
+            this.textBox4.TabIndex = 3;
+            this.textBox4.Text = "CH4";
+            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(17, 79);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(52, 22);
+            this.textBox3.TabIndex = 2;
+            this.textBox3.Text = "CH3";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(17, 51);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(52, 22);
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "CH2";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(17, 23);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(52, 22);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "CH1";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(320, 627);
+            this.button1.Location = new System.Drawing.Point(310, 627);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 32);
+            this.button1.Size = new System.Drawing.Size(85, 32);
             this.button1.TabIndex = 66;
             this.button1.Text = "Excel Kill";
             this.button1.UseVisualStyleBackColor = true;
@@ -926,7 +1036,8 @@ namespace SoftStartTiming
             this.CBItem.FormattingEnabled = true;
             this.CBItem.Items.AddRange(new object[] {
             "Delay Time / Slot Time",
-            "Soft-Start Time"});
+            "Soft-Start Time",
+            "Power Off Delay Time"});
             this.CBItem.Location = new System.Drawing.Point(145, 274);
             this.CBItem.Name = "CBItem";
             this.CBItem.Size = new System.Drawing.Size(185, 20);
@@ -995,6 +1106,8 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1083,6 +1196,15 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown nuILX;
         private System.Windows.Forms.NumericUpDown nuLX;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox tb_connect1;
+        private System.Windows.Forms.TextBox tb_connect2;
+        private System.Windows.Forms.TextBox tb_connect4;
+        private System.Windows.Forms.TextBox tb_connect3;
     }
 }
 

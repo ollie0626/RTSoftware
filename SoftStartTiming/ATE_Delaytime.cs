@@ -259,9 +259,22 @@ namespace SoftStartTiming
                         GpioOffSelect(test_parameter.gpio_pin);
                     break;
                 case 1: // i2c trigger
-                    double vout = 0;
-                    InsControl._scope.Meas_CH1MAX();
-                    InsControl._scope.TriggerLevel_CH1(vout * 0.35);
+                    if (InsControl._tek_scope_en)
+                    {
+                        InsControl._tek_scope.SetTriggerSource(1);
+                        InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._tek_scope.CHx_Position(1, 0);
+                    }
+                    else
+                    {
+                        InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
+                        InsControl._scope.CHx_Level(1, 3.3 / 2);
+                        InsControl._scope.CHx_Offset(1, 0);
+                    }
+
+                    
+
+
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);

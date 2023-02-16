@@ -511,6 +511,23 @@ namespace SoftStartTiming
                     CkBin3.Checked = false;
                     CkBin2.Enabled = true;
                     CkBin3.Enabled = true;
+
+                    switch(CbTrigger.SelectedIndex)
+                    {
+                        case 0:
+                            tb_connect1.Text = "PWRDIS / Sleep";
+                            break;
+                        case 1:
+                            tb_connect1.Text = "I2C (SCL)";
+                            break;
+                        case 2:
+                            tb_connect1.Text = "Vin";
+                            break;
+                    }
+
+                    tb_connect2.Text = "Rail 1";
+                    tb_connect3.Text = "Rail 2";
+                    tb_connect4.Text = "Rail 3";
                     break;
                 case 1:
                     // soft-start time
@@ -522,6 +539,39 @@ namespace SoftStartTiming
                     CkBin3.Checked = false;
                     CkBin2.Enabled = false;
                     CkBin3.Enabled = false;
+
+                    switch (CbTrigger.SelectedIndex)
+                    {
+                        case 0:
+                            tb_connect1.Text = "PWRDIS / Sleep";
+                            break;
+                        case 1:
+                            tb_connect1.Text = "I2C (SCL)";
+                            break;
+                        case 2:
+                            tb_connect1.Text = "Vin";
+                            break;
+                    }
+
+                    tb_connect2.Text = "Vout";
+                    tb_connect3.Text = "LX";
+                    tb_connect4.Text = "ILX";
+                    break;
+            }
+        }
+
+        private void CbTrigger_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (CbTrigger.SelectedIndex)
+            {
+                case 0:
+                    tb_connect1.Text = "PWRDIS / Sleep";
+                    break;
+                case 1:
+                    tb_connect1.Text = "I2C (SCL)";
+                    break;
+                case 2:
+                    tb_connect1.Text = "Vin";
                     break;
             }
         }
