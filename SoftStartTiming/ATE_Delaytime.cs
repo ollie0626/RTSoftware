@@ -207,8 +207,8 @@ namespace SoftStartTiming
                 InsControl._scope.Root_RUN();
                 InsControl._scope.AutoTrigger();
             }
-            
-            //InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+
+            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
             //MyLib.Delay1ms(800);
 
@@ -232,8 +232,6 @@ namespace SoftStartTiming
                 InsControl._scope.TimeScaleUs(1);
             }
             
-
-            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
             MyLib.Delay1ms(800);
 
             switch (test_parameter.trigger_event)
@@ -290,6 +288,8 @@ namespace SoftStartTiming
                     }
                     break;
             }
+
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
             MyLib.Delay1s(1);
 
             if (InsControl._tek_scope_en) MyLib.Delay1s(1);
@@ -410,7 +410,7 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
-            //InsControl._power.AutoPowerOff();
+            InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -573,10 +573,11 @@ namespace SoftStartTiming
                             }
 
                             // include test condition
+                            retest:;
                             Scope_Channel_Resize(vin_idx, binList[bin_idx]);
                             double tempVin = ori_vinTable[vin_idx];
                             if(!InsControl._tek_scope_en) MyLib.WaveformCheck();
-                        retest:;
+                            //retest:;
 
                             if (retry_cnt > 3)
                             {

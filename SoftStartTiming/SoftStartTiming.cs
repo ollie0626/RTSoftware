@@ -13,6 +13,8 @@ using System.Threading;
 using System.IO;
 using System.Diagnostics;
 
+using Excel = Microsoft.Office.Interop.Excel;
+
 namespace SoftStartTiming
 {
     public partial class SoftStartTiming : Form
@@ -339,41 +341,62 @@ namespace SoftStartTiming
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo psi = new ProcessStartInfo();
-            psi.Arguments = "/im EXCEL.EXE /f";
-            psi.FileName = "taskkill";
-            Process p = new Process();
-            p.StartInfo = psi;
-            p.Start();
+            //ProcessStartInfo psi = new ProcessStartInfo();
+            //psi.Arguments = "/im EXCEL.EXE /f";
+            //psi.FileName = "taskkill";
+            //Process p = new Process();
+            //p.StartInfo = psi;
+            //p.Start();
 
             //InsControl._scope.SaveWaveform(@"D:\", "scope");
-            //OpenFileDialog opendlg = new OpenFileDialog();
+            OpenFileDialog opendlg = new OpenFileDialog();
 
-            //if(opendlg.ShowDialog() == DialogResult.OK)
-            //{
-            //    //string file_name = opendlg.FileName;
-            //    //StreamReader sr = new StreamReader(file_name);
-            //    //string line;
-            //    //List<byte> temp = new List<byte>();
-            //    //line = sr.ReadLine();
-            //    //while(line != null)
-            //    //{
-            //    //    Console.WriteLine(line);
-            //    //    string[] arr = line.Split('\t');
-            //    //    line = sr.ReadLine();
-            //    //    temp.Add(Convert.ToByte(arr[1], 16));
-            //    //}
-            //    //sr.Close();
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
 
-            //    //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
-            //    //BinaryWriter bwr = new BinaryWriter(myFile);
-            //    //bwr.Write(temp.ToArray(), 0, temp.Count);
-            //    //bwr.Close();
-            //    //myFile.Close();
+                Excel.Application _app;
+                Excel.Worksheet _sheet;
+                Excel.Workbook _book;
+                Excel.Range _range;
 
-            //    string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
-            //    MyLib.GetCriteria_time(file_name);
-            //}
+                _app = new Excel.Application();
+                _app.Visible = true;
+                _book = (Excel.Workbook)_app.Workbooks.Open(opendlg.FileName);
+                _sheet = (Excel.Worksheet)_book.ActiveSheet;
+                byte[] data = new byte[255];
+                for(int i = 1; i < 256; i++)
+                {
+                    data[i - 1] = Convert.ToByte(_sheet.Cells[i, 2].Value, 16);
+                }
+                FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
+                BinaryWriter bwr = new BinaryWriter(myFile);
+                bwr.Write(data, 0, data.Length);
+                myFile.Close();
+
+
+                //string file_name = opendlg.FileName;
+                //StreamReader sr = new StreamReader(file_name);
+                //string line;
+                //List<byte> temp = new List<byte>();
+                //line = sr.ReadLine();
+                //while(line != null)
+                //{
+                //    Console.WriteLine(line);
+                //    string[] arr = line.Split('\t');
+                //    line = sr.ReadLine();
+                //    temp.Add(Convert.ToByte(arr[1], 16));
+                //}
+                //sr.Close();
+
+                //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
+                //BinaryWriter bwr = new BinaryWriter(myFile);
+                //bwr.Write(temp.ToArray(), 0, temp.Count);
+                //bwr.Close();
+                //myFile.Close();
+
+                //string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
+                //MyLib.GetCriteria_time(file_name);
+            }
         }
 
         private void BTPause_Click(object sender, EventArgs e)
