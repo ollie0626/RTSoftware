@@ -155,7 +155,7 @@ namespace SoftStartTiming
                 InsControl._scope.AutoTrigger();
             }
 
-            //InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
 
             double time_scale = 0;
@@ -362,7 +362,7 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
-            //InsControl._power.AutoPowerOff();
+            InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -542,7 +542,7 @@ namespace SoftStartTiming
                             break;
                         case 2:
                             // Power supply trigger event
-                            InsControl._power.AutoPowerOff();
+                            InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                             break;
                     }
 
@@ -605,6 +605,7 @@ namespace SoftStartTiming
                             break;
                         case 1:
                             // I2C trigger event
+                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                             break;
                         case 2:
                             // Power supply trigger event
@@ -628,7 +629,7 @@ namespace SoftStartTiming
 
                     if(InsControl._tek_scope_en)
                     {
-                        //vin         = InsControl._power.GetVoltage();
+                        vin = InsControl._power.GetVoltage();
                         sst         = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
                         vmax        = InsControl._tek_scope.CHx_Meas_MAX(2, 2);  
                         vmin        = InsControl._tek_scope.CHx_Meas_MIN(2, 3);  
