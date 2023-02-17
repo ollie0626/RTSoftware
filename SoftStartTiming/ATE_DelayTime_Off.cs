@@ -395,7 +395,7 @@ namespace SoftStartTiming
             int row = 8;
             int wave_row = 8;
             int wave_pos = 0;
-            string[] binList;
+            string[] binList = MyLib.ListBinFile(test_parameter.bin_path[0]);
             double[] ori_vinTable = new double[vin_cnt];
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
@@ -484,8 +484,19 @@ namespace SoftStartTiming
                     #endregion
 
                     stopWatch.Start();
-                    binList = MyLib.ListBinFile(test_parameter.bin_path[select_idx]);
-                    bin_cnt = binList.Length;
+
+                    if (test_parameter.item_idx == 2)
+                    { 
+                        binList = MyLib.ListBinFile(test_parameter.bin_path[select_idx]);
+                        bin_cnt = binList.Length;
+                    }
+                    else if(test_parameter.item_idx == 3)
+                    { 
+                        binList = MyLib.ListBinFile(test_parameter.power_off_bin_path[select_idx]);
+                        bin_cnt = binList.Length;
+                    }
+                    
+                    
                     cnt = 0;
 
                     if (!Directory.Exists(test_parameter.waveform_path + @"/CH" + (select_idx).ToString()))

@@ -251,6 +251,8 @@ namespace SoftStartTiming
 
             test_parameter.Rail_en = (byte)nuData1.Value;
             test_parameter.Rail_addr = (byte)nuAddr.Value;
+
+            test_parameter.item_idx = CBItem.SelectedIndex;
         }
 
         private void BTRun_Click(object sender, EventArgs e)

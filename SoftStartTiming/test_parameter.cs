@@ -27,7 +27,7 @@ namespace SoftStartTiming
         public static byte slave;
         public static bool sleep_mode;
 
-
+        public static int item_idx;
         public static string[] bin_path = new string[3];
         public static string[] power_off_bin_path = new string[3];
 
