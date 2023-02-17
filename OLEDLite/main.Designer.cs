@@ -110,6 +110,8 @@ namespace OLEDLite
             this.tb_res_chamber = new System.Windows.Forms.TextBox();
             this.tb_res_power = new System.Windows.Forms.TextBox();
             this.group_power = new System.Windows.Forms.GroupBox();
+            this.nuVin_threshold = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.tb_Vin = new System.Windows.Forms.TextBox();
             this.group_chamber = new System.Windows.Forms.GroupBox();
@@ -162,8 +164,6 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
-            this.label37 = new System.Windows.Forms.Label();
-            this.nuVin_threshold = new System.Windows.Forms.NumericUpDown();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_CV.SuspendLayout();
@@ -191,6 +191,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.group_power.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).BeginInit();
             this.group_chamber.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.group_eload.SuspendLayout();
@@ -200,7 +201,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).BeginInit();
             this.SuspendLayout();
             // 
             // materialTabSelector1
@@ -985,6 +985,22 @@ namespace OLEDLite
             this.group_power.Name = "group_power";
             this.group_power.TabStop = false;
             // 
+            // nuVin_threshold
+            // 
+            this.nuVin_threshold.DecimalPlaces = 3;
+            resources.ApplyResources(this.nuVin_threshold, "nuVin_threshold");
+            this.nuVin_threshold.Name = "nuVin_threshold";
+            this.nuVin_threshold.Value = new decimal(new int[] {
+            55,
+            0,
+            0,
+            65536});
+            // 
+            // label37
+            // 
+            resources.ApplyResources(this.label37, "label37");
+            this.label37.Name = "label37";
+            // 
             // label18
             // 
             resources.ApplyResources(this.label18, "label18");
@@ -1347,22 +1363,6 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
-            // label37
-            // 
-            resources.ApplyResources(this.label37, "label37");
-            this.label37.Name = "label37";
-            // 
-            // nuVin_threshold
-            // 
-            this.nuVin_threshold.DecimalPlaces = 3;
-            resources.ApplyResources(this.nuVin_threshold, "nuVin_threshold");
-            this.nuVin_threshold.Name = "nuVin_threshold";
-            this.nuVin_threshold.Value = new decimal(new int[] {
-            55,
-            0,
-            0,
-            65536});
-            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
@@ -1406,6 +1406,7 @@ namespace OLEDLite
             this.groupBox1.PerformLayout();
             this.group_power.ResumeLayout(false);
             this.group_power.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).EndInit();
             this.group_chamber.ResumeLayout(false);
             this.group_chamber.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
@@ -1418,7 +1419,6 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuVin_threshold)).EndInit();
             this.ResumeLayout(false);
 
         }

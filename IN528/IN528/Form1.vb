@@ -2160,7 +2160,7 @@ Public Class Form1
         Next
 
         For i As Integer = 0 To flagTable.Length - 1
-            If (flagTable(i)) Then
+            If Not (flagTable(i)) Then
                 MessageBox.Show(info, main_ver)
                 Return
             End If

@@ -117,6 +117,21 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="materialTabSelector1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="materialTabControl1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="tabPage2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="group_CV.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="nu_eloadch2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="nu_eloadch2.Location" type="System.Drawing.Point, System.Drawing">
     <value>558, 19</value>
@@ -144,6 +159,9 @@
   <data name="&gt;&gt;nu_eloadch2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="label33.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label33.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -171,6 +189,9 @@
   <data name="&gt;&gt;label33.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="nu_CVwait.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_CVwait.Location" type="System.Drawing.Point, System.Drawing">
     <value>402, 17</value>
   </data>
@@ -195,6 +216,9 @@
   <data name="&gt;&gt;nu_CVwait.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="label34.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label34.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -222,6 +246,9 @@
   <data name="&gt;&gt;label34.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="nu_CVStep.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_CVStep.Location" type="System.Drawing.Point, System.Drawing">
     <value>218, 17</value>
   </data>
@@ -246,6 +273,9 @@
   <data name="&gt;&gt;nu_CVStep.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="label35.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label35.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -273,6 +303,9 @@
   <data name="&gt;&gt;label35.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="nu_CVSetting.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_CVSetting.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 17</value>
   </data>
@@ -297,6 +330,9 @@
   <data name="&gt;&gt;nu_CVSetting.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="label36.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label36.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -348,6 +384,9 @@
   <data name="&gt;&gt;group_CV.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="materialButton1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="materialButton1.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -381,6 +420,9 @@
   <data name="&gt;&gt;materialButton1.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label23.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label23.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -408,6 +450,9 @@
   <data name="&gt;&gt;label23.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="nu_Sys_clk.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_Sys_clk.Location" type="System.Drawing.Point, System.Drawing">
     <value>1077, 16</value>
   </data>
@@ -429,6 +474,9 @@
   <data name="&gt;&gt;nu_Sys_clk.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="tb_initial_bin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_initial_bin.Location" type="System.Drawing.Point, System.Drawing">
     <value>745, 627</value>
   </data>
@@ -456,6 +504,9 @@
   <data name="&gt;&gt;tb_initial_bin.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="label10.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label10.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -489,6 +540,9 @@
   <data name="&gt;&gt;label10.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="nu_slave.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_slave.Location" type="System.Drawing.Point, System.Drawing">
     <value>827, 653</value>
   </data>
@@ -516,6 +570,9 @@
   <data name="&gt;&gt;nu_slave.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="ck_func.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_func.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -549,6 +606,9 @@
   <data name="&gt;&gt;ck_func.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="label7.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label7.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -579,6 +639,9 @@
   <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="tb_res_func.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_func.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 250</value>
   </data>
@@ -603,6 +666,9 @@
   <data name="&gt;&gt;tb_res_func.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="CK_I2c.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CK_I2c.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -633,6 +699,12 @@
   <data name="&gt;&gt;CK_I2c.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <metadata name="group_funcgen.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="bt_func_set.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_func_set.Location" type="System.Drawing.Point, System.Drawing">
     <value>360, 21</value>
   </data>
@@ -657,6 +729,9 @@
   <data name="&gt;&gt;bt_func_set.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="nu_Tf.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_Tf.Location" type="System.Drawing.Point, System.Drawing">
     <value>247, 57</value>
   </data>
@@ -681,6 +756,9 @@
   <data name="&gt;&gt;nu_Tf.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="nu_Tr.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_Tr.Location" type="System.Drawing.Point, System.Drawing">
     <value>247, 21</value>
   </data>
@@ -705,6 +783,9 @@
   <data name="&gt;&gt;nu_Tr.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="label5.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label5.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -735,6 +816,9 @@
   <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="label6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -765,6 +849,9 @@
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="tb_Low_level.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_Low_level.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 119</value>
   </data>
@@ -789,6 +876,9 @@
   <data name="&gt;&gt;tb_Low_level.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="tb_High_level.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_High_level.Location" type="System.Drawing.Point, System.Drawing">
     <value>117, 91</value>
   </data>
@@ -813,6 +903,9 @@
   <data name="&gt;&gt;tb_High_level.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="nu_duty.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_duty.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 57</value>
   </data>
@@ -837,6 +930,9 @@
   <data name="&gt;&gt;nu_duty.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="nu_Freq.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_Freq.Location" type="System.Drawing.Point, System.Drawing">
     <value>96, 21</value>
   </data>
@@ -861,6 +957,9 @@
   <data name="&gt;&gt;nu_Freq.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="label4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -891,6 +990,9 @@
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="label3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -921,6 +1023,9 @@
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="label2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -951,6 +1056,9 @@
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <metadata name="label1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1005,6 +1113,9 @@
   <data name="&gt;&gt;group_funcgen.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <metadata name="bt_connect.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_connect.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -1035,6 +1146,9 @@
   <data name="&gt;&gt;bt_connect.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <metadata name="tb_bin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_bin.Location" type="System.Drawing.Point, System.Drawing">
     <value>745, 599</value>
   </data>
@@ -1062,6 +1176,9 @@
   <data name="&gt;&gt;tb_bin.ZOrder" xml:space="preserve">
     <value>14</value>
   </data>
+  <metadata name="label8.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label8.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1095,6 +1212,9 @@
   <data name="&gt;&gt;label8.ZOrder" xml:space="preserve">
     <value>15</value>
   </data>
+  <metadata name="cb_item.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="cb_item.Items" xml:space="preserve">
     <value>0. TDMA</value>
   </data>
@@ -1149,6 +1269,9 @@
   <data name="&gt;&gt;cb_item.ZOrder" xml:space="preserve">
     <value>16</value>
   </data>
+  <metadata name="bt_scanIns.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_scanIns.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -1182,6 +1305,9 @@
   <data name="&gt;&gt;bt_scanIns.ZOrder" xml:space="preserve">
     <value>17</value>
   </data>
+  <metadata name="label17.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label17.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1209,6 +1335,12 @@
   <data name="&gt;&gt;label17.ZOrder" xml:space="preserve">
     <value>18</value>
   </data>
+  <metadata name="group_interface.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="button2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
     <value>122, 281</value>
   </data>
@@ -1236,6 +1368,12 @@
   <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="group_SwireSel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="RB_ASwire.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="RB_ASwire.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1266,6 +1404,9 @@
   <data name="&gt;&gt;RB_ASwire.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="RB_ESwire.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="RB_ESwire.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1317,6 +1458,12 @@
   <data name="&gt;&gt;group_SwireSel.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="group_Code.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label30.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label30.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1347,6 +1494,9 @@
   <data name="&gt;&gt;label30.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="nu_timeScale.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_timeScale.Location" type="System.Drawing.Point, System.Drawing">
     <value>434, 36</value>
   </data>
@@ -1371,6 +1521,9 @@
   <data name="&gt;&gt;nu_timeScale.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label24.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label24.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1398,6 +1551,9 @@
   <data name="&gt;&gt;label24.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="nu_vol_min.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_vol_min.Location" type="System.Drawing.Point, System.Drawing">
     <value>230, 38</value>
   </data>
@@ -1422,6 +1578,9 @@
   <data name="&gt;&gt;nu_vol_min.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="label25.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label25.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1449,6 +1608,9 @@
   <data name="&gt;&gt;label25.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="nu_vol_max.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_vol_max.Location" type="System.Drawing.Point, System.Drawing">
     <value>331, 38</value>
   </data>
@@ -1473,6 +1635,9 @@
   <data name="&gt;&gt;nu_vol_max.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="label26.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label26.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1500,6 +1665,9 @@
   <data name="&gt;&gt;label26.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="label27.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label27.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1527,6 +1695,9 @@
   <data name="&gt;&gt;label27.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="nu_code_min.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_code_min.Location" type="System.Drawing.Point, System.Drawing">
     <value>70, 38</value>
   </data>
@@ -1551,6 +1722,9 @@
   <data name="&gt;&gt;nu_code_min.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="nu_code_max.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_code_max.Location" type="System.Drawing.Point, System.Drawing">
     <value>133, 38</value>
   </data>
@@ -1575,6 +1749,9 @@
   <data name="&gt;&gt;nu_code_max.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="label29.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label29.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1602,6 +1779,9 @@
   <data name="&gt;&gt;label29.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="nu_addr.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_addr.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 38</value>
   </data>
@@ -1659,6 +1839,9 @@
   <data name="&gt;&gt;group_Code.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="nu_swire_num.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_swire_num.Location" type="System.Drawing.Point, System.Drawing">
     <value>367, 20</value>
   </data>
@@ -1683,6 +1866,9 @@
   <data name="&gt;&gt;nu_swire_num.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="label12.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label12.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1713,6 +1899,9 @@
   <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="swireTable.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="swireTable.Location" type="System.Drawing.Point, System.Drawing">
     <value>10, 53</value>
   </data>
@@ -1734,6 +1923,12 @@
   <data name="&gt;&gt;swireTable.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="groupBox1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CK_ENVO4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CK_ENVO4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1764,6 +1959,9 @@
   <data name="&gt;&gt;CK_ENVO4.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="CK_ESwire.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CK_ESwire.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1791,6 +1989,9 @@
   <data name="&gt;&gt;CK_ESwire.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="CK_ASwire.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CK_ASwire.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1845,6 +2046,9 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="tb_wave_path.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_wave_path.Location" type="System.Drawing.Point, System.Drawing">
     <value>99, 19</value>
   </data>
@@ -1869,6 +2073,9 @@
   <data name="&gt;&gt;tb_wave_path.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="label9.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label9.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -1923,6 +2130,9 @@
   <data name="&gt;&gt;group_interface.ZOrder" xml:space="preserve">
     <value>19</value>
   </data>
+  <metadata name="bt_stop.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_stop.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -1956,6 +2166,9 @@
   <data name="&gt;&gt;bt_stop.ZOrder" xml:space="preserve">
     <value>20</value>
   </data>
+  <metadata name="list_ins.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="list_ins.ItemHeight" type="System.Int32, mscorlib">
     <value>12</value>
   </data>
@@ -1980,6 +2193,9 @@
   <data name="&gt;&gt;list_ins.ZOrder" xml:space="preserve">
     <value>21</value>
   </data>
+  <metadata name="bt_pause.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_pause.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -2013,6 +2229,9 @@
   <data name="&gt;&gt;bt_pause.ZOrder" xml:space="preserve">
     <value>22</value>
   </data>
+  <metadata name="tb_res_scope.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_scope.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 54</value>
   </data>
@@ -2037,6 +2256,9 @@
   <data name="&gt;&gt;tb_res_scope.ZOrder" xml:space="preserve">
     <value>23</value>
   </data>
+  <metadata name="bt_run.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_run.AutoSizeMode" type="System.Windows.Forms.AutoSizeMode, System.Windows.Forms">
     <value>GrowAndShrink</value>
   </data>
@@ -2070,6 +2292,9 @@
   <data name="&gt;&gt;bt_run.ZOrder" xml:space="preserve">
     <value>24</value>
   </data>
+  <metadata name="tb_res_daq.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_daq.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 82</value>
   </data>
@@ -2094,6 +2319,9 @@
   <data name="&gt;&gt;tb_res_daq.ZOrder" xml:space="preserve">
     <value>25</value>
   </data>
+  <metadata name="ck_chamber.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_chamber.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2127,6 +2355,9 @@
   <data name="&gt;&gt;ck_chamber.ZOrder" xml:space="preserve">
     <value>26</value>
   </data>
+  <metadata name="tb_res_eload.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_eload.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 110</value>
   </data>
@@ -2151,6 +2382,9 @@
   <data name="&gt;&gt;tb_res_eload.ZOrder" xml:space="preserve">
     <value>27</value>
   </data>
+  <metadata name="tb_res_chamber.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_chamber.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 222</value>
   </data>
@@ -2175,6 +2409,9 @@
   <data name="&gt;&gt;tb_res_chamber.ZOrder" xml:space="preserve">
     <value>28</value>
   </data>
+  <metadata name="tb_res_power.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_power.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 138</value>
   </data>
@@ -2199,6 +2436,12 @@
   <data name="&gt;&gt;tb_res_power.ZOrder" xml:space="preserve">
     <value>29</value>
   </data>
+  <metadata name="group_power.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="nuVin_threshold.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nuVin_threshold.Location" type="System.Drawing.Point, System.Drawing">
     <value>513, 21</value>
   </data>
@@ -2220,6 +2463,9 @@
   <data name="&gt;&gt;nuVin_threshold.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="label37.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label37.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2250,6 +2496,9 @@
   <data name="&gt;&gt;label37.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label18.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label18.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2277,6 +2526,9 @@
   <data name="&gt;&gt;label18.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="tb_Vin.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_Vin.Location" type="System.Drawing.Point, System.Drawing">
     <value>75, 21</value>
   </data>
@@ -2325,6 +2577,12 @@
   <data name="&gt;&gt;group_power.ZOrder" xml:space="preserve">
     <value>30</value>
   </data>
+  <metadata name="group_chamber.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="cb_mode_sel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="cb_mode_sel.Items" xml:space="preserve">
     <value>Master</value>
   </data>
@@ -2352,6 +2610,9 @@
   <data name="&gt;&gt;cb_mode_sel.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="label28.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label28.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2379,6 +2640,9 @@
   <data name="&gt;&gt;label28.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="bt_ipaddress.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_ipaddress.Location" type="System.Drawing.Point, System.Drawing">
     <value>495, 71</value>
   </data>
@@ -2403,6 +2667,9 @@
   <data name="&gt;&gt;bt_ipaddress.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="progressBar1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="progressBar1.Location" type="System.Drawing.Point, System.Drawing">
     <value>288, 98</value>
   </data>
@@ -2424,6 +2691,9 @@
   <data name="&gt;&gt;progressBar1.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="tb_IPAddress.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_IPAddress.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 98</value>
   </data>
@@ -2448,6 +2718,9 @@
   <data name="&gt;&gt;tb_IPAddress.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="label11.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label11.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2475,6 +2748,9 @@
   <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="button1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
     <value>495, 41</value>
   </data>
@@ -2499,6 +2775,9 @@
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="label15.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label15.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2526,6 +2805,9 @@
   <data name="&gt;&gt;label15.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="ck_chamber_en.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_chamber_en.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2553,6 +2835,9 @@
   <data name="&gt;&gt;ck_chamber_en.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="nu_steady.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_steady.Font" type="System.Drawing.Font, System.Drawing">
     <value>Calibri, 9.75pt</value>
   </data>
@@ -2580,6 +2865,9 @@
   <data name="&gt;&gt;nu_steady.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="bt_start.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_start.Location" type="System.Drawing.Point, System.Drawing">
     <value>495, 12</value>
   </data>
@@ -2604,6 +2892,9 @@
   <data name="&gt;&gt;bt_start.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="label14.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label14.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2631,6 +2922,9 @@
   <data name="&gt;&gt;label14.ZOrder" xml:space="preserve">
     <value>11</value>
   </data>
+  <metadata name="tb_templist.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_templist.Location" type="System.Drawing.Point, System.Drawing">
     <value>106, 47</value>
   </data>
@@ -2655,6 +2949,9 @@
   <data name="&gt;&gt;tb_templist.ZOrder" xml:space="preserve">
     <value>12</value>
   </data>
+  <metadata name="label13.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label13.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2682,6 +2979,9 @@
   <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
     <value>13</value>
   </data>
+  <metadata name="ck_multi_chamber.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_multi_chamber.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2733,6 +3033,12 @@
   <data name="&gt;&gt;group_chamber.ZOrder" xml:space="preserve">
     <value>31</value>
   </data>
+  <metadata name="group_eload.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="CBIinSelect.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CBIinSelect.Font" type="System.Drawing.Font, System.Drawing">
     <value>新細明體, 9pt, style=Bold</value>
   </data>
@@ -2772,6 +3078,9 @@
   <data name="&gt;&gt;CBIinSelect.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="label32.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label32.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2802,6 +3111,9 @@
   <data name="&gt;&gt;label32.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label31.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label31.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2829,6 +3141,9 @@
   <data name="&gt;&gt;label31.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="CBEload.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="CBEload.Font" type="System.Drawing.Font, System.Drawing">
     <value>新細明體, 9pt, style=Bold</value>
   </data>
@@ -2862,6 +3177,12 @@
   <data name="&gt;&gt;CBEload.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="groupBox6.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="label22.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label22.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2892,6 +3213,9 @@
   <data name="&gt;&gt;label22.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <metadata name="label21.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label21.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2922,6 +3246,9 @@
   <data name="&gt;&gt;label21.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="label20.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label20.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2952,6 +3279,9 @@
   <data name="&gt;&gt;label20.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
+  <metadata name="label19.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label19.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -2982,6 +3312,9 @@
   <data name="&gt;&gt;label19.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
+  <metadata name="nu_load4.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_load4.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 199</value>
   </data>
@@ -3003,6 +3336,9 @@
   <data name="&gt;&gt;nu_load4.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="nu_load3.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_load3.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 171</value>
   </data>
@@ -3024,6 +3360,9 @@
   <data name="&gt;&gt;nu_load3.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="nu_load2.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_load2.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 143</value>
   </data>
@@ -3045,6 +3384,9 @@
   <data name="&gt;&gt;nu_load2.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="nu_load1.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="nu_load1.Location" type="System.Drawing.Point, System.Drawing">
     <value>80, 115</value>
   </data>
@@ -3069,6 +3411,9 @@
   <data name="&gt;&gt;nu_load1.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="ck_ch4_en.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_ch4_en.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3099,6 +3444,9 @@
   <data name="&gt;&gt;ck_ch4_en.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="ck_ch3_en.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_ch3_en.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3129,6 +3477,9 @@
   <data name="&gt;&gt;ck_ch3_en.ZOrder" xml:space="preserve">
     <value>9</value>
   </data>
+  <metadata name="ck_ch2_en.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_ch2_en.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3159,6 +3510,9 @@
   <data name="&gt;&gt;ck_ch2_en.ZOrder" xml:space="preserve">
     <value>10</value>
   </data>
+  <metadata name="ck_ch1_en.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_ch1_en.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3213,6 +3567,9 @@
   <data name="&gt;&gt;groupBox6.ZOrder" xml:space="preserve">
     <value>4</value>
   </data>
+  <metadata name="bt_eload_sub.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_eload_sub.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>Off</value>
   </data>
@@ -3240,6 +3597,9 @@
   <data name="&gt;&gt;bt_eload_sub.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
+  <metadata name="bt_eload_add.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="bt_eload_add.Location" type="System.Drawing.Point, System.Drawing">
     <value>7, 47</value>
   </data>
@@ -3264,6 +3624,9 @@
   <data name="&gt;&gt;bt_eload_add.ZOrder" xml:space="preserve">
     <value>6</value>
   </data>
+  <metadata name="tb_Iout.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_Iout.Location" type="System.Drawing.Point, System.Drawing">
     <value>136, 227</value>
   </data>
@@ -3288,6 +3651,9 @@
   <data name="&gt;&gt;tb_Iout.ZOrder" xml:space="preserve">
     <value>7</value>
   </data>
+  <metadata name="label16.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="label16.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3315,6 +3681,9 @@
   <data name="&gt;&gt;label16.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
+  <metadata name="Eload_DG.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <metadata name="Column1.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -3378,6 +3747,9 @@
   <data name="&gt;&gt;group_eload.ZOrder" xml:space="preserve">
     <value>32</value>
   </data>
+  <metadata name="ck_scope.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_scope.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3411,6 +3783,9 @@
   <data name="&gt;&gt;ck_scope.ZOrder" xml:space="preserve">
     <value>33</value>
   </data>
+  <metadata name="ck_meter_out.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_meter_out.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3444,6 +3819,9 @@
   <data name="&gt;&gt;ck_meter_out.ZOrder" xml:space="preserve">
     <value>34</value>
   </data>
+  <metadata name="ck_daq.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_daq.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3477,6 +3855,9 @@
   <data name="&gt;&gt;ck_daq.ZOrder" xml:space="preserve">
     <value>35</value>
   </data>
+  <metadata name="tb_res_meter_out.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_meter_out.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 194</value>
   </data>
@@ -3501,6 +3882,9 @@
   <data name="&gt;&gt;tb_res_meter_out.ZOrder" xml:space="preserve">
     <value>36</value>
   </data>
+  <metadata name="ck_eload.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_eload.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3534,6 +3918,9 @@
   <data name="&gt;&gt;ck_eload.ZOrder" xml:space="preserve">
     <value>37</value>
   </data>
+  <metadata name="ck_meter_in.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_meter_in.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3567,6 +3954,9 @@
   <data name="&gt;&gt;ck_meter_in.ZOrder" xml:space="preserve">
     <value>38</value>
   </data>
+  <metadata name="ck_power.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="ck_power.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -3600,6 +3990,9 @@
   <data name="&gt;&gt;ck_power.ZOrder" xml:space="preserve">
     <value>39</value>
   </data>
+  <metadata name="tb_res_meter_in.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <data name="tb_res_meter_in.Location" type="System.Drawing.Point, System.Drawing">
     <value>111, 166</value>
   </data>
@@ -3703,6 +4096,9 @@
     <value>2</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
