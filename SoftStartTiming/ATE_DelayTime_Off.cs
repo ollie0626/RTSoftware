@@ -12,7 +12,7 @@ using System.IO;
 namespace SoftStartTiming
 {
 
-    public class ATE_DelayTime : TaskRun
+    public class ATE_DelayTime_Off : TaskRun
     {
         Excel.Application _app;
         Excel.Worksheet _sheet;
@@ -27,7 +27,7 @@ namespace SoftStartTiming
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
 
-        public ATE_DelayTime()
+        public ATE_DelayTime_Off()
         {
             delegate_mess = new FinishNotification(MessageNotify);
         }
@@ -111,8 +111,6 @@ namespace SoftStartTiming
 
                 InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                
-
             }
             else
             {
@@ -210,7 +208,6 @@ namespace SoftStartTiming
 
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
-            //MyLib.Delay1ms(800);
 
             double time_scale = 0; 
             if(InsControl._tek_scope_en)
@@ -270,7 +267,6 @@ namespace SoftStartTiming
                         InsControl._scope.CHx_Offset(1, 0);
                     }
 
-                    // rails enable
                     RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
 
 
@@ -373,7 +369,7 @@ namespace SoftStartTiming
                 }
             }
 
-            PowerOffEvent();
+            //PowerOffEvent();
 
             if (InsControl._tek_scope_en)
             {
@@ -530,7 +526,7 @@ namespace SoftStartTiming
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
                                 {
                                     if (test_parameter.scope_en[i])
-                                        InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (i + 2).ToString());
+                                        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel" + (i + 2).ToString());
                                 }
                                 // Call Measure display to waveform
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
@@ -541,14 +537,14 @@ namespace SoftStartTiming
                                         // bool isRising1, int start, int level1, bool isRising2, int stop, int level2
                                         if (!test_parameter.sleep_mode)
                                         {
-                                            // sleep mode disable: measure point is PWRDIS falling to Rails rising.
-                                            InsControl._scope.SetDeltaTime(false, 1, 0, true, 1, 0);
+                                            // sleep mode disable: measure point is PWRDIS rising to Rails falling.
+                                            InsControl._scope.SetDeltaTime(true, 1, 0, false, 1, 0);
                                             InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
                                         }
                                         else
                                         {
-                                            // sleep mode enable : measure point is Sleep_GPIO rising to Rails rising
-                                            InsControl._scope.SetDeltaTime(true, 1, 0, true, 1, 0);
+                                            // sleep mode enable : measure point is Sleep_GPIO falling to Rails falling
+                                            InsControl._scope.SetDeltaTime(false, 1, 0, false, 1, 0);
                                             InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel" + (i + 2).ToString());
                                         }
                                     }
@@ -598,60 +594,25 @@ namespace SoftStartTiming
                             }
 
                             if (InsControl._tek_scope_en)
-                                InsControl._tek_scope.SetTriggerMode(false);
-                            else
-                                InsControl._scope.NormalTrigger();
-                            MyLib.Delay1ms(800);
-
-                            // power on trigger
-                            switch (test_parameter.trigger_event)
                             {
-                                case 0:
-                                    // GPIO trigger event
-                                    if (InsControl._tek_scope_en)
-                                        InsControl._tek_scope.SetClear();
-                                    else
-                                        InsControl._scope.Root_Clear();
-
-                                    MyLib.Delay1ms(1500);
-                                    if (test_parameter.sleep_mode)
-                                    {
-                                        if (InsControl._tek_scope_en)
-                                            InsControl._tek_scope.SetTriggerRise();
-                                        else
-                                            InsControl._scope.SetTrigModeEdge(false);
-
-                                        MyLib.Delay1ms(800);
-                                        GpioOnSelect(test_parameter.gpio_pin);
-                                    }
-                                    else
-                                    {
-                                        if (InsControl._tek_scope_en)
-                                            InsControl._tek_scope.SetTriggerFall();
-                                        else
-                                            InsControl._scope.SetTrigModeEdge(true);
-
-                                        MyLib.Delay1ms(1000);
-                                        GpioOffSelect(test_parameter.gpio_pin);
-                                    }
-
-
-                                    time_scale = time_scale * 1000;
-                                    MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
-
-                                    if (InsControl._tek_scope_en) MyLib.Delay1s(3);
-                                    break;
-                                case 1:
-                                    // I2C trigger event 
-                                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-
-                                    break;
-                                case 2:
-                                    // Power supply trigger event
-                                    InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-                                    MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
-                                    break;
+                                InsControl._tek_scope.SetTriggerMode(false);
+                                InsControl._tek_scope.SetClear();
+                                MyLib.Delay1ms(1500);
+                                if (test_parameter.sleep_mode) InsControl._tek_scope.SetTriggerFall();
+                                else InsControl._tek_scope.SetTriggerRise();
                             }
+                            else
+                            {
+                                InsControl._scope.NormalTrigger();
+                                InsControl._scope.Root_Clear();
+                                if (test_parameter.sleep_mode) InsControl._scope.SetTrigModeEdge(true);
+                                else InsControl._scope.SetTrigModeEdge(false);
+                            }
+                                
+                            MyLib.Delay1ms(800);
+                            MyLib.Delay1ms(800);
+                            PowerOffEvent();
+                            //TODO: delay off time modify to here.
 
                             if (InsControl._tek_scope_en)
                                 InsControl._tek_scope.SetStop();
@@ -830,13 +791,10 @@ namespace SoftStartTiming
                                         InsControl._scope.Root_RUN();
                                         InsControl._scope.AutoTrigger();
                                         MyLib.Delay1ms(250);
-                                        //probe_detect();
                                         PowerOffEvent();
                                         InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
                                         InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                                     }
-
-
                                     goto retest;
                                 }
                                 if (delay_time_res > 0)
@@ -882,7 +840,7 @@ namespace SoftStartTiming
                                     InsControl._scope.Root_RUN();
                                 }
                                 
-                                PowerOffEvent();
+                                PowerOnEvent(vin_idx);
                                 goto retest;
                             }
                             else if (delay_time_res < time_scale)
@@ -923,7 +881,7 @@ namespace SoftStartTiming
                                         InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
                                         InsControl._scope.Root_RUN();
                                     }
-                                    PowerOffEvent();
+                                    PowerOnEvent(vin_idx);
                                     goto retest;
                                 }
                             }
@@ -941,7 +899,7 @@ namespace SoftStartTiming
                             double vin = 0, dt1 = 0, dt2 = 0, dt3 = 0, sst1 = 0, sst2 = 0, sst3 = 0;
                             double vmax = 0, vmin = 0;
                             double vtop = 0, vbase = 0;
-                            vin = InsControl._power.GetVoltage();
+                            //vin = InsControl._power.GetVoltage();
 
                             _sheet.Cells[row, XLS_Table.D] = cnt++;
                             _sheet.Cells[row, XLS_Table.E] = temp;
@@ -1251,6 +1209,26 @@ namespace SoftStartTiming
 
         }
 
+
+        private void PowerOnEvent(int idx)
+        {
+            switch (test_parameter.trigger_event)
+            {
+                case 0: // gpio power disable
+                    if (test_parameter.sleep_mode)
+                        GpioOnSelect(test_parameter.gpio_pin);
+                    else
+                        GpioOffSelect(test_parameter.gpio_pin);
+                    break;
+                case 1:
+                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    break;
+                case 2: // vin trigger
+                    InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+                    break;
+            }
+        }
+
         private void PowerOffEvent()
         {
             switch (test_parameter.trigger_event)
@@ -1262,8 +1240,7 @@ namespace SoftStartTiming
                         GpioOnSelect(test_parameter.gpio_pin);
                     break;
                 case 1:
-                    // rails disable
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0x00 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0 });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoPowerOff();
