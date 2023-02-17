@@ -415,6 +415,11 @@ namespace SoftStartTiming
             {
                 if (test_parameter.bin_en[select_idx])
                 {
+
+                    InsControl._eload.CH1_Loading(0.01);
+                    InsControl._eload.CH2_Loading(0.01);
+                    InsControl._eload.CH3_Loading(0.01);
+
                     #region "Report initial"
 #if true
                     _sheet = _book.Worksheets.Add();
@@ -523,11 +528,11 @@ namespace SoftStartTiming
                             if (!InsControl._tek_scope_en)
                             {    
                                 // Call Measure display to waveform
-                                for (int i = 0; i < test_parameter.scope_en.Length; i++)
-                                {
-                                    if (test_parameter.scope_en[i])
-                                        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel" + (i + 2).ToString());
-                                }
+                                //for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                                //{
+                                //    if (test_parameter.scope_en[i])
+                                //        InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel" + (i + 2).ToString());
+                                //}
                                 // Call Measure display to waveform
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
                                 {
@@ -612,7 +617,6 @@ namespace SoftStartTiming
                             MyLib.Delay1ms(800);
                             MyLib.Delay1ms(800);
                             PowerOffEvent();
-                            //TODO: delay off time modify to here.
 
                             if (InsControl._tek_scope_en)
                                 InsControl._tek_scope.SetStop();
@@ -662,23 +666,24 @@ namespace SoftStartTiming
                                     if (test_parameter.scope_en[i])
                                     {
                                         if (!test_parameter.sleep_mode)
-                                            // pwrdis mode --> falling to rising
-                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false);
+                                            // pwrdis mode --> rising to falling
+                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, true, false);
                                         else
-                                            // sleep mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2);
+                                            // sleep mode --> falling to falling
+                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false, false);
 
                                         meas_idx++;
                                     }
                                 }
 
-                                for (int i = 0; i < test_parameter.scope_en.Length; i++)
-                                {
-                                    if(test_parameter.scope_en[i])
-                                    {
-                                        InsControl._tek_scope.SetMeasureSource(i + 2, meas_idx++, "RISe");
-                                    }
-                                }
+                                // I think power off time don't need measure falling time
+                                //for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                                //{
+                                //    if(test_parameter.scope_en[i])
+                                //    {
+                                //        InsControl._tek_scope.SetMeasureSource(i + 2, meas_idx++, "RISe");
+                                //    }
+                                //}
 
 
                                 InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
@@ -705,66 +710,66 @@ namespace SoftStartTiming
                                     if(InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
-                                            // pwrdis mode --> falling to rising
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false);
+                                            // pwrdis mode --> rising to falling
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2, true, false);
                                         else
-                                            // sleep mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
+                                            // sleep mode --> falling to falling
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false, false);
 
                                         delay_time_res = InsControl._tek_scope.MeasureMean(8);
 
 
-                                        InsControl._tek_scope.SetMeasureSource(2, 8, "RISe");
+                                        InsControl._tek_scope.SetMeasureSource(2, 8, "FALL");
                                         sst_res = InsControl._tek_scope.MeasureMean(8);
                                     }
                                     else
                                     {
                                         delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel2");
-                                        sst_res = InsControl._scope.Meas_CH2Rise();
+                                        sst_res = InsControl._scope.Meas_CH2Fall();
                                     }
                                     break;
                                 case 1:
                                     if(InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
-                                            // pwrdis mode --> falling to rising
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false);
+                                            // pwrdis mode --> rising to falling
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3, true, false);
                                         else
-                                            // sleep mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3);
+                                            // sleep mode --> falling to rising
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false, false);
 
                                         delay_time_res = InsControl._tek_scope.MeasureMean(8);
 
 
-                                        InsControl._tek_scope.SetMeasureSource(3, 8, "RISe");
+                                        InsControl._tek_scope.SetMeasureSource(3, 8, "FALL");
                                         sst_res = InsControl._tek_scope.MeasureMean(8);
                                     }
                                     else
                                     {
                                         delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel3");
-                                        sst_res = InsControl._scope.Meas_CH3Rise();
+                                        sst_res = InsControl._scope.Meas_CH3Fall();
                                     }
                                     break;
                                 case 2:
                                     if(InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
-                                            // pwrdis mode --> falling to rising
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false);
+                                            // pwrdis mode --> rising to falling
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4, true, false);
                                         else
-                                            // sleep mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4);
+                                            // sleep mode --> falling to falling
+                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false, false);
 
                                         delay_time_res = InsControl._tek_scope.MeasureMean(8);
 
 
-                                        InsControl._tek_scope.SetMeasureSource(4, 8, "RISe");
+                                        InsControl._tek_scope.SetMeasureSource(4, 8, "FALL");
                                         sst_res = InsControl._tek_scope.MeasureMean(8);
                                     }
                                     else
                                     {
                                         delay_time_res = InsControl._scope.doQueryNumber(":MEASure:DELTatime? CHANnel1, CHANnel4");
-                                        sst_res = InsControl._scope.Meas_CH4Rise();
+                                        sst_res = InsControl._scope.Meas_CH4Fall();
                                     }
                                     break;
                             }

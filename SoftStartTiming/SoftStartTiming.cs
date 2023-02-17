@@ -32,7 +32,6 @@ namespace SoftStartTiming
         // device name
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
 
-
         public SoftStartTiming()
         {
             InitializeComponent();
@@ -216,6 +215,7 @@ namespace SoftStartTiming
             test_parameter.tool_ver = win_name + "\r\n";
 
             TextBox[] path_table = new TextBox[] { tbBin, tbBin2, tbBin3 };
+            TextBox[] power_off_path_table = new TextBox[] { tbBin4, tbBin5, tbBin6 };
             test_parameter.chamber_en = ck_chamber_en.Checked;
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
@@ -224,9 +224,11 @@ namespace SoftStartTiming
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
+
             for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
+                test_parameter.power_off_bin_path[i] = power_off_path_table[i].Text;
             }
 
             // need to gui configure

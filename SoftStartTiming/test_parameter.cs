@@ -26,7 +26,13 @@ namespace SoftStartTiming
         public static double sleep_en;
         public static byte slave;
         public static bool sleep_mode;
+
+
         public static string[] bin_path = new string[3];
+        public static string[] power_off_bin_path = new string[3];
+
+
+
         public static bool[] scope_en = new bool[3];
         public static bool[] bin_en = new bool[3];
         public static string waveform_path;
