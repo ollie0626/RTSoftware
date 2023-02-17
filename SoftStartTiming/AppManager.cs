@@ -20,7 +20,7 @@ namespace SoftStartTiming
             CBGPIO.SelectedIndex = 0;
             CBPower.Enabled = false;
             CBChannel.Enabled = false;
-            ate_table = new TaskRun[] { _ate_delay_time, _ate_sst };
+            ate_table = new TaskRun[] { _ate_delay_time, _ate_sst, _ate_delay_off };
 
             binTable = new CheckBox[] { CkBin1, CkBin2, CkBin3 };
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };

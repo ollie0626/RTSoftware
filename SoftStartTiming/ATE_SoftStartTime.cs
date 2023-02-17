@@ -178,8 +178,7 @@ namespace SoftStartTiming
             }
 
 
-            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
-            MyLib.Delay1ms(800);
+
 
             switch (test_parameter.trigger_event)
             {
@@ -229,6 +228,8 @@ namespace SoftStartTiming
                     break;
             }
             MyLib.Delay1s(1);
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
+            MyLib.Delay1ms(800);
 
 
             if (InsControl._tek_scope_en)
@@ -574,6 +575,8 @@ namespace SoftStartTiming
                     }
 
                     PowerOffEvent();
+                    RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]); // test conditions
+                    MyLib.Delay1ms(800);
 
                     MyLib.Delay1ms(1000);
                     if(InsControl._tek_scope_en)

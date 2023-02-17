@@ -89,9 +89,9 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_BWlimitOn(3);
                 InsControl._tek_scope.CHx_BWlimitOn(4);
 
-                InsControl._tek_scope.CHx_Position(1, 0);
-                InsControl._tek_scope.CHx_Position(2, -1);
-                InsControl._tek_scope.CHx_Position(3, -2);
+                InsControl._tek_scope.CHx_Position(1, 1.5);
+                InsControl._tek_scope.CHx_Position(2, 0);
+                InsControl._tek_scope.CHx_Position(3, -1);
                 InsControl._tek_scope.CHx_Position(4, -3);
 
                 for(int i = 0; i < test_parameter.scope_en.Length; i++)
@@ -242,7 +242,7 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTriggerSource(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
-                        InsControl._tek_scope.CHx_Position(1, 0);
+                        InsControl._tek_scope.CHx_Position(1, 1.5);
                     }
                     else
                     {
@@ -261,7 +261,7 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTriggerSource(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
-                        InsControl._tek_scope.CHx_Position(1, 0);
+                        InsControl._tek_scope.CHx_Position(1, 1.5);
                     }
                     else
                     {
@@ -302,7 +302,7 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
-                        InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
+                        //InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
                         MyLib.Delay1ms(800);
                     }
                     else
@@ -348,7 +348,7 @@ namespace SoftStartTiming
                         if(InsControl._tek_scope_en)
                         {
                             InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                            InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
+                            //InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
                         }
                         else
                         {
@@ -601,7 +601,7 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.SetTriggerMode(false);
                             else
                                 InsControl._scope.NormalTrigger();
-                            MyLib.Delay1ms(800);
+                            MyLib.Delay1ms(900);
 
                             // power on trigger
                             switch (test_parameter.trigger_event)
@@ -644,7 +644,7 @@ namespace SoftStartTiming
                                 case 1:
                                     // I2C trigger event 
                                     RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-
+                                    MyLib.Delay1s(1);
                                     break;
                                 case 2:
                                     // Power supply trigger event
