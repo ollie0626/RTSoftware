@@ -66,11 +66,13 @@ namespace MulanLite
         }
 
         /* 
-         * idx = 0, Ci = 18MHz
-         * idx = 1, Ci = 12MHz
-         * idx = 2, Ci = 9MHz
-         * idx = 3, Ci = 7MHz
-         * idx = 4, Ci = 6MHz
+         * idx = 0, Ci = 15MHz
+         * idx = 1, Ci = 14MHz
+         * idx = 2, Ci = 13MHz
+         * idx = 3, Ci = 12MHz
+         * idx = 4, Ci = 10MHz
+         * idx = 5, Ci = 7.8MHz
+         * idx = 6, Ci = 6MHz
          * */
         public void SetCiClock(int idx)
         {
@@ -85,17 +87,15 @@ namespace MulanLite
             {
 
                 case 0:
-                    pwmModule.RTBB_PWMSetPeriod(0, 1);
-                    /* 18M */
+                    // 6M
                     buf[0] = 0xBA;
-                    buf[1] = 0x18;
+                    buf[1] = 0x06;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, 2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 1:
-                    pwmModule.RTBB_PWMSetPeriod(0, 2);
-                    /* 7.8M */
+                    // 7.8M
                     buf[0] = 0xBA;
                     buf[1] = 0x78;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
@@ -104,29 +104,54 @@ namespace MulanLite
 
                     break;
                 case 2:
+                    // 15M
                     pwmModule.RTBB_PWMSetPeriod(0, 3);
-                    /* 6M */
                     buf[0] = 0xBA;
-                    buf[1] = 0x06;
+                    buf[1] = 0x18;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 3:
-                    pwmModule.RTBB_PWMSetPeriod(0, 4);
+                    // 14M
+                    buf[0] = 0xBA;
+                    buf[1] = 0x28;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
                     break;
                 case 4:
-                    pwmModule.RTBB_PWMSetPeriod(0, 5);
+                    // 13M
+                    buf[0] = 0xBA;
+                    buf[1] = 0x38;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 5:
+                    // 12M
+                    buf[0] = 0xBA;
+                    buf[1] = 0x48;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 6:
+                    // 10M
+                    buf[0] = 0xBA;
+                    buf[1] = 0x58;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
                     break;
                 default:
-                    pwmModule.RTBB_PWMSetPeriod(0, 1);
+                    buf[0] = 0xBA;
+                    buf[1] = 0x78;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
-                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, 2, Cmd, buf);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
             }
-            pwmModule.RTBB_PWMSetDutyCycle(0, 0.5);
-            pwmModule.RTBB_PWMStart(0);
         }
 
         public bool BoardInit()

@@ -635,6 +635,12 @@ namespace MulanLite
             this.W10 = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox39 = new System.Windows.Forms.GroupBox();
+            this.uiButton10 = new Sunny.UI.UIButton();
+            this.uiButton14 = new Sunny.UI.UIButton();
+            this.uiButton11 = new Sunny.UI.UIButton();
+            this.uiButton12 = new Sunny.UI.UIButton();
+            this.uiButton13 = new Sunny.UI.UIButton();
             this.uibt_exit_testmode = new Sunny.UI.UIButton();
             this.bt_virus_pattern = new Sunny.UI.UIButton();
             this.groupBox36 = new System.Windows.Forms.GroupBox();
@@ -684,11 +690,6 @@ namespace MulanLite
             this.cb_co_do_keep0 = new System.Windows.Forms.ComboBox();
             this.cb_debug_en = new System.Windows.Forms.ComboBox();
             this.R98 = new System.Windows.Forms.TabPage();
-            this.uiButton14 = new Sunny.UI.UIButton();
-            this.uiButton13 = new Sunny.UI.UIButton();
-            this.uiButton12 = new Sunny.UI.UIButton();
-            this.uiButton11 = new Sunny.UI.UIButton();
-            this.uiButton10 = new Sunny.UI.UIButton();
             this.label133 = new System.Windows.Forms.Label();
             this.by_tm_read_to_write = new Sunny.UI.UIButton();
             this.uiButton9 = new Sunny.UI.UIButton();
@@ -771,7 +772,6 @@ namespace MulanLite
             this.ck_CH3_en = new System.Windows.Forms.CheckBox();
             this.ck_CH2_en = new System.Windows.Forms.CheckBox();
             this.ck_CH1_en = new System.Windows.Forms.CheckBox();
-            this.groupBox39 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuFirst)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_persentid)).BeginInit();
@@ -1093,6 +1093,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W11)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W10)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox39.SuspendLayout();
             this.groupBox36.SuspendLayout();
             this.flowLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_X_ADDR)).BeginInit();
@@ -1151,7 +1152,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).BeginInit();
             this.uiGroupBox5.SuspendLayout();
-            this.groupBox39.SuspendLayout();
             this.SuspendLayout();
             // 
             // uiLabel1
@@ -1834,9 +1834,13 @@ namespace MulanLite
             this.CiFreq.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CiFreq.FormattingEnabled = true;
             this.CiFreq.Items.AddRange(new object[] {
-            "15MHz",
+            "6MHz",
             "7.8MHz",
-            "6MHz"});
+            "15MHz",
+            "14MHz",
+            "13MHz",
+            "12MHz",
+            "10MHz"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
             this.CiFreq.Size = new System.Drawing.Size(130, 23);
@@ -10423,6 +10427,85 @@ namespace MulanLite
             this.tabPage4.Text = "Ridge TestMode";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
+            // groupBox39
+            // 
+            this.groupBox39.Controls.Add(this.uiButton10);
+            this.groupBox39.Controls.Add(this.uiButton14);
+            this.groupBox39.Controls.Add(this.uiButton11);
+            this.groupBox39.Controls.Add(this.uiButton12);
+            this.groupBox39.Controls.Add(this.uiButton13);
+            this.groupBox39.Location = new System.Drawing.Point(463, 48);
+            this.groupBox39.Name = "groupBox39";
+            this.groupBox39.Size = new System.Drawing.Size(130, 204);
+            this.groupBox39.TabIndex = 149;
+            this.groupBox39.TabStop = false;
+            this.groupBox39.Text = "COMM Fault Event";
+            // 
+            // uiButton10
+            // 
+            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton10.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton10.Location = new System.Drawing.Point(14, 26);
+            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton10.Name = "uiButton10";
+            this.uiButton10.Size = new System.Drawing.Size(84, 29);
+            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton10.TabIndex = 144;
+            this.uiButton10.Text = "BADID";
+            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
+            // 
+            // uiButton14
+            // 
+            this.uiButton14.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton14.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton14.Location = new System.Drawing.Point(14, 166);
+            this.uiButton14.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton14.Name = "uiButton14";
+            this.uiButton14.Size = new System.Drawing.Size(84, 29);
+            this.uiButton14.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton14.TabIndex = 148;
+            this.uiButton14.Text = "RDO_FLOW";
+            this.uiButton14.Click += new System.EventHandler(this.uiButton14_Click);
+            // 
+            // uiButton11
+            // 
+            this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton11.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton11.Location = new System.Drawing.Point(14, 61);
+            this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton11.Name = "uiButton11";
+            this.uiButton11.Size = new System.Drawing.Size(84, 29);
+            this.uiButton11.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton11.TabIndex = 145;
+            this.uiButton11.Text = "BADADDR";
+            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
+            // 
+            // uiButton12
+            // 
+            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton12.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton12.Location = new System.Drawing.Point(14, 96);
+            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton12.Name = "uiButton12";
+            this.uiButton12.Size = new System.Drawing.Size(84, 29);
+            this.uiButton12.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton12.TabIndex = 146;
+            this.uiButton12.Text = "BADLEN";
+            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
+            // 
+            // uiButton13
+            // 
+            this.uiButton13.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.uiButton13.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.uiButton13.Location = new System.Drawing.Point(14, 131);
+            this.uiButton13.MinimumSize = new System.Drawing.Size(1, 1);
+            this.uiButton13.Name = "uiButton13";
+            this.uiButton13.Size = new System.Drawing.Size(84, 29);
+            this.uiButton13.Style = Sunny.UI.UIStyle.Custom;
+            this.uiButton13.TabIndex = 147;
+            this.uiButton13.Text = "BADCMD";
+            this.uiButton13.Click += new System.EventHandler(this.uiButton13_Click);
+            // 
             // uibt_exit_testmode
             // 
             this.uibt_exit_testmode.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -11152,71 +11235,6 @@ namespace MulanLite
             this.R98.TabIndex = 4;
             this.R98.Text = "Richtek Test Mode";
             this.R98.UseVisualStyleBackColor = true;
-            // 
-            // uiButton14
-            // 
-            this.uiButton14.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton14.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton14.Location = new System.Drawing.Point(14, 166);
-            this.uiButton14.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton14.Name = "uiButton14";
-            this.uiButton14.Size = new System.Drawing.Size(84, 29);
-            this.uiButton14.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton14.TabIndex = 148;
-            this.uiButton14.Text = "RDO_FLOW";
-            this.uiButton14.Click += new System.EventHandler(this.uiButton14_Click);
-            // 
-            // uiButton13
-            // 
-            this.uiButton13.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton13.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton13.Location = new System.Drawing.Point(14, 131);
-            this.uiButton13.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton13.Name = "uiButton13";
-            this.uiButton13.Size = new System.Drawing.Size(84, 29);
-            this.uiButton13.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton13.TabIndex = 147;
-            this.uiButton13.Text = "BADCMD";
-            this.uiButton13.Click += new System.EventHandler(this.uiButton13_Click);
-            // 
-            // uiButton12
-            // 
-            this.uiButton12.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton12.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton12.Location = new System.Drawing.Point(14, 96);
-            this.uiButton12.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton12.Name = "uiButton12";
-            this.uiButton12.Size = new System.Drawing.Size(84, 29);
-            this.uiButton12.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton12.TabIndex = 146;
-            this.uiButton12.Text = "BADLEN";
-            this.uiButton12.Click += new System.EventHandler(this.uiButton12_Click);
-            // 
-            // uiButton11
-            // 
-            this.uiButton11.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton11.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton11.Location = new System.Drawing.Point(14, 61);
-            this.uiButton11.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton11.Name = "uiButton11";
-            this.uiButton11.Size = new System.Drawing.Size(84, 29);
-            this.uiButton11.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton11.TabIndex = 145;
-            this.uiButton11.Text = "BADADDR";
-            this.uiButton11.Click += new System.EventHandler(this.uiButton11_Click);
-            // 
-            // uiButton10
-            // 
-            this.uiButton10.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.uiButton10.Font = new System.Drawing.Font("Calibri", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiButton10.Location = new System.Drawing.Point(14, 26);
-            this.uiButton10.MinimumSize = new System.Drawing.Size(1, 1);
-            this.uiButton10.Name = "uiButton10";
-            this.uiButton10.Size = new System.Drawing.Size(84, 29);
-            this.uiButton10.Style = Sunny.UI.UIStyle.Custom;
-            this.uiButton10.TabIndex = 144;
-            this.uiButton10.Text = "BADID";
-            this.uiButton10.Click += new System.EventHandler(this.uiButton10_Click);
             // 
             // label133
             // 
@@ -12345,20 +12363,6 @@ namespace MulanLite
             this.ck_CH1_en.UseVisualStyleBackColor = true;
             this.ck_CH1_en.CheckedChanged += new System.EventHandler(this.ck_CH0_en_CheckedChanged);
             // 
-            // groupBox39
-            // 
-            this.groupBox39.Controls.Add(this.uiButton10);
-            this.groupBox39.Controls.Add(this.uiButton14);
-            this.groupBox39.Controls.Add(this.uiButton11);
-            this.groupBox39.Controls.Add(this.uiButton12);
-            this.groupBox39.Controls.Add(this.uiButton13);
-            this.groupBox39.Location = new System.Drawing.Point(463, 48);
-            this.groupBox39.Name = "groupBox39";
-            this.groupBox39.Size = new System.Drawing.Size(130, 204);
-            this.groupBox39.TabIndex = 149;
-            this.groupBox39.TabStop = false;
-            this.groupBox39.Text = "COMM Fault Event";
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
@@ -12720,6 +12724,7 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.W11)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W10)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox39.ResumeLayout(false);
             this.groupBox36.ResumeLayout(false);
             this.flowLayoutPanel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.nu_X_ADDR)).EndInit();
@@ -12783,7 +12788,6 @@ namespace MulanLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_conf_id)).EndInit();
             this.uiGroupBox5.ResumeLayout(false);
             this.uiGroupBox5.PerformLayout();
-            this.groupBox39.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
