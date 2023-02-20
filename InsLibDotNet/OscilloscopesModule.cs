@@ -7,7 +7,7 @@ using System.IO;
 
 namespace InsLibDotNet
 {
-    class OscilloscopesModule : VisaCommand
+    public class OscilloscopesModule : VisaCommand
     {
         /*
          * 

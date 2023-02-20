@@ -21,5 +21,8 @@ namespace SoftStartTiming
         public static TekTronix7Serise _tek_scope;
         public static bool _tek_scope_en;
 
+
+        public static  OscilloscopesModule _oscilloscope;
+
     }
 }

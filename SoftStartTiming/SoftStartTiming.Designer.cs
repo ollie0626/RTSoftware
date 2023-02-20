@@ -32,7 +32,9 @@ namespace SoftStartTiming
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.labRail_en = new System.Windows.Forms.Label();
             this.nuAddr = new System.Windows.Forms.NumericUpDown();
+            this.nuData1 = new System.Windows.Forms.NumericUpDown();
             this.labAddr = new System.Windows.Forms.Label();
             this.BTSelectBinPath6 = new System.Windows.Forms.Button();
             this.group_sst = new System.Windows.Forms.GroupBox();
@@ -53,7 +55,6 @@ namespace SoftStartTiming
             this.BTSelectBinPath4 = new System.Windows.Forms.Button();
             this.tbBin4 = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.nuData1 = new System.Windows.Forms.NumericUpDown();
             this.CkBin2 = new System.Windows.Forms.CheckBox();
             this.CkBin3 = new System.Windows.Forms.CheckBox();
             this.CkBin1 = new System.Windows.Forms.CheckBox();
@@ -97,8 +98,8 @@ namespace SoftStartTiming
             this.led_eload = new System.Windows.Forms.TextBox();
             this.led_chamber = new System.Windows.Forms.TextBox();
             this.led_daq = new System.Windows.Forms.TextBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
+            this.BT_SaveSetting = new System.Windows.Forms.Button();
+            this.BT_LoadSetting = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
@@ -124,17 +125,16 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.labRail_en = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
             this.group_sst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuILX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuLX)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
             this.group_channel.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
@@ -195,6 +195,16 @@ namespace SoftStartTiming
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
             // 
+            // labRail_en
+            // 
+            this.labRail_en.AutoSize = true;
+            this.labRail_en.Location = new System.Drawing.Point(327, 147);
+            this.labRail_en.Name = "labRail_en";
+            this.labRail_en.Size = new System.Drawing.Size(52, 12);
+            this.labRail_en.TabIndex = 88;
+            this.labRail_en.Text = "Rails En";
+            this.labRail_en.Visible = false;
+            // 
             // nuAddr
             // 
             this.nuAddr.Hexadecimal = true;
@@ -210,6 +220,22 @@ namespace SoftStartTiming
             this.nuAddr.TabIndex = 76;
             this.nuAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuAddr.Visible = false;
+            // 
+            // nuData1
+            // 
+            this.nuData1.Hexadecimal = true;
+            this.nuData1.Location = new System.Drawing.Point(389, 142);
+            this.nuData1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuData1.Name = "nuData1";
+            this.nuData1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuData1.Size = new System.Drawing.Size(69, 22);
+            this.nuData1.TabIndex = 88;
+            this.nuData1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuData1.Visible = false;
             // 
             // labAddr
             // 
@@ -420,22 +446,6 @@ namespace SoftStartTiming
             this.groupBox5.TabIndex = 83;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "I2C Setting En";
-            // 
-            // nuData1
-            // 
-            this.nuData1.Hexadecimal = true;
-            this.nuData1.Location = new System.Drawing.Point(389, 142);
-            this.nuData1.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nuData1.Name = "nuData1";
-            this.nuData1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nuData1.Size = new System.Drawing.Size(69, 22);
-            this.nuData1.TabIndex = 88;
-            this.nuData1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nuData1.Visible = false;
             // 
             // CkBin2
             // 
@@ -886,25 +896,25 @@ namespace SoftStartTiming
             this.led_daq.Size = new System.Drawing.Size(22, 22);
             this.led_daq.TabIndex = 46;
             // 
-            // button6
+            // BT_SaveSetting
             // 
-            this.button6.Location = new System.Drawing.Point(150, 13);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(102, 23);
-            this.button6.TabIndex = 56;
-            this.button6.Text = "Save Setting";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Visible = false;
+            this.BT_SaveSetting.Location = new System.Drawing.Point(150, 13);
+            this.BT_SaveSetting.Name = "BT_SaveSetting";
+            this.BT_SaveSetting.Size = new System.Drawing.Size(102, 23);
+            this.BT_SaveSetting.TabIndex = 56;
+            this.BT_SaveSetting.Text = "Save Setting";
+            this.BT_SaveSetting.UseVisualStyleBackColor = true;
+            this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
             // 
-            // button7
+            // BT_LoadSetting
             // 
-            this.button7.Location = new System.Drawing.Point(258, 13);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(102, 23);
-            this.button7.TabIndex = 57;
-            this.button7.Text = "Load Setting";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Visible = false;
+            this.BT_LoadSetting.Location = new System.Drawing.Point(258, 13);
+            this.BT_LoadSetting.Name = "BT_LoadSetting";
+            this.BT_LoadSetting.Size = new System.Drawing.Size(102, 23);
+            this.BT_LoadSetting.TabIndex = 57;
+            this.BT_LoadSetting.Text = "Load Setting";
+            this.BT_LoadSetting.UseVisualStyleBackColor = true;
+            this.BT_LoadSetting.Click += new System.EventHandler(this.BT_LoadSetting_Click);
             // 
             // groupBox3
             // 
@@ -1161,16 +1171,6 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
-            // labRail_en
-            // 
-            this.labRail_en.AutoSize = true;
-            this.labRail_en.Location = new System.Drawing.Point(327, 147);
-            this.labRail_en.Name = "labRail_en";
-            this.labRail_en.Size = new System.Drawing.Size(52, 12);
-            this.labRail_en.TabIndex = 88;
-            this.labRail_en.Text = "Rails En";
-            this.labRail_en.Visible = false;
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1196,8 +1196,8 @@ namespace SoftStartTiming
             this.Controls.Add(this.tb_power);
             this.Controls.Add(this.BTRun);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.button7);
-            this.Controls.Add(this.button6);
+            this.Controls.Add(this.BT_LoadSetting);
+            this.Controls.Add(this.BT_SaveSetting);
             this.Controls.Add(this.nuslave);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.led_chamber);
@@ -1217,6 +1217,7 @@ namespace SoftStartTiming
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).EndInit();
             this.group_sst.ResumeLayout(false);
             this.group_sst.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuILX)).EndInit();
@@ -1226,7 +1227,6 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).EndInit();
             this.group_channel.ResumeLayout(false);
             this.group_channel.PerformLayout();
             this.groupBox4.ResumeLayout(false);
@@ -1266,8 +1266,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTSelectWavePath;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox tb_vinList;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button BT_SaveSetting;
+        private System.Windows.Forms.Button BT_LoadSetting;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.CheckBox ck_chamber_en;
         private System.Windows.Forms.Label label14;

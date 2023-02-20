@@ -14,6 +14,7 @@ using System.IO;
 using System.Diagnostics;
 
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
 
 namespace SoftStartTiming
 {
@@ -79,8 +80,8 @@ namespace SoftStartTiming
         {
             switch (ins_sel)
             {
-                case 0: 
-                    if(InsControl._tek_scope_en)
+                case 0:
+                    if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope = new TekTronix7Serise(res);
                     }
@@ -88,7 +89,7 @@ namespace SoftStartTiming
                     {
                         InsControl._scope = new AgilentOSC(res);
                     }
-                    
+
                     break;
                 case 1: InsControl._power = new PowerModule(res); break;
                 case 2: InsControl._eload = new EloadModule(res); break;
@@ -150,7 +151,7 @@ namespace SoftStartTiming
         {
             if (InsControl._scope != null || InsControl._tek_scope != null)
             {
-                if(InsControl._tek_scope_en)
+                if (InsControl._tek_scope_en)
                 {
                     if (InsControl._tek_scope.InsState())
                         led_osc.BackColor = Color.LightGreen;
@@ -462,9 +463,9 @@ namespace SoftStartTiming
                 {
                     if (idn.Split(',')[0] == "TEKTRONIX")
                     {
-                        for(int i = 0; i < scope_name.Length; i++)
+                        for (int i = 0; i < scope_name.Length; i++)
                         {
-                            if(name == scope_name[i]) 
+                            if (name == scope_name[i])
                                 InsControl._tek_scope_en = true;
                         }
                     }
@@ -560,7 +561,7 @@ namespace SoftStartTiming
                     CkBin2.Enabled = true;
                     CkBin3.Enabled = true;
 
-                    switch(CbTrigger.SelectedIndex)
+                    switch (CbTrigger.SelectedIndex)
                     {
                         case 0:
                             tb_connect1.Text = "PWRDIS / Sleep";
@@ -691,6 +692,126 @@ namespace SoftStartTiming
             }
         }
 
+        private void BT_SaveSetting_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "settings|*.tb_info";
 
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = saveDlg.FileName;
+                SaveSettings(file_name);
+            }
+        }
+
+        private void SaveSettings(string file)
+        {
+            string settings = "";
+
+            // chamber info
+            settings = "0.Chamber_en=$" + (ck_chamber_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "1.Chamber_temp=$" + tb_chamber.Text + "$\r\n";
+            settings += "2.Chamber_time=$" + nu_steady.Value.ToString() + "$\r\n";
+
+            // slave id
+            settings += "3.Slave=$" + nuslave.Value.ToString() + "$\r\n";
+            settings += "4.Addr=$" + nuAddr.Value.ToString() + "$\r\n";
+            settings += "5.Rail_en=$" + nuData1.Value.ToString() + "$\r\n";
+
+            // bin folder
+            settings += "6.Bin1=$" + tbBin.Text + "$\r\n";
+            settings += "7.Bin2=$" + tbBin2.Text + "$\r\n";
+            settings += "8.Bin3=$" + tbBin3.Text + "$\r\n";
+            settings += "9.Bin4=$" + tbBin4.Text + "$\r\n";
+            settings += "10.Bin5=$" + tbBin5.Text + "$\r\n";
+            settings += "11.Bin6=$" + tbBin6.Text + "$\r\n";
+
+            settings += "12.WavePath=$" + tbWave.Text + "$\r\n";
+            settings += "13.Trigger_event=$" + CbTrigger.SelectedIndex + "$\r\n";
+            settings += "14.GPIO_sel=$" + CBGPIO.SelectedIndex + "$\r\n";
+
+            settings += "15.Bin1_en=$" + (CkBin1.Checked ? "1" : "0") + "$\r\n";
+            settings += "16.Bin2_en=$" + (CkBin2.Checked ? "1" : "0") + "$\r\n";
+            settings += "17.Bin3_en=$" + (CkBin3.Checked ? "1" : "0") + "$\r\n";
+
+            settings += "18.Scope_Ch1_en=$" + (CkCH1.Checked ? "1" : "0") + "$\r\n";
+            settings += "19.Scope_Ch2_en=$" + (CkCH2.Checked ? "1" : "0") + "$\r\n";
+            settings += "20.Scope_Ch3_en=$" + (CkCH3.Checked ? "1" : "0") + "$\r\n";
+
+            settings += "21.Lx_level=$" + nuLX.Value.ToString() + "$\r\n";
+            settings += "22.ILx_level=$" + nuILX.Value.ToString() + "$\r\n";
+
+            settings += "23.On_TimeScale=$" + nu_ontime_scale.Value.ToString() + "$\r\n";
+            settings += "24.Off_TimeScale=$" + nu_offtime_scale.Value.ToString() + "$\r\n";
+
+            settings += "25.Vin=$" + tb_vinList.Text + "$\r\n";
+            settings += "26.Unit=$" + (RBUs.Checked ? "1" : "0") + "$\r\n";
+            settings += "27.Time_offset=$" + nuOffset.Value.ToString() + "$\r\n";
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void BT_LoadSetting_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(opendlg.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                ck_chamber_en, tb_chamber, nu_steady, nuslave, nuAddr, nuData1,
+                tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
+                CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
+                nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
+                RBUs, nuOffset
+            };
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                for (int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch (obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "RadioButton":
+                            ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                    }
+                }
+            }
+
+
+        }
     }
 }
