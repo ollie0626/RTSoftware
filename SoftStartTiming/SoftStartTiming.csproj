@@ -60,6 +60,7 @@
     <Compile Include="AppManager.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="ATE_CrossTalk.cs" />
     <Compile Include="ATE_DelayTime_Off.cs" />
     <Compile Include="ATE_SoftStartTime.cs" />
     <Compile Include="ATE_DelayTime.cs" />

@@ -16,8 +16,8 @@ namespace SoftStartTiming
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SoftStartTiming());
-            //Application.Run(new CrossTalk());
+            //Application.Run(new SoftStartTiming());
+            Application.Run(new CrossTalk());
         }
     }
 }

@@ -516,6 +516,22 @@ namespace InsLibDotNet
             return res;
         }
 
+        public double CHx_Meas_Mean(int ch, int meas = 1)
+        {
+            double res = 0;
+            switch (osc_sel)
+            {
+                case 0:
+                    SetMeasureSource(ch, meas, "MEAN");
+                    res = MeasureMean(meas);
+                    break;
+                case 1:
+                    res = doQueryNumber(string.Format(":MEASure:VAVerage? CHANnel{0}", ch));
+                    break;
+            }
+            return res;
+        }
+
         public double CHx_Meas_AMP(int ch, int meas = 1)
         {
             double res = 0;

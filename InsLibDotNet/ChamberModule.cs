@@ -16,6 +16,8 @@ namespace InsLibDotNet
         public ChamberModule()
         {
             LinkingIns("GPIB0::3::INSTR");
+            visa32.viSetAttribute(device, visa32.VI_ATTR_TERMCHAR_EN, visa32.VI_TRUE);
+            visa32.viSetAttribute(device, visa32.VI_ATTR_TERMCHAR, 0x0D);
             cnt = 0;
         }
 

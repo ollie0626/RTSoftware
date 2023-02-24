@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SoftStartTiming
 {
@@ -82,7 +83,27 @@ namespace SoftStartTiming
 
         public static byte Rail_addr;
         public static byte Rail_en;
+
+        /* Cross talk */
+        // test conditions
+        public static byte[] freq_addr = new byte[4];
+        public static byte[] vout_addr = new byte[4];
+
+        public static byte[] hi_code = new byte[4];
+        public static byte[] lo_code = new byte[4];
+        public static byte[] en_addr = new byte[4];
+        public static byte[] en_code = new byte[4];
+        public static byte[] disable_code = new byte[4];
+
+        public static Dictionary<int, List<double>> ccm_eload = new Dictionary<int, List<double>>();
+        public static Dictionary<int, List<byte>> freq_data = new Dictionary<int, List<byte>>();
+        public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
+        public static Dictionary<int, List<string>> freq_des = new Dictionary<int, List<string>>();
+        public static Dictionary<int, List<string>> vout_des = new Dictionary<int, List<string>>();
+        public static DataGridView trans_load = new DataGridView();
+
+
+        public static byte[] cross_select = new byte[4];
+        public static bool[] cross_en = new bool[4];
     }
-
-
 }

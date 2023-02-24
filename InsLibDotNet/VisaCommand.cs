@@ -29,7 +29,7 @@ public class VisaCommand
         if (Rm == 0) visa32.viOpenDefaultRM(out Rm);
         visa32.viParseRsrc(Rm, Addr, ref intfType, ref intfNum);
         visa32.viOpen(Rm, Addr, 0, 0, out device);
-        visa32.viSetAttribute(device, visa32.VI_ATTR_TMO_VALUE, 1000);
+        visa32.viSetAttribute(device, visa32.VI_ATTR_TMO_VALUE, 500);
         Console.WriteLine(Addr + "   " + device);
 #else
         Rm = 0;

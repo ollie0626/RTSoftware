@@ -308,6 +308,26 @@ namespace InsLibDotNet
             doCommand(gogoCMD);
         }
 
+        public void Loading(int CH, double iout)
+        {
+            string gogoCMD;
+            doCommand("CHAN " + CH.ToString());
+            System.Threading.Thread.Sleep(50);
+            //if (iout < 0.2)
+            //    CCL_Mode();
+            //else if (iout >= 0.2 && iout < 1)
+            //    CCM_Mode();
+            //else if(iout >= 1 && iout < 20)
+            //    CCH_Mode();
+            System.Threading.Thread.Sleep(150);
+
+
+            gogoCMD = "CURR:STAT:L2 " + string.Format("{0:0.####}", iout);
+            doCommand(gogoCMD);
+            gogoCMD = "LOAD ON";
+            doCommand(gogoCMD);
+        }
+
 
         private void CHx_ClearSetting(string CH)
         {
