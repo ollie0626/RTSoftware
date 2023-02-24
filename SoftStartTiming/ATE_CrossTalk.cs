@@ -126,7 +126,7 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.Q] = "Vmean(V)";
                         _sheet.Cells[row, XLS_Table.R] = "Victim Max Voltage";
                         _sheet.Cells[row, XLS_Table.S] = "Victim Min Voltage";
-                        _sheet.Cells[row, XLS_Table.T] = "Jitter";
+                        _sheet.Cells[row, XLS_Table.T] = "Jitter(%)";
                         _sheet.Cells[row, XLS_Table.U] = "+VΔ (mV)";
                         _sheet.Cells[row, XLS_Table.V] = "-VΔ (mV)";
                         _sheet.Cells[row, XLS_Table.W] = "+ Tol (%)";
@@ -186,7 +186,6 @@ namespace SoftStartTiming
                                                 Measure8(select_idx, group_idx);
                                                 break;
                                         }
-
                                     }
                                 } // iout group loop
 
@@ -201,6 +200,32 @@ namespace SoftStartTiming
             stopWatch.Stop();
         }
 
+        private void ReserveMeasureChannel(int victim)
+        {
+            for (int ch_idx = 0; ch_idx < 4; ch_idx++)
+            {
+                if (ch_idx == victim)
+                    InsControl._oscilloscope.CHx_On(ch_idx + 1);
+                else
+                    InsControl._oscilloscope.CHx_Off(ch_idx + 1);
+            }
+        }
+
+        private void MeasureVictim(int victim)
+        {
+            //=IF(AD23="","",IF(AF23>AD23,"PASS","FAIL"))
+            //= IF(AE23 = "", "", IF(AG23 > AE23, "PASS", "FAIL"))
+            _sheet.Cells[row, XLS_Table.Q] = InsControl._oscilloscope.CHx_Meas_Mean(victim);
+            _sheet.Cells[row, XLS_Table.R] = InsControl._oscilloscope.CHx_Meas_Max(victim);
+            _sheet.Cells[row, XLS_Table.S] = InsControl._oscilloscope.CHx_Meas_Min(victim);
+            _sheet.Cells[row, XLS_Table.T] = "Jitter";
+            _sheet.Cells[row, XLS_Table.U] = string.Format("IF(Q{0}=\"\",\"\",(R{1}-Q{2}) * 1000)", row, row, row);
+            _sheet.Cells[row, XLS_Table.V] = string.Format("IF(Q{0}=\"\",\"\",(Q{1}-S{2}) * 1000)", row, row, row);
+            _sheet.Cells[row, XLS_Table.W] = "+ Tol (%)";
+            _sheet.Cells[row, XLS_Table.X] = "- Tol (%)";
+            _sheet.Cells[row, XLS_Table.Y] = "+ Tol";
+            _sheet.Cells[row, XLS_Table.Z] = "- Tol";
+        }
 
         private void FirstMeasure(int sel)
         {
@@ -243,7 +268,7 @@ namespace SoftStartTiming
                 if (aggressor != victim && test_parameter.cross_en[victim]) sw_ch = victim + 1;
             }
 
-            
+            ReserveMeasureChannel(aggressor);
 
             for (int idx = 0; idx < 2; idx++)
             {
@@ -258,6 +283,8 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.B] = test_parameter.ccm_eload[sw_ch][group];
                         break;
                 }
+                MeasureVictim(aggressor);
+                row++;
             }
         }
 
@@ -276,6 +303,8 @@ namespace SoftStartTiming
                     sw_en[idx++] = victim + 1;
                 }
             }
+
+            ReserveMeasureChannel(aggressor);
 
             // if group setting is differenct. I need found max current setting
             iout[0] = group < test_parameter.ccm_eload[sw_en[0]].Count ?
@@ -316,6 +345,8 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.C] = iout[1];
                         break;
                 }
+                MeasureVictim(aggressor);
+                row++;
             }
         }
 
@@ -331,6 +362,8 @@ namespace SoftStartTiming
                     sw_en[idx++] = victim + 1;
                 }
             }
+
+            ReserveMeasureChannel(aggressor);
 
             iout[0] = group < test_parameter.ccm_eload[sw_en[0]].Count ?
                 test_parameter.ccm_eload[sw_en[0]][group] : test_parameter.ccm_eload[sw_en[0]].Max();
@@ -418,6 +451,8 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.D] = iout[2];
                         break;
                 }
+                MeasureVictim(aggressor);
+                row++;
             }
         }
 
