@@ -42,6 +42,11 @@ namespace SoftStartTiming
             EloadDG_CCM[0, 2].Value = "3";
             EloadDG_CCM[0, 3].Value = "4";
 
+            EloadDG_CCM[1, 0].Value = "0.1,0.2,0.3";
+            EloadDG_CCM[1, 1].Value = "0.3,0.2,0.1";
+            EloadDG_CCM[1, 2].Value = "0.1,0.2,0.3";
+            EloadDG_CCM[1, 3].Value = "0.3,0.3,0.1";
+
             EloadDG_Trans.RowCount = 4;
             EloadDG_Trans[0, 0].Value = "1";
             EloadDG_Trans[0, 1].Value = "2";
@@ -66,11 +71,42 @@ namespace SoftStartTiming
             FreqDG[0, 2].Value = "3";
             FreqDG[0, 3].Value = "4";
 
+            FreqDG[1, 0].Value = "10";
+            FreqDG[1, 1].Value = "20";
+            FreqDG[1, 2].Value = "30";
+            FreqDG[1, 3].Value = "40";
+
+
+            FreqDG[2, 0].Value = "12,32";
+            FreqDG[2, 1].Value = "22,42";
+            FreqDG[2, 2].Value = "32,45";
+            FreqDG[2, 3].Value = "10,33";
+
+            FreqDG[3, 0].Value = "600,700";
+            FreqDG[3, 1].Value = "800,900";
+            FreqDG[3, 2].Value = "600,700";
+            FreqDG[3, 3].Value = "800,900";
+
             VoutDG.RowCount = 4;
             VoutDG[0, 0].Value = "1";
             VoutDG[0, 1].Value = "2";
             VoutDG[0, 2].Value = "3";
             VoutDG[0, 3].Value = "4";
+
+            VoutDG[1, 0].Value = "11";
+            VoutDG[1, 1].Value = "22";
+            VoutDG[1, 2].Value = "33";
+            VoutDG[1, 3].Value = "44";
+
+            VoutDG[2, 0].Value = "10,11";
+            VoutDG[2, 1].Value = "20,21";
+            VoutDG[2, 2].Value = "30,31";
+            VoutDG[2, 3].Value = "40,41";
+
+            VoutDG[3, 0].Value = "3.3,3.7";
+            VoutDG[3, 1].Value = "2,1.8";
+            VoutDG[3, 2].Value = "2,5";
+            VoutDG[3, 3].Value = "3.3,6";
         }
 
         private void CrossTalk_Load(object sender, EventArgs e)
@@ -229,6 +265,14 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
+            test_parameter.freq_data.Clear();
+            test_parameter.vout_data.Clear();
+            test_parameter.freq_des.Clear();
+            test_parameter.vout_des.Clear();
+            test_parameter.ccm_eload.Clear();
+
+
+
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
             test_parameter.tool_ver = win_name + "\r\n";
 
@@ -240,13 +284,22 @@ namespace SoftStartTiming
             {
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, 1].Value), 16);
                 test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, 1].Value), 16);
-                test_parameter.freq_data.Add(i, ((string)FreqDG[2, i].Value).Split(',').Select(byte.Parse).ToList());
+                List<byte> temp = ((string)FreqDG[2, i].Value).Split(',').Select(byte.Parse).ToList();
+                test_parameter.freq_data.Add(i, temp);
                 test_parameter.vout_data.Add(i, ((string)VoutDG[2, i].Value).Split(',').Select(byte.Parse).ToList());
                 test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[1, i].Value).Split(',').Select(double.Parse).ToList());
             }
             test_parameter.trans_load = EloadDG_Trans;
+
+            for(int i = 0; i < 4; i++)
+            {
+                test_parameter.cross_en[i] = false;
+            }
+            test_parameter.cross_en[0] = true;
+            test_parameter.cross_en[1] = true;
+            test_parameter.cross_en[2] = true;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -260,13 +313,13 @@ namespace SoftStartTiming
                     tempList = tb_templist.Text.Split(',');
                     p_thread = new ParameterizedThreadStart(Chamber_Task);
                     ATETask = new Thread(p_thread);
-                    ATETask.Start(CBItem.SelectedIndex);
+                    ATETask.Start(0);
                 }
                 else
                 {
                     p_thread = new ParameterizedThreadStart(Run_Single_Task);
                     ATETask = new Thread(p_thread);
-                    ATETask.Start(CBItem.SelectedIndex);
+                    ATETask.Start(0);
                 }
 
             }
@@ -344,6 +397,21 @@ namespace SoftStartTiming
             {
                 tbWave.Text = folderBrowser.SelectedPath;
             }
+        }
+
+        private void BTStop_Click(object sender, EventArgs e)
+        {
+            BTRun.Enabled = true;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.Arguments = "/im EXCEL.EXE /f";
+            psi.FileName = "taskkill";
+            Process p = new Process();
+            p.StartInfo = psi;
+            p.Start();
         }
     }
 }

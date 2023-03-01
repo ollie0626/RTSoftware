@@ -86,6 +86,7 @@ namespace SoftStartTiming
 
         /* Cross talk */
         // test conditions
+        public static string[] rail_name = new string[4];
         public static byte[] freq_addr = new byte[4];
         public static byte[] vout_addr = new byte[4];
 

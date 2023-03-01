@@ -105,6 +105,7 @@ namespace SoftStartTiming
             this.label3 = new System.Windows.Forms.Label();
             this.tbWave = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -482,6 +483,7 @@ namespace SoftStartTiming
             this.BTStop.TabIndex = 103;
             this.BTStop.Text = "Stop";
             this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
             // 
             // BTRun
             // 
@@ -808,12 +810,23 @@ namespace SoftStartTiming
             this.BTSelectWavePath.UseVisualStyleBackColor = true;
             this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(330, 787);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 32);
+            this.button1.TabIndex = 109;
+            this.button1.Text = "Excel Kill";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(797, 831);
+            this.ClientSize = new System.Drawing.Size(1218, 831);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.tbWave);
             this.Controls.Add(this.BTSelectWavePath);
             this.Controls.Add(this.tb_vinList);
@@ -953,5 +966,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbWave;
         private System.Windows.Forms.Button BTSelectWavePath;
+        private System.Windows.Forms.Button button1;
     }
 }
