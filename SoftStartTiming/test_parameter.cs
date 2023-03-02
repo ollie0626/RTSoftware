@@ -32,8 +32,6 @@ namespace SoftStartTiming
         public static string[] bin_path = new string[3];
         public static string[] power_off_bin_path = new string[3];
 
-
-
         public static bool[] scope_en = new bool[3];
         public static bool[] bin_en = new bool[3];
         public static string waveform_path;
@@ -45,7 +43,6 @@ namespace SoftStartTiming
 
         public static double LX_Level;
         public static double ILX_Level;
-
 
         // gpio select
         public static int gpio_pin;
@@ -86,25 +83,24 @@ namespace SoftStartTiming
 
         /* Cross talk */
         // test conditions
-        public static string[] rail_name = new string[4];
-        public static byte[] freq_addr = new byte[4];
-        public static byte[] vout_addr = new byte[4];
+        public static int ch_num;
+        public static string[] rail_name;
+        public static byte[] freq_addr;
+        public static byte[] vout_addr;
+        public static byte[] en_addr;
 
-        public static byte[] hi_code = new byte[4];
-        public static byte[] lo_code = new byte[4];
-        public static byte[] en_addr = new byte[4];
-        public static byte[] en_code = new byte[4];
-        public static byte[] disable_code = new byte[4];
+        public static byte[] en_data;
+        public static byte[] disen_data;
 
         public static Dictionary<int, List<double>> ccm_eload = new Dictionary<int, List<double>>();
         public static Dictionary<int, List<byte>> freq_data = new Dictionary<int, List<byte>>();
         public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
         public static Dictionary<int, List<string>> freq_des = new Dictionary<int, List<string>>();
         public static Dictionary<int, List<string>> vout_des = new Dictionary<int, List<string>>();
-        public static DataGridView trans_load = new DataGridView();
 
-
-        public static byte[] cross_select = new byte[4];
-        public static bool[] cross_en = new bool[4];
+        // ins active load
+        public static double[] full_load;
+        public static byte[] cross_select;
+        public static bool[] cross_en;
     }
 }

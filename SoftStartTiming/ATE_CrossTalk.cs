@@ -42,7 +42,7 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
-            RTDev.BoadInit();
+            //RTDev.BoadInit();
 #if true
             // Excel initial
             _app = new Excel.Application();
@@ -83,7 +83,7 @@ namespace SoftStartTiming
             MyLib.Delay1ms(500);
 
             // the select_idx equal to aggressor channel
-            for (int select_idx = 0; select_idx < test_parameter.cross_select.Length; select_idx++)
+            for (int select_idx = 0; select_idx < test_parameter.cross_en.Length; select_idx++)
             {
                 if (test_parameter.cross_en[select_idx]) // select equal to aggressor
                 {
@@ -108,14 +108,14 @@ namespace SoftStartTiming
                                                 test_parameter.freq_addr[select_idx],
                                                 new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
 
-
+                                // victim current select
                                 for (int group_idx = 0; group_idx < switch_max; group_idx++) // how many iout group
                                 {
 
-                                    double victim_iout = group_idx < test_parameter.ccm_eload[select_idx].Count() ?
-                                                        test_parameter.ccm_eload[select_idx][group_idx] : test_parameter.ccm_eload[select_idx].Max();
+                                    //double victim_iout = group_idx < test_parameter.ccm_eload[select_idx].Count() ?
+                                    //                    test_parameter.ccm_eload[select_idx][group_idx] : test_parameter.ccm_eload[select_idx].Max();
 
-
+                                    double victim_iout = test_parameter.full_load[select_idx];
 #if true
                                     _sheet.Cells[row++, XLS_Table.M] = "No Load Vout";
                                     _range = _sheet.Range["M" + (row - 1).ToString()];
@@ -142,8 +142,8 @@ namespace SoftStartTiming
                                         case 2:
                                             _range = _sheet.Range["B" + row, "B" + (row + 1)];
                                             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                            _sheet.Cells[row, XLS_Table.B] = "Rail1";
+                                            //_sheet.Cells[row, XLS_Table.B] = "Rail1";
+                                            _sheet.Cells[row, XLS_Table.B] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 1];
                                             _sheet.Cells[row + 1, XLS_Table.B] = "Iout(A)";
                                             break;
                                         case 4:
@@ -192,9 +192,8 @@ namespace SoftStartTiming
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
 
-                                        double iout = victim_idx == 0 ? 0 : victim_iout;
+                                        double iout = (victim_idx == 0) ? 0 : victim_iout;
                                         //InsControl._eload.Loading(select_idx + 1, iout);
-
                                         // victim info
                                         //_sheet.Cells[row, XLS_Table.M] = test_parameter.freq_des[select_idx][freq_idx];
                                         //_sheet.Cells[row, XLS_Table.N] = iout;
@@ -246,7 +245,6 @@ namespace SoftStartTiming
             //_sheet.Cells[row, XLS_Table.R] = InsControl._oscilloscope.CHx_Meas_Max(victim);
             //_sheet.Cells[row, XLS_Table.S] = InsControl._oscilloscope.CHx_Meas_Min(victim);
 
-
             _sheet.Cells[row, XLS_Table.Q] = "Jitter";
             _sheet.Cells[row, XLS_Table.R] = string.Format("=IF(Q{0}=\"\",\"\",(R{1}-Q{2}) * 1000)", row, row, row);
             _sheet.Cells[row, XLS_Table.S] = "+ Tol (%)";
@@ -258,21 +256,21 @@ namespace SoftStartTiming
             // disable others channel and scope control
             double iout_max = test_parameter.ccm_eload[sel].Max();
 
-            for (int ch_idx = 0; ch_idx < 4; ch_idx++)
+            for (int ch_idx = 0; ch_idx < test_parameter.ch_num; ch_idx++)
             {
                 if (ch_idx == sel)
                 {
                     //InsControl._oscilloscope.CHx_On(ch_idx + 1);
                     RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
                         test_parameter.en_addr[ch_idx],
-                        new byte[] { test_parameter.en_code[ch_idx] });
+                        new byte[] { test_parameter.en_data[ch_idx] });
                 }
                 else
                 {
                     //InsControl._oscilloscope.CHx_Off(ch_idx + 1);
                     RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
                         test_parameter.en_addr[ch_idx],
-                        new byte[] { test_parameter.disable_code[ch_idx] });
+                        new byte[] { test_parameter.disen_data[ch_idx] });
                 }
             }
 
@@ -291,7 +289,7 @@ namespace SoftStartTiming
             int sw_ch = 0;
             for (int victim = 0; victim < test_parameter.cross_en.Length; victim++)
             {
-                if (aggressor != victim && test_parameter.cross_en[victim]) sw_ch = victim + 1;
+                if (aggressor != victim && test_parameter.cross_en[victim]) sw_ch = victim;
             }
 
             //ReserveMeasureChannel(aggressor);
