@@ -144,6 +144,13 @@ namespace MulanLite
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
+                case 7:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x68;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
                 default:
                     buf[0] = 0xBA;
                     buf[1] = 0x78;

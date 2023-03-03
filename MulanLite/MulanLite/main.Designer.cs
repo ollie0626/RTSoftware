@@ -1840,7 +1840,8 @@ namespace MulanLite
             "14MHz",
             "13MHz",
             "12MHz",
-            "10MHz"});
+            "10MHz",
+            "External"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
             this.CiFreq.Size = new System.Drawing.Size(130, 23);

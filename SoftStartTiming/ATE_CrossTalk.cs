@@ -150,8 +150,11 @@ namespace SoftStartTiming
                                             _range = _sheet.Range["B" + row, "C" + (row + 1)];
                                             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                            _sheet.Cells[row, XLS_Table.B] = "Rail1";
-                                            _sheet.Cells[row, XLS_Table.C] = "Rail2";
+
+                                            _sheet.Cells[row, XLS_Table.B] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 1];
+                                            _sheet.Cells[row, XLS_Table.C] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 2];
+                                            //_sheet.Cells[row, XLS_Table.B] = "Rail1";
+                                            //_sheet.Cells[row, XLS_Table.C] = "Rail2";
                                             _sheet.Cells[row + 1, XLS_Table.B] = "Iout(A)";
                                             _sheet.Cells[row + 1, XLS_Table.C] = "Iout(A)";
                                             break;
