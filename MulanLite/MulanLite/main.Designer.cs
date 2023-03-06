@@ -1834,14 +1834,14 @@ namespace MulanLite
             this.CiFreq.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CiFreq.FormattingEnabled = true;
             this.CiFreq.Items.AddRange(new object[] {
-            "6MHz",
-            "7.8MHz",
-            "15MHz",
-            "14MHz",
-            "13MHz",
-            "12MHz",
-            "10MHz",
-            "External"});
+            "6MHz (1%)",
+            "7.8MHz (3%)",
+            "15MHz (5%)",
+            "14MHz (10%)",
+            "13MHz (20%)",
+            "12MHz (30%)",
+            "10MHz (40%)",
+            "10MHz (50%)"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
             this.CiFreq.Size = new System.Drawing.Size(130, 23);

@@ -217,26 +217,6 @@ namespace MulanLite
         private void CiFreq_SelectedIndexChanged(object sender, EventArgs e)
         {
             RTDev.SetCiClock(CiFreq.SelectedIndex);
-            //double ci_freq = 18000000;
-            //switch (CiFreq.SelectedIndex)
-            //{
-            //    case 0:
-            //        ci_freq = 15000000;
-            //        break;
-            //    case 1:
-            //        ci_freq = 7800000;
-            //        break;
-            //    case 2:
-            //        ci_freq = 6000000;
-            //        break;
-            //    case 3:
-            //        ci_freq = 7000000;
-            //        break;
-            //    case 4:
-            //        ci_freq = 6000000;
-            //        break;
-            //}
-            //nuPWMout.Value = (decimal)((ci_freq / (double)nuPWMcycle.Value) / 1000);
         }
 
         private async void bt_open_ch4_Click(object sender, EventArgs e)
