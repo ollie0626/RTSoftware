@@ -18,6 +18,8 @@ namespace SoftStartTiming
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
+        string[] cells = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+
         int row = 20;
 
         public double temp;
@@ -42,7 +44,7 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
-            //RTDev.BoadInit();
+            RTDev.BoadInit();
 #if true
             // Excel initial
             _app = new Excel.Application();
@@ -117,100 +119,86 @@ namespace SoftStartTiming
 
                                     double victim_iout = test_parameter.full_load[select_idx];
 #if true
-                                    _sheet.Cells[row++, XLS_Table.M] = "No Load Vout";
-                                    _range = _sheet.Range["M" + (row - 1).ToString()];
+                                    int col_base = (int)XLS_Table.B + 2 + test_parameter.ch_num;
+                                    int col_start = col_base;
+                                    _sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
+                                    _sheet.Cells[row++, XLS_Table.B] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
+                                    _sheet.Cells[row, XLS_Table.B] = "Aggressor";
+                                    _range = _sheet.Range["B" + (row - 1).ToString(), "B" + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                    _sheet.Cells[row, col_start] = "Freq (KHz)";
+                                    row++;
+                                    int col_idx = (int)XLS_Table.B;
 
-                                    _sheet.Cells[row, XLS_Table.M] = "Full Load Vout";
-                                    _range = _sheet.Range["M" + (row).ToString()];
-                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                    _sheet.Cells[row++, XLS_Table.B] = "Vin= " + test_parameter.VinList[vin_idx] + "V";
-                                    _range = _sheet.Range["B" + (row - 1).ToString()];
-                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                    _sheet.Cells[row, XLS_Table.M] = "Freq";
-                                    _range = _sheet.Range["M" + (row).ToString()];
-                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                    _sheet.Cells[row++, XLS_Table.B] = "Aggressor";
-                                    _range = _sheet.Range["B" + (row - 1).ToString()];
-                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                    switch (ch_sw_num)
+                                    for (int i = 0; i < test_parameter.ch_num; i++)
                                     {
-                                        case 2:
-                                            _range = _sheet.Range["B" + row, "B" + (row + 1)];
-                                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                                            //_sheet.Cells[row, XLS_Table.B] = "Rail1";
-                                            _sheet.Cells[row, XLS_Table.B] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 1];
-                                            _sheet.Cells[row + 1, XLS_Table.B] = "Iout(A)";
-                                            break;
-                                        case 4:
-                                            _range = _sheet.Range["B" + row, "C" + (row + 1)];
-                                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-
-                                            _sheet.Cells[row, XLS_Table.B] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 1];
-                                            _sheet.Cells[row, XLS_Table.C] = test_parameter.rail_name[test_parameter.ch_num - select_idx - 2];
-                                            //_sheet.Cells[row, XLS_Table.B] = "Rail1";
-                                            //_sheet.Cells[row, XLS_Table.C] = "Rail2";
-                                            _sheet.Cells[row + 1, XLS_Table.B] = "Iout(A)";
-                                            _sheet.Cells[row + 1, XLS_Table.C] = "Iout(A)";
-                                            break;
-                                        case 8:
-                                            _range = _sheet.Range["B" + row, "D" + (row + 1)];
-                                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                            _sheet.Cells[row, XLS_Table.B] = "Rail1";
-                                            _sheet.Cells[row, XLS_Table.C] = "Rail2";
-                                            _sheet.Cells[row, XLS_Table.D] = "Rail3";
-                                            _sheet.Cells[row + 1, XLS_Table.B] = "Iout(A)";
-                                            _sheet.Cells[row + 1, XLS_Table.C] = "Iout(A)";
-                                            _sheet.Cells[row + 1, XLS_Table.D] = "Iout(A)";
-                                            break;
+                                        if (i != select_idx)
+                                        {
+                                            _sheet.Cells[row, col_idx++] = test_parameter.rail_name[i] + "(A)";
+                                        }
                                     }
 
-                                    _sheet.Cells[row, XLS_Table.M] = "Victim";
-                                    _range = _sheet.Range["M" + row, "T" + row];
+                                    _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
+                                    _sheet.Cells[row, col_base++] = "Vmean(V)";
+                                    _sheet.Cells[row, col_base] = "Victim Max Voltage";
+                                    _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 2] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                                    row++;
+                                    col_base++;
 
-                                    _sheet.Cells[row, XLS_Table.M] = "Iout(A)";
-                                    _sheet.Cells[row, XLS_Table.N] = "Vmean(V)";
-                                    _sheet.Cells[row, XLS_Table.O] = "Victim Max Voltage";
-                                    _sheet.Cells[row, XLS_Table.P] = "Victim Min Voltage";
-                                    _sheet.Cells[row, XLS_Table.Q] = "Jitter(%)";
-                                    _sheet.Cells[row, XLS_Table.R] = "+VΔ (mV)";
-                                    _sheet.Cells[row, XLS_Table.S] = "+ Tol (%)";
-                                    _sheet.Cells[row, XLS_Table.T] = "+ Tol";
-                                    _range = _sheet.Range["M" + row, "T" + row];
+                                    _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+                                    _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                    _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+
+                                    _sheet.Cells[row - 1, col_base] = "After: with load on victim";
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
+                                    _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + "(A)";
+                                    _sheet.Cells[row, col_base++] = "Victim Max Voltage";
+                                    _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+                                    _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                    _sheet.Cells[row, col_base] = "+VΔ (mV)";
+
+                                    _range = _sheet.Range[cells[(int)XLS_Table.B + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    for (int i = 1; i < 25; i++)
+                                        _sheet.Columns[i].AutoFit();
                                     row++;
 
-                                    FirstMeasure(select_idx);
-                                    _sheet.Cells[row - 3, XLS_Table.N] = test_parameter.freq_des[select_idx][freq_idx];
+                                    //FirstMeasure(select_idx);
+                                    _sheet.Cells[row - 2, col_start + 1] = test_parameter.freq_des[select_idx][freq_idx];
 #endif
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
 
                                         double iout = (victim_idx == 0) ? 0 : victim_iout;
-                                        //InsControl._eload.Loading(select_idx + 1, iout);
-                                        // victim info
-                                        //_sheet.Cells[row, XLS_Table.M] = test_parameter.freq_des[select_idx][freq_idx];
-                                        //_sheet.Cells[row, XLS_Table.N] = iout;
 
                                         switch (ch_sw_num)
                                         {
                                             case 2:
-                                                Measure2(select_idx, group_idx, iout);
+                                                //Measure2(select_idx, group_idx, iout);
                                                 break;
                                             case 4:
-                                                Measure4(select_idx, group_idx, iout);
+                                                Measure4(select_idx, group_idx, iout, col_start, victim_idx == 0 ? true : false);
+                                                if (victim_idx == 0) row = row - 4;
                                                 break;
                                             case 8:
-                                                Measure8(select_idx, group_idx, iout);
+                                                Measure8(select_idx, group_idx, iout, col_start, victim_idx == 0 ? true : false);
+                                                if (victim_idx == 0) row = row - 8;
+                                                break;
+                                            case 16: // 4
+                                            case 32: // 5
+                                            case 64: // 6
+                                            case 128: // 7
+                                                int n = ch_sw_num == 16 ? 4 :
+                                                        ch_sw_num == 32 ? 5 :
+                                                        ch_sw_num == 64 ? 6 : 7;
+                                                MeasureN(n, select_idx, group_idx, iout, col_start, victim_idx == 0 ? true : false);
+                                                if (victim_idx == 0) row = row - ch_sw_num;
                                                 break;
                                         }
                                     }
@@ -240,51 +228,24 @@ namespace SoftStartTiming
             }
         }
 
-        private void MeasureVictim(int victim)
+        private void MeasureVictim(int victim, int col_start, bool before)
         {
-            //=IF(AD23="","",IF(AF23>AD23,"PASS","FAIL"))
-            //= IF(AE23 = "", "", IF(AG23 > AE23, "PASS", "FAIL"))
-            //_sheet.Cells[row, XLS_Table.Q] = InsControl._oscilloscope.CHx_Meas_Mean(victim);
-            //_sheet.Cells[row, XLS_Table.R] = InsControl._oscilloscope.CHx_Meas_Max(victim);
-            //_sheet.Cells[row, XLS_Table.S] = InsControl._oscilloscope.CHx_Meas_Min(victim);
-
-            _sheet.Cells[row, XLS_Table.Q] = "Jitter";
-            _sheet.Cells[row, XLS_Table.R] = string.Format("=IF(Q{0}=\"\",\"\",(R{1}-Q{2}) * 1000)", row, row, row);
-            _sheet.Cells[row, XLS_Table.S] = "+ Tol (%)";
-            _sheet.Cells[row, XLS_Table.T] = "+ Tol";
-        }
-
-        private void FirstMeasure(int sel)
-        {
-            // disable others channel and scope control
-            double iout_max = test_parameter.ccm_eload[sel].Max();
-
-            for (int ch_idx = 0; ch_idx < test_parameter.ch_num; ch_idx++)
+            // for measure victim channel
+            if(before)
             {
-                if (ch_idx == sel)
-                {
-                    //InsControl._oscilloscope.CHx_On(ch_idx + 1);
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                        test_parameter.en_addr[ch_idx],
-                        new byte[] { test_parameter.en_data[ch_idx] });
-                }
-                else
-                {
-                    //InsControl._oscilloscope.CHx_Off(ch_idx + 1);
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                        test_parameter.en_addr[ch_idx],
-                        new byte[] { test_parameter.disen_data[ch_idx] });
-                }
+                _sheet.Cells[row, col_start++] = "before Vmean(V)";
+                _sheet.Cells[row, col_start++] = "before Victim Max Voltage";
+                _sheet.Cells[row, col_start++] = "before Victim Min Voltage";
+                _sheet.Cells[row, col_start++] = "before Jitter(%)";
+                _sheet.Cells[row, col_start++] = "before +VΔ (mV)";
             }
-
-            //InsControl._eload.Loading((sel + 1), 0);
-            //_sheet.Cells[row - 5, XLS_Table.G] = InsControl._oscilloscope.CHx_Meas_Mean(sel + 1);
-            
-            //InsControl._eload.Loading((sel + 1), iout_max);
-            //_sheet.Cells[row - 4, XLS_Table.G] = InsControl._oscilloscope.CHx_Meas_Mean(sel + 1);
-
-            //InsControl._eload.Loading((sel + 1), 0);
-            //InsControl._eload.AllChannel_LoadOff();
+            else
+            {
+                _sheet.Cells[row, col_start++ + 6] = "after Victim Max Voltage";
+                _sheet.Cells[row, col_start++ + 6] = "after Victim Min Voltage";
+                _sheet.Cells[row, col_start++ + 6] = "after Jitter(%)";
+                _sheet.Cells[row, col_start + 6] = "+VΔ (mV)";
+            }
         }
 
         private void Measure2(int aggressor, int group, double iout)
@@ -310,13 +271,13 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.B] = test_parameter.ccm_eload[sw_ch][group];
                         break;
                 }
-                MeasureVictim(aggressor);
+                //MeasureVictim(aggressor);
                 _sheet.Cells[row, XLS_Table.M] = iout;
                 row++;
             }
         }
 
-        private void Measure4(int aggressor, int group, double iout_n)
+        private void Measure4(int aggressor, int group, double iout_n, int col_start, bool before)
         {
             // program flow
             // find enable channel
@@ -373,13 +334,13 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.C] = iout[1];
                         break;
                 }
-                MeasureVictim(aggressor);
-                _sheet.Cells[row, XLS_Table.M] = iout_n;
+                MeasureVictim(aggressor, col_start + 1, before);
+                _sheet.Cells[row, before ? col_start : col_start + 6] = iout_n;
                 row++;
             }
         }
 
-        private void Measure8(int aggressor, int group, double iout_n)
+        private void Measure8(int aggressor, int group, double iout_n, int col_start, bool before)
         {
             int idx = 0;
             int[] sw_en = new int[3];
@@ -405,7 +366,6 @@ namespace SoftStartTiming
 
             for (idx = 0; idx < 8; idx++)
             {
-
                 switch (idx)
                 {
                     case 0:
@@ -481,10 +441,66 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.D] = iout[2];
                         break;
                 }
-                MeasureVictim(aggressor);
-                _sheet.Cells[row, XLS_Table.M] = iout_n;
+                MeasureVictim(aggressor, col_start + 1, before);
+                _sheet.Cells[row, before ? col_start : col_start + 6] = iout_n;
                 row++;
             }
+        }
+
+        private void MeasureN(int n, int aggressor, int group, double iout_n, int col_start, bool before)
+        {
+            int idx = 0;
+            int[] sw_en = new int[n];
+            double[] iout = new double[n];
+            int loop_cnt = (int)Math.Pow(2, n);
+            for (int victim = 0; victim < test_parameter.cross_en.Length; victim++)
+            {
+                if (victim != aggressor && test_parameter.cross_en[victim])
+                {
+                    sw_en[idx++] = victim;
+                }
+            }
+
+            for(int i = 0; i < n; i++)
+            {
+                iout[i] = group < test_parameter.ccm_eload[sw_en[i]].Count ?
+                    test_parameter.ccm_eload[sw_en[i]][group] : test_parameter.ccm_eload[sw_en[i]].Max();
+            }
+            
+            Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
+
+            for(int i = 0; i < loop_cnt; i++)
+            {
+                List<double> data = new List<double>();
+                int bit0 = (i & 0x01) >> 0;
+                int bit1 = (i & 0x02) >> 1;
+                int bit2 = (i & 0x04) >> 2;
+                int bit3 = (i & 0x08) >> 3;
+                int bit4 = (i & 0x10) >> 4;
+                int bit5 = (i & 0x20) >> 5;
+                int bit6 = (i & 0x40) >> 6;
+                int bit7 = (i & 0x80) >> 7;
+                int[] bit_list = new int[] { bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7 };
+
+                for(int j = 0; j < n; j++)
+                {
+                    data.Add(bit_list[j] == 0 ? 0 : iout[j]);
+                }
+                iout_list.Add(i, data);
+
+                int aggressor_col = (int)XLS_Table.B;
+                for(int j = 0; j < n; j++)
+                {
+                    InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                    _sheet.Cells[row, j + aggressor_col] = data[j];
+                }
+
+                MeasureVictim(aggressor, col_start + 1, before);
+                _sheet.Cells[row, before ? col_start : col_start + 6] = iout_n;
+                row++;
+            }
+
+
         }
 
     }

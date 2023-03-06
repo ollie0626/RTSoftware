@@ -43,8 +43,8 @@ namespace SoftStartTiming
 
             EloadDG_CCM[0, 0].Value = "Buck1";
             EloadDG_CCM[0, 1].Value = "Buck2";
-            EloadDG_CCM[0, 2].Value = "Buck2";
-            EloadDG_CCM[0, 3].Value = "Buck2";
+            EloadDG_CCM[0, 2].Value = "Buck3";
+            EloadDG_CCM[0, 3].Value = "Buck4";
             // address
             EloadDG_CCM[1, 0].Value = "01";
             EloadDG_CCM[1, 1].Value = "01";
@@ -86,30 +86,30 @@ namespace SoftStartTiming
             FreqDG[1, 2].Value = "30";
             FreqDG[1, 3].Value = "40";
 
-            FreqDG[2, 0].Value = "12,32";
-            FreqDG[2, 1].Value = "22,42";
-            FreqDG[2, 2].Value = "32,45";
-            FreqDG[2, 3].Value = "10,33";
+            FreqDG[2, 0].Value = "12";
+            FreqDG[2, 1].Value = "22";
+            FreqDG[2, 2].Value = "32";
+            FreqDG[2, 3].Value = "10";
 
-            FreqDG[3, 0].Value = "600,700";
-            FreqDG[3, 1].Value = "800,900";
-            FreqDG[3, 2].Value = "600,700";
-            FreqDG[3, 3].Value = "800,900";
+            FreqDG[3, 0].Value = "600";
+            FreqDG[3, 1].Value = "800";
+            FreqDG[3, 2].Value = "600";
+            FreqDG[3, 3].Value = "800";
 
             VoutDG[1, 0].Value = "11";
             VoutDG[1, 1].Value = "22";
             VoutDG[1, 2].Value = "33";
             VoutDG[1, 3].Value = "44";
 
-            VoutDG[2, 0].Value = "10,11";
-            VoutDG[2, 1].Value = "20,21";
-            VoutDG[2, 2].Value = "30,31";
-            VoutDG[2, 3].Value = "40,41";
+            VoutDG[2, 0].Value = "10";
+            VoutDG[2, 1].Value = "20";
+            VoutDG[2, 2].Value = "30";
+            VoutDG[2, 3].Value = "40";
 
-            VoutDG[3, 0].Value = "3.3,3.7";
-            VoutDG[3, 1].Value = "2,1.8";
-            VoutDG[3, 2].Value = "2,5";
-            VoutDG[3, 3].Value = "3.3,6";
+            VoutDG[3, 0].Value = "3.3";
+            VoutDG[3, 1].Value = "2";
+            VoutDG[3, 2].Value = "2";
+            VoutDG[3, 3].Value = "3.3";
         }
 
         private void CrossTalk_Load(object sender, EventArgs e)
