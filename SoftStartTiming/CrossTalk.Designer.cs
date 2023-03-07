@@ -61,31 +61,27 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.VoutDG = new System.Windows.Forms.DataGridView();
-            this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.FreqDG = new System.Windows.Forms.DataGridView();
-            this.BTPause = new System.Windows.Forms.Button();
-            this.BTStop = new System.Windows.Forms.Button();
-            this.BTRun = new System.Windows.Forms.Button();
-            this.tb_vinList = new System.Windows.Forms.TextBox();
+            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbWave = new System.Windows.Forms.TextBox();
+            this.tb_vinList = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
-            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.VoutDG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.FreqDG = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,19 +89,23 @@ namespace SoftStartTiming
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.BTPause = new System.Windows.Forms.Button();
+            this.BTStop = new System.Windows.Forms.Button();
+            this.BTRun = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
-            this.tabPage4.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -437,9 +437,185 @@ namespace SoftStartTiming
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(749, 716);
+            this.tabPage1.Size = new System.Drawing.Size(913, 716);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
+            // 
+            // nuCH_number
+            // 
+            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuCH_number.Location = new System.Drawing.Point(156, 323);
+            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuCH_number.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nuCH_number.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nuCH_number.Name = "nuCH_number";
+            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
+            this.nuCH_number.TabIndex = 63;
+            this.nuCH_number.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 327);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Channel Number";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 300);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(68, 12);
+            this.label3.TabIndex = 106;
+            this.label3.Text = "Vin Range:";
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(156, 269);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(215, 22);
+            this.tbWave.TabIndex = 107;
+            this.tbWave.Text = "D:\\";
+            // 
+            // tb_vinList
+            // 
+            this.tb_vinList.Location = new System.Drawing.Point(156, 297);
+            this.tb_vinList.Name = "tb_vinList";
+            this.tb_vinList.Size = new System.Drawing.Size(215, 22);
+            this.tb_vinList.TabIndex = 49;
+            this.tb_vinList.Text = "3.3";
+            // 
+            // BTSelectWavePath
+            // 
+            this.BTSelectWavePath.Location = new System.Drawing.Point(8, 267);
+            this.BTSelectWavePath.Name = "BTSelectWavePath";
+            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectWavePath.TabIndex = 108;
+            this.BTSelectWavePath.Text = "Wave Path";
+            this.BTSelectWavePath.UseVisualStyleBackColor = true;
+            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.Color.Silver;
+            this.tabPage4.Controls.Add(this.groupBox7);
+            this.tabPage4.Controls.Add(this.groupBox6);
+            this.tabPage4.Controls.Add(this.groupBox1);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(913, 716);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "CCM Setting";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.VoutDG);
+            this.groupBox7.Location = new System.Drawing.Point(16, 374);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(485, 192);
+            this.groupBox7.TabIndex = 107;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Vout Setting";
+            // 
+            // VoutDG
+            // 
+            this.VoutDG.AllowUserToAddRows = false;
+            this.VoutDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VoutDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12,
+            this.dataGridViewTextBoxColumn13});
+            this.VoutDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.VoutDG.Location = new System.Drawing.Point(19, 27);
+            this.VoutDG.Name = "VoutDG";
+            this.VoutDG.RowTemplate.Height = 24;
+            this.VoutDG.Size = new System.Drawing.Size(432, 154);
+            this.VoutDG.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Data (Hex)";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Vout Des.";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.FreqDG);
+            this.groupBox6.Location = new System.Drawing.Point(16, 187);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(485, 181);
+            this.groupBox6.TabIndex = 106;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Freq Setting";
+            // 
+            // FreqDG
+            // 
+            this.FreqDG.AllowUserToAddRows = false;
+            this.FreqDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FreqDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.Column7,
+            this.Column8});
+            this.FreqDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.FreqDG.Location = new System.Drawing.Point(19, 27);
+            this.FreqDG.Name = "FreqDG";
+            this.FreqDG.RowTemplate.Height = 24;
+            this.FreqDG.Size = new System.Drawing.Size(432, 143);
+            this.FreqDG.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Data (Hex)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Freq Des.";
+            this.Column8.Name = "Column8";
             // 
             // groupBox1
             // 
@@ -470,221 +646,6 @@ namespace SoftStartTiming
             this.EloadDG_CCM.Size = new System.Drawing.Size(848, 126);
             this.EloadDG_CCM.TabIndex = 0;
             this.EloadDG_CCM.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.EloadDG_CCM_CellValueChanged);
-            // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.VoutDG);
-            this.groupBox7.Location = new System.Drawing.Point(16, 374);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(485, 192);
-            this.groupBox7.TabIndex = 107;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Vout Setting";
-            // 
-            // VoutDG
-            // 
-            this.VoutDG.AllowUserToAddRows = false;
-            this.VoutDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VoutDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13});
-            this.VoutDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.VoutDG.Location = new System.Drawing.Point(19, 27);
-            this.VoutDG.Name = "VoutDG";
-            this.VoutDG.RowTemplate.Height = 24;
-            this.VoutDG.Size = new System.Drawing.Size(432, 154);
-            this.VoutDG.TabIndex = 0;
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.FreqDG);
-            this.groupBox6.Location = new System.Drawing.Point(16, 187);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(485, 181);
-            this.groupBox6.TabIndex = 106;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Freq Setting";
-            // 
-            // FreqDG
-            // 
-            this.FreqDG.AllowUserToAddRows = false;
-            this.FreqDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FreqDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.Column7,
-            this.Column8});
-            this.FreqDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.FreqDG.Location = new System.Drawing.Point(19, 27);
-            this.FreqDG.Name = "FreqDG";
-            this.FreqDG.RowTemplate.Height = 24;
-            this.FreqDG.Size = new System.Drawing.Size(432, 143);
-            this.FreqDG.TabIndex = 0;
-            // 
-            // BTPause
-            // 
-            this.BTPause.Location = new System.Drawing.Point(609, 760);
-            this.BTPause.Name = "BTPause";
-            this.BTPause.Size = new System.Drawing.Size(75, 32);
-            this.BTPause.TabIndex = 104;
-            this.BTPause.Text = "Pause";
-            this.BTPause.UseVisualStyleBackColor = true;
-            // 
-            // BTStop
-            // 
-            this.BTStop.Location = new System.Drawing.Point(690, 760);
-            this.BTStop.Name = "BTStop";
-            this.BTStop.Size = new System.Drawing.Size(75, 32);
-            this.BTStop.TabIndex = 103;
-            this.BTStop.Text = "Stop";
-            this.BTStop.UseVisualStyleBackColor = true;
-            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
-            // 
-            // BTRun
-            // 
-            this.BTRun.Location = new System.Drawing.Point(528, 760);
-            this.BTRun.Name = "BTRun";
-            this.BTRun.Size = new System.Drawing.Size(75, 32);
-            this.BTRun.TabIndex = 102;
-            this.BTRun.Text = "Run";
-            this.BTRun.UseVisualStyleBackColor = true;
-            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
-            // 
-            // tb_vinList
-            // 
-            this.tb_vinList.Location = new System.Drawing.Point(156, 297);
-            this.tb_vinList.Name = "tb_vinList";
-            this.tb_vinList.Size = new System.Drawing.Size(215, 22);
-            this.tb_vinList.TabIndex = 49;
-            this.tb_vinList.Text = "3.3";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 300);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(68, 12);
-            this.label3.TabIndex = 106;
-            this.label3.Text = "Vin Range:";
-            // 
-            // tbWave
-            // 
-            this.tbWave.Location = new System.Drawing.Point(156, 269);
-            this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(215, 22);
-            this.tbWave.TabIndex = 107;
-            this.tbWave.Text = "D:\\";
-            // 
-            // BTSelectWavePath
-            // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(8, 267);
-            this.BTSelectWavePath.Name = "BTSelectWavePath";
-            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectWavePath.TabIndex = 108;
-            this.BTSelectWavePath.Text = "Wave Path";
-            this.BTSelectWavePath.UseVisualStyleBackColor = true;
-            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(437, 760);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 32);
-            this.button1.TabIndex = 109;
-            this.button1.Text = "Excel Kill";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 327);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total Channel Number";
-            // 
-            // nuCH_number
-            // 
-            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(156, 323);
-            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuCH_number.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nuCH_number.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nuCH_number.Name = "nuCH_number";
-            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
-            this.nuCH_number.TabIndex = 63;
-            this.nuCH_number.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Data (Hex)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Freq Des.";
-            this.Column8.Name = "Column8";
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Data (Hex)";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Vout Des.";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.Color.Silver;
-            this.tabPage4.Controls.Add(this.groupBox7);
-            this.tabPage4.Controls.Add(this.groupBox6);
-            this.tabPage4.Controls.Add(this.groupBox1);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(913, 716);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "CCM Setting";
             // 
             // Column1
             // 
@@ -722,6 +683,45 @@ namespace SoftStartTiming
             this.Column10.HeaderText = "ELoad Setting";
             this.Column10.Name = "Column10";
             // 
+            // BTPause
+            // 
+            this.BTPause.Location = new System.Drawing.Point(609, 760);
+            this.BTPause.Name = "BTPause";
+            this.BTPause.Size = new System.Drawing.Size(75, 32);
+            this.BTPause.TabIndex = 104;
+            this.BTPause.Text = "Pause";
+            this.BTPause.UseVisualStyleBackColor = true;
+            // 
+            // BTStop
+            // 
+            this.BTStop.Location = new System.Drawing.Point(690, 760);
+            this.BTStop.Name = "BTStop";
+            this.BTStop.Size = new System.Drawing.Size(75, 32);
+            this.BTStop.TabIndex = 103;
+            this.BTStop.Text = "Stop";
+            this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
+            // 
+            // BTRun
+            // 
+            this.BTRun.Location = new System.Drawing.Point(528, 760);
+            this.BTRun.Name = "BTRun";
+            this.BTRun.Size = new System.Drawing.Size(75, 32);
+            this.BTRun.TabIndex = 102;
+            this.BTRun.Text = "Run";
+            this.BTRun.UseVisualStyleBackColor = true;
+            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(437, 760);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 32);
+            this.button1.TabIndex = 109;
+            this.button1.Text = "Excel Kill";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -745,14 +745,14 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            this.tabPage4.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
-            this.tabPage4.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             this.ResumeLayout(false);
 
         }
