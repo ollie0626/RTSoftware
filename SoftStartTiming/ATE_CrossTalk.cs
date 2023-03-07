@@ -57,6 +57,29 @@ namespace SoftStartTiming
             Cross_CCM();
         }
 
+        private void MeasureVictim(int victim, int col_start, bool before)
+        {
+            // for measure victim channel
+            if (before)
+            {
+                _sheet.Cells[row, col_start++] = "before Vmean(V)";
+                _sheet.Cells[row, col_start++] = "before Victim Max Voltage";
+                _sheet.Cells[row, col_start++] = "before Victim Min Voltage";
+                _sheet.Cells[row, col_start++] = "before Jitter(%)";
+                _sheet.Cells[row, col_start++] = "before +VΔ (mV)";
+            }
+            else
+            {
+                _sheet.Cells[row, col_start++ + 6] = "after Victim Max Voltage";
+                _sheet.Cells[row, col_start++ + 6] = "after Victim Min Voltage";
+                _sheet.Cells[row, col_start++ + 6] = "after Jitter(%)";
+                _sheet.Cells[row, col_start + 6] = "+VΔ (mV)";
+            }
+        }
+
+
+        #region "Cross Talk CCM Mode"
+
         private void Cross_CCM()
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -93,7 +116,7 @@ namespace SoftStartTiming
                     {
                         // vin loop
                         //InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-                        
+
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
                             // vout loop
@@ -225,26 +248,6 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.CHx_On(ch_idx + 1);
                 else
                     InsControl._oscilloscope.CHx_Off(ch_idx + 1);
-            }
-        }
-
-        private void MeasureVictim(int victim, int col_start, bool before)
-        {
-            // for measure victim channel
-            if(before)
-            {
-                _sheet.Cells[row, col_start++] = "before Vmean(V)";
-                _sheet.Cells[row, col_start++] = "before Victim Max Voltage";
-                _sheet.Cells[row, col_start++] = "before Victim Min Voltage";
-                _sheet.Cells[row, col_start++] = "before Jitter(%)";
-                _sheet.Cells[row, col_start++] = "before +VΔ (mV)";
-            }
-            else
-            {
-                _sheet.Cells[row, col_start++ + 6] = "after Victim Max Voltage";
-                _sheet.Cells[row, col_start++ + 6] = "after Victim Min Voltage";
-                _sheet.Cells[row, col_start++ + 6] = "after Jitter(%)";
-                _sheet.Cells[row, col_start + 6] = "+VΔ (mV)";
             }
         }
 
@@ -461,15 +464,15 @@ namespace SoftStartTiming
                 }
             }
 
-            for(int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 iout[i] = group < test_parameter.ccm_eload[sw_en[i]].Count ?
                     test_parameter.ccm_eload[sw_en[i]][group] : test_parameter.ccm_eload[sw_en[i]].Max();
             }
-            
+
             Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
 
-            for(int i = 0; i < loop_cnt; i++)
+            for (int i = 0; i < loop_cnt; i++)
             {
                 List<double> data = new List<double>();
                 int bit0 = (i & 0x01) >> 0;
@@ -482,16 +485,16 @@ namespace SoftStartTiming
                 int bit7 = (i & 0x80) >> 7;
                 int[] bit_list = new int[] { bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7 };
 
-                for(int j = 0; j < n; j++)
+                for (int j = 0; j < n; j++)
                 {
                     data.Add(bit_list[j] == 0 ? 0 : iout[j]);
                 }
                 iout_list.Add(i, data);
 
                 int aggressor_col = (int)XLS_Table.B;
-                for(int j = 0; j < n; j++)
+                for (int j = 0; j < n; j++)
                 {
-                    InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                    //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
                     _sheet.Cells[row, j + aggressor_col] = data[j];
                 }
 
@@ -503,5 +506,61 @@ namespace SoftStartTiming
 
         }
 
+        #endregion
+
+
+        #region "Cross Talk Hi/Lo Code & Channel On/Off" 
+
+        private void Cross_I2C()
+        {
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            int vin_cnt = test_parameter.VinList.Count;
+            row = 18;
+            double[] ori_vinTable = new double[vin_cnt];
+            Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
+
+            int switch_max = 0;
+            int ch_sw_num = 1;
+            for (int i = 0; i < test_parameter.ccm_eload.Count; i++)
+            {
+                if (test_parameter.cross_en[i])
+                {
+                    ch_sw_num = ch_sw_num * 2;
+                    if (test_parameter.ccm_eload[i].Count > switch_max)
+                        switch_max = test_parameter.ccm_eload[i].Count;
+                }
+            }
+            // ch_sw_num just judge that need to run how many times active load switch
+            ch_sw_num = ch_sw_num / 2;
+
+            //InsControl._power.AutoPowerOff();
+            //OSCInit();
+            MyLib.Delay1ms(500);
+
+            for (int select_idx = 0; select_idx < test_parameter.cross_en.Length; select_idx++)
+            {
+                if (test_parameter.cross_en[select_idx]) // select equal to aggressor
+                {
+                    for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
+                    {
+
+                        for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
+                        {
+                            // vout loop
+                            for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
+                            {
+
+
+                            }
+                        }
+                    }
+                }
+            }
+
+            #endregion
+
+
+
+        }
     }
-}
