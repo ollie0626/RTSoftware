@@ -456,6 +456,7 @@ namespace SoftStartTiming
             int[] sw_en = new int[n];
             double[] iout = new double[n];
             int loop_cnt = (int)Math.Pow(2, n);
+            Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
             for (int victim = 0; victim < test_parameter.cross_en.Length; victim++)
             {
                 if (victim != aggressor && test_parameter.cross_en[victim])
@@ -469,8 +470,6 @@ namespace SoftStartTiming
                 iout[i] = group < test_parameter.ccm_eload[sw_en[i]].Count ?
                     test_parameter.ccm_eload[sw_en[i]][group] : test_parameter.ccm_eload[sw_en[i]].Max();
             }
-
-            Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
 
             for (int i = 0; i < loop_cnt; i++)
             {
@@ -487,23 +486,55 @@ namespace SoftStartTiming
 
                 for (int j = 0; j < n; j++)
                 {
-                    data.Add(bit_list[j] == 0 ? 0 : iout[j]);
+                    switch (test_parameter.cross_mode)
+                    {
+                        case 0:
+                            data.Add(bit_list[j] == 0 ? 0 : iout[j]);
+                            break;
+                        case 1:
+                        case 2:
+                            // open active load
+                            //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                            //data.Add(bit_list[j] == 0 ? 0 : test_parameter.en_data[j]);
+
+                            break;
+                    }
+
                 }
                 iout_list.Add(i, data);
 
                 int aggressor_col = (int)XLS_Table.B;
                 for (int j = 0; j < n; j++)
                 {
-                    //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
-                    _sheet.Cells[row, j + aggressor_col] = data[j];
+                    switch (test_parameter.cross_mode)
+                    {
+                        case 0: // ccm mode
+                            //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                            _sheet.Cells[row, j + aggressor_col] = data[j];
+                            break;
+                        case 1: // i2c on / off
+                            _sheet.Cells[row, j + aggressor_col] = "Enable -> Disable";
+                            for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.en_data[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.disen_data[j] });
+                            }
+                            break;
+                        case 2: // i2c VIP
+                            _sheet.Cells[row, j + aggressor_col] = "VIP";
+                            for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.hi_code[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.lo_code[j] });
+                            }
+                            break;
+                    }
                 }
 
                 MeasureVictim(aggressor, col_start + 1, before);
                 _sheet.Cells[row, before ? col_start : col_start + 6] = iout_n;
                 row++;
             }
-
-
         }
 
         #endregion
@@ -544,23 +575,22 @@ namespace SoftStartTiming
                 {
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
-
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
                             // vout loop
                             for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
                             {
+                                for (int victim_idx = 0; victim_idx < 2; victim_idx++)
+                                {
 
-
-                            }
-                        }
-                    }
-                }
-            }
-
-            #endregion
-
-
-
+                                } // victim no load and full load
+                            } // freq loop
+                        } // vout loop
+                    } // vin loop
+                } // channel select
+            } // select
         }
+
+        #endregion
     }
+}

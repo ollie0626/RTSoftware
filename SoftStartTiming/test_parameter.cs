@@ -92,6 +92,9 @@ namespace SoftStartTiming
         public static byte[] en_data;
         public static byte[] disen_data;
 
+        public static byte[] hi_code;
+        public static byte[] lo_code;
+
         public static Dictionary<int, List<double>> ccm_eload = new Dictionary<int, List<double>>();
         public static Dictionary<int, List<byte>> freq_data = new Dictionary<int, List<byte>>();
         public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
@@ -102,5 +105,11 @@ namespace SoftStartTiming
         public static double[] full_load;
         public static byte[] cross_select;
         public static bool[] cross_en;
+
+
+        public static int cross_mode;
+
+
+
     }
 }
