@@ -681,6 +681,7 @@ namespace SoftStartTiming
             this.tbBin.Name = "tbBin";
             this.tbBin.Size = new System.Drawing.Size(425, 22);
             this.tbBin.TabIndex = 50;
+            this.tbBin.Text = "D:\\Desktop\\Bin File\\B1";
             // 
             // tbWave
             // 

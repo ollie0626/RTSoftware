@@ -361,7 +361,7 @@ namespace GenBinTool
                                 Array.Copy(mix[idx], tmp, mix[idx].Length);
                                 file_name = MixfileList[idx] + "_";
                                 file_name += NameList[i] + "_" + NoteList[i][data_idx];
-                                tmp[AddList[i]] |= (byte)DataList[i][data_idx];
+                                tmp[AddList[i]] = (byte)DataList[i][data_idx];
                             }
                             else
                             {

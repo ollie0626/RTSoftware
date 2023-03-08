@@ -399,7 +399,7 @@
             this.Controls.Add(this.metroGrid1);
             this.Name = "main";
             this.Style = MetroFramework.MetroColorStyle.Black;
-            this.Text = "Gen Bin File Tooling V1.0.7";
+            this.Text = "Gen Bin File Tooling V1.0.8";
             ((System.ComponentModel.ISupportInitialize)(this.metroGrid1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.metroGrid2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
