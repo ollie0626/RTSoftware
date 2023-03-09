@@ -51,6 +51,57 @@ namespace SoftStartTiming
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
+            _sheet.Cells.Font.Name = "Calibri";
+            _sheet.Cells.Font.Size = 11;
+
+            _sheet.Cells[1, XLS_Table.A] = "Item";
+            _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
+            _sheet.Cells[3, XLS_Table.A] = "Result";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
+            _range = _sheet.Range["A1", "A4"];
+            _range.Font.Bold = true;
+            _range.Interior.Color = Color.FromArgb(255, 178, 102);
+            _range = _sheet.Range["A2"];
+            _range.RowHeight = 150;
+            _range = _sheet.Range["B1"];
+            _range.ColumnWidth = 60;
+            _range = _sheet.Range["A1", "B4"];
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+            string item = "Cross Talk: ";
+
+            switch(test_parameter.cross_mode)
+            {
+                case 0:
+                    item += "CCM";
+                    break;
+                case 1:
+                    item += "EN on/off";
+                    break;
+                case 2:
+                    item += "VID";
+                    break;
+                case 3:
+                    item += "LT";
+                    break;
+            }
+
+            string rail_info = "";
+            for(int i = 0; i < test_parameter.ch_num; i++)
+            {
+                rail_info += test_parameter.rail_name[i] + ": aggressor load=";
+
+                for(int j = 0; j < test_parameter.ccm_eload[i].Count; j++)
+                {
+                    rail_info += test_parameter.ccm_eload[i][j] + ((j == test_parameter.ccm_eload[i].Count - 1) ? "A" : "A, ");
+                }
+                rail_info += ",full load=" + test_parameter.full_load[i] + "\r\n";
+            }
+
+            _sheet.Cells[1, XLS_Table.B] = item;
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver 
+                                            + test_parameter.vin_conditions 
+                                            + rail_info;
 #endif
 
             // first item CCM
@@ -142,16 +193,22 @@ namespace SoftStartTiming
 
                                     double victim_iout = test_parameter.full_load[select_idx];
 #if true
-                                    int col_base = (int)XLS_Table.B + 2 + test_parameter.ch_num;
+                                    int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                     int col_start = col_base;
                                     _sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
-                                    _sheet.Cells[row++, XLS_Table.B] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
-                                    _sheet.Cells[row, XLS_Table.B] = "Aggressor";
-                                    _range = _sheet.Range["B" + (row - 1).ToString(), "B" + row];
+                                    _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
+                                    _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
+                                    _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    _sheet.Cells[row, XLS_Table.C] = "Aggressor";
+                                    _range = _sheet.Range["C" + (row), cells[test_parameter.ch_num] + (row)];
+                                    _range.Merge();
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
                                     _sheet.Cells[row, col_start] = "Freq (KHz)";
                                     row++;
-                                    int col_idx = (int)XLS_Table.B;
+                                    int col_idx = (int)XLS_Table.C;
 
                                     for (int i = 0; i < test_parameter.ch_num; i++)
                                     {
@@ -185,7 +242,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base] = "+VΔ (mV)";
 
-                                    _range = _sheet.Range[cells[(int)XLS_Table.B + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
+                                    _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
                                     for (int i = 1; i < 25; i++)
@@ -197,9 +254,7 @@ namespace SoftStartTiming
 #endif
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
-
                                         double iout = (victim_idx == 0) ? 0 : victim_iout;
-
                                         int n = ch_sw_num == 2 ? 1 :
                                                 ch_sw_num == 4 ? 2 :
                                                 ch_sw_num == 8 ? 3 :
@@ -208,21 +263,24 @@ namespace SoftStartTiming
                                                 ch_sw_num == 64 ? 6 : 7;
                                         MeasureN(n, select_idx, group_idx, iout, col_start, victim_idx == 0 ? true : false);
                                         if (victim_idx == 0) row = row - ch_sw_num;
-
                                     }
 
                                     row += 3;
                                 } // iout group loop
-
-
                             } // vout loop
                         } // freq loop
                     } // vin loop
                 } // select aggressor loop
-
             }
-
             stopWatch.Stop();
+#if false
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            _book.Close(false);
+            _book = null;
+            _app.Quit();
+            _app = null;
+            GC.Collect();
+#endif
         }
 
         private void ReserveMeasureChannel(int victim)
@@ -288,7 +346,7 @@ namespace SoftStartTiming
                 }
                 iout_list.Add(i, data);
 
-                int aggressor_col = (int)XLS_Table.B;
+                int aggressor_col = (int)XLS_Table.C;
                 for (int j = 0; j < n; j++)
                 {
                     switch (test_parameter.cross_mode)
@@ -301,6 +359,7 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
+                                if (data[j] == 0) break;
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.en_data[j] });
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.disen_data[j] });
                             }
@@ -309,6 +368,7 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "VIP" : "0"; ;
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
+                                if (data[j] == 0) break;
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.hi_code[j] });
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.lo_code[j] });
                             }

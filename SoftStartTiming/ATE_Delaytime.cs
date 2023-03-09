@@ -423,6 +423,8 @@ namespace SoftStartTiming
 #if true
                     _sheet = _book.Worksheets.Add();
                     _sheet.Name = "CH" + (select_idx + 1).ToString();
+                    _sheet.Cells.Font.Name = "Calibri";
+                    _sheet.Cells.Font.Size = 11;
                     row = 8;
                     wave_row = 8;
                     wave_pos = 0;

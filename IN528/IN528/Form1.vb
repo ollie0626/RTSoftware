@@ -1176,7 +1176,8 @@ Public Class Form1
 
     Private Sub W1C_2_ValueChanged(sender As Object, e As EventArgs) Handles W1C_2.ValueChanged
         Bar_VcomSST.Value = W1C_2.Value
-        Dim Des() As String = {"Slowest", "Slow", "Normal", "Fastest"}
+        'Dim Des() As String = {"Slowest", "Slow", "Normal", "Fastest"}
+        Dim Des() As String = {"Fastest", "Normal", "Slow", "Slowest"}
         Vcom_SST.Text = Des(Bar_VcomSST.Value)
         ShowCheckSum()
     End Sub
