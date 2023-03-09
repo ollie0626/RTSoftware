@@ -38,7 +38,7 @@ namespace InsLibDotNet
         public void DoCommand(string cmd)
         {
             doCommand(cmd);
-            System.Threading.Thread.Sleep(100);
+            //System.Threading.Thread.Sleep(50);
         }
         public string doQuery(string cmd)
         {
@@ -264,6 +264,12 @@ namespace InsLibDotNet
             SIGMA3|SIXSigmajit|SNRatio|STDdev|UNDEFINED| WAVEFORMS}         
          */
 
+
+        public void SetMeasureOff(int meas)
+        {
+            string cmd = string.Format("MEASUrement:MEAS{0}:STATE OFF", meas);
+            DoCommand(cmd); System.Threading.Thread.Sleep(100);
+        }
         public void SetMeasureSource(int ch, int meas, string type)
         {
             string cmd = "";
@@ -371,7 +377,7 @@ namespace InsLibDotNet
             string cmd = "";
 
             cmd = string.Format("MEASUrement:MEAS{0}:TYPe DELay", meas);
-            DoCommand(cmd);
+            DoCommand(cmd); 
             cmd = string.Format("MEASUrement:MEAS{0}:SOUrce1 CH{1}", meas, ch1);
             DoCommand(cmd);
             cmd = string.Format("MEASUrement:MEAS{0}:SOUrce2 CH{1}", meas, ch2);
@@ -380,7 +386,7 @@ namespace InsLibDotNet
                 meas, _fist_edge_rising ? "RISe" : "FALL", _second_edge_rising ? "RISe" : "FALL");
             DoCommand(cmd);
             cmd = string.Format("MEASUrement:MEAS{0}:STATE ON", meas);
-            DoCommand(cmd);
+            DoCommand(cmd); System.Threading.Thread.Sleep(300);
                  
         }
 
@@ -389,6 +395,7 @@ namespace InsLibDotNet
             string cmd = "";
             cmd = string.Format("MEASUrement:MEAS{0}:MEAN?", num);
             double res = doQueryNumber(cmd);
+            res = doQueryNumber(cmd);
             return res;
         }
 
