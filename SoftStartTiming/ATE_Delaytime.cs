@@ -55,7 +55,7 @@ namespace SoftStartTiming
 
         private void GpioOffSelect(int num)
         {
-            switch(num)
+            switch (num)
             {
                 case 0:
                     RTDev.Gp1En_Disable();
@@ -71,7 +71,7 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
-            if(InsControl._tek_scope_en)
+            if (InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                 InsControl._tek_scope.SetTimeBasePosition(15);
@@ -94,9 +94,9 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_Position(3, -1);
                 InsControl._tek_scope.CHx_Position(4, -3);
 
-                for(int i = 0; i < test_parameter.scope_en.Length; i++)
+                for (int i = 0; i < test_parameter.scope_en.Length; i++)
                 {
-                    if(test_parameter.scope_en[i])
+                    if (test_parameter.scope_en[i])
                     {
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
                     }
@@ -111,7 +111,7 @@ namespace SoftStartTiming
 
                 InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                
+
 
             }
             else
@@ -190,7 +190,7 @@ namespace SoftStartTiming
                 InsControl._scope.DoCommand(":MEASure:STATistics CURRent");
             }
 
-            
+
 
         }
 
@@ -201,7 +201,7 @@ namespace SoftStartTiming
             if (InsControl._tek_scope_en)
             {
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-                if(time_scale <= 55 * Math.Pow(10, -6))
+                if (time_scale <= 55 * Math.Pow(10, -6) || time_scale > 100 * Math.Pow(10, -3))
                 {
                     time_scale = test_parameter.ontime_scale_ms / 1000;
                 }
@@ -238,7 +238,7 @@ namespace SoftStartTiming
             {
                 case 0: // gpio
 
-                    if(InsControl._tek_scope_en)
+                    if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetTriggerSource(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
@@ -278,7 +278,7 @@ namespace SoftStartTiming
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
 
-                    if(InsControl._tek_scope_en)
+                    if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetTriggerSource(1);
                         InsControl._tek_scope.SetTriggerLevel(test_parameter.VinList[idx] * 0.35);
@@ -290,14 +290,14 @@ namespace SoftStartTiming
                     break;
             }
 
-            for(int i = 0; i < 100; i++)
+            for (int i = 0; i < 100; i++)
             {
                 int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
                 Console.WriteLine("I2C Return value {0}", ret);
                 if (ret == 0) break;
             }
-            
-            
+
+
 
             //MyLib.Delay1s(1);
 
@@ -307,7 +307,7 @@ namespace SoftStartTiming
             {
                 if (test_parameter.scope_en[i])
                 {
-                    if(InsControl._tek_scope_en)
+                    if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
                         //InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
@@ -328,7 +328,7 @@ namespace SoftStartTiming
             {
                 if (test_parameter.scope_en[ch_idx])
                 {
-                re_scale:;
+                    re_scale:;
                     if (re_cnt > 3)
                     {
                         re_cnt = 0;
@@ -336,53 +336,67 @@ namespace SoftStartTiming
                     }
 
                     double vmax = 0;
-                    if(InsControl._tek_scope_en)
+
+                    if (InsControl._tek_scope_en)
                     {
                         // tek get max
-                        for (int vol_idx = 0; vol_idx < 100 && vmax < 0.3; vol_idx++)
+                        for (int k = 0; k < 3; k++)
                         {
                             vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                            MyLib.Delay1ms(10);
+                            vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
                             Console.WriteLine("VMax = {0}", vmax);
+                            
+                            if(vmax > 0.3 && vmax < Math.Pow(10, 3))
+                                InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
                             MyLib.Delay1ms(100);
                         }
-
                     }
                     else
                     {
                         // agilent get max
                         vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
-                    }
-                        
-                    if (vmax > Math.Pow(10, 9))
-                    {
-                        re_cnt++;
-
-                        if(InsControl._tek_scope_en)
+                        if (vmax > Math.Pow(10, 9))
                         {
-                            InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                            //InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
+                            re_cnt++;
+                            InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 2.5);
+                            InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 2.5 * (ch_idx + 1));
+                            MyLib.Delay1ms(500);
+                            goto re_scale;
                         }
-                        else
-                        {
-                            InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                            InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
-                        }
-                        MyLib.Delay1ms(500);
-                        goto re_scale;
-                    }
-
-                    if(InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 2.5);
-                    }
-                    else
-                    {
                         InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
                         InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
                     }
-
                     MyLib.Delay1ms(300);
+
+                    //if (vmax > Math.Pow(10, 9))
+                    //{
+                    //    re_cnt++;
+
+                    //    if (InsControl._tek_scope_en)
+                    //    {
+                    //        InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                    //        //InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
+                    //    }
+                    //    else
+                    //    {
+                    //        InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                    //        InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
+                    //    }
+                    //    goto re_scale;
+                    //}
+
+                    //if (InsControl._tek_scope_en)
+                    //{
+                    //    InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
+                    //}
+                    //else
+                    //{
+                    //    InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
+                    //    InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
+                    //}
                 }
+
             }
 
             PowerOffEvent();
@@ -392,7 +406,6 @@ namespace SoftStartTiming
                 InsControl._tek_scope.SetTimeScale(time_scale);
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                
             }
             else
                 InsControl._scope.TimeScale(time_scale);
@@ -508,7 +521,7 @@ namespace SoftStartTiming
 
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
-                        if(InsControl._tek_scope_en)
+                        if (InsControl._tek_scope_en)
                         {
                             InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -535,11 +548,11 @@ namespace SoftStartTiming
                             string file_name;
                             string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                             test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
-                            if(!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
+                            if (!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
                             MyLib.Delay1s(1);
 
                             if (!InsControl._tek_scope_en)
-                            {    
+                            {
                                 // Call Measure display to waveform
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
                                 {
@@ -578,7 +591,7 @@ namespace SoftStartTiming
 
                             double time_scale = 0;
 
-                            if(InsControl._tek_scope_en)
+                            if (InsControl._tek_scope_en)
                             {
                                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
                             }
@@ -597,7 +610,7 @@ namespace SoftStartTiming
 
                             Scope_Channel_Resize(vin_idx, binList[bin_idx]);
                             double tempVin = ori_vinTable[vin_idx];
-                            if(!InsControl._tek_scope_en) MyLib.WaveformCheck();
+                            if (!InsControl._tek_scope_en) MyLib.WaveformCheck();
                             //retest:;
 
                             if (retry_cnt > 3)
@@ -691,7 +704,7 @@ namespace SoftStartTiming
                             List<double> delay_time = new List<double>();
                             double time_scale_threshold = 0;
 
-                            if(!InsControl._tek_scope_en)
+                            if (!InsControl._tek_scope_en)
                             {
                                 // add marker
                                 reslult_lits = InsControl._scope.doQeury(":MEASure:RESults?");
@@ -753,7 +766,7 @@ namespace SoftStartTiming
 
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
                                 {
-                                    if(test_parameter.scope_en[i])
+                                    if (test_parameter.scope_en[i])
                                     {
                                         InsControl._tek_scope.SetMeasureSource(i + 2, meas_idx++, "RISe");
                                     }
@@ -779,7 +792,7 @@ namespace SoftStartTiming
                             switch (select_idx)
                             {
                                 case 0:
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
                                             // pwrdis mode --> falling to rising
@@ -802,7 +815,7 @@ namespace SoftStartTiming
                                     }
                                     break;
                                 case 1:
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
                                             // pwrdis mode --> falling to rising
@@ -824,7 +837,7 @@ namespace SoftStartTiming
                                     }
                                     break;
                                 case 2:
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         if (!test_parameter.sleep_mode)
                                             // pwrdis mode --> falling to rising
@@ -853,7 +866,7 @@ namespace SoftStartTiming
                                 {
                                     retry_cnt++;
 
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetRun();
                                         InsControl._tek_scope.SetTriggerMode();
@@ -883,7 +896,7 @@ namespace SoftStartTiming
                                     double temp = (delay_time_res * 1.2) / 4;
 
 
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(temp);
                                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -898,7 +911,7 @@ namespace SoftStartTiming
                                 }
                                 else
                                 {
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -912,7 +925,7 @@ namespace SoftStartTiming
                                     }
                                 }
 
-                                if(InsControl._tek_scope_en)
+                                if (InsControl._tek_scope_en)
                                 {
                                     InsControl._tek_scope.SetRun();
                                 }
@@ -920,7 +933,7 @@ namespace SoftStartTiming
                                 {
                                     InsControl._scope.Root_RUN();
                                 }
-                                
+
                                 PowerOffEvent();
                                 goto retest;
                             }
@@ -928,7 +941,7 @@ namespace SoftStartTiming
                             {
                                 if (delay_time_res < sst_res)
                                 {
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(sst_res);
                                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -946,7 +959,7 @@ namespace SoftStartTiming
                                 }
                                 else
                                 {
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
                                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -967,7 +980,7 @@ namespace SoftStartTiming
                                 }
                             }
 
-                            if(InsControl._tek_scope_en)
+                            if (InsControl._tek_scope_en)
                             {
                                 InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             }
@@ -975,7 +988,7 @@ namespace SoftStartTiming
                             {
                                 InsControl._scope.SaveWaveform(test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             }
-                            
+
 #if true
                             double vin = 0, dt1 = 0, dt2 = 0, dt3 = 0, sst1 = 0, sst2 = 0, sst3 = 0;
                             double vmax = 0, vmin = 0;
@@ -991,7 +1004,7 @@ namespace SoftStartTiming
                             switch (select_idx)
                             {
                                 case 0:
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 8);
                                         vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 8);
@@ -1017,7 +1030,7 @@ namespace SoftStartTiming
 
                                     break;
                                 case 2:
-                                    if(InsControl._tek_scope_en)
+                                    if (InsControl._tek_scope_en)
                                     {
                                         vmax = InsControl._tek_scope.CHx_Meas_MAX(4, 8);
                                         vmin = InsControl._tek_scope.CHx_Meas_MIN(4, 8);
@@ -1036,7 +1049,7 @@ namespace SoftStartTiming
                             //":MEASure:DELTatime CHANnel1,CHANnel2
                             if (test_parameter.scope_en[0])
                             {
-                                if(InsControl._tek_scope_en)
+                                if (InsControl._tek_scope_en)
                                 {
                                     if (!test_parameter.sleep_mode)
                                         // pwrdis mode --> falling to rising
@@ -1047,10 +1060,12 @@ namespace SoftStartTiming
                                     MyLib.Delay1ms(10);
                                     for (int i = 0; i < 3; i++)
                                         dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    for(int i = 0; i < 2; i++)
+                                    for (int i = 0; i < 2; i++)
                                         sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, 8);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
                                 }
                                 else
                                 {
@@ -1059,7 +1074,7 @@ namespace SoftStartTiming
                                     vtop = InsControl._scope.Meas_CH2Top();
                                     vbase = InsControl._scope.Meas_CH2Base();
                                 }
-                                
+
                                 double calculate_dt = (test_parameter.delay_us_en ? dt1 * Math.Pow(10, 6) : dt1 * Math.Pow(10, 9));
                                 _sheet.Cells[row, XLS_Table.H] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.I] = sst1 * Math.Pow(10, 6);
@@ -1069,7 +1084,7 @@ namespace SoftStartTiming
 
                             if (test_parameter.scope_en[1])
                             {
-                                if(InsControl._tek_scope_en)
+                                if (InsControl._tek_scope_en)
                                 {
 
                                     if (!test_parameter.sleep_mode)
@@ -1085,9 +1100,10 @@ namespace SoftStartTiming
 
                                     for (int i = 0; i < 2; i++)
                                         sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
-
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
                                 }
                                 else
                                 {
@@ -1108,7 +1124,7 @@ namespace SoftStartTiming
                             if (test_parameter.scope_en[2])
                             {
 
-                                if(InsControl._tek_scope_en)
+                                if (InsControl._tek_scope_en)
                                 {
                                     if (!test_parameter.sleep_mode)
                                         // pwrdis mode --> falling to rising
@@ -1121,8 +1137,10 @@ namespace SoftStartTiming
                                         dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
                                     for (int i = 0; i < 2; i++)
                                         sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
+                                    for (int i = 0; i < 2; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
                                 }
                                 else
                                 {
@@ -1148,8 +1166,8 @@ namespace SoftStartTiming
                             switch (select_idx)
                             {
                                 case 0:
-                                    value = Convert.ToDouble( _sheet.Cells[row, XLS_Table.H].Value);
-                                    if(value > criteria_up || value < criteria_down)
+                                    value = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
+                                    if (value > criteria_up || value < criteria_down)
                                     {
                                         _sheet.Cells[row, XLS_Table.V] = "Fail";
                                         _range = _sheet.Range["V" + row];
@@ -1265,7 +1283,7 @@ namespace SoftStartTiming
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             row++;
 #endif
-                            if(InsControl._tek_scope_en)
+                            if (InsControl._tek_scope_en)
                             {
                                 InsControl._tek_scope.SetRun();
                             }
@@ -1273,7 +1291,7 @@ namespace SoftStartTiming
                             {
                                 InsControl._scope.Root_RUN();
                             }
-                            
+
                             PowerOffEvent();
                         }
                     }
@@ -1286,7 +1304,7 @@ namespace SoftStartTiming
                     _sheet.Cells[2, 2] = str_temp;
                 }
             }
-        Stop:
+            Stop:
             stopWatch.Stop();
             //TimeSpan timeSpan = stopWatch.Elapsed;
 #if true

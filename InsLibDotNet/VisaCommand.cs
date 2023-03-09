@@ -82,7 +82,14 @@ public class VisaCommand
             str = Encoding.ASCII.GetString(buffer, 0, count_out).Split(',');
             if (str[0] != "" || str.Length > 1)
             {
-                temp = Convert.ToDouble(str[0]);
+                try
+                {
+                    temp = Convert.ToDouble(str[0]);
+                }
+                catch
+                {
+                }
+                
                 return temp;
             }
             count++;
