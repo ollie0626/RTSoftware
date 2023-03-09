@@ -132,7 +132,7 @@ namespace SoftStartTiming
             file = File.Open(bin_file, FileMode.Open);
             reader = new BinaryReader(file);
             binData = reader.ReadBytes((int)file.Length);
-            I2C_Write(slave, addr, binData);
+            ret = I2C_Write(slave, addr, binData);
 
             file.Close();
             reader.Close();
