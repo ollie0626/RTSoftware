@@ -270,39 +270,48 @@ namespace SoftStartTiming
             timer_cnt = 0;
         }
 
-        public static void Channel_LevelSetting(int channel)
+        public static void Channel_LevelSetting(int channel, double vin, int grid = 3)
         {
-            int idx = 0;
             double issue_num = 9.99999 * Math.Pow(10, 10);
             for (int i = 0; i <= 8; i++)
             {
-                string info = "";
-                double avg = 0;
-                double vmax = InsControl._scope.Measure_Ch_Max(channel);
-                System.Threading.Thread.Sleep(100);
-                double vmin = InsControl._scope.Measure_Ch_Min(channel);
-                System.Threading.Thread.Sleep(100);
-                double temp = InsControl._scope.Measure_Ch_Vpp(channel);
-                System.Threading.Thread.Sleep(100);
+                double vmax = 0;
 
-                if (vmax < 0)
+                if(InsControl._tek_scope_en)
                 {
-                    InsControl._scope.CHx_Level(channel, 3);
-                    continue;
-                }
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(channel, 8);
+                    Delay1ms(100);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(channel, 8);
+                    Delay1ms(10);
 
-                if (vmax > issue_num || temp > issue_num)
+                    if(vmax < issue_num)
+                    {
+                        InsControl._tek_scope.CHx_Level(channel, vmax / grid);
+                    }
+                    else if(vmax > issue_num)
+                    {
+                        InsControl._tek_scope.CHx_Level(channel, vin * 3);
+                    }
+                }
+                else
                 {
-                    InsControl._scope.CHx_Level(channel, 3);
-                    continue;
-                }
+                    vmax = InsControl._scope.Measure_Ch_Max(channel);
+                    Delay1ms(10);
+                    vmax = InsControl._scope.Measure_Ch_Max(channel);
+                    Delay1ms(100);
 
-                avg = vmax - vmin;
-                InsControl._scope.CHx_Level(channel, avg / 3);
-                System.Threading.Thread.Sleep(300);
+                    if (vmax < issue_num)
+                    {
+                        InsControl._scope.CHx_Level(channel, vmax / grid);
+                    }
+                    else if (vmax > issue_num)
+                    {
+                        InsControl._scope.CHx_Level(channel, vin * 3);
+                    }
+                }
+                Delay1ms(100);
             }
         }
-
 
         public static void Switch_ELoadLevel(double level)
         {
