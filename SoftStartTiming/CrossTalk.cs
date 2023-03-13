@@ -40,6 +40,7 @@ namespace SoftStartTiming
             EloadDG_CCM.RowCount = 6;
             FreqDG.RowCount = 6;
             VoutDG.RowCount = 6;
+            LTDG.RowCount = 6;
 
             EloadDG_CCM[0, 0].Value = "Buck1";
             EloadDG_CCM[0, 1].Value = "Buck2";
@@ -133,6 +134,19 @@ namespace SoftStartTiming
             VoutDG[3, 2].Value = "2";
             VoutDG[3, 3].Value = "3.3";
             VoutDG[3, 4].Value = "3.3";
+
+
+            LTDG[1, 0].Value = "0";
+            LTDG[1, 1].Value = "0";
+            LTDG[1, 2].Value = "0";
+
+            LTDG[2, 0].Value = "1";
+            LTDG[2, 1].Value = "2";
+            LTDG[2, 2].Value = "3";
+
+            LTDG[3, 0].Value = "5";
+            LTDG[3, 1].Value = "6";
+            LTDG[3, 2].Value = "7";
         }
 
 
@@ -315,6 +329,7 @@ namespace SoftStartTiming
                 test_parameter.disen_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[3, i].Value), 16);
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[4, i].Value).Split(',').Select(double.Parse).ToList());
                 test_parameter.full_load[i] = Convert.ToDouble(EloadDG_CCM[5, i].Value);
+                test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
 
                 // freq and vout parameter
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
@@ -323,9 +338,12 @@ namespace SoftStartTiming
                 test_parameter.vout_data.Add(i, ((string)VoutDG[2, i].Value).Split(',').Select(byte.Parse).ToList());
                 test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
+
+                test_parameter.lt_l1.Add(i, ((string)LTDG[1, i].Value).Split(',').Select(double.Parse).ToList());
+                test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
                 test_parameter.cross_en[i] = true;
-                test_parameter.cross_mode = 0;
             }
+            test_parameter.cross_mode = 3;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -445,6 +463,7 @@ namespace SoftStartTiming
             EloadDG_CCM.RowCount = (int)nuCH_number.Value;
             FreqDG.RowCount = (int)nuCH_number.Value;
             VoutDG.RowCount = (int)nuCH_number.Value;
+            LTDG.RowCount = (int)nuCH_number.Value;
 
             test_parameter.freq_addr = new byte[(int)nuCH_number.Value];
             test_parameter.vout_addr = new byte[(int)nuCH_number.Value];
@@ -458,6 +477,10 @@ namespace SoftStartTiming
 
             test_parameter.ch_num = (int)nuCH_number.Value;
             test_parameter.full_load = new double[(int)nuCH_number.Value];
+
+            //test_parameter.lt_l1_full = new double[(int)nuCH_number.Value];
+            test_parameter.lt_full = new double[(int)nuCH_number.Value];
+            
         }
 
         private void EloadDG_CCM_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -469,6 +492,7 @@ namespace SoftStartTiming
                 test_parameter.rail_name[i] = (string)EloadDG_CCM[0, i].Value;
                 FreqDG[0, i].Value = test_parameter.rail_name[i];
                 VoutDG[0, i].Value = test_parameter.rail_name[i];
+                LTDG[0, i].Value = test_parameter.rail_name[i];
             }
         }
     }

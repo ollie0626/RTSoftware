@@ -245,6 +245,45 @@ namespace InsLibDotNet
         }
 
 
+        public void DymanicLoad(int CHx,
+                        double L1, double L2,
+                        double T1, double T2)
+        {
+            doCommand("CHAN " + CHx.ToString());
+            double MaxCurr = L2;
+            if (L1 > L2)
+                MaxCurr = L1;
+            else
+                MaxCurr = L2;
+
+            if (MaxCurr <= 0.1)
+                CCDL_Mode();
+            else if (MaxCurr >= 0.1 && MaxCurr <= 1)
+                CCDM_Mode();
+            else if (MaxCurr >= 1)
+                CCDH_Mode();
+
+            string cmd = "CURR:DYN:RISE MAX";
+            doCommand(cmd);
+            cmd = "CURR:DYN:FALL MAX";
+            doCommand(cmd);
+
+            cmd = "CURRent:DYNamic:L1 " + L1 + "A";
+            doCommandViWrite(cmd);
+            //doCommand(cmd);
+            cmd = "CURRent:DYNamic:L2 " + L2 + "A";
+            doCommandViWrite(cmd);
+
+            cmd = "CURR:DYN:T1 " + T1 + "uS";
+            doCommand(cmd);
+            cmd = "CURR:DYN:T2 " + T2 + "uS";
+            doCommand(cmd);
+
+            cmd = "LOAD ON";
+            doCommand(cmd);
+        }
+
+
         public void DymanicCH1(double L1, double L2,
                                double T1, double T2)
         {

@@ -75,9 +75,6 @@ namespace InsLibDotNet
             }
         }
 
-
-
-
         public ChamberModule(string Addr)
         {
             LinkingIns(Addr);
