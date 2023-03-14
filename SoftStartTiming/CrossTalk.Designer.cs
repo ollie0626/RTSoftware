@@ -99,6 +99,8 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CBItem = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -414,6 +416,8 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
+            this.tabPage1.Controls.Add(this.CBItem);
+            this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Controls.Add(this.CBChannel);
             this.tabPage1.Controls.Add(this.tb_power);
@@ -776,6 +780,28 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn4.HeaderText = "LT Full (A)";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
+            // CBItem
+            // 
+            this.CBItem.FormattingEnabled = true;
+            this.CBItem.Items.AddRange(new object[] {
+            "Corss talk CCM",
+            "Cross talk EN on/off",
+            "Cross talk VIP",
+            "Cross talk LT "});
+            this.CBItem.Location = new System.Drawing.Point(156, 325);
+            this.CBItem.Name = "CBItem";
+            this.CBItem.Size = new System.Drawing.Size(215, 20);
+            this.CBItem.TabIndex = 110;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 328);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 12);
+            this.label5.TabIndex = 109;
+            this.label5.Text = "Item Select:";
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -886,5 +912,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.ComboBox CBItem;
+        private System.Windows.Forms.Label label5;
     }
 }

@@ -105,8 +105,11 @@ namespace SoftStartTiming
 #endif
 
             // first item CCM
-            //Cross_CCM();
-            Cross_LT();
+            if (test_parameter.item_idx == 2)
+                Cross_LT();
+            else
+                Cross_CCM();
+            
         }
 
         private void MeasureVictim(int victim, int col_start, bool before, bool lt_mode = false)
@@ -376,7 +379,6 @@ namespace SoftStartTiming
                             data_l2.Add(bit_list[j] == 0 ? 0 : l2[j]);
                             break;
                     }
-
                 }
                 iout_list.Add(i, data);
 
@@ -454,8 +456,15 @@ namespace SoftStartTiming
                 if (test_parameter.cross_en[i])
                 {
                     ch_sw_num = ch_sw_num * 2;
-                    if (test_parameter.ccm_eload[i].Count > switch_max)
-                        switch_max = test_parameter.ccm_eload[i].Count;
+                    if (test_parameter.lt_l1[i].Count > switch_max || test_parameter.lt_l2[i].Count > switch_max)
+                    {
+                        //switch_max = test_parameter.ccm_eload[i].Count;
+                        if (test_parameter.lt_l1[i].Count > switch_max)
+                            switch_max = test_parameter.lt_l1[i].Count;
+                        else
+                            switch_max = test_parameter.lt_l2[i].Count;
+                    }
+                        
                 }
             }
             // ch_sw_num just judge that need to run how many times active load switch

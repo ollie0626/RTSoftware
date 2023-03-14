@@ -155,6 +155,7 @@ namespace SoftStartTiming
             this.Text = win_name;
             DataGridviewInit();
             ate_table = new TaskRun[] { _ate_crosstalk };
+            CBItem.SelectedIndex = 0;
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -312,6 +313,9 @@ namespace SoftStartTiming
             test_parameter.vout_des.Clear();
             test_parameter.ccm_eload.Clear();
 
+            test_parameter.lt_l1.Clear();
+            test_parameter.lt_l2.Clear();
+
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
             test_parameter.tool_ver = win_name + "\r\n";
 
@@ -343,7 +347,7 @@ namespace SoftStartTiming
                 test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
                 test_parameter.cross_en[i] = true;
             }
-            test_parameter.cross_mode = 3;
+            test_parameter.cross_mode = CBItem.SelectedIndex;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
