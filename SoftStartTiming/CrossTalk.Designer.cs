@@ -61,13 +61,19 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
+            this.CBItem = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.tbWave = new System.Windows.Forms.TextBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LTDG = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.VoutDG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -89,33 +95,27 @@ namespace SoftStartTiming
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.LTDG = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CBItem = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -451,39 +451,27 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
-            // nuCH_number
+            // CBItem
             // 
-            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(630, 777);
-            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuCH_number.Maximum = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
-            this.nuCH_number.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nuCH_number.Name = "nuCH_number";
-            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
-            this.nuCH_number.TabIndex = 63;
-            this.nuCH_number.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
+            this.CBItem.FormattingEnabled = true;
+            this.CBItem.Items.AddRange(new object[] {
+            "Item 1 CCM",
+            "Item 2 EN on/off",
+            "Item 3 VID",
+            "Item 4 LT"});
+            this.CBItem.Location = new System.Drawing.Point(156, 325);
+            this.CBItem.Name = "CBItem";
+            this.CBItem.Size = new System.Drawing.Size(215, 20);
+            this.CBItem.TabIndex = 110;
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(480, 781);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total Channel Number";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(6, 328);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(71, 12);
+            this.label5.TabIndex = 109;
+            this.label5.Text = "Item Select:";
             // 
             // label3
             // 
@@ -533,6 +521,53 @@ namespace SoftStartTiming
             this.tabPage4.Size = new System.Drawing.Size(1021, 716);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Condition Setting";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.LTDG);
+            this.groupBox2.Location = new System.Drawing.Point(507, 187);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(485, 181);
+            this.groupBox2.TabIndex = 107;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Eload LT Setting";
+            // 
+            // LTDG
+            // 
+            this.LTDG.AllowUserToAddRows = false;
+            this.LTDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.LTDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.dataGridViewTextBoxColumn4});
+            this.LTDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.LTDG.Location = new System.Drawing.Point(19, 27);
+            this.LTDG.Name = "LTDG";
+            this.LTDG.RowTemplate.Height = 24;
+            this.LTDG.Size = new System.Drawing.Size(432, 143);
+            this.LTDG.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "L1(A)";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.HeaderText = "L2(A)";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "LT Full (A)";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
             // groupBox7
             // 
@@ -694,6 +729,40 @@ namespace SoftStartTiming
             this.Column10.HeaderText = "ELoad Setting";
             this.Column10.Name = "Column10";
             // 
+            // nuCH_number
+            // 
+            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuCH_number.Location = new System.Drawing.Point(630, 777);
+            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuCH_number.Maximum = new decimal(new int[] {
+            8,
+            0,
+            0,
+            0});
+            this.nuCH_number.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nuCH_number.Name = "nuCH_number";
+            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
+            this.nuCH_number.TabIndex = 63;
+            this.nuCH_number.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(480, 781);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Channel Number";
+            // 
             // BTPause
             // 
             this.BTPause.Location = new System.Drawing.Point(881, 771);
@@ -733,81 +802,12 @@ namespace SoftStartTiming
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.LTDG);
-            this.groupBox2.Location = new System.Drawing.Point(507, 187);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(485, 181);
-            this.groupBox2.TabIndex = 107;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Eload LT Setting";
-            // 
-            // LTDG
-            // 
-            this.LTDG.AllowUserToAddRows = false;
-            this.LTDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.LTDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn1,
-            this.dataGridViewTextBoxColumn2,
-            this.dataGridViewTextBoxColumn3,
-            this.dataGridViewTextBoxColumn4});
-            this.LTDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.LTDG.Location = new System.Drawing.Point(19, 27);
-            this.LTDG.Name = "LTDG";
-            this.LTDG.RowTemplate.Height = 24;
-            this.LTDG.Size = new System.Drawing.Size(432, 143);
-            this.LTDG.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.HeaderText = "L1(A)";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.HeaderText = "L2(A)";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.HeaderText = "LT Full (A)";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            // 
-            // CBItem
-            // 
-            this.CBItem.FormattingEnabled = true;
-            this.CBItem.Items.AddRange(new object[] {
-            "Corss talk CCM",
-            "Cross talk EN on/off",
-            "Cross talk VIP",
-            "Cross talk LT "});
-            this.CBItem.Location = new System.Drawing.Point(156, 325);
-            this.CBItem.Name = "CBItem";
-            this.CBItem.Size = new System.Drawing.Size(215, 20);
-            this.CBItem.TabIndex = 110;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 328);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(71, 12);
-            this.label5.TabIndex = 109;
-            this.label5.Text = "Item Select:";
-            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(1088, 831);
+            this.ClientSize = new System.Drawing.Size(1066, 813);
             this.Controls.Add(this.nuCH_number);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BTPause);
@@ -827,16 +827,16 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).EndInit();
             this.groupBox7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).EndInit();
             this.groupBox6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

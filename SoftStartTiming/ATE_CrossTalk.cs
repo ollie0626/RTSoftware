@@ -39,13 +39,14 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
-            InsControl._oscilloscope.SetTimeScale(2 / 1000);
+            InsControl._oscilloscope.SetAutoTrigger();
+            InsControl._oscilloscope.SetTimeScale(0.002);
         }
 
         public override void ATETask()
         {
             RTDev.BoadInit();
-#if true
+#if false
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
@@ -104,6 +105,8 @@ namespace SoftStartTiming
                                             + rail_info;
 #endif
 
+            OSCInit();
+
             // first item CCM
             if (test_parameter.cross_mode == 3)
                 Cross_LT();
@@ -114,26 +117,39 @@ namespace SoftStartTiming
 
         private void MeasureVictim(int victim, int col_start, bool before, bool lt_mode = false)
         {
+
+            double vmean = 0;
+            double vmax = 0;
+            double vmin = 0;
+            double jitter = 0;
+
+            vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
+            vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
+            vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
+
+            jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+            InsControl._oscilloscope.SetMeasureOff(1);
+#if true
             // for measure victim channel
             int col_cnt = 7;
             if (before)
             {
-                _sheet.Cells[row, col_start++] = "before Vmean(V)";
-                _sheet.Cells[row, col_start++] = "before Victim Max Voltage";
-                _sheet.Cells[row, col_start++] = "before Victim Min Voltage";
-                _sheet.Cells[row, col_start++] = "before Jitter(%)";
-                _sheet.Cells[row, col_start++] = "before +VΔ (mV)";
-                _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
+                _sheet.Cells[row, col_start++] = vmean;
+                _sheet.Cells[row, col_start++] = vmax;
+                _sheet.Cells[row, col_start++] = vmin;
+                _sheet.Cells[row, col_start++] = jitter;
+                _sheet.Cells[row, col_start++] = vmax - vmean;
+                _sheet.Cells[row, col_start++] = vmean - vmin;
                 //if (lt_mode)
                 //    _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
             }
             else
             {
-                _sheet.Cells[row, col_start++ + col_cnt] = "after Victim Max Voltage";
-                _sheet.Cells[row, col_start++ + col_cnt] = "after Victim Min Voltage";
-                _sheet.Cells[row, col_start++ + col_cnt] = "after Jitter(%)";
-                _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
-                _sheet.Cells[row, col_start + col_cnt] = "after -VΔ (mV)";
+                _sheet.Cells[row, col_start++ + col_cnt] = vmax;
+                _sheet.Cells[row, col_start++ + col_cnt] = vmin;
+                _sheet.Cells[row, col_start++ + col_cnt] = jitter;
+                _sheet.Cells[row, col_start++ + col_cnt] = vmax - vmean;
+                _sheet.Cells[row, col_start + col_cnt] = vmean - vmin;
                 //if (lt_mode)
                 //{
                 //    _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
@@ -143,12 +159,11 @@ namespace SoftStartTiming
                 //{
                 //    _sheet.Cells[row, col_start + col_cnt] = "after +VΔ (mV)";
                 //}
-                    
             }
+#endif
         }
 
-
-        #region "Cross Talk CCM Mode"
+#region "Cross Talk CCM Mode"
 
         private void Cross_CCM()
         {
@@ -222,9 +237,10 @@ namespace SoftStartTiming
                                     //                    test_parameter.ccm_eload[select_idx][group_idx] : test_parameter.ccm_eload[select_idx].Max();
 
                                     double victim_iout = test_parameter.full_load[select_idx];
-#if true
                                     int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                     int col_start = col_base;
+
+#if true
                                     _sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
                                     _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
@@ -451,10 +467,10 @@ namespace SoftStartTiming
             }
         }
 
-        #endregion
+#endregion
 
 
-        #region "Cross Talk Hi/Lo Code & Channel On/Off" 
+#region "Cross Talk Hi/Lo Code & Channel On/Off" 
 
         private void Cross_LT()
         {
@@ -616,7 +632,7 @@ namespace SoftStartTiming
             } // select
         }
 
-        #endregion
+#endregion
     }
 }
 

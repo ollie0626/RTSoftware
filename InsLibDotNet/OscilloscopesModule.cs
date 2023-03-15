@@ -484,6 +484,12 @@ namespace InsLibDotNet
             SIGMA3|SIXSigmajit|SNRatio|STDdev|UNDEFINED| WAVEFORMS}         
          */
 
+        public void SetMeasureOff(int meas)
+        {
+            string cmd = string.Format("MEASUrement:MEAS{0}:STATE OFF", meas);
+            doCommand(cmd); System.Threading.Thread.Sleep(100);
+        }
+
         public double CHx_Meas_Max(int ch, int meas = 1)
         {
             double res = 0;
@@ -655,6 +661,24 @@ namespace InsLibDotNet
                     break;
                 case 1:
                     res = doQueryNumber(string.Format(":MEASure:VPP? CHANnel{0}", ch));
+                    break;
+            }
+            return res;
+        }
+
+        //PKPKJitter
+
+        public double CHx_Meas_Jitter(int ch, int meas = 1)
+        {
+            double res = 0;
+            switch (osc_sel)
+            {
+                case 0:
+                    SetMeasureSource(ch, meas, "PKPKJitter");
+                    res = MeasureMean(meas);
+                    break;
+                case 1:
+                    //res = doQueryNumber(string.Format(":MEASure:VPP? CHANnel{0}", ch));
                     break;
             }
             return res;

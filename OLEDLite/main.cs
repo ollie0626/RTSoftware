@@ -532,7 +532,11 @@ namespace OLEDLite
                 ate_table[(int)idx].temp = test_parameter.tempList[i];
                 ate_table[(int)idx].ATETask();
             }
-            if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+            if (InsControl._chamber != null) {
+                InsControl._chamber.ChamberOn(25);
+                await InsControl._chamber.ChamberStable(25);
+                InsControl._chamber.ChamberOff();
+            }
             UpdateRunButton();
         }
 

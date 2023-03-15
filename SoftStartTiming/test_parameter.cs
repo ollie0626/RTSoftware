@@ -115,6 +115,8 @@ namespace SoftStartTiming
         public static bool[] cross_en;
         public static int cross_mode;
 
+        public static int jitter_ch;
+
 
 
     }

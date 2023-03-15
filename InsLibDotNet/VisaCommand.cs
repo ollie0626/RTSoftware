@@ -233,6 +233,8 @@ public class ViCMD
         //GPIB?*INSTR
         visa32.viFindRsrc(Rm, "GPIB?*INSTR", out vi, out retCount, Desc);
         //visa32.viFindRsrc(Rm, "?*INSTR", out vi, out retCount, Desc);
+        //TCPIP
+        //visa32.viFindRsrc(Rm, "?*", out vi, out retCount, Desc);
         string[] InsList = null;
         if (retCount > 0)
         {
