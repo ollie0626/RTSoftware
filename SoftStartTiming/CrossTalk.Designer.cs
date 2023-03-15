@@ -454,7 +454,7 @@ namespace SoftStartTiming
             // nuCH_number
             // 
             this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(358, 766);
+            this.nuCH_number.Location = new System.Drawing.Point(630, 777);
             this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nuCH_number.Maximum = new decimal(new int[] {
             8,
@@ -479,7 +479,7 @@ namespace SoftStartTiming
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(208, 770);
+            this.label4.Location = new System.Drawing.Point(480, 781);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(132, 12);
             this.label4.TabIndex = 1;
@@ -532,7 +532,7 @@ namespace SoftStartTiming
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage4.Size = new System.Drawing.Size(1021, 716);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "CCM Setting";
+            this.tabPage4.Text = "Condition Setting";
             // 
             // groupBox7
             // 
@@ -636,7 +636,7 @@ namespace SoftStartTiming
             this.groupBox1.Size = new System.Drawing.Size(879, 164);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ELoad Group (CCM)";
+            this.groupBox1.Text = "ELoad (CCM) Setting";
             // 
             // EloadDG_CCM
             // 
@@ -696,7 +696,7 @@ namespace SoftStartTiming
             // 
             // BTPause
             // 
-            this.BTPause.Location = new System.Drawing.Point(609, 760);
+            this.BTPause.Location = new System.Drawing.Point(881, 771);
             this.BTPause.Name = "BTPause";
             this.BTPause.Size = new System.Drawing.Size(75, 32);
             this.BTPause.TabIndex = 104;
@@ -705,7 +705,7 @@ namespace SoftStartTiming
             // 
             // BTStop
             // 
-            this.BTStop.Location = new System.Drawing.Point(690, 760);
+            this.BTStop.Location = new System.Drawing.Point(962, 771);
             this.BTStop.Name = "BTStop";
             this.BTStop.Size = new System.Drawing.Size(75, 32);
             this.BTStop.TabIndex = 103;
@@ -715,7 +715,7 @@ namespace SoftStartTiming
             // 
             // BTRun
             // 
-            this.BTRun.Location = new System.Drawing.Point(528, 760);
+            this.BTRun.Location = new System.Drawing.Point(800, 771);
             this.BTRun.Name = "BTRun";
             this.BTRun.Size = new System.Drawing.Size(75, 32);
             this.BTRun.TabIndex = 102;
@@ -725,7 +725,7 @@ namespace SoftStartTiming
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(437, 760);
+            this.button1.Location = new System.Drawing.Point(709, 771);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 32);
             this.button1.TabIndex = 109;
@@ -741,7 +741,7 @@ namespace SoftStartTiming
             this.groupBox2.Size = new System.Drawing.Size(485, 181);
             this.groupBox2.TabIndex = 107;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "LT Setting";
+            this.groupBox2.Text = "Eload LT Setting";
             // 
             // LTDG
             // 

@@ -105,7 +105,7 @@ namespace SoftStartTiming
 #endif
 
             // first item CCM
-            if (test_parameter.item_idx == 2)
+            if (test_parameter.cross_mode == 3)
                 Cross_LT();
             else
                 Cross_CCM();
@@ -115,7 +115,7 @@ namespace SoftStartTiming
         private void MeasureVictim(int victim, int col_start, bool before, bool lt_mode = false)
         {
             // for measure victim channel
-            int col_cnt = lt_mode ? 7 : 6;
+            int col_cnt = 7;
             if (before)
             {
                 _sheet.Cells[row, col_start++] = "before Vmean(V)";
@@ -123,23 +123,26 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_start++] = "before Victim Min Voltage";
                 _sheet.Cells[row, col_start++] = "before Jitter(%)";
                 _sheet.Cells[row, col_start++] = "before +VΔ (mV)";
-                if(lt_mode)
-                    _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
+                _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
+                //if (lt_mode)
+                //    _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
             }
             else
             {
                 _sheet.Cells[row, col_start++ + col_cnt] = "after Victim Max Voltage";
                 _sheet.Cells[row, col_start++ + col_cnt] = "after Victim Min Voltage";
                 _sheet.Cells[row, col_start++ + col_cnt] = "after Jitter(%)";
-                if (lt_mode)
-                {
-                    _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
-                    _sheet.Cells[row, col_start + col_cnt] = "after -VΔ (mV)";
-                }
-                else
-                {
-                    _sheet.Cells[row, col_start + col_cnt] = "after +VΔ (mV)";
-                }
+                _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
+                _sheet.Cells[row, col_start + col_cnt] = "after -VΔ (mV)";
+                //if (lt_mode)
+                //{
+                //    _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
+                //    _sheet.Cells[row, col_start + col_cnt] = "after -VΔ (mV)";
+                //}
+                //else
+                //{
+                //    _sheet.Cells[row, col_start + col_cnt] = "after +VΔ (mV)";
+                //}
                     
             }
         }
@@ -200,8 +203,19 @@ namespace SoftStartTiming
                                                 test_parameter.freq_addr[select_idx],
                                                 new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
 
+                                int cnt_max = 0;
+                                for(int cnt_idx = 0; cnt_idx < test_parameter.cross_en.Length; cnt_idx++)
+                                {
+                                    if(select_idx != cnt_idx)
+                                    {
+                                        cnt_max = select_idx != 0 ? test_parameter.ccm_eload[0].Count : test_parameter.ccm_eload[1].Count;
+                                        if (cnt_max < test_parameter.ccm_eload[cnt_idx].Count)
+                                            cnt_max = test_parameter.ccm_eload[cnt_idx].Count;
+                                    }
+                                }
+
                                 // victim current select
-                                for (int group_idx = 0; group_idx < switch_max; group_idx++) // how many iout group
+                                for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                                 {
 
                                     //double victim_iout = group_idx < test_parameter.ccm_eload[select_idx].Count() ?
@@ -246,6 +260,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+                                    _sheet.Cells[row, col_base++] = "-VΔ (mV)";
 
                                     _sheet.Cells[row - 1, col_base] = "After: with load on victim";
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
@@ -256,7 +271,8 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Victim Max Voltage";
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
-                                    _sheet.Cells[row, col_base] = "+VΔ (mV)";
+                                    _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+                                    _sheet.Cells[row, col_base] = "-VΔ (mV)";
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -428,7 +444,7 @@ namespace SoftStartTiming
                 else
                 {
                     MeasureVictim(aggressor, col_start + 1, before);
-                    _sheet.Cells[row, before ? col_start : col_start + 6] = iout_n;
+                    _sheet.Cells[row, before ? col_start : col_start + 7] = iout_n;
                 }
 
                 row++;
@@ -496,7 +512,25 @@ namespace SoftStartTiming
                                                 test_parameter.freq_addr[select_idx],
                                                 new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
 
-                                for (int group_idx = 0; group_idx < switch_max; group_idx++) // how many iout group
+                                int cnt_max_l2 = 0;
+                                int cnt_max_l1 = 0;
+                                int cnt_max = 0;
+                                for (int cnt_idx = 0; cnt_idx < test_parameter.cross_en.Length; cnt_idx++)
+                                {
+                                    if (select_idx != cnt_idx)
+                                    {
+                                        cnt_max_l2 = select_idx != 0 ? test_parameter.lt_l2[0].Count : test_parameter.lt_l2[1].Count;
+                                        if (cnt_max_l2 < test_parameter.lt_l2[cnt_idx].Count)
+                                            cnt_max_l2 = test_parameter.lt_l2[cnt_idx].Count;
+
+                                        cnt_max_l1 = select_idx != 0 ? test_parameter.lt_l1[0].Count : test_parameter.lt_l1[1].Count;
+                                        if (cnt_max_l1 < test_parameter.lt_l1[cnt_idx].Count)
+                                            cnt_max_l1 = test_parameter.lt_l1[cnt_idx].Count;
+                                    }
+                                }
+                                cnt_max = cnt_max_l2 > cnt_max_l1 ? cnt_max_l2 : cnt_max_l1;
+
+                                for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                                 {
 #if true
                                     int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
