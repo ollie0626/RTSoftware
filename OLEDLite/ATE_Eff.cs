@@ -168,16 +168,24 @@ namespace OLEDLite
                         }
 
                         // ic setting
-                        int[] pulse_tmp;
-                        bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
-                        int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
-                        pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                        for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+                        if(iout_idx == 0)
+                        {
+                            for(int k = 0; k < 3; k++)
+                            {
+                                int[] pulse_tmp;
+                                bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                                int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                                pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                                for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
 
-                        pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                        for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
-                        for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
-                        MyLib.Delay1ms(50);
+                                pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                                for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+                                for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
+                                MyLib.Delay1ms(50);
+                            }
+
+                        }
+
                         // vin, vo12, vo3, vo4
                         double[] measure_data = InsControl._34970A.QuickMEasureDefine(100, Channel_num);
                         double Iin = 0;
@@ -239,6 +247,8 @@ namespace OLEDLite
                 _app.Quit();
                 _app = null;
                 GC.Collect();
+                start_pos.Clear();
+                stop_pos.Clear();
 #endif
             } // interface loop
         Stop:
