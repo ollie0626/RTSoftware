@@ -122,13 +122,16 @@ namespace SoftStartTiming
             double vmax = 0;
             double vmin = 0;
             double jitter = 0;
+            for(int i = 0; i < 5; i++)
+            {
+                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
 
-            vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
-            vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
-            vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
+                if (test_parameter.jitter_ch != 0)
+                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+            }
 
-            if (test_parameter.jitter_ch != 0)
-                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
 
             InsControl._oscilloscope.SetMeasureOff(1);
 #if true
@@ -302,9 +305,11 @@ namespace SoftStartTiming
                                                 ch_sw_num == 32 ? 5 :
                                                 ch_sw_num == 64 ? 6 : 7;
 
+                                        if (iout != 0)
+                                            InsControl._eload.Loading(select_idx + 1, iout);
                                         MeasureN(   n,
                                                     select_idx,
-                                                    vout_idx,
+                                                    Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                     group_idx,
                                                     iout,
                                                     col_start,
@@ -331,15 +336,15 @@ namespace SoftStartTiming
 #endif
         }
 
-        private void CHx_LevelReScale(int ch, int vout_idx)
+        private void CHx_LevelReScale(int ch, double vout)
         {
-            double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
+            //double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
             InsControl._oscilloscope.CHx_Level(ch, 0.05); // set 50mV
         }
 
-        private void MeasureN(int n, int select_idx, int vout_idx, int group, double iout_n, int col_start,
+        private void MeasureN(int n, int select_idx, double vout, int group, double iout_n, int col_start,
                                 bool before, bool lt_mode = false)
         {
             int idx = 0;
@@ -350,17 +355,18 @@ namespace SoftStartTiming
             int loop_cnt = (int)Math.Pow(2, n);
             //Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
 
+            CHx_LevelReScale(select_idx + 1, vout);
             // save aggressor number and trun off aggressor channel 
             for (int aggressor = 0; aggressor < test_parameter.cross_en.Length; aggressor++)
             {
                 if (aggressor != select_idx && test_parameter.cross_en[aggressor])
                 {
                     sw_en[idx++] = aggressor;
-                    InsControl._oscilloscope.CHx_Off(aggressor);
+                    InsControl._oscilloscope.CHx_Off(aggressor + 1);
                 }
             }
 
-            CHx_LevelReScale(select_idx + 1, vout_idx);
+            
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
             
@@ -427,7 +433,8 @@ namespace SoftStartTiming
                     switch (test_parameter.cross_mode)
                     {
                         case 0: // ccm mode
-                            InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                            if(data[j] != 0)
+                                InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
                             _sheet.Cells[row, j + aggressor_col] = data[j];
                             break;
                         case 1: // i2c on / off
@@ -461,7 +468,7 @@ namespace SoftStartTiming
                 if (lt_mode)
                 {
                     // load transient mode
-                    MeasureVictim(select_idx, col_start + 1, before);
+                    MeasureVictim(select_idx + 1, col_start + 1, before);
                     if(before)
                         _sheet.Cells[row, before ? col_start : col_start + 7] = 0;
                     else
@@ -470,15 +477,15 @@ namespace SoftStartTiming
                 else
                 {
                     // others mode
-                    MeasureVictim(select_idx, col_start + 1, before);
+                    MeasureVictim(select_idx + 1, col_start + 1, before);
                     _sheet.Cells[row, before ? col_start : col_start + 7] = iout_n;
                 }
                 row++;
             }
 
             // turn on all of scope channel
-            for (int i = 0; i < 4; i++)
-                InsControl._oscilloscope.CHx_On(i + 1);
+            //for (int i = 0; i < 4; i++)
+            //    InsControl._oscilloscope.CHx_On(i + 1);
 
             InsControl._eload.AllChannel_LoadOff();
         }
@@ -637,7 +644,7 @@ namespace SoftStartTiming
 
                                         MeasureN(   n,                                  // select total number
                                                     select_idx,                         // victim number
-                                                    vout_idx,                           // vout setting print to excel
+                                                    Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),                           // vout setting print to excel
                                                     group_idx,                          // maybe has more test conditions
                                                     l2,                                 // iout value to excel
                                                     col_start,                          // excel col start position

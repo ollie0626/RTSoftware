@@ -352,16 +352,17 @@ namespace InsLibDotNet
             string gogoCMD;
             doCommand("CHAN " + CH.ToString());
             System.Threading.Thread.Sleep(50);
-            //if (iout < 0.2)
-            //    CCL_Mode();
-            //else if (iout >= 0.2 && iout < 1)
-            //    CCM_Mode();
-            //else if(iout >= 1 && iout < 20)
-            //    CCH_Mode();
+            if (iout < 0.2)
+                CCL_Mode();
+            else if (iout >= 0.2 && iout < 1)
+                CCM_Mode();
+            else if (iout >= 1 && iout < 20)
+                CCH_Mode();
             System.Threading.Thread.Sleep(150);
 
 
-            gogoCMD = "CURR:STAT:L2 " + string.Format("{0:0.####}", iout);
+            //gogoCMD = "CURR:STAT:L2 " + string.Format("{0:0.####}", iout);
+            gogoCMD = string.Format("CURR:STAT:L2 {1:0.####}", CH, iout);
             doCommand(gogoCMD);
             gogoCMD = "LOAD ON";
             doCommand(gogoCMD);

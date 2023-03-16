@@ -79,16 +79,16 @@ namespace SoftStartTiming
 
 
             // aggresor loading
-            EloadDG_CCM[4, 0].Value = "1";
-            EloadDG_CCM[4, 1].Value = "2";
+            EloadDG_CCM[4, 0].Value = "0.1";
+            EloadDG_CCM[4, 1].Value = "0.2";
             EloadDG_CCM[4, 2].Value = "3";
             EloadDG_CCM[4, 3].Value = "4";
             EloadDG_CCM[4, 4].Value = "4";
 
 
             // full load setting
-            EloadDG_CCM[5, 0].Value = "0.8";
-            EloadDG_CCM[5, 1].Value = "0.9";
+            EloadDG_CCM[5, 0].Value = "0.3";
+            EloadDG_CCM[5, 1].Value = "0.4";
             EloadDG_CCM[5, 2].Value = "1";
             EloadDG_CCM[5, 3].Value = "1.2";
             EloadDG_CCM[5, 4].Value = "1.2";
@@ -129,8 +129,8 @@ namespace SoftStartTiming
             VoutDG[2, 4].Value = "40";
 
 
-            VoutDG[3, 0].Value = "3.3";
-            VoutDG[3, 1].Value = "2";
+            VoutDG[3, 0].Value = "1.2";
+            VoutDG[3, 1].Value = "4.6";
             VoutDG[3, 2].Value = "2";
             VoutDG[3, 3].Value = "3.3";
             VoutDG[3, 4].Value = "3.3";
@@ -499,6 +499,50 @@ namespace SoftStartTiming
                 FreqDG[0, i].Value = test_parameter.rail_name[i];
                 VoutDG[0, i].Value = test_parameter.rail_name[i];
                 LTDG[0, i].Value = test_parameter.rail_name[i];
+            }
+        }
+
+        private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(Device_map[CBPower.Text]);
+
+            InsControl._power = new PowerModule(Device_map[CBPower.Text]);
+
+            tb_power.Text = "Power: " + CBPower.Text;
+            if (InsControl._power.InsState())
+                led_power.BackColor = Color.LightGreen;
+            else
+                led_power.BackColor = Color.Red;
+
+            CBChannel.Items.Clear();
+            CBChannel.Enabled = true;
+            switch (CBPower.Text)
+            {
+                case "E3631A":
+                    CBChannel.Items.Add("+6V");
+                    CBChannel.Items.Add("+25V");
+                    CBChannel.Items.Add("-25V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3632A":
+                    CBChannel.Items.Add("15V");
+                    CBChannel.Items.Add("30V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3633A":
+                    CBChannel.Items.Add("8V");
+                    CBChannel.Items.Add("20V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3634A":
+                    CBChannel.Items.Add("25V");
+                    CBChannel.Items.Add("50V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "62006P":
+                    CBChannel.Items.Add("600V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
             }
         }
     }
