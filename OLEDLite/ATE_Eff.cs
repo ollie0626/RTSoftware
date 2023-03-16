@@ -68,15 +68,15 @@ namespace OLEDLite
                 bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt);
                 bin_idx++)
             {
+                row = 11;
+                _app = new Excel.Application();
+                _app.Visible = true;
+                _book = (Excel.Workbook)_app.Workbooks.Add();
+                _sheet = (Excel.Worksheet)_book.ActiveSheet;
+
                 for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
 #if Report
-                    row = 11;
-                    _app = new Excel.Application();
-                    _app.Visible = true;
-                    _book = (Excel.Workbook)_app.Workbooks.Add();
-                    _sheet = (Excel.Worksheet)_book.ActiveSheet;
-
                     _sheet.Cells[1, XLS_Table.A] = "Vin";
                     _sheet.Cells[2, XLS_Table.A] = "Iout";
                     _sheet.Cells[3, XLS_Table.A] = "Date";
@@ -166,20 +166,6 @@ namespace OLEDLite
                             System.Windows.Forms.MessageBox.Show("Please connect DAQ !!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
                             return;
                         }
-                        //if (binList[0] != "" && test_parameter.i2c_enable) RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]);
-                        //else
-                        //{
-                        //    // ic setting
-                        //    int[] pulse_tmp;
-                        //    bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
-                        //    int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
-                        //    pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                        //    for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
-
-                        //    pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                        //    for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
-                        //    for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
-                        //}
 
                         // ic setting
                         int[] pulse_tmp;
@@ -191,7 +177,7 @@ namespace OLEDLite
                         pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
                         for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
                         for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
-
+                        MyLib.Delay1ms(50);
                         // vin, vo12, vo3, vo4
                         double[] measure_data = InsControl._34970A.QuickMEasureDefine(100, Channel_num);
                         double Iin = 0;
