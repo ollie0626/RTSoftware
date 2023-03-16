@@ -53,6 +53,7 @@ namespace OLEDLite
 
             int row = 11;
             int bin_cnt = 1;
+            string X_axis = "";
             string[] binList = new string[1];
             binList = MyLib.ListBinFile(test_parameter.bin_path);
             bin_cnt = binList.Length;
@@ -61,40 +62,7 @@ namespace OLEDLite
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.vinList.ToArray(), ori_vinTable, vin_cnt);
             RTDev.BoadInit();
-#if Report
-            _app = new Excel.Application();
-            _app.Visible = true;
-            _book = (Excel.Workbook)_app.Workbooks.Add();
-            _sheet = (Excel.Worksheet)_book.ActiveSheet;
 
-            _sheet.Cells[1, XLS_Table.A] = "Vin";
-            _sheet.Cells[2, XLS_Table.A] = "Iout";
-            _sheet.Cells[3, XLS_Table.A] = "Date";
-            _sheet.Cells[4, XLS_Table.A] = "Note";
-            _sheet.Cells[5, XLS_Table.A] = "Version";
-            _sheet.Cells[6, XLS_Table.A] = "Temperature";
-            _sheet.Cells[7, XLS_Table.A] = "test time";
-
-            _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
-            _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
-            _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
-            _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
-            _sheet.Cells[6, XLS_Table.B] = temp;
-
-            string X_axis = "";
-            switch (test_parameter.eload_ch_select)
-            {
-                case 0:
-                    X_axis = "G";
-                    break;
-                case 1:
-                    X_axis = "H";
-                    break;
-                case 2:
-                    X_axis = "I";
-                    break;
-            }
-#endif
             InsControl._power.AutoPowerOff();
             for (int bin_idx = 0;
                 bin_idx < (test_parameter.i2c_enable ? bin_cnt : test_parameter.swire_cnt);
@@ -103,6 +71,40 @@ namespace OLEDLite
                 for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
 #if Report
+                    row = 11;
+                    _app = new Excel.Application();
+                    _app.Visible = true;
+                    _book = (Excel.Workbook)_app.Workbooks.Add();
+                    _sheet = (Excel.Worksheet)_book.ActiveSheet;
+
+                    _sheet.Cells[1, XLS_Table.A] = "Vin";
+                    _sheet.Cells[2, XLS_Table.A] = "Iout";
+                    _sheet.Cells[3, XLS_Table.A] = "Date";
+                    _sheet.Cells[4, XLS_Table.A] = "Note";
+                    _sheet.Cells[5, XLS_Table.A] = "Version";
+                    _sheet.Cells[6, XLS_Table.A] = "Temperature";
+                    _sheet.Cells[7, XLS_Table.A] = "test time";
+
+                    _sheet.Cells[1, XLS_Table.B] = test_parameter.vin_info;
+                    _sheet.Cells[2, XLS_Table.B] = test_parameter.eload_info;
+                    _sheet.Cells[3, XLS_Table.B] = test_parameter.date_info;
+                    _sheet.Cells[5, XLS_Table.B] = test_parameter.ver_info;
+                    _sheet.Cells[6, XLS_Table.B] = temp;
+
+                    
+                    switch (test_parameter.eload_ch_select)
+                    {
+                        case 0:
+                            X_axis = "G";
+                            break;
+                        case 1:
+                            X_axis = "H";
+                            break;
+                        case 2:
+                            X_axis = "I";
+                            break;
+                    }
+
                     _sheet.Cells[row, XLS_Table.A] = "VIN (V)";
                     _sheet.Cells[row, XLS_Table.B] = "Iin (mA)";
                     _sheet.Cells[row, XLS_Table.C] = "ELVDD (V)";

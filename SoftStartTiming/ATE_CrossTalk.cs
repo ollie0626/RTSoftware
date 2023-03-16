@@ -183,10 +183,10 @@ namespace SoftStartTiming
             OSCInit();
             MyLib.Delay1ms(500);
 
-            // the select_idx equal to aggressor channel
+            // the select_idx equal to vimtic channel
             for (int select_idx = 0; select_idx < test_parameter.cross_en.Length; select_idx++)
             {
-                if (test_parameter.cross_en[select_idx]) // select equal to aggressor
+                if (test_parameter.cross_en[select_idx]) // select equal to victim
                 {
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
@@ -199,12 +199,12 @@ namespace SoftStartTiming
                             for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
                             {
                                 // freq loop
-                                /* change aggressor vout */
+                                /* change victim vout */
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
                                                 test_parameter.vout_addr[select_idx],
                                                 new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
 
-                                /* change aggressor freq */
+                                /* change victim freq */
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
                                                 test_parameter.freq_addr[select_idx],
                                                 new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
@@ -479,6 +479,8 @@ namespace SoftStartTiming
             // turn on all of scope channel
             for (int i = 0; i < 4; i++)
                 InsControl._oscilloscope.CHx_On(i + 1);
+
+            InsControl._eload.AllChannel_LoadOff();
         }
 
 #endregion
