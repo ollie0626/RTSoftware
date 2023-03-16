@@ -123,14 +123,14 @@ namespace SoftStartTiming
             double vmin = 0;
             double jitter = 0;
 
-            vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
-            vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
-            vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
+            //vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
+            //vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
+            //vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
 
-            if(test_parameter.jitter_ch != 0)
-                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+            //if(test_parameter.jitter_ch != 0)
+            //    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
 
-            InsControl._oscilloscope.SetMeasureOff(1);
+            //InsControl._oscilloscope.SetMeasureOff(1);
 #if true
             // for measure victim channel
             int col_cnt = 7;
@@ -344,12 +344,12 @@ namespace SoftStartTiming
                 if (aggressor != select_idx && test_parameter.cross_en[aggressor])
                 {
                     sw_en[idx++] = aggressor;
-                    InsControl._oscilloscope.CHx_Off(aggressor);
+                    //InsControl._oscilloscope.CHx_Off(aggressor);
                 }
             }
 
-            InsControl._oscilloscope.SetClear();
-            InsControl._oscilloscope.SetPERSistence();
+            //InsControl._oscilloscope.SetClear();
+            //InsControl._oscilloscope.SetPERSistence();
 
             // save aggressor iout conditions
             // iout select maximum setting if over iout list overflow.
