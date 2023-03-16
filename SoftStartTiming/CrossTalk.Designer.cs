@@ -101,6 +101,8 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.CBJitterCH = new System.Windows.Forms.ComboBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -416,6 +418,8 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
+            this.tabPage1.Controls.Add(this.CBJitterCH);
+            this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.CBItem);
             this.tabPage1.Controls.Add(this.label5);
             this.tabPage1.Controls.Add(this.label1);
@@ -748,7 +752,7 @@ namespace SoftStartTiming
             this.nuCH_number.Size = new System.Drawing.Size(59, 23);
             this.nuCH_number.TabIndex = 63;
             this.nuCH_number.Value = new decimal(new int[] {
-            5,
+            4,
             0,
             0,
             0});
@@ -801,6 +805,29 @@ namespace SoftStartTiming
             this.button1.Text = "Excel Kill";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 357);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(74, 12);
+            this.label6.TabIndex = 111;
+            this.label6.Text = "Lx Channel:";
+            // 
+            // CBJitterCH
+            // 
+            this.CBJitterCH.FormattingEnabled = true;
+            this.CBJitterCH.Items.AddRange(new object[] {
+            "Disable",
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.CBJitterCH.Location = new System.Drawing.Point(156, 354);
+            this.CBJitterCH.Name = "CBJitterCH";
+            this.CBJitterCH.Size = new System.Drawing.Size(215, 20);
+            this.CBJitterCH.TabIndex = 112;
             // 
             // CrossTalk
             // 
@@ -914,5 +941,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.ComboBox CBItem;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox CBJitterCH;
+        private System.Windows.Forms.Label label6;
     }
 }

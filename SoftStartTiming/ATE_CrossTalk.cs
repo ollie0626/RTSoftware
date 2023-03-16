@@ -46,7 +46,7 @@ namespace SoftStartTiming
         public override void ATETask()
         {
             RTDev.BoadInit();
-#if false
+#if true
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
@@ -115,7 +115,7 @@ namespace SoftStartTiming
             
         }
 
-        private void MeasureVictim(int victim, int col_start, bool before, bool lt_mode = false)
+        private void MeasureVictim(int victim, int col_start, bool before)
         {
 
             double vmean = 0;
@@ -127,7 +127,9 @@ namespace SoftStartTiming
             vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
             vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
 
-            jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+            if(test_parameter.jitter_ch != 0)
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+
             InsControl._oscilloscope.SetMeasureOff(1);
 #if true
             // for measure victim channel
@@ -140,8 +142,6 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_start++] = jitter;
                 _sheet.Cells[row, col_start++] = vmax - vmean;
                 _sheet.Cells[row, col_start++] = vmean - vmin;
-                //if (lt_mode)
-                //    _sheet.Cells[row, col_start++] = "before -VΔ (mV)";
             }
             else
             {
@@ -150,15 +150,6 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_start++ + col_cnt] = jitter;
                 _sheet.Cells[row, col_start++ + col_cnt] = vmax - vmean;
                 _sheet.Cells[row, col_start + col_cnt] = vmean - vmin;
-                //if (lt_mode)
-                //{
-                //    _sheet.Cells[row, col_start++ + col_cnt] = "after +VΔ (mV)";
-                //    _sheet.Cells[row, col_start + col_cnt] = "after -VΔ (mV)";
-                //}
-                //else
-                //{
-                //    _sheet.Cells[row, col_start + col_cnt] = "after +VΔ (mV)";
-                //}
             }
 #endif
         }
@@ -332,34 +323,36 @@ namespace SoftStartTiming
 #endif
         }
 
-        private void ReserveMeasureChannel(int victim)
+        private void CHx_LevelReScale(int ch)
         {
-            for (int ch_idx = 0; ch_idx < 4; ch_idx++)
-            {
-                if (ch_idx == victim)
-                    InsControl._oscilloscope.CHx_On(ch_idx + 1);
-                else
-                    InsControl._oscilloscope.CHx_Off(ch_idx + 1);
-            }
+
         }
 
-        private void MeasureN(int n, int aggressor, int group, double iout_n, int col_start, bool before, bool lt_mode = false)
+        private void MeasureN(int n, int select_idx, int group, double iout_n, int col_start, bool before, bool lt_mode = false)
         {
             int idx = 0;
-            int[] sw_en = new int[n];
+            int[] sw_en = new int[n]; // save victim channel number
             double[] iout = new double[n];
             double[] l1 = new double[n];
             double[] l2 = new double[n];
             int loop_cnt = (int)Math.Pow(2, n);
-            Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
-            for (int victim = 0; victim < test_parameter.cross_en.Length; victim++)
+            //Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
+
+            // save aggressor number and trun off aggressor channel 
+            for (int aggressor = 0; aggressor < test_parameter.cross_en.Length; aggressor++)
             {
-                if (victim != aggressor && test_parameter.cross_en[victim])
+                if (aggressor != select_idx && test_parameter.cross_en[aggressor])
                 {
-                    sw_en[idx++] = victim;
+                    sw_en[idx++] = aggressor;
+                    InsControl._oscilloscope.CHx_Off(aggressor);
                 }
             }
 
+            InsControl._oscilloscope.SetClear();
+            InsControl._oscilloscope.SetPERSistence();
+
+            // save aggressor iout conditions
+            // iout select maximum setting if over iout list overflow.
             for (int i = 0; i < n; i++)
             {
                 if (lt_mode)
@@ -377,6 +370,7 @@ namespace SoftStartTiming
                 }
             }
 
+            // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
                 List<double> data = new List<double>();
@@ -392,6 +386,7 @@ namespace SoftStartTiming
                 int bit7 = (i & 0x80) >> 7;
                 int[] bit_list = new int[] { bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7 };
 
+                // select test mode: CCM, EN on/off, VID, LT 
                 for (int j = 0; j < n; j++)
                 {
                     switch (test_parameter.cross_mode)
@@ -412,7 +407,7 @@ namespace SoftStartTiming
                             break;
                     }
                 }
-                iout_list.Add(i, data);
+                //iout_list.Add(i, data);
 
                 int aggressor_col = (int)XLS_Table.C;
                 for (int j = 0; j < n; j++)
@@ -432,8 +427,9 @@ namespace SoftStartTiming
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.disen_data[j] });
                             }
                             break;
-                        case 2: // i2c VIP
-                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "VIP" : "0";
+                        case 2: // i2c VID
+                            //TODO: show hi, lo code change
+                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j] + "->" + test_parameter.hi_code[j] : "0";
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;
@@ -449,20 +445,23 @@ namespace SoftStartTiming
                             break;
                     }
                 }
+
+                
                 if (lt_mode)
                 {
-                    MeasureVictim(aggressor, col_start + 1, before, true);
+                    // load transient mode
+                    MeasureVictim(select_idx, col_start + 1, before);
                     if(before)
                         _sheet.Cells[row, before ? col_start : col_start + 7] = 0;
                     else
-                        _sheet.Cells[row, before ? col_start : col_start + 7] =  "0 -> " + test_parameter.lt_full[aggressor].ToString();
+                        _sheet.Cells[row, before ? col_start : col_start + 7] =  "0 -> " + test_parameter.lt_full[select_idx].ToString();
                 }
                 else
                 {
-                    MeasureVictim(aggressor, col_start + 1, before);
+                    // others mode
+                    MeasureVictim(select_idx, col_start + 1, before);
                     _sheet.Cells[row, before ? col_start : col_start + 7] = iout_n;
                 }
-
                 row++;
             }
         }

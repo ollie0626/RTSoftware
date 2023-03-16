@@ -80,6 +80,31 @@ namespace InsLibDotNet
             }
         }
 
+        public void SetPERSistence()
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand("DISplay:PERSistence INFPersist");
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetPERSistenceOff()
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand("DISplay:PERSistence OFF");
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+
         public void SetClear()
         {
             switch (osc_sel)
