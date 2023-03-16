@@ -123,14 +123,14 @@ namespace SoftStartTiming
             double vmin = 0;
             double jitter = 0;
 
-            //vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
-            //vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
-            //vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
+            vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
+            vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
+            vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
 
-            //if(test_parameter.jitter_ch != 0)
-            //    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+            if (test_parameter.jitter_ch != 0)
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
 
-            //InsControl._oscilloscope.SetMeasureOff(1);
+            InsControl._oscilloscope.SetMeasureOff(1);
 #if true
             // for measure victim channel
             int col_cnt = 7;
@@ -180,7 +180,7 @@ namespace SoftStartTiming
             ch_sw_num = ch_sw_num / 2;
 
             //InsControl._power.AutoPowerOff();
-            //OSCInit();
+            OSCInit();
             MyLib.Delay1ms(500);
 
             // the select_idx equal to aggressor channel
@@ -191,7 +191,7 @@ namespace SoftStartTiming
                     for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                     {
                         // vin loop
-                        //InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+                        InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
 
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
@@ -301,7 +301,15 @@ namespace SoftStartTiming
                                                 ch_sw_num == 16 ? 4 :
                                                 ch_sw_num == 32 ? 5 :
                                                 ch_sw_num == 64 ? 6 : 7;
-                                        MeasureN(n, select_idx, group_idx, iout, col_start, victim_idx == 0 ? true : false);
+
+                                        MeasureN(   n,
+                                                    select_idx,
+                                                    vout_idx,
+                                                    group_idx,
+                                                    iout,
+                                                    col_start,
+                                                    victim_idx == 0 ? true : false);
+
                                         if (victim_idx == 0) row = row - ch_sw_num;
                                     }
 
@@ -323,12 +331,16 @@ namespace SoftStartTiming
 #endif
         }
 
-        private void CHx_LevelReScale(int ch)
+        private void CHx_LevelReScale(int ch, int vout_idx)
         {
-
+            double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
+            InsControl._oscilloscope.CHx_On(ch);
+            InsControl._oscilloscope.CHx_Offset(ch, vout);
+            InsControl._oscilloscope.CHx_Level(ch, 0.05); // set 50mV
         }
 
-        private void MeasureN(int n, int select_idx, int group, double iout_n, int col_start, bool before, bool lt_mode = false)
+        private void MeasureN(int n, int select_idx, int vout_idx, int group, double iout_n, int col_start,
+                                bool before, bool lt_mode = false)
         {
             int idx = 0;
             int[] sw_en = new int[n]; // save victim channel number
@@ -344,13 +356,14 @@ namespace SoftStartTiming
                 if (aggressor != select_idx && test_parameter.cross_en[aggressor])
                 {
                     sw_en[idx++] = aggressor;
-                    //InsControl._oscilloscope.CHx_Off(aggressor);
+                    InsControl._oscilloscope.CHx_Off(aggressor);
                 }
             }
 
-            //InsControl._oscilloscope.SetClear();
-            //InsControl._oscilloscope.SetPERSistence();
-
+            CHx_LevelReScale(select_idx + 1, vout_idx);
+            InsControl._oscilloscope.SetClear();
+            InsControl._oscilloscope.SetPERSistence();
+            
             // save aggressor iout conditions
             // iout select maximum setting if over iout list overflow.
             for (int i = 0; i < n; i++)
@@ -407,7 +420,6 @@ namespace SoftStartTiming
                             break;
                     }
                 }
-                //iout_list.Add(i, data);
 
                 int aggressor_col = (int)XLS_Table.C;
                 for (int j = 0; j < n; j++)
@@ -415,7 +427,7 @@ namespace SoftStartTiming
                     switch (test_parameter.cross_mode)
                     {
                         case 0: // ccm mode
-                            //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
+                            InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
                             _sheet.Cells[row, j + aggressor_col] = data[j];
                             break;
                         case 1: // i2c on / off
@@ -428,7 +440,6 @@ namespace SoftStartTiming
                             }
                             break;
                         case 2: // i2c VID
-                            //TODO: show hi, lo code change
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j] + "->" + test_parameter.hi_code[j] : "0";
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
@@ -441,7 +452,7 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? l1[j] + " -> " + l2[j] : "0";
                             // eload over 4CH need to select channel
-                            //InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500);
+                            InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500); // 1KHz
                             break;
                     }
                 }
@@ -464,12 +475,16 @@ namespace SoftStartTiming
                 }
                 row++;
             }
+
+            // turn on all of scope channel
+            for (int i = 0; i < 4; i++)
+                InsControl._oscilloscope.CHx_On(i + 1);
         }
 
 #endregion
 
 
-#region "Cross Talk Hi/Lo Code & Channel On/Off" 
+#region "Cross Talk Load transient" 
 
         private void Cross_LT()
         {
@@ -608,17 +623,25 @@ namespace SoftStartTiming
 
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
-                                        //TODO: load transient slew rate maximum / freq keep 1kHz
                                         double l1 = 0;
                                         double l2 = victim_idx == 0 ? 0 : test_parameter.lt_full[select_idx];
-                                        //InsControl._eload.DymanicLoad(select_idx + 1, l1, l2, 500, 500); // t1, t2 unit is us
+                                        InsControl._eload.DymanicLoad(select_idx + 1, l1, l2, 500, 500); // t1, t2 unit is us
                                         int n = ch_sw_num == 2 ? 1 :
                                         ch_sw_num == 4 ? 2 :
                                         ch_sw_num == 8 ? 3 :
                                         ch_sw_num == 16 ? 4 :
                                         ch_sw_num == 32 ? 5 :
                                         ch_sw_num == 64 ? 6 : 7;
-                                        MeasureN(n, select_idx, group_idx, l2, col_start, (victim_idx == 0 ? true : false), true);
+
+                                        MeasureN(   n,                                  // select total number
+                                                    select_idx,                         // victim number
+                                                    vout_idx,                           // vout setting print to excel
+                                                    group_idx,                          // maybe has more test conditions
+                                                    l2,                                 // iout value to excel
+                                                    col_start,                          // excel col start position
+                                                    (victim_idx == 0 ? true : false),   // before & after
+                                                    true);                              // lt mode enable
+
                                         if (victim_idx == 0) row = row - ch_sw_num;
                                     } // victim no load and full load
 

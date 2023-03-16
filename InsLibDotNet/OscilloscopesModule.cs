@@ -425,6 +425,53 @@ namespace InsLibDotNet
             }
         }
 
+
+        public void CHx_Level(int CHx, double level)
+        {
+            string cmd = "";
+            switch(osc_sel)
+            {
+                case 0:
+                    cmd = string.Format("CH{0}:SCAle {1}", CHx, level);
+                    break;
+                case 1:
+                    cmd = ":CHANNEL" + CHx.ToString() + ":SCALe " + level.ToString();
+                    break;
+            }
+            
+            doCommand(cmd);
+        }
+
+        public void CHx_Offset(int CHx, double offset)
+        {
+            string cmd = "";
+            switch(osc_sel)
+            {
+                case 0:
+                    cmd = string.Format("CH{0}:OFFSet {1}", CHx, offset);
+                    break;
+                case 1:
+                    break;
+            }
+            doCommand(cmd);
+        }
+
+        public void CHx_Position(int CHx, double pos)
+        {
+            string cmd = "";
+            switch(osc_sel)
+            { 
+                case 0:
+                    cmd = string.Format("CH{0}:POSition {1}", CHx, pos);
+                    break;
+                case 1:
+                    cmd = string.Format(":CHANnel{0}:OFFSet {1}", CHx, pos);
+                    break;
+            }
+            doCommand(cmd);
+        }
+
+
         public string GetStatistics(int sel)
         {
             string res = "";

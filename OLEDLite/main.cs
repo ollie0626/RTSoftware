@@ -22,7 +22,7 @@ namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.6.1";
+        private static string ver = "v1.6.2";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -260,7 +260,7 @@ namespace OLEDLite
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
-
+            
             switch (cb_item.SelectedIndex)
             {
                 case 4:
@@ -351,6 +351,8 @@ namespace OLEDLite
             test_parameter.chamber_en = ck_chamber_en.Checked;
 
             test_parameter.vin_threshold = (double)nuVin_threshold.Value;
+
+            progressBar1.Maximum = test_parameter.steadyTime;
             return true;
         }
 
