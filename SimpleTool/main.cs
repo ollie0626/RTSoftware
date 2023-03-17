@@ -15,12 +15,14 @@ namespace SimpleTool
     public partial class main : Form
     {
 
+        string win_name = "SimpleTool v1.3";
         RTBBControl RTDev = new RTBBControl();
 
         public main()
         {
             InitializeComponent();
             RTDev.BoadInit();
+            this.Text = win_name;
         }
 
         private void bt_into_testmode_Click(object sender, EventArgs e)
@@ -42,9 +44,9 @@ namespace SimpleTool
 
         private void ExitTestMode()
         {
-            byte[] test_mode_code = new byte[] { 0x87 };
+            byte[] test_mode_code = new byte[] { 0x08 };
             byte slave = (byte)nuSlave.Value;
-            RTDev.I2C_Write((byte)(slave >> 1), 0xF7, test_mode_code);
+            RTDev.I2C_Write((byte)(0xD0 >> 1), 0xDA, test_mode_code);
         }
 
 
