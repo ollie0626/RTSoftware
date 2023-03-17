@@ -156,7 +156,8 @@ namespace SoftStartTiming
             DataGridviewInit();
             ate_table = new TaskRun[] { _ate_crosstalk };
             CBItem.SelectedIndex = 0;
-            CBJitterCH.SelectedIndex = 1;
+            CKLx1En.Checked = false;
+            CKLx2En.Checked = false;
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -349,7 +350,9 @@ namespace SoftStartTiming
                 test_parameter.cross_en[i] = true;
             }
             test_parameter.cross_mode = CBItem.SelectedIndex;
-            test_parameter.jitter_ch = CBJitterCH.SelectedIndex;
+            test_parameter.Lx1 = CKLx1En.Checked;
+            test_parameter.Lx2 = CKLx2En.Checked;
+            test_parameter.offtime_scale_ms = (double)(nu_ontime_scale.Value / 1000);
         }
 
         private void BTRun_Click(object sender, EventArgs e)

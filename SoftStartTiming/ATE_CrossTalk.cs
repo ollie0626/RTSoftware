@@ -40,7 +40,18 @@ namespace SoftStartTiming
         private void OSCInit()
         {
             InsControl._oscilloscope.SetAutoTrigger();
-            InsControl._oscilloscope.SetTimeScale(0.002);
+            InsControl._oscilloscope.SetTimeScale(test_parameter.offtime_scale_ms);
+
+            for(int i = 0; i < 4; i++)
+            {
+                InsControl._oscilloscope.CHx_Off(i + 1);
+            }
+
+            for(int i = 0; i < test_parameter.ch_num; i++)
+            {
+                InsControl._oscilloscope.CHx_On(i + 1);
+            }
+
         }
 
         public override void ATETask()
@@ -104,36 +115,29 @@ namespace SoftStartTiming
                                             + test_parameter.vin_conditions
                                             + rail_info;
 #endif
-
             OSCInit();
-
-            // first item CCM
             if (test_parameter.cross_mode == 3)
                 Cross_LT();
             else
                 Cross_CCM();
-            
         }
 
         private void MeasureVictim(int victim, int col_start, bool before)
         {
-
             double vmean = 0;
             double vmax = 0;
             double vmin = 0;
             double jitter = 0;
             for(int i = 0; i < 5; i++)
             {
-                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim);
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim);
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim);
-
-                if (test_parameter.jitter_ch != 0)
-                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(test_parameter.jitter_ch);
+                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
             }
 
-
             InsControl._oscilloscope.SetMeasureOff(1);
+            InsControl._oscilloscope.SetMeasureOff(2);
+            InsControl._oscilloscope.SetMeasureOff(3);
 #if true
             // for measure victim channel
             int col_cnt = 7;
@@ -235,7 +239,12 @@ namespace SoftStartTiming
                                     int col_start = col_base;
 
 #if true
-                                    _sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
+                                    //_sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
+                                    _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:2X}, Data={2:2X}"
+                                                                    ,test_parameter.vout_des[select_idx][vout_idx]
+                                                                    ,test_parameter.vout_addr[select_idx]
+                                                                    ,test_parameter.vout_data[select_idx][vout_idx]);
+
                                     _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
                                     _range.Merge();
@@ -254,7 +263,7 @@ namespace SoftStartTiming
                                     {
                                         if (i != select_idx)
                                         {
-                                            _sheet.Cells[row, col_idx++] = test_parameter.rail_name[i] + "(A)";
+                                            _sheet.Cells[row, col_idx++] = test_parameter.rail_name[i] + "(A), Vout=" + test_parameter.vout_des[i][vout_idx];
                                         }
                                     }
 
@@ -366,7 +375,6 @@ namespace SoftStartTiming
                 }
             }
 
-            
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
             
@@ -482,10 +490,6 @@ namespace SoftStartTiming
                 }
                 row++;
             }
-
-            // turn on all of scope channel
-            //for (int i = 0; i < 4; i++)
-            //    InsControl._oscilloscope.CHx_On(i + 1);
 
             InsControl._eload.AllChannel_LoadOff();
         }

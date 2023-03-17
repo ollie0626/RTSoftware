@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenBinTool", "GenBinTool\Ge
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "IN528", "IN528\IN528\IN528.vbproj", "{64194EB8-D698-4B93-903E-29AAA82649B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTool", "SimpleTool\SimpleTool.csproj", "{8A51F2CC-E8A4-4623-99BC-81C44D666A08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,14 @@ Global
 		{64194EB8-D698-4B93-903E-29AAA82649B3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64194EB8-D698-4B93-903E-29AAA82649B3}.Release|x86.ActiveCfg = Release|x86
 		{64194EB8-D698-4B93-903E-29AAA82649B3}.Release|x86.Build.0 = Release|x86
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Debug|x86.Build.0 = Debug|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|x86.ActiveCfg = Release|Any CPU
+		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

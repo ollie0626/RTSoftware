@@ -61,7 +61,6 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.CBJitterCH = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -103,6 +102,12 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CKLx1En = new System.Windows.Forms.CheckBox();
+            this.CKLx2En = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -118,6 +123,8 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -419,7 +426,10 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
-            this.tabPage1.Controls.Add(this.CBJitterCH);
+            this.tabPage1.Controls.Add(this.CKLx2En);
+            this.tabPage1.Controls.Add(this.CKLx1En);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.groupBox4);
             this.tabPage1.Controls.Add(this.label6);
             this.tabPage1.Controls.Add(this.CBItem);
             this.tabPage1.Controls.Add(this.label5);
@@ -456,28 +466,14 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
-            // CBJitterCH
-            // 
-            this.CBJitterCH.FormattingEnabled = true;
-            this.CBJitterCH.Items.AddRange(new object[] {
-            "Disable",
-            "CH1",
-            "CH2",
-            "CH3",
-            "CH4"});
-            this.CBJitterCH.Location = new System.Drawing.Point(156, 354);
-            this.CBJitterCH.Name = "CBJitterCH";
-            this.CBJitterCH.Size = new System.Drawing.Size(215, 20);
-            this.CBJitterCH.TabIndex = 112;
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 357);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 12);
+            this.label6.Size = new System.Drawing.Size(97, 12);
             this.label6.TabIndex = 111;
-            this.label6.Text = "Lx Channel:";
+            this.label6.Text = "Lx1 Scope CH2:";
             // 
             // CBItem
             // 
@@ -830,6 +826,69 @@ namespace SoftStartTiming
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.nu_ontime_scale);
+            this.groupBox4.Location = new System.Drawing.Point(382, 306);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(330, 68);
+            this.groupBox4.TabIndex = 113;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Time Scale Setting";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(16, 25);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 12);
+            this.label8.TabIndex = 42;
+            this.label8.Text = "Time Scale (ms)";
+            // 
+            // nu_ontime_scale
+            // 
+            this.nu_ontime_scale.DecimalPlaces = 3;
+            this.nu_ontime_scale.Location = new System.Drawing.Point(134, 23);
+            this.nu_ontime_scale.Name = "nu_ontime_scale";
+            this.nu_ontime_scale.Size = new System.Drawing.Size(62, 22);
+            this.nu_ontime_scale.TabIndex = 41;
+            this.nu_ontime_scale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_ontime_scale.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 383);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(97, 12);
+            this.label7.TabIndex = 114;
+            this.label7.Text = "Lx2 Scope CH4:";
+            // 
+            // CKLx1En
+            // 
+            this.CKLx1En.AutoSize = true;
+            this.CKLx1En.Location = new System.Drawing.Point(156, 356);
+            this.CKLx1En.Name = "CKLx1En";
+            this.CKLx1En.Size = new System.Drawing.Size(88, 16);
+            this.CKLx1En.TabIndex = 115;
+            this.CKLx1En.Text = "Lx1 Enable";
+            this.CKLx1En.UseVisualStyleBackColor = true;
+            // 
+            // CKLx2En
+            // 
+            this.CKLx2En.AutoSize = true;
+            this.CKLx2En.Location = new System.Drawing.Point(156, 379);
+            this.CKLx2En.Name = "CKLx2En";
+            this.CKLx2En.Size = new System.Drawing.Size(88, 16);
+            this.CKLx2En.TabIndex = 116;
+            this.CKLx2En.Text = "Lx2 Enable";
+            this.CKLx2En.UseVisualStyleBackColor = true;
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -865,6 +924,9 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -942,7 +1004,12 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
         private System.Windows.Forms.ComboBox CBItem;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox CBJitterCH;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown nu_ontime_scale;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.CheckBox CKLx1En;
+        private System.Windows.Forms.CheckBox CKLx2En;
     }
 }
