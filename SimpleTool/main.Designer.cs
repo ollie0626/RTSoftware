@@ -55,6 +55,7 @@ namespace SimpleTool
             this.bt_into_testmode.TabIndex = 0;
             this.bt_into_testmode.Text = "Into Test mode";
             this.bt_into_testmode.UseVisualStyleBackColor = true;
+            this.bt_into_testmode.Visible = false;
             this.bt_into_testmode.Click += new System.EventHandler(this.bt_into_testmode_Click);
             // 
             // nuSlave
