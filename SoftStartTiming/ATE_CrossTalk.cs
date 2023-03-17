@@ -240,10 +240,17 @@ namespace SoftStartTiming
 
 #if true
                                     //_sheet.Cells[row, col_start] = "Vout=" + test_parameter.vout_des[select_idx][vout_idx];
-                                    _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:2X}, Data={2:2X}"
+                                    _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                     ,test_parameter.vout_des[select_idx][vout_idx]
                                                                     ,test_parameter.vout_addr[select_idx]
                                                                     ,test_parameter.vout_data[select_idx][vout_idx]);
+
+                                    _range = _sheet.Cells[row, col_start];
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    _range = _sheet.Range[cells[col_start - 1] + row, cells[col_start - 1] + (row + 2)];
+                                    _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
+
 
                                     _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
@@ -255,7 +262,13 @@ namespace SoftStartTiming
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    _sheet.Cells[row, col_start] = "Freq (KHz) =" + test_parameter.freq_des[select_idx][freq_idx];
+                                    //_sheet.Cells[row, col_start] = "Freq (KHz) =" + test_parameter.freq_des[select_idx][freq_idx];
+                                    _sheet.Cells[row, col_start] = string.Format("Freq(KHz)={0}, Addr={1:X2}, Data={2:X2}"
+                                                                    ,test_parameter.freq_des[select_idx][freq_idx]
+                                                                    ,test_parameter.freq_addr[select_idx]
+                                                                    ,test_parameter.freq_data[select_idx][freq_idx] );
+
+
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
 
@@ -271,9 +284,13 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Vmean(V)";
                                     _sheet.Cells[row, col_base] = "Victim Max Voltage";
                                     _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 2] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
+                                    _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
+
                                     col_base++;
 
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
@@ -282,7 +299,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
 
                                     _sheet.Cells[row - 1, col_base] = "After: with load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 4] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
