@@ -257,6 +257,10 @@ namespace SoftStartTiming
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
+                                    _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row + 1)];
+                                    _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
+
+
                                     _sheet.Cells[row, XLS_Table.C] = "Aggressor";
                                     _range = _sheet.Range["C" + (row), cells[test_parameter.ch_num] + (row)];
                                     _range.Merge();
@@ -276,7 +280,9 @@ namespace SoftStartTiming
                                     {
                                         if (i != select_idx)
                                         {
+                                            _range = _sheet.Cells[row, col_idx];
                                             _sheet.Cells[row, col_idx++] = test_parameter.rail_name[i] + "(A), Vout=" + test_parameter.vout_des[i][vout_idx];
+                                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                                         }
                                     }
 
