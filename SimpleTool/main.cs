@@ -55,7 +55,7 @@ namespace SimpleTool
             byte slave = (byte)nuSlave.Value;
             byte addr = (byte)nuAddr.Value;
             byte data = (byte)numericUpDown2.Value;
-            RTDev.I2C_Write((byte)(slave >> 1), addr, new byte[] { data });
+            RTDev.I2C_Write(0xD0 >> 1, addr, new byte[] { data });
             ExitTestMode();
         }
 
@@ -66,17 +66,19 @@ namespace SimpleTool
             byte slave = (byte)nuSlave.Value;
             byte addr = (byte)nuAddr.Value;
             byte data = (byte)numericUpDown2.Value;
-            RTDev.I2C_Write((byte)(slave >> 1), addr, new byte[] { data });
+            RTDev.I2C_Write(0xD0 >> 1, addr, new byte[] { data });
             ExitTestMode();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
+            IntoTestMode();
             byte slave = (byte)nuSlave.Value;
             byte addr = (byte)nuAddr.Value;
             byte[] buf = new byte[1];
-            RTDev.I2C_Read((byte)(slave >> 1), addr, buf);
+            RTDev.I2C_Read(0xD0 >> 1, addr, buf);
             numericUpDown3.Value = buf[0];
+            ExitTestMode();
 
         }
     }
