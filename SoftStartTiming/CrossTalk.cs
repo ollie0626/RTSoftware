@@ -79,18 +79,18 @@ namespace SoftStartTiming
 
 
             // aggresor loading
-            EloadDG_CCM[4, 0].Value = "0.1";
-            EloadDG_CCM[4, 1].Value = "0.2";
-            EloadDG_CCM[4, 2].Value = "3";
-            EloadDG_CCM[4, 3].Value = "4";
-            EloadDG_CCM[4, 4].Value = "4";
+            EloadDG_CCM[4, 0].Value = "0.01";
+            EloadDG_CCM[4, 1].Value = "0.02";
+            EloadDG_CCM[4, 2].Value = "0.03";
+            EloadDG_CCM[4, 3].Value = "0.04";
+            EloadDG_CCM[4, 4].Value = "0.05";
 
 
             // full load setting
-            EloadDG_CCM[5, 0].Value = "0.3";
-            EloadDG_CCM[5, 1].Value = "0.4";
-            EloadDG_CCM[5, 2].Value = "1";
-            EloadDG_CCM[5, 3].Value = "1.2";
+            EloadDG_CCM[5, 0].Value = "0.03";
+            EloadDG_CCM[5, 1].Value = "0.04";
+            EloadDG_CCM[5, 2].Value = "0.05";
+            EloadDG_CCM[5, 3].Value = "0.06";
             EloadDG_CCM[5, 4].Value = "1.2";
 
 
@@ -131,7 +131,7 @@ namespace SoftStartTiming
 
             VoutDG[3, 0].Value = "1.2";
             VoutDG[3, 1].Value = "4.6";
-            VoutDG[3, 2].Value = "2";
+            VoutDG[3, 2].Value = "7";
             VoutDG[3, 3].Value = "3.3";
             VoutDG[3, 4].Value = "3.3";
 
@@ -139,14 +139,17 @@ namespace SoftStartTiming
             LTDG[1, 0].Value = "0";
             LTDG[1, 1].Value = "0";
             LTDG[1, 2].Value = "0";
+            LTDG[1, 3].Value = "0";
 
-            LTDG[2, 0].Value = "1";
-            LTDG[2, 1].Value = "2";
-            LTDG[2, 2].Value = "3";
+            LTDG[2, 0].Value = "0.01";
+            LTDG[2, 1].Value = "0.02";
+            LTDG[2, 2].Value = "0.03";
+            LTDG[2, 3].Value = "0.04";
 
-            LTDG[3, 0].Value = "5";
-            LTDG[3, 1].Value = "6";
-            LTDG[3, 2].Value = "7";
+            LTDG[3, 0].Value = "0.04";
+            LTDG[3, 1].Value = "0.05";
+            LTDG[3, 2].Value = "0.06";
+            LTDG[3, 3].Value = "0.07";
         }
 
 
