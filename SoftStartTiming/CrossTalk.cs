@@ -161,6 +161,9 @@ namespace SoftStartTiming
             CBItem.SelectedIndex = 0;
             CKLx1En.Checked = false;
             CKLx2En.Checked = false;
+
+            //int aa = 80;
+            //Console.WriteLine(aa.ToString("X"));
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -329,6 +332,7 @@ namespace SoftStartTiming
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.slave = (byte)nuslave.Value;
 
+
             // perpare test parameter.
             for (int i = 0; i < test_parameter.cross_en.Length; i++)
             {
@@ -363,6 +367,8 @@ namespace SoftStartTiming
 
                 test_parameter.cross_en[i] = true;
             }
+
+
             test_parameter.cross_mode = CBItem.SelectedIndex;
             test_parameter.Lx1 = CKLx1En.Checked;
             test_parameter.Lx2 = CKLx2En.Checked;

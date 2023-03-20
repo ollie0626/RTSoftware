@@ -134,11 +134,15 @@ namespace SoftStartTiming
                 vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
+
+                if (test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(2, 4);
+                if (test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(2, 4);
             }
 
             InsControl._oscilloscope.SetMeasureOff(1);
             InsControl._oscilloscope.SetMeasureOff(2);
             InsControl._oscilloscope.SetMeasureOff(3);
+            InsControl._oscilloscope.SetMeasureOff(4);
 #if true
             // for measure victim channel
             int col_cnt = 7;
@@ -162,7 +166,7 @@ namespace SoftStartTiming
 #endif
         }
 
-        #region "Cross Talk CCM Mode"
+        #region " ---- Cross Talk ---- "
 
         private void Cross_CCM()
         {
@@ -274,7 +278,6 @@ namespace SoftStartTiming
 
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
-
                                     for (int i = 0; i < test_parameter.ch_num; i++)
                                     {
                                         if (i != select_idx)
@@ -292,12 +295,9 @@ namespace SoftStartTiming
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
-
                                     col_base++;
-
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -338,7 +338,7 @@ namespace SoftStartTiming
 
                                         if (iout != 0)
                                             InsControl._eload.Loading(select_idx + 1, iout);
-                                        MeasureN(n,
+                                        MeasureN(   n,
                                                     select_idx,
                                                     Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                     group_idx,
@@ -572,6 +572,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
             InsControl._oscilloscope.CHx_Level(ch, 0.05); // set 50mV
+            InsControl._oscilloscope.CHx_Position(ch, 0);
         }
 
         private void MeasureN(int n, int select_idx, double vout, int group, double iout_n, int col_start,
@@ -595,6 +596,9 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.CHx_Off(aggressor + 1);
                 }
             }
+
+            if (select_idx == 0 && test_parameter.Lx1) InsControl._oscilloscope.CHx_On(2);
+            if (select_idx == 2 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
 
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
@@ -703,27 +707,6 @@ namespace SoftStartTiming
                     }
                 }
 
-
-                //if (lt_mode)
-                //{
-                //    // load transient mode
-                //    MeasureVictim(select_idx + 1, col_start + 1, before);
-                //    if(before)
-                //        _sheet.Cells[row, before ? col_start : col_start + 7] = 0;
-                //    else
-                //    {
-                //        InsControl._eload.Loading(select_idx + 1, iout_n);
-                //        _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
-                //    }
-                //}
-                //else
-                //{
-                //    // others mode
-                //    MeasureVictim(select_idx + 1, col_start + 1, before);
-                //    InsControl._eload.Loading(select_idx + 1, iout_n);
-                //    _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
-                //}
-
                 MeasureVictim(select_idx + 1, col_start + 1, before);
                 InsControl._eload.Loading(select_idx + 1, iout_n);
                 _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
@@ -740,8 +723,6 @@ namespace SoftStartTiming
                 InsControl._eload.AllChannel_LoadOff();
                 row++;
             }
-
-
         }
 
         #endregion
