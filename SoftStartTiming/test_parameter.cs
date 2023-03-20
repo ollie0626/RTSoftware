@@ -87,11 +87,12 @@ namespace SoftStartTiming
         public static string[] rail_name;
         public static byte[] freq_addr;
         public static byte[] vout_addr;
-        public static byte[] en_addr;
 
+        public static byte[] en_addr;
         public static byte[] en_data;
         public static byte[] disen_data;
 
+        public static byte[] vid_addr;
         public static byte[] hi_code;
         public static byte[] lo_code;
 
@@ -109,7 +110,7 @@ namespace SoftStartTiming
         // ins active load
         public static double[] full_load;
         //public static double[] lt_l1_full;
-        public static double[] lt_full;
+        //public static double[] lt_full;
 
         public static byte[] cross_select;
         public static bool[] cross_en;

@@ -338,7 +338,7 @@ namespace SoftStartTiming
                 test_parameter.disen_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[3, i].Value), 16);
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[4, i].Value).Split(',').Select(double.Parse).ToList());
                 test_parameter.full_load[i] = Convert.ToDouble(EloadDG_CCM[5, i].Value);
-                test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
+                //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
 
                 // freq and vout parameter
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
@@ -348,8 +348,19 @@ namespace SoftStartTiming
                 test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
 
-                test_parameter.lt_l1.Add(i, ((string)LTDG[1, i].Value).Split(',').Select(double.Parse).ToList());
-                test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
+                switch (CBItem.SelectedIndex)
+                {
+                    case 2:
+                        test_parameter.vid_addr[i] = Convert.ToByte(Convert.ToString(LTDG[1, i].Value), 16);
+                        test_parameter.hi_code[i] = Convert.ToByte(Convert.ToString(LTDG[2, i].Value), 16);
+                        test_parameter.lo_code[i] = Convert.ToByte(Convert.ToString(LTDG[3, i].Value), 16);
+                        break;
+                    case 3:
+                        test_parameter.lt_l1.Add(i, ((string)LTDG[1, i].Value).Split(',').Select(double.Parse).ToList());
+                        test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
+                        break;
+                }
+
                 test_parameter.cross_en[i] = true;
             }
             test_parameter.cross_mode = CBItem.SelectedIndex;
@@ -477,22 +488,35 @@ namespace SoftStartTiming
             VoutDG.RowCount = (int)nuCH_number.Value;
             LTDG.RowCount = (int)nuCH_number.Value;
 
+            // others conditions
             test_parameter.freq_addr = new byte[(int)nuCH_number.Value];
             test_parameter.vout_addr = new byte[(int)nuCH_number.Value];
-            test_parameter.en_addr = new byte[(int)nuCH_number.Value];
-            test_parameter.en_data = new byte[(int)nuCH_number.Value];
-            test_parameter.disen_data = new byte[(int)nuCH_number.Value];
             test_parameter.full_load = new double[(int)nuCH_number.Value];
+
+            //public static Dictionary<int, List<byte>> freq_data = new Dictionary<int, List<byte>>();
+            //public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
+            //public static Dictionary<int, List<string>> freq_des = new Dictionary<int, List<string>>();
+            //public static Dictionary<int, List<string>> vout_des = new Dictionary<int, List<string>>();
 
             test_parameter.cross_select = new byte[(int)nuCH_number.Value];
             test_parameter.cross_en = new bool[(int)nuCH_number.Value];
-
             test_parameter.ch_num = (int)nuCH_number.Value;
             test_parameter.full_load = new double[(int)nuCH_number.Value];
 
             //test_parameter.lt_l1_full = new double[(int)nuCH_number.Value];
-            test_parameter.lt_full = new double[(int)nuCH_number.Value];
-            
+            //test_parameter.lt_full = new double[(int)nuCH_number.Value];
+
+            // i2c item
+            // vid
+            test_parameter.vid_addr = new byte[(int)nuCH_number.Value];
+            test_parameter.lo_code = new byte[(int)nuCH_number.Value];
+            test_parameter.hi_code = new byte[(int)nuCH_number.Value];
+
+            // en on / off
+            test_parameter.en_addr = new byte[(int)nuCH_number.Value];
+            test_parameter.en_data = new byte[(int)nuCH_number.Value];
+            test_parameter.disen_data = new byte[(int)nuCH_number.Value];
+
         }
 
         private void EloadDG_CCM_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -549,6 +573,37 @@ namespace SoftStartTiming
                     CBChannel.Items.Add("600V");
                     CBChannel.SelectedIndex = 0;
                     break;
+            }
+        }
+
+        private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            /*
+                Item 1 CCM
+                Item 2 EN on/off
+                Item 3 VID
+                Item 4 LT
+             */
+
+            if (CBItem.SelectedIndex >= 2) groupBox2.Visible = true;
+            else groupBox2.Visible = false;
+
+
+            switch (CBItem.SelectedIndex)
+            {
+                case 2:
+                    groupBox2.Text = "VID Group Setting";
+                    LTDG.Columns[1].HeaderText = "Addr (Hex)";
+                    LTDG.Columns[2].HeaderText = "Hi (Hex)";
+                    LTDG.Columns[3].HeaderText = "Low (Hex)";
+                    break;
+                case 3:
+                    groupBox2.Text = "Eload LT Setting";
+                    LTDG.Columns[1].HeaderText = "L1(A)";
+                    LTDG.Columns[2].HeaderText = "L2(A)";
+                    LTDG.Columns[3].HeaderText = "None Use";
+                    break;
+
             }
         }
     }
