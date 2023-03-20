@@ -357,7 +357,7 @@ namespace SoftStartTiming
                 } // select aggressor loop
             }
             stopWatch.Stop();
-#if true
+#if false
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -675,6 +675,7 @@ namespace SoftStartTiming
 
                             break;
                         case 1: // i2c on / off
+                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
@@ -684,7 +685,8 @@ namespace SoftStartTiming
                             }
                             break;
                         case 2: // i2c VID
-                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j] + "->" + test_parameter.hi_code[j] : "0";
+                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
+                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j].ToString("X") + "->" + test_parameter.hi_code[j].ToString("X") : "0";
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;
