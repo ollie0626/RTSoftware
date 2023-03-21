@@ -535,7 +535,7 @@ namespace SoftStartTiming
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(97, 12);
             this.label6.TabIndex = 111;
-            this.label6.Text = "Lx1 Scope CH2:";
+            this.label6.Text = "Lx1 Scope CH3:";
             // 
             // CBItem
             // 
@@ -785,7 +785,7 @@ namespace SoftStartTiming
             this.nuCH_number.Location = new System.Drawing.Point(630, 777);
             this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nuCH_number.Maximum = new decimal(new int[] {
-            8,
+            4,
             0,
             0,
             0});

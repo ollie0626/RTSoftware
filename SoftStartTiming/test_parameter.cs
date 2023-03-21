@@ -34,7 +34,10 @@ namespace SoftStartTiming
 
         public static bool[] scope_en = new bool[3];
         public static bool[] bin_en = new bool[3];
+
         public static string waveform_path;
+        public static string waveform_name;
+
         public static double ontime_scale_ms;
         public static double offtime_scale_ms;
         public static double offset_time;

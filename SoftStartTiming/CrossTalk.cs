@@ -37,104 +37,81 @@ namespace SoftStartTiming
 
         private void DataGridviewInit()
         {
-            EloadDG_CCM.RowCount = 6;
-            FreqDG.RowCount = 6;
-            VoutDG.RowCount = 6;
-            LTDG.RowCount = 6;
+            EloadDG_CCM.RowCount = 4;
+            FreqDG.RowCount = 4;
+            VoutDG.RowCount = 4;
+            LTDG.RowCount = 4;
 
             EloadDG_CCM[0, 0].Value = "Buck1";
             EloadDG_CCM[0, 1].Value = "Buck2";
             EloadDG_CCM[0, 2].Value = "Buck3";
             EloadDG_CCM[0, 3].Value = "Buck4";
-            EloadDG_CCM[0, 4].Value = "Buck5";
 
             // address
             EloadDG_CCM[1, 0].Value = "01";
             EloadDG_CCM[1, 1].Value = "01";
             EloadDG_CCM[1, 2].Value = "01";
             EloadDG_CCM[1, 3].Value = "01";
-            EloadDG_CCM[1, 4].Value = "01";
 
             // channel enable
             EloadDG_CCM[2, 0].Value = "01";
             EloadDG_CCM[2, 1].Value = "02";
             EloadDG_CCM[2, 2].Value = "03";
             EloadDG_CCM[2, 3].Value = "04";
-            EloadDG_CCM[2, 4].Value = "04";
 
             // channel disable
             EloadDG_CCM[3, 0].Value = "00";
             EloadDG_CCM[3, 1].Value = "00";
             EloadDG_CCM[3, 2].Value = "00";
             EloadDG_CCM[3, 3].Value = "00";
-            EloadDG_CCM[3, 4].Value = "00";
-
 
             // victim loading
             EloadDG_CCM[4, 0].Value = "0.1,0.6,0.7";
             EloadDG_CCM[4, 1].Value = "0.8,1,2";
             EloadDG_CCM[4, 2].Value = "0.35,0.5,0.7";
             EloadDG_CCM[4, 3].Value = "0.9,1,1.2";
-            EloadDG_CCM[4, 4].Value = "0.9,1,1.2";
-
 
             // aggresor loading
             EloadDG_CCM[4, 0].Value = "0.01";
             EloadDG_CCM[4, 1].Value = "0.02";
             EloadDG_CCM[4, 2].Value = "0.03";
             EloadDG_CCM[4, 3].Value = "0.04";
-            EloadDG_CCM[4, 4].Value = "0.05";
-
 
             // full load setting
             EloadDG_CCM[5, 0].Value = "0.03";
             EloadDG_CCM[5, 1].Value = "0.04";
             EloadDG_CCM[5, 2].Value = "0.05";
             EloadDG_CCM[5, 3].Value = "0.06";
-            EloadDG_CCM[5, 4].Value = "1.2";
-
 
             FreqDG[1, 0].Value = "10";
             FreqDG[1, 1].Value = "20";
             FreqDG[1, 2].Value = "30";
             FreqDG[1, 3].Value = "40";
-            FreqDG[1, 4].Value = "40";
-
 
             FreqDG[2, 0].Value = "12";
             FreqDG[2, 1].Value = "22";
             FreqDG[2, 2].Value = "32";
             FreqDG[2, 3].Value = "10";
-            FreqDG[2, 4].Value = "10";
-
 
             FreqDG[3, 0].Value = "600";
             FreqDG[3, 1].Value = "800";
             FreqDG[3, 2].Value = "600";
             FreqDG[3, 3].Value = "800";
-            FreqDG[3, 4].Value = "800";
-
 
             VoutDG[1, 0].Value = "11";
             VoutDG[1, 1].Value = "22";
             VoutDG[1, 2].Value = "33";
             VoutDG[1, 3].Value = "44";
-            VoutDG[1, 4].Value = "44";
-
 
             VoutDG[2, 0].Value = "10";
             VoutDG[2, 1].Value = "20";
             VoutDG[2, 2].Value = "30";
             VoutDG[2, 3].Value = "40";
-            VoutDG[2, 4].Value = "40";
-
 
             VoutDG[3, 0].Value = "1.2";
             VoutDG[3, 1].Value = "4.6";
             VoutDG[3, 2].Value = "7";
             VoutDG[3, 3].Value = "3.3";
-            VoutDG[3, 4].Value = "3.3";
-
 
             LTDG[1, 0].Value = "0";
             LTDG[1, 1].Value = "0";
@@ -161,9 +138,6 @@ namespace SoftStartTiming
             CBItem.SelectedIndex = 0;
             CKLx1En.Checked = false;
             CKLx2En.Checked = false;
-
-            //int aa = 80;
-            //Console.WriteLine(aa.ToString("X"));
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -332,7 +306,6 @@ namespace SoftStartTiming
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.slave = (byte)nuslave.Value;
 
-
             // perpare test parameter.
             for (int i = 0; i < test_parameter.cross_en.Length; i++)
             {
@@ -368,11 +341,12 @@ namespace SoftStartTiming
                 test_parameter.cross_en[i] = true;
             }
 
-
             test_parameter.cross_mode = CBItem.SelectedIndex;
-            test_parameter.Lx1 = CKLx1En.Checked;
-            test_parameter.Lx2 = CKLx2En.Checked;
+            test_parameter.Lx1 = CKLx1En.Checked; // scope CH3
+            test_parameter.Lx2 = CKLx2En.Checked; // scope CH4
             test_parameter.offtime_scale_ms = (double)(nu_ontime_scale.Value / 1000);
+            test_parameter.waveform_path = tbWave.Text;
+
         }
 
         private void BTRun_Click(object sender, EventArgs e)

@@ -102,12 +102,49 @@ namespace SoftStartTiming
             string rail_info = "";
             for (int i = 0; i < test_parameter.ch_num; i++)
             {
-                rail_info += test_parameter.rail_name[i] + ": aggressor load=";
+                rail_info += test_parameter.rail_name[i];
 
-                for (int j = 0; j < test_parameter.ccm_eload[i].Count; j++)
+                //Item 1 CCM
+                //Item 2 EN on/ off
+                //Item 3 VID
+                //Item 4 LT
+
+                switch (test_parameter.cross_mode)
                 {
-                    rail_info += test_parameter.ccm_eload[i][j] + ((j == test_parameter.ccm_eload[i].Count - 1) ? "A" : "A, ");
+                    case 0: // ccm
+                        rail_info += ": load=";
+                        for (int j = 0; j < test_parameter.ccm_eload[i].Count; j++)
+                        {
+                            rail_info += test_parameter.ccm_eload[i][j] + ((j == test_parameter.ccm_eload[i].Count - 1) ? "A" : "A, ");
+                        }
+                        break;
+                    case 1: // en on / off
+
+
+                        rail_info += string.Format("Addr={0:X2}_ON={1:X2}_OFF={1:X2}",
+                                                    test_parameter.en_addr[i],
+                                                    test_parameter.en_data[i],
+                                                    test_parameter.disen_data[i]
+                                                    );
+                        break;
+                    case 2: // vid
+
+                        rail_info += string.Format("Addr={0:X2}_ON={1:X2}_OFF={1:X2}",
+                                        test_parameter.vid_addr[i],
+                                        test_parameter.hi_code[i],
+                                        test_parameter.lo_code[i]
+                                        );
+                        break;
+                    case 3: // LT
+                        rail_info += ": load=";
+                        int cnt_max = test_parameter.lt_l1[i].Count > test_parameter.lt_l2[i].Count ? test_parameter.lt_l1[i].Count : test_parameter.lt_l2[i].Count;
+                        for (int j = 0; j < cnt_max; j++)
+                        {
+                            rail_info += (test_parameter.lt_l1[i][j] + "->" + test_parameter.lt_l2[i][j]) + ((j == cnt_max - 1) ? "A" : "A, ");
+                        }
+                        break;
                 }
+
                 rail_info += ",full load=" + test_parameter.full_load[i] + "\r\n";
             }
 
@@ -135,9 +172,11 @@ namespace SoftStartTiming
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
 
-                if (test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(2, 4);
-                if (test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(2, 4);
+                if (victim == 0 && test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(3, 4);
+                if (victim == 1 && test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(4, 4);
             }
+
+            InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name);
 
             InsControl._oscilloscope.SetMeasureOff(1);
             InsControl._oscilloscope.SetMeasureOff(2);
@@ -176,6 +215,7 @@ namespace SoftStartTiming
             row = 18;
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
+            int file_idx = 0;
 
             int switch_max = 0;
             int ch_sw_num = 1;
@@ -329,6 +369,14 @@ namespace SoftStartTiming
                                     {
 
                                         double iout = (victim_idx == 0) ? 0 : victim_iout;
+                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={5}_Iout={4}",
+                                                                        file_idx++,
+                                                                        test_parameter.rail_name[select_idx],
+                                                                        test_parameter.VinList[vin_idx],
+                                                                        test_parameter.vout_des[vout_idx],
+                                                                        test_parameter.freq_des[freq_idx],
+                                                                        iout
+                                                                        );
                                         int n = ch_sw_num == 2 ? 1 :
                                                 ch_sw_num == 4 ? 2 :
                                                 ch_sw_num == 8 ? 3 :
@@ -357,7 +405,7 @@ namespace SoftStartTiming
                 } // select aggressor loop
             }
             stopWatch.Stop();
-#if false
+#if true
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -372,6 +420,7 @@ namespace SoftStartTiming
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             int vin_cnt = test_parameter.VinList.Count;
+            int file_idx = 0;
             row = 18;
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
@@ -532,8 +581,16 @@ namespace SoftStartTiming
 
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
-
                                         double iout = victim_idx == 0 ? 0 : victim_iout;
+                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={5}_Iout={4}",
+                                                                file_idx++,
+                                                                test_parameter.rail_name[select_idx],
+                                                                test_parameter.VinList[vin_idx],
+                                                                test_parameter.vout_des[vout_idx],
+                                                                test_parameter.freq_des[freq_idx],
+                                                                iout
+                                                                );
+
 
                                         int n = ch_sw_num == 2 ? 1 :
                                         ch_sw_num == 4 ? 2 :
@@ -575,7 +632,8 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Position(ch, 0);
         }
 
-        private void MeasureN(int n, int select_idx, double vout, int group, double iout_n, int col_start,
+        private void MeasureN(  int n, int select_idx, double vout,
+                                int group, double iout_n, int col_start,
                                 bool before, bool lt_mode = false)
         {
             int idx = 0;
@@ -584,7 +642,6 @@ namespace SoftStartTiming
             double[] l1 = new double[n];
             double[] l2 = new double[n];
             int loop_cnt = (int)Math.Pow(2, n);
-            //Dictionary<int, List<double>> iout_list = new Dictionary<int, List<double>>();
 
             CHx_LevelReScale(select_idx + 1, vout);
             // save aggressor number and trun off aggressor channel 
@@ -597,8 +654,8 @@ namespace SoftStartTiming
                 }
             }
 
-            if (select_idx == 0 && test_parameter.Lx1) InsControl._oscilloscope.CHx_On(2);
-            if (select_idx == 2 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
+            if (select_idx == 0 && test_parameter.Lx1) InsControl._oscilloscope.CHx_On(3);
+            if (select_idx == 1 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
 
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
@@ -664,6 +721,7 @@ namespace SoftStartTiming
                 int aggressor_col = (int)XLS_Table.C;
                 for (int j = 0; j < n; j++) // run each channel
                 {
+                    test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", j);
                     switch (test_parameter.cross_mode)
                     {
                         case 0: // ccm mode
@@ -713,7 +771,6 @@ namespace SoftStartTiming
 
                 double[] read_iout = InsControl._eload.GetAllChannel_Iout();
                 double[] read_vout = InsControl._eload.GetAllChannel_Vol();
-
 
                 //Console.WriteLine("Vout1={0}\tVout2={1}\tVout3={2}\tVout3={3}", read_vout[0], read_vout[1], read_vout[2], read_vout[3]);
                 //Console.WriteLine("[0]\t[1]\t[2]\t[3]");
