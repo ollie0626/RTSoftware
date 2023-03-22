@@ -347,6 +347,8 @@ namespace SoftStartTiming
             test_parameter.offtime_scale_ms = (double)(nu_ontime_scale.Value / 1000);
             test_parameter.waveform_path = tbWave.Text;
 
+            test_parameter.tolerance = (double)nuToerance.Value;
+
         }
 
         private void BTRun_Click(object sender, EventArgs e)

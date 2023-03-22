@@ -122,6 +122,7 @@ namespace SoftStartTiming
         public static bool Lx1;
         public static bool Lx2;
 
+        public static double tolerance;
 
 
     }

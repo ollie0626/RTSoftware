@@ -107,6 +107,8 @@ namespace SoftStartTiming
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nuToerance = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -124,6 +126,7 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -425,6 +428,8 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
+            this.tabPage1.Controls.Add(this.nuToerance);
+            this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.CKLx2En);
             this.tabPage1.Controls.Add(this.CKLx1En);
             this.tabPage1.Controls.Add(this.label7);
@@ -785,7 +790,7 @@ namespace SoftStartTiming
             this.nuCH_number.Location = new System.Drawing.Point(630, 777);
             this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nuCH_number.Maximum = new decimal(new int[] {
-            4,
+            5,
             0,
             0,
             0});
@@ -883,6 +888,29 @@ namespace SoftStartTiming
             this.Column9.HeaderText = "Full Load";
             this.Column9.Name = "Column9";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 411);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(92, 12);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "Tolerance (%) :";
+            // 
+            // nuToerance
+            // 
+            this.nuToerance.DecimalPlaces = 3;
+            this.nuToerance.Location = new System.Drawing.Point(156, 409);
+            this.nuToerance.Name = "nuToerance";
+            this.nuToerance.Size = new System.Drawing.Size(62, 22);
+            this.nuToerance.TabIndex = 43;
+            this.nuToerance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuToerance.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -921,6 +949,7 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1004,5 +1033,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.NumericUpDown nuToerance;
+        private System.Windows.Forms.Label label11;
     }
 }
