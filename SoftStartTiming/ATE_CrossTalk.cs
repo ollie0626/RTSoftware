@@ -21,6 +21,8 @@ namespace SoftStartTiming
         string[] cells = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
 
         int row = 20;
+        int[] delta_row = new int[4];
+
 
         public double temp;
         RTBBControl RTDev = new RTBBControl();
@@ -184,8 +186,8 @@ namespace SoftStartTiming
 #if true
             // for measure victim channel
             int col_cnt = 7;
-            double pos_delta = vmax - vmean;
-            double neg_delta = vmean - vmin;
+            double pos_delta = (vmax - vmean) * 1000;
+            double neg_delta = (vmean - vmin) * 1000;
             if (before)
             {
                 _sheet.Cells[row, col_start++] = vmean;
@@ -195,20 +197,30 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_start++] = pos_delta; // + delta
                 _sheet.Cells[row, col_start++] = neg_delta; // - delta
 
-                _sheet.Cells[row, col_start++] = (pos_delta / 1000) / vout;
-                _sheet.Cells[row, col_start++] = (neg_delta / 1000) / vout;
+                //_range = _sheet.Cells[row, col_start];
+                //_range.NumberFormat = "0.000%";
+                //_sheet.Cells[row, col_start++] = ((pos_delta / 1000) / vout) * 100;
+
+                //_range = _sheet.Cells[row, col_start];
+                //_range.NumberFormat = "0.000%";
+                //_sheet.Cells[row, col_start++] = ((neg_delta / 1000) / vout) * 100;
             }
             else
             {
-                col_start += 2;
+                col_start++;
                 _sheet.Cells[row, col_start++ + col_cnt] = vmax;
                 _sheet.Cells[row, col_start++ + col_cnt] = vmin;
                 _sheet.Cells[row, col_start++ + col_cnt] = jitter;
                 _sheet.Cells[row, col_start++ + col_cnt] = pos_delta; // + delta
-                _sheet.Cells[row, col_start++ + col_cnt] = neg_delta; // - delta
+                _sheet.Cells[row, col_start + col_cnt] = neg_delta; // - delta
 
-                _sheet.Cells[row, col_start++ + col_cnt] = (pos_delta / 1000) / vout;
-                _sheet.Cells[row, col_start + col_cnt] = (neg_delta / 1000) / vout;
+                //_range = _sheet.Cells[row, col_start + col_cnt];
+                //_range.NumberFormat = "0.000%";
+                //_sheet.Cells[row, col_start++ + col_cnt] = ((pos_delta / 1000) / vout) * 100;
+
+                //_range = _sheet.Cells[row, col_start + col_cnt];
+                //_range.NumberFormat = "0.000%";
+                //_sheet.Cells[row, col_start + col_cnt] = ((neg_delta / 1000) / vout) * 100;
             }
 #endif
         }
@@ -340,21 +352,21 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Vmean(V)";
                                     _sheet.Cells[row, col_base] = "Victim Max Voltage";
                                     _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 5] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 5] + (row)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
                                     col_base++;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    _sheet.Cells[row, col_base++] = "- Tol (%)";
+                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
+                                    //_sheet.Cells[row, col_base++] = "- Tol (%)";
 
                                     _sheet.Cells[row - 1, col_base] = "After: with load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 6] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 4] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
@@ -363,12 +375,16 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    _sheet.Cells[row, col_base] = "- Tol (%)";
+                                    _sheet.Cells[row, col_base] = "-VΔ (mV)";
+                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
+                                    //_sheet.Cells[row, col_base] = "- Tol (%)";
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    
+
+
 
                                     for (int i = 1; i < 25; i++)
                                         _sheet.Columns[i].AutoFit();
@@ -540,7 +556,6 @@ namespace SoftStartTiming
                                                                     , test_parameter.freq_addr[select_idx]
                                                                     , test_parameter.freq_data[select_idx][freq_idx]);
 
-
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
 
@@ -558,21 +573,21 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Vmean(V)";
                                     _sheet.Cells[row, col_base] = "Victim Max Voltage";
                                     _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 5] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 5] + (row)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
                                     col_base++;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    _sheet.Cells[row, col_base++] = "- Tol (%)";
+                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
+                                    //_sheet.Cells[row, col_base++] = "- Tol (%)";
 
                                     _sheet.Cells[row - 1, col_base] = "After: with load on victim";
-                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 6] + (row - 1)];
+                                    _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 4] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
@@ -582,8 +597,8 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    _sheet.Cells[row, col_base] = "- Tol (%)";
+                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
+                                    //_sheet.Cells[row, col_base] = "- Tol (%)";
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -785,7 +800,7 @@ namespace SoftStartTiming
 
 
                 InsControl._eload.Loading(select_idx + 1, iout_n);
-                _sheet.Cells[row, before ? col_start : col_start + 9] = InsControl._eload.GetIout();
+                _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
 
                 double[] read_iout = InsControl._eload.GetAllChannel_Iout();
                 double[] read_vout = InsControl._eload.GetAllChannel_Vol();
