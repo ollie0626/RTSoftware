@@ -381,12 +381,12 @@ namespace SoftStartTiming
                                     {
 
                                         double iout = (victim_idx == 0) ? 0 : victim_iout;
-                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={5}_Iout={4}",
+                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                                         file_idx++,
                                                                         test_parameter.rail_name[select_idx],
                                                                         test_parameter.VinList[vin_idx],
-                                                                        test_parameter.vout_des[vout_idx],
-                                                                        test_parameter.freq_des[freq_idx],
+                                                                        test_parameter.vout_des[select_idx][vout_idx],
+                                                                        test_parameter.freq_des[select_idx][freq_idx],
                                                                         iout
                                                                         );
                                         int n = ch_sw_num == 2 ? 1 :
@@ -596,12 +596,12 @@ namespace SoftStartTiming
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
                                         double iout = victim_idx == 0 ? 0 : victim_iout;
-                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={5}_Iout={4}",
+                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                                 file_idx++,
                                                                 test_parameter.rail_name[select_idx],
                                                                 test_parameter.VinList[vin_idx],
-                                                                test_parameter.vout_des[vout_idx],
-                                                                test_parameter.freq_des[freq_idx],
+                                                                test_parameter.vout_des[select_idx][vout_idx],
+                                                                test_parameter.freq_des[select_idx][freq_idx],
                                                                 iout
                                                                 );
 
@@ -735,7 +735,6 @@ namespace SoftStartTiming
                 int aggressor_col = (int)XLS_Table.C;
                 for (int j = 0; j < n; j++) // run each channel
                 {
-                    test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", j);
                     switch (test_parameter.cross_mode)
                     {
                         case 0: // ccm mode
@@ -779,9 +778,14 @@ namespace SoftStartTiming
                     }
                 }
 
+                string temp = test_parameter.waveform_name;
+                test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
                 MeasureVictim(select_idx + 1, col_start + 1, vout, before);
+                test_parameter.waveform_name = temp;
+
+
                 InsControl._eload.Loading(select_idx + 1, iout_n);
-                _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
+                _sheet.Cells[row, before ? col_start : col_start + 9] = InsControl._eload.GetIout();
 
                 double[] read_iout = InsControl._eload.GetAllChannel_Iout();
                 double[] read_vout = InsControl._eload.GetAllChannel_Vol();
