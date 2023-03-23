@@ -18,11 +18,19 @@ namespace SoftStartTiming
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
-        string[] cells = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
+        string[] cells = new string[] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+                                        "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK", "AL", "AM", "AN", "AO", "AP", "AQ", "AR", "AS", "AT", "AU", "AV", "AW", "AX", "AY", "AZ"};
 
         int row = 20;
-        int[] delta_row = new int[4];
-
+        int[] col_pos = new int[17];
+        
+        enum Col_List
+        {
+            b_Vmean = 0, b_Vmax, b_Vmin, b_jitter, b_delta_pos, b_delta_neg, 
+            a_Vmax, a_min, a_jitter, a_delta_pos, a_delta_neg, 
+            delta_pos, delta_neg, tol_pos, tol_neg, res_pos, res_neg,
+            
+        };
 
         public double temp;
         RTBBControl RTDev = new RTBBControl();
@@ -190,37 +198,57 @@ namespace SoftStartTiming
             double neg_delta = (vmean - vmin) * 1000;
             if (before)
             {
-                _sheet.Cells[row, col_start++] = vmean;
-                _sheet.Cells[row, col_start++] = vmax;
-                _sheet.Cells[row, col_start++] = vmin;
-                _sheet.Cells[row, col_start++] = jitter;
-                _sheet.Cells[row, col_start++] = pos_delta; // + delta
-                _sheet.Cells[row, col_start++] = neg_delta; // - delta
+                _sheet.Cells[row, col_pos[(int)Col_List.b_Vmean]] = vmean;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_Vmax]] = vmax;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_Vmin]] = vmin;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_jitter]] = jitter;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_pos]] = pos_delta;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_neg]] = neg_delta;
 
-                //_range = _sheet.Cells[row, col_start];
-                //_range.NumberFormat = "0.000%";
-                //_sheet.Cells[row, col_start++] = ((pos_delta / 1000) / vout) * 100;
-
-                //_range = _sheet.Cells[row, col_start];
-                //_range.NumberFormat = "0.000%";
-                //_sheet.Cells[row, col_start++] = ((neg_delta / 1000) / vout) * 100;
             }
             else
             {
                 col_start++;
-                _sheet.Cells[row, col_start++ + col_cnt] = vmax;
-                _sheet.Cells[row, col_start++ + col_cnt] = vmin;
-                _sheet.Cells[row, col_start++ + col_cnt] = jitter;
-                _sheet.Cells[row, col_start++ + col_cnt] = pos_delta; // + delta
-                _sheet.Cells[row, col_start + col_cnt] = neg_delta; // - delta
+                _sheet.Cells[row, col_pos[(int)Col_List.a_Vmax]] = vmax;
+                _sheet.Cells[row, col_pos[(int)Col_List.a_min]] = vmin;
+                _sheet.Cells[row, col_pos[(int)Col_List.a_jitter]] = jitter;
+                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_pos]] = pos_delta; // + delta
+                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_neg]] = neg_delta; // - delta
 
-                //_range = _sheet.Cells[row, col_start + col_cnt];
-                //_range.NumberFormat = "0.000%";
-                //_sheet.Cells[row, col_start++ + col_cnt] = ((pos_delta / 1000) / vout) * 100;
+                //col_start += 2;
+                _sheet.Cells[row, col_pos[(int)Col_List.delta_pos]] = string.Format("={0}{1}-{2}{3}",
+                                                            cells[col_pos[(int)Col_List.a_delta_pos] - 1], row, cells[col_pos[(int)Col_List.b_delta_pos] - 1], row);
+                _sheet.Cells[row, col_pos[(int)Col_List.delta_neg]] = string.Format("={0}{1}-{2}{3}",
+                                                            cells[col_pos[(int)Col_List.a_delta_neg] - 1], row, cells[col_pos[(int)Col_List.b_delta_neg] - 1], row);
 
-                //_range = _sheet.Cells[row, col_start + col_cnt];
-                //_range.NumberFormat = "0.000%";
-                //_sheet.Cells[row, col_start + col_cnt] = ((neg_delta / 1000) / vout) * 100;
+                _range = _sheet.Cells[row, col_pos[(int)Col_List.tol_pos]];
+                _range.NumberFormat = "0.000%";
+                _sheet.Cells[row, col_pos[(int)Col_List.tol_pos]] = string.Format("={0}{1} / 1000 / {2}{3}",
+                                                             cells[col_pos[(int)Col_List.delta_pos] - 1], row, cells[col_pos[(int)Col_List.b_Vmean] - 1], row);
+
+                _range = _sheet.Cells[row, col_pos[(int)Col_List.tol_neg]];
+                _range.NumberFormat = "0.000%";
+                _sheet.Cells[row, col_pos[(int)Col_List.tol_neg]] = string.Format("={0}{1} / 1000 / {2}{3}",
+                                                             cells[col_pos[(int)Col_List.delta_neg] - 1], row, cells[col_pos[(int)Col_List.b_Vmean] - 1], row);
+
+
+
+                _sheet.Cells[row, col_pos[(int)Col_List.res_pos]] = string.Format("=IF({0}{1} < {2}, \"PASS\",\"FAIL\")",
+                                                                    cells[col_pos[(int)Col_List.tol_pos] - 1], row, test_parameter.tolerance / 100);
+                
+                _sheet.Cells[row, col_pos[(int)Col_List.res_neg]] = string.Format("=IF({0}{1} < {2}, \"PASS\",\"FAIL\")",
+                                                                    cells[col_pos[(int)Col_List.tol_neg] - 1], row, test_parameter.tolerance / 100);
+
+
+                _range = _sheet.Range["$" + cells[col_pos[(int)Col_List.res_pos] - 1] + "$" + row + ":$" + cells[col_pos[(int)Col_List.res_neg] - 1] + "$" + row];
+                Excel.FormatCondition format = _range.FormatConditions.Add(Excel.XlFormatConditionType.xlCellValue, Excel.XlFormatConditionOperator.xlEqual, "PASS");
+                format.Interior.Color = Excel.XlRgbColor.rgbGreen;
+
+
+                _range = _sheet.Range["$" + cells[col_pos[(int)Col_List.res_pos] - 1] + "$" + row + ":$" + cells[col_pos[(int)Col_List.res_neg] - 1] + "$" + row];
+                format = _range.FormatConditions.Add(Excel.XlFormatConditionType.xlCellValue, Excel.XlFormatConditionOperator.xlEqual, "FAIL");
+                format.Interior.Color = Excel.XlRgbColor.rgbRed;
+
             }
 #endif
         }
@@ -349,8 +377,14 @@ namespace SoftStartTiming
                                     }
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
+
+
+                                    col_pos[(int)Col_List.b_Vmean] = col_base;
                                     _sheet.Cells[row, col_base++] = "Vmean(V)";
+
+                                    col_pos[(int)Col_List.b_Vmax] = col_base;
                                     _sheet.Cells[row, col_base] = "Victim Max Voltage";
+
                                     _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
@@ -358,9 +392,17 @@ namespace SoftStartTiming
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
                                     col_base++;
+
+                                    col_pos[(int)Col_List.b_Vmin] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+
+                                    col_pos[(int)Col_List.b_jitter] = col_base;
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
+
+                                    col_pos[(int)Col_List.b_delta_pos] = col_base;
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+
+                                    col_pos[(int)Col_List.b_delta_neg] = col_base;
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
                                     //_sheet.Cells[row, col_base++] = "+ Tol (%)";
                                     //_sheet.Cells[row, col_base++] = "- Tol (%)";
@@ -371,20 +413,44 @@ namespace SoftStartTiming
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + "(A)";
+
+                                    col_pos[(int)Col_List.a_Vmax] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Max Voltage";
+
+                                    col_pos[(int)Col_List.a_min] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+
+                                    col_pos[(int)Col_List.a_jitter] = col_base;
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
+
+                                    col_pos[(int)Col_List.a_delta_pos] = col_base;
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+
+                                    col_pos[(int)Col_List.a_delta_neg] = col_base;
                                     _sheet.Cells[row, col_base] = "-VΔ (mV)";
-                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    //_sheet.Cells[row, col_base] = "- Tol (%)";
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                    
+                                    col_base += 2;
 
+                                    col_pos[(int)Col_List.delta_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+VΔ (mV)";
 
+                                    col_pos[(int)Col_List.delta_neg] = col_base;
+                                    _sheet.Cells[row, col_base++] = "-VΔ (mV)";
+
+                                    col_pos[(int)Col_List.tol_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
+
+                                    col_pos[(int)Col_List.tol_neg] = col_base;
+                                    _sheet.Cells[row, col_base++] = "- Tol (%)";
+
+                                    col_pos[(int)Col_List.res_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+ Tol (Result)";
+
+                                    col_pos[(int)Col_List.res_neg] = col_base;
+                                    _sheet.Cells[row, col_base] = "- Tol (Result)";
 
                                     for (int i = 1; i < 25; i++)
                                         _sheet.Columns[i].AutoFit();
