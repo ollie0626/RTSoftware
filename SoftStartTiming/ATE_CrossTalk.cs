@@ -202,8 +202,8 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_pos[(int)Col_List.b_Vmax]] = vmax;
                 _sheet.Cells[row, col_pos[(int)Col_List.b_Vmin]] = vmin;
                 _sheet.Cells[row, col_pos[(int)Col_List.b_jitter]] = jitter;
-                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_pos]] = pos_delta;
-                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_neg]] = neg_delta;
+                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_pos]] = string.Format("{0:0.000}", pos_delta);
+                _sheet.Cells[row, col_pos[(int)Col_List.b_delta_neg]] = string.Format("{0:0.000}", neg_delta);
 
             }
             else
@@ -212,8 +212,8 @@ namespace SoftStartTiming
                 _sheet.Cells[row, col_pos[(int)Col_List.a_Vmax]] = vmax;
                 _sheet.Cells[row, col_pos[(int)Col_List.a_min]] = vmin;
                 _sheet.Cells[row, col_pos[(int)Col_List.a_jitter]] = jitter;
-                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_pos]] = pos_delta; // + delta
-                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_neg]] = neg_delta; // - delta
+                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_pos]] = string.Format("{0:0.000}", pos_delta); ; // + delta
+                _sheet.Cells[row, col_pos[(int)Col_List.a_delta_neg]] = string.Format("{0:0.000}", neg_delta); // - delta
 
                 //col_start += 2;
                 _sheet.Cells[row, col_pos[(int)Col_List.delta_pos]] = string.Format("={0}{1}-{2}{3}",
@@ -622,9 +622,9 @@ namespace SoftStartTiming
                                                                     , test_parameter.freq_addr[select_idx]
                                                                     , test_parameter.freq_data[select_idx][freq_idx]);
 
+
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
-
                                     for (int i = 0; i < test_parameter.ch_num; i++)
                                     {
                                         if (i != select_idx)
@@ -636,8 +636,14 @@ namespace SoftStartTiming
                                     }
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
+
+
+                                    col_pos[(int)Col_List.b_Vmean] = col_base;
                                     _sheet.Cells[row, col_base++] = "Vmean(V)";
+
+                                    col_pos[(int)Col_List.b_Vmax] = col_base;
                                     _sheet.Cells[row, col_base] = "Victim Max Voltage";
+
                                     _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                     _range.Merge();
@@ -645,9 +651,17 @@ namespace SoftStartTiming
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
                                     col_base++;
+
+                                    col_pos[(int)Col_List.b_Vmin] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+
+                                    col_pos[(int)Col_List.b_jitter] = col_base;
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
+
+                                    col_pos[(int)Col_List.b_delta_pos] = col_base;
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+
+                                    col_pos[(int)Col_List.b_delta_neg] = col_base;
                                     _sheet.Cells[row, col_base++] = "-VΔ (mV)";
                                     //_sheet.Cells[row, col_base++] = "+ Tol (%)";
                                     //_sheet.Cells[row, col_base++] = "- Tol (%)";
@@ -658,16 +672,44 @@ namespace SoftStartTiming
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + "(A)";
+
+                                    col_pos[(int)Col_List.a_Vmax] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Max Voltage";
+
+                                    col_pos[(int)Col_List.a_min] = col_base;
                                     _sheet.Cells[row, col_base++] = "Victim Min Voltage";
+
+                                    col_pos[(int)Col_List.a_jitter] = col_base;
                                     _sheet.Cells[row, col_base++] = "Jitter(%)";
+
+                                    col_pos[(int)Col_List.a_delta_pos] = col_base;
                                     _sheet.Cells[row, col_base++] = "+VΔ (mV)";
-                                    _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                    //_sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                    //_sheet.Cells[row, col_base] = "- Tol (%)";
+
+                                    col_pos[(int)Col_List.a_delta_neg] = col_base;
+                                    _sheet.Cells[row, col_base] = "-VΔ (mV)";
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                                    col_base += 2;
+
+                                    col_pos[(int)Col_List.delta_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+VΔ (mV)";
+
+                                    col_pos[(int)Col_List.delta_neg] = col_base;
+                                    _sheet.Cells[row, col_base++] = "-VΔ (mV)";
+
+                                    col_pos[(int)Col_List.tol_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+ Tol (%)";
+
+                                    col_pos[(int)Col_List.tol_neg] = col_base;
+                                    _sheet.Cells[row, col_base++] = "- Tol (%)";
+
+                                    col_pos[(int)Col_List.res_pos] = col_base;
+                                    _sheet.Cells[row, col_base++] = "+ Tol (Result)";
+
+                                    col_pos[(int)Col_List.res_neg] = col_base;
+                                    _sheet.Cells[row, col_base] = "- Tol (Result)";
 
                                     for (int i = 1; i < 25; i++)
                                         _sheet.Columns[i].AutoFit();
@@ -716,6 +758,16 @@ namespace SoftStartTiming
                     } // vin loop
                 } // channel select
             } // select
+
+            stopWatch.Stop();
+#if true
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            _book.Close(false);
+            _book = null;
+            _app.Quit();
+            _app = null;
+            GC.Collect();
+#endif
         }
 
         private void CHx_LevelReScale(int ch, double vout)
