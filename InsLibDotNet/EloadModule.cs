@@ -321,6 +321,15 @@ namespace InsLibDotNet
             doCommand(CMD_Off);
         }
 
+        public void LoadOFF(int ch)
+        {
+            //        public string CH4 = "CHAN 4";
+            string cmd = string.Format("CHAN {0}", ch);
+            doCommand(cmd);
+            cmd = "LOAD OFF";
+            doCommand(cmd);
+        }
+
         public void SyncOn()
         {
             string cmd = ":CHAN:SYNC ON";

@@ -41,6 +41,7 @@ namespace SoftStartTiming
             FreqDG.RowCount = 4;
             VoutDG.RowCount = 4;
             LTDG.RowCount = 4;
+            nuCH_number.Value = 4;
 
             EloadDG_CCM[0, 0].Value = "Buck1";
             EloadDG_CCM[0, 1].Value = "Buck2";
@@ -346,8 +347,7 @@ namespace SoftStartTiming
             test_parameter.Lx2 = CKLx2En.Checked; // scope CH4
             test_parameter.offtime_scale_ms = (double)(nu_ontime_scale.Value / 1000);
             test_parameter.waveform_path = tbWave.Text;
-
-            test_parameter.tolerance = (double)nuToerance.Value;
+            test_parameter.tolerance = (double)nuToerance.Value / 100;
 
         }
 
@@ -451,6 +451,17 @@ namespace SoftStartTiming
         private void BTStop_Click(object sender, EventArgs e)
         {
             BTRun.Enabled = true;
+            if (ATETask != null)
+            {
+                if (ATETask.IsAlive)
+                {
+                    System.Threading.ThreadState state = ATETask.ThreadState;
+                    if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
+                    ATETask.Abort();
+                    MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
+                    //InsControl._power.AutoPowerOff();
+                }
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -475,20 +486,11 @@ namespace SoftStartTiming
             test_parameter.vout_addr = new byte[(int)nuCH_number.Value];
             test_parameter.full_load = new double[(int)nuCH_number.Value];
 
-            //public static Dictionary<int, List<byte>> freq_data = new Dictionary<int, List<byte>>();
-            //public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
-            //public static Dictionary<int, List<string>> freq_des = new Dictionary<int, List<string>>();
-            //public static Dictionary<int, List<string>> vout_des = new Dictionary<int, List<string>>();
-
             test_parameter.cross_select = new byte[(int)nuCH_number.Value];
             test_parameter.cross_en = new bool[(int)nuCH_number.Value];
             test_parameter.ch_num = (int)nuCH_number.Value;
             test_parameter.full_load = new double[(int)nuCH_number.Value];
 
-            //test_parameter.lt_l1_full = new double[(int)nuCH_number.Value];
-            //test_parameter.lt_full = new double[(int)nuCH_number.Value];
-
-            // i2c item
             // vid
             test_parameter.vid_addr = new byte[(int)nuCH_number.Value];
             test_parameter.lo_code = new byte[(int)nuCH_number.Value];
@@ -585,6 +587,21 @@ namespace SoftStartTiming
                     LTDG.Columns[2].HeaderText = "L2(A)";
                     LTDG.Columns[3].HeaderText = "None Use";
                     break;
+
+            }
+        }
+
+        private void BTPause_Click(object sender, EventArgs e)
+        {
+            if (ATETask == null) return;
+            System.Threading.ThreadState state = ATETask.ThreadState;
+            if (state == System.Threading.ThreadState.Running || state == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                ATETask.Suspend();
+            }
+            else if (state == System.Threading.ThreadState.Suspended)
+            {
+                ATETask.Resume();
 
             }
         }

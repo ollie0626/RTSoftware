@@ -193,7 +193,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureOff(4);
 #if true
             // for measure victim channel
-            int col_cnt = 7;
+            //int col_cnt = 7;
             double pos_delta = (vmax - vmean) * 1000;
             double neg_delta = (vmean - vmin) * 1000;
             if (before)
@@ -232,12 +232,11 @@ namespace SoftStartTiming
                                                              cells[col_pos[(int)Col_List.delta_neg] - 1], row, cells[col_pos[(int)Col_List.b_Vmean] - 1], row);
 
 
-
                 _sheet.Cells[row, col_pos[(int)Col_List.res_pos]] = string.Format("=IF({0}{1} < {2}, \"PASS\",\"FAIL\")",
-                                                                    cells[col_pos[(int)Col_List.tol_pos] - 1], row, test_parameter.tolerance / 100);
+                                                                    cells[col_pos[(int)Col_List.tol_pos] - 1], row, test_parameter.tolerance);
                 
                 _sheet.Cells[row, col_pos[(int)Col_List.res_neg]] = string.Format("=IF({0}{1} < {2}, \"PASS\",\"FAIL\")",
-                                                                    cells[col_pos[(int)Col_List.tol_neg] - 1], row, test_parameter.tolerance / 100);
+                                                                    cells[col_pos[(int)Col_List.tol_neg] - 1], row, test_parameter.tolerance);
 
 
                 _range = _sheet.Range["$" + cells[col_pos[(int)Col_List.res_pos] - 1] + "$" + row + ":$" + cells[col_pos[(int)Col_List.res_neg] - 1] + "$" + row];
@@ -248,7 +247,6 @@ namespace SoftStartTiming
                 _range = _sheet.Range["$" + cells[col_pos[(int)Col_List.res_pos] - 1] + "$" + row + ":$" + cells[col_pos[(int)Col_List.res_neg] - 1] + "$" + row];
                 format = _range.FormatConditions.Add(Excel.XlFormatConditionType.xlCellValue, Excel.XlFormatConditionOperator.xlEqual, "FAIL");
                 format.Interior.Color = Excel.XlRgbColor.rgbRed;
-
             }
 #endif
         }
@@ -279,7 +277,6 @@ namespace SoftStartTiming
             // ch_sw_num just judge that need to run how many times active load switch
             ch_sw_num = ch_sw_num / 2;
 
-            //InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1ms(500);
 
@@ -324,9 +321,6 @@ namespace SoftStartTiming
                                 for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                                 {
 
-                                    //double victim_iout = group_idx < test_parameter.ccm_eload[select_idx].Count() ?
-                                    //                    test_parameter.ccm_eload[select_idx][group_idx] : test_parameter.ccm_eload[select_idx].Max();
-
                                     double victim_iout = test_parameter.full_load[select_idx];
                                     int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                     int col_start = col_base;
@@ -362,7 +356,6 @@ namespace SoftStartTiming
                                                                     , test_parameter.freq_des[select_idx][freq_idx]
                                                                     , test_parameter.freq_addr[select_idx]
                                                                     , test_parameter.freq_data[select_idx][freq_idx]);
-
 
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
@@ -456,8 +449,6 @@ namespace SoftStartTiming
                                         _sheet.Columns[i].AutoFit();
                                     row++;
 
-                                    //FirstMeasure(select_idx);
-                                    //_sheet.Cells[row - 2, col_start + 1] = test_parameter.freq_des[select_idx][freq_idx];
 #endif
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
@@ -499,7 +490,13 @@ namespace SoftStartTiming
                 } // select aggressor loop
             }
             stopWatch.Stop();
+            TimeSpan timeSpan = stopWatch.Elapsed;
+            string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 #if true
+            string conditions = (string)_sheet.Cells[2, XLS_Table.B].Value + "\r\n";
+            conditions = conditions + time;
+            _sheet.Cells[2, XLS_Table.B] = conditions;
+
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -541,7 +538,7 @@ namespace SoftStartTiming
             ch_sw_num = ch_sw_num / 2;
 
             //InsControl._power.AutoPowerOff();
-            //OSCInit();
+            OSCInit();
             MyLib.Delay1ms(500);
 
             for (int select_idx = 0; select_idx < test_parameter.cross_en.Length; select_idx++)
@@ -602,7 +599,6 @@ namespace SoftStartTiming
                                     _range = _sheet.Range[cells[col_start - 1] + row, cells[col_start - 1] + (row + 2)];
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
 
-
                                     _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
                                     _range.Merge();
@@ -610,7 +606,6 @@ namespace SoftStartTiming
 
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row + 1)];
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
-
 
                                     _sheet.Cells[row, XLS_Table.C] = "Aggressor";
                                     _range = _sheet.Range["C" + (row), cells[test_parameter.ch_num] + (row)];
@@ -760,7 +755,12 @@ namespace SoftStartTiming
             } // select
 
             stopWatch.Stop();
+            TimeSpan timeSpan = stopWatch.Elapsed;
+            string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
 #if true
+            string conditions = (string)_sheet.Cells[2, XLS_Table.B].Value + "\r\n";
+            conditions = conditions + time;
+            _sheet.Cells[2, XLS_Table.B] = conditions;
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_CrossTalk_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -844,7 +844,7 @@ namespace SoftStartTiming
                 int[] bit_list = new int[] { bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7 };
 
                 // select test mode: CCM, EN on/off, VID, LT 
-                for (int j = 0; j < n; j++)
+                for (int j = 0; j < n; j++) 
                 {
                     switch (test_parameter.cross_mode)
                     {
@@ -853,8 +853,6 @@ namespace SoftStartTiming
                             break;
                         case 1:
                         case 2:
-                            // open active load
-                            //InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
                             data.Add(bit_list[j] == 0 ? 0 : 1);
                             break;
                         case 3:
@@ -878,6 +876,7 @@ namespace SoftStartTiming
                             }
                             else
                             {
+                                InsControl._eload.LoadOFF(sw_en[j] + 1);
                                 _sheet.Cells[row, j + aggressor_col] = 0;
                             }
 
@@ -906,7 +905,11 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? l1[j] + " -> " + l2[j] : "0";
                             // eload over 4CH need to select channel
-                            InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500); // 1KHz
+                            if (data[j] != 0)
+                                InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500); // 1KHz
+                            else
+                                InsControl._eload.LoadOFF(sw_en[j] + 1);
+
                             break;
                     }
                 }
@@ -916,17 +919,15 @@ namespace SoftStartTiming
                 MeasureVictim(select_idx + 1, col_start + 1, vout, before);
                 test_parameter.waveform_name = temp;
 
-
                 InsControl._eload.Loading(select_idx + 1, iout_n);
                 _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
 
-                double[] read_iout = InsControl._eload.GetAllChannel_Iout();
-                double[] read_vout = InsControl._eload.GetAllChannel_Vol();
-
+                //double[] read_iout = InsControl._eload.GetAllChannel_Iout();
+                //double[] read_vout = InsControl._eload.GetAllChannel_Vol();
                 //Console.WriteLine("Vout1={0}\tVout2={1}\tVout3={2}\tVout3={3}", read_vout[0], read_vout[1], read_vout[2], read_vout[3]);
                 //Console.WriteLine("[0]\t[1]\t[2]\t[3]");
-                Console.Write("{0} = ", i);
-                Console.WriteLine("Iout1={0}\tIout2={1}\tIout3={2}\tIout3={3}", read_iout[0], read_iout[1], read_iout[2], read_iout[3]);
+                //Console.Write("{0} = ", i);
+                //Console.WriteLine("Iout1={0}\tIout2={1}\tIout3={2}\tIout3={3}", read_iout[0], read_iout[1], read_iout[2], read_iout[3]);
 
                 InsControl._eload.AllChannel_LoadOff();
                 row++;

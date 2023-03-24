@@ -61,6 +61,8 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.nuToerance = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
             this.CKLx2En = new System.Windows.Forms.CheckBox();
             this.CKLx1En = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -95,25 +97,24 @@ namespace SoftStartTiming
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
-            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
-            this.BTPause = new System.Windows.Forms.Button();
-            this.BTStop = new System.Windows.Forms.Button();
-            this.BTRun = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label11 = new System.Windows.Forms.Label();
-            this.nuToerance = new System.Windows.Forms.NumericUpDown();
+            this.nuCH_number = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
+            this.BTPause = new System.Windows.Forms.Button();
+            this.BTStop = new System.Windows.Forms.Button();
+            this.BTRun = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.tabPage4.SuspendLayout();
@@ -126,7 +127,6 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -470,6 +470,29 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
+            // nuToerance
+            // 
+            this.nuToerance.DecimalPlaces = 3;
+            this.nuToerance.Location = new System.Drawing.Point(156, 409);
+            this.nuToerance.Name = "nuToerance";
+            this.nuToerance.Size = new System.Drawing.Size(62, 22);
+            this.nuToerance.TabIndex = 43;
+            this.nuToerance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuToerance.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 411);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(92, 12);
+            this.label11.TabIndex = 43;
+            this.label11.Text = "Tolerance (%) :";
+            // 
             // CKLx2En
             // 
             this.CKLx2En.AutoSize = true;
@@ -784,79 +807,6 @@ namespace SoftStartTiming
             this.EloadDG_CCM.TabIndex = 0;
             this.EloadDG_CCM.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.EloadDG_CCM_CellValueChanged);
             // 
-            // nuCH_number
-            // 
-            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(630, 777);
-            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuCH_number.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nuCH_number.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nuCH_number.Name = "nuCH_number";
-            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
-            this.nuCH_number.TabIndex = 63;
-            this.nuCH_number.Value = new decimal(new int[] {
-            4,
-            0,
-            0,
-            0});
-            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(480, 781);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total Channel Number";
-            // 
-            // BTPause
-            // 
-            this.BTPause.Location = new System.Drawing.Point(881, 771);
-            this.BTPause.Name = "BTPause";
-            this.BTPause.Size = new System.Drawing.Size(75, 32);
-            this.BTPause.TabIndex = 104;
-            this.BTPause.Text = "Pause";
-            this.BTPause.UseVisualStyleBackColor = true;
-            // 
-            // BTStop
-            // 
-            this.BTStop.Location = new System.Drawing.Point(962, 771);
-            this.BTStop.Name = "BTStop";
-            this.BTStop.Size = new System.Drawing.Size(75, 32);
-            this.BTStop.TabIndex = 103;
-            this.BTStop.Text = "Stop";
-            this.BTStop.UseVisualStyleBackColor = true;
-            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
-            // 
-            // BTRun
-            // 
-            this.BTRun.Location = new System.Drawing.Point(800, 771);
-            this.BTRun.Name = "BTRun";
-            this.BTRun.Size = new System.Drawing.Size(75, 32);
-            this.BTRun.TabIndex = 102;
-            this.BTRun.Text = "Run";
-            this.BTRun.UseVisualStyleBackColor = true;
-            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(709, 771);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 32);
-            this.button1.TabIndex = 109;
-            this.button1.Text = "Excel Kill";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // Column1
             // 
             this.Column1.HeaderText = "Rail (name)";
@@ -888,28 +838,79 @@ namespace SoftStartTiming
             this.Column9.HeaderText = "Full Load";
             this.Column9.Name = "Column9";
             // 
-            // label11
+            // nuCH_number
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 411);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(92, 12);
-            this.label11.TabIndex = 43;
-            this.label11.Text = "Tolerance (%) :";
-            // 
-            // nuToerance
-            // 
-            this.nuToerance.DecimalPlaces = 3;
-            this.nuToerance.Location = new System.Drawing.Point(156, 409);
-            this.nuToerance.Name = "nuToerance";
-            this.nuToerance.Size = new System.Drawing.Size(62, 22);
-            this.nuToerance.TabIndex = 43;
-            this.nuToerance.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nuToerance.Value = new decimal(new int[] {
-            1,
+            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuCH_number.Location = new System.Drawing.Point(630, 777);
+            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuCH_number.Maximum = new decimal(new int[] {
+            5,
             0,
             0,
             0});
+            this.nuCH_number.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nuCH_number.Name = "nuCH_number";
+            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
+            this.nuCH_number.TabIndex = 63;
+            this.nuCH_number.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(480, 781);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Channel Number";
+            // 
+            // BTPause
+            // 
+            this.BTPause.Location = new System.Drawing.Point(881, 771);
+            this.BTPause.Name = "BTPause";
+            this.BTPause.Size = new System.Drawing.Size(75, 32);
+            this.BTPause.TabIndex = 104;
+            this.BTPause.Text = "Pause";
+            this.BTPause.UseVisualStyleBackColor = true;
+            this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
+            // 
+            // BTStop
+            // 
+            this.BTStop.Location = new System.Drawing.Point(962, 771);
+            this.BTStop.Name = "BTStop";
+            this.BTStop.Size = new System.Drawing.Size(75, 32);
+            this.BTStop.TabIndex = 103;
+            this.BTStop.Text = "Stop";
+            this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
+            // 
+            // BTRun
+            // 
+            this.BTRun.Location = new System.Drawing.Point(800, 771);
+            this.BTRun.Name = "BTRun";
+            this.BTRun.Size = new System.Drawing.Size(75, 32);
+            this.BTRun.TabIndex = 102;
+            this.BTRun.Text = "Run";
+            this.BTRun.UseVisualStyleBackColor = true;
+            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(709, 771);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 32);
+            this.button1.TabIndex = 109;
+            this.button1.Text = "Excel Kill";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // CrossTalk
             // 
@@ -936,6 +937,7 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
@@ -949,7 +951,6 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
