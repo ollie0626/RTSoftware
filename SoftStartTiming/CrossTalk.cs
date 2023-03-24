@@ -602,8 +602,187 @@ namespace SoftStartTiming
             else if (state == System.Threading.ThreadState.Suspended)
             {
                 ATETask.Resume();
+            }
+        }
+
+        private void BT_SaveSetting_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savedlg = new SaveFileDialog();
+            savedlg.Filter = "settings|*.tb_info";
+
+            if (savedlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = savedlg.FileName;
+                SaveSettings(file_name);
+            }
+        }
+
+        private void SaveSettings(string file)
+        {
+            string settings = "";
+
+            settings = "0.Slave=$" + nuslave.Value + "$\r\n";
+            settings += "1.WavePath=$" + tbWave.Text + "$\r\n";
+            settings += "2.Vin=$" + tb_vinList.Text + "$\r\n";
+            settings += "3.Item=$" + CBItem.SelectedIndex + "$\r\n";
+            settings += "4.CKLx1=$" + (CKLx1En.Checked ? "1" : "0") + "$\r\n";
+            settings += "5.CKLx2=$" + (CKLx2En.Checked ? "1" : "0") + "$\r\n";
+            settings += "6.Tolerance=$" + nuToerance.Value + "$\r\n";
+            settings += "7.ChamberEn=$" + (ck_chamber_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "8.Temp=$" + tb_templist.Text + "$\r\n";
+            settings += "9.SteadyTime=$" + nu_steady.Value + "$\r\n";
+            settings += "10.ScaleTime=$" + nu_ontime_scale.Value + "$\r\n";
+            settings += "CH_num=$" + nuCH_number.Value + "$\r\n";
+            settings += "11.CCM_Rows=$" + EloadDG_CCM.RowCount + "$\r\n";
+            settings += "12.Freq_Rows=$" + FreqDG.RowCount + "$\r\n";
+            settings += "13.Vout_Rows=$" + VoutDG.RowCount + "$\r\n";
+            settings += "14.Item_Rows=$" + LTDG.RowCount + "$\r\n";
+
+            for (int i = 0; i < EloadDG_CCM.RowCount; i++)
+            {
+                settings += (i + 15).ToString() + ".Rail=$" + EloadDG_CCM[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 16).ToString() + ".En_Addr=$" + EloadDG_CCM[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 17).ToString() + ".EN_On=$" + EloadDG_CCM[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 18).ToString() + ".EN_Off=$" + EloadDG_CCM[3, i].Value.ToString() + "$\r\n";
+                settings += (i + 19).ToString() + ".CCM_Loading=$" + EloadDG_CCM[4, i].Value.ToString() + "$\r\n";
+                settings += (i + 20).ToString() + ".Full_Loading=$" + EloadDG_CCM[5, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < FreqDG.RowCount; i++)
+            {
+                settings += (i + 21).ToString() + ".Rail=$" + FreqDG[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 22).ToString() + ".Freq_Addr=$" + FreqDG[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 23).ToString() + ".Freq_Data=$" + FreqDG[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 24).ToString() + ".Freq_Des=$" + FreqDG[3, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < VoutDG.RowCount; i++)
+            {
+                settings += (i + 25).ToString() + ".Rail=$" + VoutDG[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 26).ToString() + ".Vout_Addr=$" + VoutDG[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 27).ToString() + ".Vout_Data=$" + VoutDG[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 28).ToString() + ".Vout_Des=$" + VoutDG[3, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < LTDG.RowCount; i++)
+            {
+                settings += (i + 29).ToString() + ".Rail=$" + LTDG[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 30).ToString() + ".Item_setting1=$" + LTDG[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 31).ToString() + ".Item_setting2=$" + LTDG[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 32).ToString() + ".Item_setting2=$" + LTDG[3, i].Value.ToString() + "$\r\n";
+            }
+
+
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void BT_LoadSetting_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(opendlg.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                nuslave, tbWave, tb_vinList, CBItem, CKLx1En, CKLx2En, nuToerance, ck_chamber_en, tb_templist, nu_steady, nu_ontime_scale, nuCH_number,
+                EloadDG_CCM, FreqDG, VoutDG, LTDG
+            };
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                int idx = 0;
+                for (int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch (obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "DataGridView":
+                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            ((DataGridView)obj_arr[i + 1]).RowCount = Convert.ToInt32(info[i + 1]);
+                            ((DataGridView)obj_arr[i + 2]).RowCount = Convert.ToInt32(info[i + 2]);
+                            ((DataGridView)obj_arr[i + 3]).RowCount = Convert.ToInt32(info[i + 3]);
+
+                            idx = i + 3;
+                            goto fullDG;
+
+                            break;
+                    }
+                }
+
+            fullDG:
+                for (int i = 0; i < EloadDG_CCM.RowCount; i++)
+                {
+                    EloadDG_CCM[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    EloadDG_CCM[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    EloadDG_CCM[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    EloadDG_CCM[3, i].Value = Convert.ToString(info[idx + 4]); // start
+                    EloadDG_CCM[4, i].Value = Convert.ToString(info[idx + 5]); // step
+                    EloadDG_CCM[5, i].Value = Convert.ToString(info[idx + 6]); // stop
+                    idx += 6;
+                }
+
+                for (int i = 0; i < FreqDG.RowCount; i++)
+                {
+                    FreqDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    FreqDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    FreqDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    FreqDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
+                    idx += 4;
+                }
+
+                for (int i = 0; i < VoutDG.RowCount; i++)
+                {
+                    VoutDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    VoutDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    VoutDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    VoutDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
+                    idx += 4;
+                }
+
+                for (int i = 0; i < LTDG.RowCount; i++)
+                {
+                    LTDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    LTDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    LTDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    LTDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
+                    idx += 4;
+                }
 
             }
         }
     }
 }
+
+

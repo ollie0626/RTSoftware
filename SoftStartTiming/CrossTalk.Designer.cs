@@ -317,6 +317,7 @@ namespace SoftStartTiming
             this.BT_LoadSetting.TabIndex = 86;
             this.BT_LoadSetting.Text = "Load Setting";
             this.BT_LoadSetting.UseVisualStyleBackColor = true;
+            this.BT_LoadSetting.Click += new System.EventHandler(this.BT_LoadSetting_Click);
             // 
             // BT_SaveSetting
             // 
@@ -326,6 +327,7 @@ namespace SoftStartTiming
             this.BT_SaveSetting.TabIndex = 85;
             this.BT_SaveSetting.Text = "Save Setting";
             this.BT_SaveSetting.UseVisualStyleBackColor = true;
+            this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
             // 
             // nuslave
             // 

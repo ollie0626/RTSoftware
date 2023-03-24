@@ -687,8 +687,7 @@ namespace BuckTool
                     Eload_DG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
                     idx += 3;
                 }
-                
-
+               
             }
         }
 
