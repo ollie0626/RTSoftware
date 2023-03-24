@@ -775,7 +775,7 @@ namespace SoftStartTiming
             //double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
-            InsControl._oscilloscope.CHx_Level(ch, 0.05); // set 50mV
+            InsControl._oscilloscope.CHx_Level(ch, 0.01); // set 50mV
             InsControl._oscilloscope.CHx_Position(ch, 0);
         }
 
