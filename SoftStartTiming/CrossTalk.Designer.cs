@@ -97,18 +97,20 @@ namespace SoftStartTiming
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nuCH_number = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScopeCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ELoadCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -785,7 +787,7 @@ namespace SoftStartTiming
             this.groupBox1.Controls.Add(this.EloadDG_CCM);
             this.groupBox1.Location = new System.Drawing.Point(16, 17);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(786, 164);
+            this.groupBox1.Size = new System.Drawing.Size(976, 164);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "ELoad (CCM) Setting";
@@ -800,45 +802,17 @@ namespace SoftStartTiming
             this.Column5,
             this.Column6,
             this.Column2,
-            this.Column9});
+            this.Column9,
+            this.ScopeCH,
+            this.ELoadCH});
             this.EloadDG_CCM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.EloadDG_CCM.Location = new System.Drawing.Point(19, 27);
             this.EloadDG_CCM.Name = "EloadDG_CCM";
             this.EloadDG_CCM.RowTemplate.Height = 24;
-            this.EloadDG_CCM.Size = new System.Drawing.Size(751, 126);
+            this.EloadDG_CCM.Size = new System.Drawing.Size(951, 126);
             this.EloadDG_CCM.TabIndex = 0;
             this.EloadDG_CCM.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.EloadDG_CCM_CellValueChanged);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Rail (name)";
-            this.Column1.Name = "Column1";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Addr (Hex)";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "En On(Hex)";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "En Off(Hex)";
-            this.Column6.Name = "Column6";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "CCM Loading (A)";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 200;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Full Load";
-            this.Column9.Name = "Column9";
+            this.EloadDG_CCM.Enter += new System.EventHandler(this.EloadDG_CCM_Enter);
             // 
             // nuCH_number
             // 
@@ -913,6 +887,51 @@ namespace SoftStartTiming
             this.button1.Text = "Excel Kill";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Rail (name)";
+            this.Column1.Name = "Column1";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Addr (Hex)";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "En On(Hex)";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "En Off(Hex)";
+            this.Column6.Name = "Column6";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "CCM Loading (A)";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 200;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Full Load";
+            this.Column9.Name = "Column9";
+            // 
+            // ScopeCH
+            // 
+            this.ScopeCH.HeaderText = "Scope CH";
+            this.ScopeCH.Name = "ScopeCH";
+            this.ScopeCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ScopeCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ELoadCH
+            // 
+            this.ELoadCH.HeaderText = "ELoad CH";
+            this.ELoadCH.Name = "ELoadCH";
+            this.ELoadCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ELoadCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // CrossTalk
             // 
@@ -1030,13 +1049,15 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.CheckBox CKLx1En;
         private System.Windows.Forms.CheckBox CKLx2En;
+        private System.Windows.Forms.NumericUpDown nuToerance;
+        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
-        private System.Windows.Forms.NumericUpDown nuToerance;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ScopeCH;
+        private System.Windows.Forms.DataGridViewComboBoxColumn ELoadCH;
     }
 }

@@ -104,25 +104,26 @@ namespace SoftStartTiming
         public static Dictionary<int, List<byte>> vout_data = new Dictionary<int, List<byte>>();
         public static Dictionary<int, List<string>> freq_des = new Dictionary<int, List<string>>();
         public static Dictionary<int, List<string>> vout_des = new Dictionary<int, List<string>>();
-
         public static Dictionary<int, List<double>> lt_l1 = new Dictionary<int, List<double>>();
         public static Dictionary<int, List<double>> lt_l2 = new Dictionary<int, List<double>>();
+
+        public static List<int> scope_chx = new List<int>();
+        public static List<int> eload_chx = new List<int>();
 
 
 
         // ins active load
         public static double[] full_load;
-        //public static double[] lt_l1_full;
-        //public static double[] lt_full;
-
         public static byte[] cross_select;
         public static bool[] cross_en;
         public static int cross_mode;
 
         public static bool Lx1;
         public static bool Lx2;
-
         public static double tolerance;
+
+        // modify for support 8 channel eload and 4 channel scope
+        public static List<OutputInfo> outputs = new List<OutputInfo>();
 
 
     }

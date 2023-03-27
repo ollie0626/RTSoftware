@@ -128,6 +128,16 @@ namespace SoftStartTiming
             LTDG[3, 1].Value = "0.05";
             LTDG[3, 2].Value = "0.06";
             LTDG[3, 3].Value = "0.07";
+
+
+            for(int i = 1; i < 5; i++)
+            {
+                ScopeCH.Items.Add("CH" + i);
+                ELoadCH.Items.Add("CH" + i);
+            }
+
+            ScopeCH.Items.Add("Non-use");
+            ELoadCH.Items.Add("Non-use");
         }
 
 
@@ -295,6 +305,8 @@ namespace SoftStartTiming
             test_parameter.freq_des.Clear();
             test_parameter.vout_des.Clear();
             test_parameter.ccm_eload.Clear();
+            test_parameter.scope_chx.Clear();
+            test_parameter.eload_chx.Clear();
 
             test_parameter.lt_l1.Clear();
             test_parameter.lt_l2.Clear();
@@ -317,6 +329,22 @@ namespace SoftStartTiming
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[4, i].Value).Split(',').Select(double.Parse).ToList());
                 test_parameter.full_load[i] = Convert.ToDouble(EloadDG_CCM[5, i].Value);
                 //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
+
+                // get scope channel number
+                DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[6, i];
+                string txt = (string)comboBoxCell.Value;
+                if (txt == "Non-use")
+                    test_parameter.scope_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
+                else if (txt == "Non-use")
+                    test_parameter.scope_chx.Add(-1);
+
+                // get eload channel number
+                comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[7, i];
+                txt = (string)comboBoxCell.Value;
+                if (txt != "Non-use")
+                    test_parameter.eload_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
+                else if (txt == "Non-use")
+                    test_parameter.eload_chx.Add(-1);
 
                 // freq and vout parameter
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
@@ -781,6 +809,13 @@ namespace SoftStartTiming
                 }
 
             }
+        }
+
+        private void EloadDG_CCM_Enter(object sender, EventArgs e)
+        {
+            //ScopeCH.Items.Add("CH" + i);
+            //DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[6, 0];
+            //Console.WriteLine(comboBoxCell.Value);
         }
     }
 }
