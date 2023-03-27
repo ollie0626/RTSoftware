@@ -42,6 +42,8 @@ namespace SoftStartTiming
             VoutDG.RowCount = 4;
             LTDG.RowCount = 4;
             nuCH_number.Value = 4;
+            MeasDG.RowCount = 4;
+
 
             EloadDG_CCM[0, 0].Value = "Buck1";
             EloadDG_CCM[0, 1].Value = "Buck2";
@@ -130,14 +132,13 @@ namespace SoftStartTiming
             LTDG[3, 3].Value = "0.07";
 
 
-            for(int i = 1; i < 5; i++)
+            for (int i = 1; i < 5; i++)
             {
                 ScopeCH.Items.Add("CH" + i);
                 ELoadCH.Items.Add("CH" + i);
+                LxCH.Items.Add("CH" + i);
             }
-
-            ScopeCH.Items.Add("Non-use");
-            ELoadCH.Items.Add("Non-use");
+            LxCH.Items.Add("Non-use");
         }
 
 
@@ -333,18 +334,12 @@ namespace SoftStartTiming
                 // get scope channel number
                 DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[6, i];
                 string txt = (string)comboBoxCell.Value;
-                if (txt == "Non-use")
-                    test_parameter.scope_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
-                else if (txt == "Non-use")
-                    test_parameter.scope_chx.Add(-1);
+                test_parameter.scope_chx.Add(txt);
 
                 // get eload channel number
                 comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[7, i];
                 txt = (string)comboBoxCell.Value;
-                if (txt != "Non-use")
-                    test_parameter.eload_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
-                else if (txt == "Non-use")
-                    test_parameter.eload_chx.Add(-1);
+                test_parameter.eload_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
 
                 // freq and vout parameter
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
@@ -508,6 +503,7 @@ namespace SoftStartTiming
             FreqDG.RowCount = (int)nuCH_number.Value;
             VoutDG.RowCount = (int)nuCH_number.Value;
             LTDG.RowCount = (int)nuCH_number.Value;
+            MeasDG.RowCount = (int)nuCH_number.Value;
 
             // others conditions
             test_parameter.freq_addr = new byte[(int)nuCH_number.Value];
@@ -541,6 +537,7 @@ namespace SoftStartTiming
                 FreqDG[0, i].Value = test_parameter.rail_name[i];
                 VoutDG[0, i].Value = test_parameter.rail_name[i];
                 LTDG[0, i].Value = test_parameter.rail_name[i];
+                MeasDG[0, i].Value = test_parameter.rail_name[i];
             }
         }
 

@@ -182,8 +182,11 @@ namespace SoftStartTiming
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
 
-                if (victim == 0 && test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(3, 4);
-                if (victim == 1 && test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(4, 4);
+                string res = test_parameter.scope_lx[victim].Replace("CH","");
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(Convert.ToInt32(res), 4);
+
+                //if (victim == 0 && test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(3, 4);
+                //if (victim == 1 && test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(4, 4);
             }
 
             InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name);
@@ -471,7 +474,7 @@ namespace SoftStartTiming
 
                                         if (iout != 0)
                                             InsControl._eload.Loading(select_idx + 1, iout);
-                                        MeasureN(   n,
+                                        MeasureN(n,
                                                     select_idx,
                                                     Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                     group_idx,
@@ -807,23 +810,32 @@ namespace SoftStartTiming
             //if (select_idx == 1 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
 
 
-
             // turn vout channel
-            CHx_LevelReScale(test_parameter.scope_chx[select_idx], vout);
-
-
-
-            for(int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
+            string name = test_parameter.scope_chx[select_idx];
+            string res = test_parameter.scope_lx[select_idx];
+            switch (name)
             {
-                if (aggressor != test_parameter.scope_chx[select_idx])
-                {
-                    //sw_en[idx++] = test_parameter.scope_chx[aggressor];
-                    sw_en[idx++] = test_parameter.eload_chx[aggressor];
-                    InsControl._oscilloscope.CHx_Off(test_parameter.scope_chx[aggressor]);
-                }
+                case "CH1": CHx_LevelReScale(1, vout); break;
+                case "CH2": CHx_LevelReScale(2, vout); break;
+                case "CH3": CHx_LevelReScale(3, vout); break;
+                case "CH4": CHx_LevelReScale(4, vout); break;
             }
 
+            switch (res)
+            {
+                case "CH1": InsControl._oscilloscope.CHx_On(1); break;
+                case "CH2": InsControl._oscilloscope.CHx_On(2); break;
+                case "CH3": InsControl._oscilloscope.CHx_On(3); break;
+                case "CH4": InsControl._oscilloscope.CHx_On(4); break;
+            }
 
+            for (int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
+            {
+                if (aggressor != select_idx && test_parameter.scope_lx[select_idx].IndexOf("CH") != -1)
+                {
+                    sw_en[idx++] = test_parameter.eload_chx[aggressor];
+                }
+            }
 
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
@@ -850,7 +862,9 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
-                InsControl._eload.Loading(select_idx + 1, iout_n);
+                //InsControl._eload.Loading(select_idx + 1, iout_n);
+                InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
+
                 List<double> data = new List<double>();
                 List<double> data_l1 = new List<double>();
                 List<double> data_l2 = new List<double>();
@@ -937,10 +951,13 @@ namespace SoftStartTiming
 
                 string temp = test_parameter.waveform_name;
                 test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
-                MeasureVictim(select_idx + 1, col_start + 1, vout, before);
+                //MeasureVictim(select_idx + 1, col_start + 1, vout, before);
+
+                MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), col_start + 1, vout, before);
                 test_parameter.waveform_name = temp;
 
-                InsControl._eload.Loading(select_idx + 1, iout_n);
+                //InsControl._eload.Loading(select_idx + 1, iout_n);
+                InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
                 _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
 
                 //double[] read_iout = InsControl._eload.GetAllChannel_Iout();
@@ -953,6 +970,11 @@ namespace SoftStartTiming
                 InsControl._eload.AllChannel_LoadOff();
                 row++;
             }
+
+            InsControl._oscilloscope.CHx_Off(1);
+            InsControl._oscilloscope.CHx_Off(2);
+            InsControl._oscilloscope.CHx_Off(3);
+            InsControl._oscilloscope.CHx_Off(4);
         }
 
 
@@ -1028,7 +1050,7 @@ namespace SoftStartTiming
                                 int col_start = col_base;
 
 #if true
-                                
+
                                 _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                 , test_parameter.outputs[select_idx].vout_des[vout_idx]
                                                                 , test_parameter.outputs[select_idx].vout_addr

@@ -107,7 +107,8 @@ namespace SoftStartTiming
         public static Dictionary<int, List<double>> lt_l1 = new Dictionary<int, List<double>>();
         public static Dictionary<int, List<double>> lt_l2 = new Dictionary<int, List<double>>();
 
-        public static List<int> scope_chx = new List<int>();
+        public static List<string> scope_chx = new List<string>();
+        public static List<string> scope_lx = new List<string>();
         public static List<int> eload_chx = new List<int>();
 
 
