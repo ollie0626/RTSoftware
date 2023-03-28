@@ -111,16 +111,11 @@ namespace SoftStartTiming
         public static List<string> scope_lx = new List<string>();
         public static List<int> eload_chx = new List<int>();
 
-
-
         // ins active load
         public static double[] full_load;
         public static byte[] cross_select;
         public static bool[] cross_en;
         public static int cross_mode;
-
-        public static bool Lx1;
-        public static bool Lx2;
         public static double tolerance;
 
         // modify for support 8 channel eload and 4 channel scope
