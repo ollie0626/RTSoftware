@@ -309,6 +309,7 @@ namespace SoftStartTiming
             test_parameter.ccm_eload.Clear();
             test_parameter.scope_chx.Clear();
             test_parameter.eload_chx.Clear();
+            test_parameter.scope_lx.Clear();
 
             test_parameter.lt_l1.Clear();
             test_parameter.lt_l2.Clear();
@@ -333,17 +334,17 @@ namespace SoftStartTiming
                 //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
 
                 // get scope channel number (data type string -> "CHn")
-                DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[1, i];
+                DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)MeasDG[1, i];
                 string txt = (string)comboBoxCell.Value;
                 test_parameter.scope_chx.Add(txt);
 
                 // get eload channel number (data type int)
-                comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[2, i];
+                comboBoxCell = (DataGridViewComboBoxCell)MeasDG[2, i];
                 txt = (string)comboBoxCell.Value;
                 test_parameter.eload_chx.Add(Convert.ToInt32(txt.Replace("CH", "")));
 
                 // data type string -> "CHn"
-                comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[3, i];
+                comboBoxCell = (DataGridViewComboBoxCell)MeasDG[3, i];
                 txt = (string)comboBoxCell.Value;
                 test_parameter.scope_lx.Add(txt);
 

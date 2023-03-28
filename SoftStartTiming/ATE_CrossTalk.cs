@@ -63,6 +63,11 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Position(i + 1, 0);
             }
 
+            InsControl._oscilloscope.CHx_Off(1);
+            InsControl._oscilloscope.CHx_Off(2);
+            InsControl._oscilloscope.CHx_Off(3);
+            InsControl._oscilloscope.CHx_Off(4);
+
         }
 
         public override void ATETask()
@@ -182,14 +187,36 @@ namespace SoftStartTiming
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
 
-                string res = test_parameter.scope_lx[victim];
+                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
+                string res = "";
+                if (victim <= test_parameter.scope_lx.Count)
+                    res = test_parameter.scope_lx[victim - 1];
                 if(res.IndexOf("CH") != -1)
                 {
+                    
                     res = res.Replace("CH", "");
-                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(Convert.ToInt32(res), 4);
+                    int int_res = Convert.ToInt32(res);
+                    InsControl._oscilloscope.CHx_Offset(int_res, 0);
+                    InsControl._oscilloscope.SetTimeScale(0.001);
+                    InsControl._oscilloscope.SetNormalTrigger();
+                    InsControl._oscilloscope.SetTriggerRise();
+                    InsControl._oscilloscope.SetTriggerLevel(int_res, vmax * 0.5);
+
+                    
+                    InsControl._oscilloscope.CHx_Level(int_res, vmax / 4);
+                    InsControl._oscilloscope.CHx_Position(int_res, -3);
+                    double period = 0;
+                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                    InsControl._oscilloscope.SetTimeScale(period);
+
+                    MyLib.Delay1ms(800);
+                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
                 }
-                //if (victim == 0 && test_parameter.Lx1) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(3, 4);
-                //if (victim == 1 && test_parameter.Lx2) jitter = InsControl._oscilloscope.CHx_Meas_Jitter(4, 4);
             }
 
             InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name);
@@ -779,9 +806,22 @@ namespace SoftStartTiming
             //double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
-            InsControl._oscilloscope.CHx_Level(ch, 0.01); // set 10mV
+            InsControl._oscilloscope.CHx_Level(ch, 0.1); // set 10mV
             InsControl._oscilloscope.CHx_Position(ch, 0);
+
+
+            double vpp = 0;
+            for(int i = 0; i < 5; i++)
+            {
+                vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
+                vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
+                vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
+                InsControl._oscilloscope.CHx_Level(ch, vpp / 4); // set 10mV
+            }
+
+
         }
+
 
         private void MeasureN(int n, int select_idx, double vout,
                                 int group, double iout_n, int col_start,
@@ -835,7 +875,7 @@ namespace SoftStartTiming
             {
                 if (test_parameter.eload_chx[aggressor] != test_parameter.eload_chx[select_idx])
                 {
-                    sw_en[idx++] = test_parameter.eload_chx[aggressor];
+                    sw_en[idx++] = test_parameter.eload_chx[aggressor] - 1;
                 }
             }
 
@@ -865,6 +905,7 @@ namespace SoftStartTiming
             for (int i = 0; i < loop_cnt; i++)
             {
                 //InsControl._eload.Loading(select_idx + 1, iout_n);
+                InsControl._oscilloscope.SetAutoTrigger();
                 InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
 
                 List<double> data = new List<double>();
@@ -1180,6 +1221,9 @@ namespace SoftStartTiming
                                 for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                 {
 
+                                    InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
+                                    InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                    InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                                     double iout = (victim_idx == 0) ? 0 : victim_iout;
                                     test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                                     file_idx++,
