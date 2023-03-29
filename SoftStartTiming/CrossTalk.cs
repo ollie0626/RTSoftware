@@ -379,6 +379,7 @@ namespace SoftStartTiming
 
         private void BTRun_Click(object sender, EventArgs e)
         {
+
             BTRun.Enabled = false;
             try
             {
@@ -396,14 +397,15 @@ namespace SoftStartTiming
                     ATETask = new Thread(p_thread);
                     ATETask.Start(0);
                 }
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error Message:" + ex.Message);
                 Console.WriteLine("StackTrace:" + ex.StackTrace);
                 MessageBox.Show(ex.StackTrace);
+                BTRun.Enabled = true;
             }
+
         }
 
         private bool RecountTime()

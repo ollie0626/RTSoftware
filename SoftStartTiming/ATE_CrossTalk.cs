@@ -898,8 +898,10 @@ namespace SoftStartTiming
             {
                 //InsControl._eload.Loading(select_idx + 1, iout_n);
                 InsControl._oscilloscope.SetAutoTrigger();
-                if(iout_n != 0)
+                if (iout_n != 0)
                     InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
+                else
+                    InsControl._eload.LoadOFF(test_parameter.eload_chx[select_idx]);
 
                 List<double> data = new List<double>();
                 List<double> data_l1 = new List<double>();

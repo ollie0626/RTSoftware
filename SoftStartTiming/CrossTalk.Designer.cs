@@ -434,6 +434,7 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
+            this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.nuToerance);
             this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.groupBox4);
@@ -590,7 +591,6 @@ namespace SoftStartTiming
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.Silver;
-            this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Controls.Add(this.groupBox2);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox6);
@@ -605,7 +605,7 @@ namespace SoftStartTiming
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.MeasDG);
-            this.groupBox5.Location = new System.Drawing.Point(507, 187);
+            this.groupBox5.Location = new System.Drawing.Point(8, 380);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(485, 181);
             this.groupBox5.TabIndex = 108;
@@ -655,7 +655,7 @@ namespace SoftStartTiming
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LTDG);
-            this.groupBox2.Location = new System.Drawing.Point(507, 374);
+            this.groupBox2.Location = new System.Drawing.Point(507, 193);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(485, 181);
             this.groupBox2.TabIndex = 107;
