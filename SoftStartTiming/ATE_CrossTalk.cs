@@ -70,6 +70,88 @@ namespace SoftStartTiming
 
         }
 
+        public void WriteFreq(int select, int freq_idx)
+        {
+            int len = test_parameter.freq_addr.Length;
+            List<byte> freq_addr = new List<byte>();
+            List<byte> freq_data = new List<byte>();
+
+            for(int i = 0; i < len; i++)
+            {
+                for(int j = i + 1; j < len; j++)
+                {
+                    if(test_parameter.freq_addr[i] == test_parameter.freq_addr[j])
+                    {
+                        freq_addr.Add(test_parameter.freq_addr[i]);
+                        freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]
+                            | test_parameter.freq_data[j][freq_idx < test_parameter.freq_data[j].Count ? freq_idx : test_parameter.freq_data[j].Count - 1]));
+                        break;
+                    }
+                    else
+                    {
+                        if(freq_addr.IndexOf(test_parameter.freq_addr[i]) == -1)
+                        {
+                            freq_addr.Add(test_parameter.freq_addr[i]);
+                            freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]));
+                        }
+                    }
+                }
+                if(i == len - 1)
+                {
+                    freq_addr.Add(test_parameter.freq_addr[i]);
+                    freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]));
+                }
+            }
+
+            freq_addr = freq_addr.Distinct().ToList();
+
+
+            for(int i = 0; i < freq_addr.Count; i++)
+            {
+                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), freq_addr[i], new byte[] { freq_data[i] });
+            }
+        }
+
+        public void WriteEn(int idx)
+        {
+            int len = test_parameter.en_addr.Length;
+            List<byte> en_addr = new List<byte>();
+            List<byte> en_data = new List<byte>();
+            List<byte> dis_data = new List<byte>();
+
+            for (int i = 0; i < len; i++)
+            {
+                for (int j = i + 1; j < len; j++)
+                {
+                    if (test_parameter.en_addr[i] == test_parameter.en_addr[j])
+                    {
+                        en_addr.Add(test_parameter.en_addr[i]);
+                        en_data.Add((byte)(test_parameter.en_data[i] | test_parameter.en_data[j]));
+                        dis_data.Add((byte)(test_parameter.disen_data[i] | test_parameter.disen_data[j]));
+                        break;
+                    }
+                    else
+                    {
+                        if (en_addr.IndexOf(test_parameter.en_addr[i]) == -1)
+                        {
+                            en_addr.Add(test_parameter.en_addr[i]);
+                            en_data.Add((byte)(test_parameter.en_data[i]));
+                            en_data.Add((byte)(test_parameter.disen_data[i]));
+                        }
+                    }
+                }
+                if (i == len - 1)
+                {
+                    en_addr.Add(test_parameter.en_addr[i]);
+                    en_data.Add((byte)(test_parameter.en_data[i]));
+                    dis_data.Add((byte)(test_parameter.disen_data[i]));
+
+                }
+            }
+
+            en_addr = en_addr.Distinct().ToList();
+        }
+
         public override void ATETask()
         {
             RTDev.BoadInit();
@@ -331,9 +413,12 @@ namespace SoftStartTiming
                                             new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
 
                             /* change victim freq */
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                                            test_parameter.freq_addr[select_idx],
-                                            new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
+                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                            //                test_parameter.freq_addr[select_idx],
+                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
+                            WriteFreq(select_idx, freq_idx);
+
+
 
                             int cnt_max = 0;
                             for (int cnt_idx = 0; cnt_idx < test_parameter.cross_en.Length; cnt_idx++)
@@ -982,7 +1067,6 @@ namespace SoftStartTiming
                                 InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500); // 1KHz
                             else
                                 InsControl._eload.LoadOFF(sw_en[j] + 1);
-
                             break;
                     }
                 }

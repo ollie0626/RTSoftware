@@ -61,6 +61,12 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.MeasDG = new System.Windows.Forms.DataGridView();
+            this.Railname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScopeCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ELoadCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.LxCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.nuToerance = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -73,12 +79,6 @@ namespace SoftStartTiming
             this.tb_vinList = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.MeasDG = new System.Windows.Forms.DataGridView();
-            this.Railname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScopeCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ELoadCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.LxCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.LTDG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -93,10 +93,6 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.FreqDG = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -111,17 +107,21 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.LTDG)).BeginInit();
             this.groupBox7.SuspendLayout();
@@ -473,6 +473,56 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.MeasDG);
+            this.groupBox5.Location = new System.Drawing.Point(8, 380);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(485, 181);
+            this.groupBox5.TabIndex = 108;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Measure Setting";
+            // 
+            // MeasDG
+            // 
+            this.MeasDG.AllowUserToAddRows = false;
+            this.MeasDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MeasDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Railname,
+            this.ScopeCH,
+            this.ELoadCH,
+            this.LxCH});
+            this.MeasDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.MeasDG.Location = new System.Drawing.Point(19, 27);
+            this.MeasDG.Name = "MeasDG";
+            this.MeasDG.RowTemplate.Height = 24;
+            this.MeasDG.Size = new System.Drawing.Size(450, 143);
+            this.MeasDG.TabIndex = 0;
+            // 
+            // Railname
+            // 
+            this.Railname.HeaderText = "Rail (name)";
+            this.Railname.Name = "Railname";
+            // 
+            // ScopeCH
+            // 
+            this.ScopeCH.HeaderText = "Scope CH";
+            this.ScopeCH.Name = "ScopeCH";
+            this.ScopeCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ScopeCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ELoadCH
+            // 
+            this.ELoadCH.HeaderText = "ELoad CH";
+            this.ELoadCH.Name = "ELoadCH";
+            this.ELoadCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ELoadCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // LxCH
+            // 
+            this.LxCH.HeaderText = "Lx CH";
+            this.LxCH.Name = "LxCH";
+            // 
             // nuToerance
             // 
             this.nuToerance.DecimalPlaces = 3;
@@ -602,60 +652,10 @@ namespace SoftStartTiming
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Condition Setting";
             // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.MeasDG);
-            this.groupBox5.Location = new System.Drawing.Point(8, 380);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(485, 181);
-            this.groupBox5.TabIndex = 108;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Measure Setting";
-            // 
-            // MeasDG
-            // 
-            this.MeasDG.AllowUserToAddRows = false;
-            this.MeasDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MeasDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Railname,
-            this.ScopeCH,
-            this.ELoadCH,
-            this.LxCH});
-            this.MeasDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.MeasDG.Location = new System.Drawing.Point(19, 27);
-            this.MeasDG.Name = "MeasDG";
-            this.MeasDG.RowTemplate.Height = 24;
-            this.MeasDG.Size = new System.Drawing.Size(450, 143);
-            this.MeasDG.TabIndex = 0;
-            // 
-            // Railname
-            // 
-            this.Railname.HeaderText = "Rail (name)";
-            this.Railname.Name = "Railname";
-            // 
-            // ScopeCH
-            // 
-            this.ScopeCH.HeaderText = "Scope CH";
-            this.ScopeCH.Name = "ScopeCH";
-            this.ScopeCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ScopeCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ELoadCH
-            // 
-            this.ELoadCH.HeaderText = "ELoad CH";
-            this.ELoadCH.Name = "ELoadCH";
-            this.ELoadCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ELoadCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // LxCH
-            // 
-            this.LxCH.HeaderText = "Lx CH";
-            this.LxCH.Name = "LxCH";
-            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LTDG);
-            this.groupBox2.Location = new System.Drawing.Point(507, 193);
+            this.groupBox2.Location = new System.Drawing.Point(507, 187);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(485, 181);
             this.groupBox2.TabIndex = 107;
@@ -771,27 +771,6 @@ namespace SoftStartTiming
             this.FreqDG.RowTemplate.Height = 24;
             this.FreqDG.Size = new System.Drawing.Size(432, 143);
             this.FreqDG.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Data (Hex)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Freq Des.";
-            this.Column8.Name = "Column8";
             // 
             // groupBox1
             // 
@@ -928,6 +907,27 @@ namespace SoftStartTiming
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Data (Hex)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Freq(KHz) Des.";
+            this.Column8.Name = "Column8";
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -953,13 +953,13 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.tabPage4.ResumeLayout(false);
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.LTDG)).EndInit();
             this.groupBox7.ResumeLayout(false);
@@ -1026,10 +1026,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridView LTDG;
@@ -1056,5 +1052,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewComboBoxColumn ScopeCH;
         private System.Windows.Forms.DataGridViewComboBoxColumn ELoadCH;
         private System.Windows.Forms.DataGridViewComboBoxColumn LxCH;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
     }
 }
