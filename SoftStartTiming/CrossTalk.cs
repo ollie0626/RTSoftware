@@ -20,7 +20,7 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.1";
+        private string win_name = "Cross talk v1.2";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk = new ATE_CrossTalk();
         Thread ATETask;
@@ -300,6 +300,7 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
+            nuCH_number_ValueChanged(null, null);
             test_parameter.freq_data.Clear();
             test_parameter.vout_data.Clear();
             test_parameter.freq_des.Clear();
@@ -349,8 +350,25 @@ namespace SoftStartTiming
                 // freq and vout parameter
                 test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
                 test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, i].Value), 16);
-                test_parameter.freq_data.Add(i, ((string)FreqDG[2, i].Value).Split(',').Select(byte.Parse).ToList());
-                test_parameter.vout_data.Add(i, ((string)VoutDG[2, i].Value).Split(',').Select(byte.Parse).ToList());
+
+                string[] tmp = ((string)FreqDG[2, i].Value).Split(',');
+                byte[] byt_tmp = new byte[tmp.Length];
+                for(int idx = 0; idx < tmp.Length; idx++)
+                {
+                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                }
+                test_parameter.freq_data.Add(i, byt_tmp.ToList());
+
+
+
+                tmp = ((string)VoutDG[2, i].Value).Split(',');
+                byt_tmp = new byte[tmp.Length];
+                for (int idx = 0; idx < tmp.Length; idx++)
+                {
+                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                }
+                test_parameter.vout_data.Add(i, byt_tmp.ToList());
+
                 test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
 

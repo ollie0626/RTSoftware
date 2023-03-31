@@ -212,7 +212,7 @@ namespace SoftStartTiming
                     period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                     InsControl._oscilloscope.SetTimeScale(period);
 
-                    MyLib.Delay1ms(800);
+                    MyLib.Delay1ms(300);
                     jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
                 }
             }
