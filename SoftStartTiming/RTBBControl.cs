@@ -45,13 +45,20 @@ namespace SoftStartTiming
             byte res = 0;
 
             GlobalVariable.I2CSLAVEADDR i2CSLAVEADDR = new GlobalVariable.I2CSLAVEADDR();
-            i2cModule.RTBB_I2CScanSlaveDevice(ref i2CSLAVEADDR);
+            List<byte> slave_list = new List<byte>();
 
+            for (int slave = 0; slave < 128; slave +=2)
+            {
+                i2cModule.RTBB_I2CScanSlaveDevice(ref i2CSLAVEADDR);
+                slave = i2cModule.RTBB_I2CGetFirstValidSlaveAddr(ref i2CSLAVEADDR, slave);
+                bool valid = i2cModule.I2C_SLAVE_ADDR_IS_VALID(i2CSLAVEADDR, slave);
 
+                if (valid)
+                    slave_list.Add((byte)(slave << 1));
+                else
+                    break;
 
-            //i2cModule.I2C_SLAVE_ADDR_IS_VALID()
-
-
+            }
 
             return res;
         }
