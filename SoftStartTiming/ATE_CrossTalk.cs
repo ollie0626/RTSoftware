@@ -480,8 +480,6 @@ namespace SoftStartTiming
                             //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
                             WriteFreq(select_idx, freq_idx);
 
-
-
                             int cnt_max = 0;
                             for (int cnt_idx = 0; cnt_idx < test_parameter.cross_en.Length; cnt_idx++)
                             {
@@ -1120,13 +1118,11 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j].ToString("X") + "->" + test_parameter.hi_code[j].ToString("X") : "0";
 
                             //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
-
-
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;
-                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.vid_addr[j], new byte[] { test_parameter.hi_code[j] });
                                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.vid_addr[j], new byte[] { test_parameter.lo_code[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.vid_addr[j], new byte[] { test_parameter.hi_code[j] });
                             }
                             break;
                         case 3: // LT

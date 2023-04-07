@@ -111,6 +111,8 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label6 = new System.Windows.Forms.Label();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -655,7 +657,7 @@ namespace SoftStartTiming
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.LTDG);
-            this.groupBox2.Location = new System.Drawing.Point(507, 187);
+            this.groupBox2.Location = new System.Drawing.Point(507, 193);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(485, 181);
             this.groupBox2.TabIndex = 107;
@@ -928,12 +930,30 @@ namespace SoftStartTiming
             this.Column8.HeaderText = "Freq(KHz) Des.";
             this.Column8.Name = "Column8";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(17, 762);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(97, 12);
+            this.label6.TabIndex = 114;
+            this.label6.Text = "Progress Status :";
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(16, 777);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(371, 21);
+            this.progressBar2.TabIndex = 115;
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1066, 813);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.nuCH_number);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BTPause);
@@ -1056,5 +1076,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ProgressBar progressBar2;
     }
 }

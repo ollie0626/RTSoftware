@@ -152,7 +152,11 @@ namespace SoftStartTiming
 
             RTBBControl RTDev = new RTBBControl();
             RTDev.BoadInit();
-            RTDev.ScanSlaveID();
+            List<byte> list = RTDev.ScanSlaveID();
+
+            if (list.Count > 0)
+                nuslave.Value = list[0];
+
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -362,8 +366,6 @@ namespace SoftStartTiming
                     byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
                 }
                 test_parameter.freq_data.Add(i, byt_tmp.ToList());
-
-
 
                 tmp = ((string)VoutDG[2, i].Value).Split(',');
                 byt_tmp = new byte[tmp.Length];

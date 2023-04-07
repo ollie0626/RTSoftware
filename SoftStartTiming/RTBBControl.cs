@@ -40,9 +40,9 @@ namespace SoftStartTiming
             }
         }
 
-        public byte ScanSlaveID()
+        public List<byte> ScanSlaveID()
         {
-            byte res = 0;
+            if (i2cModule == null) return null;
 
             GlobalVariable.I2CSLAVEADDR i2CSLAVEADDR = new GlobalVariable.I2CSLAVEADDR();
             List<byte> slave_list = new List<byte>();
@@ -54,13 +54,11 @@ namespace SoftStartTiming
                 bool valid = i2cModule.I2C_SLAVE_ADDR_IS_VALID(i2CSLAVEADDR, slave);
 
                 if (valid)
-                    slave_list.Add((byte)(slave << 1));
+                    slave_list.Add((byte)(slave));
                 else
                     break;
-
             }
-
-            return res;
+            return slave_list;
         }
 
         public void GpioInit()
