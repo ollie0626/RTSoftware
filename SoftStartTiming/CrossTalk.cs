@@ -149,6 +149,10 @@ namespace SoftStartTiming
             DataGridviewInit();
             ate_table = new TaskRun[] { _ate_crosstalk };
             CBItem.SelectedIndex = 0;
+
+            RTBBControl RTDev = new RTBBControl();
+            RTDev.BoadInit();
+            RTDev.ScanSlaveID();
         }
 
         private void BTScan_Click(object sender, EventArgs e)

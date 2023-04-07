@@ -70,7 +70,7 @@ namespace SoftStartTiming
 
         }
 
-        public void WriteFreq(int select, int freq_idx)
+        public void WriteFreq(int sealect, int freq_idx)
         {
             int len = test_parameter.freq_addr.Length;
             List<byte> freq_addr = new List<byte>();
@@ -112,48 +112,110 @@ namespace SoftStartTiming
             }
         }
 
-        public void WriteEn(int idx)
+
+        public void WriteEn(List<double> data, byte[] addr, byte[] en_on, byte[] dis_off)
         {
             int len = test_parameter.en_addr.Length;
+            //List<byte> wr_en = new List<byte>();
             List<byte> en_addr = new List<byte>();
-            List<byte> en_data = new List<byte>();
-            List<byte> dis_data = new List<byte>();
 
-            for (int i = 0; i < len; i++)
+            Dictionary<int, byte> wr_en = new Dictionary<int, byte>();
+
+            // find same enable address
+            for(int i = 0; i < data.Count; i++)
             {
-                for (int j = i + 1; j < len; j++)
+                for(int j = i + 1; j < data.Count; j++)
                 {
-                    if (test_parameter.en_addr[i] == test_parameter.en_addr[j])
+                    if(addr[i] == addr[j])
                     {
-                        en_addr.Add(test_parameter.en_addr[i]);
-                        en_data.Add((byte)(test_parameter.en_data[i] | test_parameter.en_data[j]));
-                        dis_data.Add((byte)(test_parameter.disen_data[i] | test_parameter.disen_data[j]));
+                        en_addr.Add(addr[i]);
+
+                        // truth tabel state
+                        if (data[i] == 1 && data[j] == 1)
+                        {
+                            if(wr_en.ContainsKey(addr[i]))
+                            {
+                                wr_en[addr[i]] |= en_on[j];
+                            }
+                            else
+                            {
+                                wr_en.Add(addr[i], (byte)(en_on[i] | en_on[j]));
+                            }
+                        }
+                        else if (data[i] == 1)
+                        {
+                            if (wr_en.ContainsKey(addr[i]))
+                            {
+                                wr_en[addr[i]] |= (byte)(en_on[i]);
+                            }
+                            else
+                            {
+                                wr_en.Add(addr[i], (byte)(en_on[i]));
+                            }
+                                
+                        }
+                        else if (data[j] == 1)
+                        {
+                            if (wr_en.ContainsKey(addr[i]))
+                            {
+                                wr_en[addr[i]] |= (byte)(en_on[j]);
+                            }
+                            else
+                            {
+                                wr_en.Add(addr[i], (byte)en_on[j]);
+                            }
+                                
+                        }
+                        else
+                        {
+                            if (wr_en.ContainsKey(addr[i]))
+                            {
+                                wr_en[addr[i]] |= (byte)(dis_off[i] | dis_off[j]);
+                            }
+                            else
+                            {
+                                wr_en.Add(addr[i], (byte)(dis_off[i] | dis_off[j]));
+                            }
+                        }
+
                         break;
                     }
                     else
                     {
-                        if (en_addr.IndexOf(test_parameter.en_addr[i]) == -1)
+                        if(en_addr.IndexOf(addr[i]) == -1)
                         {
-                            en_addr.Add(test_parameter.en_addr[i]);
-                            en_data.Add((byte)(test_parameter.en_data[i]));
-                            en_data.Add((byte)(test_parameter.disen_data[i]));
+                            en_addr.Add(addr[i]);
+                            wr_en.Add(addr[i], (byte)(en_on[i]));
                         }
                     }
                 }
-                if (i == len - 1)
-                {
-                    en_addr.Add(test_parameter.en_addr[i]);
-                    en_data.Add((byte)(test_parameter.en_data[i]));
-                    dis_data.Add((byte)(test_parameter.disen_data[i]));
 
+                if(i == data.Count - 1 && en_addr.IndexOf(addr[i]) == -1)
+                {
+                    en_addr.Add(addr[i]);
+                    wr_en.Add(addr[i], (byte)(en_on[i]));
                 }
             }
 
             en_addr = en_addr.Distinct().ToList();
+
+            for (int idx = 0; idx < 100; idx++)
+            {
+                for (int i = 0; i < en_addr.Count; i++)
+                {
+                    for (int j = 0; j < addr.Length; j++)
+                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), addr[j], new byte[] { dis_off[i] });
+
+                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), en_addr[i], new byte[] { wr_en[en_addr[i]] });
+                }
+            }
         }
 
         public override void ATETask()
         {
+            //double[] data = new double[] { 0, 0, 1, 1 };
+            //WriteEn(data.ToList(), test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
+
             RTDev.BoadInit();
 #if true
             // Excel initial
@@ -585,7 +647,7 @@ namespace SoftStartTiming
 
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
-                                    MeasureN(n,
+                                    MeasureN(   n,
                                                 select_idx,
                                                 Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                 group_idx,
@@ -981,7 +1043,8 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
-                //InsControl._eload.Loading(select_idx + 1, iout_n);
+                // each of loop represent truth table row
+                // InsControl._eload.Loading(select_idx + 1, iout_n);
                 InsControl._oscilloscope.SetAutoTrigger();
                 if (iout_n != 0)
                     InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
@@ -1042,16 +1105,23 @@ namespace SoftStartTiming
                         case 1: // i2c on / off
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
-                            for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
-                            {
-                                if (data[j] == 0) break;
-                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.en_data[j] });
-                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.disen_data[j] });
-                            }
+
+                            WriteEn(data, test_parameter.en_addr, test_parameter.en_addr, test_parameter.disen_data);
+
+                            //for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
+                            //{
+                            //    if (data[j] == 0) break;
+                            //    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.disen_data[j] });
+                            //    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.en_addr[j], new byte[] { test_parameter.en_data[j] });
+                            //}
                             break;
                         case 2: // i2c VID
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j].ToString("X") + "->" + test_parameter.hi_code[j].ToString("X") : "0";
+
+                            //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
+
+
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;

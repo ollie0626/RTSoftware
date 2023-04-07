@@ -40,6 +40,22 @@ namespace SoftStartTiming
             }
         }
 
+        public byte ScanSlaveID()
+        {
+            byte res = 0;
+
+            GlobalVariable.I2CSLAVEADDR i2CSLAVEADDR = new GlobalVariable.I2CSLAVEADDR();
+            i2cModule.RTBB_I2CScanSlaveDevice(ref i2CSLAVEADDR);
+
+
+
+            //i2cModule.I2C_SLAVE_ADDR_IS_VALID()
+
+
+
+            return res;
+        }
+
         public void GpioInit()
         {
             if (gpioModule == null) return;
