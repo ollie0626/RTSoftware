@@ -399,6 +399,33 @@ namespace SoftStartTiming
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.tolerance = (double)nuToerance.Value / 100;
 
+            int vout_cnt = test_parameter.vout_data[0].Count;
+            int freq_cnt = test_parameter.freq_data[0].Count;
+            int iout_cnt = test_parameter.ccm_eload[0].Count;
+
+            for(int i = 1; i < nuCH_number.Value; i++)
+            {
+                if (vout_cnt < test_parameter.vout_data[i].Count)
+                    vout_cnt = test_parameter.vout_data[i].Count;
+
+                if (freq_cnt < test_parameter.freq_data[i].Count)
+                    freq_cnt = test_parameter.freq_data[i].Count;
+
+                if (iout_cnt < test_parameter.ccm_eload[i].Count)
+                    iout_cnt = test_parameter.ccm_eload[i].Count;
+            }
+
+            int n = ((int)nuCH_number.Value - 1);
+            int progress_max = (int)nuCH_number.Value
+                                * test_parameter.VinList.Count
+                                * vout_cnt
+                                * freq_cnt
+                                * iout_cnt
+                                * 2 // no load and full load
+                                * (int)Math.Pow(2, n)
+                                ;
+
+            progressBar2.Maximum = progress_max;
         }
 
         private void BTRun_Click(object sender, EventArgs e)

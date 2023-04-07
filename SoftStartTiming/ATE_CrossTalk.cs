@@ -626,7 +626,6 @@ namespace SoftStartTiming
 #endif
                                 for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                 {
-
                                     double iout = (victim_idx == 0) ? 0 : victim_iout;
                                     test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                                     file_idx++,
@@ -1041,6 +1040,7 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
+                
                 // each of loop represent truth table row
                 // InsControl._eload.Loading(select_idx + 1, iout_n);
                 InsControl._oscilloscope.SetAutoTrigger();
