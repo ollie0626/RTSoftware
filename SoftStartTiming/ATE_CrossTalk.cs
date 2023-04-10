@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace SoftStartTiming
@@ -23,6 +24,7 @@ namespace SoftStartTiming
 
         int row = 20;
         int[] col_pos = new int[17];
+        int progress = 0;
 
         enum Col_List
         {
@@ -37,10 +39,28 @@ namespace SoftStartTiming
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
 
-        public ATE_CrossTalk()
+        CrossTalk updateMain;
+
+        public ATE_CrossTalk(CrossTalk main)
         {
             delegate_mess = new FinishNotification(MessageNotify);
+            updateMain = main;
         }
+
+        //private ProgressBar progressBar;
+        //private delegate void UpdateProgressDelegate(int val);
+        //private void UpdateStatus(int val)
+        //{
+        //    if(progressBar.InvokeRequired)
+        //    {
+        //        UpdateProgressDelegate d = new UpdateProgressDelegate(UpdateStatus);
+        //        progressBar.Invoke(d, val);
+        //    }
+        //    else
+        //    {
+        //        progressBar.Value = val;
+        //    }
+        //}
 
         private void MessageNotify()
         {
@@ -215,7 +235,10 @@ namespace SoftStartTiming
         {
             //double[] data = new double[] { 0, 0, 1, 1 };
             //WriteEn(data.ToList(), test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
+            //updateMain.UpdateProgressBar(3);
 
+            
+            updateMain.UpdateProgressBar(0);
             RTDev.BoadInit();
 #if true
             // Excel initial
@@ -1040,7 +1063,7 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
-                
+                updateMain.UpdateProgressBar(progress++);
                 // each of loop represent truth table row
                 // InsControl._eload.Loading(select_idx + 1, iout_n);
                 InsControl._oscilloscope.SetAutoTrigger();

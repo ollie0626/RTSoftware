@@ -537,7 +537,13 @@ namespace OLEDLite
             if (InsControl._chamber != null) {
                 InsControl._chamber.ChamberOn(25);
                 await InsControl._chamber.ChamberStable(25);
-                InsControl._chamber.ChamberOff();
+
+                for(int i = 0; i < 3; i++)
+                {
+                    InsControl._chamber.ChamberOff();
+                    MyLib.Delay1ms(500);
+                }
+                
             }
             UpdateRunButton();
         }

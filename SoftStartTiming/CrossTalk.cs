@@ -22,7 +22,7 @@ namespace SoftStartTiming
     {
         private string win_name = "Cross talk v1.2";
         ParameterizedThreadStart p_thread;
-        ATE_CrossTalk _ate_crosstalk = new ATE_CrossTalk();
+        ATE_CrossTalk _ate_crosstalk;
         Thread ATETask;
         int SteadyTime;
         string[] tempList;
@@ -147,7 +147,10 @@ namespace SoftStartTiming
         {
             this.Text = win_name;
             DataGridviewInit();
+
+            _ate_crosstalk = new ATE_CrossTalk(this);
             ate_table = new TaskRun[] { _ate_crosstalk };
+
             CBItem.SelectedIndex = 0;
 
             RTBBControl RTDev = new RTBBControl();
@@ -426,6 +429,11 @@ namespace SoftStartTiming
                                 ;
 
             progressBar2.Maximum = progress_max;
+        }
+
+        public void UpdateProgressBar(int val)
+        {
+            progressBar2.Invoke((MethodInvoker)(() => progressBar2.Value = val));
         }
 
         private void BTRun_Click(object sender, EventArgs e)
