@@ -230,6 +230,13 @@ namespace OLEDLite
                         row++;
                     } // eload loop
 
+                    InsControl._power.AutoPowerOff();
+
+                    InsControl._eload.AllChannel_LoadOff();
+                    InsControl._eload.CH1_ClearSetting();
+                    InsControl._eload.CH2_ClearSetting();
+                    InsControl._eload.CH3_ClearSetting();
+                    
                     stop_pos.Add(row - 1);
                 } // power loop
 #if Report
