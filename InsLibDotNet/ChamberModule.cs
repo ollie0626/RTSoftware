@@ -113,10 +113,18 @@ namespace InsLibDotNet
 
         public void ChamberOff()
         {
-            string gogoCMD = "KT\r\n";
-            doCommand(gogoCMD);
-            gogoCMD = "<command>,\r\n";
-            doCommand(gogoCMD);
+            int times = 5;
+            for(int i = 0; i < times; i++)
+            {
+                string gogoCMD = "KT\r\n";
+                doCommand(gogoCMD);
+                gogoCMD = "<command>,\r\n";
+                doCommand(gogoCMD);
+
+                GetChamberTemperature();
+                System.Threading.Thread.Sleep(200);
+            }
+
         }
 
         public double GetChamberTemperature()
