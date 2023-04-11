@@ -47,21 +47,6 @@ namespace SoftStartTiming
             updateMain = main;
         }
 
-        //private ProgressBar progressBar;
-        //private delegate void UpdateProgressDelegate(int val);
-        //private void UpdateStatus(int val)
-        //{
-        //    if(progressBar.InvokeRequired)
-        //    {
-        //        UpdateProgressDelegate d = new UpdateProgressDelegate(UpdateStatus);
-        //        progressBar.Invoke(d, val);
-        //    }
-        //    else
-        //    {
-        //        progressBar.Value = val;
-        //    }
-        //}
-
         private void MessageNotify()
         {
             System.Windows.Forms.MessageBox.Show("Cross Talk test finished!!!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
@@ -972,19 +957,12 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Position(ch, 0);
 
             double vpp = 0;
-            //double vol = 0;
             for (int i = 0; i < 5; i++)
             {
-
-
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
                 MyLib.Delay1ms(200);
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
-
-               
-
-
                 InsControl._oscilloscope.CHx_Level(ch, vpp / 2);
             }
 
