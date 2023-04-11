@@ -164,6 +164,8 @@ namespace OLEDLite
             this.ck_meter_in = new System.Windows.Forms.CheckBox();
             this.ck_power = new System.Windows.Forms.CheckBox();
             this.tb_res_meter_in = new System.Windows.Forms.TextBox();
+            this.BT_LoadSetting = new System.Windows.Forms.Button();
+            this.BT_SaveSetting = new System.Windows.Forms.Button();
             this.materialTabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.group_CV.SuspendLayout();
@@ -225,10 +227,11 @@ namespace OLEDLite
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage2.Controls.Add(this.BT_LoadSetting);
             this.tabPage2.Controls.Add(this.group_CV);
-            this.tabPage2.Controls.Add(this.materialButton1);
             this.tabPage2.Controls.Add(this.materialTabSelector1);
             this.tabPage2.Controls.Add(this.label23);
+            this.tabPage2.Controls.Add(this.BT_SaveSetting);
             this.tabPage2.Controls.Add(this.nu_Sys_clk);
             this.tabPage2.Controls.Add(this.tb_initial_bin);
             this.tabPage2.Controls.Add(this.label10);
@@ -238,18 +241,13 @@ namespace OLEDLite
             this.tabPage2.Controls.Add(this.tb_res_func);
             this.tabPage2.Controls.Add(this.CK_I2c);
             this.tabPage2.Controls.Add(this.group_funcgen);
-            this.tabPage2.Controls.Add(this.bt_connect);
             this.tabPage2.Controls.Add(this.tb_bin);
             this.tabPage2.Controls.Add(this.label8);
             this.tabPage2.Controls.Add(this.cb_item);
-            this.tabPage2.Controls.Add(this.bt_scanIns);
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.group_interface);
-            this.tabPage2.Controls.Add(this.bt_stop);
             this.tabPage2.Controls.Add(this.list_ins);
-            this.tabPage2.Controls.Add(this.bt_pause);
             this.tabPage2.Controls.Add(this.tb_res_scope);
-            this.tabPage2.Controls.Add(this.bt_run);
             this.tabPage2.Controls.Add(this.tb_res_daq);
             this.tabPage2.Controls.Add(this.ck_chamber);
             this.tabPage2.Controls.Add(this.tb_res_eload);
@@ -1363,11 +1361,31 @@ namespace OLEDLite
             resources.ApplyResources(this.tb_res_meter_in, "tb_res_meter_in");
             this.tb_res_meter_in.Name = "tb_res_meter_in";
             // 
+            // BT_LoadSetting
+            // 
+            resources.ApplyResources(this.BT_LoadSetting, "BT_LoadSetting");
+            this.BT_LoadSetting.Name = "BT_LoadSetting";
+            this.BT_LoadSetting.UseVisualStyleBackColor = true;
+            this.BT_LoadSetting.Click += new System.EventHandler(this.BT_LoadSetting_Click);
+            // 
+            // BT_SaveSetting
+            // 
+            resources.ApplyResources(this.BT_SaveSetting, "BT_SaveSetting");
+            this.BT_SaveSetting.Name = "BT_SaveSetting";
+            this.BT_SaveSetting.UseVisualStyleBackColor = true;
+            this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
+            // 
             // main
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.materialButton1);
             this.Controls.Add(this.materialTabControl1);
+            this.Controls.Add(this.bt_connect);
+            this.Controls.Add(this.bt_run);
+            this.Controls.Add(this.bt_pause);
+            this.Controls.Add(this.bt_stop);
+            this.Controls.Add(this.bt_scanIns);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "main";
             this.Resize += new System.EventHandler(this.main_Resize);
@@ -1420,6 +1438,7 @@ namespace OLEDLite
             ((System.ComponentModel.ISupportInitialize)(this.nu_load1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Eload_DG)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -1559,6 +1578,8 @@ namespace OLEDLite
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.NumericUpDown nuVin_threshold;
+        private System.Windows.Forms.Button BT_LoadSetting;
+        private System.Windows.Forms.Button BT_SaveSetting;
     }
 }
 

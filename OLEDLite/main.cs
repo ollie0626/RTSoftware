@@ -16,6 +16,7 @@ using System.Threading;
 using System.Net.Sockets;
 using System.Net;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 
 namespace OLEDLite
@@ -537,13 +538,7 @@ namespace OLEDLite
             if (InsControl._chamber != null) {
                 InsControl._chamber.ChamberOn(25);
                 await InsControl._chamber.ChamberStable(25);
-
-                for(int i = 0; i < 3; i++)
-                {
-                    InsControl._chamber.ChamberOff();
-                    MyLib.Delay1ms(500);
-                }
-                
+                InsControl._chamber.ChamberOff();                
             }
             UpdateRunButton();
         }
@@ -757,6 +752,164 @@ namespace OLEDLite
         {
             string at = InsControl._chamber.doQueryString("AT");
             MessageBox.Show(at);
+        }
+
+        private void BT_SaveSetting_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savedlg = new SaveFileDialog();
+            savedlg.Filter = "settings|*.tb_info";
+
+            if (savedlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = savedlg.FileName;
+                SaveSettings(file_name);
+            }
+        }
+
+        private void SaveSettings(string file)
+        {
+            string settings = "";
+
+            settings = "0=$" + tb_res_scope.Text + "$\r\n";
+            settings += "1=$" + tb_res_daq.Text + "$\r\n";
+            settings += "2=$" + tb_res_eload.Text + "$\r\n";
+            settings += "3=$" + tb_res_power.Text + "$\r\n";
+            settings += "4=$" + tb_res_meter_in.Text + "$\r\n";
+            settings += "5=$" + tb_res_meter_in.Text + "$\r\n";
+            settings += "6=$" + tb_res_meter_out.Text + "$\r\n";
+            settings += "7=$" + tb_res_chamber.Text + "$\r\n";
+            settings += "8=$" + tb_res_func.Text + "$\r\n";
+            settings += "9=$" + tb_templist.Text + "$\r\n";
+            settings += "10=$" + tb_IPAddress.Text + "$\r\n";
+            settings += "11=$" + tb_wave_path.Text + "$\r\n";
+            settings += "12=$" + tb_Vin.Text + "$\r\n";
+            settings += "13=$" + tb_High_level.Text + "$\r\n";
+            settings += "14=$" + tb_Low_level.Text + "$\r\n";
+
+            settings += "15=$" + (ck_chamber_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "16=$" + (ck_multi_chamber.Checked ? "1" : "0") + "$\r\n";
+            settings += "17=$" + nu_steady.Value + "$\r\n";
+            settings += "18=$" + nu_swire_num.Value + "$\r\n";
+            settings += "19=$" + (CK_ESwire.Checked ? "1" : "0") + "$\r\n";
+            settings += "20=$" + (CK_ASwire.Checked ? "1" : "0") + "$\r\n";
+            settings += "21=$" + (CK_ENVO4.Checked ? "1" : "0") + "$\r\n";
+            settings += "22=$" + (RB_ESwire.Checked ? "1" : "0") + "$\r\n";
+            settings += "23=$" + (RB_ASwire.Checked ? "1" : "0") + "$\r\n";
+
+            settings += "24=$" + (ck_ch1_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "25=$" + (ck_ch2_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "26=$" + (ck_ch3_en.Checked ? "1" : "0") + "$\r\n";
+            settings += "27=$" + (ck_ch4_en.Checked ? "1" : "0") + "$\r\n";
+
+            settings += "28=$" + nu_addr.Value + "$\r\n";
+            settings += "29=$" + nu_code_min.Value + "$\r\n";
+            settings += "30=$" + nu_code_max.Value + "$\r\n";
+
+            settings += "31=$" + nu_vol_min.Value + "$\r\n";
+            settings += "32=$" + nu_vol_max.Value + "$\r\n";
+            settings += "33=$" + nu_timeScale.Value + "$\r\n";
+
+
+            settings += "34=$" + nu_Sys_clk.Value + "$\r\n";
+            settings += "35=$" + nuVin_threshold.Value + "$\r\n";
+            settings += "36=$" + nu_load1.Value + "$\r\n";
+            settings += "37=$" + nu_load2.Value + "$\r\n";
+            settings += "38=$" + nu_load3.Value + "$\r\n";
+            settings += "39=$" + nu_load4.Value + "$\r\n";
+
+            settings += "40=$" + nu_Freq.Value + "$\r\n";
+            settings += "41=$" + nu_duty.Value + "$\r\n";
+            settings += "42=$" + nu_Tr.Value + "$\r\n";
+            settings += "43=$" + nu_Tf.Value + "$\r\n";
+
+            settings += "44=$" + nu_CVSetting.Value + "$\r\n";
+            settings += "45=$" + nu_CVStep.Value + "$\r\n";
+            settings += "46=$" + nu_CVwait.Value + "$\r\n";
+            settings += "47=$" + nu_eloadch2.Value + "$\r\n";
+
+            settings += "48=$" + tb_Iout.Text + "$\r\n";
+            settings += "49=$" + cb_item.SelectedIndex + "$\r\n";
+            settings += "50=$" + CBEload.SelectedIndex + "$\r\n";
+            settings += "51=$" + CBIinSelect.SelectedIndex + "$\r\n";
+            settings += "52=$" + swireTable.RowCount + "$\r\n";
+            settings += "53=$" + Eload_DG.RowCount + "$\r\n";
+
+
+            for (int i = 0; i < swireTable.RowCount; i++)
+            {
+                settings += (i + 54).ToString() + ".ESwire=$" + swireTable[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 55).ToString() + ".ASwire=$" + swireTable[1, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < Eload_DG.RowCount; i++)
+            {
+                settings += (i + 56).ToString() + ".Start=$" + Eload_DG[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 57).ToString() + ".Step=$" + Eload_DG[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 58).ToString() + ".Stop=$" + Eload_DG[1, i].Value.ToString() + "$\r\n";
+            }
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void BT_LoadSetting_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(opendlg.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                tb_res_scope, tb_res_daq, tb_res_eload, tb_res_eload, tb_res_power, tb_res_meter_in, tb_res_meter_out, tb_res_chamber,
+                tb_res_func, tb_templist, tb_IPAddress, tb_wave_path, tb_Vin, tb_High_level, tb_Low_level, ck_chamber_en, ck_multi_chamber,
+                nu_steady, nu_swire_num, CK_ESwire, CK_ASwire, CK_ENVO4, RB_ESwire, RB_ASwire, ck_ch1_en, ck_ch2_en, ck_ch3_en, ck_ch4_en
+                nu_addr, nu_code_min, nu_code_max, nu_vol_min, nu_vol_max, nu_timeScale, nu_Sys_clk, nuVin_threshold, 
+                nu_load1, nu_load2, nu_load3, nu_load4, nu_Freq, nu_duty, nu_Tr, nu_Tf
+            };
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                for (int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch (obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "RadioButton":
+                            ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                    }
+                }
+            }
         }
     }
 }
