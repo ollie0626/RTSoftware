@@ -237,7 +237,7 @@ namespace SoftStartTiming
             //WriteEn(data.ToList(), test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
             //updateMain.UpdateProgressBar(3);
 
-            
+            progress = 0;
             updateMain.UpdateProgressBar(0);
             RTDev.BoadInit();
 #if true
@@ -968,16 +968,24 @@ namespace SoftStartTiming
             //double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
-            InsControl._oscilloscope.CHx_Level(ch, 0.1); // set 100mV
+            InsControl._oscilloscope.CHx_Level(ch, 1); // set 100mV
             InsControl._oscilloscope.CHx_Position(ch, 0);
 
             double vpp = 0;
+            //double vol = 0;
             for (int i = 0; i < 5; i++)
             {
+
+
+                vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
+                MyLib.Delay1ms(200);
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
-                vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
-                InsControl._oscilloscope.CHx_Level(ch, vpp / 4);
+
+               
+
+
+                InsControl._oscilloscope.CHx_Level(ch, vpp / 2);
             }
 
         }
@@ -1063,7 +1071,8 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
-                updateMain.UpdateProgressBar(progress++);
+                updateMain.UpdateProgressBar(++progress);
+                //Console.WriteLine("progress = " + progress);
                 // each of loop represent truth table row
                 // InsControl._eload.Loading(select_idx + 1, iout_n);
                 InsControl._oscilloscope.SetAutoTrigger();

@@ -157,8 +157,12 @@ namespace SoftStartTiming
             RTDev.BoadInit();
             List<byte> list = RTDev.ScanSlaveID();
 
-            if (list.Count > 0)
-                nuslave.Value = list[0];
+            if(list != null)
+            {
+                if (list.Count > 0)
+                    nuslave.Value = list[0];
+            }
+
 
         }
 
@@ -429,6 +433,7 @@ namespace SoftStartTiming
                                 ;
 
             progressBar2.Maximum = progress_max;
+            //Console.WriteLine("progress max = " + progress_max);
         }
 
         public void UpdateProgressBar(int val)
