@@ -369,12 +369,12 @@ namespace InsLibDotNet
                     string FileSystem_ReadFile = "FILESystem:READFile " + @"""C:\\TekScope\\scope.png""";
                     doCommand(FileSystem_ReadFile);
 #if DEBUG
-                    Console.WriteLine(buf);
-                    Console.WriteLine(waveFmt);
-                    Console.WriteLine(portFile);
-                    Console.WriteLine(hard_Cp_FileName);
-                    Console.WriteLine(hard_Cp_Start);
-                    Console.WriteLine(FileSystem_ReadFile);
+                    //Console.WriteLine(buf);
+                    //Console.WriteLine(waveFmt);
+                    //Console.WriteLine(portFile);
+                    //Console.WriteLine(hard_Cp_FileName);
+                    //Console.WriteLine(hard_Cp_Start);
+                    //Console.WriteLine(FileSystem_ReadFile);
 #endif
                     System.Threading.Thread.Sleep(1000);
                     int count_out = 0;
