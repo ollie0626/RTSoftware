@@ -131,9 +131,6 @@ namespace OLEDLite
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         System.Threading.Thread.Sleep(500);
 
-                        if(iout_cnt == 0) System.Threading.Thread.Sleep(1000);
-
-
                         switch (test_parameter.eload_ch_select)
                         {
                             case 0:
@@ -172,7 +169,8 @@ namespace OLEDLite
                         // ic setting
                         if(iout_idx == 0)
                         {
-                            for(int k = 0; k < 3; k++)
+                            System.Threading.Thread.Sleep(1000);
+                            for (int k = 0; k < 3; k++)
                             {
                                 int[] pulse_tmp;
                                 bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };

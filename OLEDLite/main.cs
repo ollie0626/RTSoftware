@@ -17,13 +17,14 @@ using System.Net.Sockets;
 using System.Net;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using OLEDLite.Properties;
 
 
 namespace OLEDLite
 {
     public partial class main : Form
     {
-        private static string ver = "v1.6.4";
+        private static string ver = "v1.6.5";
         private string win_name = "OLED sATE tool " + ver;
         //private readonly MaterialSkinManager materialSkinManager;
 
@@ -845,7 +846,7 @@ namespace OLEDLite
             {
                 settings += (i + 56).ToString() + ".Start=$" + Eload_DG[0, i].Value.ToString() + "$\r\n";
                 settings += (i + 57).ToString() + ".Step=$" + Eload_DG[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 58).ToString() + ".Stop=$" + Eload_DG[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 58).ToString() + ".Stop=$" + Eload_DG[2, i].Value.ToString() + "$\r\n";
             }
 
             using (StreamWriter sw = new StreamWriter(file))
@@ -870,10 +871,12 @@ namespace OLEDLite
             {
                 tb_res_scope, tb_res_daq, tb_res_eload, tb_res_eload, tb_res_power, tb_res_meter_in, tb_res_meter_out, tb_res_chamber,
                 tb_res_func, tb_templist, tb_IPAddress, tb_wave_path, tb_Vin, tb_High_level, tb_Low_level, ck_chamber_en, ck_multi_chamber,
-                nu_steady, nu_swire_num, CK_ESwire, CK_ASwire, CK_ENVO4, RB_ESwire, RB_ASwire, ck_ch1_en, ck_ch2_en, ck_ch3_en, ck_ch4_en
+                nu_steady, nu_swire_num, CK_ESwire, CK_ASwire, CK_ENVO4, RB_ESwire, RB_ASwire, ck_ch1_en, ck_ch2_en, ck_ch3_en, ck_ch4_en,
                 nu_addr, nu_code_min, nu_code_max, nu_vol_min, nu_vol_max, nu_timeScale, nu_Sys_clk, nuVin_threshold, 
-                nu_load1, nu_load2, nu_load3, nu_load4, nu_Freq, nu_duty, nu_Tr, nu_Tf
+                nu_load1, nu_load2, nu_load3, nu_load4, nu_Freq, nu_duty, nu_Tr, nu_Tf, nu_CVSetting, nu_CVStep, nu_CVwait,
+                nu_eloadch2, tb_Iout, cb_item, CBEload, CBIinSelect, swireTable, Eload_DG
             };
+
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
             {
@@ -888,6 +891,7 @@ namespace OLEDLite
                     info.Add(match.Value);
                 }
 
+                int idx = 0;
                 for (int i = 0; i < obj_arr.Length; i++)
                 {
                     switch (obj_arr[i].GetType().Name)
@@ -907,7 +911,29 @@ namespace OLEDLite
                         case "RadioButton":
                             ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
                             break;
+                        case "DataGridView":
+                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            ((DataGridView)obj_arr[i + 1]).RowCount = Convert.ToInt32(info[i + 1]);
+
+                            idx = i + 1;
+                            goto fullDG;
+                            //break;
                     }
+                }
+                fullDG:
+                for (int i = 0; i < swireTable.RowCount; i++)
+                {
+                    swireTable[0, i].Value = Convert.ToString(info[idx + 1]);
+                    swireTable[1, i].Value = Convert.ToString(info[idx + 2]);
+                    idx += 2;
+                }
+
+                for (int i = 0; i < Eload_DG.RowCount; i++)
+                {
+                    Eload_DG[0, i].Value = Convert.ToString(info[idx + 1]);
+                    Eload_DG[1, i].Value = Convert.ToString(info[idx + 2]);
+                    Eload_DG[2, i].Value = Convert.ToString(info[idx + 3]);
+                    idx += 3;
                 }
             }
         }
