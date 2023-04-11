@@ -131,6 +131,8 @@ namespace OLEDLite
                         InsControl._power.AutoSelPowerOn(test_parameter.vinList[vin_idx]);
                         System.Threading.Thread.Sleep(500);
 
+                        if(iout_cnt == 0) System.Threading.Thread.Sleep(1000);
+
 
                         switch (test_parameter.eload_ch_select)
                         {
