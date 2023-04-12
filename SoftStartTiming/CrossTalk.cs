@@ -20,7 +20,7 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.3";
+        private string win_name = "Cross talk v1.4";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk;
         Thread ATETask;
