@@ -262,7 +262,7 @@ namespace OLEDLite
                                                         (double)nu_load2.Value,
                                                         (double)nu_load3.Value,
                                                         (double)nu_load4.Value };
-            
+
             switch (cb_item.SelectedIndex)
             {
                 case 4:
@@ -292,7 +292,7 @@ namespace OLEDLite
                 case 8:
                     test_parameter.ioutList = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     break;
-                
+
                 case 1: // Ripple
                 case 3: // Efficiency
                     test_parameter.ioutList = MyLib.DGData(Eload_DG);
@@ -536,10 +536,12 @@ namespace OLEDLite
                 ate_table[(int)idx].temp = test_parameter.tempList[i];
                 ate_table[(int)idx].ATETask();
             }
-            if (InsControl._chamber != null) {
+
+            if (InsControl._chamber != null)
+            {
                 InsControl._chamber.ChamberOn(25);
                 await InsControl._chamber.ChamberStable(25);
-                InsControl._chamber.ChamberOff();                
+                InsControl._chamber.ChamberOff();
             }
             UpdateRunButton();
         }
@@ -776,7 +778,7 @@ namespace OLEDLite
             settings += "2=$" + tb_res_eload.Text + "$\r\n";
             settings += "3=$" + tb_res_power.Text + "$\r\n";
             settings += "4=$" + tb_res_meter_in.Text + "$\r\n";
-            settings += "5=$" + tb_res_meter_in.Text + "$\r\n";
+            //settings += "5=$" + tb_res_meter_in.Text + "$\r\n";
             settings += "6=$" + tb_res_meter_out.Text + "$\r\n";
             settings += "7=$" + tb_res_chamber.Text + "$\r\n";
             settings += "8=$" + tb_res_func.Text + "$\r\n";
@@ -867,13 +869,19 @@ namespace OLEDLite
 
         private void LoadSettings(string file)
         {
+
             object[] obj_arr = new object[]
             {
-                tb_res_scope, tb_res_daq, tb_res_eload, tb_res_eload, tb_res_power, tb_res_meter_in, tb_res_meter_out, tb_res_chamber,
+                tb_res_scope, tb_res_daq, tb_res_eload, tb_res_power, tb_res_meter_in, tb_res_meter_out, tb_res_chamber,
+
                 tb_res_func, tb_templist, tb_IPAddress, tb_wave_path, tb_Vin, tb_High_level, tb_Low_level, ck_chamber_en, ck_multi_chamber,
+
                 nu_steady, nu_swire_num, CK_ESwire, CK_ASwire, CK_ENVO4, RB_ESwire, RB_ASwire, ck_ch1_en, ck_ch2_en, ck_ch3_en, ck_ch4_en,
-                nu_addr, nu_code_min, nu_code_max, nu_vol_min, nu_vol_max, nu_timeScale, nu_Sys_clk, nuVin_threshold, 
+
+                nu_addr, nu_code_min, nu_code_max, nu_vol_min, nu_vol_max, nu_timeScale, nu_Sys_clk, nuVin_threshold,
+
                 nu_load1, nu_load2, nu_load3, nu_load4, nu_Freq, nu_duty, nu_Tr, nu_Tf, nu_CVSetting, nu_CVStep, nu_CVwait,
+
                 nu_eloadch2, tb_Iout, cb_item, CBEload, CBIinSelect, swireTable, Eload_DG
             };
 

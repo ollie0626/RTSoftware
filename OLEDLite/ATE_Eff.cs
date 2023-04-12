@@ -21,7 +21,6 @@ namespace OLEDLite
         public string Y;
     };
 
-
     public class ATE_Eff : TaskRun
     {
         Excel.Application _app;
@@ -50,7 +49,6 @@ namespace OLEDLite
                                     // Eload Channel 2 -> AVDD
                                     // Eload Channel 3 -> DVDD
 
-
             int row = 11;
             int bin_cnt = 1;
             string X_axis = "";
@@ -62,6 +60,12 @@ namespace OLEDLite
             double[] ori_vinTable = new double[vin_cnt];
             Array.Copy(test_parameter.vinList.ToArray(), ori_vinTable, vin_cnt);
             RTDev.BoadInit();
+
+            InsControl._eload.AllChannel_LoadOff();
+            InsControl._eload.CH1_ClearSetting();
+            InsControl._eload.CH2_ClearSetting();
+            InsControl._eload.CH3_ClearSetting();
+            InsControl._eload.CH4_ClearSetting();
 
             InsControl._power.AutoPowerOff();
             for (int bin_idx = 0;
@@ -76,6 +80,30 @@ namespace OLEDLite
 
                 for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
+
+                    InsControl._power.AutoSelPowerOn(test_parameter.vinList.Max());
+
+                    System.Threading.Thread.Sleep(1000);
+
+                    int[] pulse_tmp;
+                    bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
+                    int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
+                    pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                    for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++)
+                    {
+                        RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
+                        System.Threading.Thread.Sleep(200);
+                    }
+
+                    pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
+                    for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
+                    for (int i = 0; i < Enable_state_table.Length; i++)
+                    {
+                        RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
+                        System.Threading.Thread.Sleep(200);
+                    }
+
+
 #if Report
                     _sheet.Cells[1, XLS_Table.A] = "Vin";
                     _sheet.Cells[2, XLS_Table.A] = "Iout";
@@ -166,26 +194,6 @@ namespace OLEDLite
                             return;
                         }
 
-                        // ic setting
-                        if(iout_idx == 0)
-                        {
-                            System.Threading.Thread.Sleep(1000);
-                            for (int k = 0; k < 3; k++)
-                            {
-                                int[] pulse_tmp;
-                                bool[] Enable_state_table = new bool[] { test_parameter.ESwire_state, test_parameter.ASwire_state, test_parameter.ENVO4_state };
-                                int[] Enable_num_table = new int[] { RTBBControl.ESwire, RTBBControl.ASwire, RTBBControl.ENVO4 };
-                                pulse_tmp = test_parameter.ESwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                                for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(true, pulse_tmp[pulse_idx]);
-
-                                pulse_tmp = test_parameter.ASwireList[bin_idx].Split(',').Select(int.Parse).ToArray();
-                                for (int pulse_idx = 0; pulse_idx < pulse_tmp.Length; pulse_idx++) RTBBControl.SwirePulse(false, pulse_tmp[pulse_idx]);
-                                for (int i = 0; i < Enable_state_table.Length; i++) RTBBControl.Swire_Control(Enable_num_table[i], Enable_state_table[i]);
-                                MyLib.Delay1ms(50);
-                            }
-
-                        }
-
                         // vin, vo12, vo3, vo4
                         double[] measure_data = InsControl._34970A.QuickMEasureDefine(100, Channel_num);
                         double Iin = 0;
@@ -232,10 +240,13 @@ namespace OLEDLite
 
                     InsControl._power.AutoPowerOff();
 
+                    InsControl._eload.CH1_Loading(0);
+                    InsControl._eload.CH2_Loading(0);
+                    InsControl._eload.CH3_Loading(0);
+                    InsControl._eload.CH4_Loading(0);
                     InsControl._eload.AllChannel_LoadOff();
-                    InsControl._eload.CH1_ClearSetting();
-                    InsControl._eload.CH2_ClearSetting();
-                    InsControl._eload.CH3_ClearSetting();
+                    MyLib.Delay1ms(500);
+
                     
                     stop_pos.Add(row - 1);
                 } // power loop
