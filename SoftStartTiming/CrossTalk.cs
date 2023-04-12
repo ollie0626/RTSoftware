@@ -27,6 +27,7 @@ namespace SoftStartTiming
         int SteadyTime;
         string[] tempList;
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
+        RTBBControl RTDev = new RTBBControl();
 
         TaskRun[] ate_table;
 
@@ -153,7 +154,7 @@ namespace SoftStartTiming
 
             CBItem.SelectedIndex = 0;
 
-            RTBBControl RTDev = new RTBBControl();
+            
             RTDev.BoadInit();
             List<byte> list = RTDev.ScanSlaveID();
 
@@ -448,6 +449,16 @@ namespace SoftStartTiming
             BTRun.Enabled = false;
             try
             {
+                RTDev.BoadInit();
+                List<byte> list = RTDev.ScanSlaveID();
+
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuslave.Value = list[0];
+                }
+
+
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
                 {
