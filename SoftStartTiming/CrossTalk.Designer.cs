@@ -93,6 +93,10 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn13 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.FreqDG = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,12 +111,10 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label6 = new System.Windows.Forms.Label();
+            this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.nuAccumulate = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -133,6 +135,7 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -550,6 +553,8 @@ namespace SoftStartTiming
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.nuAccumulate);
+            this.groupBox4.Controls.Add(this.label7);
             this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.nu_ontime_scale);
             this.groupBox4.Location = new System.Drawing.Point(382, 306);
@@ -557,12 +562,12 @@ namespace SoftStartTiming
             this.groupBox4.Size = new System.Drawing.Size(330, 68);
             this.groupBox4.TabIndex = 113;
             this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Time Scale Setting";
+            this.groupBox4.Text = "Time Setting";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 25);
+            this.label8.Location = new System.Drawing.Point(28, 17);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 12);
             this.label8.TabIndex = 42;
@@ -571,7 +576,7 @@ namespace SoftStartTiming
             // nu_ontime_scale
             // 
             this.nu_ontime_scale.DecimalPlaces = 3;
-            this.nu_ontime_scale.Location = new System.Drawing.Point(134, 23);
+            this.nu_ontime_scale.Location = new System.Drawing.Point(178, 15);
             this.nu_ontime_scale.Name = "nu_ontime_scale";
             this.nu_ontime_scale.Size = new System.Drawing.Size(62, 22);
             this.nu_ontime_scale.TabIndex = 41;
@@ -774,6 +779,27 @@ namespace SoftStartTiming
             this.FreqDG.Size = new System.Drawing.Size(432, 143);
             this.FreqDG.TabIndex = 0;
             // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Data (Hex)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Freq(KHz) Des.";
+            this.Column8.Name = "Column8";
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.EloadDG_CCM);
@@ -909,35 +935,14 @@ namespace SoftStartTiming
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // dataGridViewTextBoxColumn8
+            // labStatus
             // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Data (Hex)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Freq(KHz) Des.";
-            this.Column8.Name = "Column8";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(17, 762);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(97, 12);
-            this.label6.TabIndex = 114;
-            this.label6.Text = "Progress Status :";
+            this.labStatus.AutoSize = true;
+            this.labStatus.Location = new System.Drawing.Point(17, 762);
+            this.labStatus.Name = "labStatus";
+            this.labStatus.Size = new System.Drawing.Size(97, 12);
+            this.labStatus.TabIndex = 114;
+            this.labStatus.Text = "Progress Status :";
             // 
             // progressBar2
             // 
@@ -946,13 +951,46 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 115;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(124, 12);
+            this.label7.TabIndex = 43;
+            this.label7.Text = "Accumulated time (s)";
+            // 
+            // nuAccumulate
+            // 
+            this.nuAccumulate.DecimalPlaces = 3;
+            this.nuAccumulate.Location = new System.Drawing.Point(178, 40);
+            this.nuAccumulate.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nuAccumulate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nuAccumulate.Name = "nuAccumulate";
+            this.nuAccumulate.Size = new System.Drawing.Size(62, 22);
+            this.nuAccumulate.TabIndex = 44;
+            this.nuAccumulate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuAccumulate.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(1066, 813);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.labStatus);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.nuCH_number);
             this.Controls.Add(this.button1);
@@ -989,6 +1027,7 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1076,7 +1115,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label labStatus;
         private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.NumericUpDown nuAccumulate;
     }
 }

@@ -81,11 +81,11 @@ namespace SoftStartTiming
             List<byte> freq_addr = new List<byte>();
             List<byte> freq_data = new List<byte>();
 
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
-                for(int j = i + 1; j < len; j++)
+                for (int j = i + 1; j < len; j++)
                 {
-                    if(test_parameter.freq_addr[i] == test_parameter.freq_addr[j])
+                    if (test_parameter.freq_addr[i] == test_parameter.freq_addr[j])
                     {
                         freq_addr.Add(test_parameter.freq_addr[i]);
                         freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]
@@ -94,14 +94,14 @@ namespace SoftStartTiming
                     }
                     else
                     {
-                        if(freq_addr.IndexOf(test_parameter.freq_addr[i]) == -1)
+                        if (freq_addr.IndexOf(test_parameter.freq_addr[i]) == -1)
                         {
                             freq_addr.Add(test_parameter.freq_addr[i]);
                             freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]));
                         }
                     }
                 }
-                if(i == len - 1)
+                if (i == len - 1)
                 {
                     freq_addr.Add(test_parameter.freq_addr[i]);
                     freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]));
@@ -111,7 +111,7 @@ namespace SoftStartTiming
             freq_addr = freq_addr.Distinct().ToList();
 
 
-            for(int i = 0; i < freq_addr.Count; i++)
+            for (int i = 0; i < freq_addr.Count; i++)
             {
                 RTDev.I2C_Write((byte)(test_parameter.slave >> 1), freq_addr[i], new byte[] { freq_data[i] });
             }
@@ -127,18 +127,18 @@ namespace SoftStartTiming
             Dictionary<int, byte> wr_en = new Dictionary<int, byte>();
 
             // find same enable address
-            for(int i = 0; i < data.Count; i++)
+            for (int i = 0; i < data.Count; i++)
             {
-                for(int j = i + 1; j < data.Count; j++)
+                for (int j = i + 1; j < data.Count; j++)
                 {
-                    if(addr[i] == addr[j])
+                    if (addr[i] == addr[j])
                     {
                         en_addr.Add(addr[i]);
 
                         // truth tabel state
                         if (data[i] == 1 && data[j] == 1)
                         {
-                            if(wr_en.ContainsKey(addr[i]))
+                            if (wr_en.ContainsKey(addr[i]))
                             {
                                 wr_en[addr[i]] |= en_on[j];
                             }
@@ -157,7 +157,7 @@ namespace SoftStartTiming
                             {
                                 wr_en.Add(addr[i], (byte)(en_on[i]));
                             }
-                                
+
                         }
                         else if (data[j] == 1)
                         {
@@ -169,7 +169,7 @@ namespace SoftStartTiming
                             {
                                 wr_en.Add(addr[i], (byte)en_on[j]);
                             }
-                                
+
                         }
                         else
                         {
@@ -187,7 +187,7 @@ namespace SoftStartTiming
                     }
                     else
                     {
-                        if(en_addr.IndexOf(addr[i]) == -1)
+                        if (en_addr.IndexOf(addr[i]) == -1)
                         {
                             en_addr.Add(addr[i]);
                             wr_en.Add(addr[i], (byte)(en_on[i]));
@@ -195,7 +195,7 @@ namespace SoftStartTiming
                     }
                 }
 
-                if(i == data.Count - 1 && en_addr.IndexOf(addr[i]) == -1)
+                if (i == data.Count - 1 && en_addr.IndexOf(addr[i]) == -1)
                 {
                     en_addr.Add(addr[i]);
                     wr_en.Add(addr[i], (byte)(en_on[i]));
@@ -471,12 +471,13 @@ namespace SoftStartTiming
                     // vin loop
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
 
-                    for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
+                    for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
                     {
-                        // vout loop
-                        for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
+                        // freq loop
+                        for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
-                            // freq loop
+                            // vout loop
+
                             /* change victim vout */
                             RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
                                             test_parameter.vout_addr[select_idx],
@@ -652,7 +653,7 @@ namespace SoftStartTiming
 
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
-                                    MeasureN(   n,
+                                    MeasureN(n,
                                                 select_idx,
                                                 Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                 group_idx,
@@ -727,9 +728,9 @@ namespace SoftStartTiming
             {
                 for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
                 {
-                    for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
+                    for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
                     {
-                        for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
+                        for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
 
                             // freq loop
@@ -913,7 +914,7 @@ namespace SoftStartTiming
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
 
-                                    MeasureN(   n,                                  // select total number
+                                    MeasureN(n,                                  // select total number
                                                 select_idx,                         // victim number
                                                 Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),                           // vout setting print to excel
                                                 group_idx,                          // maybe has more test conditions
@@ -965,7 +966,6 @@ namespace SoftStartTiming
                 vpp = InsControl._oscilloscope.CHx_Meas_VPP(ch, 4);
                 InsControl._oscilloscope.CHx_Level(ch, vpp / 2);
             }
-
         }
 
 
@@ -1151,6 +1151,7 @@ namespace SoftStartTiming
                 test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
                 //MeasureVictim(select_idx + 1, col_start + 1, vout, before);
 
+                MyLib.Delay1s(test_parameter.accumulate);
                 MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), col_start + 1, vout, before);
                 test_parameter.waveform_name = temp;
 

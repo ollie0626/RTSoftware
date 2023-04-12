@@ -117,6 +117,7 @@ namespace SoftStartTiming
         public static bool[] cross_en;
         public static int cross_mode;
         public static double tolerance;
+        public static int accumulate;
 
         // modify for support 8 channel eload and 4 channel scope
         public static List<OutputInfo> outputs = new List<OutputInfo>();

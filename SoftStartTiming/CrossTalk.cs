@@ -433,12 +433,13 @@ namespace SoftStartTiming
                                 ;
 
             progressBar2.Maximum = progress_max;
-            //Console.WriteLine("progress max = " + progress_max);
+            test_parameter.accumulate = (int)nuAccumulate.Value;
         }
 
         public void UpdateProgressBar(int val)
         {
             progressBar2.Invoke((MethodInvoker)(() => progressBar2.Value = val));
+            labStatus.Invoke((MethodInvoker)(() => labStatus.Text = string.Format("Status Progress : {0} / {1}", val, progressBar2.Maximum)));
         }
 
         private void BTRun_Click(object sender, EventArgs e)
