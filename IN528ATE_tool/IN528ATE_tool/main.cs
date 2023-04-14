@@ -601,7 +601,13 @@ namespace IN528ATE_tool
                     }
 
                 }
-                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+                if (InsControl._chamber != null)
+                {
+                    InsControl._chamber.ChamberOn(25);
+                    InsControl._chamber.ChamberStableCheck(25);
+                    InsControl._chamber.ChamberOff();
+
+                }
             }
             catch (Exception ex)
             {
@@ -609,7 +615,12 @@ namespace IN528ATE_tool
             }
             finally
             {
-                if (InsControl._chamber != null) InsControl._chamber.ChamberOn(25);
+                if (InsControl._chamber != null)
+                {
+                    InsControl._chamber.ChamberOn(25);
+                    InsControl._chamber.ChamberStableCheck(25);
+                    InsControl._chamber.ChamberOff();
+                }
             }
         }
 
@@ -941,6 +952,128 @@ namespace IN528ATE_tool
                 //serverSocket.Close();
                 chamberCtr.ClientNowStatus.Clear();
                 ChamberCtr.Socket_List.Clear();
+            }
+        }
+
+        private void saveSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog savedlg = new SaveFileDialog();
+            savedlg.Filter = "settings|*.tb_info";
+
+            if (savedlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = savedlg.FileName;
+                SaveParameter(file_name);
+            }
+        }
+
+        private void SaveParameter(string file)
+        {
+            string settings = "";
+            string finish_symbol = "$\r\n";
+            settings = "0.bin_path=$" + textBox1.Text + finish_symbol;
+            settings += "1.WavePath=$" + tbWave.Text + finish_symbol;
+            settings += "2.Specify=$" + textBox2.Text + finish_symbol;
+
+            settings += "3.TempList=$" + tb_templist.Text + finish_symbol;
+            settings += "4.VinList=$" + tb_vinList.Text + finish_symbol;
+            settings += "5.IoutList=$" + tb_ioutList.Text + finish_symbol;
+            settings += "6.IPAddress=$" + tb_IPAddress.Text + finish_symbol;
+            settings += "7.Slave=$" + nu_specify.Value + finish_symbol;
+            settings += "8.Speicy_Slave=$" + nu_slave.Value + finish_symbol;
+            settings += "9.On_time=$" + nu_ontime_scale.Value + finish_symbol;
+            settings += "10.Off_time=$" + nu_offtime_scale.Value + finish_symbol;
+            settings += "11.MeasLevel=$" + nu_measure_level.Value + finish_symbol;
+            settings += "12.TriggerLeve=$" + nu_ch1_trigger_level.Value + finish_symbol;
+            settings += "13.Address=$" + nu_addr.Value + finish_symbol;
+            settings += "14.Min=$" + nu_code_min.Value + finish_symbol;
+            settings += "15.Max=$" + nu_code_max.Value + finish_symbol;
+            settings += "16.Max=$" + nu_vol_min.Value + finish_symbol;
+            settings += "nu_vol_max=$" + nu_vol_max.Value + finish_symbol;
+
+            settings += "17.MTP_slave=$" + nu_mtp_slave.Value + finish_symbol;
+            settings += "18.MTP_addr=$" + nu_mtp_addr.Value + finish_symbol;
+            settings += "19.MTP_data=$" + nu_mtp_data.Value + finish_symbol;
+
+            settings += "20.Steady=$" + nu_steady.Value + finish_symbol;
+            settings += "21.CVsetting=$" + nu_CVSetting.Value + finish_symbol;
+            settings += "22.CVsetp=$" + nu_CVStep.Value + finish_symbol;
+            settings += "23.CVWait=$" + nu_CVwait.Value + finish_symbol;
+            settings += "24.EloadCh2=$" + nu_eloadch2.Value + finish_symbol;
+
+            settings += "25.item=$" + cb_item.SelectedIndex + finish_symbol;
+            settings += "26.MasterSel=$" + cb_mode_sel.SelectedIndex + finish_symbol;
+            settings += "27.VinTrigger=$" + (ck_vin_trigger.Checked ? "1" : "0") + finish_symbol;
+            settings += "28.EnTrigger=$" + (ck_en_trigger.Checked ? "1" : "0") + finish_symbol;
+            settings += "29.MTKEn=$" + (CK_Program.Checked ? "1" : "0") + finish_symbol;
+            settings += "30.ChamberEn=$" + (ck_chaber_en.Checked ? "1" : "0") + finish_symbol;
+            settings += "31.Multi=$" + (ck_multi_chamber.Checked ? "1" : "0") + finish_symbol;
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void loadSettingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadParameter(opendlg.FileName);
+            }
+        }
+
+        private void LoadParameter(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                textBox1, tbWave, textBox2, tb_templist, tb_vinList, tb_ioutList, tb_IPAddress, nu_specify, nu_slave, nu_ontime_scale, nu_offtime_scale,
+                nu_measure_level, nu_ch1_trigger_level, nu_addr, nu_code_min, nu_code_max, nu_vol_min, nu_vol_max,
+                nu_mtp_slave, nu_mtp_addr, nu_mtp_data, nu_steady, nu_CVSetting, nu_CVStep, nu_CVwait, nu_eloadch2, cb_item,
+                ck_vin_trigger, ck_en_trigger, CK_Program, ck_chaber_en, ck_multi_chamber
+
+            };
+
+
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                int idx = 0;
+                for (int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch (obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "DataGridView":
+                            break;
+                    }
+                }
+
+
             }
         }
     }

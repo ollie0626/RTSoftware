@@ -43,6 +43,13 @@ namespace OLEDLite
                 for (int idx = 0; res < stop; idx++)
                 {
                     res = start + step * idx;
+
+                    if(res > stop)
+                    {
+                        data.Add(res);
+                        break;
+                    }
+
                     data.Add(res);
                 }
             }
