@@ -46,7 +46,7 @@ namespace OLEDLite
 
                     if(res > stop)
                     {
-                        data.Add(res);
+                        data.Add(stop);
                         break;
                     }
 
