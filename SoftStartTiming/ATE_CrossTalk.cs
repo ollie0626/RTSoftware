@@ -101,7 +101,7 @@ namespace SoftStartTiming
                         }
                     }
                 }
-                if (i == len - 1)
+                if (i == len - 1 && freq_addr.IndexOf(test_parameter.freq_addr[i]) == -1)
                 {
                     freq_addr.Add(test_parameter.freq_addr[i]);
                     freq_data.Add((byte)(test_parameter.freq_data[i][freq_idx < test_parameter.freq_data[i].Count ? freq_idx : test_parameter.freq_data[i].Count - 1]));
@@ -138,6 +138,7 @@ namespace SoftStartTiming
                         // truth tabel state
                         if (data[i] == 1 && data[j] == 1)
                         {
+                            // i, j =  1
                             if (wr_en.ContainsKey(addr[i]))
                             {
                                 wr_en[addr[i]] |= en_on[j];
@@ -149,6 +150,7 @@ namespace SoftStartTiming
                         }
                         else if (data[i] == 1)
                         {
+                            // i = 1
                             if (wr_en.ContainsKey(addr[i]))
                             {
                                 wr_en[addr[i]] |= (byte)(en_on[i]);
@@ -157,10 +159,10 @@ namespace SoftStartTiming
                             {
                                 wr_en.Add(addr[i], (byte)(en_on[i]));
                             }
-
                         }
                         else if (data[j] == 1)
                         {
+                            // j = 1
                             if (wr_en.ContainsKey(addr[i]))
                             {
                                 wr_en[addr[i]] |= (byte)(en_on[j]);
@@ -173,6 +175,7 @@ namespace SoftStartTiming
                         }
                         else
                         {
+                            // i, j == 0
                             if (wr_en.ContainsKey(addr[i]))
                             {
                                 wr_en[addr[i]] |= (byte)(dis_off[i] | dis_off[j]);
@@ -204,13 +207,16 @@ namespace SoftStartTiming
 
             en_addr = en_addr.Distinct().ToList();
 
+            // channel on off 100 times
             for (int idx = 0; idx < 100; idx++)
             {
                 for (int i = 0; i < en_addr.Count; i++)
                 {
+                    // turn off all rails
                     for (int j = 0; j < addr.Length; j++)
                         RTDev.I2C_Write((byte)(test_parameter.slave >> 1), addr[j], new byte[] { dis_off[i] });
 
+                    // turn on rails
                     RTDev.I2C_Write((byte)(test_parameter.slave >> 1), en_addr[i], new byte[] { wr_en[en_addr[i]] });
                 }
             }
@@ -218,9 +224,10 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
-            //double[] data = new double[] { 0, 0, 1, 1 };
+            //double[] data = new double[] { 0, 1, 1, 1 };
             //WriteEn(data.ToList(), test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
             //updateMain.UpdateProgressBar(3);
+            //WriteFreq(0, 0);
 
             progress = 0;
             updateMain.UpdateProgressBar(0);
