@@ -1125,7 +1125,19 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
 
-                            WriteEn(data, test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
+
+                            List<byte> en_addr = new List<byte>();
+                            List<byte> en_data = new List<byte>();
+                            List<byte> disen_data = new List<byte>();
+                            en_addr = test_parameter.en_addr.ToList();
+                            en_data = test_parameter.en_data.ToList();
+                            disen_data = test_parameter.disen_data.ToList();
+
+                            en_addr.Remove(test_parameter.en_addr[select_idx]);
+                            en_data.Remove(test_parameter.en_data[select_idx]);
+                            disen_data.Remove(test_parameter.disen_data[select_idx]);
+
+                            WriteEn(data, en_addr.ToArray(), en_data.ToArray(), disen_data.ToArray());
 
                             //for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             //{
@@ -1135,15 +1147,30 @@ namespace SoftStartTiming
                             //}
                             break;
                         case 2: // i2c VID
-                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
-                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? test_parameter.lo_code[j].ToString("X") + "->" + test_parameter.hi_code[j].ToString("X") : "0";
 
+                            List<byte> vid_addr = new List<byte>();
+                            List<byte> vid_low = new List<byte>();
+                            List<byte> vid_high = new List<byte>();
+
+                            for(int k = 0; k < n; k++)
+                            {
+                                if(k != select_idx)
+                                {
+                                    vid_addr.Add(test_parameter.vid_addr[k]);
+                                    vid_low.Add(test_parameter.lo_code[k]);
+                                    vid_high.Add(test_parameter.hi_code[k]);
+                                }
+                            }
+
+                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
+                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? vid_low[j].ToString("X") + "->" + vid_high[j].ToString("X") : "0";
                             //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;
-                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.vid_addr[j], new byte[] { test_parameter.lo_code[j] });
-                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.vid_addr[j], new byte[] { test_parameter.hi_code[j] });
+
+                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
                             }
                             break;
                         case 3: // LT
