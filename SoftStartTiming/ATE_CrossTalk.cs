@@ -113,7 +113,7 @@ namespace SoftStartTiming
 
             for (int i = 0; i < freq_addr.Count; i++)
             {
-                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), freq_addr[i], new byte[] { freq_data[i] });
+                RTDev.I2C_Write((byte)(test_parameter.slave), freq_addr[i], new byte[] { freq_data[i] });
             }
         }
 
@@ -214,10 +214,10 @@ namespace SoftStartTiming
                 {
                     // turn off all rails
                     for (int j = 0; j < addr.Length; j++)
-                        RTDev.I2C_Write((byte)(test_parameter.slave >> 1), addr[j], new byte[] { dis_off[i] });
+                        RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { dis_off[i] });
 
                     // turn on rails
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), en_addr[i], new byte[] { wr_en[en_addr[i]] });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), en_addr[i], new byte[] { wr_en[en_addr[i]] });
                 }
             }
         }
@@ -486,9 +486,13 @@ namespace SoftStartTiming
                             // vout loop
 
                             /* change victim vout */
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                                            test_parameter.vout_addr[select_idx],
-                                            new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
+                            for(int i = 0; i < test_parameter.vout_addr.Length; i++)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave),
+                                                test_parameter.vout_addr[i],
+                                                new byte[] { test_parameter.vout_data[i][vout_idx] });
+                            }
+
 
                             /* change victim freq */
                             //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
@@ -1121,7 +1125,7 @@ namespace SoftStartTiming
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
 
-                            WriteEn(data, test_parameter.en_addr, test_parameter.en_addr, test_parameter.disen_data);
+                            WriteEn(data, test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
 
                             //for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             //{
@@ -1138,8 +1142,8 @@ namespace SoftStartTiming
                             for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             {
                                 if (data[j] == 0) break;
-                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.vid_addr[j], new byte[] { test_parameter.lo_code[j] });
-                                RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.vid_addr[j], new byte[] { test_parameter.hi_code[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.vid_addr[j], new byte[] { test_parameter.lo_code[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.vid_addr[j], new byte[] { test_parameter.hi_code[j] });
                             }
                             break;
                         case 3: // LT
