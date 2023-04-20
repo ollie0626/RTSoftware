@@ -92,6 +92,30 @@ namespace InsLibDotNet
             }
         }
 
+        public void SetDPXOn()
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand("FASTAcq:STATE ON");
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetDPXOff()
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand("FASTAcq:STATE OFF");
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
         public void SetPERSistenceOff()
         {
             switch(osc_sel)

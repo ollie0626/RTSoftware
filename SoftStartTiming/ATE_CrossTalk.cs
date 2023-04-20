@@ -377,22 +377,32 @@ namespace SoftStartTiming
                     res = res.Replace("CH", "");
                     int int_res = Convert.ToInt32(res);
                     InsControl._oscilloscope.CHx_Offset(int_res, 0);
-                    InsControl._oscilloscope.SetTimeScale(0.001);
-                    InsControl._oscilloscope.SetNormalTrigger();
-                    InsControl._oscilloscope.SetTriggerRise();
-                    InsControl._oscilloscope.SetTriggerLevel(int_res, vmax * 0.5);
+                    InsControl._oscilloscope.SetTimeScale(0.00001);
 
-                    InsControl._oscilloscope.CHx_Level(int_res, vmax / 4);
-                    InsControl._oscilloscope.CHx_Position(int_res, -3);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+
+                    InsControl._oscilloscope.CHx_Level(int_res, vmax / 2);
+                    InsControl._oscilloscope.CHx_Position(int_res, -2);
+                    InsControl._oscilloscope.SetNormalTrigger();
+                    InsControl._oscilloscope.SetTriggerFall();
+                    InsControl._oscilloscope.SetTriggerLevel(int_res, vmax * 0.9);
+
                     double period = 0;
                     period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                     period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                     period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                     period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
-                    InsControl._oscilloscope.SetTimeScale(period);
+                    if(period < Math.Pow(10,10))
+                        InsControl._oscilloscope.SetTimeScale(period);
 
+                    InsControl._oscilloscope.SetDPXOn();
                     MyLib.Delay1ms(300);
                     jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
+                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
+                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4) * Math.Pow(10, 9);
+                    InsControl._oscilloscope.SetDPXOff();
                 }
             }
 
@@ -604,7 +614,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.b_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.b_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -628,7 +638,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.a_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.a_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -862,7 +872,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.b_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.b_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -886,7 +896,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.a_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.a_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -1058,6 +1068,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
 
+
             // save aggressor iout conditions
             // iout select maximum setting if over iout list overflow.
             for (int i = 0; i < n; i++)
@@ -1080,6 +1091,7 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
+                //InsControl._oscilloscope.SetDPXOn();
                 InsControl._oscilloscope.SetClear();
                 updateMain.UpdateProgressBar(++progress);
                 //Console.WriteLine("progress = " + progress);
@@ -1233,6 +1245,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Off(2);
             InsControl._oscilloscope.CHx_Off(3);
             InsControl._oscilloscope.CHx_Off(4);
+            //InsControl._oscilloscope.SetDPXOff();
         }
 
 
@@ -1373,7 +1386,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.b_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.b_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
@@ -1397,7 +1410,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[row, col_base++] = "Victim Min Voltage";
 
                                 col_pos[(int)Col_List.a_jitter] = col_base;
-                                _sheet.Cells[row, col_base++] = "Jitter(%)";
+                                _sheet.Cells[row, col_base++] = "Jitter(ns)";
 
                                 col_pos[(int)Col_List.a_delta_pos] = col_base;
                                 _sheet.Cells[row, col_base++] = "+VΔ (mV)";
