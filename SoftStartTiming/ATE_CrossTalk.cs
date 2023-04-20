@@ -118,13 +118,14 @@ namespace SoftStartTiming
         }
 
 
-        public void WriteEn(List<double> data, byte[] addr, byte[] en_on, byte[] dis_off)
+        public void WriteEn(List<double> data, byte[] addr, byte[] en_on, byte[] dis_off, int select_idx)
         {
             int len = test_parameter.en_addr.Length;
             //List<byte> wr_en = new List<byte>();
             List<byte> en_addr = new List<byte>();
 
             Dictionary<int, byte> wr_en = new Dictionary<int, byte>();
+            Dictionary<int, byte> wr_dis = new Dictionary<int, byte>();
 
             // find same enable address
             for (int i = 0; i < data.Count; i++)
@@ -207,14 +208,33 @@ namespace SoftStartTiming
 
             en_addr = en_addr.Distinct().ToList();
 
+            byte must_en_addr = test_parameter.en_addr[select_idx];
+            byte must_en_data = test_parameter.en_data[select_idx];
+
+            if(en_addr.IndexOf(must_en_addr) == -1)
+            {
+                en_addr.Add(must_en_addr);
+                wr_en.Add(must_en_addr, must_en_data);
+            }
+            else
+            {
+                wr_en[must_en_addr] |= must_en_data;
+            }
+
             // channel on off 100 times
             for (int idx = 0; idx < 100; idx++)
             {
                 for (int i = 0; i < en_addr.Count; i++)
                 {
-                    // turn off all rails
+                    //// turn off all rails
                     for (int j = 0; j < addr.Length; j++)
-                        RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { dis_off[i] });
+                    {
+                        if(must_en_addr == addr[j])
+                            RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { (byte)(dis_off[i] | must_en_data) });
+                        else
+                            RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { dis_off[i] });
+                    }
+
 
                     // turn on rails
                     RTDev.I2C_Write((byte)(test_parameter.slave), en_addr[i], new byte[] { wr_en[en_addr[i]] });
@@ -1060,6 +1080,7 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
+                InsControl._oscilloscope.SetClear();
                 updateMain.UpdateProgressBar(++progress);
                 //Console.WriteLine("progress = " + progress);
                 // each of loop represent truth table row
@@ -1137,7 +1158,7 @@ namespace SoftStartTiming
                             en_data.Remove(test_parameter.en_data[select_idx]);
                             disen_data.Remove(test_parameter.disen_data[select_idx]);
 
-                            WriteEn(data, en_addr.ToArray(), en_data.ToArray(), disen_data.ToArray());
+                            WriteEn(data, en_addr.ToArray(), en_data.ToArray(), disen_data.ToArray(), select_idx);
 
                             //for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                             //{
@@ -1152,7 +1173,7 @@ namespace SoftStartTiming
                             List<byte> vid_low = new List<byte>();
                             List<byte> vid_high = new List<byte>();
 
-                            for(int k = 0; k < n; k++)
+                            for(int k = 0; k < test_parameter.vid_addr.Length; k++)
                             {
                                 if(k != select_idx)
                                 {
