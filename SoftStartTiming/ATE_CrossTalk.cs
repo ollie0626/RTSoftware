@@ -776,14 +776,30 @@ namespace SoftStartTiming
 
                             // freq loop
                             /* change aggressor vout */
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                                            test_parameter.vout_addr[select_idx],
-                                            new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
+                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                            //                test_parameter.vout_addr[select_idx],
+                            //                new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
 
-                            /* change aggressor freq */
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                                            test_parameter.freq_addr[select_idx],
-                                            new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
+                            ///* change aggressor freq */
+                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                            //                test_parameter.freq_addr[select_idx],
+                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
+
+
+                            /* change victim vout */
+                            for (int i = 0; i < test_parameter.vout_addr.Length; i++)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave),
+                                                test_parameter.vout_addr[i],
+                                                new byte[] { test_parameter.vout_data[i][vout_idx] });
+                            }
+
+
+                            /* change victim freq */
+                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                            //                test_parameter.freq_addr[select_idx],
+                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
+                            WriteFreq(select_idx, freq_idx);
 
                             int cnt_max_l2 = 0;
                             int cnt_max_l1 = 0;
