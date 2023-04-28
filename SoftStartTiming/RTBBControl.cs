@@ -32,7 +32,7 @@ namespace SoftStartTiming
         {
             hEnum = BridgeBoardEnum.GetBoardEnum();
             hDevice = BridgeBoard.ConnectByIndex(hEnum, 0);
-            if(hDevice != null)
+            if (hDevice != null)
             {
                 i2cModule = hDevice.GetI2CModule();
                 gpioModule = hDevice.GetGPIOModule();
@@ -47,7 +47,7 @@ namespace SoftStartTiming
             GlobalVariable.I2CSLAVEADDR i2CSLAVEADDR = new GlobalVariable.I2CSLAVEADDR();
             List<byte> slave_list = new List<byte>();
 
-            for (int slave = 0; slave < 128; slave +=2)
+            for (int slave = 0; slave < 128; slave += 2)
             {
                 i2cModule.RTBB_I2CScanSlaveDevice(ref i2CSLAVEADDR);
                 slave = i2cModule.RTBB_I2CGetFirstValidSlaveAddr(ref i2CSLAVEADDR, slave);
@@ -60,6 +60,12 @@ namespace SoftStartTiming
             }
             return slave_list;
         }
+
+        public void GPIOnState(uint mask, uint pin)
+        {
+            gpioModule.RTBB_GPIOWrite(2, mask, pin);
+        }
+
 
         public void GpioInit()
         {
@@ -111,8 +117,6 @@ namespace SoftStartTiming
             if (gpioModule == null) return;
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
-
-
 
 
         public void RelayOn(int num)
@@ -179,7 +183,7 @@ namespace SoftStartTiming
             pDataIn[0] = slave;
             pDataIn[1] = addr;
             pDataIn[2] = (byte)file.Length;
-            for (int i = 3; i < (int)pDataInCount ; i++)
+            for (int i = 3; i < (int)pDataInCount; i++)
             {
                 pDataIn[i] = binData[i - 3];
             }
@@ -191,7 +195,6 @@ namespace SoftStartTiming
             reader.Close();
             return ret;
         }
-
 
         public void SwirePulse(int num)
         {

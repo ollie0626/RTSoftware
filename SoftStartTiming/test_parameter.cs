@@ -10,6 +10,7 @@ namespace SoftStartTiming
     static public class test_parameter
     {
         public static List<double> VinList = new List<double>();
+        public static List<double> IoutList = new List<double>();
 
         public static string vin_conditions;
         public static string tool_ver;
@@ -121,6 +122,8 @@ namespace SoftStartTiming
 
         // modify for support 8 channel eload and 4 channel scope
         public static List<OutputInfo> outputs = new List<OutputInfo>();
+
+        public static VIDIO_parameter vidio = new VIDIO_parameter();
 
 
     }

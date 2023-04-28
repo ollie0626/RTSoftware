@@ -385,7 +385,7 @@ namespace SoftStartTiming
                     //    }
                     //    goto re_scale;
                     //}
-
+                     
                     //if (InsControl._tek_scope_en)
                     //{
                     //    InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
