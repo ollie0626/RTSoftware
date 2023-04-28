@@ -55,7 +55,6 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Offset(2, min);
             InsControl._oscilloscope.CHx_Position(2, -2);
 
-
             InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[0] / 1.5);
             InsControl._oscilloscope.CHx_Position(3, -3);
 
@@ -78,17 +77,26 @@ namespace SoftStartTiming
                         MyLib.Delay1ms(200);
                         MyLib.Switch_ELoadLevel(test_parameter.IoutList[iout_idx]);
                         InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
-
-
+                        InsControl._oscilloscope.SetAutoTrigger();
                         double vout = test_parameter.voutList[case_idx];
                         double vout_af = test_parameter.voutList[case_idx];
                         bool rising_en = vout < vout_af ? true : false;
-
-
-                        if (rising_en) InsControl._oscilloscope.SetTriggerRise();
-                        else InsControl._oscilloscope.SetTriggerFall();
                         
-
+                        if (rising_en)
+                        {
+                            InsControl._oscilloscope.SetTriggerRise();
+                            InsControl._oscilloscope.CHx_Level(2, vout_af - vout / 3);
+                            InsControl._oscilloscope.CHx_Offset(2, vout);
+                            InsControl._oscilloscope.CHx_Position(2, -2);
+                        }
+                        else
+                        {
+                            InsControl._oscilloscope.SetTriggerFall();
+                            InsControl._oscilloscope.CHx_Level(2, vout - vout_af / 3);
+                            InsControl._oscilloscope.CHx_Offset(2, vout_af);
+                            InsControl._oscilloscope.CHx_Position(2, -2);
+                        }
+                        
                         // initial sate setting
                         IOStateSetting(
                                         test_parameter.vidio.lpm_sel[case_idx],
@@ -99,11 +107,7 @@ namespace SoftStartTiming
                         MyLib.Delay1ms(500);
 
                         
-
-
-
-
-
+                        InsControl._oscilloscope.SetNormalTrigger();
                         // transfer condition
                         IOStateSetting(
                                         test_parameter.vidio.lpm_sel_af[case_idx],
