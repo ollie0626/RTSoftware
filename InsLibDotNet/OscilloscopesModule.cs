@@ -933,7 +933,7 @@ namespace InsLibDotNet
             }
         }
 
-        public void SetCursorPos(double pos1, double pos2)
+        public void SetCursorVPos(double pos1, double pos2)
         {
             switch(osc_sel)
             {
@@ -946,7 +946,44 @@ namespace InsLibDotNet
             }
         }
 
+        public void SetCursorHPos(double pos1, double pos2)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:HBArs:POSITION1 {0}", pos1));
+                    doCommand(string.Format("CURSor:HBArs:POSITION2 {0}", pos1));
+                    break;
+                case 1:
+                    break;
+            }
+        }
 
+        public void SetCursorScreenXpos(double pos1, double pos2)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:SCREEN:XPOSITION1 {0}", pos1));
+                    doCommand(string.Format("CURSor:SCREEN:XPOSITION2 {0}", pos2));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetCursorScreenYpos(double pos1, double pos2)
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:SCREEN:YPOSITION1 {0}", pos1));
+                    doCommand(string.Format("CURSor:SCREEN:YPOSITION2 {0}", pos2));
+                    break;
+                case 1:
+                    break;
+            }
+        }
 
     }
 }
