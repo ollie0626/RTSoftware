@@ -203,11 +203,14 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetCursorOn();
             InsControl._oscilloscope.SetAnnotation(1);
             double x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+            MyLib.Delay1ms(100);
             double x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-            
+            MyLib.Delay1ms(100);
 
             InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+            MyLib.Delay1ms(100);
             InsControl._oscilloscope.SetCursorScreenYpos(vout, vout_af);
+            MyLib.Delay1ms(100);
 
         }
 
