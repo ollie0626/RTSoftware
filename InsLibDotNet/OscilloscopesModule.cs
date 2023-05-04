@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Net.Http.Headers;
+using System.Reflection.Emit;
 
 namespace InsLibDotNet
 {
@@ -65,6 +67,19 @@ namespace InsLibDotNet
         public void SetRST()
         {
             doCommand("*RST");
+        }
+
+        public void SetRun()
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand("ACQuire:STATE RUN");
+                    break;
+                case 1:
+                    doCommand(":RUN");
+                    break;
+            }
         }
 
         public void SetStop()
@@ -227,7 +242,7 @@ namespace InsLibDotNet
             switch(osc_sel)
             {
                 case 0:
-                    doCommand(string.Format("TRIGger: A: EDGE: SOUrce CH{0}", ch));
+                    doCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch));
                     doCommand(string.Format("TRIGger:A:LEVel {0}", level));
                     break;
                 case 1:
@@ -811,6 +826,126 @@ namespace InsLibDotNet
             }
             return res;
         }
+
+
+        public void SetAnnotation(int meas)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", meas));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public double GetAnnotationXn(int Xn)
+        {
+            double res = 0;
+
+            switch(osc_sel)
+            {
+                case 0:
+                    res = doQueryNumber(string.Format("MEASUrement:ANNOTation:X{0}?", Xn));
+                    break;
+                case 1:
+                    break;
+            }
+
+            return res;
+        }
+
+        public double GetAnnotationYn(int Yn)
+        {
+            double res = 0;
+
+            switch (osc_sel)
+            {
+                case 0:
+                    res = doQueryNumber(string.Format("MEASUrement:ANNOTation:Y{0}?", Yn));
+                    break;
+                case 1:
+                    break;
+            }
+
+            return res;
+        }
+
+        public void SetREFLevelMethod(bool isPercent = true)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    if (isPercent)
+                        doCommand("MEASUrement:IMMed:REFLevel:METHod PERCent");
+                    else
+                        doCommand("MEASUrement:IMMed:REFLevel:METHod ABSolute");
+                    break;
+            }
+        }
+
+        public void SetREFLevel(double high, double mid, double low)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:HIGH {0}", high));
+                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:MID {0}", mid));
+                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:LOW {0}", low));
+                    break;
+            }
+        }
+
+
+
+        public void SetCursorMode()
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:FUNCtion SCREEN"));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetCursorSource(int source, int ch)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:SOUrce{0} CH{1}", source, ch));
+                    break;
+                case 1:
+                    break;
+            }    
+        }
+
+        public void SetCursorOn()
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand("CURSor:STATE ON");
+                    break;
+            }
+        }
+
+        public void SetCursorPos(double pos1, double pos2)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:VBArs:POS1 {0}", pos1));
+                    doCommand(string.Format("CURSor:VBArs:POS2 {0}", pos2));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
 
 
     }

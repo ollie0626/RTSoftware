@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using RTBBLibDotNet;
+using System.Windows.Forms;
 
 namespace SoftStartTiming
 {
@@ -63,6 +64,7 @@ namespace SoftStartTiming
 
         public void GPIOnState(uint mask, uint pin)
         {
+            if (gpioModule == null) return;
             gpioModule.RTBB_GPIOWrite(2, mask, pin);
         }
 

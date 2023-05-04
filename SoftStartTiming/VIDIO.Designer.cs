@@ -43,6 +43,14 @@ namespace SoftStartTiming
             this.CBPower = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_power = new System.Windows.Forms.TextBox();
             this.tb_eload = new System.Windows.Forms.TextBox();
             this.led_power = new System.Windows.Forms.TextBox();
@@ -73,14 +81,6 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
-            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -138,6 +138,7 @@ namespace SoftStartTiming
             this.uibt_osc_connect.TabIndex = 109;
             this.uibt_osc_connect.Text = "Instrument Connect";
             this.uibt_osc_connect.UseVisualStyleBackColor = true;
+            this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // BT_SaveSetting
             // 
@@ -183,7 +184,7 @@ namespace SoftStartTiming
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(215, 22);
             this.tbWave.TabIndex = 120;
-            this.tbWave.Text = "D:\\";
+            this.tbWave.Text = "D:\\Waveform";
             // 
             // list_ins
             // 
@@ -202,6 +203,7 @@ namespace SoftStartTiming
             this.BTScan.TabIndex = 114;
             this.BTScan.Text = "Scan Instrument";
             this.BTScan.UseVisualStyleBackColor = true;
+            this.BTScan.Click += new System.EventHandler(this.BTScan_Click);
             // 
             // CBPower
             // 
@@ -240,6 +242,54 @@ namespace SoftStartTiming
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(805, 230);
             this.dataGridView1.TabIndex = 122;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "LPM";
+            this.Column1.Name = "Column1";
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "G1 logic";
+            this.Column2.Name = "Column2";
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "G2 logic";
+            this.Column3.Name = "Column3";
+            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Vout (V)";
+            this.Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "LPM (after)";
+            this.Column5.Name = "Column5";
+            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "G1 (after)";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "G2 (after)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Vout (after)";
+            this.Column8.Name = "Column8";
             // 
             // tb_power
             // 
@@ -366,7 +416,7 @@ namespace SoftStartTiming
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(812, 575);
+            this.tabPage1.Size = new System.Drawing.Size(826, 575);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
@@ -555,6 +605,7 @@ namespace SoftStartTiming
             this.BTStop.TabIndex = 67;
             this.BTStop.Text = "Stop";
             this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
             // 
             // BTRun
             // 
@@ -565,54 +616,6 @@ namespace SoftStartTiming
             this.BTRun.Text = "Run";
             this.BTRun.UseVisualStyleBackColor = true;
             this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "LPM";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "G1 logic";
-            this.Column2.Name = "Column2";
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "G2 logic";
-            this.Column3.Name = "Column3";
-            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Vout (V)";
-            this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "LPM (after)";
-            this.Column5.Name = "Column5";
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "G1 (after)";
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "G2 (after)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Vout (after)";
-            this.Column8.Name = "Column8";
             // 
             // VIDIO
             // 
