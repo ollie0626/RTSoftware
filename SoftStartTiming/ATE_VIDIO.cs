@@ -659,14 +659,14 @@ namespace SoftStartTiming
                         
                         if (diff)
                         {
-                            // < 130mV case: 6.5us
+                            // < 130mV case: slew < 6.5us
                             double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
                             double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
                             _sheet.Cells[row, XLS_Table.N] = (rise < 6.5) | (fall < 6.5) ? "Pass" : "Fail";
                         }
                         else
                         {
-                            // > 130mV case: 20mV/s
+                            // > 130mV case: slew > 20mV/s
                             double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
                             double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
                             _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
