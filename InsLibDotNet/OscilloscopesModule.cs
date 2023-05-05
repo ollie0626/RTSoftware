@@ -42,6 +42,11 @@ namespace InsLibDotNet
             InsClose();
         }
 
+        public void DoCommand(string cmd)
+        {
+            doCommand(cmd);
+        }
+
         public void SetLevelAboutGnd()
         {
             switch (osc_sel)
@@ -872,35 +877,36 @@ namespace InsLibDotNet
             return res;
         }
 
-        public void SetREFLevelMethod(bool isPercent = true)
+        public void SetREFLevelMethod(int meas, bool isPercent = true)
         {
             switch(osc_sel)
             {
                 case 0:
                     if (isPercent)
-                        doCommand("MEASUrement:IMMed:REFLevel:METHod PERCent");
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:METHod PERCent", meas));
                     else
-                        doCommand("MEASUrement:IMMed:REFLevel:METHod ABSolute");
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:METHod ABSolute", meas));
                     break;
             }
         }
 
-        public void SetREFLevel(double high, double mid, double low, bool isPercent = true)
+        public void SetREFLevel(double high, double mid, double low, int meas, bool isPercent = true)
         {
             switch(osc_sel)
             {
                 case 0:
                     if(isPercent)
                     {
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:HIGH {0}", high));
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:MID {0}", mid));
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:LOW {0}", low));
+                        //MEASUrement:MEAS<x>:REFLevel:ABSolute:LOW
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:HIGH {1}", meas, high));
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID {1}", meas, mid));
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:LOW {1}", meas, low));
                     }
                     else
                     {
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:HIGH {0}", high));
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:MID {0}", mid));
-                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:LOW {0}", low));
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:ABSolute:HIGH {1}", meas, high));
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:ABSolute:MID {1}", meas, mid));
+                        doCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:ABSolute:LOW {1}", meas, low));
                     }
 
                     //MEASUrement:IMMed:REFLevel:ABSolute:HIGH
@@ -909,13 +915,41 @@ namespace InsLibDotNet
         }
 
 
-
         public void SetCursorMode()
         {
-            switch(osc_sel)
+            //TRACk|INDependent
+            switch (osc_sel)
+            { 
+                case 0:
+                    doCommand(string.Format("CURSor:MODe TRACk"));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+
+
+        public void SetCursorScreen()
+        {
+            //WAVEform
+            switch (osc_sel)
             {
                 case 0:
                     doCommand(string.Format("CURSor:FUNCtion SCREEN"));
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetCursorWaveform()
+        {
+            //WAVEform
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("CURSor:FUNCtion WAVEform"));
                     break;
                 case 1:
                     break;
@@ -1008,6 +1042,19 @@ namespace InsLibDotNet
                 case 1:
                     break;
             }
+            return res;
+        }
+
+        public double GetCursorHBarDelta()
+        {
+            double res = 0;
+            switch(osc_sel)
+            {
+                case 0:
+                    res = doQueryNumber("CURSor:HBArs:DELTa?");
+                    break;
+            }
+
             return res;
         }
 
