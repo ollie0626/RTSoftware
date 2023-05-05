@@ -996,5 +996,20 @@ namespace InsLibDotNet
             }
         }
 
+
+        public double GetCursorVBarDelta()
+        {
+            double res = 0;
+            switch(osc_sel)
+            {
+                case 0:
+                    res = doQueryNumber("CURSor:VBArs:DELTa?");
+                    break;
+                case 1:
+                    break;
+            }
+            return res;
+        }
+
     }
 }
