@@ -220,9 +220,19 @@ namespace SoftStartTiming
                         CursorAdjust(case_idx);
 
                         if (diff)
+                        {
                             slew_rate = InsControl._oscilloscope.CHx_Meas_Rise(1, 1);
+                            slew_rate = InsControl._oscilloscope.CHx_Meas_Rise(1, 1);
+                            MyLib.Delay1ms(100);
+                            slew_rate = InsControl._oscilloscope.CHx_Meas_Rise(1, 1);
+                        }
                         else
+                        {
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+                            slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+                            MyLib.Delay1ms(100);
+                            slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+                        }
                         slewrate_list.Add(slew_rate);
                     }
                     else
@@ -245,10 +255,20 @@ namespace SoftStartTiming
                         CursorAdjust(case_idx);
 
                         if (diff)
+                        {
                             slew_rate = InsControl._oscilloscope.CHx_Meas_Fall(1, 1);
+                            slew_rate = InsControl._oscilloscope.CHx_Meas_Fall(1, 1);
+                            MyLib.Delay1ms(100);
+                            slew_rate = InsControl._oscilloscope.CHx_Meas_Fall(1, 1);
+                        }
                         else
+                        {
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
-
+                            slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+                            MyLib.Delay1ms(100);
+                            slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+                        }
+                            
                         slewrate_list.Add(slew_rate);
                     }
                 }
