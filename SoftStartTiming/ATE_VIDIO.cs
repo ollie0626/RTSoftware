@@ -625,13 +625,13 @@ namespace SoftStartTiming
 #if Report_en
                         if (rising_en)
                         {
-                            _sheet.Cells[row, XLS_Table.H] = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min(); // rise time
+                            _sheet.Cells[row, XLS_Table.H] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min()); // rise time
                             _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
                             _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
                         }
                         else
                         {
-                            _sheet.Cells[row, XLS_Table.I] = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
+                            _sheet.Cells[row, XLS_Table.I] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min());
                             _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
                         }
@@ -642,13 +642,13 @@ namespace SoftStartTiming
 #if Report_en
                         if (!rising_en)
                         {
-                            _sheet.Cells[row, XLS_Table.H] = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min(); // rise time
+                            _sheet.Cells[row, XLS_Table.H] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min()); // rise time
                             _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
                             _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
                         }
                         else
                         {
-                            _sheet.Cells[row, XLS_Table.I] = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
+                            _sheet.Cells[row, XLS_Table.I] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min());
                             _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
                         }
@@ -669,7 +669,7 @@ namespace SoftStartTiming
                             // > 130mV case: 20mV/s
                             double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
                             double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
-                            _sheet.Cells[row, XLS_Table.N] = (rise > 6.5) | (fall > 6.5) ? "Pass" : "Fail";
+                            _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
                         }
 
 
