@@ -13,6 +13,7 @@ namespace SoftStartTiming
         public static List<double> IoutList = new List<double>();
 
         public static string vin_conditions;
+        public static string iout_conditions;
         public static string tool_ver;
         public static string bin_file_cnt;
         public static int bin1_cnt;

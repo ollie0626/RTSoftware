@@ -568,7 +568,7 @@ namespace InsLibDotNet
         public double MeasureMin(int num)
         {
             string cmd = "";
-            cmd = string.Format("MEASUrement:MEAS{0}:MIN?", num);
+            cmd = string.Format("MEASUrement:MEAS{0}:MINI?", num);
             double res = doQueryNumber(cmd);
             return res;
         }
@@ -885,14 +885,25 @@ namespace InsLibDotNet
             }
         }
 
-        public void SetREFLevel(double high, double mid, double low)
+        public void SetREFLevel(double high, double mid, double low, bool isPercent = true)
         {
             switch(osc_sel)
             {
                 case 0:
-                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:HIGH {0}", high));
-                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:MID {0}", mid));
-                    doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:LOW {0}", low));
+                    if(isPercent)
+                    {
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:HIGH {0}", high));
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:MID {0}", mid));
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:PERCent:LOW {0}", low));
+                    }
+                    else
+                    {
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:HIGH {0}", high));
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:MID {0}", mid));
+                        doCommand(string.Format("MEASUrement:IMMed:REFLevel:ABSolute:LOW {0}", low));
+                    }
+
+                    //MEASUrement:IMMed:REFLevel:ABSolute:HIGH
                     break;
             }
         }

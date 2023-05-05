@@ -74,9 +74,12 @@ namespace SoftStartTiming
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_iout = new System.Windows.Forms.TextBox();
+            this.tb_connect3 = new System.Windows.Forms.TextBox();
             this.BT_Sub = new System.Windows.Forms.Button();
+            this.tb_connect2 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
+            this.tb_connect1 = new System.Windows.Forms.TextBox();
             this.BT_Add = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
@@ -100,6 +103,7 @@ namespace SoftStartTiming
             this.label1.Size = new System.Drawing.Size(53, 12);
             this.label1.TabIndex = 110;
             this.label1.Text = "Slave ID";
+            this.label1.Visible = false;
             // 
             // CBChannel
             // 
@@ -129,6 +133,7 @@ namespace SoftStartTiming
             this.BT_LoadSetting.TabIndex = 113;
             this.BT_LoadSetting.Text = "Load Setting";
             this.BT_LoadSetting.UseVisualStyleBackColor = true;
+            this.BT_LoadSetting.Click += new System.EventHandler(this.BT_LoadSetting_Click);
             // 
             // uibt_osc_connect
             // 
@@ -148,6 +153,7 @@ namespace SoftStartTiming
             this.BT_SaveSetting.TabIndex = 112;
             this.BT_SaveSetting.Text = "Save Setting";
             this.BT_SaveSetting.UseVisualStyleBackColor = true;
+            this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
             // 
             // label9
             // 
@@ -177,6 +183,7 @@ namespace SoftStartTiming
             0,
             0,
             0});
+            this.nuslave.Visible = false;
             // 
             // tbWave
             // 
@@ -184,7 +191,7 @@ namespace SoftStartTiming
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(215, 22);
             this.tbWave.TabIndex = 120;
-            this.tbWave.Text = "D:\\Waveform";
+            this.tbWave.Text = "D:\\Waveform\\VID";
             // 
             // list_ins
             // 
@@ -511,8 +518,11 @@ namespace SoftStartTiming
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
             this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.tb_connect3);
             this.tabPage2.Controls.Add(this.BT_Sub);
+            this.tabPage2.Controls.Add(this.tb_connect2);
             this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.tb_connect1);
             this.tabPage2.Controls.Add(this.dataGridView1);
             this.tabPage2.Controls.Add(this.BT_Add);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
@@ -545,6 +555,16 @@ namespace SoftStartTiming
             this.tb_iout.TabIndex = 49;
             this.tb_iout.Text = "0.5";
             // 
+            // tb_connect3
+            // 
+            this.tb_connect3.Enabled = false;
+            this.tb_connect3.Location = new System.Drawing.Point(15, 406);
+            this.tb_connect3.Name = "tb_connect3";
+            this.tb_connect3.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect3.TabIndex = 136;
+            this.tb_connect3.Text = "G2 = GPIO2.2";
+            this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // BT_Sub
             // 
             this.BT_Sub.Location = new System.Drawing.Point(54, 309);
@@ -554,6 +574,16 @@ namespace SoftStartTiming
             this.BT_Sub.Text = "-";
             this.BT_Sub.UseVisualStyleBackColor = true;
             this.BT_Sub.Click += new System.EventHandler(this.BT_Sub_Click);
+            // 
+            // tb_connect2
+            // 
+            this.tb_connect2.Enabled = false;
+            this.tb_connect2.Location = new System.Drawing.Point(15, 378);
+            this.tb_connect2.Name = "tb_connect2";
+            this.tb_connect2.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect2.TabIndex = 135;
+            this.tb_connect2.Text = "G1 = GPIO2.1";
+            this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
             // 
@@ -578,6 +608,16 @@ namespace SoftStartTiming
             this.tb_vinList.TabIndex = 49;
             this.tb_vinList.Text = "3.3";
             // 
+            // tb_connect1
+            // 
+            this.tb_connect1.Enabled = false;
+            this.tb_connect1.Location = new System.Drawing.Point(15, 350);
+            this.tb_connect1.Name = "tb_connect1";
+            this.tb_connect1.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect1.TabIndex = 134;
+            this.tb_connect1.Text = "LPM = GPIO2.0";
+            this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // BT_Add
             // 
             this.BT_Add.Location = new System.Drawing.Point(15, 309);
@@ -596,6 +636,7 @@ namespace SoftStartTiming
             this.BTPause.TabIndex = 68;
             this.BTPause.Text = "Pause";
             this.BTPause.UseVisualStyleBackColor = true;
+            this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
             // 
             // BTStop
             // 
@@ -639,6 +680,7 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -701,5 +743,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewComboBoxColumn Column6;
         private System.Windows.Forms.DataGridViewComboBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.TextBox tb_connect3;
+        private System.Windows.Forms.TextBox tb_connect2;
+        private System.Windows.Forms.TextBox tb_connect1;
     }
 }
