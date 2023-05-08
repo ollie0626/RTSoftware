@@ -505,6 +505,16 @@ namespace SoftStartTiming
                 }
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo psi = new ProcessStartInfo();
+            psi.Arguments = "/im EXCEL.EXE /f";
+            psi.FileName = "taskkill";
+            Process p = new Process();
+            p.StartInfo = psi;
+            p.Start();
+        }
     }
 
 

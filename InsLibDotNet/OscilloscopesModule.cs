@@ -19,6 +19,8 @@ namespace InsLibDotNet
          */
         public int osc_sel;
 
+        //ACQuire:NUMACq? get trigger counter of Tektronix scope
+
         public OscilloscopesModule()
         {
 

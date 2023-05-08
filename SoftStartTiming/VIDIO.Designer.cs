@@ -84,6 +84,7 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -658,12 +659,23 @@ namespace SoftStartTiming
             this.BTRun.UseVisualStyleBackColor = true;
             this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(496, 619);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 32);
+            this.button1.TabIndex = 134;
+            this.button1.Text = "Excel Kill";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(858, 657);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.BTStop);
@@ -746,5 +758,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.TextBox tb_connect3;
         private System.Windows.Forms.TextBox tb_connect2;
         private System.Windows.Forms.TextBox tb_connect1;
+        private System.Windows.Forms.Button button1;
     }
 }
