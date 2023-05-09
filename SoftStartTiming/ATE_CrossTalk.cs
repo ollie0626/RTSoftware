@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+//#define Report_en
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -116,7 +118,6 @@ namespace SoftStartTiming
                 RTDev.I2C_Write((byte)(test_parameter.slave), freq_addr[i], new byte[] { freq_data[i] });
             }
         }
-
 
         public void WriteEn(List<double> data, byte[] addr, byte[] en_on, byte[] dis_off, int select_idx)
         {
@@ -252,7 +253,7 @@ namespace SoftStartTiming
             progress = 0;
             updateMain.UpdateProgressBar(0);
             RTDev.BoadInit();
-#if true
+#if Report_en
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
@@ -411,7 +412,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureOff(2);
             InsControl._oscilloscope.SetMeasureOff(3);
             InsControl._oscilloscope.SetMeasureOff(4);
-#if true
+#if Report_en
             // for measure victim channel
             //int col_cnt = 7;
             double pos_delta = (vmax - vmean) * 1000;
@@ -549,7 +550,7 @@ namespace SoftStartTiming
                                 int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                 int col_start = col_base;
 
-#if true
+#if Report_en
                                 _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                 , test_parameter.vout_des[select_idx][vout_idx]
                                                                 , test_parameter.vout_addr[select_idx]
@@ -716,7 +717,7 @@ namespace SoftStartTiming
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-#if true
+#if Report_en
             string conditions = (string)_sheet.Cells[2, XLS_Table.B].Value + "\r\n";
             conditions = conditions + time;
             _sheet.Cells[2, XLS_Table.B] = conditions;
@@ -825,7 +826,8 @@ namespace SoftStartTiming
                                 int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                 int col_start = col_base;
 
-#if true
+                                //TODO: Issue5
+#if Report_en
                                 _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                 , test_parameter.vout_des[select_idx][vout_idx]
                                                                 , test_parameter.vout_addr[select_idx]
@@ -993,7 +995,7 @@ namespace SoftStartTiming
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-#if true
+#if Report_en
             string conditions = (string)_sheet.Cells[2, XLS_Table.B].Value + "\r\n";
             conditions = conditions + time;
             _sheet.Cells[2, XLS_Table.B] = conditions;
@@ -1053,6 +1055,7 @@ namespace SoftStartTiming
             //if (select_idx == 0 && test_parameter.Lx1) InsControl._oscilloscope.CHx_On(3);
             //if (select_idx == 1 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
 
+            //TODO: Issue6 
             // turn vout channel
             string name = test_parameter.scope_chx[select_idx];
             string res = test_parameter.scope_lx[select_idx];
@@ -1119,6 +1122,9 @@ namespace SoftStartTiming
                 else
                     InsControl._eload.LoadOFF(test_parameter.eload_chx[select_idx]);
 
+                //TODO: Issue1
+                MyLib.Delay1s(1);
+
                 List<double> data = new List<double>();
                 List<double> data_l1 = new List<double>();
                 List<double> data_l2 = new List<double>();
@@ -1153,6 +1159,7 @@ namespace SoftStartTiming
                 }
 
                 int aggressor_col = (int)XLS_Table.C;
+                //TODO: Issue4
                 for (int j = 0; j < n; j++) // run each channel
                 {
                     switch (test_parameter.cross_mode)
@@ -1239,6 +1246,7 @@ namespace SoftStartTiming
                 //MeasureVictim(select_idx + 1, col_start + 1, vout, before);
 
                 MyLib.Delay1s(test_parameter.accumulate);
+                //TODO: Issue2
                 MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), col_start + 1, vout, before);
                 test_parameter.waveform_name = temp;
 

@@ -39,6 +39,10 @@ namespace SoftStartTiming
                     form = new VIDIO();
                     form.ShowDialog();
                     break;
+                case 3:
+                    form = new VIDI2C();
+                    form.ShowDialog();
+                    break;
             }
         }
     }
