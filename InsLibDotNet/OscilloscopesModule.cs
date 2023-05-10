@@ -49,6 +49,20 @@ namespace InsLibDotNet
             doCommand(cmd);
         }
 
+        public int GetACQire()
+        {
+            int res = 0;
+            switch(osc_sel)
+            {
+                case 0:
+                    res = (int)doQueryNumber("ACQuire:NUMACq?");
+                    break;
+            }
+
+            return 0;
+        }
+
+
         public void SetLevelAboutGnd()
         {
             switch (osc_sel)

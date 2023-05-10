@@ -46,7 +46,7 @@ namespace SoftStartTiming
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_power = new System.Windows.Forms.TextBox();
             this.tb_eload = new System.Windows.Forms.TextBox();
@@ -69,6 +69,11 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nuUpdateData = new System.Windows.Forms.NumericUpDown();
+            this.nuUpdateAddr = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Freq_DG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,6 +97,9 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuUpdateData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuUpdateAddr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Freq_DG)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -219,6 +227,7 @@ namespace SoftStartTiming
             this.CBPower.Name = "CBPower";
             this.CBPower.Size = new System.Drawing.Size(215, 20);
             this.CBPower.TabIndex = 115;
+            this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -240,7 +249,7 @@ namespace SoftStartTiming
             this.Column5,
             this.Column8});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 132);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 221);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 24;
@@ -269,7 +278,6 @@ namespace SoftStartTiming
             this.Column5.HeaderText = "Data (after)";
             this.Column5.Name = "Column5";
             this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // Column8
             // 
@@ -495,6 +503,7 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.Freq_DG);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.BT_Sub);
@@ -510,6 +519,75 @@ namespace SoftStartTiming
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.nuUpdateData);
+            this.groupBox4.Controls.Add(this.nuUpdateAddr);
+            this.groupBox4.Controls.Add(this.label5);
+            this.groupBox4.Controls.Add(this.label4);
+            this.groupBox4.Location = new System.Drawing.Point(16, 82);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(520, 61);
+            this.groupBox4.TabIndex = 138;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "I2C Vout Update";
+            // 
+            // nuUpdateData
+            // 
+            this.nuUpdateData.Hexadecimal = true;
+            this.nuUpdateData.Location = new System.Drawing.Point(253, 29);
+            this.nuUpdateData.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuUpdateData.Name = "nuUpdateData";
+            this.nuUpdateData.Size = new System.Drawing.Size(54, 22);
+            this.nuUpdateData.TabIndex = 3;
+            this.nuUpdateData.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuUpdateData.Value = new decimal(new int[] {
+            4,
+            0,
+            0,
+            0});
+            // 
+            // nuUpdateAddr
+            // 
+            this.nuUpdateAddr.Hexadecimal = true;
+            this.nuUpdateAddr.Location = new System.Drawing.Point(110, 29);
+            this.nuUpdateAddr.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuUpdateAddr.Name = "nuUpdateAddr";
+            this.nuUpdateAddr.Size = new System.Drawing.Size(56, 22);
+            this.nuUpdateAddr.TabIndex = 2;
+            this.nuUpdateAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuUpdateAddr.Value = new decimal(new int[] {
+            48,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(181, 31);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(66, 12);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Data (Hex)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(19, 31);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(85, 12);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "Address (Hex)";
+            // 
             // Freq_DG
             // 
             this.Freq_DG.AllowUserToAddRows = false;
@@ -519,7 +597,7 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn2,
             this.dataGridViewTextBoxColumn3});
             this.Freq_DG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.Freq_DG.Location = new System.Drawing.Point(15, 73);
+            this.Freq_DG.Location = new System.Drawing.Point(15, 162);
             this.Freq_DG.Name = "Freq_DG";
             this.Freq_DG.RowHeadersVisible = false;
             this.Freq_DG.RowTemplate.Height = 24;
@@ -570,7 +648,7 @@ namespace SoftStartTiming
             // 
             // BT_Sub
             // 
-            this.BT_Sub.Location = new System.Drawing.Point(55, 368);
+            this.BT_Sub.Location = new System.Drawing.Point(55, 457);
             this.BT_Sub.Name = "BT_Sub";
             this.BT_Sub.Size = new System.Drawing.Size(33, 23);
             this.BT_Sub.TabIndex = 134;
@@ -581,12 +659,13 @@ namespace SoftStartTiming
             // tb_connect2
             // 
             this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(15, 438);
+            this.tb_connect2.Location = new System.Drawing.Point(15, 539);
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 135;
             this.tb_connect2.Text = "EN2 = GPIO2.1";
             this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.tb_connect2.Visible = false;
             // 
             // groupBox1
             // 
@@ -614,16 +693,16 @@ namespace SoftStartTiming
             // tb_connect1
             // 
             this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(15, 410);
+            this.tb_connect1.Location = new System.Drawing.Point(15, 511);
             this.tb_connect1.Name = "tb_connect1";
             this.tb_connect1.Size = new System.Drawing.Size(146, 22);
             this.tb_connect1.TabIndex = 134;
-            this.tb_connect1.Text = "EN1 = GPIO2.0";
+            this.tb_connect1.Text = "EN = GPIO2.0";
             this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // BT_Add
             // 
-            this.BT_Add.Location = new System.Drawing.Point(16, 368);
+            this.BT_Add.Location = new System.Drawing.Point(16, 457);
             this.BT_Add.Name = "BT_Add";
             this.BT_Add.Size = new System.Drawing.Size(33, 23);
             this.BT_Add.TabIndex = 133;
@@ -695,6 +774,10 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuUpdateData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuUpdateAddr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Freq_DG)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -753,14 +836,19 @@ namespace SoftStartTiming
         private System.Windows.Forms.TextBox tb_connect2;
         private System.Windows.Forms.TextBox tb_connect1;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridView Freq_DG;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.NumericUpDown nuUpdateAddr;
+        private System.Windows.Forms.NumericUpDown nuUpdateData;
     }
 }

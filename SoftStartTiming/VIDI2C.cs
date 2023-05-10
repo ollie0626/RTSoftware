@@ -16,6 +16,7 @@ using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
+//using Microsoft.Office.Interop.Excel;
 
 namespace SoftStartTiming
 {
@@ -29,7 +30,7 @@ namespace SoftStartTiming
         int SteadyTime;
 
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
-
+        RTBBControl RTDev = new RTBBControl();
 
         //ATE_VIDIO _ate_vid_io = new ATE_VIDIO();
         ATE_VIDI2C _ate_vid_i2c = new ATE_VIDI2C();
@@ -55,7 +56,7 @@ namespace SoftStartTiming
 
         private void BT_Sub_Click(object sender, EventArgs e)
         {
-            if(dataGridView1.RowCount - 1 > 0)
+            if (dataGridView1.RowCount - 1 > 0)
                 dataGridView1.RowCount = dataGridView1.RowCount - 1;
             else
                 dataGridView1.RowCount = 0;
@@ -63,26 +64,59 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            test_parameter.vidio.lpm_sel.Clear();
-            test_parameter.vidio.g1_sel.Clear();
-            test_parameter.vidio.g2_sel.Clear();
-            test_parameter.vidio.vout_list.Clear();
-
-            test_parameter.vidio.lpm_sel_af.Clear();
-            test_parameter.vidio.g1_sel_af.Clear();
-            test_parameter.vidio.g2_sel_af.Clear();
-            test_parameter.vidio.vout_list_af.Clear();
-
+            test_parameter.vidi2c.freq_data.Clear();
+            test_parameter.vidi2c.freq_list.Clear();
+            test_parameter.vidi2c.addr.Clear();
+            test_parameter.vidi2c.vout_data.Clear();
+            test_parameter.vidi2c.vout_data_af.Clear();
+            test_parameter.vidi2c.vout_des.Clear();
+            test_parameter.vidi2c.vout_des_af.Clear();
 
             test_parameter.tool_ver = win_name + "\r\n";
             test_parameter.vin_conditions = "Vin = " + tb_vinList.Text + "\r\n";
-            test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" + 
+            test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" +
                                              "VID Contions number = " + dataGridView1.RowCount + "\r\n";
-            
+
             test_parameter.waveform_path = tbWave.Text;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
 
+            test_parameter.vidi2c.freq_addr = Convert.ToByte(Freq_DG[0, 0].Value.ToString(), 16);
+            string[] temp = Convert.ToString(Freq_DG[1, 0].Value).Split(',');
+            for(int idx = 0; idx < temp.Length; idx++)
+            {
+                byte data = Convert.ToByte(temp[idx], 16);
+                test_parameter.vidi2c.freq_data.Add(data);
+            }
+
+            test_parameter.vidi2c._2byte_en = true;
+
+            for (int idx = 0; idx < dataGridView1.RowCount; idx++)
+            {
+                // address
+                string str = dataGridView1[0, idx].Value.ToString();
+                test_parameter.vidi2c.addr.Add(Convert.ToByte(str, 16));
+
+                // first vout data
+                str = dataGridView1[1, idx].Value.ToString();
+                test_parameter.vidi2c.vout_data.Add(Convert.ToInt16(str, 16));
+
+                // first vout
+                str = dataGridView1[2, idx].Value.ToString();
+                test_parameter.vidi2c.vout_des.Add(Convert.ToDouble(str));
+
+                // second vout data
+                str = dataGridView1[3, idx].Value.ToString();
+                test_parameter.vidi2c.vout_data_af.Add(Convert.ToInt16(str, 16));
+
+                // second vout
+                str = dataGridView1[4, idx].Value.ToString();
+                test_parameter.vidi2c.vout_des_af.Add(Convert.ToDouble(str));
+            }
+
+            test_parameter.vidi2c.addr_update = (byte)nuUpdateAddr.Value;
+            test_parameter.vidi2c.data_update = (byte)nuUpdateData.Value;
+            test_parameter.slave = (byte)nuslave.Value;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -90,6 +124,16 @@ namespace SoftStartTiming
             BTRun.Enabled = false;
             try
             {
+                RTDev.BoadInit();
+                List<byte> list = RTDev.ScanSlaveID();
+
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuslave.Value = list[0];
+                }
+
+
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
                 {
@@ -105,7 +149,7 @@ namespace SoftStartTiming
                     ATETask.Start(0);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error Message:" + ex.Message);
                 Console.WriteLine("StackTrace:" + ex.StackTrace);
@@ -377,19 +421,22 @@ namespace SoftStartTiming
             settings += "4.WavePath=$" + tbWave.Text + "$\r\n";
             settings += "5.Vin=$" + tb_vinList.Text + "$\r\n";
             settings += "6.Iout=$" + tb_iout.Text + "$\r\n";
-            settings += "7.DGrow=$" + dataGridView1.RowCount + "$\r\n";
+            settings += "Update_Addr=$" + nuUpdateAddr.Value.ToString() + "$\r\n";
+            settings += "Update_Data=$" + nuUpdateData.Value.ToString() + "$\r\n";
+
+            settings += "7.Freq_addr=$" + Freq_DG[0, 0].Value.ToString() + "$\r\n";
+            settings += "8.Freq_Data=$" + Freq_DG[1, 0].Value.ToString() + "$\r\n";
+            settings += "9.Freq_Freq=$" + Freq_DG[2, 0].Value.ToString() + "$\r\n";
+
+            settings += "10.DGrow=$" + dataGridView1.RowCount + "$\r\n";
 
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
-                settings += (i + 8).ToString() + ".LPM=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 9).ToString() + ".G1=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 10).ToString() + ".G2=$" + dataGridView1[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 11).ToString() + ".Vout=$" + dataGridView1[3, i].Value.ToString() + "$\r\n";
-                settings += (i + 12).ToString() + ".LPM_af=$" + dataGridView1[4, i].Value.ToString() + "$\r\n";
-                settings += (i + 13).ToString() + ".G1_af=$" + dataGridView1[5, i].Value.ToString() + "$\r\n";
-                settings += (i + 14).ToString() + ".G2_af=$" + dataGridView1[6, i].Value.ToString() + "$\r\n";
-                settings += (i + 15).ToString() + ".Vout_af=$" + dataGridView1[7, i].Value.ToString() + "$\r\n";
-
+                settings += (i + 11).ToString() + ".Vout_Addr=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 12).ToString() + ".Vout_Data=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 13).ToString() + ".Vout_Des=$" + dataGridView1[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 14).ToString() + ".Vout_Data_af=$" + dataGridView1[3, i].Value.ToString() + "$\r\n";
+                settings += (i + 15).ToString() + ".Vout_Des_af=$" + dataGridView1[4, i].Value.ToString() + "$\r\n";
             }
 
             using (StreamWriter sw = new StreamWriter(file))
@@ -412,7 +459,7 @@ namespace SoftStartTiming
         {
             object[] obj_arr = new object[]
             {
-                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, dataGridView1
+                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, nuUpdateAddr, nuUpdateData, Freq_DG, dataGridView1
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -449,15 +496,18 @@ namespace SoftStartTiming
                             ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
                             break;
                         case "DataGridView":
-                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
-
-
                             idx = i;
                             goto fullDG;
                     }
                 }
 
-                fullDG:
+            fullDG:
+                Freq_DG[0, 0].Value = Convert.ToString(info[idx]);
+                Freq_DG[1, 0].Value = Convert.ToString(info[idx + 1]);
+                Freq_DG[2, 0].Value = Convert.ToString(info[idx + 2]);
+
+                idx += 3;
+                dataGridView1.RowCount = Convert.ToInt32(info[idx]);
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
                     dataGridView1[0, i].Value = Convert.ToString(info[idx + 1]);
@@ -465,10 +515,10 @@ namespace SoftStartTiming
                     dataGridView1[2, i].Value = Convert.ToString(info[idx + 3]);
                     dataGridView1[3, i].Value = Convert.ToString(info[idx + 4]);
                     dataGridView1[4, i].Value = Convert.ToString(info[idx + 5]);
-                    dataGridView1[5, i].Value = Convert.ToString(info[idx + 6]);
-                    dataGridView1[6, i].Value = Convert.ToString(info[idx + 7]);
-                    dataGridView1[7, i].Value = Convert.ToString(info[idx + 8]);
-                    idx += 8;
+                    //dataGridView1[5, i].Value = Convert.ToString(info[idx + 6]);
+                    //dataGridView1[6, i].Value = Convert.ToString(info[idx + 7]);
+                    //dataGridView1[7, i].Value = Convert.ToString(info[idx + 8]);
+                    idx += 5;
                 }
             }
         }
@@ -481,6 +531,50 @@ namespace SoftStartTiming
             Process p = new Process();
             p.StartInfo = psi;
             p.Start();
+        }
+
+        private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(Device_map[CBPower.Text]);
+
+            InsControl._power = new PowerModule(Device_map[CBPower.Text]);
+
+            tb_power.Text = "Power: " + CBPower.Text;
+            if (InsControl._power.InsState())
+                led_power.BackColor = Color.LightGreen;
+            else
+                led_power.BackColor = Color.Red;
+
+            CBChannel.Items.Clear();
+            CBChannel.Enabled = true;
+            switch (CBPower.Text)
+            {
+                case "E3631A":
+                    CBChannel.Items.Add("+6V");
+                    CBChannel.Items.Add("+25V");
+                    CBChannel.Items.Add("-25V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3632A":
+                    CBChannel.Items.Add("15V");
+                    CBChannel.Items.Add("30V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3633A":
+                    CBChannel.Items.Add("8V");
+                    CBChannel.Items.Add("20V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3634A":
+                    CBChannel.Items.Add("25V");
+                    CBChannel.Items.Add("50V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "62006P":
+                    CBChannel.Items.Add("600V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+            }
         }
     }
 

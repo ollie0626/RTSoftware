@@ -220,6 +220,7 @@ namespace SoftStartTiming
             this.CBPower.Name = "CBPower";
             this.CBPower.Size = new System.Drawing.Size(215, 20);
             this.CBPower.TabIndex = 115;
+            this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -682,7 +683,7 @@ namespace SoftStartTiming
             this.Controls.Add(this.BTRun);
             this.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Name = "VIDIO";
-            this.Text = "VIDIO v1.0";
+            this.Text = "VIDIO v1.1";
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
