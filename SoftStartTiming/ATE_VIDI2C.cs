@@ -123,7 +123,13 @@ namespace SoftStartTiming
                 double rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
                 rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
                 MyLib.Delay1ms(100);
+                
                 rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
+
+                InsControl._oscilloscope.SetAnnotation(1);
+                InsControl._oscilloscope.SetAnnotation(1);
+                MyLib.Delay1ms(100);
+
                 double time_scale = rise_time / time_scale_div;
                 for(int idx = 0; idx < time_table.Length; idx++)
                 {
@@ -141,6 +147,11 @@ namespace SoftStartTiming
                 fall_time = InsControl._oscilloscope.CHx_Meas_Fall(1);
                 MyLib.Delay1ms(100);
                 fall_time = InsControl._oscilloscope.CHx_Meas_Fall(1);
+
+                InsControl._oscilloscope.SetAnnotation(1);
+                InsControl._oscilloscope.SetAnnotation(1);
+                MyLib.Delay1ms(100);
+
                 double time_scale = fall_time / time_scale_div;
                 for (int idx = 0; idx < time_table.Length; idx++)
                 {
@@ -195,6 +206,7 @@ namespace SoftStartTiming
                     I2CSetting(vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
                     CursorAdjust(rising_en);
+                    CursorAdjust(rising_en);
                     MyLib.Delay1ms(300);
                 }
 
@@ -208,6 +220,9 @@ namespace SoftStartTiming
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
                 MyLib.Delay1ms(100);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+
+                overshoot = (vmax - test_parameter.vidi2c.vout_des_af[vout_idx]) / test_parameter.vidi2c.vout_des_af[vout_idx];
+                overshoot = overshoot * 100;
             }
             else
             {
@@ -217,6 +232,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Offset(1, ch_offset);
                 InsControl._oscilloscope.CHx_Position(1, -2);
                 InsControl._oscilloscope.SetTriggerLevel(1, trigger_level);
+                MyLib.Delay1ms(500);
                 for (int idx = 0; idx < 3; idx++)
                 {
                     // initial state setting
@@ -228,7 +244,10 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetNormalTrigger();
                     InsControl._oscilloscope.SetClear();
+                    MyLib.Delay1ms(300);
                     I2CSetting(vout_data, vout_idx);
+                    MyLib.Delay1ms(500);
+                    CursorAdjust(rising_en);
                     CursorAdjust(rising_en);
                     MyLib.Delay1ms(300);
                 }
@@ -242,6 +261,9 @@ namespace SoftStartTiming
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
                 MyLib.Delay1ms(100);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
+
+                undershoot = (test_parameter.vidi2c.vout_des_af[vout_idx] - vmin) / test_parameter.vidi2c.vout_des_af[vout_idx];
+                undershoot = undershoot * 100;
             }
 
         }
@@ -372,9 +394,9 @@ namespace SoftStartTiming
                             }
                             else
                             {
-                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
-                                _sheet.Cells[row, XLS_Table.J] = vmin;
-                                _sheet.Cells[row, XLS_Table.L] = undershoot;
+                                _sheet.Cells[row, XLS_Table.I] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.K] = vmin;
+                                _sheet.Cells[row, XLS_Table.M] = undershoot;
                             }
 #endif
                             // phase 2 test
@@ -390,9 +412,9 @@ namespace SoftStartTiming
                             }
                             else
                             {
-                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
-                                _sheet.Cells[row, XLS_Table.J] = vmin;
-                                _sheet.Cells[row, XLS_Table.L] = undershoot;
+                                _sheet.Cells[row, XLS_Table.I] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.K] = vmin;
+                                _sheet.Cells[row, XLS_Table.M] = undershoot;
                             }
 
                             // pass or fail case
