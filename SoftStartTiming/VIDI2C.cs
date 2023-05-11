@@ -133,7 +133,6 @@ namespace SoftStartTiming
                         nuslave.Value = list[0];
                 }
 
-
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
                 {

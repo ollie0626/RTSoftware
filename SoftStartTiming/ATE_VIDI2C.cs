@@ -1,12 +1,14 @@
 ﻿
-//#define Report_en
+#define Report_en
+//#define Power_en
+//#define Eload_en
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Drawing;
 using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -27,6 +29,12 @@ namespace SoftStartTiming
 
         const int EN = 0;
         //const int Reset = 1;
+
+        double overshoot;
+        double undershoot;
+        double slewrate;
+        double vmax;
+        double vmin;
 
         private void OSCInit()
         {
@@ -189,6 +197,17 @@ namespace SoftStartTiming
                     CursorAdjust(rising_en);
                     MyLib.Delay1ms(300);
                 }
+
+                // Ctrl + D copy this row
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+                MyLib.Delay1ms(100);
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                MyLib.Delay1ms(100);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
             }
             else
             {
@@ -213,6 +232,16 @@ namespace SoftStartTiming
                     CursorAdjust(rising_en);
                     MyLib.Delay1ms(300);
                 }
+
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+                MyLib.Delay1ms(100);
+                slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
+
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
+                MyLib.Delay1ms(100);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
             }
 
         }
@@ -223,6 +252,12 @@ namespace SoftStartTiming
             stopWatch.Start();
             RTDev.BoadInit();
             OSCInit();
+
+            string file_name = "";
+            int idx = 0;
+            int row = 10;
+            int wave_row = 10;
+
 #if Report_en
             _app = new Excel.Application();
             _app.Visible = true;
@@ -230,6 +265,44 @@ namespace SoftStartTiming
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             _sheet.Cells.Font.Name = "Calibri";
             _sheet.Cells.Font.Size = 11;
+
+            _sheet.Cells[1, XLS_Table.A] = "Item";
+            _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
+            _sheet.Cells[3, XLS_Table.A] = "Result";
+            _sheet.Cells[4, XLS_Table.A] = "Note";
+            _range = _sheet.Range["A1", "A4"];
+            _range.Font.Bold = true;
+            _range.Interior.Color = Color.FromArgb(255, 178, 102);
+            _range = _sheet.Range["A2"];
+            _range.RowHeight = 150;
+            _range = _sheet.Range["B1"];
+            _range.ColumnWidth = 60;
+            _range = _sheet.Range["A1", "B4"];
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+            _sheet.Cells[1, XLS_Table.B] = "VID_I2C";
+            _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver
+                                            + test_parameter.vin_conditions
+                                            + test_parameter.iout_conditions;
+
+            // report title
+            _sheet.Cells[row, XLS_Table.C] = "Temp(C)";
+            _sheet.Cells[row, XLS_Table.D] = "超連結";
+            _sheet.Cells[row, XLS_Table.E] = "Vin(V)";
+            _sheet.Cells[row, XLS_Table.F] = "Vout Change(V)";
+            _sheet.Cells[row, XLS_Table.G] = "Iout (A)";
+            _sheet.Cells[row, XLS_Table.H] = "Rise SR (us/V)";
+            _sheet.Cells[row, XLS_Table.I] = "Fall SR (us/V)";
+            _sheet.Cells[row, XLS_Table.J] = "VMax (V)";
+            _sheet.Cells[row, XLS_Table.K] = "VMin (V)";
+            _sheet.Cells[row, XLS_Table.L] = "Overshoot (%)";
+            _sheet.Cells[row, XLS_Table.M] = "Undershoot (%)";
+            _sheet.Cells[row, XLS_Table.N] = "Result";
+
+            _range = _sheet.Range["C" + row, "N" + row];
+            _range.Interior.Color = Color.FromArgb(124, 252, 0);
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            row++;
 #endif
 
             for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
@@ -240,6 +313,26 @@ namespace SoftStartTiming
                     {
                         for(int vout_idx = 0; vout_idx < test_parameter.vidi2c.vout_data.Count; vout_idx++)
                         {
+                            file_name = string.Format("{0}_Temp={1}_VIN={2}_IOUT={3}_Freq={4}_Vout={5}_{6}",
+                                idx, temp,
+                                test_parameter.VinList[vin_idx],
+                                test_parameter.IoutList[iout_idx],
+                                //test_parameter.vidi2c.freq_list[freq_idx],
+                                "123",
+                                test_parameter.vidi2c.vout_des[vout_idx],
+                                test_parameter.vidi2c.vout_des_af[vout_idx]
+                                );
+
+#if Power_en
+                            InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+                            MyLib.Delay1ms(300);
+#endif
+
+#if Eload_en
+                            MyLib.Switch_ELoadLevel(test_parameter.IoutList[iout_idx]);
+                            InsControl._eload.CH1_Loading(test_parameter.IoutList[iout_idx]);
+#endif
+
                             double vout = 0, vout_af = 0;
                             vout = test_parameter.vidi2c.vout_des[vout_idx];
                             vout_af = test_parameter.vidi2c.vout_des_af[vout_idx];
@@ -253,20 +346,60 @@ namespace SoftStartTiming
                             InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx] / 3);
                             InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[vin_idx] / 3);
 
-
                             RTDev.I2C_Write(test_parameter.slave, 
                                 test_parameter.vidi2c.freq_addr, 
                                 new byte[] { test_parameter.vidi2c.freq_data[freq_idx] });
 
                             //string freq = test_parameter.vidi2c.freq_list[freq_idx];
                             bool rising_en = vout_af > vout ? true : false;
-
+#if Report_en
+                            _sheet.Cells[row, XLS_Table.C] = temp;
+                            _sheet.Cells[row, XLS_Table.D] = "LINK";
+                            _sheet.Cells[row, XLS_Table.E] = test_parameter.VinList[vin_idx];
+                            _sheet.Cells[row, XLS_Table.F] = test_parameter.vidi2c.vout_des[vout_idx] + "->" + test_parameter.vidi2c.vout_des_af[vout_idx];
+                            _sheet.Cells[row, XLS_Table.G] = test_parameter.IoutList[iout_idx];
+#endif
                             // phase 1 test
                             PhaseTest(vout_idx, rising_en);
+                            InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
 
+#if Report_en
+                            if(rising_en)
+                            {
+                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.J] = vmax;
+                                _sheet.Cells[row, XLS_Table.L] = overshoot;
+                            }
+                            else
+                            {
+                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.J] = vmin;
+                                _sheet.Cells[row, XLS_Table.L] = undershoot;
+                            }
+#endif
                             // phase 2 test
                             PhaseTest(vout_idx, !rising_en);
+                            InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
 
+#if Report_en
+                            if (!rising_en)
+                            {
+                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.J] = vmax;
+                                _sheet.Cells[row, XLS_Table.L] = overshoot;
+                            }
+                            else
+                            {
+                                _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.J] = vmin;
+                                _sheet.Cells[row, XLS_Table.L] = undershoot;
+                            }
+
+                            // pass or fail case
+                            // implement hyper link and past waveform
+#endif
+                            InsControl._oscilloscope.SetAutoTrigger();
+                            row++;
                         } // vout loop
                     } // freq loop
                 } // iout loop
@@ -286,7 +419,6 @@ namespace SoftStartTiming
             _app = null;
             GC.Collect();
 #endif
-
         }
 
     }
