@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-#define Power_en
-#define Eload_en
+//#define Power_en
+//#define Eload_en
 
 using System;
 using System.Collections.Generic;
@@ -25,13 +25,15 @@ namespace SoftStartTiming
         const int LPM = 0;
         const int G1 = 1;
         const int G2 = 2;
-        const int test_cnt = 6;
+        const int test_cnt = 20;
 
         List<double> overshoot_list = new List<double>();
         List<double> undershoot_list = new List<double>();
         List<double> slewrate_list = new List<double>();
         List<double> vmax_list = new List<double>();
         List<double> vmin_list = new List<double>();
+        List<string> phase1_name = new List<string>();
+        List<string> phase2_name = new List<string>();
 
         private void IOStateSetting(int lpm, int g1, int g2)
         {
@@ -185,6 +187,7 @@ namespace SoftStartTiming
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
             //RefelevelSel(diff);
 
+            // change edge trigger to timeOut trigger
             InsControl._oscilloscope.SetTimeOutTrigger();
             InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
             InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
@@ -238,7 +241,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetStop();
                 MyLib.Delay1ms(100);
 
-                if (repeat_idx > 3)
+                if (repeat_idx > 2)
                 {
                     if (rising_en)
                     {
@@ -335,6 +338,12 @@ namespace SoftStartTiming
 
                         slewrate_list.Add(!diff ? slew_rate : slew_rate * Math.Pow(10, -3));
                     }
+
+
+                    // save every times wavefrom
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
+                    phase1_name.Add((repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
+
                 }
                 else
                 {
@@ -373,10 +382,16 @@ namespace SoftStartTiming
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
             //RefelevelSel(diff);
 
-            if (rising_en)
-                InsControl._oscilloscope.SetTriggerRise();
-            else
-                InsControl._oscilloscope.SetTriggerFall();
+
+            InsControl._oscilloscope.SetTimeOutTrigger();
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
+            InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
+            InsControl._oscilloscope.SetTimeOutEither();
+
+            //if (rising_en)
+            //    InsControl._oscilloscope.SetTriggerRise();
+            //else
+            //    InsControl._oscilloscope.SetTriggerFall();
 
 
             for (int repeat_idx = 0; repeat_idx < test_cnt; repeat_idx++)
@@ -501,6 +516,10 @@ namespace SoftStartTiming
 
                         slewrate_list.Add(!diff ? slew_rate : slew_rate * Math.Pow(10, -3));
                     }
+
+                    // save every times wavefrom
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
+                    phase2_name.Add((repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
                 }
                 else
                 {
@@ -533,6 +552,9 @@ namespace SoftStartTiming
             int wave_idx = 0;
             int idx = 0;
             string file_name = "";
+
+            MyLib.CreateSaveWaveformFolder(test_parameter.waveform_path);
+
 #if Report_en
             _app = new Excel.Application();
             _app.Visible = true;
@@ -560,8 +582,6 @@ namespace SoftStartTiming
                                             + test_parameter.vin_conditions
                                             + test_parameter.iout_conditions;
 
-            // report title
-
             _sheet.Cells[row, XLS_Table.C] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.D] = "超連結";
             _sheet.Cells[row, XLS_Table.E] = "Vin(V)";
@@ -580,20 +600,24 @@ namespace SoftStartTiming
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
 #endif
-
-            for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
+            
+            for (int case_idx = 0; case_idx < test_parameter.vidio.g1_sel.Count; case_idx++)
             {
-                for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
+                for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
                 {
-                    for (int case_idx = 0; case_idx < test_parameter.vidio.g1_sel.Count; case_idx++)
+                    for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
-                        file_name = string.Format("{0}_Temp={1}_VIN={2}_IOUT={3}_Vout={4}_{5}",
-                                                idx, temp,
+                        phase1_name.Clear();
+                        phase2_name.Clear();
+                        file_name = string.Format("Temp={0}_VIN={1}_IOUT={2}_Vout={3}_{4}",
+                                                temp,
                                                 test_parameter.VinList[vin_idx],
                                                 test_parameter.IoutList[iout_idx],
                                                 test_parameter.vidio.vout_list[case_idx],
                                                 test_parameter.vidio.vout_list_af[case_idx]
                                                 );
+
+                        test_parameter.waveform_name = file_name;
 #if Power_en
                         InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                         MyLib.Delay1ms(200);
@@ -616,10 +640,19 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.F] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
                         _sheet.Cells[row, XLS_Table.G] = test_parameter.IoutList[iout_idx];
 #endif
+                        // Phase 1 -----------------------------------------------------------------------------------------
                         Phase1Test(case_idx);
-                        InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
+                        //InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
 
 #if Report_en
+                        string slewrate_min = phase1_name[slewrate_list.IndexOf(slewrate_list.Min())];
+                        string shoot_max = phase1_name[rising_en ? overshoot_list.IndexOf(overshoot_list.Max()) : undershoot_list.IndexOf(undershoot_list.Max())];
+                        // past slew rate min case
+                        _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 16)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
+                        // past over/under-shoot max case
+                        _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 16)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
                         if (rising_en)
                         {
                             _sheet.Cells[row, XLS_Table.H] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min()); // rise time
@@ -633,10 +666,17 @@ namespace SoftStartTiming
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
                         }
 #endif
-                        //-----------------------------------------------------------------------------------------
+                        
                         Phase2Test(case_idx);
-                        InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
+                        //InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
 #if Report_en
+                        slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
+                        shoot_max = phase2_name[!rising_en ? overshoot_list.IndexOf(overshoot_list.Max()) : undershoot_list.IndexOf(undershoot_list.Max())];
+                        _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 16)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
+                        _range = _sheet.Range["AT" + (wave_row + 2), "BB" + (wave_row + 16)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
+
                         if (!rising_en)
                         {
                             _sheet.Cells[row, XLS_Table.H] = Math.Abs(diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min()); // rise time
@@ -659,6 +699,8 @@ namespace SoftStartTiming
                             double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
                             double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
                             _sheet.Cells[row, XLS_Table.N] = (rise < 6.5) | (fall < 6.5) ? "Pass" : "Fail";
+                            _range = _sheet.Cells[row, XLS_Table.N];
+                            _range.Interior.Color = (rise < 6.5) | (fall < 6.5) ? Color.LightGreen : Color.LightPink;
                         }
                         else
                         {
@@ -666,6 +708,9 @@ namespace SoftStartTiming
                             double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
                             double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
                             _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
+
+                            _range = _sheet.Cells[row, XLS_Table.N];
+                            _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
                         }
 
                         Excel.Range main_range = _sheet.Range["D" + row];
@@ -678,7 +723,11 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row, XLS_Table.R] = "VIN";
                         _sheet.Cells[wave_row, XLS_Table.S] = "Vout";
                         _sheet.Cells[wave_row, XLS_Table.T] = "Iout";
-                        _range = _sheet.Range["Q" + wave_row, "T" + wave_row];
+                        _sheet.Cells[wave_row, XLS_Table.U] = "Rise (us)";
+                        _sheet.Cells[wave_row, XLS_Table.V] = "Fall (us)";
+                        _sheet.Cells[wave_row, XLS_Table.W] = "Overshoot(%)";
+                        _sheet.Cells[wave_row, XLS_Table.X] = "Undershoot(%)";
+                        _range = _sheet.Range["Q" + wave_row, "X" + wave_row];
                         _range.Interior.Color = Color.FromArgb(124, 252, 0);
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
@@ -686,11 +735,11 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row + 1, XLS_Table.R] = test_parameter.VinList[vin_idx];
                         _sheet.Cells[wave_row + 1, XLS_Table.S] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
                         _sheet.Cells[wave_row + 1, XLS_Table.T] = test_parameter.IoutList[iout_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.U] = "=H" + row.ToString(); // rise time
+                        _sheet.Cells[wave_row + 1, XLS_Table.V] = "=I" + row.ToString(); // fall time
+                        _sheet.Cells[wave_row + 1, XLS_Table.W] = "=L" + row.ToString(); // over shoot
+                        _sheet.Cells[wave_row + 1, XLS_Table.X] = "=M" + row.ToString(); // under shoot
 
-                        _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 16)];
-                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
-                        _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 16)];
-                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
 #endif
 
                         InsControl._oscilloscope.SetAutoTrigger();
@@ -699,7 +748,6 @@ namespace SoftStartTiming
                     }
                 }
             }
-
 
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
@@ -715,6 +763,16 @@ namespace SoftStartTiming
             _app = null;
             GC.Collect();
 #endif
+
+
+#if Power_en
+            InsControl._power.AutoPowerOff();
+#endif
+
+#if Eload_en
+            InsControl._eload.AllChannel_LoadOff();
+#endif
+
         } // function end
 
     }

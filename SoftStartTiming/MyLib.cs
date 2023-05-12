@@ -406,5 +406,14 @@ namespace SoftStartTiming
             return res;
         }
 
+
+        public static void CreateSaveWaveformFolder(string path)
+        {
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
+        }
+
     }
 }
