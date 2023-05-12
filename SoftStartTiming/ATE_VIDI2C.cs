@@ -423,7 +423,31 @@ namespace SoftStartTiming
                             }
 
                             // pass or fail case
+
                             // implement hyper link and past waveform
+                            Excel.Range main_range = _sheet.Range["D" + row];
+                            Excel.Range hyper = _sheet.Range["Q" + (wave_row + 1)];
+                            // A to B
+                            _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!Q" + (wave_row + 1));
+                            _sheet.Hyperlinks.Add(hyper, "#'" + _sheet.Name + "'!D" + row);
+
+                            _sheet.Cells[wave_row, XLS_Table.Q] = "超連結";
+                            _sheet.Cells[wave_row, XLS_Table.R] = "VIN";
+                            _sheet.Cells[wave_row, XLS_Table.S] = "Vout";
+                            _sheet.Cells[wave_row, XLS_Table.T] = "Iout";
+                            _range = _sheet.Range["Q" + wave_row, "T" + wave_row];
+                            _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                            _sheet.Cells[wave_row + 1, XLS_Table.Q] = "Go back";
+                            _sheet.Cells[wave_row + 1, XLS_Table.R] = test_parameter.VinList[vin_idx];
+                            _sheet.Cells[wave_row + 1, XLS_Table.S] = test_parameter.vidi2c.vout_des[vout_idx] + "->" + test_parameter.vidi2c.vout_des_af[vout_idx];
+                            _sheet.Cells[wave_row + 1, XLS_Table.T] = test_parameter.IoutList[iout_idx];
+
+                            _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 16)];
+                            MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
+                            _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 16)];
+                            MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
 #endif
                             InsControl._oscilloscope.SetAutoTrigger();
                             row++;

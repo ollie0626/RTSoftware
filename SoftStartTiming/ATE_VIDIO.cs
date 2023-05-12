@@ -185,9 +185,14 @@ namespace SoftStartTiming
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
             //RefelevelSel(diff);
 
+            InsControl._oscilloscope.SetTimeOutTrigger();
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
+            InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
+            InsControl._oscilloscope.SetTimeOutEither();
+
             if (rising_en)
             {
-                InsControl._oscilloscope.SetTriggerRise();
+                //InsControl._oscilloscope.SetTriggerRise();
                 InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.5);
                 InsControl._oscilloscope.CHx_Offset(1, vout);
                 InsControl._oscilloscope.CHx_Position(1, -2);
@@ -195,7 +200,7 @@ namespace SoftStartTiming
             }
             else
             {
-                InsControl._oscilloscope.SetTriggerFall();
+                //InsControl._oscilloscope.SetTriggerFall();
                 InsControl._oscilloscope.CHx_Level(1, (vout - vout_af) / 4.5);
                 InsControl._oscilloscope.CHx_Offset(1, vout_af);
                 InsControl._oscilloscope.CHx_Position(1, -2);
@@ -648,7 +653,6 @@ namespace SoftStartTiming
                         //-----------------------------------------------------------------------------------------
 
 #if Report_en
-
                         if (diff)
                         {
                             // < 130mV case: slew < 6.5us
