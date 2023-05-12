@@ -180,10 +180,15 @@ namespace SoftStartTiming
             double ch_offset = (vout > vout_af) ? vout_af : vout;
             double ch_level = Math.Abs(vout - vout_af) / level_scale_div;
 
+            InsControl._oscilloscope.SetTimeOutTrigger();
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
+            InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
+            InsControl._oscilloscope.SetTimeOutEither();
+
             if (rising_en)
             {
                 // do rising event
-                InsControl._oscilloscope.SetTriggerRise();
+                //InsControl._oscilloscope.SetTriggerRise();
                 InsControl._oscilloscope.CHx_Level(1, ch_level);
                 InsControl._oscilloscope.CHx_Offset(1, ch_offset);
                 InsControl._oscilloscope.CHx_Position(1, -2);
@@ -193,7 +198,7 @@ namespace SoftStartTiming
                 {
                     // initial state setting
                     IOStateSetting(1); // en
-                    I2CSetting(vout_data, vout_idx);
+                    I2CSetting(vout < vout_af ? vout_data : vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
                     IOStateSetting(0); // en
                     MyLib.Delay1ms(100);
@@ -203,7 +208,7 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetNormalTrigger();
                     InsControl._oscilloscope.SetClear();
                     MyLib.Delay1ms(300);
-                    I2CSetting(vout_data_af, vout_idx);
+                    I2CSetting(vout > vout_af ? vout_data : vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
                     CursorAdjust(rising_en);
                     CursorAdjust(rising_en);
@@ -227,7 +232,7 @@ namespace SoftStartTiming
             else
             {
                 // do falling event
-                InsControl._oscilloscope.SetTriggerFall();
+                //InsControl._oscilloscope.SetTriggerFall();
                 InsControl._oscilloscope.CHx_Level(1, ch_level);
                 InsControl._oscilloscope.CHx_Offset(1, ch_offset);
                 InsControl._oscilloscope.CHx_Position(1, -2);
@@ -237,7 +242,7 @@ namespace SoftStartTiming
                 {
                     // initial state setting
                     IOStateSetting(1); // en
-                    I2CSetting(vout_data_af, vout_idx);
+                    I2CSetting(vout > vout_af ? vout_data : vout_data_af, vout_idx);
                     IOStateSetting(0); // en
                     IOStateSetting(1); // en
                     InsControl._oscilloscope.SetRun();
@@ -245,7 +250,7 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetNormalTrigger();
                     InsControl._oscilloscope.SetClear();
                     MyLib.Delay1ms(300);
-                    I2CSetting(vout_data, vout_idx);
+                    I2CSetting(vout < vout_af ? vout_data : vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
                     CursorAdjust(rising_en);
                     CursorAdjust(rising_en);

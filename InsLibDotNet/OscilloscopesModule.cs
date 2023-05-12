@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Reflection.Emit;
+using System.Linq.Expressions;
 
 namespace InsLibDotNet
 {
@@ -241,6 +242,49 @@ namespace InsLibDotNet
                     break;
                 case 1:
                     doCommand(":TRIGger:EDGE:SLOPe NEGative");
+                    break;
+            }
+        }
+
+
+        public void SetTimeOutTrigger()
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand("TRIGger:A:TYPe PULse");
+                    doCommand("TRIGger:A:PULse:CLAss TIMEOut");
+                    break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetTimeOutTime(double timer)
+        {
+            switch(osc_sel)
+            {
+                case 0:
+                    doCommand(string.Format("TRIGger:A:PULse:TIMEOut:TIMe {0}", timer));
+                    break;
+            }
+        }
+
+        public void SetTimeOutEither()
+        {
+            switch(osc_sel)
+            { case 0:
+                    doCommand("TRIGger:A:PULse:TIMEOut:POLarity EITher");
+                    break;
+            }
+        }
+
+        public void SetTimeOutTriggerCHx(int ch)
+        {
+            switch(osc_sel)
+            { 
+                case 0:
+                    doCommand(string.Format("TRIGger:A:PULse:TIMEOut:POLarity:CH{0}", ch));
                     break;
             }
         }
