@@ -28,35 +28,78 @@ namespace SoftStartTiming
         string[] tempList;
         int SteadyTime;
 
-        System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
+        Dictionary<string, string> Device_map = new Dictionary<string, string>();
 
 
-        ATE_VIDIO _ate_vid_io = new ATE_VIDIO();
+        ATE_VIDIO _ate_vid_io;
+        ToolStripMenuItem[] _item = new ToolStripMenuItem[2];
+        DataGridView DV = new DataGridView();
 
 
         private void InitDG()
         {
-            // lpm mode
-            Column1.Items.Add("0");
-            Column1.Items.Add("1");
 
-            // g1 logic
-            Column2.Items.Add("0");
-            Column2.Items.Add("1");
+            // lpm
+            dataGridViewComboBoxColumn1.Items.Add("0");
+            dataGridViewComboBoxColumn1.Items.Add("1");
 
-            // g2 logic
-            Column3.Items.Add("0");
-            Column3.Items.Add("1");
+            // g1
+            dataGridViewComboBoxColumn2.Items.Add("0");
+            dataGridViewComboBoxColumn2.Items.Add("1");
 
-            // after
-            Column5.Items.Add("0");
-            Column5.Items.Add("1");
+            // g2
+            dataGridViewComboBoxColumn3.Items.Add("0");
+            dataGridViewComboBoxColumn3.Items.Add("1");
 
-            Column6.Items.Add("0");
-            Column6.Items.Add("1");
+            dataGridView2.RowCount = 8;
 
-            Column7.Items.Add("0");
-            Column7.Items.Add("1");
+            for(int idx = 0; idx < 8; idx++)
+            {
+                switch(idx)
+                {
+                    case 0:
+                        dataGridView2[0, 0].Value = "0";
+                        dataGridView2[1, 0].Value = "0";
+                        dataGridView2[2, 0].Value = "0";
+                        break;
+                    case 1:
+                        dataGridView2[0, 1].Value = "0";
+                        dataGridView2[1, 1].Value = "0";
+                        dataGridView2[2, 1].Value = "1";
+                        break;
+                    case 2:
+                        dataGridView2[0, 2].Value = "0";
+                        dataGridView2[1, 2].Value = "1";
+                        dataGridView2[2, 2].Value = "0";
+                        break;
+                    case 3:
+                        dataGridView2[0, 3].Value = "0";
+                        dataGridView2[1, 3].Value = "1";
+                        dataGridView2[2, 3].Value = "1";
+                        break;
+                    case 4:
+                        dataGridView2[0, 4].Value = "1";
+                        dataGridView2[1, 4].Value = "0";
+                        dataGridView2[2, 4].Value = "0";
+                        break;
+                    case 5:
+                        dataGridView2[0, 5].Value = "1";
+                        dataGridView2[1, 5].Value = "0";
+                        dataGridView2[2, 5].Value = "1";
+                        break;
+                    case 6:
+                        dataGridView2[0, 6].Value = "1";
+                        dataGridView2[1, 6].Value = "1";
+                        dataGridView2[2, 6].Value = "0";
+                        break;
+                    case 7:
+                        dataGridView2[0, 7].Value = "1";
+                        dataGridView2[1, 7].Value = "1";
+                        dataGridView2[2, 7].Value = "1";
+                        break;
+                }
+            }
+
         }
 
         public VIDIO()
@@ -65,7 +108,31 @@ namespace SoftStartTiming
             InitDG();
             this.Name = win_name;
 
+            _ate_vid_io = new ATE_VIDIO(this);
             ate_table = new TaskRun[] { _ate_vid_io };
+
+            _item[0] = new ToolStripMenuItem("Delete Row", null, new EventHandler(ToolStripDelete_Click));
+            _item[1] = new ToolStripMenuItem("Add Row", null, new EventHandler(ToolStripAdd_Click));
+        }
+
+        private void ToolStripDelete_Click(object sender, EventArgs e)
+        {
+            DV.Rows.RemoveAt(DV.CurrentRow.Index);
+            if (DV.TabIndex == 5)
+            {
+                for (int i = 0; i <= DV.RowCount - 1; i++)
+                    DV[7, i].Value = i + 2;
+            }
+        }
+
+        private void ToolStripAdd_Click(object sender, EventArgs e)
+        {
+            DV.RowCount = DV.RowCount + 1;
+            if (DV.TabIndex == 5)
+            {
+                for (int i = 0; i <= DV.RowCount - 1; i++)
+                    DV[7, i].Value = i + 2;
+            }
         }
 
         private void BT_Add_Click(object sender, EventArgs e)
@@ -83,39 +150,66 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            test_parameter.vidio.lpm_sel.Clear();
-            test_parameter.vidio.g1_sel.Clear();
-            test_parameter.vidio.g2_sel.Clear();
+            //test_parameter.vidio.lpm_sel.Clear();
+            //test_parameter.vidio.g1_sel.Clear();
+            //test_parameter.vidio.g2_sel.Clear();
             test_parameter.vidio.vout_list.Clear();
 
-            test_parameter.vidio.lpm_sel_af.Clear();
-            test_parameter.vidio.g1_sel_af.Clear();
-            test_parameter.vidio.g2_sel_af.Clear();
+            //test_parameter.vidio.lpm_sel_af.Clear();
+            //test_parameter.vidio.g1_sel_af.Clear();
+            //test_parameter.vidio.g2_sel_af.Clear();
             test_parameter.vidio.vout_list_af.Clear();
+            test_parameter.vidio.vout_map.Clear();
+            test_parameter.vidio.io_table.Clear();
 
 
             test_parameter.tool_ver = win_name + "\r\n";
             test_parameter.vin_conditions = "Vin = " + tb_vinList.Text + "\r\n";
             test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" + 
-                                             "VID Contions number = " + dataGridView1.RowCount + "\r\n";
+                                             "VID Contions number = " + dataGridView2.RowCount + "\r\n";
             
             test_parameter.waveform_path = tbWave.Text;
 
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
 
+            int temp = 0;
+            for(int idx = 0; idx < dataGridView2.RowCount; idx++)
+            {
+                temp =  Convert.ToInt16(dataGridView2[0, idx].Value) << 0 |
+                        Convert.ToInt16(dataGridView2[1, idx].Value) << 1 |
+                        Convert.ToInt16(dataGridView2[2, idx].Value) << 2;
+
+                test_parameter.vidio.io_table.Add(temp);
+                test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+            }
+
+
             for(int i = 0; i < dataGridView1.RowCount; i++)
             {
-                test_parameter.vidio.lpm_sel.Add(Convert.ToInt16(dataGridView1[0, i].Value));
-                test_parameter.vidio.g1_sel.Add(Convert.ToInt16(dataGridView1[1, i].Value));
-                test_parameter.vidio.g2_sel.Add(Convert.ToInt16(dataGridView1[2, i].Value));
-                test_parameter.vidio.vout_list.Add(Convert.ToDouble(dataGridView1[3, i].Value));
+                //test_parameter.vidio.lpm_sel.Add(Convert.ToInt16(dataGridView1[0, i].Value));
+                //test_parameter.vidio.g1_sel.Add(Convert.ToInt16(dataGridView1[1, i].Value));
+                //test_parameter.vidio.g2_sel.Add(Convert.ToInt16(dataGridView1[2, i].Value));
+                test_parameter.vidio.vout_list.Add(Convert.ToDouble(dataGridView1[0, i].Value));
 
-                test_parameter.vidio.lpm_sel_af.Add(Convert.ToInt16(dataGridView1[4, i].Value));
-                test_parameter.vidio.g1_sel_af.Add(Convert.ToInt16(dataGridView1[5, i].Value));
-                test_parameter.vidio.g2_sel_af.Add(Convert.ToInt16(dataGridView1[6, i].Value));
-                test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[7, i].Value));
+                //test_parameter.vidio.lpm_sel_af.Add(Convert.ToInt16(dataGridView1[4, i].Value));
+                //test_parameter.vidio.g1_sel_af.Add(Convert.ToInt16(dataGridView1[5, i].Value));
+                //test_parameter.vidio.g2_sel_af.Add(Convert.ToInt16(dataGridView1[6, i].Value));
+                test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[1, i].Value));
             }
+
+            int program_max = test_parameter.VinList.Count *
+                                test_parameter.IoutList.Count *
+                                dataGridView1.RowCount;
+
+            progressBar2.Maximum = program_max;
+
+        }
+
+        public void UpdateProgressBar(int val)
+        {
+            progressBar2.Invoke((MethodInvoker)(() => progressBar2.Value = val));
+            labStatus.Invoke((MethodInvoker)(() => labStatus.Text = string.Format("Status Progress : {0} / {1}", val, progressBar2.Maximum)));
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -220,7 +314,7 @@ namespace SoftStartTiming
             }
             return 0;
         }
-
+        
         private Task<int> ConnectTask(string res, int ins_sel)
         {
             return Task.Factory.StartNew(() => ConnectFunc(res, ins_sel));
@@ -410,19 +504,21 @@ namespace SoftStartTiming
             settings += "4.WavePath=$" + tbWave.Text + "$\r\n";
             settings += "5.Vin=$" + tb_vinList.Text + "$\r\n";
             settings += "6.Iout=$" + tb_iout.Text + "$\r\n";
-            settings += "7.DGrow=$" + dataGridView1.RowCount + "$\r\n";
+            settings += "7.DGrow=$" + dataGridView2.RowCount + "$\r\n";
+            settings += "8.DGrow_vout=$" + dataGridView1.RowCount + "$\r\n";
 
-            for (int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < dataGridView2.RowCount; i++)
             {
-                settings += (i + 8).ToString() + ".LPM=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 9).ToString() + ".G1=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 10).ToString() + ".G2=$" + dataGridView1[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 11).ToString() + ".Vout=$" + dataGridView1[3, i].Value.ToString() + "$\r\n";
-                settings += (i + 12).ToString() + ".LPM_af=$" + dataGridView1[4, i].Value.ToString() + "$\r\n";
-                settings += (i + 13).ToString() + ".G1_af=$" + dataGridView1[5, i].Value.ToString() + "$\r\n";
-                settings += (i + 14).ToString() + ".G2_af=$" + dataGridView1[6, i].Value.ToString() + "$\r\n";
-                settings += (i + 15).ToString() + ".Vout_af=$" + dataGridView1[7, i].Value.ToString() + "$\r\n";
+                settings += (i + 9).ToString() + ".LPM=$" + dataGridView2[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 10).ToString() + ".G1=$" + dataGridView2[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 11).ToString() + ".G2=$" + dataGridView2[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 12).ToString() + ".Vout=$" + dataGridView2[3, i].Value.ToString() + "$\r\n";
+            }
 
+            for(int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                settings += (i + 13).ToString() + ".Vout=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 14).ToString() + ".Vout_af=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
             }
 
             using (StreamWriter sw = new StreamWriter(file))
@@ -445,7 +541,7 @@ namespace SoftStartTiming
         {
             object[] obj_arr = new object[]
             {
-                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, dataGridView1
+                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, dataGridView2 , dataGridView1
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -483,25 +579,28 @@ namespace SoftStartTiming
                             break;
                         case "DataGridView":
                             ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            ((DataGridView)obj_arr[i + 1]).RowCount = Convert.ToInt32(info[i + 1]);
 
-
-                            idx = i;
+                            idx = i + 1;
                             goto fullDG;
                     }
                 }
 
                 fullDG:
+                for (int i = 0; i < dataGridView2.RowCount; i++)
+                {
+                    dataGridView2[0, i].Value = Convert.ToString(info[idx + 1]); // lpm
+                    dataGridView2[1, i].Value = Convert.ToString(info[idx + 2]); // g1
+                    dataGridView2[2, i].Value = Convert.ToString(info[idx + 3]); // g2
+                    dataGridView2[3, i].Value = Convert.ToString(info[idx + 4]); // vout
+                    idx += 4;
+                }
+
                 for (int i = 0; i < dataGridView1.RowCount; i++)
                 {
-                    dataGridView1[0, i].Value = Convert.ToString(info[idx + 1]);
-                    dataGridView1[1, i].Value = Convert.ToString(info[idx + 2]);
-                    dataGridView1[2, i].Value = Convert.ToString(info[idx + 3]);
-                    dataGridView1[3, i].Value = Convert.ToString(info[idx + 4]);
-                    dataGridView1[4, i].Value = Convert.ToString(info[idx + 5]);
-                    dataGridView1[5, i].Value = Convert.ToString(info[idx + 6]);
-                    dataGridView1[6, i].Value = Convert.ToString(info[idx + 7]);
-                    dataGridView1[7, i].Value = Convert.ToString(info[idx + 8]);
-                    idx += 8;
+                    dataGridView1[0, i].Value = Convert.ToString(info[idx + 1]); // vout
+                    dataGridView1[1, i].Value = Convert.ToString(info[idx + 2]); // vout_af
+                    idx += 2;
                 }
             }
         }
@@ -559,19 +658,66 @@ namespace SoftStartTiming
                     break;
             }
         }
+
+        private void dataGridView1_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            DV = (DataGridView)sender;
+            if (DV.RowCount == 0)
+            {
+                ContextMenuStrip menu = new ContextMenuStrip();
+                _item[0].Enabled = false;
+                menu.Items.AddRange(_item);
+                menu.Show(DV, new System.Drawing.Point(e.X, e.Y));
+            }
+            else
+            {
+                int row = DV.CurrentRow.Index;
+                if (row < 0) return;
+                ContextMenuStrip menu = new ContextMenuStrip();
+                _item[0].Enabled = true;
+                menu.Items.AddRange(_item);
+                menu.Show(DV, new System.Drawing.Point(e.X, e.Y));
+            }
+        }
+
+        private void dataGridView2_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+            DV = (DataGridView)sender;
+            if (DV.RowCount == 0)
+            {
+                ContextMenuStrip menu = new ContextMenuStrip();
+                _item[0].Enabled = false;
+                menu.Items.AddRange(_item);
+                menu.Show(DV, new System.Drawing.Point(e.X, e.Y));
+            }
+            else
+            {
+                int row = DV.CurrentRow.Index;
+                if (row < 0) return;
+                ContextMenuStrip menu = new ContextMenuStrip();
+                _item[0].Enabled = true;
+                menu.Items.AddRange(_item);
+                menu.Show(DV, new System.Drawing.Point(e.X, e.Y));
+            }
+        }
     }
 
 
     public class VIDIO_parameter
     {
-        public List<int> lpm_sel = new List<int>();
-        public List<int> g1_sel = new List<int>();
-        public List<int> g2_sel = new List<int>();
+        public List<int> io_table = new List<int>();
+        public Dictionary<double, int> vout_map = new Dictionary<double, int>();
+
+        //public List<int> lpm_sel = new List<int>();
+        //public List<int> g1_sel = new List<int>();
+        //public List<int> g2_sel = new List<int>();
         public List<double> vout_list = new List<double>();
 
-        public List<int> lpm_sel_af = new List<int>();
-        public List<int> g1_sel_af = new List<int>();
-        public List<int> g2_sel_af = new List<int>();
+        //public List<int> lpm_sel_af = new List<int>();
+        //public List<int> g1_sel_af = new List<int>();
+        //public List<int> g2_sel_af = new List<int>();
         public List<double> vout_list_af = new List<double>();
     }
 

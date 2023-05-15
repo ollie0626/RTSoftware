@@ -35,11 +35,28 @@ namespace SoftStartTiming
         List<string> phase1_name = new List<string>();
         List<string> phase2_name = new List<string>();
 
-        private void IOStateSetting(int lpm, int g1, int g2)
+
+        public delegate void FinishNotification();
+        FinishNotification delegate_mess;
+        VIDIO updateMain;
+        int progress = 0;
+
+        public ATE_VIDIO(VIDIO main)
         {
-            int value = (lpm << 0 | g1 << 1 | g2 << 2);
+            delegate_mess = new FinishNotification(MessageNotify);
+            updateMain = main;
+        }
+
+        private void MessageNotify()
+        {
+            System.Windows.Forms.MessageBox.Show("VIDIO test finished!!!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+        }
+
+        private void IOStateSetting(int state)
+        {
+            //int value = (lpm << 0 | g1 << 1 | g2 << 2);
             int mask = 1 << LPM | 1 << G1 | 1 << G2;
-            RTDev.GPIOnState((uint)mask, (uint)value);
+            RTDev.GPIOnState((uint)mask, (uint)state);
         }
 
         private void OSCInit()
@@ -219,9 +236,10 @@ namespace SoftStartTiming
 
                 // initial sate setting
                 IOStateSetting(
-                                test_parameter.vidio.lpm_sel[case_idx],
-                                test_parameter.vidio.g1_sel[case_idx],
-                                test_parameter.vidio.g2_sel[case_idx]
+                                test_parameter.vidio.vout_map[vout]
+                                //test_parameter.vidio.lpm_sel[case_idx],
+                                //test_parameter.vidio.g1_sel[case_idx],
+                                //test_parameter.vidio.g2_sel[case_idx]
                                 );
 
                 InsControl._oscilloscope.SetRun();
@@ -232,9 +250,10 @@ namespace SoftStartTiming
 
                 // transfer condition
                 IOStateSetting(
-                                test_parameter.vidio.lpm_sel_af[case_idx],
-                                test_parameter.vidio.g1_sel_af[case_idx],
-                                test_parameter.vidio.g2_sel_af[case_idx]
+                                test_parameter.vidio.vout_map[vout_af]
+                                //test_parameter.vidio.lpm_sel_af[case_idx],
+                                //test_parameter.vidio.g1_sel_af[case_idx],
+                                //test_parameter.vidio.g2_sel_af[case_idx]
                                 );
 
                 MyLib.Delay1ms(100);
@@ -251,13 +270,11 @@ namespace SoftStartTiming
                         slew_rate = InsControl._oscilloscope.CHx_Meas_Rise(1, 1);
                         //slewrate_list.Add(slew_rate);
 
-
                         InsControl._oscilloscope.CHx_Meas_Max(1, 2);
                         vmax = InsControl._oscilloscope.MeasureMax(2);
                         MyLib.Delay1ms(50);
                         vmax = InsControl._oscilloscope.MeasureMax(2);
                         vmax = InsControl._oscilloscope.MeasureMax(2);
-
 
                         vmax_list.Add(vmax);
                         over_shoot = (vmax - test_parameter.vidio.vout_list_af[case_idx]) / test_parameter.vidio.vout_list_af[case_idx];
@@ -339,7 +356,6 @@ namespace SoftStartTiming
                         slewrate_list.Add(!diff ? slew_rate : slew_rate * Math.Pow(10, -3));
                     }
 
-
                     // save every times wavefrom
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
                     phase1_name.Add((repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
@@ -403,9 +419,10 @@ namespace SoftStartTiming
 
                 // initial sate setting
                 IOStateSetting(
-                                test_parameter.vidio.lpm_sel_af[case_idx],
-                                test_parameter.vidio.g1_sel_af[case_idx],
-                                test_parameter.vidio.g2_sel_af[case_idx]
+                                test_parameter.vidio.vout_map[vout_af]
+                                //test_parameter.vidio.lpm_sel_af[case_idx],
+                                //test_parameter.vidio.g1_sel_af[case_idx],
+                                //test_parameter.vidio.g2_sel_af[case_idx]
                                 );
                 InsControl._oscilloscope.SetRun();
                 MyLib.Delay1ms(100);
@@ -414,9 +431,10 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(100);
                 // transfer condition
                 IOStateSetting(
-                                test_parameter.vidio.lpm_sel[case_idx],
-                                test_parameter.vidio.g1_sel[case_idx],
-                                test_parameter.vidio.g2_sel[case_idx]
+                                test_parameter.vidio.vout_map[vout]
+                                //test_parameter.vidio.lpm_sel[case_idx],
+                                //test_parameter.vidio.g1_sel[case_idx],
+                                //test_parameter.vidio.g2_sel[case_idx]
                                 );
 
 
@@ -543,6 +561,9 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
+            progress = 0;
+            updateMain.UpdateProgressBar(0);
+
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             RTDev.BoadInit();
@@ -601,12 +622,14 @@ namespace SoftStartTiming
             row++;
 #endif
             
-            for (int case_idx = 0; case_idx < test_parameter.vidio.g1_sel.Count; case_idx++)
+            for (int case_idx = 0; case_idx < test_parameter.vidio.vout_map.Count; case_idx++)
             {
                 for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
                 {
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
+
+                        updateMain.UpdateProgressBar(++progress);
                         phase1_name.Clear();
                         phase2_name.Clear();
                         file_name = string.Format("Temp={0}_VIN={1}_IOUT={2}_Vout={3}_{4}",

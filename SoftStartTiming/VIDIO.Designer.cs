@@ -43,13 +43,7 @@ namespace SoftStartTiming
             this.CBPower = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_power = new System.Windows.Forms.TextBox();
             this.tb_eload = new System.Windows.Forms.TextBox();
@@ -72,6 +66,11 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_iout = new System.Windows.Forms.TextBox();
             this.tb_connect3 = new System.Windows.Forms.TextBox();
@@ -85,6 +84,8 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.labStatus = new System.Windows.Forms.Label();
+            this.progressBar2 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -92,6 +93,7 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -236,64 +238,20 @@ namespace SoftStartTiming
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column3,
             this.Column4,
-            this.Column5,
-            this.Column6,
-            this.Column7,
             this.Column8});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 73);
+            this.dataGridView1.Location = new System.Drawing.Point(480, 73);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(805, 230);
+            this.dataGridView1.Size = new System.Drawing.Size(255, 230);
             this.dataGridView1.TabIndex = 122;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "LPM";
-            this.Column1.Name = "Column1";
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "G1 logic";
-            this.Column2.Name = "Column2";
-            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "G2 logic";
-            this.Column3.Name = "Column3";
-            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
             // Column4
             // 
             this.Column4.HeaderText = "Vout (V)";
             this.Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "LPM (after)";
-            this.Column5.Name = "Column5";
-            this.Column5.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "G1 (after)";
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "G2 (after)";
-            this.Column7.Name = "Column7";
             // 
             // Column8
             // 
@@ -519,6 +477,7 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.tb_connect3);
             this.tabPage2.Controls.Add(this.BT_Sub);
@@ -533,6 +492,49 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(826, 575);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewComboBoxColumn1,
+            this.dataGridViewComboBoxColumn2,
+            this.dataGridViewComboBoxColumn3,
+            this.dataGridViewTextBoxColumn1});
+            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridView2.Location = new System.Drawing.Point(15, 73);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(455, 230);
+            this.dataGridView2.TabIndex = 137;
+            this.dataGridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseDown);
+            // 
+            // dataGridViewComboBoxColumn1
+            // 
+            this.dataGridViewComboBoxColumn1.HeaderText = "LPM";
+            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+            this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewComboBoxColumn2
+            // 
+            this.dataGridViewComboBoxColumn2.HeaderText = "G1 logic";
+            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
+            this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewComboBoxColumn3
+            // 
+            this.dataGridViewComboBoxColumn3.HeaderText = "G2 logic";
+            this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
+            this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Vout (V)";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // groupBox2
             // 
@@ -560,7 +562,7 @@ namespace SoftStartTiming
             // tb_connect3
             // 
             this.tb_connect3.Enabled = false;
-            this.tb_connect3.Location = new System.Drawing.Point(15, 406);
+            this.tb_connect3.Location = new System.Drawing.Point(15, 367);
             this.tb_connect3.Name = "tb_connect3";
             this.tb_connect3.Size = new System.Drawing.Size(146, 22);
             this.tb_connect3.TabIndex = 136;
@@ -569,7 +571,7 @@ namespace SoftStartTiming
             // 
             // BT_Sub
             // 
-            this.BT_Sub.Location = new System.Drawing.Point(54, 309);
+            this.BT_Sub.Location = new System.Drawing.Point(519, 309);
             this.BT_Sub.Name = "BT_Sub";
             this.BT_Sub.Size = new System.Drawing.Size(33, 23);
             this.BT_Sub.TabIndex = 134;
@@ -580,7 +582,7 @@ namespace SoftStartTiming
             // tb_connect2
             // 
             this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(15, 378);
+            this.tb_connect2.Location = new System.Drawing.Point(15, 339);
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 135;
@@ -613,7 +615,7 @@ namespace SoftStartTiming
             // tb_connect1
             // 
             this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(15, 350);
+            this.tb_connect1.Location = new System.Drawing.Point(15, 311);
             this.tb_connect1.Name = "tb_connect1";
             this.tb_connect1.Size = new System.Drawing.Size(146, 22);
             this.tb_connect1.TabIndex = 134;
@@ -622,7 +624,7 @@ namespace SoftStartTiming
             // 
             // BT_Add
             // 
-            this.BT_Add.Location = new System.Drawing.Point(15, 309);
+            this.BT_Add.Location = new System.Drawing.Point(480, 309);
             this.BT_Add.Name = "BT_Add";
             this.BT_Add.Size = new System.Drawing.Size(33, 23);
             this.BT_Add.TabIndex = 133;
@@ -670,12 +672,30 @@ namespace SoftStartTiming
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // labStatus
+            // 
+            this.labStatus.AutoSize = true;
+            this.labStatus.Location = new System.Drawing.Point(22, 619);
+            this.labStatus.Name = "labStatus";
+            this.labStatus.Size = new System.Drawing.Size(97, 12);
+            this.labStatus.TabIndex = 135;
+            this.labStatus.Text = "Progress Status :";
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(21, 634);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(371, 21);
+            this.progressBar2.TabIndex = 136;
+            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.ClientSize = new System.Drawing.Size(858, 657);
+            this.ClientSize = new System.Drawing.Size(858, 670);
+            this.Controls.Add(this.labStatus);
+            this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.BTPause);
             this.Controls.Add(this.tabControl1);
@@ -694,11 +714,13 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -748,17 +770,18 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_steady;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox tb_templist;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column5;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column6;
-        private System.Windows.Forms.DataGridViewComboBoxColumn Column7;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.TextBox tb_connect3;
         private System.Windows.Forms.TextBox tb_connect2;
         private System.Windows.Forms.TextBox tb_connect1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label labStatus;
+        private System.Windows.Forms.ProgressBar progressBar2;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
+        private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
     }
 }
