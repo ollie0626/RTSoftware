@@ -61,6 +61,8 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
+            InsControl._oscilloscope.SetRST();
+            MyLib.Delay1s(1);
             InsControl._oscilloscope.CHx_On(1); // vout
             InsControl._oscilloscope.CHx_On(2); // Lx
             InsControl._oscilloscope.CHx_On(3); // G1
