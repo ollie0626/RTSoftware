@@ -25,7 +25,7 @@ namespace SoftStartTiming
         const int LPM = 0;
         const int G1 = 1;
         const int G2 = 2;
-        const int test_cnt = 20;
+        const int test_cnt = 5;
 
         List<double> overshoot_list = new List<double>();
         List<double> undershoot_list = new List<double>();
@@ -157,6 +157,11 @@ namespace SoftStartTiming
                 x1 = InsControl._oscilloscope.GetAnnotationXn(1);
                 MyLib.Delay1ms(100);
 
+                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                MyLib.Delay1ms(100);
+                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+
                 double high = rising_en ? test_parameter.vidio.vout_list_af[case_idx] : test_parameter.vidio.vout_list[case_idx];
                 double mid = Math.Abs(vout - vout_af) + (rising_en ? test_parameter.vidio.vout_list[case_idx] : test_parameter.vidio.vout_list_af[case_idx]);
                 double low = rising_en ? test_parameter.vidio.vout_list[case_idx] : test_parameter.vidio.vout_list_af[case_idx];
@@ -169,12 +174,16 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetAnnotation(1);
                 InsControl._oscilloscope.SetAnnotation(1);
                 MyLib.Delay1ms(100);
-                // get target vol
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                MyLib.Delay1ms(100);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                MyLib.Delay1ms(100);
+
+                if (InsControl._oscilloscope.GetAnnotationXn(2) < 9.99 * Math.Pow(10, 4))
+                {
+                    // get target vol
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                    MyLib.Delay1ms(100);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                    MyLib.Delay1ms(100);
+                }
             }
 
             InsControl._oscilloscope.SetCursorMode();
@@ -187,6 +196,35 @@ namespace SoftStartTiming
             MyLib.Delay1ms(100);
             InsControl._oscilloscope.SetCursorScreenYpos(diff ? vout * 0.8 : vout, diff ? vout_af * 0.2 : vout_af);
             MyLib.Delay1ms(100);
+        }
+
+        private void Initial_TimeScale(bool rising_en, bool LPM_en)
+        {
+            if (LPM_en && rising_en)
+            {
+                // LPM + rising
+                InsControl._oscilloscope.SetTimeScale(100 * Math.Pow(10, -6));
+                InsControl._oscilloscope.DoCommand("HORizontal:ROLL OFF");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+            }
+            else if (LPM_en && !rising_en)
+            {
+                // LPM + falling
+                // LPM + rising
+                InsControl._oscilloscope.SetTimeScale(test_parameter.vidio.discharge_time);
+                InsControl._oscilloscope.DoCommand("HORizontal:ROLL OFF");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+            }
+            else
+            {
+                // normal mode
+                InsControl._oscilloscope.SetTimeScale(5 * Math.Pow(10, -6));
+                InsControl._oscilloscope.DoCommand("HORizontal:ROLL OFF");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
+                InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+            }
         }
 
         private void Phase1Test(int case_idx)
@@ -202,6 +240,7 @@ namespace SoftStartTiming
             bool rising_en = vout < vout_af ? true : false;
 
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
+            bool LPM_en = vout == 0 || vout_af == 0;
             //RefelevelSel(diff);
 
             // change edge trigger to timeOut trigger
@@ -217,6 +256,9 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Offset(1, vout);
                 InsControl._oscilloscope.CHx_Position(1, -2);
                 InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.3 + vout);
+
+                Initial_TimeScale(rising_en, LPM_en);
+
             }
             else
             {
@@ -225,6 +267,9 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Offset(1, vout_af);
                 InsControl._oscilloscope.CHx_Position(1, -2);
                 InsControl._oscilloscope.SetTriggerLevel(1, (vout - vout_af) * 0.3 + vout_af);
+
+
+                Initial_TimeScale(rising_en, LPM_en);
             }
 
             for (int repeat_idx = 0; repeat_idx < test_cnt; repeat_idx++)
@@ -236,11 +281,12 @@ namespace SoftStartTiming
 
                 // initial sate setting
                 IOStateSetting(
-                                test_parameter.vidio.vout_map[vout]
-                                //test_parameter.vidio.lpm_sel[case_idx],
-                                //test_parameter.vidio.g1_sel[case_idx],
-                                //test_parameter.vidio.g2_sel[case_idx]
+                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout] : test_parameter.vidio.vout_map[vout]
                                 );
+
+#if Eload_en
+                if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
+#endif
 
                 InsControl._oscilloscope.SetRun();
                 MyLib.Delay1ms(100);
@@ -248,13 +294,14 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(100);
 
+                if (LPM_en && !rising_en) MyLib.Delay1s(1);
+
                 // transfer condition
                 IOStateSetting(
-                                test_parameter.vidio.vout_map[vout_af]
-                                //test_parameter.vidio.lpm_sel_af[case_idx],
-                                //test_parameter.vidio.g1_sel_af[case_idx],
-                                //test_parameter.vidio.g2_sel_af[case_idx]
-                                );
+                            LPM_en ? test_parameter.vidio.lpm_vout_map[vout_af] : test_parameter.vidio.vout_map[vout_af]
+                            );
+
+                if (LPM_en && !rising_en) MyLib.Delay1s(3);
 
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetStop();
@@ -291,6 +338,11 @@ namespace SoftStartTiming
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
                             MyLib.Delay1ms(100);
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+
+                            if (LPM_en)
+                            {
+                                InsControl._oscilloscope.SetTimeScale(slew_rate / 4.5);
+                            }
                         }
                         else
                         {
@@ -305,6 +357,10 @@ namespace SoftStartTiming
                             vol = InsControl._oscilloscope.GetCursorHBarDelta();
 
                             slew_rate = vol / time;
+                            if (LPM_en)
+                            {
+                                InsControl._oscilloscope.SetTimeScale(time / 4.5);
+                            }
                         }
                         slewrate_list.Add(!diff ? slew_rate : slew_rate * Math.Pow(10, -3));
                     }
@@ -314,9 +370,7 @@ namespace SoftStartTiming
                         MyLib.Delay1ms(50);
                         slew_rate = InsControl._oscilloscope.CHx_Meas_Fall(1, 1);
                         slew_rate = InsControl._oscilloscope.CHx_Meas_Fall(1, 1);
-
                         //slewrate_list.Add(slew_rate);
-
                         InsControl._oscilloscope.CHx_Meas_Min(1, 2);
                         vmin = InsControl._oscilloscope.MeasureMin(2);
                         MyLib.Delay1ms(50);
@@ -360,10 +414,18 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
                     phase1_name.Add((repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
 
+
+                    if (LPM_en && !rising_en)
+                    {
+#if Eload_en
+                        InsControl._eload.LoadOFF(1);
+#endif
+                        break;
+                    }
+                        
                 }
                 else
                 {
-
                     if (rising_en)
                     {
                         InsControl._oscilloscope.CHx_Meas_Rise(1, 1);
@@ -378,7 +440,6 @@ namespace SoftStartTiming
                         InsControl._oscilloscope.SetAnnotation(1);
                         MyLib.Delay1ms(100);
                     }
-
                 }
             }
 
@@ -396,13 +457,14 @@ namespace SoftStartTiming
             double vout_af = test_parameter.vidio.vout_list_af[case_idx];
             bool rising_en = vout_af < vout ? true : false;
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
+            bool LPM_en = vout == 0 || vout_af == 0;
             //RefelevelSel(diff);
-
 
             InsControl._oscilloscope.SetTimeOutTrigger();
             InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
             InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
             InsControl._oscilloscope.SetTimeOutEither();
+            Initial_TimeScale(rising_en, LPM_en);
 
             //if (rising_en)
             //    InsControl._oscilloscope.SetTriggerRise();
@@ -419,24 +481,31 @@ namespace SoftStartTiming
 
                 // initial sate setting
                 IOStateSetting(
-                                test_parameter.vidio.vout_map[vout_af]
+                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout_af] : test_parameter.vidio.vout_map[vout_af]
                                 //test_parameter.vidio.lpm_sel_af[case_idx],
                                 //test_parameter.vidio.g1_sel_af[case_idx],
                                 //test_parameter.vidio.g2_sel_af[case_idx]
                                 );
+
+#if Eload_en
+                if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
+#endif
+
+
                 InsControl._oscilloscope.SetRun();
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(100);
+                if (LPM_en && !rising_en) MyLib.Delay1s(1);
                 // transfer condition
                 IOStateSetting(
-                                test_parameter.vidio.vout_map[vout]
+                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout] : test_parameter.vidio.vout_map[vout]
                                 //test_parameter.vidio.lpm_sel[case_idx],
                                 //test_parameter.vidio.g1_sel[case_idx],
                                 //test_parameter.vidio.g2_sel[case_idx]
                                 );
-
+                if (LPM_en && !rising_en) MyLib.Delay1s(3);
 
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetStop();
@@ -472,6 +541,9 @@ namespace SoftStartTiming
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
                             MyLib.Delay1ms(100);
                             slew_rate = InsControl._oscilloscope.GetCursorVBarDelta();
+
+                            if (LPM_en)
+                                InsControl._oscilloscope.SetTimeScale(slew_rate / 4.5);
                         }
                         else
                         {
@@ -486,6 +558,10 @@ namespace SoftStartTiming
                             vol = InsControl._oscilloscope.GetCursorHBarDelta();
 
                             slew_rate = vol / time;
+
+                            if (LPM_en)
+                                InsControl._oscilloscope.SetTimeScale(time / 4.5);
+
                         }
                         slewrate_list.Add(!diff ? slew_rate : slew_rate * Math.Pow(10, -3));
                     }
@@ -538,6 +614,16 @@ namespace SoftStartTiming
                     // save every times wavefrom
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
                     phase2_name.Add((repeat_idx - 2).ToString() + "_" + test_parameter.waveform_name + (rising_en ? "_rising" : "_falling"));
+
+                    if (LPM_en && !rising_en)
+                    {
+#if Eload_en
+                        InsControl._eload.LoadOFF(1);
+                        
+#endif
+                        break;
+                    }
+
                 }
                 else
                 {
@@ -621,8 +707,8 @@ namespace SoftStartTiming
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
 #endif
-            
-            for (int case_idx = 0; case_idx < test_parameter.vidio.vout_map.Count; case_idx++)
+
+            for (int case_idx = 0; case_idx < test_parameter.vidio.vout_list.Count; case_idx++)
             {
                 for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
                 {
@@ -689,7 +775,7 @@ namespace SoftStartTiming
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
                         }
 #endif
-                        
+
                         Phase2Test(case_idx);
                         //InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (!rising_en ? "_rising" : "_falling"));
 #if Report_en
@@ -750,7 +836,8 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row, XLS_Table.V] = "Fall (us)";
                         _sheet.Cells[wave_row, XLS_Table.W] = "Overshoot(%)";
                         _sheet.Cells[wave_row, XLS_Table.X] = "Undershoot(%)";
-                        _range = _sheet.Range["Q" + wave_row, "X" + wave_row];
+                        _sheet.Cells[wave_row, XLS_Table.Y] = "SR worst case";
+                        _range = _sheet.Range["Q" + wave_row, "Y" + wave_row];
                         _range.Interior.Color = Color.FromArgb(124, 252, 0);
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
@@ -762,7 +849,9 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row + 1, XLS_Table.V] = "=I" + row.ToString(); // fall time
                         _sheet.Cells[wave_row + 1, XLS_Table.W] = "=L" + row.ToString(); // over shoot
                         _sheet.Cells[wave_row + 1, XLS_Table.X] = "=M" + row.ToString(); // under shoot
+                        _sheet.Cells[wave_row + 1, XLS_Table.Y] = "SR worst case";
 
+                        _sheet.Cells[wave_row + 1, XLS_Table.AK] = "Over/Under shoot worst case";
 #endif
 
                         InsControl._oscilloscope.SetAutoTrigger();

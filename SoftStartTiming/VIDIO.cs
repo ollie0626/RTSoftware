@@ -176,12 +176,18 @@ namespace SoftStartTiming
             int temp = 0;
             for(int idx = 0; idx < dataGridView2.RowCount; idx++)
             {
-                temp =  Convert.ToInt16(dataGridView2[0, idx].Value) << 0 |
-                        Convert.ToInt16(dataGridView2[1, idx].Value) << 1 |
-                        Convert.ToInt16(dataGridView2[2, idx].Value) << 2;
+                temp =  Convert.ToInt16(dataGridView2[0, idx].Value) << 0 | // LPM
+                        Convert.ToInt16(dataGridView2[1, idx].Value) << 1 | // G1
+                        Convert.ToInt16(dataGridView2[2, idx].Value) << 2;  // G2
 
                 test_parameter.vidio.io_table.Add(temp);
-                test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+
+                if(Convert.ToDouble(dataGridView2[3, idx].Value) != 0)
+                    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+                else
+                    test_parameter.vidio.lpm_vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+
+
             }
 
 
@@ -203,7 +209,8 @@ namespace SoftStartTiming
                                 dataGridView1.RowCount;
 
             progressBar2.Maximum = program_max;
-
+            test_parameter.vidio.discharge_time = ((double)(nuDischarge.Value / 4) * Math.Pow(10, -3));
+            test_parameter.vidio.discharge_load = (double)nuDisLoad.Value;
         }
 
         public void UpdateProgressBar(int val)
@@ -709,6 +716,7 @@ namespace SoftStartTiming
     {
         public List<int> io_table = new List<int>();
         public Dictionary<double, int> vout_map = new Dictionary<double, int>();
+        public Dictionary<double, int> lpm_vout_map = new Dictionary<double, int>();
 
         //public List<int> lpm_sel = new List<int>();
         //public List<int> g1_sel = new List<int>();
@@ -719,6 +727,8 @@ namespace SoftStartTiming
         //public List<int> g1_sel_af = new List<int>();
         //public List<int> g2_sel_af = new List<int>();
         public List<double> vout_list_af = new List<double>();
+        public double discharge_time;
+        public double discharge_load;
     }
 
 

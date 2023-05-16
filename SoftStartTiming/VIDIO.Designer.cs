@@ -66,6 +66,10 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.nuDisLoad = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.nuDischarge = new System.Windows.Forms.NumericUpDown();
+            this.label4 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -93,6 +97,8 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -477,6 +483,10 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.nuDisLoad);
+            this.tabPage2.Controls.Add(this.label5);
+            this.tabPage2.Controls.Add(this.nuDischarge);
+            this.tabPage2.Controls.Add(this.label4);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.tb_connect3);
@@ -492,6 +502,63 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(826, 575);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
+            // 
+            // nuDisLoad
+            // 
+            this.nuDisLoad.DecimalPlaces = 3;
+            this.nuDisLoad.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuDisLoad.Location = new System.Drawing.Point(364, 337);
+            this.nuDisLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuDisLoad.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nuDisLoad.Name = "nuDisLoad";
+            this.nuDisLoad.Size = new System.Drawing.Size(77, 23);
+            this.nuDisLoad.TabIndex = 139;
+            this.nuDisLoad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(176, 341);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 12);
+            this.label5.TabIndex = 140;
+            this.label5.Text = "Discharge Loading(A)";
+            // 
+            // nuDischarge
+            // 
+            this.nuDischarge.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuDischarge.Location = new System.Drawing.Point(364, 310);
+            this.nuDischarge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuDischarge.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nuDischarge.Name = "nuDischarge";
+            this.nuDischarge.Size = new System.Drawing.Size(77, 23);
+            this.nuDischarge.TabIndex = 137;
+            this.nuDischarge.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(176, 314);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(182, 12);
+            this.label4.TabIndex = 138;
+            this.label4.Text = "LPM Mode Discharge Time(ms)";
             // 
             // dataGridView2
             // 
@@ -714,6 +781,8 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -783,5 +852,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn2;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown nuDischarge;
+        private System.Windows.Forms.NumericUpDown nuDisLoad;
+        private System.Windows.Forms.Label label5;
     }
 }
