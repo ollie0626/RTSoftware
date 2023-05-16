@@ -161,6 +161,7 @@ namespace SoftStartTiming
             test_parameter.vidio.vout_list_af.Clear();
             test_parameter.vidio.vout_map.Clear();
             test_parameter.vidio.io_table.Clear();
+            test_parameter.vidio.lpm_vout_map.Clear();
 
 
             test_parameter.tool_ver = win_name + "\r\n";

@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-//#define Power_en
-//#define Eload_en
+#define Power_en
+#define Eload_en
 
 using System;
 using System.Collections.Generic;
@@ -62,11 +62,16 @@ namespace SoftStartTiming
         private void OSCInit()
         {
             InsControl._oscilloscope.SetRST();
-            MyLib.Delay1s(1);
+            MyLib.Delay1s(3);
             InsControl._oscilloscope.CHx_On(1); // vout
             InsControl._oscilloscope.CHx_On(2); // Lx
             InsControl._oscilloscope.CHx_On(3); // G1
             InsControl._oscilloscope.CHx_On(4); // G2
+            MyLib.Delay1s(2);
+            InsControl._oscilloscope.CHx_BWLimitOn(1);
+            InsControl._oscilloscope.CHx_BWLimitOn(2);
+            InsControl._oscilloscope.CHx_BWLimitOn(3);
+            InsControl._oscilloscope.CHx_BWLimitOn(4);
 
             // initial time scale
             InsControl._oscilloscope.SetTimeScale(4 * Math.Pow(10, -6));
@@ -86,12 +91,14 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Level(1, max - min / 3);
             InsControl._oscilloscope.CHx_Offset(1, min);
             InsControl._oscilloscope.CHx_Position(1, -2);
-
+            MyLib.Delay1s(2);
             InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 1.5);
             InsControl._oscilloscope.CHx_Position(2, -4);
 
             InsControl._oscilloscope.SetAutoTrigger();
             InsControl._oscilloscope.SetTriggerLevel(2, max - min);
+
+            InsControl._oscilloscope.SetTimeBasePosition(25);
         }
 
         private void RefelevelSel(bool diff)
@@ -281,10 +288,22 @@ namespace SoftStartTiming
                 double under_shoot = 0;
                 double vmax = 0, vmin = 0;
 
-                // initial sate setting
-                IOStateSetting(
-                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout] : test_parameter.vidio.vout_map[vout]
-                                );
+                if(rising_en && LPM_en)
+                {
+                    // initial sate setting
+                    IOStateSetting(
+                                    test_parameter.vidio.lpm_vout_map[vout]
+                                    );
+                }
+                else
+                {
+                    // initial sate setting
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout]
+                                    );
+                }
+
+
 
 #if Eload_en
                 if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
@@ -298,10 +317,28 @@ namespace SoftStartTiming
 
                 if (LPM_en && !rising_en) MyLib.Delay1s(1);
 
-                // transfer condition
-                IOStateSetting(
-                            LPM_en ? test_parameter.vidio.lpm_vout_map[vout_af] : test_parameter.vidio.vout_map[vout_af]
+
+                if(rising_en && LPM_en)
+                {
+                    // transfer condition
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout_af]
+                                );
+                }
+                else if(LPM_en)
+                {
+                    IOStateSetting(
+                                    test_parameter.vidio.lpm_vout_map[vout_af]
                             );
+                }
+                else
+                {
+                    // transfer condition
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout_af]
+                                );
+                }
+
 
                 if (LPM_en && !rising_en) MyLib.Delay1s(3);
 
@@ -481,13 +518,20 @@ namespace SoftStartTiming
                 double under_shoot = 0;
                 double vmax = 0, vmin = 0;
 
-                // initial sate setting
-                IOStateSetting(
-                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout_af] : test_parameter.vidio.vout_map[vout_af]
-                                //test_parameter.vidio.lpm_sel_af[case_idx],
-                                //test_parameter.vidio.g1_sel_af[case_idx],
-                                //test_parameter.vidio.g2_sel_af[case_idx]
-                                );
+                if (rising_en && LPM_en)
+                {
+                    // initial sate setting
+                    IOStateSetting(
+                                    test_parameter.vidio.lpm_vout_map[vout_af]
+                                    );
+                }
+                else
+                {
+                    // initial sate setting
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout_af]
+                                    );
+                }
 
 #if Eload_en
                 if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
@@ -500,13 +544,29 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(100);
                 if (LPM_en && !rising_en) MyLib.Delay1s(1);
-                // transfer condition
-                IOStateSetting(
-                                LPM_en ? test_parameter.vidio.lpm_vout_map[vout] : test_parameter.vidio.vout_map[vout]
-                                //test_parameter.vidio.lpm_sel[case_idx],
-                                //test_parameter.vidio.g1_sel[case_idx],
-                                //test_parameter.vidio.g2_sel[case_idx]
+
+                if (rising_en && LPM_en)
+                {
+                    // transfer condition
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout]
                                 );
+                }
+                else if (LPM_en)
+                {
+                    IOStateSetting(
+                                    test_parameter.vidio.lpm_vout_map[vout]
+                            );
+                }
+                else
+                {
+                    // transfer condition
+                    IOStateSetting(
+                                    test_parameter.vidio.vout_map[vout]
+                                );
+                }
+
+
                 if (LPM_en && !rising_en) MyLib.Delay1s(3);
 
                 MyLib.Delay1ms(100);

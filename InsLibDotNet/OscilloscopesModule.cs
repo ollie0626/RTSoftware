@@ -294,10 +294,13 @@ namespace InsLibDotNet
             switch (osc_sel)
             {
                 case 0:
-                    doCommand(string.Format(":CH{0}:BWLimit 20e6", ch));
+                    //CH1:BANdwidth\sTWEnty
+                    doCommand(string.Format("CH{0}:BANdwidth FULl", ch));
+                    doCommand(string.Format("CH{0}:BANdwidth TWEnty", ch));
+                    
                     break;
                 case 1:
-                    doCommand(string.Format("CH{0}:BANdwidth TWEnty", ch));
+                    doCommand(string.Format(":CH{0}:BWLimit 20e6", ch));
                     break;
             }
         }
