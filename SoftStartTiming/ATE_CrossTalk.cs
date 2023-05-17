@@ -52,6 +52,8 @@ namespace SoftStartTiming
 
         Thread dont_stop;
         ParameterizedThreadStart p_dont_stop;
+        static volatile int dont_stop_cnt = 0;
+
 
         public void Channel_Switch_event(object obj)
         {
@@ -72,6 +74,16 @@ namespace SoftStartTiming
 
 #if Report_en
                             _sheet.Cells[row, parameter.idx + aggressor_col] = InsControl._eload.GetIout();
+#endif
+                        }
+                        else
+                        {
+#if Eload_en
+                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+#endif
+
+#if Report_en
+                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
 #endif
                         }
                         break;
@@ -109,7 +121,7 @@ namespace SoftStartTiming
                         }
 
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? vid_low[parameter.idx].ToString("X") + "->" + vid_high[parameter.idx].ToString("X") : "0";
+                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? vid_low[parameter.idx].ToString("X") + "<->" + vid_high[parameter.idx].ToString("X") : "0";
                         //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
                         for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
                         {
@@ -121,7 +133,7 @@ namespace SoftStartTiming
                         break;
                     case 3: // LT
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " -> " + parameter.l2[parameter.idx] : "0";
+                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
                         // eload over 4CH need to select channel
                         if (parameter.data[parameter.idx] != 0)
 #if Eload_en
@@ -134,9 +146,9 @@ namespace SoftStartTiming
                         break;
                 }
 
+                dont_stop_cnt++;
             } // while loop end
         }
-
 
         public ATE_CrossTalk(CrossTalk main)
         {
@@ -144,7 +156,6 @@ namespace SoftStartTiming
             updateMain = main;
             p_dont_stop = new ParameterizedThreadStart(Channel_Switch_event);
             dont_stop = new Thread(p_dont_stop);
-
         }
 
         private void MessageNotify()
@@ -173,6 +184,10 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Off(3);
             InsControl._oscilloscope.CHx_Off(4);
 
+            InsControl._oscilloscope.CHx_BWLimitOn(1);
+            InsControl._oscilloscope.CHx_BWLimitOn(2);
+            InsControl._oscilloscope.CHx_BWLimitOn(3);
+            InsControl._oscilloscope.CHx_BWLimitOn(4);
         }
 
         public void WriteFreq(int sealect, int freq_idx)
@@ -343,11 +358,6 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
-            //double[] data = new double[] { 0, 1, 1, 1 };
-            //WriteEn(data.ToList(), test_parameter.en_addr, test_parameter.en_data, test_parameter.disen_data);
-            //updateMain.UpdateProgressBar(3);
-            //WriteFreq(0, 0);
-
             progress = 0;
             updateMain.UpdateProgressBar(0);
             RTDev.BoadInit();
@@ -625,10 +635,6 @@ namespace SoftStartTiming
                             }
 
 
-                            /* change victim freq */
-                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                            //                test_parameter.freq_addr[select_idx],
-                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
                             WriteFreq(select_idx, freq_idx);
 
                             int cnt_max = 0;
@@ -677,6 +683,12 @@ namespace SoftStartTiming
                                 _range.Merge();
                                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
+
+                                _range = _sheet.Cells[row - 2, col_start];
+                                _sheet.Cells[row - 2, col_start] = "Victim Info";
+                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
+
                                 _sheet.Cells[row, col_start] = string.Format("Freq(KHz)={0}, Addr={1:X2}, Data={2:X2}"
                                                                 , test_parameter.freq_des[select_idx][freq_idx]
                                                                 , test_parameter.freq_addr[select_idx]
@@ -695,15 +707,13 @@ namespace SoftStartTiming
                                 }
 
                                 _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
-
-
                                 col_pos[(int)Col_List.b_Vmean] = col_base;
                                 _sheet.Cells[row, col_base++] = "Vmean(V)";
 
                                 col_pos[(int)Col_List.b_Vmax] = col_base;
                                 _sheet.Cells[row, col_base] = "Victim Max Voltage";
 
-                                _sheet.Cells[row - 1, col_base] = "Before: no load on victim";
+                                _sheet.Cells[row - 1, col_base] = "Before: no load on aggressor";
                                 _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row - 1)];
                                 _range.Merge();
                                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -725,7 +735,7 @@ namespace SoftStartTiming
                                 //_sheet.Cells[row, col_base++] = "+ Tol (%)";
                                 //_sheet.Cells[row, col_base++] = "- Tol (%)";
 
-                                _sheet.Cells[row - 1, col_base] = "After: with load on victim";
+                                _sheet.Cells[row - 1, col_base] = "After: with load on aggressor";
                                 _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 4] + (row - 1)];
                                 _range.Merge();
                                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -795,7 +805,7 @@ namespace SoftStartTiming
 
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
-                                    MeasureN(n,
+                                    MeasureN(   n,
                                                 select_idx,
                                                 Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
                                                 group_idx,
@@ -862,7 +872,6 @@ namespace SoftStartTiming
             // ch_sw_num just judge that need to run how many times active load switch
             ch_sw_num = ch_sw_num / 2;
 
-            //InsControl._power.AutoPowerOff();
             OSCInit();
             MyLib.Delay1ms(500);
 
@@ -874,19 +883,6 @@ namespace SoftStartTiming
                     {
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
-
-                            // freq loop
-                            /* change aggressor vout */
-                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                            //                test_parameter.vout_addr[select_idx],
-                            //                new byte[] { test_parameter.vout_data[select_idx][vout_idx] });
-
-                            ///* change aggressor freq */
-                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                            //                test_parameter.freq_addr[select_idx],
-                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
-
-
                             /* change victim vout */
                             for (int i = 0; i < test_parameter.vout_addr.Length; i++)
                             {
@@ -895,11 +891,6 @@ namespace SoftStartTiming
                                                 new byte[] { test_parameter.vout_data[i][vout_idx] });
                             }
 
-
-                            /* change victim freq */
-                            //RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
-                            //                test_parameter.freq_addr[select_idx],
-                            //                new byte[] { test_parameter.freq_data[select_idx][freq_idx] });
                             WriteFreq(select_idx, freq_idx);
 
                             int cnt_max_l2 = 0;
@@ -997,8 +988,6 @@ namespace SoftStartTiming
 
                                 col_pos[(int)Col_List.b_delta_neg] = col_base;
                                 _sheet.Cells[row, col_base++] = "-VΔ (mV)";
-                                //_sheet.Cells[row, col_base++] = "+ Tol (%)";
-                                //_sheet.Cells[row, col_base++] = "- Tol (%)";
 
                                 _sheet.Cells[row - 1, col_base] = "After: with load on victim";
                                 _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 4] + (row - 1)];
@@ -1110,7 +1099,6 @@ namespace SoftStartTiming
 
         private void CHx_LevelReScale(int ch, double vout)
         {
-            //double vout = Convert.ToDouble(test_parameter.vout_des[ch][vout_idx]);
             InsControl._oscilloscope.CHx_On(ch);
             InsControl._oscilloscope.CHx_Offset(ch, vout);
             InsControl._oscilloscope.CHx_Level(ch, 1); // set 100mV
@@ -1132,7 +1120,6 @@ namespace SoftStartTiming
                 goto RE_Scale;
         }
 
-
         private void MeasureN(int n, int select_idx, double vout,
                                 int group, double iout_n, int col_start,
                                 bool before, bool lt_mode = false)
@@ -1144,23 +1131,6 @@ namespace SoftStartTiming
             double[] l2 = new double[n];
             int loop_cnt = (int)Math.Pow(2, n);
 
-            // modify
-            //CHx_LevelReScale(select_idx + 1, vout);
-
-            // save aggressor number and trun off aggressor channel 
-            //for (int aggressor = 0; aggressor < test_parameter.cross_en.Length; aggressor++)
-            //{
-            //    if (aggressor != select_idx && test_parameter.cross_en[aggressor])
-            //    {
-            //        sw_en[idx++] = aggressor;
-            //        InsControl._oscilloscope.CHx_Off(aggressor + 1);
-            //    }
-            //}
-
-            //if (select_idx == 0 && test_parameter.Lx1) InsControl._oscilloscope.CHx_On(3);
-            //if (select_idx == 1 && test_parameter.Lx2) InsControl._oscilloscope.CHx_On(4);
-
-            //TODO: Issue6 
             // turn vout channel
             string name = test_parameter.scope_chx[select_idx];
             string res = test_parameter.scope_lx[select_idx];
@@ -1192,7 +1162,6 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
 
-
             // save aggressor iout conditions
             // iout select maximum setting if over iout list overflow.
             for (int i = 0; i < n; i++)
@@ -1218,9 +1187,7 @@ namespace SoftStartTiming
                 //InsControl._oscilloscope.SetDPXOn();
                 InsControl._oscilloscope.SetClear();
                 updateMain.UpdateProgressBar(++progress);
-                //Console.WriteLine("progress = " + progress);
-                // each of loop represent truth table row
-                // InsControl._eload.Loading(select_idx + 1, iout_n);
+
                 InsControl._oscilloscope.SetAutoTrigger();
                 if (iout_n != 0)
                     InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
@@ -1267,6 +1234,7 @@ namespace SoftStartTiming
                 //TODO: Issue4
                 for (int j = 0; j < n; j++) // run each channel
                 {
+                    dont_stop_cnt = 0;
                     CrossTalkParameter input = new CrossTalkParameter();
                     input.idx = j;
                     input.select_idx = select_idx;
@@ -1278,158 +1246,66 @@ namespace SoftStartTiming
                     input.l1 = l1;
                     input.l2 = l2;
 
-                    if (dont_stop.IsAlive)
-                        dont_stop.Resume();
-                    else
-                        dont_stop.Start(input);
-
-
-                    //                    switch (test_parameter.cross_mode)
-                    //                    {
-                    //                        case 0: // ccm mode
-                    //                            if (data[j] != 0)
-                    //                            {
-                    //#if Eload_en
-                    //                                InsControl._eload.Loading(sw_en[j] + 1, iout[j]);
-                    //#endif
-
-                    //#if Report_en
-                    //                                _sheet.Cells[row, j + aggressor_col] = InsControl._eload.GetIout();
-                    //#endif
-                    //                            }
-                    //                            else
-                    //                            {
-                    //#if Eload_en
-                    //                                InsControl._eload.LoadOFF(sw_en[j] + 1);
-                    //#endif
-
-                    //#if Report_en
-                    //                                _sheet.Cells[row, j + aggressor_col] = 0;
-                    //#endif
-                    //                            }
-                    //                            break;
-                    //                        case 1: // i2c on / off
-                    //                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
-                    //                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? "Enable" : "0";
-
-                    //                            List<byte> en_addr = new List<byte>();
-                    //                            List<byte> en_data = new List<byte>();
-                    //                            List<byte> disen_data = new List<byte>();
-                    //                            en_addr = test_parameter.en_addr.ToList();
-                    //                            en_data = test_parameter.en_data.ToList();
-                    //                            disen_data = test_parameter.disen_data.ToList();
-
-                    //                            en_addr.Remove(test_parameter.en_addr[select_idx]);
-                    //                            en_data.Remove(test_parameter.en_data[select_idx]);
-                    //                            disen_data.Remove(test_parameter.disen_data[select_idx]);
-
-                    //                            WriteEn(data, en_addr.ToArray(), en_data.ToArray(), disen_data.ToArray(), select_idx);
-                    //                            break;
-                    //                        case 2: // i2c VID
-
-                    //                            List<byte> vid_addr = new List<byte>();
-                    //                            List<byte> vid_low = new List<byte>();
-                    //                            List<byte> vid_high = new List<byte>();
-
-                    //                            for (int k = 0; k < test_parameter.vid_addr.Length; k++)
-                    //                            {
-                    //                                if (k != select_idx)
-                    //                                {
-                    //                                    vid_addr.Add(test_parameter.vid_addr[k]);
-                    //                                    vid_low.Add(test_parameter.lo_code[k]);
-                    //                                    vid_high.Add(test_parameter.hi_code[k]);
-                    //                                }
-                    //                            }
-
-                    //                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
-                    //                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? vid_low[j].ToString("X") + "->" + vid_high[j].ToString("X") : "0";
-                    //                            //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
-                    //                            for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
-                    //                            {
-                    //                                if (data[j] == 0) break;
-
-                    //                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
-                    //                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
-                    //                            }
-                    //                            break;
-                    //                        case 3: // LT
-                    //                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
-                    //                            _sheet.Cells[row, j + aggressor_col] = (data[j] == 1) ? l1[j] + " -> " + l2[j] : "0";
-                    //                            // eload over 4CH need to select channel
-                    //                            if (data[j] != 0)
-                    //#if Eload_en
-                    //                                InsControl._eload.DymanicLoad(sw_en[j] + 1, data_l1[j], data_l2[j], 500, 500); // 1KHz
-                    //#endif
-                    //                            else
-                    //#if Eload_en
-                    //                                InsControl._eload.LoadOFF(sw_en[j] + 1);
-                    //#endif
-                    //                            break;
-                    //                    }
-                    //                }
-
-                    string temp = test_parameter.waveform_name;
-                    test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
-                    //MeasureVictim(select_idx + 1, col_start + 1, vout, before);
-
+                    InsControl._oscilloscope.CHx_On(select_idx + 1);
+                    dont_stop = new Thread(p_dont_stop);
+                    dont_stop.Start(input);
                     MyLib.Delay1s(test_parameter.accumulate);
-                    dont_stop.Suspend();
 
+                    //while (dont_stop_cnt <= 100) ;
 
+                    // method 1
+                    dont_stop.Abort();
+                    dont_stop = null;
 
-
-                    //TODO: Issue2
-                    MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), col_start + 1, vout, before);
-                    test_parameter.waveform_name = temp;
-
-                    //InsControl._eload.Loading(select_idx + 1, iout_n);
-#if Eload_en
-                    InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
-#if Report_en
-                    _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
-#endif
-#endif
-
-                    //double[] read_iout = InsControl._eload.GetAllChannel_Iout();
-                    //double[] read_vout = InsControl._eload.GetAllChannel_Vol();
-                    //Console.WriteLine("Vout1={0}\tVout2={1}\tVout3={2}\tVout3={3}", read_vout[0], read_vout[1], read_vout[2], read_vout[3]);
-                    //Console.WriteLine("[0]\t[1]\t[2]\t[3]");
-                    //Console.Write("{0} = ", i);
-                    //Console.WriteLine("Iout1={0}\tIout2={1}\tIout3={2}\tIout3={3}", read_iout[0], read_iout[1], read_iout[2], read_iout[3]);
-#if Eload_en
-                    InsControl._eload.AllChannel_LoadOff();
-#endif
-                    row++;
                 }
+
+                string temp = test_parameter.waveform_name;
+                test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
+                MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), col_start + 1, vout, before);
+                test_parameter.waveform_name = temp;
+
 #if Eload_en
-                InsControl._oscilloscope.CHx_Off(1);
-                InsControl._oscilloscope.CHx_Off(2);
-                InsControl._oscilloscope.CHx_Off(3);
-                InsControl._oscilloscope.CHx_Off(4);
+                InsControl._eload.Loading(test_parameter.eload_chx[select_idx], iout_n);
+#if Report_en
+                _sheet.Cells[row, before ? col_start : col_start + 7] = InsControl._eload.GetIout();
 #endif
+#endif
+
+
+#if Eload_en
+                InsControl._eload.AllChannel_LoadOff();
+#endif
+                row++;
             }
 
-            #endregion
-
-
+            InsControl._oscilloscope.CHx_Off(1);
+            InsControl._oscilloscope.CHx_Off(2);
+            InsControl._oscilloscope.CHx_Off(3);
+            InsControl._oscilloscope.CHx_Off(4);
         }
 
-        public class CrossTalkParameter
-        {
-            public int idx;
-            public List<double> data = new List<double>();
-            public List<double> data_l1 = new List<double>();
-            public List<double> data_l2 = new List<double>();
-            public int[] sw_en;
-            public double[] iout;
-            public int select_idx;
-            public double[] l1;
-            public double[] l2;
+        #endregion
 
-            public CrossTalkParameter()
-            { }
-        }
+
     }
+
+    public class CrossTalkParameter
+    {
+        public int idx;
+        public List<double> data = new List<double>();
+        public List<double> data_l1 = new List<double>();
+        public List<double> data_l2 = new List<double>();
+        public int[] sw_en;
+        public double[] iout;
+        public int select_idx;
+        public double[] l1;
+        public double[] l2;
+
+        public CrossTalkParameter()
+        { }
+    }
+}
+
 
 
 
