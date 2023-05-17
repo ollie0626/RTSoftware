@@ -819,13 +819,6 @@ namespace SoftStartTiming
                                     measNParameter.vin = test_parameter.VinList[vin_idx];
 
                                     MeasureN(measNParameter);
-                                    //MeasureN(   n,
-                                    //            select_idx,
-                                    //            Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
-                                    //            group_idx,
-                                    //            iout,
-                                    //            col_start,
-                                    //            victim_idx == 0 ? true : false);
 
                                     if (victim_idx == 0) row = row - ch_sw_num;
                                 }
@@ -931,7 +924,6 @@ namespace SoftStartTiming
                                 int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                 int col_start = col_base;
 
-                                //TODO: Issue5
 #if Report_en
                                 _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                 , test_parameter.vout_des[select_idx][vout_idx]
@@ -1089,15 +1081,6 @@ namespace SoftStartTiming
 
                                     MeasureN(measNParameter);
 
-                                    //MeasureN(n,                                  // select total number
-                                    //            select_idx,                         // victim number
-                                    //            Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),                           // vout setting print to excel
-                                    //            group_idx,                          // maybe has more test conditions
-                                    //            iout,                                 // iout value to excel
-                                    //            col_start,                          // excel col start position
-                                    //            (victim_idx == 0 ? true : false),   // before & after
-                                    //            true);                              // lt mode enable
-
                                     if (victim_idx == 0) row = row - ch_sw_num;
                                 } // victim no load and full load
 
@@ -1254,35 +1237,43 @@ namespace SoftStartTiming
                     }
                 }
 
-                for (int j = 0; j < measNParameter.N; j++) // run each channel
+                if(!measNParameter.before)
                 {
-                    dont_stop_cnt = 0;
-                    CrossTalkParameter input = new CrossTalkParameter();
-                    input.idx = j;
-                    input.select_idx = measNParameter.select_idx;
-                    input.data = data;
-                    input.sw_en = sw_en;
-                    input.iout = iout;
-                    input.data_l1 = data_l1;
-                    input.data_l2 = data_l2;
-                    input.l1 = l1;
-                    input.l2 = l2;
+                    for (int j = 0; j < measNParameter.N; j++) // run each channel
+                    {
+                        dont_stop_cnt = 0;
+                        CrossTalkParameter input = new CrossTalkParameter();
+                        input.idx = j;
+                        input.select_idx = measNParameter.select_idx;
+                        input.data = data;
+                        input.sw_en = sw_en;
+                        input.iout = iout;
+                        input.data_l1 = data_l1;
+                        input.data_l2 = data_l2;
+                        input.l1 = l1;
+                        input.l2 = l2;
 
-                    InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
-                    dont_stop = new Thread(p_dont_stop);
-                    dont_stop.Start(input);
-                    MyLib.Delay1s(test_parameter.accumulate);
+                        InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
+                        dont_stop = new Thread(p_dont_stop);
+                        dont_stop.Start(input);
+                        MyLib.Delay1s(test_parameter.accumulate);
 
-                    //while (dont_stop_cnt <= 100) ;
+                        //while (dont_stop_cnt <= 100) ;
 
-                    dont_stop.Abort();
-                    dont_stop = null;
-
+                        dont_stop.Abort();
+                        dont_stop = null;
+                    }
                 }
+
 
                 string temp = test_parameter.waveform_name;
                 test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
-                MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), measNParameter.col_start + 1, measNParameter.vout, measNParameter.before, measNParameter.vin);
+                MeasureVictim(
+                                Convert.ToInt32(name.Replace("CH", "")),
+                                measNParameter.col_start + 1,
+                                measNParameter.vout,
+                                measNParameter.before,
+                                measNParameter.vin                      );
                 test_parameter.waveform_name = temp;
 
 #if Eload_en
@@ -1291,7 +1282,6 @@ namespace SoftStartTiming
                 _sheet.Cells[row, measNParameter.before ? measNParameter.col_start : measNParameter.col_start + 7] = InsControl._eload.GetIout();
 #endif
 #endif
-
 
 #if Eload_en
                 InsControl._eload.AllChannel_LoadOff();
