@@ -462,7 +462,7 @@ namespace SoftStartTiming
                 Cross_CCM();
         }
 
-        private void MeasureVictim(int victim, int col_start, double vout, bool before)
+        private void MeasureVictim(int victim, int col_start, double vout, bool before, double vin)
         {
             double vmean = 0;
             double vmax = 0;
@@ -805,13 +805,27 @@ namespace SoftStartTiming
 
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
-                                    MeasureN(   n,
-                                                select_idx,
-                                                Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
-                                                group_idx,
-                                                iout,
-                                                col_start,
-                                                victim_idx == 0 ? true : false);
+
+
+                                    MeasNParameter measNParameter = new MeasNParameter();
+
+                                    measNParameter.N = n;
+                                    measNParameter.select_idx = select_idx;
+                                    measNParameter.vout = Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]);
+                                    measNParameter.iout_n = iout;
+                                    measNParameter.col_start = col_start;
+                                    measNParameter.lt_mode = false;
+                                    measNParameter.before = victim_idx == 0 ? true : false;
+                                    measNParameter.vin = test_parameter.VinList[vin_idx];
+
+                                    MeasureN(measNParameter);
+                                    //MeasureN(   n,
+                                    //            select_idx,
+                                    //            Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),
+                                    //            group_idx,
+                                    //            iout,
+                                    //            col_start,
+                                    //            victim_idx == 0 ? true : false);
 
                                     if (victim_idx == 0) row = row - ch_sw_num;
                                 }
@@ -1062,14 +1076,27 @@ namespace SoftStartTiming
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
 
-                                    MeasureN(n,                                  // select total number
-                                                select_idx,                         // victim number
-                                                Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),                           // vout setting print to excel
-                                                group_idx,                          // maybe has more test conditions
-                                                iout,                                 // iout value to excel
-                                                col_start,                          // excel col start position
-                                                (victim_idx == 0 ? true : false),   // before & after
-                                                true);                              // lt mode enable
+                                    MeasNParameter measNParameter = new MeasNParameter();
+
+                                    measNParameter.N = n;
+                                    measNParameter.select_idx = select_idx;
+                                    measNParameter.vout = Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]);
+                                    measNParameter.iout_n = iout;
+                                    measNParameter.col_start = col_start;
+                                    measNParameter.lt_mode = true;
+                                    measNParameter.before = victim_idx == 0 ? true : false;
+                                    measNParameter.vin = test_parameter.VinList[vin_idx];
+
+                                    MeasureN(measNParameter);
+
+                                    //MeasureN(n,                                  // select total number
+                                    //            select_idx,                         // victim number
+                                    //            Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]),                           // vout setting print to excel
+                                    //            group_idx,                          // maybe has more test conditions
+                                    //            iout,                                 // iout value to excel
+                                    //            col_start,                          // excel col start position
+                                    //            (victim_idx == 0 ? true : false),   // before & after
+                                    //            true);                              // lt mode enable
 
                                     if (victim_idx == 0) row = row - ch_sw_num;
                                 } // victim no load and full load
@@ -1118,6 +1145,164 @@ namespace SoftStartTiming
             double res = InsControl._oscilloscope.doQueryNumber(string.Format("CH{0}:SCAle?", ch));
             if (res >= 0.1)
                 goto RE_Scale;
+        }
+
+        private void MeasureN(MeasNParameter measNParameter)
+        {
+            int idx = 0;
+            int[] sw_en = new int[measNParameter.N]; // save victim channel number
+            double[] iout = new double[measNParameter.N];
+            double[] l1 = new double[measNParameter.N];
+            double[] l2 = new double[measNParameter.N];
+            int loop_cnt = (int)Math.Pow(2, measNParameter.N);
+
+            // turn vout channel
+            string name = test_parameter.scope_chx[measNParameter.select_idx];
+            string res = test_parameter.scope_lx[measNParameter.select_idx];
+            switch (name)
+            {
+                case "CH1": CHx_LevelReScale(1, measNParameter.vout); break;
+                case "CH2": CHx_LevelReScale(2, measNParameter.vout); break;
+                case "CH3": CHx_LevelReScale(3, measNParameter.vout); break;
+                case "CH4": CHx_LevelReScale(4, measNParameter.vout); break;
+            }
+
+            // enable lx channel
+            switch (res)
+            {
+                case "CH1": InsControl._oscilloscope.CHx_On(1); break;
+                case "CH2": InsControl._oscilloscope.CHx_On(2); break;
+                case "CH3": InsControl._oscilloscope.CHx_On(3); break;
+                case "CH4": InsControl._oscilloscope.CHx_On(4); break;
+            }
+
+            for (int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
+            {
+                if (test_parameter.eload_chx[aggressor] != test_parameter.eload_chx[measNParameter.select_idx])
+                {
+                    sw_en[idx++] = test_parameter.eload_chx[aggressor] - 1;
+                }
+            }
+
+            InsControl._oscilloscope.SetClear();
+            InsControl._oscilloscope.SetPERSistence();
+
+            // save aggressor iout conditions
+            // iout select maximum setting if over iout list overflow.
+            for (int i = 0; i < measNParameter.N; i++)
+            {
+                if (measNParameter.lt_mode)
+                {
+                    l1[i] = measNParameter.group < test_parameter.lt_l1[sw_en[i]].Count ?
+                        test_parameter.lt_l1[sw_en[i]][measNParameter.group] : test_parameter.lt_l1[sw_en[i]].Max();
+
+                    l2[i] = measNParameter.group < test_parameter.lt_l2[sw_en[i]].Count ?
+                        test_parameter.lt_l2[sw_en[i]][measNParameter.group] : test_parameter.lt_l2[sw_en[i]].Max();
+                }
+                else
+                {
+                    iout[i] = measNParameter.group < test_parameter.ccm_eload[sw_en[i]].Count ?
+                        test_parameter.ccm_eload[sw_en[i]][measNParameter.group] : test_parameter.ccm_eload[sw_en[i]].Max();
+                }
+            }
+
+            // calculate and excute all of test conditions.
+            for (int i = 0; i < loop_cnt; i++)
+            {
+                InsControl._oscilloscope.SetClear();
+                updateMain.UpdateProgressBar(++progress);
+
+                InsControl._oscilloscope.SetAutoTrigger();
+                if (measNParameter.iout_n != 0)
+                    InsControl._eload.Loading(test_parameter.eload_chx[measNParameter.select_idx], measNParameter.iout_n);
+                else
+                    InsControl._eload.LoadOFF(test_parameter.eload_chx[measNParameter.select_idx]);
+
+                //TODO: Issue1
+                MyLib.Delay1s(1);
+
+                List<double> data = new List<double>();
+                List<double> data_l1 = new List<double>();
+                List<double> data_l2 = new List<double>();
+                int bit0 = (i & 0x01) >> 0;
+                int bit1 = (i & 0x02) >> 1;
+                int bit2 = (i & 0x04) >> 2;
+                int bit3 = (i & 0x08) >> 3;
+                int bit4 = (i & 0x10) >> 4;
+                int bit5 = (i & 0x20) >> 5;
+                int bit6 = (i & 0x40) >> 6;
+                int bit7 = (i & 0x80) >> 7;
+                int[] bit_list = new int[] { bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7 };
+
+                // select test mode: CCM, EN on/off, VID, LT 
+                for (int j = 0; j < measNParameter.N; j++)
+                {
+                    switch (test_parameter.cross_mode)
+                    {
+                        case 0:
+                            data.Add(bit_list[j] == 0 ? 0 : iout[j]);
+                            break;
+                        case 1:
+                        case 2:
+                            data.Add(bit_list[j] == 0 ? 0 : 1);
+                            break;
+                        case 3:
+                            data.Add(bit_list[j] == 0 ? 0 : 1);
+                            data_l1.Add(bit_list[j] == 0 ? 0 : l1[j]);
+                            data_l2.Add(bit_list[j] == 0 ? 0 : l2[j]);
+                            break;
+                    }
+                }
+
+                for (int j = 0; j < measNParameter.N; j++) // run each channel
+                {
+                    dont_stop_cnt = 0;
+                    CrossTalkParameter input = new CrossTalkParameter();
+                    input.idx = j;
+                    input.select_idx = measNParameter.select_idx;
+                    input.data = data;
+                    input.sw_en = sw_en;
+                    input.iout = iout;
+                    input.data_l1 = data_l1;
+                    input.data_l2 = data_l2;
+                    input.l1 = l1;
+                    input.l2 = l2;
+
+                    InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
+                    dont_stop = new Thread(p_dont_stop);
+                    dont_stop.Start(input);
+                    MyLib.Delay1s(test_parameter.accumulate);
+
+                    //while (dont_stop_cnt <= 100) ;
+
+                    dont_stop.Abort();
+                    dont_stop = null;
+
+                }
+
+                string temp = test_parameter.waveform_name;
+                test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
+                MeasureVictim(Convert.ToInt32(name.Replace("CH", "")), measNParameter.col_start + 1, measNParameter.vout, measNParameter.before, measNParameter.vin);
+                test_parameter.waveform_name = temp;
+
+#if Eload_en
+                InsControl._eload.Loading(test_parameter.eload_chx[measNParameter.select_idx], measNParameter.iout_n);
+#if Report_en
+                _sheet.Cells[row, measNParameter.before ? measNParameter.col_start : measNParameter.col_start + 7] = InsControl._eload.GetIout();
+#endif
+#endif
+
+
+#if Eload_en
+                InsControl._eload.AllChannel_LoadOff();
+#endif
+                row++;
+            }
+
+            InsControl._oscilloscope.CHx_Off(1);
+            InsControl._oscilloscope.CHx_Off(2);
+            InsControl._oscilloscope.CHx_Off(3);
+            InsControl._oscilloscope.CHx_Off(4);
         }
 
         private void MeasureN(int n, int select_idx, double vout,
@@ -1184,7 +1369,6 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
-                //InsControl._oscilloscope.SetDPXOn();
                 InsControl._oscilloscope.SetClear();
                 updateMain.UpdateProgressBar(++progress);
 
@@ -1230,8 +1414,6 @@ namespace SoftStartTiming
                     }
                 }
 
-                //int aggressor_col = (int)XLS_Table.C;
-                //TODO: Issue4
                 for (int j = 0; j < n; j++) // run each channel
                 {
                     dont_stop_cnt = 0;
@@ -1253,7 +1435,6 @@ namespace SoftStartTiming
 
                     //while (dont_stop_cnt <= 100) ;
 
-                    // method 1
                     dont_stop.Abort();
                     dont_stop = null;
 
@@ -1304,6 +1485,23 @@ namespace SoftStartTiming
         public CrossTalkParameter()
         { }
     }
+
+    public class MeasNParameter
+    {
+        public int N;
+        public int select_idx;
+        public double vout;
+        public int group;
+        public double iout_n;
+        public int col_start;
+        public bool before;
+        public bool lt_mode = false;
+        public double vin;
+
+        public MeasNParameter()
+        { }
+    }
+
 }
 
 
