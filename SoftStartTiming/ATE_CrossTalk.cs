@@ -621,11 +621,8 @@ namespace SoftStartTiming
 #endif
                     for (int freq_idx = 0; freq_idx < test_parameter.freq_data[select_idx].Count; freq_idx++)
                     {
-                        // freq loop
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
-                            // vout loop
-
                             /* change victim vout */
                             for (int i = 0; i < test_parameter.vout_addr.Length; i++)
                             {
@@ -805,7 +802,6 @@ namespace SoftStartTiming
 
                                     if (iout != 0)
                                         InsControl._eload.Loading(select_idx + 1, iout);
-
 
                                     MeasNParameter measNParameter = new MeasNParameter();
 

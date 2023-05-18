@@ -326,6 +326,8 @@ namespace SoftStartTiming
             test_parameter.eload_chx.Clear();
             test_parameter.scope_lx.Clear();
 
+            test_parameter.full_load.Clear();
+
             test_parameter.lt_l1.Clear();
             test_parameter.lt_l2.Clear();
 
@@ -345,7 +347,7 @@ namespace SoftStartTiming
                 test_parameter.en_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[2, i].Value), 16);
                 test_parameter.disen_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[3, i].Value), 16);
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[4, i].Value).Split(',').Select(double.Parse).ToList());
-                test_parameter.full_load[i] = Convert.ToDouble(EloadDG_CCM[5, i].Value);
+                test_parameter.full_load.Add(i, ((string)EloadDG_CCM[5, i].Value).Split(',').Select(double.Parse).ToList());
                 //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
 
                 // get scope channel number (data type string -> "CHn")
@@ -589,12 +591,12 @@ namespace SoftStartTiming
             // others conditions
             test_parameter.freq_addr = new byte[(int)nuCH_number.Value];
             test_parameter.vout_addr = new byte[(int)nuCH_number.Value];
-            test_parameter.full_load = new double[(int)nuCH_number.Value];
+            //test_parameter.full_load = new double[(int)nuCH_number.Value];
 
             test_parameter.cross_select = new byte[(int)nuCH_number.Value];
             test_parameter.cross_en = new bool[(int)nuCH_number.Value];
             test_parameter.ch_num = (int)nuCH_number.Value;
-            test_parameter.full_load = new double[(int)nuCH_number.Value];
+            //test_parameter.full_load = new double[(int)nuCH_number.Value];
 
             // vid
             test_parameter.vid_addr = new byte[(int)nuCH_number.Value];
