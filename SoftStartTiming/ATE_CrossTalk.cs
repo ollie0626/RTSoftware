@@ -782,9 +782,13 @@ namespace SoftStartTiming
                                 row++;
 
 #endif
+
+                                    
+                                double iout = victim_iout;
+                                InsControl._eload.Loading(select_idx + 1, iout);
                                 for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                 {
-                                    double iout = (victim_idx == 0) ? 0 : victim_iout;
+                                    
                                     test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                                     file_idx++,
                                                                     test_parameter.rail_name[select_idx],
@@ -800,8 +804,7 @@ namespace SoftStartTiming
                                             ch_sw_num == 32 ? 5 :
                                             ch_sw_num == 64 ? 6 : 7;
 
-                                    if (iout != 0)
-                                        InsControl._eload.Loading(select_idx + 1, iout);
+
 
                                     MeasNParameter measNParameter = new MeasNParameter();
 
