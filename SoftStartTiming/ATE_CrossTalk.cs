@@ -631,7 +631,6 @@ namespace SoftStartTiming
                                                 new byte[] { test_parameter.vout_data[i][vout_idx] });
                             }
 
-
                             WriteFreq(select_idx, freq_idx);
 
                             int cnt_max = 0;
@@ -649,7 +648,6 @@ namespace SoftStartTiming
                             for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                             {
 
-                                double victim_iout = test_parameter.full_load[select_idx];
                                 int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                 int col_start = col_base;
 
@@ -782,47 +780,47 @@ namespace SoftStartTiming
                                 row++;
 
 #endif
-
-                                    
-                                double iout = victim_iout;
-                                InsControl._eload.Loading(select_idx + 1, iout);
-                                for (int victim_idx = 0; victim_idx < 2; victim_idx++)
+                                for (int full_idx = 0; full_idx < test_parameter.full_load[select_idx].Count; full_idx++)
                                 {
-                                    
-                                    test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
-                                                                    file_idx++,
-                                                                    test_parameter.rail_name[select_idx],
-                                                                    test_parameter.VinList[vin_idx],
-                                                                    test_parameter.vout_des[select_idx][vout_idx],
-                                                                    test_parameter.freq_des[select_idx][freq_idx],
-                                                                    iout
-                                                                    );
-                                    int n = ch_sw_num == 2 ? 1 :
-                                            ch_sw_num == 4 ? 2 :
-                                            ch_sw_num == 8 ? 3 :
-                                            ch_sw_num == 16 ? 4 :
-                                            ch_sw_num == 32 ? 5 :
-                                            ch_sw_num == 64 ? 6 : 7;
+                                    double victim_iout = test_parameter.full_load[select_idx][full_idx];
+                                    //double iout = victim_iout;
+                                    InsControl._eload.Loading(select_idx + 1, victim_iout);
 
+                                    for (int victim_idx = 0; victim_idx < 2; victim_idx++)
+                                    {
+                                        test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
+                                                                        file_idx++,
+                                                                        test_parameter.rail_name[select_idx],
+                                                                        test_parameter.VinList[vin_idx],
+                                                                        test_parameter.vout_des[select_idx][vout_idx],
+                                                                        test_parameter.freq_des[select_idx][freq_idx],
+                                                                        victim_iout
+                                                                        );
+                                        int n = ch_sw_num == 2 ? 1 :
+                                                ch_sw_num == 4 ? 2 :
+                                                ch_sw_num == 8 ? 3 :
+                                                ch_sw_num == 16 ? 4 :
+                                                ch_sw_num == 32 ? 5 :
+                                                ch_sw_num == 64 ? 6 : 7;
 
+                                        MeasNParameter measNParameter = new MeasNParameter();
 
-                                    MeasNParameter measNParameter = new MeasNParameter();
+                                        measNParameter.N = n;
+                                        measNParameter.select_idx = select_idx;
+                                        measNParameter.vout = Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]);
+                                        measNParameter.iout_n = victim_iout;
+                                        measNParameter.col_start = col_start;
+                                        measNParameter.lt_mode = false;
+                                        measNParameter.before = victim_idx == 0 ? true : false;
+                                        measNParameter.vin = test_parameter.VinList[vin_idx];
 
-                                    measNParameter.N = n;
-                                    measNParameter.select_idx = select_idx;
-                                    measNParameter.vout = Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]);
-                                    measNParameter.iout_n = iout;
-                                    measNParameter.col_start = col_start;
-                                    measNParameter.lt_mode = false;
-                                    measNParameter.before = victim_idx == 0 ? true : false;
-                                    measNParameter.vin = test_parameter.VinList[vin_idx];
+                                        MeasureN(measNParameter);
 
-                                    MeasureN(measNParameter);
-
-                                    if (victim_idx == 0) row = row - ch_sw_num;
-                                }
-
+                                        if (victim_idx == 0) row = row - ch_sw_num;
+                                    } // test 2 without aggressor and with aggressor
+                                } // change full load conditions
                                 row += 3;
+
                             } // iout group loop
                         } // vout loop
                     } // freq loop
@@ -919,7 +917,7 @@ namespace SoftStartTiming
 
                             for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                             {
-                                double victim_iout = test_parameter.full_load[select_idx];
+                                //double victim_iout = test_parameter.full_load[select_idx];
                                 int col_base = (int)XLS_Table.C + 2 + test_parameter.ch_num;
                                 int col_start = col_base;
 
@@ -1046,14 +1044,14 @@ namespace SoftStartTiming
 
                                 for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                 {
-                                    double iout = victim_idx == 0 ? 0 : victim_iout;
+                                    //double iout = victim_idx == 0 ? 0 : victim_iout;
                                     test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
                                                             file_idx++,
                                                             test_parameter.rail_name[select_idx],
                                                             test_parameter.VinList[vin_idx],
                                                             test_parameter.vout_des[select_idx][vout_idx],
-                                                            test_parameter.freq_des[select_idx][freq_idx],
-                                                            iout
+                                                            test_parameter.freq_des[select_idx][freq_idx]
+                                                            //iout
                                                             );
 
 
@@ -1064,15 +1062,15 @@ namespace SoftStartTiming
                                     ch_sw_num == 32 ? 5 :
                                     ch_sw_num == 64 ? 6 : 7;
 
-                                    if (iout != 0)
-                                        InsControl._eload.Loading(select_idx + 1, iout);
+                                    //if (iout != 0)
+                                    //    InsControl._eload.Loading(select_idx + 1, iout);
 
                                     MeasNParameter measNParameter = new MeasNParameter();
 
                                     measNParameter.N = n;
                                     measNParameter.select_idx = select_idx;
                                     measNParameter.vout = Convert.ToDouble(test_parameter.vout_des[select_idx][vout_idx]);
-                                    measNParameter.iout_n = iout;
+                                    //measNParameter.iout_n = iout;
                                     measNParameter.col_start = col_start;
                                     measNParameter.lt_mode = true;
                                     measNParameter.before = victim_idx == 0 ? true : false;
@@ -1236,7 +1234,7 @@ namespace SoftStartTiming
                     }
                 }
 
-                if(!measNParameter.before)
+                if (!measNParameter.before)
                 {
                     for (int j = 0; j < measNParameter.N; j++) // run each channel
                     {
@@ -1272,7 +1270,7 @@ namespace SoftStartTiming
                                 measNParameter.col_start + 1,
                                 measNParameter.vout,
                                 measNParameter.before,
-                                measNParameter.vin                      );
+                                measNParameter.vin);
                 test_parameter.waveform_name = temp;
 
 #if Eload_en
