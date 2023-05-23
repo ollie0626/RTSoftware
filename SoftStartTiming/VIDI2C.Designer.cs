@@ -90,6 +90,9 @@ namespace SoftStartTiming
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -503,6 +506,9 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.textBox2);
+            this.tabPage2.Controls.Add(this.textBox3);
+            this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.Freq_DG);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -659,13 +665,12 @@ namespace SoftStartTiming
             // tb_connect2
             // 
             this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(15, 539);
+            this.tb_connect2.Location = new System.Drawing.Point(168, 514);
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 135;
-            this.tb_connect2.Text = "EN2 = GPIO2.1";
+            this.tb_connect2.Text = "CH2 = Lx";
             this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.tb_connect2.Visible = false;
             // 
             // groupBox1
             // 
@@ -693,7 +698,7 @@ namespace SoftStartTiming
             // tb_connect1
             // 
             this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(15, 511);
+            this.tb_connect1.Location = new System.Drawing.Point(16, 486);
             this.tb_connect1.Name = "tb_connect1";
             this.tb_connect1.Size = new System.Drawing.Size(146, 22);
             this.tb_connect1.TabIndex = 134;
@@ -749,6 +754,36 @@ namespace SoftStartTiming
             this.button1.Text = "Excel Kill";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(168, 486);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(146, 22);
+            this.textBox1.TabIndex = 139;
+            this.textBox1.Text = "CH1 = Vout";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(320, 486);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(146, 22);
+            this.textBox2.TabIndex = 141;
+            this.textBox2.Text = "CH3 = Vin";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(320, 514);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(146, 22);
+            this.textBox3.TabIndex = 140;
+            this.textBox3.Text = "CH4 = ILx / Iin";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // VIDI2C
             // 
@@ -850,5 +885,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.NumericUpDown nuUpdateAddr;
         private System.Windows.Forms.NumericUpDown nuUpdateData;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

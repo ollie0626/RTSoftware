@@ -34,6 +34,7 @@ namespace SoftStartTiming
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.textToBinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@ namespace SoftStartTiming
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.textToBinToolStripMenuItem,
             this.closeToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
@@ -86,6 +88,13 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 2;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // textToBinToolStripMenuItem
+            // 
+            this.textToBinToolStripMenuItem.Name = "textToBinToolStripMenuItem";
+            this.textToBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.textToBinToolStripMenuItem.Text = "Text to Bin";
+            this.textToBinToolStripMenuItem.Click += new System.EventHandler(this.textToBinToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -112,5 +121,6 @@ namespace SoftStartTiming
         private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox CBItem;
+        private System.Windows.Forms.ToolStripMenuItem textToBinToolStripMenuItem;
     }
 }

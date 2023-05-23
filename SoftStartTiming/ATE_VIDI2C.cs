@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-//#define Power_en
-//#define Eload_en
+#define Power_en
+#define Eload_en
 
 using System;
 using System.Collections.Generic;
@@ -35,6 +35,8 @@ namespace SoftStartTiming
         double slewrate;
         double vmax;
         double vmin;
+        double vtop;
+        double vbase;
 
         private void OSCInit()
         {
@@ -43,16 +45,16 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_On(3); // vin
             InsControl._oscilloscope.CHx_On(4); // ILx
 
-            InsControl._oscilloscope.CHx_Level(1, test_parameter.vidi2c.vout_des[0] / 4);
+            InsControl._oscilloscope.CHx_Level(1, test_parameter.vidi2c.vout_des[0] / 4.5);
             InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 2);
             InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[0] / 2);
 
-            InsControl._oscilloscope.CHx_Position(1, -2); // vout
-            InsControl._oscilloscope.CHx_Position(2, -3); // Lx
-            InsControl._oscilloscope.CHx_Position(3, 2);  // vin
+            InsControl._oscilloscope.CHx_Position(1, -2.5); // vout
+            InsControl._oscilloscope.CHx_Position(2, -4); // Lx
+            InsControl._oscilloscope.CHx_Position(3, 0);  // vin
             InsControl._oscilloscope.CHx_Position(4, -3); // iLx
 
-            InsControl._oscilloscope.SetTimeBasePosition(27);
+            InsControl._oscilloscope.SetTimeBasePosition(40);
 
             // initial time scale
             InsControl._oscilloscope.SetTimeScale(500 * Math.Pow(10, -6));
@@ -74,7 +76,7 @@ namespace SoftStartTiming
                 );
 
 
-            if(test_parameter.vidi2c.addr_update == test_parameter.vidi2c.addr[vout_idx])
+            if (test_parameter.vidi2c.addr_update == test_parameter.vidi2c.addr[vout_idx])
             {
                 RTDev.I2C_Write(
                     test_parameter.slave,
@@ -82,7 +84,7 @@ namespace SoftStartTiming
                     new byte[] { (byte)(test_parameter.vidi2c.data_update | data_msb) }
                     );
             }
-            else if(test_parameter.vidi2c.addr_update == test_parameter.vidi2c.addr[vout_idx] + 1)
+            else if (test_parameter.vidi2c.addr_update == test_parameter.vidi2c.addr[vout_idx] + 1)
             {
                 RTDev.I2C_Write(
                     test_parameter.slave,
@@ -108,30 +110,52 @@ namespace SoftStartTiming
             RTDev.GPIOnState((uint)mask, (uint)value);
         }
 
-        private void CursorAdjust(bool rising_en)
+        private void CursorAdjust(int vout_idx, bool rising_en)
         {
-            InsControl._oscilloscope.SetREFLevelMethod(1);
-            InsControl._oscilloscope.SetREFLevel(100, 50, 2, 1);
-            MyLib.Delay1ms(100);
+            double vout = test_parameter.vidi2c.vout_des[vout_idx];
+            double vout_af = test_parameter.vidi2c.vout_des_af[vout_idx];
+            double hi = rising_en ? vout_af : vout;
+            double mid = rising_en ? vout + (vout_af - vout) * 0.3 : vout_af - (vout - vout_af) * 0.3;
+            double low = rising_en ? vout : vout_af;
+
             double us_unit = Math.Pow(10, -6);
-            double[] time_table = new double[] { 500 * us_unit, 400 * us_unit, 250 * us_unit, 200 * us_unit, 100 * us_unit, 40 * us_unit, 20 * us_unit};
+            double[] time_table = new double[] { 500 * us_unit, 400 * us_unit, 250 * us_unit, 200 * us_unit, 100 * us_unit, 40 * us_unit, 20 * us_unit };
             double x1 = 0, x2 = 0;
             List<double> min_list = new List<double>();
+
+            InsControl._oscilloscope.SetCursorScreen();
+
+
+            // high using 100% get high position
+            InsControl._oscilloscope.SetREFLevelMethod(1, true);
+            InsControl._oscilloscope.SetREFLevel(98, 50, 0, 1);
+            x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+            MyLib.Delay1ms(100);
+            //InsControl._oscilloscope.SetREFLevelMethod(1, false);
+            //InsControl._oscilloscope.SetREFLevel(vmax, mid, vbase, 1, false);
+            x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+            MyLib.Delay1ms(100);
+            InsControl._oscilloscope.SetCursorVPos(x1, x2);
+            MyLib.Delay1ms(200);
+
+
+
+
             if (rising_en)
             {
                 InsControl._oscilloscope.CHx_Meas_Rise(1);
                 double rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
                 rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
                 MyLib.Delay1ms(100);
-                
                 rise_time = InsControl._oscilloscope.CHx_Meas_Rise(1);
 
                 InsControl._oscilloscope.SetAnnotation(1);
                 InsControl._oscilloscope.SetAnnotation(1);
                 MyLib.Delay1ms(100);
 
+                // check time scale range
                 double time_scale = rise_time / time_scale_div;
-                for(int idx = 0; idx < time_table.Length; idx++)
+                for (int idx = 0; idx < time_table.Length; idx++)
                 {
                     min_list.Add(Math.Abs(time_table[idx] - time_scale));
                 }
@@ -152,6 +176,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetAnnotation(1);
                 MyLib.Delay1ms(100);
 
+                // check time scale range
                 double time_scale = fall_time / time_scale_div;
                 for (int idx = 0; idx < time_table.Length; idx++)
                 {
@@ -163,12 +188,19 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(100);
             }
 
-            x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+
+            InsControl._oscilloscope.SetREFLevel(rising_en ? 100 : 98, 50, 0, 1);
+            MyLib.Delay1ms(100);
+
             x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+            x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+            MyLib.Delay1ms(100);
+            x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+            MyLib.Delay1ms(100);
             InsControl._oscilloscope.SetCursorVPos(x1, x2);
             MyLib.Delay1ms(200);
-
         }
+
 
         private void PhaseTest(int vout_idx, bool rising_en)
         {
@@ -176,7 +208,7 @@ namespace SoftStartTiming
             double vout_af = test_parameter.vidi2c.vout_des_af[vout_idx];
             int vout_data = test_parameter.vidi2c.vout_data[vout_idx];
             int vout_data_af = test_parameter.vidi2c.vout_data_af[vout_idx];
-            double trigger_level = (vout_af > vout) ? vout_af - (vout_af - vout) * 0.5 : vout - (vout - vout_af) * 0.5;
+            double trigger_level = (vout_af > vout) ? vout + (vout_af - vout) * 0.3 : vout_af - (vout - vout_af) * 0.3;
             double ch_offset = (vout > vout_af) ? vout_af : vout;
             double ch_level = Math.Abs(vout - vout_af) / level_scale_div;
 
@@ -184,6 +216,15 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
             InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
             InsControl._oscilloscope.SetTimeOutEither();
+
+            //InsControl._oscilloscope.SetREFLevelMethod(1, false);
+            //InsControl._oscilloscope.SetCursorScreen();
+
+            //double hi = rising_en ? vout_af : vout;
+            //double mid = rising_en ? vout + (vout_af - vout) * 0.3 : vout_af - (vout - vout_af) * 0.3;
+            //double low = rising_en ? vout : vout_af;
+            //InsControl._oscilloscope.SetREFLevel(hi, mid, low, 1, false);
+            MyLib.Delay1ms(100);
 
             if (rising_en)
             {
@@ -210,8 +251,32 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(300);
                     I2CSetting(vout > vout_af ? vout_data : vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
-                    CursorAdjust(rising_en);
-                    CursorAdjust(rising_en);
+
+
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                    MyLib.Delay1ms(100);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+                    MyLib.Delay1ms(100);
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+                    MyLib.Delay1ms(100);
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+                    MyLib.Delay1ms(100);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+                    //hi = vtop < (vout_af * 0.995) ? vout_af * 0.995 : vtop;
+                    //InsControl._oscilloscope.SetREFLevel(hi, mid, vbase, 1, false);
+                    InsControl._oscilloscope.SetStop();
+                    CursorAdjust(vout_idx, rising_en);
+                    CursorAdjust(vout_idx, rising_en);
                     MyLib.Delay1ms(300);
                 }
 
@@ -220,14 +285,6 @@ namespace SoftStartTiming
                 slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
                 MyLib.Delay1ms(100);
                 slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
-
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
-                MyLib.Delay1ms(100);
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
-
-                overshoot = (vmax - test_parameter.vidi2c.vout_des_af[vout_idx]) / test_parameter.vidi2c.vout_des_af[vout_idx];
-                overshoot = overshoot * 100;
             }
             else
             {
@@ -252,8 +309,32 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(300);
                     I2CSetting(vout < vout_af ? vout_data : vout_data_af, vout_idx);
                     MyLib.Delay1ms(500);
-                    CursorAdjust(rising_en);
-                    CursorAdjust(rising_en);
+
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+                    MyLib.Delay1ms(100);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(1, 2);
+
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+                    MyLib.Delay1ms(100);
+                    vtop = InsControl._oscilloscope.CHx_Meas_Top(1, 3);
+
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+                    MyLib.Delay1ms(100);
+                    vbase = InsControl._oscilloscope.CHx_Meas_Base(1, 4);
+
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+                    MyLib.Delay1ms(100);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 5);
+
+                    //InsControl._oscilloscope.SetREFLevel(vtop, mid, vbase, 1, false);
+                    InsControl._oscilloscope.SetStop();
+                    CursorAdjust(vout_idx, rising_en);
+                    MyLib.Delay1ms(100);
+                    CursorAdjust(vout_idx, rising_en);
                     MyLib.Delay1ms(300);
                 }
 
@@ -262,13 +343,6 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(100);
                 slewrate = InsControl._oscilloscope.GetCursorVBarDelta();
 
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
-                MyLib.Delay1ms(100);
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(1, 2);
-
-                undershoot = (test_parameter.vidi2c.vout_des_af[vout_idx] - vmin) / test_parameter.vidi2c.vout_des_af[vout_idx];
-                undershoot = undershoot * 100;
             }
 
         }
@@ -318,12 +392,12 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.E] = "Vin(V)";
             _sheet.Cells[row, XLS_Table.F] = "Vout Change(V)";
             _sheet.Cells[row, XLS_Table.G] = "Iout (A)";
-            _sheet.Cells[row, XLS_Table.H] = "Rise SR (us/V)";
-            _sheet.Cells[row, XLS_Table.I] = "Fall SR (us/V)";
+            _sheet.Cells[row, XLS_Table.H] = "Rise Time (us/V)";
+            _sheet.Cells[row, XLS_Table.I] = "Fall Time (us/V)";
             _sheet.Cells[row, XLS_Table.J] = "VMax (V)";
             _sheet.Cells[row, XLS_Table.K] = "VMin (V)";
-            _sheet.Cells[row, XLS_Table.L] = "Overshoot (%)";
-            _sheet.Cells[row, XLS_Table.M] = "Undershoot (%)";
+            _sheet.Cells[row, XLS_Table.L] = "VHigh (V)";
+            _sheet.Cells[row, XLS_Table.M] = "VLow (V)";
             _sheet.Cells[row, XLS_Table.N] = "Result";
 
             _range = _sheet.Range["C" + row, "N" + row];
@@ -336,16 +410,16 @@ namespace SoftStartTiming
             {
                 for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                 {
-                    for(int freq_idx = 0; freq_idx < test_parameter.vidi2c.freq_data.Count; freq_idx++)
+                    for (int freq_idx = 0; freq_idx < test_parameter.vidi2c.freq_data.Count; freq_idx++)
                     {
-                        for(int vout_idx = 0; vout_idx < test_parameter.vidi2c.vout_data.Count; vout_idx++)
+                        for (int vout_idx = 0; vout_idx < test_parameter.vidi2c.vout_data.Count; vout_idx++)
                         {
                             file_name = string.Format("{0}_Temp={1}_VIN={2}_IOUT={3}_Freq={4}_Vout={5}_{6}",
                                 idx, temp,
                                 test_parameter.VinList[vin_idx],
                                 test_parameter.IoutList[iout_idx],
-                                //test_parameter.vidi2c.freq_list[freq_idx],
-                                "123",
+                                test_parameter.vidi2c.freq_list[freq_idx],
+                                //"123",
                                 test_parameter.vidi2c.vout_des[vout_idx],
                                 test_parameter.vidi2c.vout_des_af[vout_idx]
                                 );
@@ -373,8 +447,8 @@ namespace SoftStartTiming
                             InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx] / 3);
                             InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[vin_idx] / 3);
 
-                            RTDev.I2C_Write(test_parameter.slave, 
-                                test_parameter.vidi2c.freq_addr, 
+                            RTDev.I2C_Write(test_parameter.slave,
+                                test_parameter.vidi2c.freq_addr,
                                 new byte[] { test_parameter.vidi2c.freq_data[freq_idx] });
 
                             //string freq = test_parameter.vidi2c.freq_list[freq_idx];
@@ -391,17 +465,17 @@ namespace SoftStartTiming
                             InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, file_name + (rising_en ? "_rising" : "_falling"));
 
 #if Report_en
-                            if(rising_en)
+                            if (rising_en)
                             {
                                 _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.J] = vmax;
-                                _sheet.Cells[row, XLS_Table.L] = overshoot;
+                                _sheet.Cells[row, XLS_Table.L] = vtop;
                             }
                             else
                             {
                                 _sheet.Cells[row, XLS_Table.I] = slewrate * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.K] = vmin;
-                                _sheet.Cells[row, XLS_Table.M] = undershoot;
+                                _sheet.Cells[row, XLS_Table.M] = vbase;
                             }
 #endif
                             // phase 2 test
@@ -413,13 +487,13 @@ namespace SoftStartTiming
                             {
                                 _sheet.Cells[row, XLS_Table.H] = slewrate * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.J] = vmax;
-                                _sheet.Cells[row, XLS_Table.L] = overshoot;
+                                _sheet.Cells[row, XLS_Table.L] = vtop;
                             }
                             else
                             {
                                 _sheet.Cells[row, XLS_Table.I] = slewrate * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.K] = vmin;
-                                _sheet.Cells[row, XLS_Table.M] = undershoot;
+                                _sheet.Cells[row, XLS_Table.M] = vbase;
                             }
 
                             // pass or fail case
@@ -451,6 +525,7 @@ namespace SoftStartTiming
 #endif
                             InsControl._oscilloscope.SetAutoTrigger();
                             row++;
+                            wave_row += 21;
                         } // vout loop
                     } // freq loop
                 } // iout loop
@@ -463,7 +538,7 @@ namespace SoftStartTiming
             string conditions = (string)_sheet.Cells[2, XLS_Table.B].Value + "\r\n";
             conditions = conditions + time;
             _sheet.Cells[2, XLS_Table.B] = conditions;
-            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_VIDIO_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_VIDI2C_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
             _app.Quit();

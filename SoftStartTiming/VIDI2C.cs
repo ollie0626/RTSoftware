@@ -82,6 +82,7 @@ namespace SoftStartTiming
             test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
 
             test_parameter.vidi2c.freq_addr = Convert.ToByte(Freq_DG[0, 0].Value.ToString(), 16);
+            test_parameter.vidi2c.freq_list = Freq_DG[1, 0].Value.ToString().Split(',').ToList();
             string[] temp = Convert.ToString(Freq_DG[1, 0].Value).Split(',');
             for(int idx = 0; idx < temp.Length; idx++)
             {
