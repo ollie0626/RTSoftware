@@ -20,7 +20,7 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.6";
+        private string win_name = "Cross talk v1.7";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk;
         Thread ATETask;
@@ -432,7 +432,7 @@ namespace SoftStartTiming
                                 * freq_cnt
                                 * iout_cnt
                                 * test_parameter.full_load[0].Count // no load and full load
-                                * (int)Math.Pow(2, n)
+                                * (int)Math.Pow(2, n) * 2
                                 ;
 
             progressBar2.Maximum = progress_max;

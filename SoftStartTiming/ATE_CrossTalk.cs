@@ -68,12 +68,15 @@ namespace SoftStartTiming
                     case 0: // ccm mode
                         if (parameter.data[parameter.idx] != 0)
                         {
+                            double temp = 0;
 #if Eload_en
                             InsControl._eload.Loading(parameter.sw_en[parameter.idx] + 1, parameter.iout[parameter.idx]);
+                            temp = InsControl._eload.GetIout();
 #endif
 
 #if Report_en
-                            _sheet.Cells[row, parameter.idx + aggressor_col] = InsControl._eload.GetIout();
+
+                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
 #endif
                         }
                         else
@@ -135,12 +138,10 @@ namespace SoftStartTiming
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
                         _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
                         // eload over 4CH need to select channel
+#if Eload_en
                         if (parameter.data[parameter.idx] != 0)
-#if Eload_en
                             InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx] + 1, parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
-#endif
                         else
-#if Eload_en
                             InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
 #endif
                         break;
@@ -477,6 +478,7 @@ namespace SoftStartTiming
             double vmin = 0;
             double jitter = 0;
 
+#if Scope_en
             for (int i = 0; i < 5; i++)
             {
                 vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
@@ -529,6 +531,9 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureOff(2);
             InsControl._oscilloscope.SetMeasureOff(3);
             InsControl._oscilloscope.SetMeasureOff(4);
+#endif
+
+
 #if Report_en
             // for measure victim channel
             //int col_cnt = 7;
@@ -615,9 +620,10 @@ namespace SoftStartTiming
             }
             // ch_sw_num just judge that need to run how many times active load switch
             ch_sw_num = ch_sw_num / 2;
-
+#if Scope_en
             OSCInit();
             MyLib.Delay1ms(500);
+#endif
 
             // the select_idx equal to vimtic channel
             for (int select_idx = 0; select_idx < test_parameter.cross_en.Length; select_idx++)
@@ -656,7 +662,9 @@ namespace SoftStartTiming
                             {
                                 double victim_iout = test_parameter.full_load[select_idx][full_idx];
                                 //double iout = victim_iout;
+#if Eload_en
                                 InsControl._eload.Loading(select_idx + 1, victim_iout);
+#endif
 
                                 // victim current select
                                 for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
@@ -792,7 +800,6 @@ namespace SoftStartTiming
                                     for (int i = 1; i < 25; i++)
                                         _sheet.Columns[i].AutoFit();
                                     row++;
-
 #endif
 
 
@@ -931,7 +938,9 @@ namespace SoftStartTiming
                             {
                                 double victim_iout = test_parameter.full_load[select_idx][full_idx];
                                 //double iout = victim_iout;
+#if Eload_en
                                 InsControl._eload.Loading(select_idx + 1, victim_iout);
+#endif
 
                                 for (int group_idx = 0; group_idx < cnt_max; group_idx++) // how many iout group
                                 {
@@ -1102,7 +1111,7 @@ namespace SoftStartTiming
                                     } // victim no load and full load
                                     row += 3;
                                 }
-                                
+
                             } // group loop
                         } // freq loop
                     } // vout loop
@@ -1160,6 +1169,7 @@ namespace SoftStartTiming
             // turn vout channel
             string name = test_parameter.scope_chx[measNParameter.select_idx];
             string res = test_parameter.scope_lx[measNParameter.select_idx];
+#if Scope_en
             switch (name)
             {
                 case "CH1": CHx_LevelReScale(1, measNParameter.vout); break;
@@ -1176,6 +1186,7 @@ namespace SoftStartTiming
                 case "CH3": InsControl._oscilloscope.CHx_On(3); break;
                 case "CH4": InsControl._oscilloscope.CHx_On(4); break;
             }
+#endif
 
             for (int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
             {
@@ -1184,9 +1195,10 @@ namespace SoftStartTiming
                     sw_en[idx++] = test_parameter.eload_chx[aggressor] - 1;
                 }
             }
-
+#if Scope_en
             InsControl._oscilloscope.SetClear();
             InsControl._oscilloscope.SetPERSistence();
+#endif
 
             // save aggressor iout conditions
             // iout select maximum setting if over iout list overflow.
@@ -1210,14 +1222,21 @@ namespace SoftStartTiming
             // calculate and excute all of test conditions.
             for (int i = 0; i < loop_cnt; i++)
             {
+#if Scope_en
                 InsControl._oscilloscope.SetClear();
+#endif
                 updateMain.UpdateProgressBar(++progress);
 
+#if Scope_en
                 InsControl._oscilloscope.SetAutoTrigger();
+#endif
+
+#if Eload_en
                 if (measNParameter.iout_n != 0)
                     InsControl._eload.Loading(test_parameter.eload_chx[measNParameter.select_idx], measNParameter.iout_n);
                 else
                     InsControl._eload.LoadOFF(test_parameter.eload_chx[measNParameter.select_idx]);
+#endif
 
                 //TODO: Issue1
                 MyLib.Delay1s(1);
@@ -1270,8 +1289,9 @@ namespace SoftStartTiming
                         input.data_l2 = data_l2;
                         input.l1 = l1;
                         input.l2 = l2;
-
+#if Scope_en
                         InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
+#endif
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
@@ -1306,14 +1326,15 @@ namespace SoftStartTiming
 #endif
                 row++;
             }
-
+#if Scope_en
             InsControl._oscilloscope.CHx_Off(1);
             InsControl._oscilloscope.CHx_Off(2);
             InsControl._oscilloscope.CHx_Off(3);
             InsControl._oscilloscope.CHx_Off(4);
+#endif
         }
 
-        #endregion
+#endregion
     }
 
     public class CrossTalkParameter
