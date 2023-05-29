@@ -1,4 +1,11 @@
-﻿using System;
+﻿
+
+#define Report
+#define Power_en
+#define Eload_en
+
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +46,9 @@ namespace SoftStartTiming
 
         private void GpioOnSelect(int num)
         {
+
+
+            //RTDev.GPIOnState((uint)1 << num, (uint)1 << num);
             switch (num)
             {
                 case 0:
@@ -55,6 +65,8 @@ namespace SoftStartTiming
 
         private void GpioOffSelect(int num)
         {
+
+            //RTDev.GPIOnState((uint)1 << num, (uint)(~(1 << num)));
             switch (num)
             {
                 case 0:
@@ -78,7 +90,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
-                InsControl._tek_scope.SetTimeBasePosition(25);
+                InsControl._tek_scope.SetTimeBasePosition(35);
                 InsControl._tek_scope.SetRun();
                 InsControl._tek_scope.SetTriggerMode();
                 InsControl._tek_scope.SetTriggerSource(1);
@@ -104,6 +116,10 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_BWlimitOn(3);
                 InsControl._tek_scope.CHx_BWlimitOn(4);
 
+                InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:METHod PERCent");
+                InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:HIGH 90");
+                InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:MID 50");
+                InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:LOW 10");
                 MyLib.Delay1ms(500);
             }
             else
@@ -155,8 +171,10 @@ namespace SoftStartTiming
                 InsControl._scope.AutoTrigger();
             }
 
+#if Power_en
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
+#endif
 
             double time_scale = 0;
             if (InsControl._tek_scope_en)
@@ -188,13 +206,13 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTriggerLevel(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
-                        InsControl._tek_scope.CHx_Position(1, 0);
+                        InsControl._tek_scope.CHx_Position(1, 2.5);
                     }
                     else
                     {
                         InsControl._scope.TriggerLevel_CH1(1); // gui trigger level
                         InsControl._scope.CHx_Level(1, 3.3 / 2);
-                        InsControl._scope.CHx_Offset(1, 0);
+                        InsControl._scope.CHx_Offset(1, 2.5);
                     }
 
                     if (test_parameter.sleep_mode)
@@ -208,7 +226,7 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTriggerLevel(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
-                        InsControl._tek_scope.CHx_Position(1, 0);
+                        InsControl._tek_scope.CHx_Position(1, 2.5);
                     }
                     else
                     {
@@ -217,7 +235,7 @@ namespace SoftStartTiming
                         InsControl._scope.CHx_Offset(1, 0);
                     }
 
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
@@ -228,10 +246,10 @@ namespace SoftStartTiming
                     break;
             }
             MyLib.Delay1s(1);
-            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
             MyLib.Delay1ms(800);
 
-
+            // initial channel 
             if (InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0] * 3);
@@ -277,6 +295,8 @@ namespace SoftStartTiming
                     vmax = InsControl._scope.Measure_Ch_Max(ch_idx + 2);
                 }
 
+
+                // catch wrong data, reset initial condition
                 if (vmax > Math.Pow(10, 9))
                 {
                     re_cnt++;
@@ -297,7 +317,27 @@ namespace SoftStartTiming
 
                 if(InsControl._tek_scope_en)
                 {
-                    InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 2.5);
+                    int ch = ch_idx + 2;
+
+                    switch(ch)
+                    {
+                        case 2:
+                            InsControl._tek_scope.CHx_Level(ch, vmax / 5);
+                            InsControl._tek_scope.SetTriggerSource(2);
+                            InsControl._tek_scope.SetTriggerLevel(vmax / 2);
+                            InsControl._tek_scope.CHx_Position(ch, -2);
+                            break;
+                        case 3:
+                            InsControl._tek_scope.CHx_Level(ch, test_parameter.VinList[0] / 1.5);
+                            InsControl._tek_scope.CHx_Position(ch, -3);
+                            break;
+                        case 4:
+                            InsControl._tek_scope.CHx_Level(ch, test_parameter.ILX_Level);
+                            break;
+                    }
+
+
+                    
                 }
                 else
                 {
@@ -311,9 +351,9 @@ namespace SoftStartTiming
             double trigger_level = 0;
             if(InsControl._tek_scope_en)
             {
-                InsControl._tek_scope.SetTriggerSource(2);
-                trigger_level = InsControl._tek_scope.CHx_Meas_MAX(2, 1) * 0.1;
-                InsControl._tek_scope.SetTriggerLevel(trigger_level);
+                //InsControl._tek_scope.SetTriggerSource(2);
+                //trigger_level = InsControl._tek_scope.CHx_Meas_MAX(2, 1) * 0.3;
+                //InsControl._tek_scope.SetTriggerLevel(trigger_level);
             }
             else
             {
@@ -329,7 +369,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                InsControl._tek_scope.SetTimeBasePosition(25);
+                InsControl._tek_scope.SetTimeBasePosition(35);
             }
             else
             {
@@ -356,19 +396,23 @@ namespace SoftStartTiming
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if true
+#if Report
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
+
+
+#if Power_en
             InsControl._power.AutoPowerOff();
+#endif
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
             #region "Report initial"
-#if true
+#if Report
             _sheet = _book.Worksheets.Add();
             _sheet.Name = "SST Test";
             row = 8;
@@ -418,7 +462,7 @@ namespace SoftStartTiming
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
 #endif
-            #endregion
+#endregion
 
             stopWatch.Start();
             binList = MyLib.ListBinFile(test_parameter.bin_path[0]);
@@ -433,7 +477,7 @@ namespace SoftStartTiming
                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                    InsControl._tek_scope.SetTimeBasePosition(25);
+                    InsControl._tek_scope.SetTimeBasePosition(35);
                 }
                 else
                 {
@@ -537,13 +581,15 @@ namespace SoftStartTiming
                             break;
                         case 1:
                             // I2C trigger event
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1),
+                            RTDev.I2C_Write((byte)(test_parameter.slave),
                                             test_parameter.Rail_addr,
                                             new byte[] { test_parameter.Rail_en });
                             break;
                         case 2:
                             // Power supply trigger event
+#if Power_en
                             InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+#endif
                             break;
                     }
 
@@ -553,7 +599,13 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(1000);
 
                     double delay_time = 0;
-                    if(InsControl._tek_scope_en) delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                    if (InsControl._tek_scope_en)
+                    {
+                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                        MyLib.Delay1ms(100);
+                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                    }
                     else delay_time = InsControl._scope.Meas_CH2Rise();
 
                     double temp_time = 0;
@@ -566,7 +618,7 @@ namespace SoftStartTiming
                     {
                         InsControl._tek_scope.SetTimeScale(temp_time);
                         InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6O");
+                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                     }
                     else
                     {
@@ -575,7 +627,7 @@ namespace SoftStartTiming
                     }
 
                     PowerOffEvent();
-                    RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, binList[bin_idx]); // test conditions
+                    RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
                     MyLib.Delay1ms(800);
 
                     MyLib.Delay1ms(1000);
@@ -608,11 +660,13 @@ namespace SoftStartTiming
                             break;
                         case 1:
                             // I2C trigger event
-                            RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                            RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                             break;
                         case 2:
+#if Power_en
                             // Power supply trigger event
                             InsControl._power.AutoPowerOff();
+#endif
                             break;
                     }
                     MyLib.Delay1s(1);
@@ -632,7 +686,9 @@ namespace SoftStartTiming
 
                     if(InsControl._tek_scope_en)
                     {
+#if Power_en
                         vin = InsControl._power.GetVoltage();
+#endif
                         sst         = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
                         vmax        = InsControl._tek_scope.CHx_Meas_MAX(2, 2);  
                         vmin        = InsControl._tek_scope.CHx_Meas_MIN(2, 3);  
@@ -649,16 +705,22 @@ namespace SoftStartTiming
                         InsControl._tek_scope.DoCommand("CURSor:STATE ON");
                         MyLib.Delay1ms(100);
 
-                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
+                        InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS1");
+                        double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?");
+                        double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?");
+
+                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
                         MyLib.Delay1ms(100);
                         double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
                         MyLib.Delay1ms(100);
-                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
+                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
                     }
                     else
                     {
                         double[] data = InsControl._scope.doQeury(":MEASure:RESults?").Split(',').Select(double.Parse).ToArray();
+#if Power_en
                         vin = InsControl._power.GetVoltage();
+#endif
                         sst = data[0] * Math.Pow(10, 6);
                         vmax = data[1];
                         vmin = data[2];
@@ -674,6 +736,8 @@ namespace SoftStartTiming
                     {
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
                     }
+
+#if Report
                     _sheet.Cells[row, XLS_Table.D] = cnt++;
                     _sheet.Cells[row, XLS_Table.E] = temp;
                     _sheet.Cells[row, XLS_Table.F] = vin;
@@ -684,14 +748,14 @@ namespace SoftStartTiming
                     _sheet.Cells[row, XLS_Table.J] = vmin;
                     _sheet.Cells[row, XLS_Table.K] = ilx_max;
                     _sheet.Cells[row, XLS_Table.L] = ilx_min;
-
+#endif
                     double criteria = MyLib.GetCriteria_time(res);
                     criteria = criteria * Math.Pow(10, 6);
                     double criteria_up = (test_parameter.judge_percent * criteria) + criteria;
                     double criteria_down = criteria - (test_parameter.judge_percent * criteria);
                     Console.WriteLine(criteria);
 
-
+#if Report
                     if (sst > criteria_up || sst < criteria_down)
                     {
                         _sheet.Cells[row, XLS_Table.M] = "Fail";
@@ -774,9 +838,10 @@ namespace SoftStartTiming
                     }
 
                     MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
+#endif
                     row++;
 #endif
-                    if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
+                        if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
                     else InsControl._scope.Root_RUN();
 
                     PowerOffEvent();
@@ -787,12 +852,13 @@ namespace SoftStartTiming
             // record test finish time
             stopWatch.Stop();
             TimeSpan timeSpan = stopWatch.Elapsed;
+#if Report
             string str_temp = _sheet.Cells[2, XLS_Table.B].Value;
             string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
             str_temp += "\r\n" + time;
             _sheet.Cells[2, 2] = str_temp;
             //TimeSpan timeSpan = stopWatch.Elapsed;
-#if true
+
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_SST_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -814,10 +880,12 @@ namespace SoftStartTiming
                     break;
                 case 1:
                     // rails disable
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0x00 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0x00 });
                     break;
                 case 2: // vin trigger
+#if Power_en
                     InsControl._power.AutoPowerOff();
+#endif
                     break;
             }
         }

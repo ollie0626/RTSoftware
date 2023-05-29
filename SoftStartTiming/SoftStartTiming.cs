@@ -13,8 +13,8 @@ using System.Threading;
 using System.IO;
 using System.Diagnostics;
 
-using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SoftStartTiming
 {
@@ -33,11 +33,21 @@ namespace SoftStartTiming
 
         // device name
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
+        RTBBControl RTDev = new RTBBControl();
 
         public SoftStartTiming()
         {
             InitializeComponent();
             VisaCommand._IsDebug = false;
+
+            RTDev.BoadInit();
+            List<byte> list = RTDev.ScanSlaveID();
+
+            if (list != null)
+            {
+                if (list.Count > 0)
+                    nuslave.Value = list[0];
+            }
         }
 
         private void BTSelectBinPath_Click(object sender, EventArgs e)
@@ -436,7 +446,9 @@ namespace SoftStartTiming
                     if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
                     ATETask.Abort();
                     MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
+#if Power_en
                     InsControl._power.AutoPowerOff();
+#endif
                 }
             }
         }
