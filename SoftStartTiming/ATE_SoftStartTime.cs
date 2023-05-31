@@ -222,7 +222,7 @@ namespace SoftStartTiming
                     break;
                 case 1: // i2c trigger
 
-                    if(InsControl._tek_scope_en)
+                    if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetTriggerLevel(1);
                         InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
@@ -315,11 +315,11 @@ namespace SoftStartTiming
                     goto re_scale;
                 }
 
-                if(InsControl._tek_scope_en)
+                if (InsControl._tek_scope_en)
                 {
                     int ch = ch_idx + 2;
 
-                    switch(ch)
+                    switch (ch)
                     {
                         case 2:
                             InsControl._tek_scope.CHx_Level(ch, vmax / 5);
@@ -337,7 +337,7 @@ namespace SoftStartTiming
                     }
 
 
-                    
+
                 }
                 else
                 {
@@ -349,7 +349,7 @@ namespace SoftStartTiming
 
 
             double trigger_level = 0;
-            if(InsControl._tek_scope_en)
+            if (InsControl._tek_scope_en)
             {
                 //InsControl._tek_scope.SetTriggerSource(2);
                 //trigger_level = InsControl._tek_scope.CHx_Meas_MAX(2, 1) * 0.3;
@@ -364,7 +364,7 @@ namespace SoftStartTiming
 
             PowerOffEvent();
 
-            if(InsControl._tek_scope_en)
+            if (InsControl._tek_scope_en)
             {
                 InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -388,6 +388,7 @@ namespace SoftStartTiming
             RTDev.GpioInit();
 
             int vin_cnt = test_parameter.VinList.Count;
+            int iout_cnt = test_parameter.IoutList.Count;
             int row = 8;
             int wave_row = 8;
             int wave_pos = 0;
@@ -440,29 +441,30 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.D] = "No.";
             _sheet.Cells[row, XLS_Table.E] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.F] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.G] = "Bin file";
-            _range = _sheet.Range["D" + row, "G" + row];
+            _sheet.Cells[row, XLS_Table.G] = "Iout(A)";
+            _sheet.Cells[row, XLS_Table.H] = "Bin file";
+            _range = _sheet.Range["D" + row, "H" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
             // major measure timing
-            _sheet.Cells[row, XLS_Table.H] = "SST (us)";
-            _sheet.Cells[row, XLS_Table.I] = "V1 Max (V)";
-            _sheet.Cells[row, XLS_Table.J] = "V1 Min (V)";
-            _sheet.Cells[row, XLS_Table.K] = "ILx Max (mA)";
-            _sheet.Cells[row, XLS_Table.L] = "ILx Min (mA)";
-            _sheet.Cells[row, XLS_Table.M] = "Pass/Fail";
+            _sheet.Cells[row, XLS_Table.I] = "SST (us)";
+            _sheet.Cells[row, XLS_Table.J] = "V1 Max (V)";
+            _sheet.Cells[row, XLS_Table.K] = "V1 Min (V)";
+            _sheet.Cells[row, XLS_Table.L] = "ILx Max (mA)";
+            _sheet.Cells[row, XLS_Table.M] = "ILx Min (mA)";
+            _sheet.Cells[row, XLS_Table.N] = "Pass/Fail";
 
-            _range = _sheet.Range["H" + row, "L" + row];
+            _range = _sheet.Range["I" + row, "M" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-            _range = _sheet.Range["M" + row, "M" + row];
+            _range = _sheet.Range["N" + row, "N" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
 #endif
-#endregion
+            #endregion
 
             stopWatch.Start();
             binList = MyLib.ListBinFile(test_parameter.bin_path[0]);
@@ -472,7 +474,7 @@ namespace SoftStartTiming
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
 
-                if(InsControl._tek_scope_en)
+                if (InsControl._tek_scope_en)
                 {
                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
@@ -486,367 +488,402 @@ namespace SoftStartTiming
                     InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                 }
 
-
                 for (int bin_idx = 0; bin_idx < bin_cnt; bin_idx++)
                 {
-                    int retry_cnt = 0;
 
-                    if (test_parameter.run_stop == true) goto Stop;
-                    if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
-
-                    /* test initial setting */
-                    if(!InsControl._tek_scope_en) InsControl._scope.DoCommand(":MARKer:MODE OFF");
-                    string file_name;
-                    string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                    test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
-                    if(!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
-                    MyLib.Delay1s(1);
-
-                    // Call Measure display to waveform
-                    if(InsControl._tek_scope_en)
+                    for (int iout_idx = 0; iout_idx < iout_cnt; iout_idx++)
                     {
-                        InsControl._tek_scope.CHx_Meas_Rise(2, 1); // meas1 soft-start time
-                        InsControl._tek_scope.CHx_Meas_MAX(2, 2);  // meas2 vout max
-                        InsControl._tek_scope.CHx_Meas_MIN(2, 3);  // meas3 vout min
-                        InsControl._tek_scope.CHx_Meas_MIN(4, 4);  // meas4 ILx max
-                        InsControl._tek_scope.CHx_Meas_MIN(4, 5);  // meas5 ILX min
-                    }
-                    else
-                    {
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // measure5 ILx max
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4"); // measure4 ILx min
-                        InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // measure3 Vout max
-                        InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2"); // measure2 Vout min
-                        InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (2).ToString()); // measure1
-                        InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
-                        InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
-                    }
 
-                    MyLib.Delay1ms(500);
+                        int retry_cnt = 0;
+                        double iout = test_parameter.IoutList[iout_idx];
 
-                    Console.WriteLine(res);
-                    file_name = string.Format("{0}_Temp={2}C_vin={3:0.##}V_{1}",
-                                                cnt, res, temp,
-                                                test_parameter.VinList[vin_idx]
-                                                );
+                        if (test_parameter.run_stop == true) goto Stop;
+                        if ((bin_idx % 5) == 0 && test_parameter.chamber_en == true) InsControl._chamber.GetChamberTemperature();
 
-                    double time_scale = 0;
-                    if(InsControl._tek_scope_en)
-                    {
-                        time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-                    }
-                    else
-                    {
-                        time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
-                    }
-                    
-                    // include test condition
-                    Scope_Channel_Resize(vin_idx, binList[bin_idx]);
-                    double tempVin = ori_vinTable[vin_idx];
+                        /* test initial setting */
+                        if (!InsControl._tek_scope_en) InsControl._scope.DoCommand(":MARKer:MODE OFF");
+                        string file_name;
+                        string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
+                        test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
+                        if (!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
 
-                    MyLib.WaveformCheck();
-                    MyLib.Delay1ms(800);
 
-                    if(InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.SetTriggerMode(false);
-                        InsControl._tek_scope.SetTriggerRise();
-                        InsControl._tek_scope.SetClear();
-                    }
-                    else
-                    {
-                        InsControl._scope.NormalTrigger();
-                        InsControl._scope.SetTrigModeEdge(false);
-                        InsControl._scope.Root_Clear();
-                    }
+                        if(test_parameter.eload_cr)
+                        {
+                            if (iout > 80) InsControl._eload.CRL_Mode();
+                            else if (iout > 80 && iout < 2900) InsControl._eload.CRM_Mode();
+                            else if (iout > 2900) InsControl._eload.CRH_Mode();
 
-                    MyLib.Delay1ms(1500);
+                            InsControl._eload.DoCommand("CHAN 1");
+                            InsControl._eload.SetCR(iout);
+                        }
+                        else
+                        {
+                            MyLib.Switch_ELoadLevel(iout);
+                            InsControl._eload.CH1_Loading(iout);
+                        }
 
-                    // power on trigger
-                    switch (test_parameter.trigger_event)
-                    {
-                        case 0:
-                            // GPIO trigger event
-                            if (test_parameter.sleep_mode)
-                            {
-                                GpioOnSelect(test_parameter.gpio_pin);
-                                MyLib.Delay1ms(1000);
-                            }
-                            else
-                            {
-                                GpioOffSelect(test_parameter.gpio_pin);
-                                MyLib.Delay1ms(1000);
-                            }
-                            time_scale = time_scale * 1000;
-                            break;
-                        case 1:
-                            // I2C trigger event
-                            RTDev.I2C_Write((byte)(test_parameter.slave),
-                                            test_parameter.Rail_addr,
-                                            new byte[] { test_parameter.Rail_en });
-                            break;
-                        case 2:
-                            // Power supply trigger event
+                        MyLib.Delay1s(1);
+
+                        // Call Measure display to waveform
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.CHx_Meas_Rise(2, 1); // meas1 soft-start time
+                            InsControl._tek_scope.CHx_Meas_MAX(2, 2);  // meas2 vout max
+                            InsControl._tek_scope.CHx_Meas_MIN(2, 3);  // meas3 vout min
+                            InsControl._tek_scope.CHx_Meas_MIN(4, 4);  // meas4 ILx max
+                            InsControl._tek_scope.CHx_Meas_MIN(4, 5);  // meas5 ILX min
+                        }
+                        else
+                        {
+                            InsControl._scope.DoCommand(":MEASure:VMAX CHANnel4"); // measure5 ILx max
+                            InsControl._scope.DoCommand(":MEASure:VMIN CHANnel4"); // measure4 ILx min
+                            InsControl._scope.DoCommand(":MEASure:VMAX CHANnel2"); // measure3 Vout max
+                            InsControl._scope.DoCommand(":MEASure:VMIN CHANnel2"); // measure2 Vout min
+                            InsControl._scope.DoCommand(":MEASure:RISetime CHANnel" + (2).ToString()); // measure1
+                            InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
+                            InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEAS1");
+                        }
+
+                        MyLib.Delay1ms(500);
+                        Console.WriteLine(res);
+                        file_name = string.Format("{0}_Temp={2}C_vin={3:0.##}V_{1}",
+                                                    cnt, res, temp,
+                                                    test_parameter.VinList[vin_idx]
+                                                    );
+
+                        double time_scale = 0;
+                        if (InsControl._tek_scope_en)
+                        {
+                            time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
+                        }
+                        else
+                        {
+                            time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
+                        }
+
+                        // include test condition
+                        Scope_Channel_Resize(vin_idx, binList[bin_idx]);
+                        double tempVin = ori_vinTable[vin_idx];
+
+                        MyLib.WaveformCheck();
+                        MyLib.Delay1ms(800);
+
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetTriggerMode(false);
+                            InsControl._tek_scope.SetTriggerRise();
+                            InsControl._tek_scope.SetClear();
+                        }
+                        else
+                        {
+                            InsControl._scope.NormalTrigger();
+                            InsControl._scope.SetTrigModeEdge(false);
+                            InsControl._scope.Root_Clear();
+                        }
+
+                        MyLib.Delay1ms(1500);
+
+                        // power on trigger
+                        switch (test_parameter.trigger_event)
+                        {
+                            case 0:
+                                // GPIO trigger event
+                                if (test_parameter.sleep_mode)
+                                {
+                                    GpioOnSelect(test_parameter.gpio_pin);
+                                    MyLib.Delay1ms(1000);
+                                }
+                                else
+                                {
+                                    GpioOffSelect(test_parameter.gpio_pin);
+                                    MyLib.Delay1ms(1000);
+                                }
+                                time_scale = time_scale * 1000;
+                                break;
+                            case 1:
+                                // I2C trigger event
+                                RTDev.I2C_Write((byte)(test_parameter.slave),
+                                                test_parameter.Rail_addr,
+                                                new byte[] { test_parameter.Rail_en });
+                                break;
+                            case 2:
+                                // Power supply trigger event
 #if Power_en
-                            InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+                                InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
 #endif
-                            break;
-                    }
+                                break;
+                        }
 
-                    MyLib.Delay1s(1);
-                    if (InsControl._tek_scope_en) InsControl._tek_scope.SetStop();
-                    else InsControl._scope.Root_STOP();
-                    MyLib.Delay1ms(1000);
+                        MyLib.Delay1s(1);
+                        if (InsControl._tek_scope_en) InsControl._tek_scope.SetStop();
+                        else InsControl._scope.Root_STOP();
+                        MyLib.Delay1ms(1000);
 
-                    double delay_time = 0;
-                    if (InsControl._tek_scope_en)
-                    {
-                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
-                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
-                        MyLib.Delay1ms(100);
-                        delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
-                    }
-                    else delay_time = InsControl._scope.Meas_CH2Rise();
+                        double delay_time = 0;
+                        if (InsControl._tek_scope_en)
+                        {
+                            delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                            delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                            MyLib.Delay1ms(100);
+                            delay_time = InsControl._tek_scope.CHx_Meas_Rise(2, 1);
+                        }
+                        else delay_time = InsControl._scope.Meas_CH2Rise();
 
-                    double temp_time = 0;
-                    if (InsControl._tek_scope_en)
-                        temp_time = (delay_time / 4);
-                    else
-                        temp_time = (delay_time) / 3.5;
+                        double temp_time = 0;
+                        if (InsControl._tek_scope_en)
+                            temp_time = (delay_time / 4);
+                        else
+                            temp_time = (delay_time) / 3.5;
 
-                    if(InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.SetTimeScale(temp_time);
-                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                    }
-                    else
-                    {
-                        InsControl._scope.TimeScale(temp_time);
-                        InsControl._scope.TimeBasePosition(temp_time * 1);
-                    }
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetTimeScale(temp_time);
+                            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                        }
+                        else
+                        {
+                            InsControl._scope.TimeScale(temp_time);
+                            InsControl._scope.TimeBasePosition(temp_time * 1);
+                        }
 
-                    PowerOffEvent();
-                    RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
-                    MyLib.Delay1ms(800);
+                        PowerOffEvent();
+                        RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
+                        MyLib.Delay1ms(800);
 
-                    MyLib.Delay1ms(1000);
-                    if(InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.SetRun();
-                        InsControl._tek_scope.SetClear();
-                    }
-                    else
-                    {
-                        InsControl._scope.Root_RUN();
-                        InsControl._scope.Root_Clear();
-                    }
+                        MyLib.Delay1ms(1000);
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetRun();
+                            InsControl._tek_scope.SetClear();
+                        }
+                        else
+                        {
+                            InsControl._scope.Root_RUN();
+                            InsControl._scope.Root_Clear();
+                        }
 
-                    MyLib.Delay1ms(1500);
-                    switch (test_parameter.trigger_event)
-                    {
-                        case 0:
-                            // GPIO trigger event
-                            if (test_parameter.sleep_mode)
-                            {
-                                GpioOnSelect(test_parameter.gpio_pin);
-                                MyLib.Delay1ms(1000);
-                            }
-                            else
-                            {
-                                GpioOffSelect(test_parameter.gpio_pin);
-                                MyLib.Delay1ms(1000);
-                            }
-                            break;
-                        case 1:
-                            // I2C trigger event
-                            RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-                            break;
-                        case 2:
+                        MyLib.Delay1ms(1500);
+                        switch (test_parameter.trigger_event)
+                        {
+                            case 0:
+                                // GPIO trigger event
+                                if (test_parameter.sleep_mode)
+                                {
+                                    GpioOnSelect(test_parameter.gpio_pin);
+                                    MyLib.Delay1ms(1000);
+                                }
+                                else
+                                {
+                                    GpioOffSelect(test_parameter.gpio_pin);
+                                    MyLib.Delay1ms(1000);
+                                }
+                                break;
+                            case 1:
+                                // I2C trigger event
+                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                                break;
+                            case 2:
 #if Power_en
-                            // Power supply trigger event
-                            InsControl._power.AutoPowerOff();
+                                // Power supply trigger event
+                                InsControl._power.AutoPowerOff();
 #endif
-                            break;
-                    }
-                    MyLib.Delay1s(1);
+                                break;
+                        }
+                        MyLib.Delay1s(1);
 
-                    if(InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.SetStop();
-                    }
-                    else
-                    {
-                        InsControl._scope.Root_STOP();
-                    }
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetStop();
+                        }
+                        else
+                        {
+                            InsControl._scope.Root_STOP();
+                        }
 
 #if true
-                    double vin = 0;
-                    double sst = 0, vmax = 0, vmin = 0, ilx_max = 0, ilx_min = 0;
+                        double vin = 0;
+                        double sst = 0, vmax = 0, vmin = 0, ilx_max = 0, ilx_min = 0;
 
-                    if(InsControl._tek_scope_en)
-                    {
+                        if (InsControl._tek_scope_en)
+                        {
 #if Power_en
-                        vin = InsControl._power.GetVoltage();
+                            vin = InsControl._power.GetVoltage();
 #endif
-                        sst         = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
-                        vmax        = InsControl._tek_scope.CHx_Meas_MAX(2, 2);  
-                        vmin        = InsControl._tek_scope.CHx_Meas_MIN(2, 3);  
-                        ilx_max     = InsControl._tek_scope.CHx_Meas_MIN(4, 4);  
-                        ilx_min     = InsControl._tek_scope.CHx_Meas_MIN(4, 5);
+                            sst = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
+                            vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 2);
+                            vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 3);
+                            ilx_max = InsControl._tek_scope.CHx_Meas_MIN(4, 4);
+                            ilx_min = InsControl._tek_scope.CHx_Meas_MIN(4, 5);
 
-                        InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
-                        InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH2");
-                        MyLib.Delay1ms(100);
-                        InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH2");
-                        MyLib.Delay1ms(100);
-                        InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
-                        MyLib.Delay1ms(100);
-                        InsControl._tek_scope.DoCommand("CURSor:STATE ON");
-                        MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
+                            InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH2");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH2");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:STATE ON");
+                            MyLib.Delay1ms(100);
 
-                        InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS1");
-                        double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?");
-                        double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?");
+                            InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS1");
+                            double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?");
+                            double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?");
 
-                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
-                        MyLib.Delay1ms(100);
-                        double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
-                        MyLib.Delay1ms(100);
-                        InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
-                    }
-                    else
-                    {
-                        double[] data = InsControl._scope.doQeury(":MEASure:RESults?").Split(',').Select(double.Parse).ToArray();
+                            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
+                            MyLib.Delay1ms(100);
+                            double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
+                        }
+                        else
+                        {
+                            double[] data = InsControl._scope.doQeury(":MEASure:RESults?").Split(',').Select(double.Parse).ToArray();
 #if Power_en
-                        vin = InsControl._power.GetVoltage();
+                            vin = InsControl._power.GetVoltage();
 #endif
-                        sst = data[0] * Math.Pow(10, 6);
-                        vmax = data[1];
-                        vmin = data[2];
-                        ilx_max = data[3] * Math.Pow(10, -3);
-                        ilx_min = data[4] * Math.Pow(10, -3);
-                    }
-                    MyLib.Delay1s(1);
-                    if (InsControl._tek_scope_en)
-                    {
-                        InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
-                    }
-                    else
-                    {
-                        InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
-                    }
+                            sst = data[0] * Math.Pow(10, 6);
+                            vmax = data[1];
+                            vmin = data[2];
+                            ilx_max = data[3] * Math.Pow(10, -3);
+                            ilx_min = data[4] * Math.Pow(10, -3);
+                        }
+                        MyLib.Delay1s(1);
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                        }
+                        else
+                        {
+                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                        }
 
 #if Report
-                    _sheet.Cells[row, XLS_Table.D] = cnt++;
-                    _sheet.Cells[row, XLS_Table.E] = temp;
-                    _sheet.Cells[row, XLS_Table.F] = vin;
-                    _sheet.Cells[row, XLS_Table.G] = res;
 
-                    _sheet.Cells[row, XLS_Table.H] = sst;
-                    _sheet.Cells[row, XLS_Table.I] = vmax;
-                    _sheet.Cells[row, XLS_Table.J] = vmin;
-                    _sheet.Cells[row, XLS_Table.K] = ilx_max;
-                    _sheet.Cells[row, XLS_Table.L] = ilx_min;
+                        _sheet.Cells[row, XLS_Table.D] = cnt++;
+                        _sheet.Cells[row, XLS_Table.E] = temp;
+                        _sheet.Cells[row, XLS_Table.F] = vin;
+                        _sheet.Cells[row, XLS_Table.G] = iout;
+                        _sheet.Cells[row, XLS_Table.H] = res;
+
+                        _sheet.Cells[row, XLS_Table.I] = sst;
+                        _sheet.Cells[row, XLS_Table.J] = vmax;
+                        _sheet.Cells[row, XLS_Table.K] = vmin;
+                        _sheet.Cells[row, XLS_Table.L] = ilx_max;
+                        _sheet.Cells[row, XLS_Table.M] = ilx_min;
 #endif
-                    double criteria = MyLib.GetCriteria_time(res);
-                    criteria = criteria * Math.Pow(10, 6);
-                    double criteria_up = (test_parameter.judge_percent * criteria) + criteria;
-                    double criteria_down = criteria - (test_parameter.judge_percent * criteria);
-                    Console.WriteLine(criteria);
+                        double criteria = MyLib.GetCriteria_time(res);
+                        criteria = criteria * Math.Pow(10, 6);
+                        double criteria_up = (test_parameter.judge_percent * criteria) + criteria;
+                        double criteria_down = criteria - (test_parameter.judge_percent * criteria);
+                        Console.WriteLine(criteria);
 
 #if Report
-                    if (sst > criteria_up || sst < criteria_down)
-                    {
-                        _sheet.Cells[row, XLS_Table.M] = "Fail";
-                        _range = _sheet.Range["M" + row];
-                        _range.Interior.Color = Color.Red;
-                    }
-                    else
-                    {
-                        _sheet.Cells[row, XLS_Table.M] = "Pass";
-                        _range = _sheet.Range["M" + row];
-                        _range.Interior.Color = Color.LightGreen;
-                    }
+                        if (sst > criteria_up || sst < criteria_down)
+                        {
+                            _sheet.Cells[row, XLS_Table.N] = "Fail";
+                            _range = _sheet.Range["N" + row];
+                            _range.Interior.Color = Color.Red;
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.N] = "Pass";
+                            _range = _sheet.Range["N" + row];
+                            _range.Interior.Color = Color.LightGreen;
+                        }
 
-                    switch (wave_pos)
-                    {
-                        case 0:
-                            _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
-                            _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
-                            _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
-                            _sheet.Cells[wave_row, XLS_Table.AD] = "Bin file";
-                            _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
-                            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                        switch (wave_pos)
+                        {
+                            case 0:
+                                _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
+                                _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
+                                _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
+                                _sheet.Cells[wave_row, XLS_Table.AD] = "Bin file";
+                                _sheet.Cells[wave_row, XLS_Table.AE] = "Iout(A)";
+                                _range = _sheet.Range["AA" + wave_row, "AE" + wave_row];
+                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                            _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
-                            _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AI" + (wave_row + 16).ToString()];
-                            wave_pos++;
-                            break;
-                        case 1:
-                            _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
-                            _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
-                            _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
-                            _sheet.Cells[wave_row, XLS_Table.AO] = "Bin file";
-                            _range = _sheet.Range["AL" + wave_row, "AO" + wave_row];
-                            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=H" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=G" + row;
+                                _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AI" + (wave_row + 16).ToString()];
+                                wave_pos++;
+                                break;
+                            case 1:
+                                _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
+                                _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
+                                _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
+                                _sheet.Cells[wave_row, XLS_Table.AO] = "Bin file";
+                                _sheet.Cells[wave_row, XLS_Table.AP] = "Iout(A)";
+                                _range = _sheet.Range["AL" + wave_row, "AP" + wave_row];
+                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                            _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
-                            _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AT" + (wave_row + 16).ToString()];
-                            wave_pos++;
-                            break;
-                        case 2:
-                            _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
-                            _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
-                            _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
-                            _sheet.Cells[wave_row, XLS_Table.AZ] = "Bin file";
-                            _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
-                            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=H" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AP] = "=G" + row;
+                                _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AT" + (wave_row + 16).ToString()];
+                                wave_pos++;
+                                break;
+                            case 2:
+                                _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
+                                _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
+                                _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
+                                _sheet.Cells[wave_row, XLS_Table.AZ] = "Bin file";
+                                _sheet.Cells[wave_row, XLS_Table.BA] = "Iout(A)";
+                                _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
+                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                            _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
-                            _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
-                            wave_pos++;
-                            break;
-                        case 3:
-                            _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
-                            _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
-                            _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
-                            _sheet.Cells[wave_row, XLS_Table.BK] = "Bin file";
-                            _range = _sheet.Range["BH" + wave_row, "BK" + wave_row];
-                            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=H" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.BA] = "=G" + row;
+                                _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
+                                wave_pos++;
+                                break;
+                            case 3:
+                                _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
+                                _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
+                                _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
+                                _sheet.Cells[wave_row, XLS_Table.BK] = "Bin file";
+                                _sheet.Cells[wave_row, XLS_Table.BL] = "Iout(A)";
+                                _range = _sheet.Range["BH" + wave_row, "BL" + wave_row];
+                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                            _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
-                            _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
-                            _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BP" + (wave_row + 16).ToString()];
-                            wave_pos = 0; wave_row = wave_row + 19;
-                            break;
-                    }
+                                _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=H" + row;
+                                _sheet.Cells[wave_row + 1, XLS_Table.BL] = "=G" + row;
+                                _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BP" + (wave_row + 16).ToString()];
+                                wave_pos = 0; wave_row = wave_row + 19;
+                                break;
+                        }
 
-                    MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
 #endif
-                    row++;
+                        row++;
 #endif
                         if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
-                    else InsControl._scope.Root_RUN();
+                        else InsControl._scope.Root_RUN();
 
-                    PowerOffEvent();
-                }
-            }
+                        PowerOffEvent();
+                        InsControl._eload.CH1_Loading(0);
+                        InsControl._eload.LoadOFF(1);
+
+
+                    } // iout loop
+                } // bin loop
+            } // vin loop
         Stop:
             stopWatch.Stop();
             // record test finish time

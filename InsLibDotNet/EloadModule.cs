@@ -61,6 +61,26 @@ namespace InsLibDotNet
         {
             LinkingIns("GPIB0::" + Addr.ToString() + "::INSTR");
         }
+
+
+        public void CRL_Mode()
+        {
+            string cmd = "MODE CRL";
+            DoCommand(cmd);
+        }
+
+        public void CRM_Mode()
+        {
+            string cmd = "MODE CRM";
+            DoCommand(cmd);
+        }
+
+        public void CRH_Mode()
+        {
+            string cmd = "MODE CRH";
+            DoCommand(cmd);
+        }
+
         public void CCL_Mode()
         {
             string mode = "MODE CCL";
@@ -157,6 +177,15 @@ namespace InsLibDotNet
             string cmd = "MEASure:CURRent?";
             ChannelSel(ch);
             return doQueryNumber(cmd);
+        }
+
+        public void SetCR(double res1/*, double res2*/)
+        {
+            string cmd = "";
+            cmd = string.Format("RES:STAT:L1 ", res1);
+            doCommand(cmd);
+            //cmd = string.Format("RES:STAT:L2 ", res2);
+            //doCommand(cmd);
         }
 
 
@@ -400,10 +429,12 @@ namespace InsLibDotNet
         {
             CHx_ClearSetting(CH2);
         }
+        
         public void CH3_ClearSetting()
         {
             CHx_ClearSetting(CH3);
         }
+        
         public void CH4_ClearSetting()
         {
             CHx_ClearSetting(CH4);

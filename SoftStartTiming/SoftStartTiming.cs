@@ -231,6 +231,8 @@ namespace SoftStartTiming
             test_parameter.chamber_en = ck_chamber_en.Checked;
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
+
             test_parameter.slave = (byte)nuslave.Value;
             test_parameter.offset_time = (double)nuOffset.Value;
             test_parameter.waveform_path = tbWave.Text;
@@ -265,6 +267,7 @@ namespace SoftStartTiming
             test_parameter.Rail_addr = (byte)nuAddr.Value;
 
             test_parameter.item_idx = CBItem.SelectedIndex;
+            test_parameter.eload_cr = false;
         }
 
         private void BTRun_Click(object sender, EventArgs e)

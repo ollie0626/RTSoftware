@@ -125,6 +125,8 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tb_iout = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).BeginInit();
@@ -145,6 +147,7 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -160,6 +163,7 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.labRail_en);
             this.tabPage2.Controls.Add(this.nuAddr);
             this.tabPage2.Controls.Add(this.nuData1);
@@ -265,7 +269,7 @@ namespace SoftStartTiming
             this.group_sst.Controls.Add(this.label12);
             this.group_sst.Location = new System.Drawing.Point(347, 274);
             this.group_sst.Name = "group_sst";
-            this.group_sst.Size = new System.Drawing.Size(220, 116);
+            this.group_sst.Size = new System.Drawing.Size(195, 116);
             this.group_sst.TabIndex = 83;
             this.group_sst.TabStop = false;
             this.group_sst.Text = "Soft-Start CH Config";
@@ -274,7 +278,7 @@ namespace SoftStartTiming
             // 
             this.nuILX.Location = new System.Drawing.Point(123, 50);
             this.nuILX.Name = "nuILX";
-            this.nuILX.Size = new System.Drawing.Size(79, 22);
+            this.nuILX.Size = new System.Drawing.Size(55, 22);
             this.nuILX.TabIndex = 3;
             this.nuILX.Value = new decimal(new int[] {
             1,
@@ -286,7 +290,7 @@ namespace SoftStartTiming
             // 
             this.nuLX.Location = new System.Drawing.Point(123, 22);
             this.nuLX.Name = "nuLX";
-            this.nuLX.Size = new System.Drawing.Size(79, 22);
+            this.nuLX.Size = new System.Drawing.Size(55, 22);
             this.nuLX.TabIndex = 2;
             this.nuLX.Value = new decimal(new int[] {
             1,
@@ -365,7 +369,7 @@ namespace SoftStartTiming
             this.groupBox6.Controls.Add(this.RBMs);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(545, 150);
+            this.groupBox6.Location = new System.Drawing.Point(545, 207);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(257, 107);
             this.groupBox6.TabIndex = 84;
@@ -928,7 +932,7 @@ namespace SoftStartTiming
             this.groupBox3.Controls.Add(this.tb_templist);
             this.groupBox3.Location = new System.Drawing.Point(338, 186);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(363, 117);
+            this.groupBox3.Size = new System.Drawing.Size(284, 117);
             this.groupBox3.TabIndex = 58;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Chamber Crtl";
@@ -1172,6 +1176,29 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tb_iout);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox2.Location = new System.Drawing.Point(545, 149);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(258, 53);
+            this.groupBox2.TabIndex = 57;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Iout Range (A)";
+            // 
+            // tb_iout
+            // 
+            this.tb_iout.Location = new System.Drawing.Point(6, 21);
+            this.tb_iout.Name = "tb_iout";
+            this.tb_iout.Size = new System.Drawing.Size(231, 22);
+            this.tb_iout.TabIndex = 49;
+            this.tb_iout.Text = "0.5";
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1243,6 +1270,8 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1345,6 +1374,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nuAddr;
         private System.Windows.Forms.NumericUpDown nuData1;
         private System.Windows.Forms.Label labRail_en;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox tb_iout;
     }
 }
 
