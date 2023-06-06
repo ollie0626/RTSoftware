@@ -381,8 +381,12 @@ namespace MulanLite
 
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
-            if(Sync_Cmd == 0xAC) spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, tmp);
-            else spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, new byte[] { 0x00 });
+            if (Sync_Cmd == 0xAC) spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)tmp.Length, Sync_Cmd, tmp);
+            else
+            {
+                Array.Resize(ref buf, buf.Length + 1);
+                spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)buf.Length, Sync_Cmd, buf);
+            }
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
             return 0;
         }
@@ -478,12 +482,12 @@ namespace MulanLite
         }
 
         /* len follow packet setting (n + 1) */
-        public byte[] ReadFunc(byte id, byte len, byte addr)
+        public byte[] ReadFunc(byte id, byte len, byte addr, uint Cmd = 0xAC)
         {
             if (spiModule == null) return new byte[10];
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, true);
             byte CmdSize = 0x01;
-            uint Cmd = 0xAC;
+            //uint Cmd = 0xAC;
 
             byte[] buf = new byte[7];
             buf[0] = 0x1E;
@@ -498,7 +502,16 @@ namespace MulanLite
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
             //System.Threading.Thread.Sleep(2);
             Task.Delay(2).Wait();
-            spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)(buf.Length), Cmd, buf);
+            if (Cmd == 0xAC)
+            {
+                spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)(buf.Length), Cmd, buf);
+            }
+            else
+            {
+                Array.Resize(ref buf, buf.Length + 1);
+                spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)(buf.Length), Cmd, buf);
+            }
+            
 
             Task.Delay(2).Wait();
             byte[] Buffer_tmp = new byte[13];
@@ -508,7 +521,7 @@ namespace MulanLite
             Task.Delay(2).Wait();
             spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA1CPOL0);
             Task.Delay(2).Wait();
-            spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)(Buffer_tmp.Length), 0xAC, Buffer_tmp);
+            spiModule.RTBB_SPIHLReadCS(CS_Pin, 0, (ushort)(Buffer_tmp.Length), Cmd, Buffer_tmp);
             for (int i = 0; i < Buffer_tmp.Length; i++) Console.Write("{0:X}, ", Buffer_tmp[i]);
             Console.WriteLine();
 
@@ -516,7 +529,7 @@ namespace MulanLite
             //if (Enumerable.SequenceEqual(Buffer_tmp, new byte[13]))
             //{ goto Repeat; }
 
-            byte item = 0xac;
+            byte item = (byte)Cmd;
             int idx = Array.IndexOf(Buffer_tmp, item);
             byte[] data = Buffer_tmp.Skip(idx).ToArray();
             gpioModule.RTBB_GPIOSingleWrite(Trans_en, false);
