@@ -1,5 +1,5 @@
 ﻿
-//#define Report_en
+#define Report_en
 
 using System;
 using System.Collections.Generic;
@@ -104,6 +104,12 @@ namespace IN528ATE_tool
             }
 
             InsControl._scope.CH2_Level(6);
+
+            if (test_parameter.dt_rising_en) InsControl._scope.CH2_Offset(6);
+            else InsControl._scope.CH2_Offset(-6);
+
+
+
             for (int i = 0; i < 3; i++)
             {
                 double Vo;
@@ -363,8 +369,19 @@ namespace IN528ATE_tool
                         System.Threading.Thread.Sleep(1000);
                         InsControl._scope.NormalTrigger();
                         InsControl._scope.Trigger_CH2();
-                        InsControl._scope.TriggerLevel_CH2(InsControl._scope.doQueryNumber(":CHANnel2:SCALe?"));
-                        InsControl._scope.SetTrigModeEdge(true);
+                        
+
+                        if(test_parameter.dt_rising_en)
+                        {
+                            InsControl._scope.TriggerLevel_CH2(InsControl._scope.doQueryNumber(":CHANnel2:SCALe?"));
+                            InsControl._scope.SetTrigModeEdge(true);
+                        }
+                        else
+                        {
+                            InsControl._scope.TriggerLevel_CH2(InsControl._scope.doQueryNumber(":CHANnel2:SCALe?") * -1);
+                            InsControl._scope.SetTrigModeEdge(false);
+                        }
+
                         InsControl._scope.Root_RUN();
                         System.Threading.Thread.Sleep(1000);
 

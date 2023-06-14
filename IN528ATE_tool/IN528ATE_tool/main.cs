@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v3.2";
+            this.Text = "ATE Tool v3.3";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -267,7 +267,9 @@ namespace IN528ATE_tool
             test_parameter.dt_rising_en = !ck_negvol.Checked;
             test_parameter.sst_sel = ck_sst_define.Checked ? 1 : 0;
 
-
+            test_parameter.lovout = (double)nu_loVout.Value;
+            test_parameter.midvout = (double)nu_midVout.Value;
+            test_parameter.hivout = (double)nu_hiVout.Value;
         }
 
         private void uibt_run_Click(object sender, EventArgs e)

@@ -100,7 +100,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_On(4);
 
                 InsControl._tek_scope.CHx_Level(1, 1.65);
-                InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0] * 3);
+                InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0]);
                 InsControl._tek_scope.CHx_Level(3, test_parameter.LX_Level);
                 InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
 
@@ -247,7 +247,7 @@ namespace SoftStartTiming
             // initial channel 
             if (InsControl._tek_scope_en)
             {
-                InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0] * 3);
+                InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0]);
                 InsControl._tek_scope.CHx_Level(3, test_parameter.LX_Level);
                 InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
 
