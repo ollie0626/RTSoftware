@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v3.1";
+            this.Text = "ATE Tool v3.2";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -85,6 +85,8 @@ namespace IN528ATE_tool
             test_parameter.run_stop = false;
             test_parameter.chamber_en = false;
             cb_mode_sel.SelectedIndex = 0;
+
+            tabControl1.SelectedIndex = 1;
         }
 
         public main()

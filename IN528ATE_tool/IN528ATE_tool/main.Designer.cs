@@ -149,6 +149,16 @@ namespace IN528ATE_tool
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.label30 = new System.Windows.Forms.Label();
+            this.nu_hiVout = new System.Windows.Forms.NumericUpDown();
+            this.label31 = new System.Windows.Forms.Label();
+            this.nu_midVout = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.nu_loVout = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -190,6 +200,10 @@ namespace IN528ATE_tool
             this.tabPage2.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_hiVout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_midVout)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_loVout)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -240,7 +254,7 @@ namespace IN528ATE_tool
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(152, 23);
             this.textBox1.TabIndex = 12;
-            this.textBox1.Text = "D:\\";
+            this.textBox1.Text = "D:\\Desktop\\SS_DT";
             // 
             // nu_slave
             // 
@@ -292,7 +306,6 @@ namespace IN528ATE_tool
             this.uibt_run.Symbol = 61515;
             this.uibt_run.TabIndex = 15;
             this.uibt_run.Text = "RUN";
-            this.uibt_run.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_run.Click += new System.EventHandler(this.uibt_run_Click);
             // 
             // uiSymbolButton1
@@ -317,7 +330,6 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.Symbol = 61517;
             this.uiSymbolButton1.TabIndex = 16;
             this.uiSymbolButton1.Text = "STOP";
-            this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton1.Click += new System.EventHandler(this.uiSymbolButton1_Click);
             // 
             // led_osc
@@ -327,7 +339,6 @@ namespace IN528ATE_tool
             this.led_osc.Size = new System.Drawing.Size(16, 14);
             this.led_osc.TabIndex = 17;
             this.led_osc.Text = "uiLedBulb1";
-            this.led_osc.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_power
             // 
@@ -336,7 +347,6 @@ namespace IN528ATE_tool
             this.led_power.Size = new System.Drawing.Size(16, 14);
             this.led_power.TabIndex = 18;
             this.led_power.Text = "uiLedBulb2";
-            this.led_power.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_eload
             // 
@@ -345,7 +355,6 @@ namespace IN528ATE_tool
             this.led_eload.Size = new System.Drawing.Size(16, 14);
             this.led_eload.TabIndex = 19;
             this.led_eload.Text = "uiLedBulb3";
-            this.led_eload.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // nu_eload
             // 
@@ -403,7 +412,6 @@ namespace IN528ATE_tool
             this.uibt_osc_connect.Symbol = 61633;
             this.uibt_osc_connect.TabIndex = 0;
             this.uibt_osc_connect.Text = "OSC Connect";
-            this.uibt_osc_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_power_connect
@@ -428,7 +436,6 @@ namespace IN528ATE_tool
             this.uibt_power_connect.Symbol = 61633;
             this.uibt_power_connect.TabIndex = 1;
             this.uibt_power_connect.Text = "Power Connect";
-            this.uibt_power_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_power_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // ui_eload_connect
@@ -453,7 +460,6 @@ namespace IN528ATE_tool
             this.ui_eload_connect.Symbol = 61633;
             this.ui_eload_connect.TabIndex = 2;
             this.ui_eload_connect.Text = "ELoad Connect";
-            this.ui_eload_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.ui_eload_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_34970
@@ -478,7 +484,6 @@ namespace IN528ATE_tool
             this.uibt_34970.Symbol = 61633;
             this.uibt_34970.TabIndex = 3;
             this.uibt_34970.Text = "34970 Connect";
-            this.uibt_34970.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_34970.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_34970A
@@ -501,7 +506,6 @@ namespace IN528ATE_tool
             this.led_37940.Size = new System.Drawing.Size(16, 14);
             this.led_37940.TabIndex = 27;
             this.led_37940.Text = "uiLedBulb4";
-            this.led_37940.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // cb_item
             // 
@@ -541,6 +545,7 @@ namespace IN528ATE_tool
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(152, 23);
             this.tbWave.TabIndex = 36;
+            this.tbWave.Text = "D:\\Desktop\\SS_DT\\wave";
             // 
             // uibt_chamber
             // 
@@ -564,7 +569,6 @@ namespace IN528ATE_tool
             this.uibt_chamber.Symbol = 61633;
             this.uibt_chamber.TabIndex = 4;
             this.uibt_chamber.Text = "Chamber Connect";
-            this.uibt_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_chamber.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_chamber
@@ -587,7 +591,6 @@ namespace IN528ATE_tool
             this.led_chamber.Size = new System.Drawing.Size(16, 14);
             this.led_chamber.TabIndex = 38;
             this.led_chamber.Text = "uiLedBulb4";
-            this.led_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label10
             // 
@@ -695,7 +698,6 @@ namespace IN528ATE_tool
             this.uiProcessBar1.Style = Sunny.UI.UIStyle.Custom;
             this.uiProcessBar1.TabIndex = 49;
             this.uiProcessBar1.Text = "uiProcessBar1";
-            this.uiProcessBar1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label15
             // 
@@ -914,7 +916,6 @@ namespace IN528ATE_tool
             this.uibt_kill.Symbol = 61944;
             this.uibt_kill.TabIndex = 52;
             this.uibt_kill.Text = "Kill Excel";
-            this.uibt_kill.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_kill.Click += new System.EventHandler(this.uibt_kill_Click);
             // 
             // uibut_binfile
@@ -939,7 +940,6 @@ namespace IN528ATE_tool
             this.uibut_binfile.Symbol = 61787;
             this.uibut_binfile.TabIndex = 53;
             this.uibut_binfile.Text = "Bin File";
-            this.uibut_binfile.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibut_binfile.Click += new System.EventHandler(this.uibut_binfile_Click);
             // 
             // uibt_Wavepath
@@ -964,7 +964,6 @@ namespace IN528ATE_tool
             this.uibt_Wavepath.Symbol = 61717;
             this.uibt_Wavepath.TabIndex = 54;
             this.uibt_Wavepath.Text = "Wave Path";
-            this.uibt_Wavepath.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_Wavepath.Click += new System.EventHandler(this.uibt_Wavepath_Click);
             // 
             // uibt_specify
@@ -989,7 +988,6 @@ namespace IN528ATE_tool
             this.uibt_specify.Symbol = 61462;
             this.uibt_specify.TabIndex = 55;
             this.uibt_specify.Text = "Specify Bin";
-            this.uibt_specify.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_specify.Click += new System.EventHandler(this.uibt_specify_Click);
             // 
             // openFileDialog1
@@ -1067,7 +1065,6 @@ namespace IN528ATE_tool
             this.uiSymbolButton2.Symbol = 261912;
             this.uiSymbolButton2.TabIndex = 59;
             this.uiSymbolButton2.Text = "Debug";
-            this.uiSymbolButton2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
             // uibt_pause
@@ -1092,7 +1089,6 @@ namespace IN528ATE_tool
             this.uibt_pause.Symbol = 61516;
             this.uibt_pause.TabIndex = 60;
             this.uibt_pause.Text = "Pause";
-            this.uibt_pause.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_pause.Click += new System.EventHandler(this.uibt_pause_Click);
             // 
             // nu_offtime_scale
@@ -1136,6 +1132,8 @@ namespace IN528ATE_tool
             // CK_Program
             // 
             this.CK_Program.AutoSize = true;
+            this.CK_Program.Checked = true;
+            this.CK_Program.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CK_Program.Location = new System.Drawing.Point(9, 19);
             this.CK_Program.Name = "CK_Program";
             this.CK_Program.Size = new System.Drawing.Size(158, 19);
@@ -1193,6 +1191,11 @@ namespace IN528ATE_tool
             this.nu_mtp_addr.Size = new System.Drawing.Size(62, 23);
             this.nu_mtp_addr.TabIndex = 69;
             this.nu_mtp_addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_mtp_addr.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
             // 
             // label17
             // 
@@ -1216,6 +1219,11 @@ namespace IN528ATE_tool
             this.nu_mtp_data.Size = new System.Drawing.Size(62, 23);
             this.nu_mtp_data.TabIndex = 71;
             this.nu_mtp_data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_mtp_data.Value = new decimal(new int[] {
+            128,
+            0,
+            0,
+            0});
             // 
             // groupBox5
             // 
@@ -1401,10 +1409,10 @@ namespace IN528ATE_tool
             this.groupBox7.Controls.Add(this.label21);
             this.groupBox7.Location = new System.Drawing.Point(6, 9);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(187, 147);
+            this.groupBox7.Size = new System.Drawing.Size(158, 147);
             this.groupBox7.TabIndex = 78;
             this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "SST and Dly Time (AE1 only)";
+            this.groupBox7.Text = "SST and Dly Time (Vin)";
             // 
             // label26
             // 
@@ -1424,10 +1432,10 @@ namespace IN528ATE_tool
             this.nu_HiVol.TabIndex = 83;
             this.nu_HiVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_HiVol.Value = new decimal(new int[] {
-            1,
+            23,
             0,
             0,
-            0});
+            65536});
             // 
             // label25
             // 
@@ -1447,7 +1455,7 @@ namespace IN528ATE_tool
             this.nu_MidVol.TabIndex = 81;
             this.nu_MidVol.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_MidVol.Value = new decimal(new int[] {
-            5,
+            12,
             0,
             0,
             65536});
@@ -1612,11 +1620,12 @@ namespace IN528ATE_tool
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.groupBox10);
             this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(320, 322);
+            this.tabPage2.Size = new System.Drawing.Size(320, 328);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "SST Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1738,16 +1747,130 @@ namespace IN528ATE_tool
             // saveSettingToolStripMenuItem
             // 
             this.saveSettingToolStripMenuItem.Name = "saveSettingToolStripMenuItem";
-            this.saveSettingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveSettingToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.saveSettingToolStripMenuItem.Text = "Save setting";
             this.saveSettingToolStripMenuItem.Click += new System.EventHandler(this.saveSettingToolStripMenuItem_Click);
             // 
             // loadSettingToolStripMenuItem
             // 
             this.loadSettingToolStripMenuItem.Name = "loadSettingToolStripMenuItem";
-            this.loadSettingToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadSettingToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.loadSettingToolStripMenuItem.Text = "Load setting";
             this.loadSettingToolStripMenuItem.Click += new System.EventHandler(this.loadSettingToolStripMenuItem_Click);
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.label30);
+            this.groupBox10.Controls.Add(this.nu_hiVout);
+            this.groupBox10.Controls.Add(this.label31);
+            this.groupBox10.Controls.Add(this.nu_midVout);
+            this.groupBox10.Controls.Add(this.label32);
+            this.groupBox10.Controls.Add(this.nu_loVout);
+            this.groupBox10.Controls.Add(this.label33);
+            this.groupBox10.Controls.Add(this.label34);
+            this.groupBox10.Controls.Add(this.label35);
+            this.groupBox10.Location = new System.Drawing.Point(6, 162);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(158, 147);
+            this.groupBox10.TabIndex = 85;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "SST and Dly Time (Vout)";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(112, 102);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(14, 15);
+            this.label30.TabIndex = 84;
+            this.label30.Text = "V";
+            // 
+            // nu_hiVout
+            // 
+            this.nu_hiVout.DecimalPlaces = 3;
+            this.nu_hiVout.Location = new System.Drawing.Point(40, 100);
+            this.nu_hiVout.Name = "nu_hiVout";
+            this.nu_hiVout.Size = new System.Drawing.Size(66, 23);
+            this.nu_hiVout.TabIndex = 83;
+            this.nu_hiVout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_hiVout.Value = new decimal(new int[] {
+            23,
+            0,
+            0,
+            65536});
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(112, 64);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(14, 15);
+            this.label31.TabIndex = 82;
+            this.label31.Text = "V";
+            // 
+            // nu_midVout
+            // 
+            this.nu_midVout.DecimalPlaces = 3;
+            this.nu_midVout.Location = new System.Drawing.Point(40, 62);
+            this.nu_midVout.Name = "nu_midVout";
+            this.nu_midVout.Size = new System.Drawing.Size(66, 23);
+            this.nu_midVout.TabIndex = 81;
+            this.nu_midVout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_midVout.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            65536});
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(112, 26);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(14, 15);
+            this.label32.TabIndex = 80;
+            this.label32.Text = "V";
+            // 
+            // nu_loVout
+            // 
+            this.nu_loVout.DecimalPlaces = 3;
+            this.nu_loVout.Location = new System.Drawing.Point(40, 24);
+            this.nu_loVout.Name = "nu_loVout";
+            this.nu_loVout.Size = new System.Drawing.Size(66, 23);
+            this.nu_loVout.TabIndex = 79;
+            this.nu_loVout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_loVout.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            131072});
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(6, 102);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(32, 15);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "High";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(6, 64);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(29, 15);
+            this.label34.TabIndex = 1;
+            this.label34.Text = "Mid";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(6, 26);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(28, 15);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "Low";
             // 
             // main
             // 
@@ -1875,6 +1998,11 @@ namespace IN528ATE_tool
             this.groupBox9.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_hiVout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_midVout)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_loVout)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2001,6 +2129,16 @@ namespace IN528ATE_tool
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveSettingToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadSettingToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.NumericUpDown nu_hiVout;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown nu_midVout;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.NumericUpDown nu_loVout;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label35;
     }
 }
 

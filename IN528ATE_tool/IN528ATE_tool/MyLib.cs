@@ -392,6 +392,23 @@ namespace IN528ATE_tool
             InsControl._scope.DoCommand(cmd);
         }
 
+        public static void PastWaveform(Excel.Worksheet _sheet, Excel.Range _range, string wavePath, string fileName)
+        {
+            string buf = wavePath.Substring(wavePath.Length - 1, 1) == @"/" ? wavePath.Substring(0, wavePath.Length - 1) : wavePath;
+            buf = buf + @"/" + fileName + ".png";
+
+
+            double left = _range.Left;
+            double top = _range.Top;
+            double width = _range.Width;
+            double height = _range.Height;
+
+            _sheet.Shapes.AddPicture(wavePath + "\\" + fileName + ".png",
+                                    Microsoft.Office.Core.MsoTriState.msoFalse,
+                                    Microsoft.Office.Core.MsoTriState.msoTrue,
+                                    (float)left, (float)top, (float)width, (float)height);
+        }
+
     }
 
 

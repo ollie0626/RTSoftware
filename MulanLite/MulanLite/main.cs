@@ -1287,8 +1287,8 @@ namespace MulanLite
             //}
 
 
-            //byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value, 0x55);
-            byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
+            byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value, 0x55);
+            //byte[] data = RTDev.ReadFunc((byte)nuSID.Value, 0x00, (byte)nuSAddr.Value);
             if (data.Length < 3) return;
             nuSRead.Value = data[2];
         }

@@ -55,6 +55,10 @@ namespace IN528ATE_tool
         public static double midvol;
         public static double hivol;
 
+        public static double lovout;
+        public static double midvout;
+        public static double hivout;
+
         /* add for swire */
         public static bool swire_en;
         public static List<string> swireList = new List<string>();
@@ -62,6 +66,8 @@ namespace IN528ATE_tool
         public static bool swire_20;
 
         public static bool bw_en;
+        public static int sst_sel;
+        public static bool dt_rising_en;
     }
 
 
