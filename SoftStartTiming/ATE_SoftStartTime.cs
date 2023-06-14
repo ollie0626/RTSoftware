@@ -46,8 +46,6 @@ namespace SoftStartTiming
 
         private void GpioOnSelect(int num)
         {
-
-
             //RTDev.GPIOnState((uint)1 << num, (uint)1 << num);
             switch (num)
             {
@@ -93,7 +91,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.SetTimeBasePosition(35);
                 InsControl._tek_scope.SetRun();
                 InsControl._tek_scope.SetTriggerMode();
-                InsControl._tek_scope.SetTriggerSource(1);
+                InsControl._tek_scope.SetTriggerSource(2);
                 InsControl._tek_scope.SetTriggerLevel(1.5);
 
                 InsControl._tek_scope.CHx_On(1);
@@ -195,9 +193,6 @@ namespace SoftStartTiming
                 InsControl._scope.TimeScaleUs(1);
             }
 
-
-
-
             switch (test_parameter.trigger_event)
             {
                 case 0: // gpio
@@ -289,6 +284,8 @@ namespace SoftStartTiming
                 {
                     vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
                     vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                    MyLib.Delay1ms(100);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
                 }
                 else
                 {
@@ -318,26 +315,25 @@ namespace SoftStartTiming
                 if (InsControl._tek_scope_en)
                 {
                     int ch = ch_idx + 2;
-
                     switch (ch)
                     {
                         case 2:
+                            // vout setting
                             InsControl._tek_scope.CHx_Level(ch, vmax / 5);
                             InsControl._tek_scope.SetTriggerSource(2);
-                            InsControl._tek_scope.SetTriggerLevel(vmax / 2);
+                            InsControl._tek_scope.SetTriggerLevel(vmax / 3);
                             InsControl._tek_scope.CHx_Position(ch, -2);
                             break;
                         case 3:
+                            // lx setting
                             InsControl._tek_scope.CHx_Level(ch, test_parameter.VinList[0] / 1.5);
                             InsControl._tek_scope.CHx_Position(ch, -3);
                             break;
                         case 4:
+                            // ilx setting
                             InsControl._tek_scope.CHx_Level(ch, test_parameter.ILX_Level);
                             break;
                     }
-
-
-
                 }
                 else
                 {

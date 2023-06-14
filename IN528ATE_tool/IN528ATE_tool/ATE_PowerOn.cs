@@ -1,5 +1,5 @@
 ﻿
-#define Report_en
+//#define Report_en
 
 using System;
 using System.Collections.Generic;
@@ -204,9 +204,6 @@ namespace IN528ATE_tool
                         
                         Change_scale:
                         InsControl._scope.NormalTrigger();
-
-
-
                         if (test_parameter.trigger_vin_en)
                         {
                             // vin trigger
@@ -248,8 +245,6 @@ namespace IN528ATE_tool
                             InsControl._scope.Measure_Clear();
                         }
                         InsControl._scope.Root_STOP();
-
-
                         double delay_time, ss_time, Vmax, Inrush;
 
                         // Delay time Measure
@@ -259,27 +254,38 @@ namespace IN528ATE_tool
                                                         test_parameter.hivol,
                                                         test_parameter.midvol,
                                                         test_parameter.lovol));
-
                         MyLib.Delay1ms(100);
                         double vbase, vtop, vmid;
-                        vtop = InsControl._scope.Meas_CH2Top();
-                        vbase = InsControl._scope.Meas_CH2Base();
-                        vmid = vtop * 0.5;
                         InsControl._scope.DoCommand(":MEASure:THResholds:METHod CHANnel2,ABSolute");
-                        InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel2,{0},{1},{2}",
-                                                    vmid,
-                                                    vmid * 0.5,
-                                                    vbase));
-
-                        // Delay time
-                        if(test_parameter.dt_rising_en)
+                        if (test_parameter.dt_rising_en)
                         {
-                            InsControl._scope.SetDeltaTime(true, 1, 2, true, 1, 0);
+                            vtop = InsControl._scope.Meas_CH2Top();
+                            vbase = InsControl._scope.Meas_CH2Base();
+                            vmid = vtop * 0.5;
+                            InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel2,{0},{1},{2}",
+                                                        vmid,
+                                                        vmid * 0.5,
+                                                        vbase));
                         }
                         else
                         {
-                            InsControl._scope.SetDeltaTime(true, 1, 2, false, 1, 0);
+                            vtop = InsControl._scope.Meas_CH2Top();
+                            vbase = InsControl._scope.Meas_CH2Base();
+                            vmid = vbase * 0.5;
+                            InsControl._scope.DoCommand(string.Format(":MEASure:THResholds:GENeral:ABSolute CHANnel2,{0},{1},{2}",
+                                                        vtop,
+                                                        vmid * 0.5,
+                                                        vbase));
                         }
+
+
+                        // Delay time
+                        if (test_parameter.dt_rising_en)
+                            // set rising to rising
+                            InsControl._scope.SetDeltaTime(true, 1, 2, true, 1, 0); // rising to rising (low)
+                        else
+                            // set rising to falling
+                            InsControl._scope.SetDeltaTime(true, 1, 2, false, 1, 2); // rising to falling (up)
                         
                         InsControl._scope.DoCommand(":MEASure:DELTatime CHANnel1, CHANnel2");
                         InsControl._scope.DoCommand(":MARKer:MODE MEASurement");
@@ -308,7 +314,6 @@ namespace IN528ATE_tool
 
 
                         // Soft-Start times
-
                         switch(test_parameter.sst_sel)
                         {
                             case 0:
@@ -322,12 +327,17 @@ namespace IN528ATE_tool
                                 break;
                         }
 
-
-
-
-                        InsControl._scope.DoCommand(":MEASure:RISetime CHANnel2");
+                        if(test_parameter.dt_rising_en)
+                            InsControl._scope.DoCommand(":MEASure:RISetime CHANnel2");
+                        else
+                            InsControl._scope.DoCommand(":MEASure:FALLtime CHANnel2");
+                        
                         InsControl._scope.DoCommand(":MARKer:MEASurement:MEASurement MEASurement1");
-                        ss_time = InsControl._scope.Meas_CH2Rise();
+                        if (test_parameter.dt_rising_en)
+                            ss_time = InsControl._scope.Meas_CH2Rise();
+                        else
+                            ss_time = InsControl._scope.Meas_CH2Fall();
+
                         // Soft-Start time waveform
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_SST");
 
@@ -369,7 +379,7 @@ namespace IN528ATE_tool
                         InsControl._scope.CH4_On();
 #if Report_en
                         _sheet.Cells[row, XLS_Table.J] = Inrush;
-#endif
+
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_OFF");
 
                         // past waveform
@@ -403,6 +413,7 @@ namespace IN528ATE_tool
 
                         _range = _sheet.Range["AJ" + (wave_row + 2), "AR" + (wave_row + 15)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_OFF");
+#endif
 
                         InsControl._scope.Trigger_CH1();
                         InsControl._scope.TimeBasePosition(scope_time_scale * 3);

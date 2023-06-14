@@ -267,7 +267,7 @@ namespace SoftStartTiming
             test_parameter.Rail_addr = (byte)nuAddr.Value;
 
             test_parameter.item_idx = CBItem.SelectedIndex;
-            test_parameter.eload_cr = false;
+            test_parameter.eload_cr = ck_crmode.Checked;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -824,6 +824,18 @@ namespace SoftStartTiming
                             break;
                     }
                 }
+            }
+        }
+
+        private void ck_crmode_CheckedChanged(object sender, EventArgs e)
+        {
+            if(ck_crmode.Checked)
+            {
+                groupBox2.Text = "Iout Range (ohm)";
+            }
+            else
+            {
+                groupBox2.Text = "Iout Range (A)";
             }
         }
     }

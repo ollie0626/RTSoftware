@@ -263,6 +263,11 @@ namespace IN528ATE_tool
             test_parameter.swire_en = ck_swire.Checked;
             test_parameter.swire_20 = RB20.Checked;
             test_parameter.bw_en = CK_Bwen.Checked;
+
+            test_parameter.dt_rising_en = !ck_negvol.Checked;
+            test_parameter.sst_sel = ck_sst_define.Checked ? 1 : 0;
+
+
         }
 
         private void uibt_run_Click(object sender, EventArgs e)

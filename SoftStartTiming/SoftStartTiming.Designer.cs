@@ -32,6 +32,9 @@ namespace SoftStartTiming
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ck_crmode = new System.Windows.Forms.CheckBox();
+            this.tb_iout = new System.Windows.Forms.TextBox();
             this.labRail_en = new System.Windows.Forms.Label();
             this.nuAddr = new System.Windows.Forms.NumericUpDown();
             this.nuData1 = new System.Windows.Forms.NumericUpDown();
@@ -125,10 +128,9 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.tb_iout = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
             this.group_sst.SuspendLayout();
@@ -147,7 +149,6 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -198,6 +199,41 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(808, 412);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ck_crmode);
+            this.groupBox2.Controls.Add(this.tb_iout);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox2.Location = new System.Drawing.Point(545, 149);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(258, 85);
+            this.groupBox2.TabIndex = 57;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Iout Range (A)";
+            // 
+            // ck_crmode
+            // 
+            this.ck_crmode.AutoSize = true;
+            this.ck_crmode.Location = new System.Drawing.Point(9, 20);
+            this.ck_crmode.Name = "ck_crmode";
+            this.ck_crmode.Size = new System.Drawing.Size(119, 16);
+            this.ck_crmode.TabIndex = 63;
+            this.ck_crmode.Text = "CR Mode Enable";
+            this.ck_crmode.UseVisualStyleBackColor = true;
+            this.ck_crmode.CheckedChanged += new System.EventHandler(this.ck_crmode_CheckedChanged);
+            // 
+            // tb_iout
+            // 
+            this.tb_iout.Location = new System.Drawing.Point(9, 42);
+            this.tb_iout.Name = "tb_iout";
+            this.tb_iout.Size = new System.Drawing.Size(231, 22);
+            this.tb_iout.TabIndex = 49;
+            this.tb_iout.Text = "0.5";
             // 
             // labRail_en
             // 
@@ -369,7 +405,7 @@ namespace SoftStartTiming
             this.groupBox6.Controls.Add(this.RBMs);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(545, 207);
+            this.groupBox6.Location = new System.Drawing.Point(546, 255);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(257, 107);
             this.groupBox6.TabIndex = 84;
@@ -1176,29 +1212,6 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.tb_iout);
-            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(545, 149);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(258, 53);
-            this.groupBox2.TabIndex = 57;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Iout Range (A)";
-            // 
-            // tb_iout
-            // 
-            this.tb_iout.Location = new System.Drawing.Point(6, 21);
-            this.tb_iout.Name = "tb_iout";
-            this.tb_iout.Size = new System.Drawing.Size(231, 22);
-            this.tb_iout.TabIndex = 49;
-            this.tb_iout.Text = "0.5";
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1244,6 +1257,8 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuData1)).EndInit();
             this.group_sst.ResumeLayout(false);
@@ -1270,8 +1285,6 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1376,6 +1389,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label labRail_en;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox tb_iout;
+        private System.Windows.Forms.CheckBox ck_crmode;
     }
 }
 
