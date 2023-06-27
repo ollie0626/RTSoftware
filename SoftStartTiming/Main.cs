@@ -16,7 +16,7 @@ namespace SoftStartTiming
     public partial class Main : Form
     {
 
-        string win_name = "Main v1.02";
+        string win_name = "Main v1.07";
 
         public Main()
         {

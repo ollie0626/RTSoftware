@@ -300,7 +300,7 @@ namespace SoftStartTiming
 
                     if (InsControl._tek_scope_en)
                     {
-                        InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
+                        InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0]);
                     }
                     else
                     {

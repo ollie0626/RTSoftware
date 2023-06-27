@@ -98,7 +98,7 @@ namespace SoftStartTiming
                 {
                     if (test_parameter.scope_en[i])
                     {
-                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0]);
                     }
                 }
 
@@ -200,6 +200,8 @@ namespace SoftStartTiming
             double time_scale = 0;
             if (InsControl._tek_scope_en)
             {
+                InsControl._tek_scope.SetRun();
+                InsControl._tek_scope.SetTriggerMode();
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
                 if (time_scale <= 55 * Math.Pow(10, -6) || time_scale > 100 * Math.Pow(10, -3))
                 {
@@ -232,11 +234,11 @@ namespace SoftStartTiming
             }
 
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
-            MyLib.Delay1ms(2000);
+            MyLib.Delay1ms(1000);
 
             switch (test_parameter.trigger_event)
             {
-                case 0: // gpio
+                case 0: // gpio trigger
 
                     if (InsControl._tek_scope_en)
                     {
@@ -271,7 +273,7 @@ namespace SoftStartTiming
                     }
 
                     // rails enable
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
 
 
                     break;
@@ -292,7 +294,7 @@ namespace SoftStartTiming
 
             for (int i = 0; i < 100; i++)
             {
-                int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
+                int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
                 Console.WriteLine("I2C Return value {0}", ret);
                 if (ret == 0) break;
             }
@@ -309,7 +311,7 @@ namespace SoftStartTiming
                 {
                     if (InsControl._tek_scope_en)
                     {
-                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] * 3);
+                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0]);
                         //InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
                         //MyLib.Delay1ms(800);
                     }
@@ -321,7 +323,7 @@ namespace SoftStartTiming
                     }
                 }
             }
-            MyLib.Delay1s(1);
+            MyLib.Delay1ms(500);
 
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
@@ -342,14 +344,15 @@ namespace SoftStartTiming
                         // tek get max
                         for (int k = 0; k < 3; k++)
                         {
-                            vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
                             MyLib.Delay1ms(10);
-                            vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
                             Console.WriteLine("VMax = {0}", vmax);
                             
                             if(vmax > 0.3 && vmax < Math.Pow(10, 3))
                                 InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
-                            MyLib.Delay1ms(100);
+                            MyLib.Delay1ms(300);
                         }
                     }
                     else
@@ -549,7 +552,7 @@ namespace SoftStartTiming
                             string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
                             test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
                             if (!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
-                            MyLib.Delay1s(1);
+                            MyLib.Delay1ms(500);
 
                             if (!InsControl._tek_scope_en)
                             {
@@ -600,14 +603,14 @@ namespace SoftStartTiming
                                 time_scale = InsControl._scope.doQueryNumber(":TIMebase:SCALe?");
                             }
 
-                            // include test condition
-                            retest:;
+                        // include test condition
+                        retest:;
                             for (int i = 0; i < 8; i++)
                             {
                                 InsControl._tek_scope.SetMeasureOff(i + 1);
                             }
 
-
+                            
                             Scope_Channel_Resize(vin_idx, binList[bin_idx]);
                             double tempVin = ori_vinTable[vin_idx];
                             if (!InsControl._tek_scope_en) MyLib.WaveformCheck();
@@ -676,7 +679,7 @@ namespace SoftStartTiming
                                     break;
                                 case 1:
                                     // I2C trigger event 
-                                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                                     MyLib.Delay1s(1);
                                     break;
                                 case 2:
@@ -864,7 +867,7 @@ namespace SoftStartTiming
                             {
                                 if (delay_time_res > Math.Pow(10, 20))
                                 {
-                                    retry_cnt++;
+                                    
 
                                     if (InsControl._tek_scope_en)
                                     {
@@ -888,12 +891,12 @@ namespace SoftStartTiming
                                         InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
                                     }
 
-
+                                    retry_cnt++;
                                     goto retest;
                                 }
                                 if (delay_time_res > 0)
                                 {
-                                    double temp = (delay_time_res * 1.2) / 4;
+                                    double temp = (delay_time_res * 1.5) / 4;
 
 
                                     if (InsControl._tek_scope_en)
@@ -935,6 +938,7 @@ namespace SoftStartTiming
                                 }
 
                                 PowerOffEvent();
+                                retry_cnt++;
                                 goto retest;
                             }
                             else if (delay_time_res < time_scale)
@@ -976,6 +980,7 @@ namespace SoftStartTiming
                                         InsControl._scope.Root_RUN();
                                     }
                                     PowerOffEvent();
+                                    retry_cnt++;
                                     goto retest;
                                 }
                             }
@@ -1330,7 +1335,7 @@ namespace SoftStartTiming
                     break;
                 case 1:
                     // rails disable
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0x00 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0x00 });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoPowerOff();

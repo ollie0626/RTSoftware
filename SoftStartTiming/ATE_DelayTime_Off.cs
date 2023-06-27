@@ -267,7 +267,7 @@ namespace SoftStartTiming
                         InsControl._scope.CHx_Offset(1, 0);
                     }
 
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
 
 
                     break;
@@ -286,7 +286,7 @@ namespace SoftStartTiming
                     break;
             }
 
-            RTDev.I2C_WriteBin((byte)(test_parameter.slave >> 1), 0x00, path); // test conditions
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
             MyLib.Delay1s(1);
 
             if (InsControl._tek_scope_en) MyLib.Delay1s(1);
@@ -633,10 +633,6 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.SetStop();
                             else
                                 InsControl._scope.Root_STOP();
-
-                            
-
-
 
                             if (InsControl._tek_scope_en)
                                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
@@ -1237,7 +1233,7 @@ namespace SoftStartTiming
                         GpioOffSelect(test_parameter.gpio_pin);
                     break;
                 case 1:
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
@@ -1256,7 +1252,7 @@ namespace SoftStartTiming
                         GpioOnSelect(test_parameter.gpio_pin);
                     break;
                 case 1:
-                    RTDev.I2C_Write((byte)(test_parameter.slave >> 1), test_parameter.Rail_addr, new byte[] { 0 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0 });
                     break;
                 case 2: // vin trigger
                     InsControl._power.AutoPowerOff();
