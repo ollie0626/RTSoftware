@@ -169,6 +169,7 @@ namespace IN528ATE_tool
                         System.Threading.Thread.Sleep(500);
                         //InsControl._scope.CH1_Level(0.05);
                         myLib.Channel_LevelSetting(1);
+                        InsControl._scope.Root_Clear();
                         System.Threading.Thread.Sleep(1000);
                         // scope open rgb color function
                         InsControl._scope.DoCommand(":DISPlay:PERSistence 5");
@@ -223,6 +224,14 @@ namespace IN528ATE_tool
                             InsControl._scope.CH1_Level(1);
                             System.Threading.Thread.Sleep(250);
                         }
+
+
+                        InsControl._eload.LoadOFF(1);
+                        MyLib.Delay1ms(50);
+                        InsControl._power.AutoPowerOff();
+                        MyLib.Delay1ms(50);
+
+
 
                         row++; idx++;
 #endregion
