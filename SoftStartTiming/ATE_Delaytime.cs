@@ -215,7 +215,11 @@ namespace SoftStartTiming
 
             if (InsControl._tek_scope_en)
             {
-                InsControl._tek_scope.SetTimeScale((40 * Math.Pow(10, -9)));
+                InsControl._tek_scope.SetTimeScale((25 * Math.Pow(10, -12)));
+                //InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 2E6");
+                //InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                //MyLib.Delay1ms(200);
+
             }
             else
             {
@@ -311,7 +315,7 @@ namespace SoftStartTiming
                 {
                     if (InsControl._tek_scope_en)
                     {
-                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0]);
+                        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] / 2);
                         //InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
                         //MyLib.Delay1ms(800);
                     }
@@ -323,7 +327,7 @@ namespace SoftStartTiming
                     }
                 }
             }
-            MyLib.Delay1ms(500);
+            MyLib.Delay1ms(900);
 
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
@@ -372,32 +376,6 @@ namespace SoftStartTiming
                     }
                     MyLib.Delay1ms(300);
 
-                    //if (vmax > Math.Pow(10, 9))
-                    //{
-                    //    re_cnt++;
-
-                    //    if (InsControl._tek_scope_en)
-                    //    {
-                    //        InsControl._tek_scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                    //        //InsControl._tek_scope.CHx_Position(ch_idx + 2, ch_idx + 1);
-                    //    }
-                    //    else
-                    //    {
-                    //        InsControl._scope.CHx_Level(ch_idx + 2, test_parameter.VinList[0] * 3);
-                    //        InsControl._scope.CHx_Offset(ch_idx + 2, test_parameter.VinList[0] * 3 * (ch_idx + 1));
-                    //    }
-                    //    goto re_scale;
-                    //}
-                     
-                    //if (InsControl._tek_scope_en)
-                    //{
-                    //    InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
-                    //}
-                    //else
-                    //{
-                    //    InsControl._scope.CHx_Level(ch_idx + 2, vmax / 2.5);
-                    //    InsControl._scope.CHx_Offset(ch_idx + 2, (vmax / 2.5) * (ch_idx + 1));
-                    //}
                 }
 
             }
@@ -694,9 +672,6 @@ namespace SoftStartTiming
                             else
                                 InsControl._scope.Root_STOP();
 
-                            //MyLib.Delay1s(1);
-
-
 
                             if (InsControl._tek_scope_en)
                                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
@@ -736,24 +711,6 @@ namespace SoftStartTiming
                                 {
                                     if (test_parameter.scope_en[i])
                                     {
-                                        //double temp = 0;
-                                        //for(int j = 0; j < 100; j++)
-                                        //{
-                                        //    if (!test_parameter.sleep_mode)
-                                        //        // pwrdis mode --> falling to rising
-                                        //        InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false);
-                                        //    else
-                                        //        // sleep mode --> rising to falling
-                                        //        InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2);
-
-                                        //    temp = InsControl._tek_scope.MeasureMean(meas_idx);
-                                        //    if (temp > 0) break;
-
-                                        //    InsControl._tek_scope.SetRun();
-                                        //    PowerOffEvent();
-                                        //    GpioOffSelect(test_parameter.gpio_pin);
-                                        //    MyLib.Delay1ms(100);
-                                        //}
 
                                         if (!test_parameter.sleep_mode)
                                             // pwrdis mode --> falling to rising
@@ -863,23 +820,27 @@ namespace SoftStartTiming
                                     break;
                             }
 
+                            sst_res = InsControl._tek_scope.MeasureMean(8);
+                            sst_res = InsControl._tek_scope.MeasureMean(8);
+
                             double us_unit = Math.Pow(10, -6);
                             double ms_unit = Math.Pow(10, -3);
                             double[] time_table = new double[] { 
-                                400 * us_unit, 200 * us_unit, 100 * us_unit, 40 * us_unit, 20 * us_unit, 10 * us_unit, 
+                                500 * us_unit, 400 * us_unit, 200 * us_unit, 100 * us_unit, 50 * us_unit, 20 * us_unit, 10 * us_unit, 
                                 40 * ms_unit, 20 * ms_unit, 10 * ms_unit, 4 * ms_unit, 2 * ms_unit, 1 * ms_unit
                             };
                             List<double> min_list = new List<double>();
                             double time_temp = (delay_time_res) / 4.5;
-                            for (int idx = 0; idx < time_table.Length; idx++)
-                            {
-                                min_list.Add(Math.Abs(time_table[idx] - temp));
-                            }
-                            double min = min_list.Min();
-                            int min_idx = min_list.IndexOf(min);
+                            double time_div = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
+                            //for (int idx = 0; idx < time_table.Length; idx++)
+                            //{
+                            //    min_list.Add(Math.Abs(time_table[idx] - time_temp));
+                            //}
+                            //double min = min_list.Min();
+                            //int min_idx = min_list.IndexOf(min);
 
 
-                            if (delay_time_res > Math.Pow(10, 20))
+                            if (delay_time_res > Math.Pow(10, 20) || delay_time_res < 0)
                             {
                                 InsControl._tek_scope.SetRun();
                                 InsControl._tek_scope.SetTriggerMode();
@@ -890,148 +851,59 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.SetTimeBasePosition(15);
                                 retry_cnt++;
                                 goto retest;
-                            }
-
-                            if (InsControl._tek_scope_en)
+                            } 
+                            else if (delay_time_res > time_div * 4)
                             {
-                                time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-                                InsControl._tek_scope.SetTimeScale(time_table[min_idx]);
+                                InsControl._tek_scope.SetRun();
+                                InsControl._tek_scope.SetTriggerMode();
+                                PowerOffEvent();
+                                InsControl._tek_scope.SetTimeScale(time_temp);
                                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                                 InsControl._tek_scope.SetTimeBasePosition(15);
 
-                                if (time_scale == time_table[min_idx])
+                                if (!(time_div == InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?")))
                                 {
                                     retry_cnt++;
                                     goto retest;
                                 }
+
                             }
+                            else if (delay_time_res < time_div)
+                            {
+                                InsControl._tek_scope.SetRun();
+                                InsControl._tek_scope.SetTriggerMode();
+                                PowerOffEvent();
+                                InsControl._tek_scope.SetTimeScale(delay_time_res / 3);
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                                InsControl._tek_scope.SetTimeBasePosition(15);
+                                retry_cnt++;
+                                goto retest;
+                            }
+
+
+
+
                             MyLib.Delay1ms(500);
 
+                            if (InsControl._tek_scope_en)
+                            {
+                                InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
+                                InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH1");
+                                MyLib.Delay1ms(100);
+                                InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH" + (select_idx + 2).ToString());
+                                MyLib.Delay1ms(100);
+                                InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                                MyLib.Delay1ms(100);
+                                InsControl._tek_scope.DoCommand("CURSor:STATE ON");
+                                MyLib.Delay1ms(100);
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
+                                double data = InsControl._tek_scope.MeasureMean(select_idx + 1);
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
+                                MyLib.Delay1ms(100);
+                            }
 
-
-
-
-
-                            //if (delay_time_res >= time_scale * 4.5)
-                            //{
-                            //    if (delay_time_res > Math.Pow(10, 20))
-                            //    {
-
-                            //        if (InsControl._tek_scope_en)
-                            //        {
-                            //            InsControl._tek_scope.SetRun();
-                            //            InsControl._tek_scope.SetTriggerMode();
-                            //            MyLib.Delay1ms(250);
-                            //            PowerOffEvent();
-                            //            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._tek_scope.SetTimeBasePosition(15);
-                            //        }
-                            //        else
-                            //        {
-                            //            InsControl._scope.Root_RUN();
-                            //            InsControl._scope.AutoTrigger();
-                            //            MyLib.Delay1ms(250);
-                            //            //probe_detect();
-                            //            PowerOffEvent();
-                            //            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-                            //            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
-                            //        }
-
-
-                            //    }
-                            //    if (delay_time_res > 0)
-                            //    {
-                            //        double temp = (delay_time_res * 1.5) / 4;
-
-
-                            //        if (InsControl._tek_scope_en)
-                            //        {
-                            //            InsControl._tek_scope.SetTimeScale(temp);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._tek_scope.SetTimeBasePosition(15);
-                            //        }
-                            //        else
-                            //        {
-                            //            InsControl._scope.TimeScale(temp);
-                            //            InsControl._scope.TimeBasePosition(temp * 3);
-                            //        }
-                            //    }
-                            //    else
-                            //    {
-                            //        if (InsControl._tek_scope_en)
-                            //        {
-                            //            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._tek_scope.SetTimeBasePosition(15);
-                            //        }
-                            //        else
-                            //        {
-                            //            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-                            //            InsControl._scope.TimeBasePosition(test_parameter.ontime_scale_ms * 3);
-                            //        }
-                            //    }
-
-                            //    if (InsControl._tek_scope_en)
-                            //    {
-                            //        InsControl._tek_scope.SetRun();
-                            //    }
-                            //    else
-                            //    {
-                            //        InsControl._scope.Root_RUN();
-                            //    }
-
-                            //    PowerOffEvent();
-                            //    retry_cnt++;
-                            //    goto retest;
-                            //}
-                            //else if (delay_time_res < time_scale)
-                            //{
-                            //    if (delay_time_res < sst_res)
-                            //    {
-                            //        if (InsControl._tek_scope_en)
-                            //        {
-                            //            InsControl._tek_scope.SetTimeScale(sst_res);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._tek_scope.SetTimeBasePosition(15);
-                            //        }
-                            //        else
-                            //        {
-                            //            InsControl._scope.TimeScale(sst_res);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._scope.TimeBasePosition(sst_res * 3);
-                            //        }
-
-                            //    }
-                            //    else
-                            //    {
-                            //        if (InsControl._tek_scope_en)
-                            //        {
-                            //            InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._tek_scope.SetTimeBasePosition(15);
-                            //            InsControl._tek_scope.SetRun();
-                            //        }
-                            //        else
-                            //        {
-                            //            InsControl._scope.TimeScale(delay_time_res / 2);
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                            //            InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
-                            //            InsControl._scope.Root_RUN();
-                            //        }
-                            //        PowerOffEvent();
-                            //        retry_cnt++;
-                            //        goto retest;
-                            //    }
-                            //}
 
                             if (InsControl._tek_scope_en)
                             {
@@ -1098,6 +970,7 @@ namespace SoftStartTiming
                             }
                             _sheet.Cells[row, XLS_Table.T] = vmax;
                             _sheet.Cells[row, XLS_Table.U] = vmin;
+                            int meas_cnt = 10;
 
                             //":MEASure:DELTatime CHANnel1,CHANnel2
                             if (test_parameter.scope_en[0])
@@ -1111,13 +984,13 @@ namespace SoftStartTiming
                                         // sleep mode --> rising to falling
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
                                     MyLib.Delay1ms(10);
-                                    for (int i = 0; i < 3; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
                                 }
                                 else
@@ -1128,7 +1001,7 @@ namespace SoftStartTiming
                                     vbase = InsControl._scope.Meas_CH2Base();
                                 }
 
-                                double calculate_dt = (test_parameter.delay_us_en ? dt1 * Math.Pow(10, 6) : dt1 * Math.Pow(10, 9));
+                                double calculate_dt = (test_parameter.delay_us_en ? dt1 * Math.Pow(10, 6) : dt1 * Math.Pow(10, 3));
                                 _sheet.Cells[row, XLS_Table.H] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.I] = sst1 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.N] = vtop;
@@ -1148,14 +1021,13 @@ namespace SoftStartTiming
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 3);
 
                                     MyLib.Delay1ms(10);
-                                    for (int i = 0; i < 3; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
                                 }
                                 else
@@ -1166,7 +1038,7 @@ namespace SoftStartTiming
                                     vbase = InsControl._scope.Meas_CH3Base();
                                 }
 
-                                double calculate_dt = (test_parameter.delay_us_en ? dt2 * Math.Pow(10, 6) : dt2 * Math.Pow(10, 9));
+                                double calculate_dt = (test_parameter.delay_us_en ? dt2 * Math.Pow(10, 6) : dt2 * Math.Pow(10, 3));
                                 _sheet.Cells[row, XLS_Table.J] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.K] = sst2 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.O] = vtop;
@@ -1186,13 +1058,13 @@ namespace SoftStartTiming
                                         // sleep mode --> rising to falling
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 4);
                                     MyLib.Delay1ms(10);
-                                    for (int i = 0; i < 3; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
-                                    for (int i = 0; i < 2; i++)
+                                    for (int i = 0; i < meas_cnt; i++)
                                         vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
                                 }
                                 else
@@ -1203,8 +1075,8 @@ namespace SoftStartTiming
                                     vbase = InsControl._scope.Meas_CH3Base();
                                 }
 
-                                double calculate_dt = (test_parameter.delay_us_en ? dt3 * Math.Pow(10, 6) : dt3 * Math.Pow(10, 9));
-                                _sheet.Cells[row, XLS_Table.L] = test_parameter.delay_us_en ? dt3 * Math.Pow(10, 6) : dt3 * Math.Pow(10, 9);
+                                double calculate_dt = (test_parameter.delay_us_en ? dt3 * Math.Pow(10, 6) : dt3 * Math.Pow(10, 3));
+                                _sheet.Cells[row, XLS_Table.L] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.M] = sst3 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.P] = vtop;
                                 _sheet.Cells[row, XLS_Table.S] = vbase;
