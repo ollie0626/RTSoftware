@@ -1238,7 +1238,6 @@ namespace SoftStartTiming
                     InsControl._eload.LoadOFF(test_parameter.eload_chx[measNParameter.select_idx]);
 #endif
 
-                //TODO: Issue1
                 MyLib.Delay1s(1);
 
                 List<double> data = new List<double>();
