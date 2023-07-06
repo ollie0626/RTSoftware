@@ -141,7 +141,7 @@ namespace SoftStartTiming
             return ret;
         }
 
-        public int I2C_Read(byte slave, byte addr, byte[] buf)
+        public int I2C_Read(byte slave, byte addr, ref byte[] buf)
         {
             if (i2cModule == null) return -1;
             int ret = i2cModule.RTBB_I2CRead(slave, 0x01, addr, buf.Length, buf);

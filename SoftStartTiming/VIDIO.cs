@@ -21,7 +21,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.1";
+        string win_name = "VIDIO v1.3";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -162,6 +162,7 @@ namespace SoftStartTiming
             test_parameter.vidio.vout_map.Clear();
             test_parameter.vidio.io_table.Clear();
             test_parameter.vidio.lpm_vout_map.Clear();
+            test_parameter.vidio.lpm_str.Clear();
 
 
             test_parameter.tool_ver = win_name + "\r\n";
@@ -183,25 +184,19 @@ namespace SoftStartTiming
 
                 test_parameter.vidio.io_table.Add(temp);
 
-                if(Convert.ToDouble(dataGridView2[3, idx].Value) != 0)
-                    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
-                else
-                    test_parameter.vidio.lpm_vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
 
+                test_parameter.vidio.vout_map.Add(dataGridView2[3, idx].Value, temp);
 
+                //if (Convert.ToDouble(dataGridView2[3, idx].Value) != 0)
+                //    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+                //else
+                //    test_parameter.vidio.lpm_vout_map.Add((double)dataGridView2[3, idx].Value, temp);
             }
 
 
             for(int i = 0; i < dataGridView1.RowCount; i++)
             {
-                //test_parameter.vidio.lpm_sel.Add(Convert.ToInt16(dataGridView1[0, i].Value));
-                //test_parameter.vidio.g1_sel.Add(Convert.ToInt16(dataGridView1[1, i].Value));
-                //test_parameter.vidio.g2_sel.Add(Convert.ToInt16(dataGridView1[2, i].Value));
-                test_parameter.vidio.vout_list.Add(Convert.ToDouble(dataGridView1[0, i].Value));
-
-                //test_parameter.vidio.lpm_sel_af.Add(Convert.ToInt16(dataGridView1[4, i].Value));
-                //test_parameter.vidio.g1_sel_af.Add(Convert.ToInt16(dataGridView1[5, i].Value));
-                //test_parameter.vidio.g2_sel_af.Add(Convert.ToInt16(dataGridView1[6, i].Value));
+                test_parameter.vidio.vout_list.Add(dataGridView1[0, i].Value);
                 test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[1, i].Value));
             }
 
@@ -716,18 +711,20 @@ namespace SoftStartTiming
     public class VIDIO_parameter
     {
         public List<int> io_table = new List<int>();
-        public Dictionary<double, int> vout_map = new Dictionary<double, int>();
+        public Dictionary<object, int> vout_map = new Dictionary<object, int>();
+
         public Dictionary<double, int> lpm_vout_map = new Dictionary<double, int>();
+        public List<string> lpm_str = new List<string>();
 
         //public List<int> lpm_sel = new List<int>();
         //public List<int> g1_sel = new List<int>();
         //public List<int> g2_sel = new List<int>();
-        public List<double> vout_list = new List<double>();
+        public List<object> vout_list = new List<object>();
 
         //public List<int> lpm_sel_af = new List<int>();
         //public List<int> g1_sel_af = new List<int>();
         //public List<int> g2_sel_af = new List<int>();
-        public List<double> vout_list_af = new List<double>();
+        public List<object> vout_list_af = new List<object>();
         public double discharge_time;
         public double discharge_load;
     }
