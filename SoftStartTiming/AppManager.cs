@@ -6,7 +6,7 @@ namespace SoftStartTiming
 {
     public partial class SoftStartTiming
     {
-        private string win_name = "Soft start v1.14_beta";
+        private string win_name = "Soft start v1.15_beta";
 
 
         public CheckBox[] binTable;
@@ -28,6 +28,7 @@ namespace SoftStartTiming
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };
 
             CBItem.SelectedIndex = 1;
+            CbTrigger.SelectedIndex = 0;
         }
     }
 

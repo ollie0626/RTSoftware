@@ -530,7 +530,11 @@ namespace SoftStartTiming
                             //InsControl._scope.DoCommand(":MARKer:MODE OFF");
                             string file_name;
                             string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                            test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
+
+                            // gpio high power disable --> falling trigger, test_parameter.sleep_mode = false
+                            // gpio high sleep mode --> rising trigger, test_parameter.sleep_mode = true
+
+                            //test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
                             if (!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
                             MyLib.Delay1ms(500);
 

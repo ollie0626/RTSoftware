@@ -268,6 +268,8 @@ namespace SoftStartTiming
 
             test_parameter.item_idx = CBItem.SelectedIndex;
             test_parameter.eload_cr = ck_crmode.Checked;
+
+            test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? false : true;
         }
 
         private void BTRun_Click(object sender, EventArgs e)

@@ -32,6 +32,8 @@ namespace SoftStartTiming
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.CBEdge = new System.Windows.Forms.ComboBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ck_crmode = new System.Windows.Forms.CheckBox();
             this.tb_iout = new System.Windows.Forms.TextBox();
@@ -164,6 +166,8 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.CBEdge);
+            this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.labRail_en);
             this.tabPage2.Controls.Add(this.nuAddr);
@@ -199,6 +203,26 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(808, 412);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
+            // 
+            // CBEdge
+            // 
+            this.CBEdge.FormattingEnabled = true;
+            this.CBEdge.Items.AddRange(new object[] {
+            "Rising edge",
+            "Falling edge"});
+            this.CBEdge.Location = new System.Drawing.Point(399, 92);
+            this.CBEdge.Name = "CBEdge";
+            this.CBEdge.Size = new System.Drawing.Size(140, 20);
+            this.CBEdge.TabIndex = 90;
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(314, 95);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(81, 12);
+            this.label16.TabIndex = 89;
+            this.label16.Text = "GPIO Trigger";
             // 
             // groupBox2
             // 
@@ -1390,6 +1414,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox tb_iout;
         private System.Windows.Forms.CheckBox ck_crmode;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.ComboBox CBEdge;
     }
 }
 
