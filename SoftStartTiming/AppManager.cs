@@ -28,7 +28,7 @@ namespace SoftStartTiming
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };
 
             CBItem.SelectedIndex = 1;
-            CbTrigger.SelectedIndex = 0;
+            CBEdge.SelectedIndex = 0;
         }
     }
 
