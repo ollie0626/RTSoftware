@@ -636,6 +636,7 @@ namespace SoftStartTiming
                                     //MyLib.Delay1ms(1500);
                                     if (test_parameter.sleep_mode)
                                     {
+                                        // sleep mode
                                         if (InsControl._tek_scope_en)
                                             InsControl._tek_scope.SetTriggerRise();
                                         else
@@ -646,6 +647,7 @@ namespace SoftStartTiming
                                     }
                                     else
                                     {
+                                        // PWRDis
                                         if (InsControl._tek_scope_en)
                                             InsControl._tek_scope.SetTriggerFall();
                                         else
@@ -711,7 +713,6 @@ namespace SoftStartTiming
                             double delay_time_res = 0;
                             double sst_res = 0;
                             int meas_idx = 1;
-                            // TODO: Call Delay time and SST Measure 
                             if (InsControl._tek_scope_en)
                             {
                                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
@@ -993,19 +994,19 @@ namespace SoftStartTiming
                                         InsControl._tek_scope.SetMeasureDelay(8, 1, 2);
                                     MyLib.Delay1ms(10);
 
-                                    dt1 = InsControl._tek_scope.MeasureMean(delay_time_num[0]) - test_parameter.offset_time;
-                                    sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, soft_start_num[0]);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(2, vtop_num[0]);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(2, vbase_num[0]);
+                                    //dt1 = InsControl._tek_scope.MeasureMean(delay_time_num[0]) - test_parameter.offset_time;
+                                    //sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, soft_start_num[0]);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(2, vtop_num[0]);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(2, vbase_num[0]);
 
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        sst1 = InsControl._tek_scope.CHx_Meas_Rise(2, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
                                 }
                                 else
                                 {
@@ -1036,19 +1037,19 @@ namespace SoftStartTiming
 
                                     MyLib.Delay1ms(10);
 
-                                    dt2 = InsControl._tek_scope.MeasureMean(delay_time_num[1]) - test_parameter.offset_time;
-                                    sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, soft_start_num[1]);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(3, vtop_num[1]);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(3, vbase_num[1]);
+                                    //dt2 = InsControl._tek_scope.MeasureMean(delay_time_num[1]) - test_parameter.offset_time;
+                                    //sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, soft_start_num[1]);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(3, vtop_num[1]);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(3, vbase_num[1]);
 
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        sst2 = InsControl._tek_scope.CHx_Meas_Rise(3, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
                                 }
                                 else
                                 {
@@ -1080,20 +1081,20 @@ namespace SoftStartTiming
                                     MyLib.Delay1ms(10);
 
 
-                                    dt3 = InsControl._tek_scope.MeasureMean(delay_time_num[2]) - test_parameter.offset_time;
-                                    sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, soft_start_num[2]);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(4, vtop_num[2]);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(4, vbase_num[2]);
+                                    //dt3 = InsControl._tek_scope.MeasureMean(delay_time_num[2]) - test_parameter.offset_time;
+                                    //sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, soft_start_num[2]);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(4, vtop_num[2]);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(4, vbase_num[2]);
 
 
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
-                                    //for (int i = 0; i < meas_cnt; i++)
-                                    //    vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        sst3 = InsControl._tek_scope.CHx_Meas_Rise(4, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
+                                    for (int i = 0; i < meas_cnt; i++)
+                                        vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
                                 }
                                 else
                                 {

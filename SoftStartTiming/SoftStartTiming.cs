@@ -269,7 +269,7 @@ namespace SoftStartTiming
             test_parameter.item_idx = CBItem.SelectedIndex;
             test_parameter.eload_cr = ck_crmode.Checked;
 
-            test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? false : true;
+            test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? true : false;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -358,8 +358,21 @@ namespace SoftStartTiming
 
         private void Run_Single_Task(object idx)
         {
-            ate_table[(int)idx].temp = 25;
-            ate_table[(int)idx].ATETask();
+            if((int)idx == 3)
+            {
+                ate_table[0].temp = 25;
+                ate_table[0].ATETask();
+
+                ate_table[2].temp = 25;
+                ate_table[2].ATETask();
+
+            }
+            else
+            {
+                ate_table[(int)idx].temp = 25;
+                ate_table[(int)idx].ATETask();
+            }
+
             BTRun.Invoke((MethodInvoker)(() => BTRun.Enabled = true));
         }
 
