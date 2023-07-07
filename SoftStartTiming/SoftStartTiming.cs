@@ -253,7 +253,7 @@ namespace SoftStartTiming
                 test_parameter.bin_en[i] = binTable[i].Checked;
             }
             test_parameter.trigger_event = CbTrigger.SelectedIndex; // test example gpio trigger
-            test_parameter.sleep_mode = false;
+            //test_parameter.sleep_mode = false;
             test_parameter.delay_us_en = RBUs.Checked;
             test_parameter.offset_time = RBUs.Checked ? ((double)nuOffset.Value * Math.Pow(10, -6)) : ((double)nuOffset.Value * Math.Pow(10, -3));
             test_parameter.gpio_pin = CBGPIO.SelectedIndex;
@@ -269,6 +269,8 @@ namespace SoftStartTiming
             test_parameter.item_idx = CBItem.SelectedIndex;
             test_parameter.eload_cr = ck_crmode.Checked;
 
+            // CBEdge.SelectedIndex = 0 --> rising
+            // 
             test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? true : false;
         }
 

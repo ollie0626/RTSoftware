@@ -115,18 +115,6 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_Position(3, -2);
                 InsControl._tek_scope.CHx_Position(4, -3);
 
-                //if (test_parameter.scope_en[i])
-                //{
-                //    if (test_parameter.sleep_mode)
-                //        // pwrdis mode --> rising to falling
-                //        InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, true, false);
-                //    else
-                //        // sleep mode --> falling to falling
-                //        InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false, false);
-
-                //    meas_idx++;
-                //}
-
                 for (int i = 0; i < test_parameter.scope_en.Length; i++)
                 {
                     if(test_parameter.scope_en[i])
@@ -134,34 +122,37 @@ namespace SoftStartTiming
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0]);
 
 
-                        switch(i)
+                        // set all meassure
+                        switch (i)
                         {
                             case 0: // Channel2
-
-                                if (test_parameter.sleep_mode) // PWRDis mode --> rising to falling
+                                if (test_parameter.sleep_mode) 
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, true, false);
-                                else // sleep mode --> falling to falling
+                                else 
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, false, false);
+                                InsControl._tek_scope.SetMeasureSource(2, meas_sst1, "FALL");
+                                InsControl._tek_scope.SetMeasureSource(2, meas_vtop1, "HIGH");
+                                InsControl._tek_scope.SetMeasureSource(2, meas_vbase1, "LOW");
 
-                                
-                                
                                 break;
                             case 1: // Channel3
-
-                                if (test_parameter.sleep_mode) // PWRDis mode --> rising to falling
+                                if (test_parameter.sleep_mode) 
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, true, false);
-                                else // sleep mode --> falling to falling
+                                else 
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, false, false);
-
+                                InsControl._tek_scope.SetMeasureSource(3, meas_sst2, "FALL");
+                                InsControl._tek_scope.SetMeasureSource(3, meas_vtop2, "HIGH");
+                                InsControl._tek_scope.SetMeasureSource(3, meas_vbase2, "LOW");
 
                                 break;
                             case 2: // Channel4
-
-                                if (test_parameter.sleep_mode) // PWRDis mode --> rising to falling
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 2, true, false);
-                                else // sleep mode --> falling to falling
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 2, false, false);
-
+                                if (test_parameter.sleep_mode) 
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, true, false);
+                                else 
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, false, false);
+                                InsControl._tek_scope.SetMeasureSource(4, meas_sst3, "FALL");
+                                InsControl._tek_scope.SetMeasureSource(4, meas_vtop3, "HIGH");
+                                InsControl._tek_scope.SetMeasureSource(4, meas_vbase3, "LOW");
                                 break;
                         }
                     }
@@ -171,9 +162,7 @@ namespace SoftStartTiming
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:HIGH 100");
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID 50");
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:LOW 1");
-
                 InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID2 90");
-
                 InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             }
@@ -485,6 +474,9 @@ namespace SoftStartTiming
                     InsControl._eload.CH2_Loading(0.01);
                     InsControl._eload.CH3_Loading(0.01);
 
+                    InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmax, "MAXimum");
+                    InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmin, "MINImum");
+
                     #region "Report initial"
 #if true
                     _sheet = _book.Worksheets.Add();
@@ -730,23 +722,23 @@ namespace SoftStartTiming
 
                             double delay_time_res = 0;
                             double sst_res = 0;
-                            int meas_idx = 1;
+                            //int meas_idx = 1;
                             if (InsControl._tek_scope_en)
                             {
-                                for (int i = 0; i < test_parameter.scope_en.Length; i++)
-                                {
-                                    if (test_parameter.scope_en[i])
-                                    {
-                                        if (test_parameter.sleep_mode)
-                                            // pwrdis mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, true, false);
-                                        else
-                                            // sleep mode --> falling to falling
-                                            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false, false);
+                                //for (int i = 0; i < test_parameter.scope_en.Length; i++)
+                                //{
+                                //    if (test_parameter.scope_en[i])
+                                //    {
+                                //        if (test_parameter.sleep_mode)
+                                //            // pwrdis mode --> rising to falling
+                                //            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, true, false);
+                                //        else
+                                //            // sleep mode --> falling to falling
+                                //            InsControl._tek_scope.SetMeasureDelay(meas_idx, 1, i + 2, false, false);
 
-                                        meas_idx++;
-                                    }
-                                }
+                                //        meas_idx++;
+                                //    }
+                                //}
 
                                 // I think power off time don't need measure falling time
                                 //for (int i = 0; i < test_parameter.scope_en.Length; i++)
@@ -768,7 +760,22 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.DoCommand("CURSor:STATE ON");
                                 MyLib.Delay1ms(100);
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 0");
-                                double data = InsControl._tek_scope.MeasureMean(select_idx + 1);
+                                
+                                
+                                double data = 0;
+                                switch(select_idx)
+                                {
+                                    case 0:
+                                        data = InsControl._tek_scope.MeasureMean(meas_dt1);
+                                        break;
+                                    case 1:
+                                        data = InsControl._tek_scope.MeasureMean(meas_dt2);
+                                        break;
+                                    case 2:
+                                        data = InsControl._tek_scope.MeasureMean(meas_dt3);
+                                        break;
+                                }
+
                                 InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + data.ToString());
                                 MyLib.Delay1ms(100);
                                 MyLib.Delay1s(1);
@@ -781,18 +788,20 @@ namespace SoftStartTiming
                                 case 0:
                                     if(InsControl._tek_scope_en)
                                     {
-                                        if (test_parameter.sleep_mode)
-                                            // pwrdis mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2, true, false);
-                                        else
-                                            // sleep mode --> falling to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false, false);
+                                        //if (test_parameter.sleep_mode)
+                                        //    // pwrdis mode --> rising to falling
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 2, true, false);
+                                        //else
+                                        //    // sleep mode --> falling to falling
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false, false);
 
-                                        delay_time_res = InsControl._tek_scope.MeasureMean(8);
+                                        //delay_time_res = InsControl._tek_scope.MeasureMean(8);
+                                        //InsControl._tek_scope.SetMeasureSource(2, 8, "FALL");
+                                        //sst_res = InsControl._tek_scope.MeasureMean(8);
 
 
-                                        InsControl._tek_scope.SetMeasureSource(2, 8, "FALL");
-                                        sst_res = InsControl._tek_scope.MeasureMean(8);
+                                        delay_time_res = InsControl._tek_scope.MeasureMean(meas_dt1);
+                                        sst_res = InsControl._tek_scope.MeasureMean(meas_sst1);
                                     }
                                     else
                                     {
@@ -803,18 +812,18 @@ namespace SoftStartTiming
                                 case 1:
                                     if(InsControl._tek_scope_en)
                                     {
-                                        if (test_parameter.sleep_mode)
-                                            // pwrdis mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3, true, false);
-                                        else
-                                            // sleep mode --> falling to rising
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false, false);
+                                        //if (test_parameter.sleep_mode)
+                                        //    // pwrdis mode --> rising to falling
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 3, true, false);
+                                        //else
+                                        //    // sleep mode --> falling to rising
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false, false);
+                                        //delay_time_res = InsControl._tek_scope.MeasureMean(8);
+                                        //InsControl._tek_scope.SetMeasureSource(3, 8, "FALL");
+                                        //sst_res = InsControl._tek_scope.MeasureMean(8);
 
-                                        delay_time_res = InsControl._tek_scope.MeasureMean(8);
-
-
-                                        InsControl._tek_scope.SetMeasureSource(3, 8, "FALL");
-                                        sst_res = InsControl._tek_scope.MeasureMean(8);
+                                        delay_time_res = InsControl._tek_scope.MeasureMean(meas_dt2);
+                                        sst_res = InsControl._tek_scope.MeasureMean(meas_sst2);
                                     }
                                     else
                                     {
@@ -825,18 +834,18 @@ namespace SoftStartTiming
                                 case 2:
                                     if(InsControl._tek_scope_en)
                                     {
-                                        if (test_parameter.sleep_mode)
-                                            // pwrdis mode --> rising to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4, true, false);
-                                        else
-                                            // sleep mode --> falling to falling
-                                            InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false, false);
+                                        //if (test_parameter.sleep_mode)
+                                        //    // pwrdis mode --> rising to falling
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 4, true, false);
+                                        //else
+                                        //    // sleep mode --> falling to falling
+                                        //    InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false, false);
+                                        //delay_time_res = InsControl._tek_scope.MeasureMean(8);
+                                        //InsControl._tek_scope.SetMeasureSource(4, 8, "FALL");
+                                        //sst_res = InsControl._tek_scope.MeasureMean(8);
 
-                                        delay_time_res = InsControl._tek_scope.MeasureMean(8);
-
-
-                                        InsControl._tek_scope.SetMeasureSource(4, 8, "FALL");
-                                        sst_res = InsControl._tek_scope.MeasureMean(8);
+                                        delay_time_res = InsControl._tek_scope.MeasureMean(meas_dt3);
+                                        sst_res = InsControl._tek_scope.MeasureMean(meas_sst3);
                                     }
                                     else
                                     {
@@ -877,8 +886,6 @@ namespace SoftStartTiming
                                 if (delay_time_res > 0)
                                 {
                                     double temp = (delay_time_res * 1.2) / 4;
-
-
                                     if(InsControl._tek_scope_en)
                                     {
                                         InsControl._tek_scope.SetTimeScale(temp);
@@ -989,8 +996,10 @@ namespace SoftStartTiming
                                 case 0:
                                     if(InsControl._tek_scope_en)
                                     {
-                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 8);
-                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 8);
+                                        //vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 8);
+                                        //vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 8);
+                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(2, current_vmax);
+                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(2, current_vmin);
                                     }
                                     else
                                     {
@@ -1002,8 +1011,10 @@ namespace SoftStartTiming
                                 case 1:
                                     if (InsControl._tek_scope_en)
                                     {
-                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(3, 8);
-                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(3, 8);
+                                        //vmax = InsControl._tek_scope.CHx_Meas_MAX(3, 8);
+                                        //vmin = InsControl._tek_scope.CHx_Meas_MIN(3, 8);
+                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(3, current_vmax);
+                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(3, current_vmin);
                                     }
                                     else
                                     {
@@ -1015,8 +1026,11 @@ namespace SoftStartTiming
                                 case 2:
                                     if(InsControl._tek_scope_en)
                                     {
-                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(4, 8);
-                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(4, 8);
+                                        //vmax = InsControl._tek_scope.CHx_Meas_MAX(4, 8);
+                                        //vmin = InsControl._tek_scope.CHx_Meas_MIN(4, 8);
+
+                                        vmax = InsControl._tek_scope.CHx_Meas_MAX(4, current_vmax);
+                                        vmin = InsControl._tek_scope.CHx_Meas_MIN(4, current_vmin);
                                     }
                                     else
                                     {
@@ -1034,17 +1048,22 @@ namespace SoftStartTiming
                             {
                                 if(InsControl._tek_scope_en)
                                 {
-                                    if (!test_parameter.sleep_mode)
-                                        // pwrdis mode --> rising to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2, true, false);
-                                    else
-                                        // sleep mode --> falling to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false, false);
+                                    //if (!test_parameter.sleep_mode)
+                                    //    // pwrdis mode --> rising to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 2, true, false);
+                                    //else
+                                    //    // sleep mode --> falling to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 2, false, false);
 
-                                    dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    sst1 = InsControl._tek_scope.CHx_Meas_Fall(2, 8);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
+                                    //dt1 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    //sst1 = InsControl._tek_scope.CHx_Meas_Fall(2, 8);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(2, 8);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(2, 8);
+
+                                    dt1 = InsControl._tek_scope.MeasureMean(meas_dt1) - test_parameter.offset_time;
+                                    sst1 = InsControl._tek_scope.MeasureMean(meas_sst1);
+                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop1);
+                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase1);
                                 }
                                 else
                                 {
@@ -1065,17 +1084,22 @@ namespace SoftStartTiming
                             {
                                 if(InsControl._tek_scope_en)
                                 {
-                                    if (!test_parameter.sleep_mode)
-                                        // pwrdis mode --> rising to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 3, true, false);
-                                    else
-                                        // sleep mode --> falling to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false, false);
+                                    //if (!test_parameter.sleep_mode)
+                                    //    // pwrdis mode --> rising to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 3, true, false);
+                                    //else
+                                    //    // sleep mode --> falling to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 3, false, false);
 
-                                    dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    sst2 = InsControl._tek_scope.CHx_Meas_Fall(3, 8);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
+                                    //dt2 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    //sst2 = InsControl._tek_scope.CHx_Meas_Fall(3, 8);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(3, 8);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(3, 8);
+
+                                    dt2 = InsControl._tek_scope.MeasureMean(meas_dt2) - test_parameter.offset_time;
+                                    sst2 = InsControl._tek_scope.MeasureMean(meas_sst2);
+                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop2);
+                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase2);
                                 }
                                 else
                                 {
@@ -1098,17 +1122,22 @@ namespace SoftStartTiming
 
                                 if(InsControl._tek_scope_en)
                                 {
-                                    if (!test_parameter.sleep_mode)
-                                        // pwrdis mode --> rising to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 4, true, false);
-                                    else
-                                        // sleep mode --> falling to falling
-                                        InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false, false);
+                                    //if (!test_parameter.sleep_mode)
+                                    //    // pwrdis mode --> rising to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 4, true, false);
+                                    //else
+                                    //    // sleep mode --> falling to falling
+                                    //    InsControl._tek_scope.SetMeasureDelay(8, 1, 4, false, false);
 
-                                    dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
-                                    sst3 = InsControl._tek_scope.CHx_Meas_Fall(4, 8);
-                                    vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
-                                    vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
+                                    //dt3 = InsControl._tek_scope.MeasureMean(8) - test_parameter.offset_time;
+                                    //sst3 = InsControl._tek_scope.CHx_Meas_Fall(4, 8);
+                                    //vtop = InsControl._tek_scope.CHx_Meas_High(4, 8);
+                                    //vbase = InsControl._tek_scope.CHx_Meas_Low(4, 8);
+
+                                    dt3 = InsControl._tek_scope.MeasureMean(meas_dt3) - test_parameter.offset_time;
+                                    sst3 = InsControl._tek_scope.MeasureMean(meas_sst3);
+                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop3);
+                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase3);
                                 }
                                 else
                                 {
@@ -1247,6 +1276,16 @@ namespace SoftStartTiming
                                     wave_pos = 0; wave_row = wave_row + 19;
                                     break;
                             }
+
+                            InsControl._tek_scope.SetMeasureOff(meas_vtop1);
+                            InsControl._tek_scope.SetMeasureOff(meas_vtop2);
+                            InsControl._tek_scope.SetMeasureOff(meas_vtop3);
+                            InsControl._tek_scope.SetMeasureOff(meas_sst1);
+                            InsControl._tek_scope.SetMeasureOff(meas_sst2);
+                            InsControl._tek_scope.SetMeasureOff(meas_sst3);
+                            InsControl._tek_scope.SetMeasureOff(meas_vbase1);
+                            InsControl._tek_scope.SetMeasureOff(meas_vbase2);
+                            InsControl._tek_scope.SetMeasureOff(meas_vbase3);
 
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             row++;
