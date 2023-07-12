@@ -130,9 +130,9 @@ namespace SoftStartTiming
                         {
                             case 0: // Channel2
                                 if (test_parameter.sleep_mode)
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, true, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, true, true);
                                 else
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, false, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, false, true);
                                 InsControl._tek_scope.SetMeasureSource(2, meas_sst1, "RISe");
                                 InsControl._tek_scope.SetMeasureSource(2, meas_vtop1, "HIGH");
                                 InsControl._tek_scope.SetMeasureSource(2, meas_vbase1, "LOW");
@@ -140,9 +140,9 @@ namespace SoftStartTiming
                                 break;
                             case 1: // Channel3
                                 if (test_parameter.sleep_mode)
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, true, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, true, true);
                                 else
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, false, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, false, true);
                                 InsControl._tek_scope.SetMeasureSource(3, meas_sst2, "RISe");
                                 InsControl._tek_scope.SetMeasureSource(3, meas_vtop2, "HIGH");
                                 InsControl._tek_scope.SetMeasureSource(3, meas_vbase2, "LOW");
@@ -150,9 +150,9 @@ namespace SoftStartTiming
                                 break;
                             case 2: // Channel4
                                 if (test_parameter.sleep_mode)
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, true, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, true, true);
                                 else
-                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, false, false);
+                                    InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, false, true);
                                 InsControl._tek_scope.SetMeasureSource(4, meas_sst3, "RISe");
                                 InsControl._tek_scope.SetMeasureSource(4, meas_vtop3, "HIGH");
                                 InsControl._tek_scope.SetMeasureSource(4, meas_vbase3, "LOW");
@@ -399,10 +399,10 @@ namespace SoftStartTiming
                         // tek get max
                         for (int k = 0; k < 3; k++)
                         {
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
                             MyLib.Delay1ms(10);
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 1);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
                             Console.WriteLine("VMax = {0}", vmax);
                             
                             if(vmax > 0.3 && vmax < Math.Pow(10, 3))
@@ -1280,7 +1280,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
-                                    _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AI" + (wave_row + 16).ToString()];
+                                    _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AG" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 1:
@@ -1296,7 +1296,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
-                                    _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AT" + (wave_row + 16).ToString()];
+                                    _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AR" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 2:
@@ -1312,7 +1312,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
-                                    _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
+                                    _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BC" + (wave_row + 16).ToString()];
                                     wave_pos++;
                                     break;
                                 case 3:
@@ -1328,20 +1328,12 @@ namespace SoftStartTiming
                                     _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
                                     _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
-                                    _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BP" + (wave_row + 16).ToString()];
+                                    _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BN" + (wave_row + 16).ToString()];
                                     wave_pos = 0; wave_row = wave_row + 19;
                                     break;
                             }
 
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop1);
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop2);
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop3);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst1);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst2);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst3);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase1);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase2);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase3);
+
 
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             row++;

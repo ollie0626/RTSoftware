@@ -47,7 +47,6 @@ namespace SoftStartTiming
         const int current_vmin = 14;
 
 
-
         public ATE_DelayTime_Off()
         {
             delegate_mess = new FinishNotification(MessageNotify);
@@ -381,8 +380,8 @@ namespace SoftStartTiming
                     if(InsControl._tek_scope_en)
                     {
                         // tek get max
-                        vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
-                        vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                        vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
+                        vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                         MyLib.Delay1ms(100);
                     }
                     else
@@ -1277,15 +1276,15 @@ namespace SoftStartTiming
                                     break;
                             }
 
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop1);
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop2);
-                            InsControl._tek_scope.SetMeasureOff(meas_vtop3);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst1);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst2);
-                            InsControl._tek_scope.SetMeasureOff(meas_sst3);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase1);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase2);
-                            InsControl._tek_scope.SetMeasureOff(meas_vbase3);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vtop1);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vtop2);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vtop3);
+                            //InsControl._tek_scope.SetMeasureOff(meas_sst1);
+                            //InsControl._tek_scope.SetMeasureOff(meas_sst2);
+                            //InsControl._tek_scope.SetMeasureOff(meas_sst3);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vbase1);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vbase2);
+                            //InsControl._tek_scope.SetMeasureOff(meas_vbase3);
 
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             row++;

@@ -282,10 +282,10 @@ namespace SoftStartTiming
                 double vmax = 0;
                 if (InsControl._tek_scope_en)
                 {
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                     MyLib.Delay1ms(100);
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 1);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                 }
                 else
                 {
