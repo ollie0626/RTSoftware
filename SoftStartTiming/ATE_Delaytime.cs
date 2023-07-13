@@ -1,7 +1,7 @@
 ﻿
 
-#define Report
-#define Power_en
+//#define Report
+//#define Power_en
 #define Eload_en
 
 using System;
@@ -296,8 +296,9 @@ namespace SoftStartTiming
 
                     break;
                 case 2: // vin trigger
+#if Power_en
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
-
+#endif
                     if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.SetTriggerSource(1);
@@ -403,8 +404,9 @@ namespace SoftStartTiming
                 InsControl._scope.Root_RUN();
                 InsControl._scope.AutoTrigger();
             }
-
+#if Power_en
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+#endif
             MyLib.Delay1ms(1000);
             TriggerEvent(idx);
 
@@ -470,7 +472,7 @@ namespace SoftStartTiming
             int bin_cnt = 1;
             Array.Copy(test_parameter.VinList.ToArray(), ori_vinTable, vin_cnt);
 
-#if true
+#if Report_en
             // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
@@ -489,8 +491,8 @@ namespace SoftStartTiming
                     InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmax, "MAXimum");
                     InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmin, "MINImum");
 
-                    #region "Report initial"
-#if true
+#region "Report initial"
+#if Report_en
                     _sheet = _book.Worksheets.Add();
                     _sheet.Name = "CH" + (select_idx + 1).ToString();
                     _sheet.Cells.Font.Name = "Calibri";
@@ -552,7 +554,7 @@ namespace SoftStartTiming
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     row++;
 #endif
-                    #endregion
+#endregion
 
                     stopWatch.Start();
                     binList = MyLib.ListBinFile(test_parameter.bin_path[select_idx]);
@@ -940,12 +942,15 @@ namespace SoftStartTiming
                             double vin = 0, dt1 = 0, dt2 = 0, dt3 = 0, sst1 = 0, sst2 = 0, sst3 = 0;
                             double vmax = 0, vmin = 0;
                             double vtop = 0, vbase = 0;
+#if Power_en
                             vin = InsControl._power.GetVoltage();
-
+#endif
+#if Report_en
                             _sheet.Cells[row, XLS_Table.D] = cnt++;
                             _sheet.Cells[row, XLS_Table.E] = temp;
                             _sheet.Cells[row, XLS_Table.F] = vin;
                             _sheet.Cells[row, XLS_Table.G] = res;
+#endif
 
                             // Add new measure
                             switch (select_idx)
@@ -990,8 +995,10 @@ namespace SoftStartTiming
 
                                     break;
                             }
+#if Report_en
                             _sheet.Cells[row, XLS_Table.T] = vmax;
                             _sheet.Cells[row, XLS_Table.U] = vmin;
+#endif
                             int meas_cnt = 10;
 
                             //":MEASure:DELTatime CHANnel1,CHANnel2
@@ -1014,10 +1021,12 @@ namespace SoftStartTiming
                                 }
 
                                 double calculate_dt = (test_parameter.delay_us_en ? dt1 * Math.Pow(10, 6) : dt1 * Math.Pow(10, 3));
+#if Report_en
                                 _sheet.Cells[row, XLS_Table.H] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.I] = sst1 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.N] = vtop;
                                 _sheet.Cells[row, XLS_Table.Q] = vbase;
+#endif
                             }
 
                             if (test_parameter.scope_en[1])
@@ -1039,11 +1048,12 @@ namespace SoftStartTiming
                                 }
 
                                 double calculate_dt = (test_parameter.delay_us_en ? dt2 * Math.Pow(10, 6) : dt2 * Math.Pow(10, 3));
+#if Report_en
                                 _sheet.Cells[row, XLS_Table.J] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.K] = sst2 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.O] = vtop;
                                 _sheet.Cells[row, XLS_Table.R] = vbase;
-
+#endif
                             }
 
                             if (test_parameter.scope_en[2])
@@ -1065,10 +1075,12 @@ namespace SoftStartTiming
                                 }
 
                                 double calculate_dt = (test_parameter.delay_us_en ? dt3 * Math.Pow(10, 6) : dt3 * Math.Pow(10, 3));
+#if Report_en
                                 _sheet.Cells[row, XLS_Table.L] = calculate_dt;
                                 _sheet.Cells[row, XLS_Table.M] = sst3 * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.P] = vtop;
                                 _sheet.Cells[row, XLS_Table.S] = vbase;
+#endif
                             }
 
                             double criteria = MyLib.GetCriteria_time(res);
@@ -1078,6 +1090,7 @@ namespace SoftStartTiming
                             Console.WriteLine(criteria);
                             double value = 0;
 
+#if Report_en
                             switch (select_idx)
                             {
                                 case 0:
@@ -1196,6 +1209,7 @@ namespace SoftStartTiming
                             }
 
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
+#endif
                             row++;
 #endif
                             if (InsControl._tek_scope_en)
@@ -1211,17 +1225,19 @@ namespace SoftStartTiming
                         }
                     }
                     // record test finish time
+#if Report_en
                     stopWatch.Stop();
                     TimeSpan timeSpan = stopWatch.Elapsed;
                     string str_temp = _sheet.Cells[2, XLS_Table.B].Value;
                     string time = string.Format("{0}h_{1}min_{2}sec", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
                     str_temp += "\r\n" + time;
                     _sheet.Cells[2, 2] = str_temp;
+#endif
                 }
             }
             Stop:
             stopWatch.Stop();
-#if true
+#if Report_en
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_DT_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;
@@ -1247,7 +1263,9 @@ namespace SoftStartTiming
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0x00 });
                     break;
                 case 2: // vin trigger
+#if Power_en
                     InsControl._power.AutoPowerOff();
+#endif
                     break;
             }
         }
