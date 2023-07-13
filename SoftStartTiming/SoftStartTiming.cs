@@ -39,10 +39,8 @@ namespace SoftStartTiming
         {
             InitializeComponent();
             VisaCommand._IsDebug = false;
-
             RTDev.BoadInit();
             List<byte> list = RTDev.ScanSlaveID();
-
             if (list != null)
             {
                 if (list.Count > 0)
