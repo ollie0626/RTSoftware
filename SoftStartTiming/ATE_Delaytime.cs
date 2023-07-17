@@ -1,6 +1,6 @@
 ﻿
 
-//#define Report
+#define Report_en
 //#define Power_en
 #define Eload_en
 
@@ -41,16 +41,16 @@ namespace SoftStartTiming
         const int meas_sst2 = 5;
         const int meas_sst3 = 6;
 
-        const int meas_vtop1 = 7;
-        const int meas_vtop2 = 8;
-        const int meas_vtop3 = 9;
+        //const int meas_vtop1 = 7;
+        //const int meas_vtop2 = 8;
+        //const int meas_vtop3 = 9;
 
-        const int meas_vbase1 = 10;
-        const int meas_vbase2 = 11;
-        const int meas_vbase3 = 12;
+        //const int meas_vbase1 = 10;
+        //const int meas_vbase2 = 11;
+        //const int meas_vbase3 = 12;
 
-        const int current_vmax = 13;
-        const int current_vmin = 14;
+        //const int current_vmax = 13;
+        //const int current_vmin = 14;
 
         public ATE_DelayTime()
         {
@@ -140,8 +140,8 @@ namespace SoftStartTiming
                                 else
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt1, 1, 2, false, true);
                                 InsControl._tek_scope.SetMeasureSource(2, meas_sst1, "RISe");
-                                InsControl._tek_scope.SetMeasureSource(2, meas_vtop1, "HIGH");
-                                InsControl._tek_scope.SetMeasureSource(2, meas_vbase1, "LOW");
+                                //InsControl._tek_scope.SetMeasureSource(2, meas_vtop1, "HIGH");
+                                //InsControl._tek_scope.SetMeasureSource(2, meas_vbase1, "LOW");
 
                                 break;
                             case 1: // Channel3
@@ -150,8 +150,8 @@ namespace SoftStartTiming
                                 else
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt2, 1, 3, false, true);
                                 InsControl._tek_scope.SetMeasureSource(3, meas_sst2, "RISe");
-                                InsControl._tek_scope.SetMeasureSource(3, meas_vtop2, "HIGH");
-                                InsControl._tek_scope.SetMeasureSource(3, meas_vbase2, "LOW");
+                                //InsControl._tek_scope.SetMeasureSource(3, meas_vtop2, "HIGH");
+                                //InsControl._tek_scope.SetMeasureSource(3, meas_vbase2, "LOW");
 
                                 break;
                             case 2: // Channel4
@@ -160,8 +160,8 @@ namespace SoftStartTiming
                                 else
                                     InsControl._tek_scope.SetMeasureDelay(meas_dt3, 1, 4, false, true);
                                 InsControl._tek_scope.SetMeasureSource(4, meas_sst3, "RISe");
-                                InsControl._tek_scope.SetMeasureSource(4, meas_vtop3, "HIGH");
-                                InsControl._tek_scope.SetMeasureSource(4, meas_vbase3, "LOW");
+                                //InsControl._tek_scope.SetMeasureSource(4, meas_vtop3, "HIGH");
+                                //InsControl._tek_scope.SetMeasureSource(4, meas_vbase3, "LOW");
                                 break;
                         }
                     }
@@ -335,7 +335,7 @@ namespace SoftStartTiming
                         {
                             vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
                             vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
-                            MyLib.Delay1ms(10);
+                            MyLib.Delay1ms(50);
                             vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
                             Console.WriteLine("VMax = {0}", vmax);
 
@@ -488,8 +488,7 @@ namespace SoftStartTiming
                 if (test_parameter.bin_en[select_idx])
                 {
 
-                    InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmax, "MAXimum");
-                    InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmin, "MINImum");
+
 
 #region "Report initial"
 #if Report_en
@@ -890,7 +889,7 @@ namespace SoftStartTiming
                                 InsControl._tek_scope.SetRun();
                                 InsControl._tek_scope.SetTriggerMode();
                                 PowerOffEvent();
-                                InsControl._tek_scope.SetTimeScale(delay_time_res / 3);
+                                InsControl._tek_scope.SetTimeScale(delay_time_res/2);
                                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                                 InsControl._tek_scope.SetTimeBasePosition(15);
@@ -958,7 +957,9 @@ namespace SoftStartTiming
                                 case 0:
                                     if (InsControl._tek_scope_en)
                                     {
+                                        InsControl._tek_scope.SetMeasureSource(2, 8, "MAXimum"); MyLib.Delay1ms(500);
                                         vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 8);
+                                        InsControl._tek_scope.SetMeasureSource(2, 8, "MINImum"); MyLib.Delay1ms(500);
                                         vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 8);
                                     }
                                     else
@@ -971,7 +972,9 @@ namespace SoftStartTiming
                                 case 1:
                                     if (InsControl._tek_scope_en)
                                     {
+                                        InsControl._tek_scope.SetMeasureSource(3, 8, "MAXimum"); MyLib.Delay1ms(500);
                                         vmax = InsControl._tek_scope.CHx_Meas_MAX(3, 8);
+                                        InsControl._tek_scope.SetMeasureSource(3, 8, "MINImum"); MyLib.Delay1ms(500);
                                         vmin = InsControl._tek_scope.CHx_Meas_MIN(3, 8);
                                     }
                                     else
@@ -984,7 +987,9 @@ namespace SoftStartTiming
                                 case 2:
                                     if (InsControl._tek_scope_en)
                                     {
+                                        InsControl._tek_scope.SetMeasureSource(4, 8, "MAXimum"); MyLib.Delay1ms(500);
                                         vmax = InsControl._tek_scope.CHx_Meas_MAX(4, 8);
+                                        InsControl._tek_scope.SetMeasureSource(4, 8, "MINImum"); MyLib.Delay1ms(500);
                                         vmin = InsControl._tek_scope.CHx_Meas_MIN(4, 8);
                                     }
                                     else
@@ -1009,8 +1014,10 @@ namespace SoftStartTiming
 
                                     dt1 = InsControl._tek_scope.MeasureMean(meas_dt1) - test_parameter.offset_time;
                                     sst1 = InsControl._tek_scope.MeasureMean(meas_sst1);
-                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop1);
-                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase1);
+                                    InsControl._tek_scope.SetMeasureSource(2, 8, "HIGH"); MyLib.Delay1ms(500);
+                                    vtop = InsControl._tek_scope.MeasureMean(8);
+                                    InsControl._tek_scope.SetMeasureSource(2, 8, "LOW"); MyLib.Delay1ms(500);
+                                    vbase = InsControl._tek_scope.MeasureMean(8);
                                 }
                                 else
                                 {
@@ -1036,8 +1043,10 @@ namespace SoftStartTiming
 
                                     dt2 = InsControl._tek_scope.MeasureMean(meas_dt2) - test_parameter.offset_time;
                                     sst2 = InsControl._tek_scope.MeasureMean(meas_sst2);
-                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop2);
-                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase2);
+                                    InsControl._tek_scope.SetMeasureSource(3, 8, "HIGH"); MyLib.Delay1ms(500);
+                                    vtop = InsControl._tek_scope.MeasureMean(8);
+                                    InsControl._tek_scope.SetMeasureSource(3, 8, "LOW"); MyLib.Delay1ms(500);
+                                    vbase = InsControl._tek_scope.MeasureMean(8);
                                 }
                                 else
                                 {
@@ -1063,8 +1072,10 @@ namespace SoftStartTiming
                                 {
                                     dt3 = InsControl._tek_scope.MeasureMean(meas_dt3) - test_parameter.offset_time;
                                     sst3 = InsControl._tek_scope.MeasureMean(meas_sst3);
-                                    vtop = InsControl._tek_scope.MeasureMean(meas_vtop3);
-                                    vbase = InsControl._tek_scope.MeasureMean(meas_vbase3);
+                                    InsControl._tek_scope.SetMeasureSource(4, 8, "HIGH"); MyLib.Delay1ms(500);
+                                    vtop = InsControl._tek_scope.MeasureMean(8);
+                                    InsControl._tek_scope.SetMeasureSource(4, 8, "LOW"); MyLib.Delay1ms(500);
+                                    vbase = InsControl._tek_scope.MeasureMean(8);
                                 }
                                 else
                                 {
