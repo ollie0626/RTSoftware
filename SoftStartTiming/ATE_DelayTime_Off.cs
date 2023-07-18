@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-#define Power_en
-#define Eload_en
+//#define Power_en
+//#define Eload_en
 
 using System;
 using System.Collections.Generic;
@@ -326,6 +326,7 @@ namespace SoftStartTiming
                         vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                         vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                         MyLib.Delay1ms(100);
+                        vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
                     }
                     else
                     {
@@ -525,7 +526,9 @@ namespace SoftStartTiming
             _book = (Excel.Workbook)_app.Workbooks.Add();
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
+#if Power_en
             InsControl._power.AutoPowerOff();
+#endif
             OSCInit();
             MyLib.Delay1s(1);
             int cnt = 0;
@@ -533,11 +536,12 @@ namespace SoftStartTiming
             {
                 if (test_parameter.bin_en[select_idx])
                 {
+#if Eload_en
 
                     InsControl._eload.CH1_Loading(0.01);
                     InsControl._eload.CH2_Loading(0.01);
                     InsControl._eload.CH3_Loading(0.01);
-
+#endif
                     //InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmax, "MAXimum");
                     //InsControl._tek_scope.SetMeasureSource(select_idx + 2, current_vmin, "MINImum");
 
@@ -602,7 +606,7 @@ namespace SoftStartTiming
                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                     row++;
 #endif
-                    #endregion
+#endregion
 
                     stopWatch.Start();
 
@@ -747,7 +751,7 @@ namespace SoftStartTiming
                             MyLib.Delay1ms(800);
                             MyLib.Delay1ms(800);
                             PowerOffEvent();
-                            MyLib.Delay1s(1);
+                            MyLib.Delay1s(3);
                             if (InsControl._tek_scope_en)
                                 InsControl._tek_scope.SetStop();
                             else
@@ -885,122 +889,175 @@ namespace SoftStartTiming
                                     break;
                             }
 
-                            if (delay_time_res >= time_scale * 4)
+
+                            double us_unit = Math.Pow(10, -6);
+                            double ms_unit = Math.Pow(10, -3);
+                            double[] time_table = new double[] {
+                                500 * us_unit, 400 * us_unit, 200 * us_unit, 100 * us_unit, 50 * us_unit, 20 * us_unit, 10 * us_unit,
+                                40 * ms_unit, 20 * ms_unit, 10 * ms_unit, 4 * ms_unit, 2 * ms_unit, 1 * ms_unit
+                            };
+                            List<double> min_list = new List<double>();
+                            double time_temp = (delay_time_res) / 4.5;
+                            double time_div = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
+
+                            if (delay_time_res > Math.Pow(10, 20) || delay_time_res < 0)
                             {
-                                if (delay_time_res > Math.Pow(10, 20))
-                                {
-                                    retry_cnt++;
-
-                                    if(InsControl._tek_scope_en)
-                                    {
-                                        InsControl._tek_scope.SetRun();
-                                        InsControl._tek_scope.SetTriggerMode();
-                                        MyLib.Delay1ms(250);
-                                        PowerOffEvent();
-                                        InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._tek_scope.SetTimeBasePosition(15);
-                                    }
-                                    else
-                                    {
-                                        InsControl._scope.Root_RUN();
-                                        InsControl._scope.AutoTrigger();
-                                        MyLib.Delay1ms(250);
-                                        PowerOffEvent();
-                                        InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-                                        InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
-                                    }
-                                    goto retest;
-                                }
-                                if (delay_time_res > 0)
-                                {
-                                    double temp = (delay_time_res * 1.2) / 4;
-                                    if(InsControl._tek_scope_en)
-                                    {
-                                        InsControl._tek_scope.SetTimeScale(temp);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._tek_scope.SetTimeBasePosition(15);
-                                    }
-                                    else
-                                    {
-                                        InsControl._scope.TimeScale(temp);
-                                        InsControl._scope.TimeBasePosition(temp * 3);
-                                    }
-                                }
-                                else
-                                {
-                                    if(InsControl._tek_scope_en)
-                                    {
-                                        InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._tek_scope.SetTimeBasePosition(15);
-                                    }
-                                    else
-                                    {
-                                        InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
-                                        InsControl._scope.TimeBasePosition(test_parameter.ontime_scale_ms * 3);
-                                    }
-                                }
-
-                                if(InsControl._tek_scope_en)
-                                {
-                                    InsControl._tek_scope.SetRun();
-                                }
-                                else
-                                {
-                                    InsControl._scope.Root_RUN();
-                                }
-                                
-                                PowerOnEvent(vin_idx);
+                                InsControl._tek_scope.SetRun();
+                                InsControl._tek_scope.SetTriggerMode();
+                                PowerOffEvent();
+                                InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                                InsControl._tek_scope.SetTimeBasePosition(15);
+                                retry_cnt++;
                                 goto retest;
                             }
-                            else if (delay_time_res < time_scale)
+                            else if (delay_time_res > time_div * 4)
                             {
-                                if (delay_time_res < sst_res)
-                                {
-                                    if(InsControl._tek_scope_en)
-                                    {
-                                        InsControl._tek_scope.SetTimeScale(sst_res);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._tek_scope.SetTimeBasePosition(15);
-                                    }
-                                    else
-                                    {
-                                        InsControl._scope.TimeScale(sst_res);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._scope.TimeBasePosition(sst_res * 3);
-                                    }
+                                InsControl._tek_scope.SetRun();
+                                InsControl._tek_scope.SetTriggerMode();
+                                PowerOffEvent();
+                                InsControl._tek_scope.SetTimeScale(time_temp);
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                                InsControl._tek_scope.SetTimeBasePosition(15);
 
-                                }
-                                else
+                                if (!(time_div == InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?")))
                                 {
-                                    if(InsControl._tek_scope_en)
-                                    {
-                                        InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._tek_scope.SetTimeBasePosition(15);
-                                        InsControl._tek_scope.SetRun();
-                                    }
-                                    else
-                                    {
-                                        InsControl._scope.TimeScale(delay_time_res / 2);
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                                        InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
-                                        InsControl._scope.Root_RUN();
-                                    }
-                                    PowerOnEvent(vin_idx);
+                                    retry_cnt++;
                                     goto retest;
                                 }
                             }
+                            else if (delay_time_res < time_div && delay_time_res > 150 * Math.Pow(10, -6))
+                            {
+                                InsControl._tek_scope.SetRun();
+                                InsControl._tek_scope.SetTriggerMode();
+                                PowerOffEvent();
+                                InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                                InsControl._tek_scope.SetTimeBasePosition(15);
+                                retry_cnt++;
+                                goto retest;
+                            }
 
-                            if(InsControl._tek_scope_en)
+
+                            //if (delay_time_res >= time_scale * 3)
+                            //{
+                            //    if (delay_time_res > Math.Pow(10, 20))
+                            //    {
+                            //        retry_cnt++;
+
+                            //        if(InsControl._tek_scope_en)
+                            //        {
+                            //            InsControl._tek_scope.SetRun();
+                            //            InsControl._tek_scope.SetTriggerMode();
+                            //            MyLib.Delay1ms(250);
+                            //            PowerOffEvent();
+                            //            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._tek_scope.SetTimeBasePosition(15);
+                            //        }
+                            //        else
+                            //        {
+                            //            InsControl._scope.Root_RUN();
+                            //            InsControl._scope.AutoTrigger();
+                            //            MyLib.Delay1ms(250);
+                            //            PowerOffEvent();
+                            //            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                            //            InsControl._scope.TimeBasePositionMs(test_parameter.ontime_scale_ms * 3);
+                            //        }
+                            //        goto retest;
+                            //    }
+                            //    if (delay_time_res > 0)
+                            //    {
+                            //        double temp = (delay_time_res * 1.2) / 4;
+                            //        if(InsControl._tek_scope_en)
+                            //        {
+                            //            InsControl._tek_scope.SetTimeScale(temp);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._tek_scope.SetTimeBasePosition(15);
+                            //        }
+                            //        else
+                            //        {
+                            //            InsControl._scope.TimeScale(temp);
+                            //            InsControl._scope.TimeBasePosition(temp * 3);
+                            //        }
+                            //    }
+                            //    else
+                            //    {
+                            //        if(InsControl._tek_scope_en)
+                            //        {
+                            //            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._tek_scope.SetTimeBasePosition(15);
+                            //        }
+                            //        else
+                            //        {
+                            //            InsControl._scope.TimeScaleMs(test_parameter.ontime_scale_ms);
+                            //            InsControl._scope.TimeBasePosition(test_parameter.ontime_scale_ms * 3);
+                            //        }
+                            //    }
+
+                            //    if(InsControl._tek_scope_en)
+                            //    {
+                            //        InsControl._tek_scope.SetRun();
+                            //    }
+                            //    else
+                            //    {
+                            //        InsControl._scope.Root_RUN();
+                            //    }
+
+                            //    PowerOnEvent(vin_idx);
+                            //    goto retest;
+                            //}
+                            //else if (delay_time_res < time_scale)
+                            //{
+                            //    if (delay_time_res < sst_res)
+                            //    {
+                            //        if(InsControl._tek_scope_en)
+                            //        {
+                            //            InsControl._tek_scope.SetTimeScale(sst_res);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._tek_scope.SetTimeBasePosition(15);
+                            //        }
+                            //        else
+                            //        {
+                            //            InsControl._scope.TimeScale(sst_res);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._scope.TimeBasePosition(sst_res * 3);
+                            //        }
+
+                            //    }
+                            //    else
+                            //    {
+                            //        if(InsControl._tek_scope_en)
+                            //        {
+                            //            InsControl._tek_scope.SetTimeScale(delay_time_res / 2);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._tek_scope.SetTimeBasePosition(15);
+                            //            InsControl._tek_scope.SetRun();
+                            //        }
+                            //        else
+                            //        {
+                            //            InsControl._scope.TimeScale(delay_time_res / 2);
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                            //            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+                            //            InsControl._scope.TimeBasePosition((delay_time_res / 2) * 3);
+                            //            InsControl._scope.Root_RUN();
+                            //        }
+                            //        PowerOnEvent(vin_idx);
+                            //        goto retest;
+                            //    }
+                            //}
+
+                            if (InsControl._tek_scope_en)
                             {
                                 InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path + @"\CH" + (select_idx).ToString(), file_name);
                             }

@@ -428,7 +428,7 @@ namespace SoftStartTiming
                     if (InsControl._tek_scope_en)
                     {
                         InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] / 2);
-                        //InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
+                        InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
                         //MyLib.Delay1ms(800);
                     }
                     else

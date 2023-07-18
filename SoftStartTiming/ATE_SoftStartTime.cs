@@ -1,8 +1,8 @@
 ﻿
 
 #define Report
-#define Power_en
-#define Eload_en
+//#define Power_en
+//#define Eload_en
 
 
 using System;
@@ -500,10 +500,10 @@ namespace SoftStartTiming
                         if (!InsControl._tek_scope_en) InsControl._scope.DoCommand(":MARKer:MODE OFF");
                         string file_name;
                         string res = Path.GetFileNameWithoutExtension(binList[bin_idx]);
-                        test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
+                        //test_parameter.sleep_mode = (res.IndexOf("sleep_en") == -1) ? false : true;
                         if (!InsControl._tek_scope_en) InsControl._scope.Measure_Clear();
 
-
+#if Eload_en
                         if(test_parameter.eload_cr)
                         {
                             if (iout > 80) InsControl._eload.CRL_Mode();
@@ -518,7 +518,7 @@ namespace SoftStartTiming
                             MyLib.Switch_ELoadLevel(iout);
                             InsControl._eload.CH1_Loading(iout);
                         }
-
+#endif
                         MyLib.Delay1s(1);
 
                         // Call Measure display to waveform
@@ -873,9 +873,11 @@ namespace SoftStartTiming
                         else InsControl._scope.Root_RUN();
 
                         PowerOffEvent();
+
+#if Eload_en
                         InsControl._eload.CH1_Loading(0);
                         InsControl._eload.LoadOFF(1);
-
+#endif
 
                     } // iout loop
                 } // bin loop
