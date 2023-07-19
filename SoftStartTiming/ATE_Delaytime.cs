@@ -26,7 +26,7 @@ namespace SoftStartTiming
         Excel.Range _range;
         //Excel.Chart _chart;
 
-        public double temp;
+        //public double temp;
         MyLib Mylib = new MyLib();
         RTBBControl RTDev = new RTBBControl();
         //TestClass tsClass = new TestClass();

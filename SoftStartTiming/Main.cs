@@ -50,6 +50,11 @@ namespace SoftStartTiming
                     form = new VIDI2C();
                     form.ShowDialog();
                     break;
+                case 4:
+                    form = new LoadTransient();
+                    form.ShowDialog();
+                    break;
+                   
             }
         }
 

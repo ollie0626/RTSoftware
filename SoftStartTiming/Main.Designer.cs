@@ -31,10 +31,10 @@ namespace SoftStartTiming
         {
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.textToBinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.closeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.textToBinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,10 +58,17 @@ namespace SoftStartTiming
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(38, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // textToBinToolStripMenuItem
+            // 
+            this.textToBinToolStripMenuItem.Name = "textToBinToolStripMenuItem";
+            this.textToBinToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
+            this.textToBinToolStripMenuItem.Text = "Text to Bin";
+            this.textToBinToolStripMenuItem.Click += new System.EventHandler(this.textToBinToolStripMenuItem_Click);
+            // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(133, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.closeToolStripMenuItem_Click);
             // 
@@ -81,19 +88,13 @@ namespace SoftStartTiming
             "1. SoftStart Time",
             "2. Cross Talk",
             "3. VID (IO)",
-            "4. VID (I2C)"});
+            "4. VID (I2C)",
+            "5. Load Transient"});
             this.CBItem.Location = new System.Drawing.Point(110, 44);
             this.CBItem.Name = "CBItem";
             this.CBItem.Size = new System.Drawing.Size(141, 20);
             this.CBItem.TabIndex = 2;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
-            // 
-            // textToBinToolStripMenuItem
-            // 
-            this.textToBinToolStripMenuItem.Name = "textToBinToolStripMenuItem";
-            this.textToBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.textToBinToolStripMenuItem.Text = "Text to Bin";
-            this.textToBinToolStripMenuItem.Click += new System.EventHandler(this.textToBinToolStripMenuItem_Click);
             // 
             // Main
             // 

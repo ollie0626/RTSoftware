@@ -44,7 +44,7 @@ namespace SoftStartTiming
             delta_pos, delta_neg, tol_pos, tol_neg, res_pos, res_neg,
         };
 
-        public double temp;
+        //public double temp;
         RTBBControl RTDev = new RTBBControl();
         public delegate void FinishNotification();
         FinishNotification delegate_mess;

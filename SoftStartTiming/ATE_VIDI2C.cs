@@ -21,7 +21,7 @@ namespace SoftStartTiming
         Excel.Workbook _book;
         Excel.Range _range;
 
-        public new double temp;
+        //public new double temp;
         RTBBControl RTDev = new RTBBControl();
 
         const double level_scale_div = 5;

@@ -70,6 +70,8 @@ namespace SoftStartTiming
             this.nuToerance = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.nuAccumulate = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.nu_ontime_scale = new System.Windows.Forms.NumericUpDown();
             this.CBItem = new System.Windows.Forms.ComboBox();
@@ -113,8 +115,6 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.label7 = new System.Windows.Forms.Label();
-            this.nuAccumulate = new System.Windows.Forms.NumericUpDown();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -124,6 +124,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -135,7 +136,6 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -564,6 +564,39 @@ namespace SoftStartTiming
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Time Setting";
             // 
+            // nuAccumulate
+            // 
+            this.nuAccumulate.DecimalPlaces = 3;
+            this.nuAccumulate.Location = new System.Drawing.Point(178, 40);
+            this.nuAccumulate.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nuAccumulate.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nuAccumulate.Name = "nuAccumulate";
+            this.nuAccumulate.Size = new System.Drawing.Size(62, 22);
+            this.nuAccumulate.TabIndex = 44;
+            this.nuAccumulate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuAccumulate.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(30, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(124, 12);
+            this.label7.TabIndex = 43;
+            this.label7.Text = "Accumulated time (s)";
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -951,39 +984,6 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 115;
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(30, 46);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(124, 12);
-            this.label7.TabIndex = 43;
-            this.label7.Text = "Accumulated time (s)";
-            // 
-            // nuAccumulate
-            // 
-            this.nuAccumulate.DecimalPlaces = 3;
-            this.nuAccumulate.Location = new System.Drawing.Point(178, 40);
-            this.nuAccumulate.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.nuAccumulate.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nuAccumulate.Name = "nuAccumulate";
-            this.nuAccumulate.Size = new System.Drawing.Size(62, 22);
-            this.nuAccumulate.TabIndex = 44;
-            this.nuAccumulate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nuAccumulate.Value = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1016,6 +1016,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -1027,7 +1028,6 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
