@@ -71,6 +71,10 @@ namespace SoftStartTiming
         public double T1;
         public double T2;
 
+        public double Tr;
+        public double Tf;
+        public double zoom_in_ratio;
+
         // dynamic loading setting
         public List<double> hi_current = new List<double>();
         public List<double> lo_current = new List<double>();
@@ -79,5 +83,6 @@ namespace SoftStartTiming
         public double offset;
 
         public bool eload_dev_sel;
+        public double gain;
     }
 }

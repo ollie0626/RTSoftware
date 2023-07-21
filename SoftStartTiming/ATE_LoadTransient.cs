@@ -27,7 +27,7 @@ namespace SoftStartTiming
         Excel.Range _range;
         
         RTBBControl RTDev = new RTBBControl();
-
+        
         private bool sel;
 
         private void OSCInit()
@@ -35,11 +35,50 @@ namespace SoftStartTiming
             
         }
 
+        private void Funcgen_HiLo( double hi, double lo)
+        {
+            InsControl._funcgen.CHl1_HiLevel(hi);
+            InsControl._funcgen.CH1_LoLevel(lo);
+        }
+
+        private void AdjustCurrent(double hi, double lo, bool eload = false)
+        {
+            if(eload)
+            {
+                double t1 = test_parameter.loadtransient.T1;
+                double t2 = test_parameter.loadtransient.T2;
+                InsControl._eload.DymanicCH1(hi, lo, t1, t2);
+            }
+            else
+            {
+                double gain = test_parameter.loadtransient.gain;
+                double hi_cal = hi * gain;
+                double lo_cal = lo * gain;
+                Funcgen_HiLo(hi_cal, lo_cal);
+            }
+        }
+
+        private void AdjustTrigger(double hi, double lo)
+        {
+            double trigger_level = lo + (hi - lo) * 0.7;
+            InsControl._oscilloscope.SetTriggerRise();
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(4);
+            InsControl._oscilloscope.SetTriggerLevel(4, trigger_level);
+        }
+
+        private void ZoomIn(bool rising = true)
+        {
+
+        }
+
         public override void ATETask()
         {
             // eload: true, evb: false
             sel = test_parameter.loadtransient.eload_dev_sel;
             RTDev.BoadInit();
+            double hi_current = 0;
+            double lo_current = 0;
+            double vin = 0;
 
             #region "Report Initial"
 #if Report_en
@@ -79,7 +118,13 @@ namespace SoftStartTiming
                 {
                     for(int lo_idx = 0; lo_idx < test_parameter.loadtransient.lo_current.Count; lo_idx++)
                     {
-
+                        vin = test_parameter.VinList[vin_idx];
+                        hi_current = test_parameter.loadtransient.hi_current[hi_idx];
+                        lo_current = test_parameter.loadtransient.lo_current[lo_idx];
+                        // eload: true, evb: false
+                        InsControl._power.AutoSelPowerOn(vin);
+                        AdjustTrigger(hi_current, lo_current);
+                        AdjustCurrent(hi_current, lo_current, sel);
                     }
                 }
             }
