@@ -83,6 +83,8 @@ namespace SoftStartTiming
         public static List<double> voutList = new List<double>();
         public static bool swire_20;
 
+        public static int meas_cnt;
+
 
         public static byte Rail_addr;
         public static byte Rail_en;

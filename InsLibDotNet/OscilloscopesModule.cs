@@ -50,7 +50,7 @@ namespace InsLibDotNet
             doCommand(cmd);
         }
 
-        public int GetACQire()
+        public int GetCount()
         {
             int res = 0;
             switch(osc_sel)
@@ -58,9 +58,14 @@ namespace InsLibDotNet
                 case 0:
                     res = (int)doQueryNumber("ACQuire:NUMACq?");
                     break;
+                case 1:
+                    doCommand(":MEASure:STATistics COUNt");
+                    res = (int)doQueryNumber(":MEASure:RESults?");
+                    doCommand(":MEASure:STATistics ON");
+                    break;
             }
 
-            return 0;
+            return res;
         }
 
 
