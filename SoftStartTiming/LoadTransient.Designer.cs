@@ -235,6 +235,7 @@ namespace SoftStartTiming
             this.BTScan.TabIndex = 139;
             this.BTScan.Text = "Scan Instrument";
             this.BTScan.UseVisualStyleBackColor = true;
+            this.BTScan.Click += new System.EventHandler(this.BTScan_Click);
             // 
             // led_power
             // 
@@ -351,6 +352,7 @@ namespace SoftStartTiming
             this.uibt_osc_connect.TabIndex = 134;
             this.uibt_osc_connect.Text = "Instrument Connect";
             this.uibt_osc_connect.UseVisualStyleBackColor = true;
+            this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // led_osc
             // 
@@ -725,6 +727,7 @@ namespace SoftStartTiming
             this.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.Name = "LoadTransient";
             this.Text = "LoadTransient";
+            this.Load += new System.EventHandler(this.LoadTransient_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();

@@ -54,6 +54,10 @@ namespace SoftStartTiming
                     form = new LoadTransient();
                     form.ShowDialog();
                     break;
+                case 5:
+                    form = new LTLab();
+                    form.ShowDialog();
+                    break;
                    
             }
         }

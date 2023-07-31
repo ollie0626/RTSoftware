@@ -208,7 +208,7 @@ namespace SoftStartTiming
 
             OSCInit();
 
-            for (int vin_idx = 0; vin_idx < test_parameter.vin_conditions.Length; vin_idx++)
+            for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
             {
                 PrintExcelTitle(ref row); row++;
 

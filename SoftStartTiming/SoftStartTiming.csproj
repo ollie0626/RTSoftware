@@ -64,6 +64,7 @@
     <Compile Include="ATE_CrossTalk.cs" />
     <Compile Include="ATE_DelayTime_Off.cs" />
     <Compile Include="ATE_LoadTransient.cs" />
+    <Compile Include="ATE_LTLab.cs" />
     <Compile Include="ATE_SoftStartTime.cs" />
     <Compile Include="ATE_DelayTime.cs" />
     <Compile Include="ATE_VIDI2C.cs" />
@@ -81,6 +82,12 @@
     </Compile>
     <Compile Include="LoadTransient.Designer.cs">
       <DependentUpon>LoadTransient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LTLab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LTLab.Designer.cs">
+      <DependentUpon>LTLab.cs</DependentUpon>
     </Compile>
     <Compile Include="Main.cs">
       <SubType>Form</SubType>
@@ -116,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadTransient.resx">
       <DependentUpon>LoadTransient.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LTLab.resx">
+      <DependentUpon>LTLab.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main.resx">
       <DependentUpon>Main.cs</DependentUpon>

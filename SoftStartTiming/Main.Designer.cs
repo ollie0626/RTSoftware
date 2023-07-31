@@ -89,7 +89,8 @@ namespace SoftStartTiming
             "2. Cross Talk",
             "3. VID (IO)",
             "4. VID (I2C)",
-            "5. Load Transient"});
+            "5. Load Transient",
+            "6. Load Transient Lab"});
             this.CBItem.Location = new System.Drawing.Point(110, 44);
             this.CBItem.Name = "CBItem";
             this.CBItem.Size = new System.Drawing.Size(141, 20);

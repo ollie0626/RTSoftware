@@ -131,6 +131,7 @@ namespace SoftStartTiming
         public static VIDIO_parameter vidio = new VIDIO_parameter();
         public static VIDI2C_parameter vidi2c = new VIDI2C_parameter();
         public static LoadTransient_parameter loadtransient = new LoadTransient_parameter();
+        public static LTLab_parameter lt_lab = new LTLab_parameter();
 
 
     }
