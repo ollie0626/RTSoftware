@@ -74,7 +74,7 @@ namespace SoftStartTiming
 
         private bool I2C_Check(int match_idx)
         {
-            byte addr = test_parameter.lt_lab.addr_list[0];
+            byte addr = test_parameter.lt_lab.addr_list[match_idx];
             byte data = test_parameter.lt_lab.data_list[match_idx];
             byte[] buf = new byte[1];
             RTDev.I2C_Read(test_parameter.slave, addr, ref buf);
@@ -133,13 +133,13 @@ namespace SoftStartTiming
 
         public override void ATETask()
         {
+            RTDev.BoadInit();
+
             int case_num = 1;
             int row = 14;
             int wave_row = 14;
             string file_name = "";
             int idx = 0;
-
-            RTDev.BoadInit();
 
             #region "Report Initial"
 #if Report_en
@@ -183,10 +183,10 @@ namespace SoftStartTiming
                     double imax, imin;
 
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-
+                    while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
                     InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     MyLib.Delay1ms(200);
-                    while (I2C_Check(i2c_idx)) ;
+                    
                     CHxResize();
                     TimeScaleSetting();
                     InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -6));

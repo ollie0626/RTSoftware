@@ -171,17 +171,23 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, 0].Value.ToString(), 16));
-            test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
-            int start = Convert.ToInt32(dataGridView1[1, 0].Value.ToString(), 16);
-            int stop = Convert.ToInt32(dataGridView1[2, 0].Value.ToString(), 16);
-            int step = Convert.ToInt32(dataGridView1[3, 0].Value.ToString(), 16);
-            int res = 0;
-            for(int i = 0; res < stop; i++)
+            test_parameter.slave = (byte)nuslave.Value;
+            for(int i = 0; i < dataGridView1.RowCount; i++)
             {
-                res = start + i * step;
-                test_parameter.lt_lab.data_list.Add(Convert.ToByte(res));
+                test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, i].Value.ToString(), 16));
+                test_parameter.lt_lab.data_list.Add(Convert.ToByte(dataGridView1[1, i].Value.ToString(), 16));
             }
+            
+            //test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
+            //int start = Convert.ToInt32(dataGridView1[1, 0].Value.ToString(), 16);
+            //int stop = Convert.ToInt32(dataGridView1[2, 0].Value.ToString(), 16);
+            //int step = Convert.ToInt32(dataGridView1[3, 0].Value.ToString(), 16);
+            //int res = 0;
+            //for(int i = 0; res < stop; i++)
+            //{
+            //    res = start + i * step;
+            //    test_parameter.lt_lab.data_list.Add(Convert.ToByte(res));
+            //}
         }
 
         private void Run_Single_Task(object idx)

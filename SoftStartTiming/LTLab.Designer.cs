@@ -35,7 +35,6 @@ namespace SoftStartTiming
             this.Addr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bt_up = new System.Windows.Forms.Button();
             this.bt_down = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -95,17 +94,17 @@ namespace SoftStartTiming
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Addr,
             this.Data,
-            this.Column1,
-            this.Column2});
+            this.Column1});
             this.dataGridView1.Location = new System.Drawing.Point(12, 330);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(329, 52);
+            this.dataGridView1.Size = new System.Drawing.Size(329, 141);
             this.dataGridView1.TabIndex = 139;
             // 
             // Addr
@@ -116,42 +115,33 @@ namespace SoftStartTiming
             // 
             // Data
             // 
-            this.Data.HeaderText = "Start";
+            this.Data.HeaderText = "Data";
             this.Data.Name = "Data";
             this.Data.Width = 80;
             // 
             // Column1
             // 
-            this.Column1.HeaderText = "Stop";
+            this.Column1.HeaderText = "Vout";
             this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Step";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 80;
             // 
             // bt_up
             // 
-            this.bt_up.Location = new System.Drawing.Point(629, 70);
+            this.bt_up.Location = new System.Drawing.Point(348, 339);
             this.bt_up.Name = "bt_up";
             this.bt_up.Size = new System.Drawing.Size(28, 23);
             this.bt_up.TabIndex = 140;
             this.bt_up.Text = "▲";
             this.bt_up.UseVisualStyleBackColor = true;
-            this.bt_up.Visible = false;
             this.bt_up.Click += new System.EventHandler(this.bt_up_Click);
             // 
             // bt_down
             // 
-            this.bt_down.Location = new System.Drawing.Point(629, 99);
+            this.bt_down.Location = new System.Drawing.Point(348, 368);
             this.bt_down.Name = "bt_down";
             this.bt_down.Size = new System.Drawing.Size(28, 23);
             this.bt_down.TabIndex = 141;
             this.bt_down.Text = "▼";
             this.bt_down.UseVisualStyleBackColor = true;
-            this.bt_down.Visible = false;
             this.bt_down.Click += new System.EventHandler(this.bt_down_Click);
             // 
             // groupBox4
@@ -310,7 +300,7 @@ namespace SoftStartTiming
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(11, 397);
+            this.label2.Location = new System.Drawing.Point(384, 132);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(130, 12);
             this.label2.TabIndex = 163;
@@ -319,7 +309,7 @@ namespace SoftStartTiming
             // nuTimeScale
             // 
             this.nuTimeScale.DecimalPlaces = 3;
-            this.nuTimeScale.Location = new System.Drawing.Point(150, 395);
+            this.nuTimeScale.Location = new System.Drawing.Point(523, 130);
             this.nuTimeScale.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -404,11 +394,10 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button BTPause;
         private System.Windows.Forms.Button BTStop;
         private System.Windows.Forms.Button BTRun;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown nuTimeScale;
         private System.Windows.Forms.DataGridViewTextBoxColumn Addr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown nuTimeScale;
     }
 }
