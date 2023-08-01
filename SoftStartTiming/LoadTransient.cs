@@ -219,6 +219,7 @@ namespace SoftStartTiming
                     nuslave.Value = list[0];
             }
         }
+
     }
 
     public class LoadTransient_parameter

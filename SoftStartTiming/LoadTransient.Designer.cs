@@ -701,6 +701,7 @@ namespace SoftStartTiming
             this.BTStop.TabIndex = 160;
             this.BTStop.Text = "Stop";
             this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
             // 
             // BTRun
             // 

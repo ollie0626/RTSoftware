@@ -9,6 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using InsLibDotNet;
 
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.IO;
+using System.Diagnostics;
+using Excel = Microsoft.Office.Interop.Excel;
+
 namespace SoftStartTiming
 {
     public partial class LTLab : Form
@@ -16,12 +22,18 @@ namespace SoftStartTiming
 
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
         string win_name = "LTLab v1.0";
+        ParameterizedThreadStart p_thread;
+        ATE_LTLab _ate_ltlab;
+        Thread ATETask;
         RTBBControl RTDev = new RTBBControl();
+        TaskRun[] ate_table;
 
         public LTLab()
         {
             InitializeComponent();
             this.Text = win_name;
+            _ate_ltlab = new ATE_LTLab();
+            ate_table = new TaskRun[] { _ate_ltlab };
         }
 
         private void bt_up_Click(object sender, EventArgs e)
@@ -120,18 +132,6 @@ namespace SoftStartTiming
                 await ConnectTask(Device_map[CBPower.Text], 1);
             }
 
-            //if (Device_map.ContainsKey("63600-2"))
-            //{
-            //    await ConnectTask(Device_map["63600-2"], 2);
-            //    tb_eload.Text = "ELoad:63600-2";
-            //}
-
-            //if (Device_map.ContainsKey("34970A"))
-            //{
-            //    await ConnectTask(Device_map["34970A"], 3);
-            //    tb_daq.Text = "DAQ:34970A";
-            //}
-
             await ConnectTask("GPIB0::3::INSTR", 4);
 
             MyLib.Delay1s(1);
@@ -171,24 +171,82 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, 0].Value.ToString(), 16));
+            test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
+            int start = Convert.ToInt32(dataGridView1[1, 0].Value.ToString(), 16);
+            int stop = Convert.ToInt32(dataGridView1[2, 0].Value.ToString(), 16);
+            int step = Convert.ToInt32(dataGridView1[3, 0].Value.ToString(), 16);
+            int res = 0;
+            for(int i = 0; res < stop; i++)
             {
-                test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, i].Value.ToString(), 16));
-                test_parameter.lt_lab.data_list.Add(Convert.ToByte(dataGridView1[1, i].Value.ToString(), 16));
+                res = start + i * step;
+                test_parameter.lt_lab.data_list.Add(Convert.ToByte(res));
             }
+        }
+
+        private void Run_Single_Task(object idx)
+        {
+            ate_table[(int)idx].temp = 25;
+            ate_table[(int)idx].ATETask();
+            BTRun.Invoke((MethodInvoker)(() => BTRun.Enabled = true));
         }
 
         private void BTRun_Click(object sender, EventArgs e)
         {
             BTRun.Enabled = false;
-            
             try
             {
-                test_parameter_copy();
-            }
-            catch
-            {
+                RTDev.BoadInit();
+                List<byte> list = RTDev.ScanSlaveID();
 
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuslave.Value = list[0];
+                }
+
+                test_parameter_copy();
+
+                p_thread = new ParameterizedThreadStart(Run_Single_Task);
+                ATETask = new Thread(p_thread);
+                ATETask.Start(0);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Message:" + ex.Message);
+                Console.WriteLine("StackTrace:" + ex.StackTrace);
+                MessageBox.Show(ex.StackTrace);
+                BTRun.Enabled = true;
+            }
+        }
+
+        private void BTPause_Click(object sender, EventArgs e)
+        {
+            if (ATETask == null) return;
+            System.Threading.ThreadState state = ATETask.ThreadState;
+            if (state == System.Threading.ThreadState.Running || state == System.Threading.ThreadState.WaitSleepJoin)
+            {
+                ATETask.Suspend();
+            }
+            else if (state == System.Threading.ThreadState.Suspended)
+            {
+                ATETask.Resume();
+            }
+        }
+
+        private void BTStop_Click(object sender, EventArgs e)
+        {
+            BTRun.Enabled = true;
+            if (ATETask != null)
+            {
+                if (ATETask.IsAlive)
+                {
+                    System.Threading.ThreadState state = ATETask.ThreadState;
+                    if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
+                    ATETask.Abort();
+                    MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
+                    //InsControl._power.AutoPowerOff();
+                }
             }
         }
     }
@@ -196,6 +254,7 @@ namespace SoftStartTiming
     {
         public List<byte> addr_list = new List<byte>();
         public List<byte> data_list = new List<byte>();
+        public double time_scale;
     }
 
 }
