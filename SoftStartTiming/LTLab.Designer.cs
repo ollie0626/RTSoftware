@@ -302,9 +302,9 @@ namespace SoftStartTiming
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(384, 132);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(130, 12);
+            this.label2.Size = new System.Drawing.Size(133, 12);
             this.label2.TabIndex = 163;
-            this.label2.Text = "Initial Time Scale (us)";
+            this.label2.Text = "Initial Time Scale (ms)";
             // 
             // nuTimeScale
             // 
