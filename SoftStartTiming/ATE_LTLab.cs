@@ -109,17 +109,17 @@ namespace SoftStartTiming
 
         private void PrintExcelTitle(ref int row)
         {
-            _sheet.Cells[row, XLS_Table.B] = "超連結";
-            _sheet.Cells[row, XLS_Table.C] = "Temp(C)";
-            _sheet.Cells[row, XLS_Table.D] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.E] = "Iload(mA)";
-            _sheet.Cells[row, XLS_Table.F] = "Data(Hex)";
-            _sheet.Cells[row, XLS_Table.G] = "Vout(V)";
-            _sheet.Cells[row, XLS_Table.H] = "Vpp(mV)";
-            _sheet.Cells[row, XLS_Table.I] = "Vmin(mV)";
-            _sheet.Cells[row, XLS_Table.J] = "Vmax(mV)";
-            _sheet.Cells[row, XLS_Table.K] = "Imax (mA)";
-            _sheet.Cells[row, XLS_Table.L] = "Imin (mA)";
+            //_sheet.Cells[row, XLS_Table.B] = "超連結";
+            //_sheet.Cells[row, XLS_Table.C] = "Temp(C)";
+            //_sheet.Cells[row, XLS_Table.D] = "Vin(V)";
+            //_sheet.Cells[row, XLS_Table.E] = "Iload(mA)";
+            //_sheet.Cells[row, XLS_Table.F] = "Data(Hex)";
+            //_sheet.Cells[row, XLS_Table.G] = "Vout(V)";
+            //_sheet.Cells[row, XLS_Table.H] = "Vpp(mV)";
+            //_sheet.Cells[row, XLS_Table.I] = "Vmin(mV)";
+            //_sheet.Cells[row, XLS_Table.J] = "Vmax(mV)";
+            //_sheet.Cells[row, XLS_Table.K] = "Imax (mA)";
+            //_sheet.Cells[row, XLS_Table.L] = "Imin (mA)";
             //_sheet.Cells[row, XLS_Table.M] = "OverShoot(mV)";
             //_sheet.Cells[row, XLS_Table.N] = "UnderShoot(mV)";
 
@@ -150,24 +150,30 @@ namespace SoftStartTiming
             _sheet.Cells.Font.Name = "Calibri";
             _sheet.Cells.Font.Size = 11;
 
-            _sheet.Cells[1, XLS_Table.A] = "Item";
-            _sheet.Cells[2, XLS_Table.A] = "Test Conditions";
-            _sheet.Cells[3, XLS_Table.A] = "Result";
-            _sheet.Cells[4, XLS_Table.A] = "Note";
-            _range = _sheet.Range["A1", "A4"];
-            _range.Font.Bold = true;
-            _range.Interior.Color = Color.FromArgb(255, 178, 102);
-            _range = _sheet.Range["A2"];
-            _range.RowHeight = 150;
-            _range = _sheet.Range["B1"];
-            _range.ColumnWidth = 60;
-            _range = _sheet.Range["A1", "B4"];
-            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            _sheet.Cells[1, XLS_Table.A] = "Iin(A)";            // power supply
+            _sheet.Cells[1, XLS_Table.B] = "Vout_Max(V)";       // vout max
+            _sheet.Cells[1, XLS_Table.C] = "Vout_Min(V)";       // vout min
+            _sheet.Cells[1, XLS_Table.D] = "Vout_Mean(V)";      // vout mean
+            _sheet.Cells[1, XLS_Table.E] = "Iin_Mean(V)";       // Iin mean
+            _sheet.Cells[1, XLS_Table.F] = "Iout_Duty_avg";     // Iout duty
+            _sheet.Cells[1, XLS_Table.G] = "Iout_Freq_avg";     // Iout freq
 
-            string item = "Load transient";
-
-            _sheet.Cells[1, XLS_Table.B] = item;
-            _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver + test_parameter.vin_conditions;
+            //_sheet.Cells[1, XLS_Table.A] = "Item";
+            //_sheet.Cells[2, XLS_Table.A] = "Test Conditions";
+            //_sheet.Cells[3, XLS_Table.A] = "Result";
+            //_sheet.Cells[4, XLS_Table.A] = "Note";
+            //_range = _sheet.Range["A1", "A4"];
+            //_range.Font.Bold = true;
+            //_range.Interior.Color = Color.FromArgb(255, 178, 102);
+            //_range = _sheet.Range["A2"];
+            //_range.RowHeight = 150;
+            //_range = _sheet.Range["B1"];
+            //_range.ColumnWidth = 60;
+            //_range = _sheet.Range["A1", "B4"];
+            //_range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            //string item = "Load transient";
+            //_sheet.Cells[1, XLS_Table.B] = item;
+            //_sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver + test_parameter.vin_conditions;
 #endif
             #endregion
             OSCInit();
@@ -184,11 +190,11 @@ namespace SoftStartTiming
 
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
                     while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
-                    InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
+                    //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     MyLib.Delay1ms(200);
                     
                     CHxResize();
-                    TimeScaleSetting();
+                    //TimeScaleSetting();
                     InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -6));
                     MyLib.Delay1ms(200);
 
