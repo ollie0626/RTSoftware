@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace SoftStartTiming
 {
@@ -28,7 +29,7 @@ namespace SoftStartTiming
         RTBBControl RTDev = new RTBBControl();
 
         private bool sel;
-        private int temp_meas = 8;
+        //private int temp_meas = 8;
 
         private int meas_vmean = 1;
         private int meas_vmax = 2;
@@ -87,26 +88,13 @@ namespace SoftStartTiming
             string file_name = "";
             int idx = 0;
 
-            string path = Application.StartupPath + "\\example.xlsx";
+            string path = Application.StartupPath + "\\example.xlsm";
             #region "Report Initial"
 #if Report_en
             _app = new Excel.Application();
             _app.Visible = true;
-
             _book = _app.Workbooks.Open(path);                      // open example excel
-            //_book = (Excel.Workbook)_app.Workbooks.Add();
-            _sheet = (Excel.Worksheet)_book.Sheets[2];              // raw data sheet
-            //_sheet.Cells.Font.Name = "Calibri";
-            //_sheet.Cells.Font.Size = 11;
-
-            //_sheet.Cells[1, XLS_Table.A] = "Iin(A)";            // power supply
-            //_sheet.Cells[1, XLS_Table.B] = "Vout_Max(V)";       // vout max
-            //_sheet.Cells[1, XLS_Table.C] = "Vout_Min(V)";       // vout min
-            //_sheet.Cells[1, XLS_Table.D] = "Vout_Mean(V)";      // vout mean
-            //_sheet.Cells[1, XLS_Table.E] = "Iin_Mean(V)";       // Iin mean
-            //_sheet.Cells[1, XLS_Table.F] = "Iout_Duty_avg";     // Iout duty
-            //_sheet.Cells[1, XLS_Table.G] = "Iout_Freq_avg";     // Iout freq
-
+            _sheet = (Excel.Worksheet)_book.ActiveSheet;              // raw data sheet
 #endif
             #endregion
             OSCInit();
@@ -156,12 +144,17 @@ namespace SoftStartTiming
 #endif
                     #endregion
                 }
-
             }
+
+#if Report_en
+            MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_LTLab_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
+            _book.Close(false);
+            _book = null;
+            _app.Quit();
+            _app = null;
+            GC.Collect();
+#endif
         }
     }
 }
 
-
-
-}
