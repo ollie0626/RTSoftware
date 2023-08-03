@@ -93,13 +93,8 @@ namespace SoftStartTiming
         {
             switch (ins_sel)
             {
-                case 0:
-                    InsControl._oscilloscope = new OscilloscopesModule(res);
-                    break;
+                case 0: InsControl._oscilloscope = new OscilloscopesModule(res); break;
                 case 1: InsControl._power = new PowerModule(res); break;
-                //case 2: InsControl._eload = new EloadModule(res); break;
-                //case 3: InsControl._34970A = new MultiChannelModule(res); break;
-                //case 4: InsControl._chamber = new ChamberModule(res); break;
             }
             return 0;
         }
@@ -178,17 +173,7 @@ namespace SoftStartTiming
                 test_parameter.lt_lab.data_list.Add(Convert.ToByte(dataGridView1[1, i].Value.ToString(), 16));
                 test_parameter.lt_lab.vout_list.Add(Convert.ToDouble(dataGridView1[2, i].Value.ToString()));
             }
-            
-            //test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
-            //int start = Convert.ToInt32(dataGridView1[1, 0].Value.ToString(), 16);
-            //int stop = Convert.ToInt32(dataGridView1[2, 0].Value.ToString(), 16);
-            //int step = Convert.ToInt32(dataGridView1[3, 0].Value.ToString(), 16);
-            //int res = 0;
-            //for(int i = 0; res < stop; i++)
-            //{
-            //    res = start + i * step;
-            //    test_parameter.lt_lab.data_list.Add(Convert.ToByte(res));
-            //}
+            test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
         }
 
         private void Run_Single_Task(object idx)

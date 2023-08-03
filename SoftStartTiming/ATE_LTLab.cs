@@ -12,7 +12,6 @@ using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
@@ -63,30 +62,18 @@ namespace SoftStartTiming
 
         private void CHxResize(int idx)
         {
-            
+            InsControl._oscilloscope.CHx_Offset(1, test_parameter.lt_lab.vout_list[idx]);
+            MyLib.Delay1ms(200);
+            InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
+            MyLib.Delay1ms(200);
+            double max = InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
+            InsControl._oscilloscope.CHx_Level(1, max / 3);
         }
-
-        private void TimeScaleSetting()
-        {
-            InsControl._oscilloscope.CHx_Meas_Period(4, 8);
-            InsControl._oscilloscope.CHx_Meas_Duty(4, 7);
-            double period = InsControl._oscilloscope.CHx_Meas_Period(4, 8);
-            double duty = InsControl._oscilloscope.CHx_Meas_Duty(4, 7);
-            double on_time = period * duty;
-            double time_scale = on_time / 4.5;
-            InsControl._oscilloscope.SetTimeScale(time_scale);
-        }
-
 
         public override void ATETask()
         {
             RTDev.BoadInit();
-
-            int case_num = 1;
             int row = 2;
-            int wave_row = 14;
-            string file_name = "";
-            int idx = 0;
 
             string path = Application.StartupPath + "\\example.xlsm";
             #region "Report Initial"
@@ -101,8 +88,6 @@ namespace SoftStartTiming
 
             for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
             {
-                //PrintExcelTitle(ref row); row++;
-
                 for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
                 {
                     InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
@@ -133,13 +118,13 @@ namespace SoftStartTiming
 
                     #region "meas data"
 #if Report_en
-                    _sheet.Cells[row, XLS_Table.A] = Iin;            // power supply
-                    _sheet.Cells[row, XLS_Table.B] = vmax;       // vout max
-                    _sheet.Cells[row, XLS_Table.C] = vmin;       // vout min
-                    _sheet.Cells[row, XLS_Table.D] = vmean;      // vout mean
-                    _sheet.Cells[row, XLS_Table.E] = imean;       // Iin mean
-                    _sheet.Cells[row, XLS_Table.F] = iduty;     // Iout duty
-                    _sheet.Cells[row, XLS_Table.G] = ifreq;     // Iout freq
+                    _sheet.Cells[row, XLS_Table.A] = Iin;           // power supply
+                    _sheet.Cells[row, XLS_Table.B] = vmax;          // vout max
+                    _sheet.Cells[row, XLS_Table.C] = vmin;          // vout min
+                    _sheet.Cells[row, XLS_Table.D] = vmean;         // vout mean
+                    _sheet.Cells[row, XLS_Table.E] = imean;         // Iin mean
+                    _sheet.Cells[row, XLS_Table.F] = iduty;         // Iout duty
+                    _sheet.Cells[row, XLS_Table.G] = ifreq;         // Iout freq
                     row++;
 #endif
                     #endregion
