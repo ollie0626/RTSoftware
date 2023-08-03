@@ -176,6 +176,7 @@ namespace SoftStartTiming
             {
                 test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, i].Value.ToString(), 16));
                 test_parameter.lt_lab.data_list.Add(Convert.ToByte(dataGridView1[1, i].Value.ToString(), 16));
+                test_parameter.lt_lab.vout_list.Add(Convert.ToDouble(dataGridView1[2, i].Value.ToString()));
             }
             
             //test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
@@ -256,10 +257,12 @@ namespace SoftStartTiming
             }
         }
     }
+
     public class LTLab_parameter
     {
         public List<byte> addr_list = new List<byte>();
         public List<byte> data_list = new List<byte>();
+        public List<double> vout_list = new List<double>();
         public double time_scale;
     }
 
