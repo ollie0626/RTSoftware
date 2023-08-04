@@ -164,7 +164,6 @@ namespace SoftStartTiming
             test_parameter.vidio.lpm_vout_map.Clear();
             test_parameter.vidio.lpm_str.Clear();
 
-
             test_parameter.tool_ver = win_name + "\r\n";
             test_parameter.vin_conditions = "Vin = " + tb_vinList.Text + "\r\n";
             test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" + 

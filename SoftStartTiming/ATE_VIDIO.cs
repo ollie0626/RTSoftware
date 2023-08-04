@@ -336,7 +336,8 @@ namespace SoftStartTiming
                 //InsControl._oscilloscope.SetTriggerRise();
                 InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.5);
                 InsControl._oscilloscope.CHx_Offset(1, vout);
-                InsControl._oscilloscope.CHx_Position(1, -2);                InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.3 + vout);
+                InsControl._oscilloscope.CHx_Position(1, -2);                
+                InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
 
                 Initial_TimeScale(rising_en, LPM_en);
 
@@ -347,7 +348,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Level(1, (vout - vout_af) / 4.5);
                 InsControl._oscilloscope.CHx_Offset(1, vout_af);
                 InsControl._oscilloscope.CHx_Position(1, -2);
-                InsControl._oscilloscope.SetTriggerLevel(1, (vout - vout_af) * 0.3 + vout_af);
+                InsControl._oscilloscope.SetTriggerLevel(1, (vout - vout_af) * 0.5 + vout_af);
 
 
                 Initial_TimeScale(rising_en, LPM_en);
