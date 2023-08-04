@@ -96,12 +96,12 @@ namespace SoftStartTiming
                     MyLib.Delay1ms(200);
 
                     CHxResize(i2c_idx);
-                    InsControl._oscilloscope.SetPERSistence();
+                    //InsControl._oscilloscope.SetPERSistence();
                     InsControl._oscilloscope.SetAutoTrigger();
                     InsControl._oscilloscope.SetClear();
 
                     //TimeScaleSetting();
-                    InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -6));
+                    InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -3));
                     MyLib.Delay1ms(200);
 
                     double Iin, vmax, vmin, vmean;

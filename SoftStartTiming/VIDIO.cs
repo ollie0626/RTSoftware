@@ -38,7 +38,6 @@ namespace SoftStartTiming
 
         private void InitDG()
         {
-
             // lpm
             dataGridViewComboBoxColumn1.Items.Add("0");
             dataGridViewComboBoxColumn1.Items.Add("1");
