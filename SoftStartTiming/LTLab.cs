@@ -174,6 +174,7 @@ namespace SoftStartTiming
                 test_parameter.lt_lab.vout_list.Add(Convert.ToDouble(dataGridView1[2, i].Value.ToString()));
             }
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
         }
 
         private void Run_Single_Task(object idx)
