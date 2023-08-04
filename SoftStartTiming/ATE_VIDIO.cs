@@ -131,19 +131,6 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetTimeBasePosition(25);
         }
 
-        private void RefelevelSel(bool diff)
-        {
-            InsControl._oscilloscope.SetREFLevelMethod(1);
-            if (diff)
-            {
-                InsControl._oscilloscope.SetREFLevel(80, 50, 20, 1);
-            }
-            else
-            {
-                InsControl._oscilloscope.SetREFLevel(100, 50, 0, 1);
-            }
-        }
-
         private void CursorAdjust(int case_idx)
         {
             //double vout = test_parameter.vidio.vout_list[case_idx];
@@ -170,9 +157,6 @@ namespace SoftStartTiming
             {
                 vout_af = 0;
             }
-
-
-
 
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
             bool rising_en = vout < vout_af ? true : false;
@@ -227,7 +211,6 @@ namespace SoftStartTiming
                 x2 = InsControl._oscilloscope.GetAnnotationXn(2);
                 MyLib.Delay1ms(100);
                 x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-
 
                 double high = rising_en ? vout_af : vout;
                 double mid = Math.Abs(vout - vout_af) + (rising_en ? vout : vout_af);

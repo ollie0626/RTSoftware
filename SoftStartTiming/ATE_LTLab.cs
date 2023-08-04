@@ -62,12 +62,12 @@ namespace SoftStartTiming
 
         private void CHxResize(int idx)
         {
-            InsControl._oscilloscope.CHx_Offset(1, test_parameter.lt_lab.vout_list[idx]);
-            MyLib.Delay1ms(200);
-            InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
-            MyLib.Delay1ms(200);
-            double max = InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
-            InsControl._oscilloscope.CHx_Level(1, max / 3);
+            //InsControl._oscilloscope.CHx_Offset(1, test_parameter.lt_lab.vout_list[idx]);
+            //MyLib.Delay1ms(200);
+            //InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
+            //MyLib.Delay1ms(200);
+            //double max = InsControl._oscilloscope.CHx_Meas_Max(1, meas_vmax);
+            //InsControl._oscilloscope.CHx_Level(1, max / 3);
         }
 
         public override void ATETask()
@@ -86,11 +86,11 @@ namespace SoftStartTiming
             #endregion
             OSCInit();
 
-            for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
+            //for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
             {
                 for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
                 {
-                    InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
+                    InsControl._power.AutoSelPowerOn(test_parameter.VinList[i2c_idx]);
                     while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
                     //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     MyLib.Delay1ms(200);

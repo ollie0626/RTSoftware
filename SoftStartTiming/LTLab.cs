@@ -242,6 +242,50 @@ namespace SoftStartTiming
                 }
             }
         }
+
+        private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Console.WriteLine(Device_map[CBPower.Text]);
+
+            InsControl._power = new PowerModule(Device_map[CBPower.Text]);
+
+            tb_power.Text = "Power: " + CBPower.Text;
+            if (InsControl._power.InsState())
+                led_power.BackColor = Color.LightGreen;
+            else
+                led_power.BackColor = Color.Red;
+
+            CBChannel.Items.Clear();
+            CBChannel.Enabled = true;
+            switch (CBPower.Text)
+            {
+                case "E3631A":
+                    CBChannel.Items.Add("+6V");
+                    CBChannel.Items.Add("+25V");
+                    CBChannel.Items.Add("-25V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3632A":
+                    CBChannel.Items.Add("15V");
+                    CBChannel.Items.Add("30V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3633A":
+                    CBChannel.Items.Add("8V");
+                    CBChannel.Items.Add("20V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "E3634A":
+                    CBChannel.Items.Add("25V");
+                    CBChannel.Items.Add("50V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+                case "62006P":
+                    CBChannel.Items.Add("600V");
+                    CBChannel.SelectedIndex = 0;
+                    break;
+            }
+        }
     }
 
     public class LTLab_parameter

@@ -266,6 +266,7 @@ namespace SoftStartTiming
             this.CBPower.Name = "CBPower";
             this.CBPower.Size = new System.Drawing.Size(215, 20);
             this.CBPower.TabIndex = 155;
+            this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
             // BTPause
             // 
