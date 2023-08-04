@@ -181,18 +181,17 @@ namespace SoftStartTiming
                         Convert.ToInt16(dataGridView2[2, idx].Value) << 2;  // G2
 
                 test_parameter.vidio.io_table.Add(temp);
-
-
                 test_parameter.vidio.vout_map.Add(dataGridView2[3, idx].Value, temp);
 
                 //if (Convert.ToDouble(dataGridView2[3, idx].Value) != 0)
                 //    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
                 //else
-                //    test_parameter.vidio.lpm_vout_map.Add((double)dataGridView2[3, idx].Value, temp);
+                //    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
+                //test_parameter.vidio.lpm_vout_map.Add((double)dataGridView2[3, idx].Value, temp);
             }
 
 
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 test_parameter.vidio.vout_list.Add(dataGridView1[0, i].Value);
                 test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[1, i].Value));

@@ -37,6 +37,13 @@ namespace SoftStartTiming
         List<string> phase1_name = new List<string>();
         List<string> phase2_name = new List<string>();
 
+        int meas_rising = 1;
+        int meas_falling = 2;
+        int meas_vmax = 3;
+        int meas_vmin = 4;
+        int meas_overshoot = 5;
+        int meas_undershoot = 6;
+
 
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
@@ -81,8 +88,8 @@ namespace SoftStartTiming
             InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
             InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
-            InsControl._oscilloscope.CHx_Level(3, 2);
-            InsControl._oscilloscope.CHx_Level(4, 2);
+            InsControl._oscilloscope.CHx_Level(3, 5);
+            InsControl._oscilloscope.CHx_Level(4, 5);
             InsControl._oscilloscope.CHx_Position(3, 2.5);
             InsControl._oscilloscope.CHx_Position(4, 2.5);
 
@@ -116,10 +123,8 @@ namespace SoftStartTiming
             MyLib.Delay1s(2);
             InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 1.5);
             InsControl._oscilloscope.CHx_Position(2, -4);
-
             InsControl._oscilloscope.SetAutoTrigger();
             InsControl._oscilloscope.SetTriggerLevel(2, max - min);
-
             InsControl._oscilloscope.SetTimeBasePosition(25);
         }
 
@@ -391,7 +396,10 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(1000);
 
-                if (LPM_en && !rising_en) MyLib.Delay1s(3);
+                //if (LPM_en && !rising_en)
+                //{
+                //    while (InsControl._oscilloscope.GetCount() < 0) ;
+                //}
 
 
                 if(rising_en && LPM_en)
@@ -410,7 +418,6 @@ namespace SoftStartTiming
                     IOStateSetting(
                                     test_parameter.vidio.vout_map[vout_af_str.ToString()]
                                 );
-                    MyLib.Delay1ms(1000);
                 }
                 else
                 {
@@ -421,7 +428,7 @@ namespace SoftStartTiming
                 }
 
 
-                if (LPM_en && !rising_en) MyLib.Delay1s(2);
+                while (InsControl._oscilloscope.GetCount() < 0) ;
 
 
                 MyLib.Delay1ms(100);
@@ -668,7 +675,7 @@ namespace SoftStartTiming
                     IOStateSetting(
                                     test_parameter.vidio.vout_map[vout_str.ToString()]
                             );
-                    MyLib.Delay1s(10);
+                    //MyLib.Delay1s(10);
                 }
                 else
                 {
@@ -679,7 +686,7 @@ namespace SoftStartTiming
                 }
 
 
-                if (LPM_en && !rising_en) MyLib.Delay1s(3);
+                while (InsControl._oscilloscope.GetCount() < 0) ;
 
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetStop();
