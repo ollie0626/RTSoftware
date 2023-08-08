@@ -1840,7 +1840,7 @@ namespace MulanLite
             "14MHz (10%)",
             "13MHz (20%)",
             "12MHz (30%)",
-            "10MHz (40%)",
+            "10MHz / 8.7MHz(40%)",
             "10MHz (50%)"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
