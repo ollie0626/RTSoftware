@@ -277,6 +277,16 @@ namespace SoftStartTiming
             BTRun.Enabled = false;
             try
             {
+
+                RTDev.BoadInit();
+                List<byte> list = RTDev.ScanSlaveID();
+
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuslave.Value = list[0];
+                }
+
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
                 {

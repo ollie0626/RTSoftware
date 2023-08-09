@@ -41,6 +41,8 @@ namespace SoftStartTiming
         const int meas_sst2 = 5;
         const int meas_sst3 = 6;
 
+        const int meas_vmax = 7;
+
         //const int meas_vtop1 = 7;
         //const int meas_vtop2 = 8;
         //const int meas_vtop3 = 9;
@@ -314,6 +316,7 @@ namespace SoftStartTiming
 
         private void LevelEvent()
         {
+            InsControl._tek_scope.SetMeasureSource(2, meas_vmax, "MAXimum");
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
             {
@@ -333,11 +336,11 @@ namespace SoftStartTiming
                         // tek get max
                         for (int k = 0; k < 3; k++)
                         {
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
                             MyLib.Delay1ms(50);
-                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, 8);
-                            Console.WriteLine("VMax = {0}", vmax);
+                            vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
+                            //Console.WriteLine("VMax = {0}", vmax);
 
                             if (vmax > 0.3 && vmax < Math.Pow(10, 3))
                                 InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
@@ -409,6 +412,7 @@ namespace SoftStartTiming
 #endif
             MyLib.Delay1ms(1000);
             TriggerEvent(idx);
+            //MyLib.Delay1ms(3000);
 
             for (int i = 0; i < 100; i++)
             {

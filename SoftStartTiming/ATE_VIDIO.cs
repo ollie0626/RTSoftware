@@ -362,7 +362,7 @@ namespace SoftStartTiming
 #endif
 
                 InsControl._oscilloscope.SetRun();
-                MyLib.Delay1ms(500);
+                MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetNormalTrigger();
                 if(!overshoot_en) InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(100);
@@ -492,13 +492,14 @@ namespace SoftStartTiming
 #if Eload_en
                         InsControl._eload.LoadOFF(1);
 #endif
-                    break;
+                    //break;
                 }
             }
 
             if(overshoot_en)
             {
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + (rising_en ? "_overshoot" : "_undershoot"));
+                InsControl._oscilloscope.SetPERSistenceOff();
             }
 
         }
@@ -586,6 +587,7 @@ namespace SoftStartTiming
                     IOStateSetting(
                                     test_parameter.vidio.vout_map[vout_af.ToString()]
                                     );
+                    if(LPM_en) MyLib.Delay1ms(5000);
                 }
 
 #if Eload_en
@@ -593,11 +595,12 @@ namespace SoftStartTiming
 #endif
 
                 InsControl._oscilloscope.SetRun();
+                if (LPM_en) MyLib.Delay1ms(1000);
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetNormalTrigger();
                 if(!undershoot_en) InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(200);
-
+                if (LPM_en) MyLib.Delay1ms(1000);
                 if (rising_en && LPM_en)
                 {
                     // transfer condition
@@ -610,7 +613,7 @@ namespace SoftStartTiming
                     IOStateSetting(
                                     test_parameter.vidio.vout_map[vout_str.ToString()]
                             );
-                    //MyLib.Delay1s(10);
+                    if (LPM_en) MyLib.Delay1s(4);
                 }
                 else
                 {
@@ -724,13 +727,14 @@ namespace SoftStartTiming
 #if Eload_en
                         InsControl._eload.LoadOFF(1);
 #endif
-                    break;
+                    //break;
                 }
             }
 
             if (undershoot_en)
             {
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + (rising_en ? "_overshoot" : "_undershoot"));
+                InsControl._oscilloscope.SetPERSistenceOff();
             }
         }
 
@@ -861,55 +865,52 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.F] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
                         _sheet.Cells[row, XLS_Table.G] = test_parameter.IoutList[iout_idx];
 #endif
-                        // Phase 1 -----------------------------------------------------------------------------------------
-                        Phase1Test(case_idx);
-                        Phase1Test(case_idx, true);
+
 #if Report_en
+                        Phase1Test(case_idx);
                         string slewrate_min = phase1_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                        string shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_overshoot" : "_undershoot");
                         // past slew rate min case
-                        _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 16)];
+                        _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
+                        double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
+                        Phase1Test(case_idx, true);
+                        string shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_overshoot" : "_undershoot");
                         // past over/under-shoot max case
-                        _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 16)];
+                        _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
                         if (rising_en)
                         {
-                            double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
                             _sheet.Cells[row, XLS_Table.H] = Math.Abs(res); // rise time
                             _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
                             _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
                         }
                         else
                         {
-                            double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
                             _sheet.Cells[row, XLS_Table.I] = Math.Abs(res);
                             _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
                         }
-#endif
 
+                        // --------------------------------------------------------------------------------------------------------
                         Phase2Test(case_idx);
-                        Phase2Test(case_idx, true);
-#if Report_en
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                        shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_undershoot" : "_overshoot");
-                        _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 16)];
+                        _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
+                        res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
+                        Phase2Test(case_idx, true);
+                        shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_undershoot" : "_overshoot");
                         // past over/under-shoot max case
-                        _range = _sheet.Range["AT" + (wave_row + 2), "BB" + (wave_row + 16)];
+                        _range = _sheet.Range["AT" + (wave_row + 2), "BB" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
                         if (!rising_en)
                         {
-                            double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
                             _sheet.Cells[row, XLS_Table.H] = Math.Abs(res); // rise time
                             _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
                             _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
                         }
                         else
                         {
-                            double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
                             _sheet.Cells[row, XLS_Table.I] = Math.Abs(res);
                             _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
                             _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
@@ -969,7 +970,7 @@ namespace SoftStartTiming
 #endif
 
                         InsControl._oscilloscope.SetAutoTrigger();
-                        wave_row += 21;
+                        wave_row += 31;
                         row++;
                     }
                 }
