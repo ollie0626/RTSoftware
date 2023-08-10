@@ -27,7 +27,7 @@ namespace SoftStartTiming
         const int LPM = 0;
         const int G1 = 1;
         const int G2 = 2;
-        const int test_cnt = 5;
+        //const int test_cnt = 5;
 
         List<double> overshoot_list = new List<double>();
         List<double> undershoot_list = new List<double>();
@@ -334,7 +334,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetAnnotation(meas_falling);
             }
 
-            for (int repeat_idx = 0; repeat_idx < test_cnt; repeat_idx++)
+            for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
                 double slew_rate = 0;
                 double over_shoot = 0;
@@ -566,7 +566,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetClear();
             }
 
-            for (int repeat_idx = 0; repeat_idx < test_cnt; repeat_idx++)
+            for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
                 double slew_rate = 0;
                 double over_shoot = 0;

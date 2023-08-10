@@ -204,6 +204,7 @@ namespace SoftStartTiming
             progressBar2.Maximum = program_max;
             test_parameter.vidio.discharge_time = ((double)(nuDischarge.Value / 4) * Math.Pow(10, -3));
             test_parameter.vidio.discharge_load = (double)nuDisLoad.Value;
+            test_parameter.vidio.test_cnt = (int)nu_test_cnt.Value;
         }
 
         public void UpdateProgressBar(int val)
@@ -724,6 +725,7 @@ namespace SoftStartTiming
         public List<object> vout_list_af = new List<object>();
         public double discharge_time;
         public double discharge_load;
+        public int test_cnt;
     }
 
 

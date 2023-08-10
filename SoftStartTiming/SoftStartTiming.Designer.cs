@@ -235,7 +235,7 @@ namespace SoftStartTiming
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(258, 85);
+            this.groupBox2.Size = new System.Drawing.Size(258, 72);
             this.groupBox2.TabIndex = 57;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Iout Range (A)";
@@ -429,7 +429,7 @@ namespace SoftStartTiming
             this.groupBox6.Controls.Add(this.RBMs);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(546, 255);
+            this.groupBox6.Location = new System.Drawing.Point(545, 274);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(257, 107);
             this.groupBox6.TabIndex = 84;
