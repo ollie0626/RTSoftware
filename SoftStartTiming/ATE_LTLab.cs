@@ -86,49 +86,47 @@ namespace SoftStartTiming
             #endregion
             OSCInit();
 
-            //for (int vin_idx = 0; vin_idx < test_parameter.VinList.Count; vin_idx++)
+            // data cnt & vin cnt as same         
+            for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
             {
-                for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
-                {
-                    InsControl._power.AutoSelPowerOn(test_parameter.VinList[i2c_idx]);
-                    while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
-                    //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
-                    MyLib.Delay1ms(200);
+                InsControl._power.AutoSelPowerOn(test_parameter.VinList[i2c_idx]);
+                while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
+                //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
+                MyLib.Delay1ms(200);
 
-                    CHxResize(i2c_idx);
-                    //InsControl._oscilloscope.SetPERSistence();
-                    InsControl._oscilloscope.SetAutoTrigger();
-                    InsControl._oscilloscope.SetClear();
+                CHxResize(i2c_idx);
+                //InsControl._oscilloscope.SetPERSistence();
+                InsControl._oscilloscope.SetAutoTrigger();
+                InsControl._oscilloscope.SetClear();
 
-                    //TimeScaleSetting();
-                    InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -3));
-                    MyLib.Delay1ms(200);
+                //TimeScaleSetting();
+                InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -3));
+                MyLib.Delay1ms(200);
 
-                    double Iin, vmax, vmin, vmean;
-                    double imean, iduty, ifreq;
+                double Iin, vmax, vmin, vmean;
+                double imean, iduty, ifreq;
 
-                    Iin = InsControl._power.GetCurrent();
-                    vmax = InsControl._oscilloscope.CHx_Meas_Max(meas_vmax);
-                    vmin = InsControl._oscilloscope.CHx_Meas_Min(meas_vmin);
-                    vmean = InsControl._oscilloscope.CHx_Meas_Mean(meas_vmean);
+                Iin = InsControl._power.GetCurrent();
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(meas_vmax);
+                vmin = InsControl._oscilloscope.CHx_Meas_Min(meas_vmin);
+                vmean = InsControl._oscilloscope.CHx_Meas_Mean(meas_vmean);
 
-                    imean = InsControl._oscilloscope.CHx_Meas_Mean(meas_imean);
-                    iduty = InsControl._oscilloscope.CHx_Meas_Duty(meas_iduty);
-                    ifreq = InsControl._oscilloscope.CHx_Meas_Freq(meas_ifreq);
+                imean = InsControl._oscilloscope.CHx_Meas_Mean(meas_imean);
+                iduty = InsControl._oscilloscope.CHx_Meas_Duty(meas_iduty);
+                ifreq = InsControl._oscilloscope.CHx_Meas_Freq(meas_ifreq);
 
-                    #region "meas data"
+                #region "meas data"
 #if Report_en
-                    _sheet.Cells[row, XLS_Table.A] = Iin;           // power supply
-                    _sheet.Cells[row, XLS_Table.B] = vmax;          // vout max
-                    _sheet.Cells[row, XLS_Table.C] = vmin;          // vout min
-                    _sheet.Cells[row, XLS_Table.D] = vmean;         // vout mean
-                    _sheet.Cells[row, XLS_Table.E] = imean;         // Iin mean
-                    _sheet.Cells[row, XLS_Table.F] = iduty;         // Iout duty
-                    _sheet.Cells[row, XLS_Table.G] = ifreq;         // Iout freq
-                    row++;
+                _sheet.Cells[row, XLS_Table.A] = Iin;           // power supply
+                _sheet.Cells[row, XLS_Table.B] = vmax;          // vout max
+                _sheet.Cells[row, XLS_Table.C] = vmin;          // vout min
+                _sheet.Cells[row, XLS_Table.D] = vmean;         // vout mean
+                _sheet.Cells[row, XLS_Table.E] = imean;         // Iin mean
+                _sheet.Cells[row, XLS_Table.F] = iduty;         // Iout duty
+                _sheet.Cells[row, XLS_Table.G] = ifreq;         // Iout freq
+                row++;
 #endif
-                    #endregion
-                }
+                #endregion
             }
 
 #if Report_en
