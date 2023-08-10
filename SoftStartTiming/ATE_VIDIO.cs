@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-//#define Power_en
-//#define Eload_en
+#define Power_en
+#define Eload_en
 
 using RTBBLibDotNet;
 using System;
@@ -807,7 +807,7 @@ namespace SoftStartTiming
                 {
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
-
+                        InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[vin_idx]);
                         updateMain.UpdateProgressBar(++progress);
                         phase1_name.Clear();
                         phase2_name.Clear();
