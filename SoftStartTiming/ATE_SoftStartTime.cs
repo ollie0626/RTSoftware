@@ -1,8 +1,8 @@
 ﻿
 
 #define Report
-//#define Power_en
-//#define Eload_en
+#define Power_en
+#define Eload_en
 
 
 using System;
@@ -33,6 +33,21 @@ namespace SoftStartTiming
         //TestClass tsClass = new TestClass();
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
+
+        //_sheet.Cells[row, XLS_Table.I] = "SST (us)";
+        //_sheet.Cells[row, XLS_Table.J] = "V1 Max (V)";
+        //_sheet.Cells[row, XLS_Table.K] = "V1 Min (V)";
+        //_sheet.Cells[row, XLS_Table.L] = "ILx Max (mA)";
+        //_sheet.Cells[row, XLS_Table.M] = "ILx Min (mA)";
+
+        int meas_rising = 1;
+        int meas_vmax = 2;
+        int meas_vmin = 3;
+        int meas_imax = 4;
+        int meas_imin = 5;
+
+        int meas_level = 6;
+
 
         public ATE_SoftStartTime()
         {
@@ -118,6 +133,15 @@ namespace SoftStartTiming
                 InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:HIGH 90");
                 InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:MID 50");
                 InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:LOW 10");
+
+
+                InsControl._tek_scope.SetMeasureSource(2, meas_rising, "RISe");
+                InsControl._tek_scope.SetMeasureSource(2, meas_vmax, "MAXimum");
+                InsControl._tek_scope.SetMeasureSource(2, meas_vmin, "MINImum");
+                InsControl._tek_scope.SetMeasureSource(4, meas_imax, "MAXimum");
+                InsControl._tek_scope.SetMeasureSource(4, meas_imin, "MINImum");
+
+
                 MyLib.Delay1ms(500);
             }
             else
@@ -282,10 +306,10 @@ namespace SoftStartTiming
                 double vmax = 0;
                 if (InsControl._tek_scope_en)
                 {
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, meas_level);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, meas_level);
                     MyLib.Delay1ms(100);
-                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, 8);
+                    vmax = InsControl._tek_scope.CHx_Meas_MAX(ch_idx + 2, meas_level);
                 }
                 else
                 {
@@ -707,11 +731,11 @@ namespace SoftStartTiming
 #if Power_en
                             vin = InsControl._power.GetVoltage();
 #endif
-                            sst = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * Math.Pow(10, 6);
-                            vmax = InsControl._tek_scope.CHx_Meas_MAX(2, 2);
-                            vmin = InsControl._tek_scope.CHx_Meas_MIN(2, 3);
-                            ilx_max = InsControl._tek_scope.CHx_Meas_MIN(4, 4);
-                            ilx_min = InsControl._tek_scope.CHx_Meas_MIN(4, 5);
+                            sst = InsControl._tek_scope.CHx_Meas_Rise(2, meas_rising) * Math.Pow(10, 6);
+                            vmax = InsControl._tek_scope.CHx_Meas_MAX(2, meas_vmax);
+                            vmin = InsControl._tek_scope.CHx_Meas_MIN(2, meas_vmin);
+                            ilx_max = InsControl._tek_scope.CHx_Meas_MIN(4, meas_imax);
+                            ilx_min = InsControl._tek_scope.CHx_Meas_MIN(4, meas_imin);
 
                             InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
                             InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH2");
