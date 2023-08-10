@@ -1,7 +1,7 @@
 ﻿
 
 #define Report_en
-//#define Power_en
+#define Power_en
 #define Eload_en
 
 using System;
