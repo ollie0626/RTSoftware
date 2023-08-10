@@ -49,6 +49,9 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureSource(4, meas_iduty, "PDUty");
             InsControl._oscilloscope.SetMeasureSource(4, meas_ifreq, "FREQuency");
 
+            InsControl._oscilloscope.CHx_Level(1, 0.01);
+            InsControl._oscilloscope.CHx_Position(1, 0);
+
         }
 
         private bool I2C_Check(int match_idx)
