@@ -164,17 +164,27 @@ namespace SoftStartTiming
             }
         }
 
-        private void test_parameter_copy()
+        private bool test_parameter_copy()
         {
             test_parameter.slave = (byte)nuslave.Value;
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
+            test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
+
+            if(test_parameter.VinList.Count != dataGridView1.RowCount)
+            {
+                MessageBox.Show("Vin & I2C number isn't match !!!");
+                return false;
+            }
+
+
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 test_parameter.lt_lab.addr_list.Add(Convert.ToByte(dataGridView1[0, i].Value.ToString(), 16));
                 test_parameter.lt_lab.data_list.Add(Convert.ToByte(dataGridView1[1, i].Value.ToString(), 16));
                 test_parameter.lt_lab.vout_list.Add(Convert.ToDouble(dataGridView1[2, i].Value.ToString()));
             }
-            test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
-            test_parameter.lt_lab.time_scale = (double)nuTimeScale.Value;
+
+            return true;
         }
 
         private void Run_Single_Task(object idx)
@@ -198,11 +208,18 @@ namespace SoftStartTiming
                         nuslave.Value = list[0];
                 }
 
-                test_parameter_copy();
+                if (test_parameter_copy())
+                {
+                    p_thread = new ParameterizedThreadStart(Run_Single_Task);
+                    ATETask = new Thread(p_thread);
+                    ATETask.Start(0);
+                }
+                else
+                {
+                    BTRun.Enabled = true;
+                }
 
-                p_thread = new ParameterizedThreadStart(Run_Single_Task);
-                ATETask = new Thread(p_thread);
-                ATETask.Start(0);
+
             }
             catch (Exception ex)
             {
