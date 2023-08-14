@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31729.503
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IN528ATE_tool", "IN528ATE_tool\IN528ATE_tool\IN528ATE_tool.csproj", "{1A1B522E-34A4-43AE-8137-9AAE9B1C1569}"
 EndProject
@@ -24,6 +24,8 @@ EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "IN528", "IN528\IN528\IN528.vbproj", "{64194EB8-D698-4B93-903E-29AAA82649B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTool", "SimpleTool\SimpleTool.csproj", "{8A51F2CC-E8A4-4623-99BC-81C44D666A08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RT6971", "RT6971\RT6971\RT6971.csproj", "{BE5E8245-414E-4AAE-AFFE-C65B0296616D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,14 @@ Global
 		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|x86.ActiveCfg = Release|Any CPU
 		{8A51F2CC-E8A4-4623-99BC-81C44D666A08}.Release|x86.Build.0 = Release|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Debug|x86.Build.0 = Debug|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|x86.ActiveCfg = Release|Any CPU
+		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
