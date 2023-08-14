@@ -126,7 +126,7 @@ namespace SoftStartTiming
             // 
             // bt_up
             // 
-            this.bt_up.Location = new System.Drawing.Point(348, 339);
+            this.bt_up.Location = new System.Drawing.Point(348, 330);
             this.bt_up.Name = "bt_up";
             this.bt_up.Size = new System.Drawing.Size(28, 23);
             this.bt_up.TabIndex = 140;
@@ -136,7 +136,7 @@ namespace SoftStartTiming
             // 
             // bt_down
             // 
-            this.bt_down.Location = new System.Drawing.Point(348, 368);
+            this.bt_down.Location = new System.Drawing.Point(348, 359);
             this.bt_down.Name = "bt_down";
             this.bt_down.Size = new System.Drawing.Size(28, 23);
             this.bt_down.TabIndex = 141;
@@ -301,7 +301,7 @@ namespace SoftStartTiming
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(384, 132);
+            this.label2.Location = new System.Drawing.Point(389, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 12);
             this.label2.TabIndex = 163;
@@ -310,7 +310,7 @@ namespace SoftStartTiming
             // nuTimeScale
             // 
             this.nuTimeScale.DecimalPlaces = 3;
-            this.nuTimeScale.Location = new System.Drawing.Point(523, 130);
+            this.nuTimeScale.Location = new System.Drawing.Point(528, 108);
             this.nuTimeScale.Maximum = new decimal(new int[] {
             100000,
             0,

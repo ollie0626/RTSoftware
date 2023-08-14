@@ -92,12 +92,15 @@ namespace SoftStartTiming
             // data cnt & vin cnt as same         
             for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
             {
+                InsControl._oscilloscope.CHx_Position(1, 0);
+                InsControl._oscilloscope.CHx_Offset(1, test_parameter.lt_lab.vout_list[i2c_idx]); // vout offset
+                InsControl._oscilloscope.CHx_Level(1, 0.01); // set level 10mV
                 InsControl._power.AutoSelPowerOn(test_parameter.VinList[i2c_idx]);
                 while (!I2C_Check(i2c_idx)) { MyLib.Delay1ms(50); };
                 //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                 MyLib.Delay1ms(200);
 
-                CHxResize(i2c_idx);
+                //CHxResize(i2c_idx);
                 //InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetAutoTrigger();
                 InsControl._oscilloscope.SetClear();
@@ -110,13 +113,19 @@ namespace SoftStartTiming
                 double imean, iduty, ifreq;
 
                 Iin = InsControl._power.GetCurrent();
+                MyLib.Delay1ms(5);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(meas_vmax);
+                MyLib.Delay1ms(5);
                 vmin = InsControl._oscilloscope.CHx_Meas_Min(meas_vmin);
+                MyLib.Delay1ms(5);
                 vmean = InsControl._oscilloscope.CHx_Meas_Mean(meas_vmean);
-
+                MyLib.Delay1ms(5);
                 imean = InsControl._oscilloscope.CHx_Meas_Mean(meas_imean);
+                MyLib.Delay1ms(5);
                 iduty = InsControl._oscilloscope.CHx_Meas_Duty(meas_iduty);
+                MyLib.Delay1ms(5);
                 ifreq = InsControl._oscilloscope.CHx_Meas_Freq(meas_ifreq);
+                MyLib.Delay1ms(5);
 
                 #region "meas data"
 #if Report_en
