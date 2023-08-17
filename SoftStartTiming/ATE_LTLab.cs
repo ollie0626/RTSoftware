@@ -101,8 +101,10 @@ namespace SoftStartTiming
 
 #if Report_en
                 row = 1;
-                string sheet_name = string.Format("Vin_{0:0}_I2C_{1:X2}",
+                string sheet_name = string.Format("Vin={0:0}_Vout={1:0}_{2:X2}={3:X2}",
                                             test_parameter.VinList[i2c_idx],
+                                            test_parameter.lt_lab.vout_list[i2c_idx],
+                                            test_parameter.lt_lab.addr_list[i2c_idx],
                                             test_parameter.lt_lab.data_list[i2c_idx]);
                 _sheet = (Excel.Worksheet)_book.Worksheets.Add();
                 _sheet.Name = sheet_name;
