@@ -43,17 +43,6 @@ namespace SoftStartTiming
 
         const int meas_vmax = 7;
 
-        //const int meas_vtop1 = 7;
-        //const int meas_vtop2 = 8;
-        //const int meas_vtop3 = 9;
-
-        //const int meas_vbase1 = 10;
-        //const int meas_vbase2 = 11;
-        //const int meas_vbase3 = 12;
-
-        //const int current_vmax = 13;
-        //const int current_vmin = 14;
-
         public ATE_DelayTime()
         {
             delegate_mess = new FinishNotification(MessageNotify);
@@ -317,6 +306,9 @@ namespace SoftStartTiming
         private void LevelEvent()
         {
             InsControl._tek_scope.SetMeasureSource(2, meas_vmax, "MAXimum");
+            InsControl._tek_scope.CHx_Level(2, test_parameter.ch2_level);
+            InsControl._tek_scope.CHx_Level(3, test_parameter.ch3_level);
+            InsControl._tek_scope.CHx_Level(4, test_parameter.ch4_level);
             int re_cnt = 0;
             for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
             {
@@ -411,8 +403,6 @@ namespace SoftStartTiming
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
 #endif
             MyLib.Delay1ms(1000);
-            TriggerEvent(idx);
-            //MyLib.Delay1ms(3000);
 
             for (int i = 0; i < 100; i++)
             {
@@ -420,6 +410,15 @@ namespace SoftStartTiming
                 Console.WriteLine("I2C Return value {0}", ret);
                 if (ret == 0) break;
             }
+            TriggerEvent(idx);
+            //MyLib.Delay1ms(3000);
+            for (int i = 0; i < 100; i++)
+            {
+                int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+                Console.WriteLine("I2C Return value {0}", ret);
+                if (ret == 0) break;
+            }
+
 
             //MyLib.Delay1s(1);
 

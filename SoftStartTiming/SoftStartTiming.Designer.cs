@@ -130,6 +130,9 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.nu_ch3_level = new System.Windows.Forms.NumericUpDown();
+            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
+            this.nu_ch4_level = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -151,6 +154,9 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -327,7 +333,7 @@ namespace SoftStartTiming
             this.group_sst.Controls.Add(this.nuLX);
             this.group_sst.Controls.Add(this.label13);
             this.group_sst.Controls.Add(this.label12);
-            this.group_sst.Location = new System.Drawing.Point(347, 274);
+            this.group_sst.Location = new System.Drawing.Point(344, 274);
             this.group_sst.Name = "group_sst";
             this.group_sst.Size = new System.Drawing.Size(195, 116);
             this.group_sst.TabIndex = 83;
@@ -429,7 +435,7 @@ namespace SoftStartTiming
             this.groupBox6.Controls.Add(this.RBMs);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(545, 274);
+            this.groupBox6.Location = new System.Drawing.Point(545, 226);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(257, 107);
             this.groupBox6.TabIndex = 84;
@@ -506,7 +512,7 @@ namespace SoftStartTiming
             this.groupBox5.Controls.Add(this.CkBin1);
             this.groupBox5.Location = new System.Drawing.Point(15, 274);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(195, 116);
+            this.groupBox5.Size = new System.Drawing.Size(117, 116);
             this.groupBox5.TabIndex = 83;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "I2C Setting En";
@@ -547,12 +553,15 @@ namespace SoftStartTiming
             // 
             // group_channel
             // 
+            this.group_channel.Controls.Add(this.nu_ch4_level);
+            this.group_channel.Controls.Add(this.nu_ch3_level);
             this.group_channel.Controls.Add(this.CkCH2);
+            this.group_channel.Controls.Add(this.nu_ch2_level);
             this.group_channel.Controls.Add(this.CkCH3);
             this.group_channel.Controls.Add(this.CkCH1);
-            this.group_channel.Location = new System.Drawing.Point(216, 274);
+            this.group_channel.Location = new System.Drawing.Point(138, 274);
             this.group_channel.Name = "group_channel";
-            this.group_channel.Size = new System.Drawing.Size(125, 116);
+            this.group_channel.Size = new System.Drawing.Size(200, 116);
             this.group_channel.TabIndex = 82;
             this.group_channel.TabStop = false;
             this.group_channel.Text = "Scope CH Enable";
@@ -1236,6 +1245,42 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // nu_ch3_level
+            // 
+            this.nu_ch3_level.Location = new System.Drawing.Point(115, 48);
+            this.nu_ch3_level.Name = "nu_ch3_level";
+            this.nu_ch3_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch3_level.TabIndex = 5;
+            this.nu_ch3_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nu_ch2_level
+            // 
+            this.nu_ch2_level.Location = new System.Drawing.Point(115, 20);
+            this.nu_ch2_level.Name = "nu_ch2_level";
+            this.nu_ch2_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch2_level.TabIndex = 4;
+            this.nu_ch2_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nu_ch4_level
+            // 
+            this.nu_ch4_level.Location = new System.Drawing.Point(115, 81);
+            this.nu_ch4_level.Name = "nu_ch4_level";
+            this.nu_ch4_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch4_level.TabIndex = 6;
+            this.nu_ch4_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1309,6 +1354,9 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1416,6 +1464,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.CheckBox ck_crmode;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.ComboBox CBEdge;
+        private System.Windows.Forms.NumericUpDown nu_ch4_level;
+        private System.Windows.Forms.NumericUpDown nu_ch3_level;
+        private System.Windows.Forms.NumericUpDown nu_ch2_level;
     }
 }
 

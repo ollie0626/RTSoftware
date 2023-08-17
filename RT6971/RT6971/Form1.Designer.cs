@@ -923,7 +923,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1395, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1357, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -8441,7 +8441,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1395, 797);
+            this.ClientSize = new System.Drawing.Size(1357, 797);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tbSlave);
             this.Controls.Add(this.btScan);

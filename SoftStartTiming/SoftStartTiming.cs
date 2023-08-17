@@ -270,6 +270,11 @@ namespace SoftStartTiming
             // CBEdge.SelectedIndex = 0 --> rising
             // 
             test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? true : false;
+
+
+            test_parameter.ch2_level = (double)nu_ch2_level.Value;
+            test_parameter.ch3_level = (double)nu_ch3_level.Value;
+            test_parameter.ch4_level = (double)nu_ch4_level.Value;
         }
 
         private void BTRun_Click(object sender, EventArgs e)

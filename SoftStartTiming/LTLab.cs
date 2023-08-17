@@ -302,6 +302,8 @@ namespace SoftStartTiming
                     CBChannel.SelectedIndex = 0;
                     break;
             }
+
+            //InsControl._power.AutoSelPowerOn(3);
         }
     }
 

@@ -12,6 +12,11 @@ namespace SoftStartTiming
         public static List<double> VinList = new List<double>();
         public static List<double> IoutList = new List<double>();
 
+        public static double ch1_level;
+        public static double ch2_level;
+        public static double ch3_level;
+        public static double ch4_level;
+
         public static bool eload_cr;
         public static string vin_conditions;
         public static string iout_conditions;
