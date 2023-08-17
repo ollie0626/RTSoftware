@@ -55,6 +55,8 @@ namespace SoftStartTiming
             this.BTRun = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.nuTimeScale = new System.Windows.Forms.NumericUpDown();
+            this.BT_LoadSetting = new System.Windows.Forms.Button();
+            this.BT_SaveSetting = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -301,16 +303,17 @@ namespace SoftStartTiming
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(389, 110);
+            this.label2.Location = new System.Drawing.Point(409, 451);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(133, 12);
             this.label2.TabIndex = 163;
             this.label2.Text = "Initial Time Scale (ms)";
+            this.label2.Visible = false;
             // 
             // nuTimeScale
             // 
             this.nuTimeScale.DecimalPlaces = 3;
-            this.nuTimeScale.Location = new System.Drawing.Point(528, 108);
+            this.nuTimeScale.Location = new System.Drawing.Point(548, 449);
             this.nuTimeScale.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -329,6 +332,27 @@ namespace SoftStartTiming
             0,
             0,
             0});
+            this.nuTimeScale.Visible = false;
+            // 
+            // BT_LoadSetting
+            // 
+            this.BT_LoadSetting.Location = new System.Drawing.Point(494, 108);
+            this.BT_LoadSetting.Name = "BT_LoadSetting";
+            this.BT_LoadSetting.Size = new System.Drawing.Size(102, 23);
+            this.BT_LoadSetting.TabIndex = 166;
+            this.BT_LoadSetting.Text = "Load Setting";
+            this.BT_LoadSetting.UseVisualStyleBackColor = true;
+            this.BT_LoadSetting.Click += new System.EventHandler(this.BT_LoadSetting_Click);
+            // 
+            // BT_SaveSetting
+            // 
+            this.BT_SaveSetting.Location = new System.Drawing.Point(386, 108);
+            this.BT_SaveSetting.Name = "BT_SaveSetting";
+            this.BT_SaveSetting.Size = new System.Drawing.Size(102, 23);
+            this.BT_SaveSetting.TabIndex = 165;
+            this.BT_SaveSetting.Text = "Save Setting";
+            this.BT_SaveSetting.UseVisualStyleBackColor = true;
+            this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
             // 
             // LTLab
             // 
@@ -336,6 +360,8 @@ namespace SoftStartTiming
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(731, 483);
+            this.Controls.Add(this.BT_LoadSetting);
+            this.Controls.Add(this.BT_SaveSetting);
             this.Controls.Add(this.nuTimeScale);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BTPause);
@@ -400,5 +426,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Addr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Data;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.Button BT_LoadSetting;
+        private System.Windows.Forms.Button BT_SaveSetting;
     }
 }

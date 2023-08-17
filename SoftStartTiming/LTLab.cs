@@ -305,6 +305,107 @@ namespace SoftStartTiming
 
             //InsControl._power.AutoSelPowerOn(3);
         }
+
+        private void BT_SaveSetting_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "settings|*.tb_info";
+
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = saveDlg.FileName;
+                SaveSettings(file_name);
+            }
+        }
+
+        private void SaveSettings(string file)
+        {
+            string settings = "";
+
+            // chamber info
+            settings = "0.Vin_Setting=$" + tb_vinList.Text + "$\r\n";
+            settings += "1.Data_Row_cnt=$" + dataGridView1.RowCount + "$\r\n";
+
+            for(int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                settings += "2.Addr=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
+                settings += "3.Data=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
+                settings += "4.Vout=$" + dataGridView1[2, i].Value.ToString() + "$\r\n";
+            }
+
+            using (StreamWriter sw = new StreamWriter(file))
+            {
+                sw.Write(settings);
+            }
+        }
+
+        private void BT_LoadSetting_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog opendlg = new OpenFileDialog();
+            opendlg.Filter = "settings|*.tb_info";
+            if (opendlg.ShowDialog() == DialogResult.OK)
+            {
+                LoadSettings(opendlg.FileName);
+            }
+        }
+
+        private void LoadSettings(string file)
+        {
+            object[] obj_arr = new object[]
+            {
+                tb_vinList, dataGridView1
+            };
+            List<string> info = new List<string>();
+            using (StreamReader sr = new StreamReader(file))
+            {
+                string pattern = @"(?<=\$)(.*)(?=\$)";
+                MatchCollection matches;
+                string line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Regex rg = new Regex(pattern);
+                    matches = rg.Matches(line);
+                    Match match = matches[0];
+                    info.Add(match.Value);
+                }
+
+                int idx = 0;
+                for (int i = 0; i < obj_arr.Length; i++)
+                {
+                    switch (obj_arr[i].GetType().Name)
+                    {
+                        case "TextBox":
+                            ((TextBox)obj_arr[i]).Text = info[i];
+                            break;
+                        case "CheckBox":
+                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            break;
+                        case "NumericUpDown":
+                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
+                            break;
+                        case "ComboBox":
+                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
+                            break;
+                        case "DataGridView":
+                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            //idx = i + 1;
+                            goto fullDG;
+                    }
+                }
+
+            fullDG:
+                for (int i = 0; i < dataGridView1.RowCount; i++)
+                {
+                    dataGridView1[0, i].Value = Convert.ToString(info[idx + 2]); // start
+                    dataGridView1[1, i].Value = Convert.ToString(info[idx + 3]); // step
+                    dataGridView1[2, i].Value = Convert.ToString(info[idx + 4]); // stop
+                    idx += 3;
+                }
+
+
+
+            }
+        }
     }
 
     public class LTLab_parameter
