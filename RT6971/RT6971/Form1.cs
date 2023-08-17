@@ -192,7 +192,7 @@ namespace RT6971
             GLDOSL.Value = code;
             W09.Value = code << 3 | (int)W09.Value & 0x07;
 
-            for(int i = 0; i < eventHandlers.Length; i++) eventHandlers[i](null, null);
+            for (int i = 0; i < eventHandlers.Length; i++) eventHandlers[i](null, null);
         }
 
         private void GLDOSL_Scroll(object sender, ScrollEventArgs e)
@@ -418,6 +418,299 @@ namespace RT6971
         private void VCOM3SL_Scroll(object sender, ScrollEventArgs e)
         {
             VCOM3H.Value = VCOM3SL.Value;
+        }
+
+        private void cb_protection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_gam_en, cb_havdd_en, cb_vgh_en, cb_avdd_en, cb_vgl2_en, cb_vgl1_en, cb_vcc2_en, cb_protection
+                };
+
+                int data = 0x00;
+
+                for (int i = 0; i < 8; i++) data |= (cb_arr[i].SelectedIndex << i);
+                W29.Value = data;
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void cb_avdd_dis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_vcom1_dis, cb_vcom2_dis, cb_vcom3_dis, cb_vcc_dis, cb_vgl1_dis, cb_vgh_dis, cb_havdd_dis, cb_havdd_dis
+                };
+                int data = 0x00;
+                for (int i = 0; i < 8; i++) data |= (cb_arr[i].SelectedIndex << i);
+                W24.Value = data;
+            }
+            catch
+            {
+
+            }
+
+
+
+
+        }
+
+        private void cb_vcom1_en_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_vcom3_en, cb_vcom2_en, cb_vcom1_en
+                };
+                int data = 0x00;
+                for (int i = 5; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
+                W26.Value = data | (int)W26.Value & 0x1F;
+            }
+            catch
+            {
+
+            }
+
+        }
+
+        private void cb_vcc1_ss_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            W01.Value = cb_vcc1_ss.SelectedIndex << 7 | (int)W01.Value & 0x7F;
+        }
+
+        private void cb_vcc2_ss_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            W02.Value = cb_vcc2_ss.SelectedIndex << 7 | (int)W02.Value & 0x7F;
+        }
+
+        private void cb_dly0_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_dly3, cb_dly1, cb_dly2, cb_dly0
+                };
+                int data = 0x00;
+                for (int i = 0; i < 8; i+=2) data |= cb_arr[i / 2].SelectedIndex << i;
+                W08.Value = data;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void cb_vgh_tc_en_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_vgh_tc_en, cb_vcom_tc_en, cb_tc_type
+                };
+                int data = 0x00;
+                for (int i = 5; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
+                W1D.Value = data | (int)W1D.Value & 0x1F;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void cb_vgh_tc_mode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ComboBox combo = (ComboBox)sender;
+            if (cb_vgh_tc_mode.SelectedIndex == -1) return;
+            if (cb_vgx_prt_off.SelectedIndex == -1) return;
+            if (cb_vcom_tc.SelectedIndex == -1) return;
+
+            W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | (int)W1E.Value & 0x3F;
+            W1E.Value = cb_vgx_prt_off.SelectedIndex << 5 | (int)W1E.Value & 0xDF;
+            W1E.Value = cb_vcom_tc.SelectedIndex | (int)W1E.Value & 0xF0;
+        }
+
+        private void cb_eocp_time_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_eocp_time.SelectedIndex == -1) return;
+            if (cb_gocp_time.SelectedIndex == -1) return;
+
+            W1F.Value = cb_eocp_time.SelectedIndex << 4 | (int)W1F.Value & 0x0F;
+            W1F.Value = cb_gocp_time.SelectedIndex | (int)W1F.Value & 0xF0;
+
+        }
+
+        private void cb_eocp_level_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_eocp_level.SelectedIndex == -1) return;
+            if (cb_gocp_level.SelectedIndex == -1) return;
+
+            W20.Value = cb_eocp_level.SelectedIndex << 4 | (int)W20.Value & 0x8F;
+            W20.Value = cb_gocp_level.SelectedIndex << 0 | (int)W20.Value & 0xF0;
+        }
+
+        private void cb_socp_time_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_socp_time.SelectedIndex == -1) return;
+            if (cb_socp_level.SelectedIndex == -1) return;
+
+            W21.Value = cb_socp_time.SelectedIndex << 4 | (int)W21.Value & 0x0F;
+            W21.Value = cb_socp_level.SelectedIndex << 0 | (int)W21.Value & 0xF0;
+        }
+
+        private void cb_sclk_psk_rst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_sclk_psk_rst.SelectedIndex == -1) return;
+            W22.Value = cb_sclk_psk_rst.SelectedIndex << 5 | (int)W22.Value & 0xDF;
+        }
+
+        private void cb_dummy_clk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_dummy_clk.SelectedIndex == -1) return;
+            if (cb_reverse.SelectedIndex == -1) return;
+            if (cb_double.SelectedIndex == -1) return;
+
+            W23.Value = cb_dummy_clk.SelectedIndex << 5 | (int)W23.Value & 0xDF;
+            W23.Value = cb_reverse.SelectedIndex << 3 | (int)W23.Value & 0xF7;
+            W23.Value = cb_double.SelectedIndex << 2 | (int)W23.Value & 0xFB;
+        }
+
+        private void cb_vcc2_dis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_vcc2_dis.SelectedIndex == -1) return;
+            if (cb_vgl2_dis.SelectedIndex == -1) return;
+            if (cb_avdd_ext_drv.SelectedIndex == -1) return;
+            if (cb_ext_int.SelectedIndex == -1) return;
+
+
+            W25.Value = cb_vcc2_dis.SelectedIndex << 5 | (int)W25.Value & 0xDF;
+            W25.Value = cb_vgl2_dis.SelectedIndex << 4 | (int)W25.Value & 0xEF;
+            W25.Value = cb_avdd_ext_drv.SelectedIndex << 1 | (int)W25.Value & 0xF9;
+            W25.Value = cb_ext_int.SelectedIndex << 0 | (int)W25.Value & 0xFE;
+        }
+
+        private void cb_vcc1_sync_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_vcc1_sync.SelectedIndex == -1) return;
+            if (cb_vcc2_sync.SelectedIndex == -1) return;
+            if (cb_vcc2_en.SelectedIndex == -1) return;
+            if (cb_fre_vcc1.SelectedIndex == -1) return;
+            if (cb_ft_vcc2.SelectedIndex == -1) return;
+
+            W27.Value = cb_vcc1_sync.SelectedIndex << 6 | (int)W27.Value & 0xBF;
+            W27.Value = cb_vcc2_sync.SelectedIndex << 5 | (int)W27.Value & 0xDF;
+            W27.Value = cb_vcc2_en.SelectedIndex << 4 | (int)W27.Value & 0xEF;
+            W27.Value = cb_fre_vcc1.SelectedIndex << 3 | (int)W27.Value & 0xF7;
+            W27.Value = cb_ft_vcc2.SelectedIndex << 2 | (int)W27.Value & 0xFB;
+        }
+
+        private void cb_vgh_sst_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_vgh_sst.SelectedIndex == -1) return;
+            if (cb_avdd_ss.SelectedIndex == -1) return;
+            if (cb_fre_avdd.SelectedIndex == -1) return;
+            if (cb_fre_havdd.SelectedIndex == -1) return;
+            if (cb_fre_vgh.SelectedIndex == -1) return;
+            if (cb_fre_vgl.SelectedIndex == -1) return;
+            if (cb_pmic_en.SelectedIndex == -1) return;
+
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_pmic_en, cb_fre_vgl, cb_fre_vgh, cb_fre_havdd, cb_fre_avdd, cb_avdd_ss, cb_vgh_sst
+                };
+
+                int data = 0x00;
+                for (int i = 0; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
+                W2A.Value = data;
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+        private void cb_ocp_level_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_ocp_level.SelectedIndex == -1) return;
+            if (cb_ocp_time.SelectedIndex == -1) return;
+
+            W2B.Value = cb_ocp_level.SelectedIndex << 4 | (int)W2B.Value & 0x8F;
+            W2B.Value = cb_ocp_time.SelectedIndex << 0 | (int)W2B.Value & 0xF8;
+        }
+
+        private void cb_avdd_protect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_avdd_protect.SelectedIndex == -1) return;
+            if (cb_vcc1_protect.SelectedIndex == -1) return;
+            if (cb_havdd_protect.SelectedIndex == -1) return;
+            if (cb_vgh_protect.SelectedIndex == -1) return;
+            if (cb_vgh_protect.SelectedIndex == -1) return;
+            if (cb_vgl1_protect.SelectedIndex == -1) return;
+
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_vgl1_protect, cb_vgh_protect, cb_vgh_protect, cb_havdd_protect, cb_vcc1_protect, cb_avdd_protect
+                };
+
+                int data = 0x00;
+                for (int i = 0; i < 6; i++) data |= cb_arr[i].SelectedIndex << i;
+                W2C.Value = data | (int)W2C.Value & 0xC0;
+            }
+            catch
+            {
+
+            }
+        }
+
+        private void cb_ls7_protect_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_ls7_protect.SelectedIndex == -1) return;
+            if (cb_ls6_protect.SelectedIndex == -1) return;
+            if (cb_ls5_protect.SelectedIndex == -1) return;
+            if (cb_ls4_protect.SelectedIndex == -1) return;
+            if (cb_ls3_protect.SelectedIndex == -1) return;
+            if (cb_ls2_protect.SelectedIndex == -1) return;
+            if (cb_ls1_protect.SelectedIndex == -1) return;
+            if (cb_otp_protect.SelectedIndex == -1) return;
+            try
+            {
+                ComboBox[] cb_arr = new ComboBox[]
+                {
+                    cb_otp_protect, cb_ls1_protect, cb_ls2_protect, cb_ls3_protect, cb_ls4_protect, cb_ls5_protect, cb_ls6_protect, cb_ls7_protect
+                };
+
+                int data = 0x00;
+                for (int i = 0; i < 8; i++) data |= cb_arr[i].SelectedIndex << i;
+                W2D.Value = data;
+            }
+            catch
+            {
+
+            }
+
+
+        }
+
+        private void cb_ls_en_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
