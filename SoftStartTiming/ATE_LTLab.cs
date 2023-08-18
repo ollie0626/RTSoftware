@@ -12,14 +12,18 @@ using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Windows.Forms;
-using System.Threading;
+//using System.Threading;
 using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+
+using System;
+using System.Timers;
 
 namespace SoftStartTiming
 {
     public class ATE_LTLab : TaskRun
     {
+        System.Timers.Timer timer;
         Excel.Application _app;
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
@@ -27,6 +31,7 @@ namespace SoftStartTiming
 
         RTBBControl RTDev = new RTBBControl();
 
+        //private Thread clear_cnt;
         private bool sel;
         //private int temp_meas = 8;
 
@@ -54,6 +59,12 @@ namespace SoftStartTiming
 
         }
 
+        private void RefleshMeasure(Object source, ElapsedEventArgs e)
+        {
+            //InsControl._oscilloscope.DoCommand("MEASUrement:STATIstics:COUNt RESET");
+            Console.WriteLine("1s send clear counter command");
+        }
+
         private bool I2C_Check(int match_idx)
         {
             byte addr = test_parameter.lt_lab.addr_list[match_idx];
@@ -73,9 +84,20 @@ namespace SoftStartTiming
             //InsControl._oscilloscope.CHx_Level(1, max / 3);
         }
 
+        private void TimerInit()
+        {
+            // Create a timer with a 1 second interval
+            timer = new System.Timers.Timer(1000);
+            timer.Elapsed += RefleshMeasure;
+            timer.AutoReset = true;
+        }
+
+
+
         public override void ATETask()
         {
             RTDev.BoadInit();
+            TimerInit();
             int row = 1;
 
             string path = Application.StartupPath + "\\example.xlsm";
@@ -93,7 +115,7 @@ namespace SoftStartTiming
             //_sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
             #endregion
-            OSCInit();
+            //OSCInit();
 
             // data cnt & vin cnt as same         
             for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
@@ -119,6 +141,7 @@ namespace SoftStartTiming
                 row++;
 
 #endif
+                InsControl._oscilloscope.SetAutoTrigger();
                 InsControl._oscilloscope.CHx_Position(1, 0);
                 InsControl._oscilloscope.CHx_Offset(1, test_parameter.lt_lab.vout_list[i2c_idx]); // vout offset
                 InsControl._oscilloscope.CHx_Level(1, 0.01); // set level 10mV
@@ -130,17 +153,14 @@ namespace SoftStartTiming
                     //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     //CHxResize(i2c_idx);
                     //InsControl._oscilloscope.SetPERSistence();
-                    InsControl._oscilloscope.SetAutoTrigger();
-                    InsControl._oscilloscope.SetClear();
-                    MyLib.Delay1ms(500);
 
-                    //TimeScaleSetting();
-                    //InsControl._oscilloscope.SetTimeScale(test_parameter.lt_lab.time_scale * Math.Pow(10, -3));
+                    timer.Enabled = true;
+                    //InsControl._oscilloscope.SetClear();
                     MyLib.Delay1ms(200);
 
-                    double vin;
-                    double Iin, vmax, vmin, vmean;
-                    double imean, iduty, ifreq;
+                    double vin = 0;
+                    double Iin = 0, vmax = 0, vmin = 0, vmean = 0;
+                    double imean = 0, iduty = 0, ifreq = 0;
 
                     vin = InsControl._power.GetVoltage();
                     Iin = InsControl._power.GetCurrent();
@@ -165,10 +185,12 @@ namespace SoftStartTiming
 #endif
                     #endregion
                 };
-
+                //"MEASUrement:STATIstics:COUNt RESET"
+                //MyLib.Delay1ms(300);
             }
 
 #if Report_en
+            timer.Enabled = false;
             MyLib.SaveExcelReport(test_parameter.waveform_path, temp + "C_LTLab_" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
             _book.Close(false);
             _book = null;

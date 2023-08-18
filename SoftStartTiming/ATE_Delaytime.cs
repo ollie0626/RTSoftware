@@ -491,8 +491,6 @@ namespace SoftStartTiming
                 if (test_parameter.bin_en[select_idx])
                 {
 
-
-
 #region "Report initial"
 #if Report_en
                     _sheet = _book.Worksheets.Add();

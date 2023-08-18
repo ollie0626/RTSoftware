@@ -21,7 +21,7 @@ namespace SoftStartTiming
     {
 
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
-        string win_name = "LTLab v1.02";
+        string win_name = "LTLab v1.03";
         ParameterizedThreadStart p_thread;
         ATE_LTLab _ate_ltlab;
         Thread ATETask;
