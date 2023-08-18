@@ -290,7 +290,7 @@
             this.label134 = new System.Windows.Forms.Label();
             this.cb_vgl1_protect = new System.Windows.Forms.ComboBox();
             this.label135 = new System.Windows.Forms.Label();
-            this.cb_vgh2_protect = new System.Windows.Forms.ComboBox();
+            this.cb_vgl2_protect = new System.Windows.Forms.ComboBox();
             this.label136 = new System.Windows.Forms.Label();
             this.cb_vgh_protect = new System.Windows.Forms.ComboBox();
             this.label137 = new System.Windows.Forms.Label();
@@ -980,7 +980,6 @@
             this.btScan.TabIndex = 7;
             this.btScan.Text = "Scan SlaveID";
             this.btScan.UseVisualStyleBackColor = true;
-            this.btScan.Click += new System.EventHandler(this.btScan_Click);
             // 
             // nuSlave
             // 
@@ -4086,7 +4085,7 @@
             this.groupBox44.Controls.Add(this.label134);
             this.groupBox44.Controls.Add(this.cb_vgl1_protect);
             this.groupBox44.Controls.Add(this.label135);
-            this.groupBox44.Controls.Add(this.cb_vgh2_protect);
+            this.groupBox44.Controls.Add(this.cb_vgl2_protect);
             this.groupBox44.Controls.Add(this.label136);
             this.groupBox44.Controls.Add(this.cb_vgh_protect);
             this.groupBox44.Controls.Add(this.label137);
@@ -4128,21 +4127,21 @@
             this.label135.AutoSize = true;
             this.label135.Location = new System.Drawing.Point(14, 190);
             this.label135.Name = "label135";
-            this.label135.Size = new System.Drawing.Size(102, 12);
+            this.label135.Size = new System.Drawing.Size(101, 12);
             this.label135.TabIndex = 12;
-            this.label135.Text = "VGH2_Protection[1]";
+            this.label135.Text = "VGL2_Protection[1]";
             // 
-            // cb_vgh2_protect
+            // cb_vgl2_protect
             // 
-            this.cb_vgh2_protect.FormattingEnabled = true;
-            this.cb_vgh2_protect.Items.AddRange(new object[] {
+            this.cb_vgl2_protect.FormattingEnabled = true;
+            this.cb_vgl2_protect.Items.AddRange(new object[] {
             "0h : Disable",
             "1h : Enable"});
-            this.cb_vgh2_protect.Location = new System.Drawing.Point(16, 208);
-            this.cb_vgh2_protect.Name = "cb_vgh2_protect";
-            this.cb_vgh2_protect.Size = new System.Drawing.Size(121, 20);
-            this.cb_vgh2_protect.TabIndex = 11;
-            this.cb_vgh2_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
+            this.cb_vgl2_protect.Location = new System.Drawing.Point(16, 208);
+            this.cb_vgl2_protect.Name = "cb_vgl2_protect";
+            this.cb_vgl2_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgl2_protect.TabIndex = 11;
+            this.cb_vgl2_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
             // label136
             // 
@@ -6117,6 +6116,7 @@
             this.W0C.Size = new System.Drawing.Size(46, 22);
             this.W0C.TabIndex = 218;
             this.W0C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0C.ValueChanged += new System.EventHandler(this.W0B_ValueChanged);
             // 
             // W3B
             // 
@@ -6163,6 +6163,7 @@
             this.W0D.Size = new System.Drawing.Size(46, 22);
             this.W0D.TabIndex = 220;
             this.W0D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0D.ValueChanged += new System.EventHandler(this.W0D_ValueChanged);
             // 
             // W3C
             // 
@@ -6209,6 +6210,7 @@
             this.W0F.Size = new System.Drawing.Size(46, 22);
             this.W0F.TabIndex = 222;
             this.W0F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0F.ValueChanged += new System.EventHandler(this.W0F_ValueChanged);
             // 
             // W3D
             // 
@@ -6255,6 +6257,7 @@
             this.W0E.Size = new System.Drawing.Size(46, 22);
             this.W0E.TabIndex = 224;
             this.W0E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0E.ValueChanged += new System.EventHandler(this.W0D_ValueChanged);
             // 
             // W3F
             // 
@@ -6749,6 +6752,7 @@
             this.W10.Size = new System.Drawing.Size(46, 22);
             this.W10.TabIndex = 242;
             this.W10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W10.ValueChanged += new System.EventHandler(this.W0F_ValueChanged);
             // 
             // R3E
             // 
@@ -6795,6 +6799,7 @@
             this.W11.Size = new System.Drawing.Size(46, 22);
             this.W11.TabIndex = 244;
             this.W11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W11.ValueChanged += new System.EventHandler(this.W11_ValueChanged);
             // 
             // W40
             // 
@@ -6809,6 +6814,7 @@
             this.W40.Size = new System.Drawing.Size(46, 22);
             this.W40.TabIndex = 396;
             this.W40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W40.ValueChanged += new System.EventHandler(this.W40_ValueChanged);
             // 
             // label56
             // 
@@ -6841,6 +6847,7 @@
             this.W12.Size = new System.Drawing.Size(46, 22);
             this.W12.TabIndex = 246;
             this.W12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W12.ValueChanged += new System.EventHandler(this.W11_ValueChanged);
             // 
             // W41
             // 
@@ -6855,6 +6862,7 @@
             this.W41.Size = new System.Drawing.Size(46, 22);
             this.W41.TabIndex = 398;
             this.W41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W41.ValueChanged += new System.EventHandler(this.W41_ValueChanged);
             // 
             // label55
             // 
@@ -6887,6 +6895,7 @@
             this.W13.Size = new System.Drawing.Size(46, 22);
             this.W13.TabIndex = 248;
             this.W13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W13.ValueChanged += new System.EventHandler(this.W13_ValueChanged);
             // 
             // W42
             // 
@@ -6901,6 +6910,7 @@
             this.W42.Size = new System.Drawing.Size(46, 22);
             this.W42.TabIndex = 400;
             this.W42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W42.ValueChanged += new System.EventHandler(this.W42_ValueChanged);
             // 
             // label53
             // 
@@ -6933,6 +6943,7 @@
             this.W14.Size = new System.Drawing.Size(46, 22);
             this.W14.TabIndex = 250;
             this.W14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W14.ValueChanged += new System.EventHandler(this.W13_ValueChanged);
             // 
             // W43
             // 
@@ -6947,6 +6958,7 @@
             this.W43.Size = new System.Drawing.Size(46, 22);
             this.W43.TabIndex = 402;
             this.W43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W43.ValueChanged += new System.EventHandler(this.W43_ValueChanged);
             // 
             // label52
             // 
@@ -6979,6 +6991,7 @@
             this.W15.Size = new System.Drawing.Size(46, 22);
             this.W15.TabIndex = 252;
             this.W15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W15.ValueChanged += new System.EventHandler(this.W15_ValueChanged);
             // 
             // W44
             // 
@@ -6993,6 +7006,7 @@
             this.W44.Size = new System.Drawing.Size(46, 22);
             this.W44.TabIndex = 404;
             this.W44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W44.ValueChanged += new System.EventHandler(this.W44_ValueChanged);
             // 
             // label51
             // 
@@ -7025,6 +7039,7 @@
             this.W16.Size = new System.Drawing.Size(46, 22);
             this.W16.TabIndex = 254;
             this.W16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W16.ValueChanged += new System.EventHandler(this.W15_ValueChanged);
             // 
             // W45
             // 
@@ -7039,6 +7054,7 @@
             this.W45.Size = new System.Drawing.Size(46, 22);
             this.W45.TabIndex = 406;
             this.W45.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W45.ValueChanged += new System.EventHandler(this.W45_ValueChanged);
             // 
             // label50
             // 
@@ -7071,6 +7087,7 @@
             this.W17.Size = new System.Drawing.Size(46, 22);
             this.W17.TabIndex = 256;
             this.W17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W17.ValueChanged += new System.EventHandler(this.W17_ValueChanged);
             // 
             // W46
             // 
@@ -7117,6 +7134,7 @@
             this.W18.Size = new System.Drawing.Size(46, 22);
             this.W18.TabIndex = 258;
             this.W18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W18.ValueChanged += new System.EventHandler(this.W17_ValueChanged);
             // 
             // W47
             // 
@@ -7163,6 +7181,7 @@
             this.W19.Size = new System.Drawing.Size(46, 22);
             this.W19.TabIndex = 260;
             this.W19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W19.ValueChanged += new System.EventHandler(this.W19_ValueChanged);
             // 
             // W48
             // 
@@ -7209,6 +7228,7 @@
             this.W1A.Size = new System.Drawing.Size(46, 22);
             this.W1A.TabIndex = 262;
             this.W1A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1A.ValueChanged += new System.EventHandler(this.W19_ValueChanged);
             // 
             // W49
             // 
@@ -7255,6 +7275,7 @@
             this.W1B.Size = new System.Drawing.Size(46, 22);
             this.W1B.TabIndex = 264;
             this.W1B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1B.ValueChanged += new System.EventHandler(this.W1B_ValueChanged);
             // 
             // W4A
             // 
@@ -7301,6 +7322,7 @@
             this.W1C.Size = new System.Drawing.Size(46, 22);
             this.W1C.TabIndex = 266;
             this.W1C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1C.ValueChanged += new System.EventHandler(this.W1B_ValueChanged);
             // 
             // W4B
             // 
@@ -7347,6 +7369,7 @@
             this.W1D.Size = new System.Drawing.Size(46, 22);
             this.W1D.TabIndex = 268;
             this.W1D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1D.ValueChanged += new System.EventHandler(this.W1D_ValueChanged);
             // 
             // W4C
             // 
@@ -7393,6 +7416,7 @@
             this.W1F.Size = new System.Drawing.Size(46, 22);
             this.W1F.TabIndex = 270;
             this.W1F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1F.ValueChanged += new System.EventHandler(this.W1F_ValueChanged);
             // 
             // W4D
             // 
@@ -7439,6 +7463,7 @@
             this.W1E.Size = new System.Drawing.Size(46, 22);
             this.W1E.TabIndex = 272;
             this.W1E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W1E.ValueChanged += new System.EventHandler(this.W1E_ValueChanged);
             // 
             // W4F
             // 
@@ -7933,6 +7958,7 @@
             this.W20.Size = new System.Drawing.Size(46, 22);
             this.W20.TabIndex = 290;
             this.W20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W20.ValueChanged += new System.EventHandler(this.W20_ValueChanged);
             // 
             // R48
             // 
@@ -7970,6 +7996,7 @@
             this.W21.Size = new System.Drawing.Size(46, 22);
             this.W21.TabIndex = 292;
             this.W21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W21.ValueChanged += new System.EventHandler(this.W21_ValueChanged);
             // 
             // label185
             // 
@@ -8011,6 +8038,7 @@
             this.W22.Size = new System.Drawing.Size(46, 22);
             this.W22.TabIndex = 294;
             this.W22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W22.ValueChanged += new System.EventHandler(this.W22_ValueChanged);
             // 
             // label186
             // 
@@ -8052,6 +8080,7 @@
             this.W23.Size = new System.Drawing.Size(46, 22);
             this.W23.TabIndex = 296;
             this.W23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W23.ValueChanged += new System.EventHandler(this.W23_ValueChanged);
             // 
             // label182
             // 
@@ -8093,6 +8122,7 @@
             this.W24.Size = new System.Drawing.Size(46, 22);
             this.W24.TabIndex = 298;
             this.W24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W24.ValueChanged += new System.EventHandler(this.W24_ValueChanged);
             // 
             // R2E
             // 
@@ -8144,6 +8174,7 @@
             this.W25.Size = new System.Drawing.Size(46, 22);
             this.W25.TabIndex = 300;
             this.W25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W25.ValueChanged += new System.EventHandler(this.W25_ValueChanged);
             // 
             // R2D
             // 
@@ -8195,6 +8226,7 @@
             this.W26.Size = new System.Drawing.Size(46, 22);
             this.W26.TabIndex = 302;
             this.W26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W26.ValueChanged += new System.EventHandler(this.W26_ValueChanged);
             // 
             // R2B
             // 
@@ -8246,6 +8278,7 @@
             this.W27.Size = new System.Drawing.Size(46, 22);
             this.W27.TabIndex = 304;
             this.W27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W27.ValueChanged += new System.EventHandler(this.W27_ValueChanged);
             // 
             // R29
             // 
@@ -8297,6 +8330,7 @@
             this.W28.Size = new System.Drawing.Size(46, 22);
             this.W28.TabIndex = 306;
             this.W28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W28.ValueChanged += new System.EventHandler(this.W28_ValueChanged);
             // 
             // R27
             // 
@@ -8348,6 +8382,7 @@
             this.W29.Size = new System.Drawing.Size(46, 22);
             this.W29.TabIndex = 308;
             this.W29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W29.ValueChanged += new System.EventHandler(this.W29_ValueChanged);
             // 
             // R25
             // 
@@ -8399,6 +8434,7 @@
             this.W2A.Size = new System.Drawing.Size(46, 22);
             this.W2A.TabIndex = 310;
             this.W2A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W2A.ValueChanged += new System.EventHandler(this.W2A_ValueChanged);
             // 
             // R23
             // 
@@ -8450,6 +8486,7 @@
             this.W2B.Size = new System.Drawing.Size(46, 22);
             this.W2B.TabIndex = 312;
             this.W2B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W2B.ValueChanged += new System.EventHandler(this.W2B_ValueChanged);
             // 
             // R21
             // 
@@ -8501,6 +8538,7 @@
             this.W2C.Size = new System.Drawing.Size(46, 22);
             this.W2C.TabIndex = 314;
             this.W2C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W2C.ValueChanged += new System.EventHandler(this.W2C_ValueChanged);
             // 
             // W2E
             // 
@@ -8548,6 +8586,7 @@
             this.W2D.Size = new System.Drawing.Size(46, 22);
             this.W2D.TabIndex = 316;
             this.W2D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W2D.ValueChanged += new System.EventHandler(this.W2D_ValueChanged);
             // 
             // W2F
             // 
@@ -9455,7 +9494,7 @@
         private System.Windows.Forms.Label label134;
         private System.Windows.Forms.ComboBox cb_vgl1_protect;
         private System.Windows.Forms.Label label135;
-        private System.Windows.Forms.ComboBox cb_vgh2_protect;
+        private System.Windows.Forms.ComboBox cb_vgl2_protect;
         private System.Windows.Forms.Label label136;
         private System.Windows.Forms.ComboBox cb_vgh_protect;
         private System.Windows.Forms.Label label137;
