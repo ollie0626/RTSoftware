@@ -81,16 +81,16 @@ namespace SoftStartTiming
             string path = Application.StartupPath + "\\example.xlsm";
             #region "Report Initial"
 #if Report_en
-            //_app = new Excel.Application();
-            //_app.Visible = true;
-            //_book = _app.Workbooks.Open(path);                      // open example excel
-            //_sheet = (Excel.Worksheet)_book.ActiveSheet;              // raw data sheet
-
-            // Excel initial
             _app = new Excel.Application();
             _app.Visible = true;
-            _book = (Excel.Workbook)_app.Workbooks.Add();
-            _sheet = (Excel.Worksheet)_book.ActiveSheet;
+            _book = _app.Workbooks.Open(path);                      // open example excel
+            _sheet = (Excel.Worksheet)_book.ActiveSheet;              // raw data sheet
+
+            // Excel initial
+            //_app = new Excel.Application();
+            //_app.Visible = true;
+            //_book = (Excel.Workbook)_app.Workbooks.Add();
+            //_sheet = (Excel.Worksheet)_book.ActiveSheet;
 #endif
             #endregion
             OSCInit();
@@ -106,7 +106,7 @@ namespace SoftStartTiming
                                             test_parameter.lt_lab.vout_list[i2c_idx],
                                             test_parameter.lt_lab.addr_list[i2c_idx],
                                             test_parameter.lt_lab.data_list[i2c_idx]);
-                _sheet = (Excel.Worksheet)_book.Worksheets.Add();
+                if(i2c_idx != 0)  _sheet = (Excel.Worksheet)_book.Worksheets.Add();
                 _sheet.Name = sheet_name;
                 _sheet.Cells[row, XLS_Table.A] = "Vin (V)";
                 _sheet.Cells[row, XLS_Table.B] = "Iin (A)";

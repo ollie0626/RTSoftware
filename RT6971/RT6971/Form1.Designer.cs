@@ -923,7 +923,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1369, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1288, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -980,6 +980,7 @@
             this.btScan.TabIndex = 7;
             this.btScan.Text = "Scan SlaveID";
             this.btScan.UseVisualStyleBackColor = true;
+            this.btScan.Click += new System.EventHandler(this.btScan_Click);
             // 
             // nuSlave
             // 
@@ -1098,7 +1099,7 @@
             this.tabControl1.Location = new System.Drawing.Point(20, 65);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1308, 711);
+            this.tabControl1.Size = new System.Drawing.Size(1245, 711);
             this.tabControl1.TabIndex = 156;
             // 
             // tabPage1
@@ -1137,7 +1138,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1300, 685);
+            this.tabPage1.Size = new System.Drawing.Size(1237, 685);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vout Setting";
             // 
@@ -2608,7 +2609,7 @@
             // 
             this.HAVDDSL.LargeChange = 1;
             this.HAVDDSL.Location = new System.Drawing.Point(12, 26);
-            this.HAVDDSL.Maximum = 63;
+            this.HAVDDSL.Maximum = 1023;
             this.HAVDDSL.Name = "HAVDDSL";
             this.HAVDDSL.Size = new System.Drawing.Size(166, 17);
             this.HAVDDSL.TabIndex = 160;
@@ -2632,16 +2633,6 @@
             0,
             65536});
             this.HAVDDV.Location = new System.Drawing.Point(233, 21);
-            this.HAVDDV.Maximum = new decimal(new int[] {
-            192,
-            0,
-            0,
-            65536});
-            this.HAVDDV.Minimum = new decimal(new int[] {
-            13,
-            0,
-            0,
-            0});
             this.HAVDDV.Name = "HAVDDV";
             this.HAVDDV.ReadOnly = true;
             this.HAVDDV.Size = new System.Drawing.Size(46, 22);
@@ -2658,7 +2649,7 @@
             this.HAVDDH.Hexadecimal = true;
             this.HAVDDH.Location = new System.Drawing.Point(181, 21);
             this.HAVDDH.Maximum = new decimal(new int[] {
-            63,
+            1023,
             0,
             0,
             0});
@@ -3310,7 +3301,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1300, 685);
+            this.tabPage2.Size = new System.Drawing.Size(1237, 685);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "IC Configure";
             // 
@@ -3350,6 +3341,7 @@
             this.cb_power_off.Name = "cb_power_off";
             this.cb_power_off.Size = new System.Drawing.Size(121, 20);
             this.cb_power_off.TabIndex = 9;
+            this.cb_power_off.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
             // 
             // label209
             // 
@@ -3370,6 +3362,7 @@
             this.cb_ch_mode.Name = "cb_ch_mode";
             this.cb_ch_mode.Size = new System.Drawing.Size(121, 20);
             this.cb_ch_mode.TabIndex = 7;
+            this.cb_ch_mode.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
             // 
             // label210
             // 
@@ -3390,6 +3383,7 @@
             this.cb_stv_rest.Name = "cb_stv_rest";
             this.cb_stv_rest.Size = new System.Drawing.Size(121, 20);
             this.cb_stv_rest.TabIndex = 5;
+            this.cb_stv_rest.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
             // 
             // label211
             // 
@@ -3410,6 +3404,7 @@
             this.cb_vgh_uvlo.Name = "cb_vgh_uvlo";
             this.cb_vgh_uvlo.Size = new System.Drawing.Size(121, 20);
             this.cb_vgh_uvlo.TabIndex = 1;
+            this.cb_vgh_uvlo.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
             // 
             // groupBox50
             // 
@@ -3447,6 +3442,7 @@
             this.cb_enE_Type.Name = "cb_enE_Type";
             this.cb_enE_Type.Size = new System.Drawing.Size(121, 20);
             this.cb_enE_Type.TabIndex = 9;
+            this.cb_enE_Type.SelectedIndexChanged += new System.EventHandler(this.cb_ilmt1_SelectedIndexChanged);
             // 
             // label201
             // 
@@ -3467,6 +3463,7 @@
             this.cb_vin_uvlo.Name = "cb_vin_uvlo";
             this.cb_vin_uvlo.Size = new System.Drawing.Size(121, 20);
             this.cb_vin_uvlo.TabIndex = 7;
+            this.cb_vin_uvlo.SelectedIndexChanged += new System.EventHandler(this.cb_ilmt1_SelectedIndexChanged);
             // 
             // label205
             // 
@@ -3487,6 +3484,7 @@
             this.cb_ilmta.Name = "cb_ilmta";
             this.cb_ilmta.Size = new System.Drawing.Size(121, 20);
             this.cb_ilmta.TabIndex = 5;
+            this.cb_ilmta.SelectedIndexChanged += new System.EventHandler(this.cb_ilmt1_SelectedIndexChanged);
             // 
             // label206
             // 
@@ -3507,6 +3505,7 @@
             this.cb_ilmt1.Name = "cb_ilmt1";
             this.cb_ilmt1.Size = new System.Drawing.Size(121, 20);
             this.cb_ilmt1.TabIndex = 1;
+            this.cb_ilmt1.SelectedIndexChanged += new System.EventHandler(this.cb_ilmt1_SelectedIndexChanged);
             // 
             // groupBox49
             // 
@@ -3542,6 +3541,7 @@
             this.cb_xon_off_dly.Name = "cb_xon_off_dly";
             this.cb_xon_off_dly.Size = new System.Drawing.Size(121, 20);
             this.cb_xon_off_dly.TabIndex = 7;
+            this.cb_xon_off_dly.SelectedIndexChanged += new System.EventHandler(this.cb_vcom_dly_SelectedIndexChanged);
             // 
             // label203
             // 
@@ -3562,6 +3562,7 @@
             this.cb_xon_on_dly.Name = "cb_xon_on_dly";
             this.cb_xon_on_dly.Size = new System.Drawing.Size(121, 20);
             this.cb_xon_on_dly.TabIndex = 5;
+            this.cb_xon_on_dly.SelectedIndexChanged += new System.EventHandler(this.cb_vcom_dly_SelectedIndexChanged);
             // 
             // label204
             // 
@@ -3582,6 +3583,7 @@
             this.cb_vcom_dly.Name = "cb_vcom_dly";
             this.cb_vcom_dly.Size = new System.Drawing.Size(121, 20);
             this.cb_vcom_dly.TabIndex = 1;
+            this.cb_vcom_dly.SelectedIndexChanged += new System.EventHandler(this.cb_vcom_dly_SelectedIndexChanged);
             // 
             // groupBox48
             // 
@@ -3619,6 +3621,7 @@
             this.cb_auto_pulse.Name = "cb_auto_pulse";
             this.cb_auto_pulse.Size = new System.Drawing.Size(121, 20);
             this.cb_auto_pulse.TabIndex = 9;
+            this.cb_auto_pulse.SelectedIndexChanged += new System.EventHandler(this.cb_clk_dis_SelectedIndexChanged);
             // 
             // label198
             // 
@@ -3639,6 +3642,7 @@
             this.cb_lc_init.Name = "cb_lc_init";
             this.cb_lc_init.Size = new System.Drawing.Size(121, 20);
             this.cb_lc_init.TabIndex = 7;
+            this.cb_lc_init.SelectedIndexChanged += new System.EventHandler(this.cb_clk_dis_SelectedIndexChanged);
             // 
             // label199
             // 
@@ -3659,6 +3663,7 @@
             this.cb_lc_dis.Name = "cb_lc_dis";
             this.cb_lc_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_lc_dis.TabIndex = 5;
+            this.cb_lc_dis.SelectedIndexChanged += new System.EventHandler(this.cb_clk_dis_SelectedIndexChanged);
             // 
             // label200
             // 
@@ -3679,6 +3684,7 @@
             this.cb_clk_dis.Name = "cb_clk_dis";
             this.cb_clk_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_clk_dis.TabIndex = 1;
+            this.cb_clk_dis.SelectedIndexChanged += new System.EventHandler(this.cb_clk_dis_SelectedIndexChanged);
             // 
             // groupBox47
             // 
@@ -3716,6 +3722,7 @@
             this.cb_disch_dis.Name = "cb_disch_dis";
             this.cb_disch_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_disch_dis.TabIndex = 9;
+            this.cb_disch_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
             // 
             // label180
             // 
@@ -3736,6 +3743,7 @@
             this.cb_stv3_dis.Name = "cb_stv3_dis";
             this.cb_stv3_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_stv3_dis.TabIndex = 7;
+            this.cb_stv3_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
             // 
             // label195
             // 
@@ -3756,6 +3764,7 @@
             this.cb_stv2_dis.Name = "cb_stv2_dis";
             this.cb_stv2_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_stv2_dis.TabIndex = 5;
+            this.cb_stv2_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
             // 
             // label196
             // 
@@ -3776,6 +3785,7 @@
             this.cb_stv1_dis.Name = "cb_stv1_dis";
             this.cb_stv1_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_stv1_dis.TabIndex = 1;
+            this.cb_stv1_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
             // 
             // groupBox46
             // 
@@ -3813,6 +3823,7 @@
             this.cb_clk_falling.Name = "cb_clk_falling";
             this.cb_clk_falling.Size = new System.Drawing.Size(121, 20);
             this.cb_clk_falling.TabIndex = 9;
+            this.cb_clk_falling.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
             // 
             // label192
             // 
@@ -3833,6 +3844,7 @@
             this.cb_clk_rising.Name = "cb_clk_rising";
             this.cb_clk_rising.Size = new System.Drawing.Size(121, 20);
             this.cb_clk_rising.TabIndex = 7;
+            this.cb_clk_rising.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
             // 
             // label193
             // 
@@ -3853,6 +3865,7 @@
             this.cb_hsr.Name = "cb_hsr";
             this.cb_hsr.Size = new System.Drawing.Size(121, 20);
             this.cb_hsr.TabIndex = 5;
+            this.cb_hsr.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
             // 
             // label194
             // 
@@ -5492,7 +5505,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1300, 685);
+            this.tabPage3.Size = new System.Drawing.Size(1237, 685);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Register";
             // 
@@ -5536,6 +5549,7 @@
             this.W00.Size = new System.Drawing.Size(46, 22);
             this.W00.TabIndex = 194;
             this.W00.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W00.ValueChanged += new System.EventHandler(this.W00_ValueChanged);
             // 
             // label190
             // 
@@ -5577,6 +5591,7 @@
             this.W01.Size = new System.Drawing.Size(46, 22);
             this.W01.TabIndex = 196;
             this.W01.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W01.ValueChanged += new System.EventHandler(this.W01_ValueChanged);
             // 
             // label177
             // 
@@ -5632,6 +5647,7 @@
             this.W02.Size = new System.Drawing.Size(46, 22);
             this.W02.TabIndex = 198;
             this.W02.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W02.ValueChanged += new System.EventHandler(this.W02_ValueChanged);
             // 
             // W31
             // 
@@ -5678,6 +5694,7 @@
             this.W03.Size = new System.Drawing.Size(46, 22);
             this.W03.TabIndex = 200;
             this.W03.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W03.ValueChanged += new System.EventHandler(this.W03_ValueChanged);
             // 
             // W32
             // 
@@ -5724,6 +5741,7 @@
             this.W04.Size = new System.Drawing.Size(46, 22);
             this.W04.TabIndex = 202;
             this.W04.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W04.ValueChanged += new System.EventHandler(this.W04_ValueChanged);
             // 
             // W33
             // 
@@ -5770,6 +5788,7 @@
             this.W05.Size = new System.Drawing.Size(46, 22);
             this.W05.TabIndex = 204;
             this.W05.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W05.ValueChanged += new System.EventHandler(this.W05_ValueChanged);
             // 
             // W34
             // 
@@ -5816,6 +5835,7 @@
             this.W06.Size = new System.Drawing.Size(46, 22);
             this.W06.TabIndex = 206;
             this.W06.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W06.ValueChanged += new System.EventHandler(this.W06_ValueChanged);
             // 
             // W35
             // 
@@ -5862,6 +5882,7 @@
             this.W07.Size = new System.Drawing.Size(46, 22);
             this.W07.TabIndex = 208;
             this.W07.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W07.ValueChanged += new System.EventHandler(this.W07_ValueChanged);
             // 
             // W36
             // 
@@ -5908,6 +5929,7 @@
             this.W08.Size = new System.Drawing.Size(46, 22);
             this.W08.TabIndex = 210;
             this.W08.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W08.ValueChanged += new System.EventHandler(this.W08_ValueChanged);
             // 
             // W37
             // 
@@ -5954,6 +5976,7 @@
             this.W09.Size = new System.Drawing.Size(46, 22);
             this.W09.TabIndex = 212;
             this.W09.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W09.ValueChanged += new System.EventHandler(this.W09_ValueChanged);
             // 
             // W38
             // 
@@ -6000,6 +6023,7 @@
             this.W0A.Size = new System.Drawing.Size(46, 22);
             this.W0A.TabIndex = 214;
             this.W0A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0A.ValueChanged += new System.EventHandler(this.W0A_ValueChanged);
             // 
             // W39
             // 
@@ -6046,6 +6070,7 @@
             this.W0B.Size = new System.Drawing.Size(46, 22);
             this.W0B.TabIndex = 216;
             this.W0B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W0B.ValueChanged += new System.EventHandler(this.W0B_ValueChanged);
             // 
             // W3A
             // 
@@ -8553,7 +8578,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1395, 797);
+            this.ClientSize = new System.Drawing.Size(1288, 797);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tbSlave);
             this.Controls.Add(this.btScan);

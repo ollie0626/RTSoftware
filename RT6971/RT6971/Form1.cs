@@ -495,20 +495,13 @@ namespace RT6971
 
         private void cb_dly0_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try
-            {
-                ComboBox[] cb_arr = new ComboBox[]
-                {
-                    cb_dly3, cb_dly1, cb_dly2, cb_dly0
-                };
-                int data = 0x00;
-                for (int i = 0; i < 8; i+=2) data |= cb_arr[i / 2].SelectedIndex << i;
-                W08.Value = data;
-            }
-            catch
-            {
+            if (cb_dly0.SelectedIndex == -1) return;
+            if (cb_dly1.SelectedIndex == -1) return;
+            if (cb_dly2.SelectedIndex == -1) return;
+            if (cb_dly3.SelectedIndex == -1) return;
 
-            }
+            W08.Value = (cb_dly0.SelectedIndex << 6) | cb_dly1.SelectedIndex << 4 | cb_dly2.SelectedIndex << 2 | cb_dly3.SelectedIndex << 0;
+
         }
 
         private void cb_vgh_tc_en_SelectedIndexChanged(object sender, EventArgs e)
@@ -640,8 +633,6 @@ namespace RT6971
             {
 
             }
-
-
         }
 
         private void cb_ocp_level_SelectedIndexChanged(object sender, EventArgs e)
@@ -710,7 +701,163 @@ namespace RT6971
 
         private void cb_ls_en_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cb_ls_en.SelectedIndex == -1) return;
+            if (cb_hsr.SelectedIndex == -1) return;
+            if (cb_clk_rising.SelectedIndex == -1) return;
+            if (cb_clk_falling.SelectedIndex == -1) return;
+            W40.Value = cb_ls_en.SelectedIndex << 7 | (int)W40.Value & 0x7F;
+            W40.Value = cb_hsr.SelectedIndex << 4 | (int)W40.Value & 0x8F;
+            W40.Value = cb_clk_rising.SelectedIndex << 2 | (int)W40.Value & 0xF3;
+            W40.Value = cb_clk_falling.SelectedIndex << 0 | (int)W40.Value & 0xFC;
+        }
 
+        private void cb_stv1_dis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_stv1_dis.SelectedIndex == -1) return;
+            if (cb_stv2_dis.SelectedIndex == -1) return;
+            if (cb_stv3_dis.SelectedIndex == -1) return;
+            if (cb_disch_dis.SelectedIndex == -1) return;
+
+            W41.Value = cb_stv1_dis.SelectedIndex << 6 | cb_stv2_dis.SelectedIndex << 4 | cb_stv3_dis.SelectedIndex << 2 | cb_disch_dis.SelectedIndex;
+
+        }
+
+        private void cb_clk_dis_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_clk_dis.SelectedIndex == -1) return;
+            if (cb_lc_dis.SelectedIndex == -1) return;
+            if (cb_lc_init.SelectedIndex == -1) return;
+            if (cb_auto_pulse.SelectedIndex == -1) return;
+            W42.Value = cb_clk_dis.SelectedIndex << 6 | cb_lc_dis.SelectedIndex << 4 | cb_lc_init.SelectedIndex << 1 | cb_auto_pulse.SelectedIndex << 0;
+        }
+
+        private void cb_vcom_dly_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_vcom_dly.SelectedIndex == -1) return;
+            if (cb_xon_on_dly.SelectedIndex == -1) return;
+            if (cb_xon_off_dly.SelectedIndex == -1) return;
+
+            W43.Value = cb_vcom_dly.SelectedIndex << 5 | cb_xon_on_dly.SelectedIndex << 3 | cb_xon_off_dly.SelectedIndex << 1 | (int)W43.Value & 0x01;
+        }
+
+        private void cb_ilmt1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_ilmt1.SelectedIndex == -1) return;
+            if (cb_ilmta.SelectedIndex == -1) return;
+            if (cb_vin_uvlo.SelectedIndex == -1) return;
+            if (cb_enE_Type.SelectedIndex == -1) return;
+            W44.Value = cb_ilmt1.SelectedIndex << 7 | cb_ilmta.SelectedIndex << 5 | cb_vin_uvlo.SelectedIndex << 3 | cb_enE_Type.SelectedIndex << 0 | (int)W44.Value & 0x44;
+        }
+
+        private void cb_vgh_uvlo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_vgh_uvlo.SelectedIndex == -1) return;
+            if (cb_stv_rest.SelectedIndex == -1) return;
+            if (cb_ch_mode.SelectedIndex == -1) return;
+            if (cb_power_off.SelectedIndex == -1) return;
+            W45.Value = cb_vgh_uvlo.SelectedIndex << 7 | cb_stv_rest.SelectedIndex << 6 | cb_ch_mode.SelectedIndex << 3 | cb_power_off.SelectedIndex;
+        }
+
+        private int GetValue(int code, int strart_bit, int end_bit)
+        {
+            int res = 0x00;
+            int[] bit_arr = new int[] { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
+            int mask_value = 0x00;
+            for(int i = end_bit; i < strart_bit + 1; i++)
+            {
+                mask_value |= bit_arr[i];
+            }
+            res = code & mask_value;
+            return res >> end_bit;
+        }
+
+        private void W00_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W00.Value;
+            AVDDH.Value = code & 0x3F;
+        }
+
+        private void W01_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W01.Value;
+            VCC1H.Value = code & 0x7F;
+            cb_vcc1_ss.SelectedIndex = (code & 0x80) >> 7;
+        }
+
+        private void W02_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W02.Value;
+            VCC2H.Value = code & 0x1F;
+            cb_vcc2_ss.SelectedIndex = (code & 0x80) >> 7;
+        }
+
+        private void W03_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W03.Value;
+            VGHLTH.Value = GetValue(code, 6, 0);
+        }
+
+        private void W04_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W04.Value;
+            VGHHTH.Value = GetValue(code, 6, 0);
+        }
+
+        private void W05_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W05.Value;
+            VGL1H.Value = GetValue(code, 6, 0);
+        }
+
+        private void W06_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W06.Value;
+            VGL2LTH.Value = GetValue(code, 6, 0);
+        }
+
+        private void W07_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W07.Value;
+            VGL2HTH.Value = GetValue(code, 6, 0);
+        }
+
+        private void W08_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W08.Value;
+            cb_dly0.SelectedIndex = GetValue(code, 7, 6);
+            cb_dly1.SelectedIndex = GetValue(code, 5, 4);
+            cb_dly2.SelectedIndex = GetValue(code, 3, 2);
+            cb_dly3.SelectedIndex = GetValue(code, 1, 0);
+        }
+
+        private void W09_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W09.Value;
+            int MSB = 0x00;
+            GLDOH.Value = GetValue(code, 7, 3);
+            MSB = GetValue(code, 1, 0);
+            HAVDDH.Value = MSB << 8 | (int)W0A.Value;
+        }
+
+        private void W0A_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W0A.Value;
+            int reg09 = (int)W09.Value;
+            int MSB = GetValue(reg09, 1, 0);
+            HAVDDH.Value = MSB << 8 | code;
+        }
+
+        private void W0B_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W08.Value;
+            int LSB = (int)W0C.Value;
+            int MSB = GetValue(code, 1, 0);
+            GAM1H.Value = MSB << 8 | LSB;
+        }
+
+        private void btScan_Click(object sender, EventArgs e)
+        {
+            btScan.Enabled = false;
         }
     }
 }
