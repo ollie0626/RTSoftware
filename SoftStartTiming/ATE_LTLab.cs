@@ -155,6 +155,9 @@ namespace SoftStartTiming
                     //InsControl._oscilloscope.SetPERSistence();
 
                     timer.Enabled = true;
+                    // This command sets the A trigger level automatically to 50% of the range of the
+                    // minimum and maximum values of the trigger input signal.
+                    InsControl._oscilloscope.DoCommand("TRIGger:A"); 
                     //InsControl._oscilloscope.SetClear();
                     MyLib.Delay1ms(200);
 
