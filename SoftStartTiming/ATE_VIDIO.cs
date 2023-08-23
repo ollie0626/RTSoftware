@@ -88,8 +88,8 @@ namespace SoftStartTiming
 
             InsControl._oscilloscope.CHx_Level(3, 5);
             InsControl._oscilloscope.CHx_Level(4, 5);
-            InsControl._oscilloscope.CHx_Position(3, 2.5);
-            InsControl._oscilloscope.CHx_Position(4, 2.5);
+            InsControl._oscilloscope.CHx_Position(3, 3);
+            InsControl._oscilloscope.CHx_Position(4, 3);
 
             InsControl._oscilloscope.SetMeasureSource(1, meas_rising, "RISE");
             InsControl._oscilloscope.SetMeasureSource(1, meas_falling, "FALL");
@@ -313,6 +313,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
+                MyLib.Delay1ms(1000);
             }
 
             if (rising_en)
@@ -360,7 +361,7 @@ namespace SoftStartTiming
 #if Eload_en
                 if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
 #endif
-
+                Trigger_Fail_retry:
                 InsControl._oscilloscope.SetRun();
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetNormalTrigger();
@@ -388,7 +389,13 @@ namespace SoftStartTiming
                                 );
                 }
 
-                while (InsControl._oscilloscope.GetCount() == 0) ;
+                int cnt = 0;
+                while (InsControl._oscilloscope.GetCount() == 0)
+                {
+                    cnt++;
+                    MyLib.Delay1ms(100);
+                    if (cnt > 100) goto Trigger_Fail_retry;
+                }
 
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetStop();
@@ -549,6 +556,14 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetTimeOutEither();
             Initial_TimeScale(rising_en, LPM_en);
 
+            if (undershoot_en)
+            {
+                InsControl._oscilloscope.SetPERSistence();
+                InsControl._oscilloscope.SetNormalTrigger();
+                InsControl._oscilloscope.SetClear();
+                MyLib.Delay1ms(1000);
+            }
+
             if (rising_en)
             {
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
@@ -559,12 +574,7 @@ namespace SoftStartTiming
             }
             MyLib.Delay1ms(200);
 
-            if (undershoot_en)
-            {
-                InsControl._oscilloscope.SetPERSistence();
-                InsControl._oscilloscope.SetNormalTrigger();
-                InsControl._oscilloscope.SetClear();
-            }
+
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
@@ -593,7 +603,7 @@ namespace SoftStartTiming
 #if Eload_en
                 if (LPM_en && !rising_en) InsControl._eload.CH1_Loading(test_parameter.vidio.discharge_load);
 #endif
-
+                Trigger_Fail_retry:
                 InsControl._oscilloscope.SetRun();
                 if (LPM_en) MyLib.Delay1ms(1000);
                 MyLib.Delay1ms(200);
@@ -623,7 +633,13 @@ namespace SoftStartTiming
                                 );
                 }
 
-                while (InsControl._oscilloscope.GetCount() == 0) ;
+                int cnt = 0;
+                while (InsControl._oscilloscope.GetCount() == 0)
+                {
+                    cnt++;
+                    MyLib.Delay1ms(100);
+                    if (cnt > 100) goto Trigger_Fail_retry;
+                }
 
                 MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetStop();
@@ -807,7 +823,7 @@ namespace SoftStartTiming
                 {
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
-                        InsControl._oscilloscope.CHx_Level(3, test_parameter.VinList[vin_idx]);
+                        InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx]);
                         updateMain.UpdateProgressBar(++progress);
                         phase1_name.Clear();
                         phase2_name.Clear();

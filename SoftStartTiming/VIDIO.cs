@@ -21,7 +21,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.4";
+        string win_name = "VIDIO v1.05";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -105,7 +105,8 @@ namespace SoftStartTiming
         {
             InitializeComponent();
             InitDG();
-            this.Name = win_name;
+
+            this.Text = win_name;
 
             _ate_vid_io = new ATE_VIDIO(this);
             ate_table = new TaskRun[] { _ate_vid_io };
@@ -162,6 +163,7 @@ namespace SoftStartTiming
             test_parameter.vidio.io_table.Clear();
             test_parameter.vidio.lpm_vout_map.Clear();
             test_parameter.vidio.lpm_str.Clear();
+            test_parameter.vidio.test_cnt = (int)nu_test_cnt.Value;
 
             test_parameter.tool_ver = win_name + "\r\n";
             test_parameter.vin_conditions = "Vin = " + tb_vinList.Text + "\r\n";
