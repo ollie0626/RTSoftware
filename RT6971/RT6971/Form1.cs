@@ -14,6 +14,12 @@ namespace RT6971
     {
         System.EventHandler[] eventHandlers;
 
+        NumericUpDown[] WriteTable;
+        NumericUpDown[] ReadTable;
+        RTBBControl RTDev = new RTBBControl();
+
+
+
         public Form1()
         {
             InitializeComponent();
@@ -23,6 +29,34 @@ namespace RT6971
                 GAM7H_ValueChanged, GAM8H_ValueChanged, GAM9H_ValueChanged, GAM10H_ValueChanged, GAM11H_ValueChanged, GAM12H_ValueChanged,
                 GAM13H_ValueChanged, GAM14H_ValueChanged, VCOM1H_ValueChanged, VCOM2H_ValueChanged, VCOM3H_ValueChanged
             };
+
+            WriteTable = new NumericUpDown[]
+            {
+                W00, W01, W02, W03, W04, W05, W06, W07, W08, W09, W0A, W0B, W0C, W0D, W0E, W0F,
+                W10, W11, W12, W13, W14, W15, W16, W17, W18, W19, W1A, W1B, W1C, W1D, W1E, W1F,
+                W20, W21, W22, W23, W24, W25, W26, W27, W28, W29, W2A, W2B, W2C, W2D, W2E, W2F,
+                W30, W31, W32, W33, W34, W35, W36, W37, W38, W39, W3A, W3B, W3C, W3D, W3E, W3F,
+                W40, W41, W42, W43, W44, W45, W46, W47, W48, W49, W4A, W4B, W4C, W4D, W4E, W4F,
+            };
+
+            ReadTable = new NumericUpDown[]
+            {
+                R00, R01, R02, R03, R04, R05, R06, R07, R08, R09, R0A, R0B, R0C, R0D, R0E, R0F,
+                R10, R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B, R1C, R1D, R1E, R1F,
+                R20, R21, R22, R23, R24, R25, R26, R27, R28, R29, R2A, R2B, R2C, R2D, R2E, R2F,
+                R30, R31, R32, R33, R34, R35, R36, R37, R38, R39, R3A, R3B, R3C, R3D, R3E, R3F,
+                R40, R41, R42, R43, R44, R45, R46, R47, R48, R49, R4A, R4B, R4C, R4D, R4E, R4F,
+            };
+
+
+            RTDev.BoadInit();
+            List<byte> list = RTDev.ScanSlaveID();
+            if (list != null)
+            {
+                if (list.Count > 0)
+                    nuSlave.Value = list[0];
+            }
+
         }
 
         private double GAMOut_Calculate(int code)
@@ -41,10 +75,11 @@ namespace RT6971
 
         private void GAM_assign(int code, NumericUpDown MSB, NumericUpDown LSB)
         {
+            int reserve = (int)MSB.Value;
             byte bit9_8 = (byte)((code & 0x300) >> 8);
             byte bit7_0 = (byte)(code & 0xff);
 
-            MSB.Value = bit9_8 | ((int)MSB.Value & 0xFC);
+            MSB.Value = bit9_8 | (reserve & 0xFC);
             LSB.Value = bit7_0;
         }
 
@@ -90,6 +125,7 @@ namespace RT6971
             int code = (int)VCC2H.Value;
             double vol = 2.2;
             vol = (double)(code * 1 + 22) / 10;
+            if (vol > 3.7) vol = 3.7;
             VCC2V.Value = (decimal)vol;
 
             VCC2SL.Value = (int)VCC2H.Value;
@@ -98,7 +134,7 @@ namespace RT6971
 
         private void VCC2SL_Scroll(object sender, ScrollEventArgs e)
         {
-            VCC2H.Value = VCC2H.Value;
+            VCC2H.Value = VCC2SL.Value;
         }
 
         private void VGHLTH_ValueChanged(object sender, EventArgs e)
@@ -122,7 +158,7 @@ namespace RT6971
         private void VGHHTH_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VGHHTH.Value;
-            double vol = 35.6;
+            double vol = 20;
 
             vol = (double)(code * 2 + 200) / 10;
             if (vol > 44) vol = 44;
@@ -179,7 +215,7 @@ namespace RT6971
 
         private void VGL2HTSL_Scroll(object sender, ScrollEventArgs e)
         {
-            VGL2LTH.Value = VGL2LTSL.Value;
+            VGL2HTH.Value = VGL2HTSL.Value;
         }
 
         private void GLDOH_ValueChanged(object sender, EventArgs e)
@@ -223,6 +259,10 @@ namespace RT6971
             GAM1V.Value = (decimal)GAMOut_Calculate((int)GAM1H.Value);
 
             GAM_assign((int)GAM1H.Value, W0B, W0C);
+
+
+
+
         }
 
         private void GAM2H_ValueChanged(object sender, EventArgs e)
@@ -271,26 +311,40 @@ namespace RT6971
         {
             GAM8SL.Value = (int)GAM8H.Value;
             GAM8V.Value = (decimal)GAMOut_Calculate((int)GAM8H.Value);
-            GAM_assign((int)GAM7H.Value, W19, W1A);
+            GAM_assign((int)GAM8H.Value, W19, W1A);
         }
 
         private void GAM9H_ValueChanged(object sender, EventArgs e)
         {
             GAM9SL.Value = (int)GAM9H.Value;
             GAM9V.Value = (decimal)GAMOut_Calculate((int)GAM9H.Value);
-            GAM_assign((int)GAM7H.Value, W1B, W1C);
+            GAM_assign((int)GAM9H.Value, W1B, W1C);
         }
 
         private void GAM10H_ValueChanged(object sender, EventArgs e)
         {
             GAM10SL.Value = (int)GAM10H.Value;
             GAM10V.Value = (decimal)GAMOut_Calculate((int)GAM10H.Value);
+
+            int code = (int)GAM10H.Value;
+            int MSB = (code & 0x300) >> 8;
+            int LSB = (code & 0xFF);
+            W2F.Value = LSB;
+            W30.Value = MSB << 6 | (int)W30.Value & 0x3F;
+
         }
 
         private void GAM11H_ValueChanged(object sender, EventArgs e)
         {
             GAM11SL.Value = (int)GAM11H.Value;
             GAM11V.Value = (decimal)GAMOut_Calculate((int)GAM11H.Value);
+
+            int code = (int)GAM11H.Value;
+            int MSB = (code & 0x300) >> 8;
+            int LSB = (code & 0xFF);
+
+            W30.Value = MSB | (int)W30.Value & 0xFC;
+            W31.Value = LSB;
         }
 
         private void GAM12H_ValueChanged(object sender, EventArgs e)
@@ -372,7 +426,7 @@ namespace RT6971
 
         private void GAM8SL_Scroll(object sender, ScrollEventArgs e)
         {
-            GAM8H.Value = GAM7SL.Value;
+            GAM8H.Value = GAM8SL.Value;
         }
 
         private void GAM9SL_Scroll(object sender, ScrollEventArgs e)
@@ -663,29 +717,29 @@ namespace RT6971
 
         private void cb_ls7_protect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cb_ls7_protect.SelectedIndex == -1) return;
-            if (cb_ls6_protect.SelectedIndex == -1) return;
-            if (cb_ls5_protect.SelectedIndex == -1) return;
-            if (cb_ls4_protect.SelectedIndex == -1) return;
-            if (cb_ls3_protect.SelectedIndex == -1) return;
-            if (cb_ls2_protect.SelectedIndex == -1) return;
-            if (cb_ls1_protect.SelectedIndex == -1) return;
-            if (cb_otp_protect.SelectedIndex == -1) return;
-            try
-            {
-                ComboBox[] cb_arr = new ComboBox[]
-                {
-                    cb_otp_protect, cb_ls1_protect, cb_ls2_protect, cb_ls3_protect, cb_ls4_protect, cb_ls5_protect, cb_ls6_protect, cb_ls7_protect
-                };
+            //if (cb_ls7_protect.SelectedIndex == -1) return;
+            //if (cb_ls6_protect.SelectedIndex == -1) return;
+            //if (cb_ls5_protect.SelectedIndex == -1) return;
+            //if (cb_ls4_protect.SelectedIndex == -1) return;
+            //if (cb_ls3_protect.SelectedIndex == -1) return;
+            //if (cb_ls2_protect.SelectedIndex == -1) return;
+            //if (cb_ls1_protect.SelectedIndex == -1) return;
+            //if (cb_otp_protect.SelectedIndex == -1) return;
+            //try
+            //{
+            //    ComboBox[] cb_arr = new ComboBox[]
+            //    {
+            //        cb_otp_protect, cb_ls1_protect, cb_ls2_protect, cb_ls3_protect, cb_ls4_protect, cb_ls5_protect, cb_ls6_protect, cb_ls7_protect
+            //    };
 
-                int data = 0x00;
-                for (int i = 0; i < 8; i++) data |= cb_arr[i].SelectedIndex << i;
-                W2D.Value = data;
-            }
-            catch
-            {
+            //    int data = 0x00;
+            //    for (int i = 0; i < 8; i++) data |= cb_arr[i].SelectedIndex << i;
+            //    W2D.Value = data;
+            //}
+            //catch
+            //{
 
-            }
+            //}
 
 
         }
@@ -840,7 +894,7 @@ namespace RT6971
 
         private void W0B_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W08.Value;
+            int code = (int)W0B.Value;
             int LSB = (int)W0C.Value;
             int MSB = GetValue(code, 1, 0);
             GAM1H.Value = MSB << 8 | LSB;
@@ -1001,11 +1055,6 @@ namespace RT6971
             cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
         }
 
-        private void W28_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void W29_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)W29.Value;
@@ -1040,27 +1089,12 @@ namespace RT6971
 
         private void W2C_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W2C.Value;
-            cb_avdd_protect.SelectedIndex = GetValue(code, 5, 5);
-            cb_vcc1_protect.SelectedIndex = GetValue(code, 4, 4);
-            cb_havdd_protect.SelectedIndex = GetValue(code, 3, 3);
-            cb_vgh_protect.SelectedIndex = GetValue(code, 2, 2);
-            cb_vgl2_protect.SelectedIndex = GetValue(code, 1, 1);
-            cb_vgl1_protect.SelectedIndex = GetValue(code, 0, 0);
+
         }
 
         private void W2D_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W2D.Value;
-            cb_ls7_protect.SelectedIndex = GetValue(code, 7, 7);
-            cb_ls6_protect.SelectedIndex = GetValue(code, 6, 6);
-            cb_ls5_protect.SelectedIndex = GetValue(code, 5, 5);
-            cb_otp_protect.SelectedIndex = GetValue(code, 4, 4);
-            
-            cb_ls4_protect.SelectedIndex = GetValue(code, 3, 3);
-            cb_ls3_protect.SelectedIndex = GetValue(code, 2, 2);
-            cb_ls2_protect.SelectedIndex = GetValue(code, 1, 1);
-            cb_ls1_protect.SelectedIndex = GetValue(code, 0, 0);
+
         }
 
         private void W40_ValueChanged(object sender, EventArgs e)
@@ -1115,6 +1149,183 @@ namespace RT6971
             cb_stv_rest.SelectedIndex = GetValue(code, 6, 6);
             cb_ch_mode.SelectedIndex = GetValue(code, 5, 3);
             cb_power_off.SelectedIndex = GetValue(code, 2, 0);
+        }
+
+        private void W2F_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W30.Value;
+            int MSB = GetValue(code, 7, 6);
+            GAM10H.Value = MSB << 8 | (int)W2F.Value;
+        }
+
+        private void W30_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W30.Value;
+            int GAM10_MSB = GetValue(code, 7, 6);
+            int GAM11_MSB = GetValue(code, 1, 0);
+
+            GAM10H.Value = GAM10_MSB << 8 | (int)W2F.Value;
+            GAM11H.Value = GAM11_MSB << 8 | (int)W31.Value;
+
+        }
+
+        private void W32_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W32.Value;
+            int MSB = GetValue(code, 1, 0);
+            GAM12H.Value = MSB << 8 | (int)W33.Value;
+        }
+
+        private void W34_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W34.Value;
+            int MSB = GetValue(code, 1, 0);
+            GAM13H.Value = MSB << 8 | (int)W35.Value;
+        }
+
+        private void W36_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W36.Value;
+            int MSB = GetValue(code, 1, 0);
+            GAM14H.Value = MSB << 8 | (int)W37.Value;
+        }
+
+        private void W38_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W38.Value;
+            int MSB = GetValue(code, 1, 0);
+            VCOM1H.Value = MSB << 8 | (int)W39.Value;
+        }
+
+        private void W3A_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W3A.Value;
+            int MSB = GetValue(code, 1, 0);
+            VCOM2H.Value = MSB << 8 | (int)W3B.Value;
+        }
+
+        private void W3C_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W3C.Value;
+            int MSB = GetValue(code, 1, 0);
+            VCOM3H.Value = MSB << 8 | (int)W3D.Value;
+        }
+
+        private void VGL2LTSL_Scroll(object sender, ScrollEventArgs e)
+        {
+            VGL2LTH.Value = VGL2LTSL.Value;
+        }
+
+        private void R2D_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W2D.Value;
+            cb_ls7_protect.SelectedIndex = GetValue(code, 7, 7);
+            cb_ls6_protect.SelectedIndex = GetValue(code, 6, 6);
+            cb_ls5_protect.SelectedIndex = GetValue(code, 5, 5);
+            cb_otp_protect.SelectedIndex = GetValue(code, 4, 4);
+
+            cb_ls4_protect.SelectedIndex = GetValue(code, 3, 3);
+            cb_ls3_protect.SelectedIndex = GetValue(code, 2, 2);
+            cb_ls2_protect.SelectedIndex = GetValue(code, 1, 1);
+            cb_ls1_protect.SelectedIndex = GetValue(code, 0, 0);
+        }
+
+        private void R2C_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W2C.Value;
+            cb_avdd_protect.SelectedIndex = GetValue(code, 5, 5);
+            cb_vcc1_protect.SelectedIndex = GetValue(code, 4, 4);
+            cb_havdd_protect.SelectedIndex = GetValue(code, 3, 3);
+            cb_vgh_protect.SelectedIndex = GetValue(code, 2, 2);
+            cb_vgl2_protect.SelectedIndex = GetValue(code, 1, 1);
+            cb_vgl1_protect.SelectedIndex = GetValue(code, 0, 0);
+        }
+
+        private void bt_ReadtoWrite_Click(object sender, EventArgs e)
+        {
+            for(int i = 0; i < WriteTable.Length; i++)
+            {
+                WriteTable[i].Value = ReadTable[i].Value;
+            }
+        }
+
+        private void bt_write_all_Click(object sender, EventArgs e)
+        {
+            byte slave = (byte)((byte)nuSlave.Value >> 1);
+            byte[] WriteBuffer = new byte[WriteTable.Length];
+
+            for(int i = 0; i < WriteTable.Length; i++)
+            {
+                WriteBuffer[i] = (byte)WriteTable[i].Value;
+            }
+            RTDev.I2C_Write(slave, 0x00, WriteBuffer);
+        }
+
+        private void bt_read_all_Click(object sender, EventArgs e)
+        {
+            byte slave = (byte)((byte)nuSlave.Value >> 1);
+            byte[] ReadBuffer = new byte[ReadTable.Length];
+
+            RTDev.I2C_Write(slave, 0xff, new byte[] { 0x00 });
+            RTDev.I2C_Read(slave, 0x00, ref ReadBuffer);
+
+
+            for(int i = 0; i < ReadTable.Length; i++)
+            {
+                ReadTable[i].Value = ReadBuffer[i];
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            byte slave = (byte)((byte)nuSlave.Value >> 1);
+            byte[] WriteBuffer = new byte[WriteTable.Length];
+
+            for (int i = 0; i < WriteTable.Length; i++)
+            {
+                WriteBuffer[i] = (byte)WriteTable[i].Value;
+            }
+            RTDev.I2C_Write(slave, 0x00, WriteBuffer);
+            RTDev.I2C_Write(slave, 0xff, new byte[] { 0x80 });
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            byte slave = (byte)((byte)nuSlave.Value >> 1);
+            byte[] ReadBuffer = new byte[ReadTable.Length];
+
+            RTDev.I2C_Write(slave, 0xff, new byte[] { 0x01 });
+            RTDev.I2C_Read(slave, 0x00, ref ReadBuffer);
+
+
+            for (int i = 0; i < ReadTable.Length; i++)
+            {
+                ReadTable[i].Value = ReadBuffer[i];
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            byte slave = (byte)((byte)nuSlave.Value >> 1);
+            RTDev.I2C_Write(slave, 0xff, new byte[] { 0x40 });
+        }
+
+        private void saveBinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void openBinToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void linkRTBridgeBoardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(!RTDev.BoadInit())
+            {
+                MessageBox.Show("Linking bridge board fail !!!", this.Text);
+            }
         }
     }
 }

@@ -642,6 +642,12 @@
             this.W2D = new System.Windows.Forms.NumericUpDown();
             this.W2F = new System.Windows.Forms.NumericUpDown();
             this.label35 = new System.Windows.Forms.Label();
+            this.bt_ReadtoWrite = new System.Windows.Forms.Button();
+            this.bt_write_all = new System.Windows.Forms.Button();
+            this.bt_read_all = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSlave)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -939,14 +945,16 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
+            this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
+            this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
             // functionToolStripMenuItem
             // 
@@ -961,6 +969,7 @@
             this.linkRTBridgeBoardToolStripMenuItem.Name = "linkRTBridgeBoardToolStripMenuItem";
             this.linkRTBridgeBoardToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.linkRTBridgeBoardToolStripMenuItem.Text = "Link RTBridge Board";
+            this.linkRTBridgeBoardToolStripMenuItem.Click += new System.EventHandler(this.linkRTBridgeBoardToolStripMenuItem_Click);
             // 
             // tbSlave
             // 
@@ -1450,8 +1459,8 @@
             // 
             this.cb_vcom1_dis.FormattingEnabled = true;
             this.cb_vcom1_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vcom1_dis.Location = new System.Drawing.Point(16, 327);
             this.cb_vcom1_dis.Name = "cb_vcom1_dis";
             this.cb_vcom1_dis.Size = new System.Drawing.Size(121, 20);
@@ -1471,8 +1480,8 @@
             // 
             this.cb_vcom2_dis.FormattingEnabled = true;
             this.cb_vcom2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vcom2_dis.Location = new System.Drawing.Point(16, 286);
             this.cb_vcom2_dis.Name = "cb_vcom2_dis";
             this.cb_vcom2_dis.Size = new System.Drawing.Size(121, 20);
@@ -1492,8 +1501,8 @@
             // 
             this.cb_vcom3_dis.FormattingEnabled = true;
             this.cb_vcom3_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vcom3_dis.Location = new System.Drawing.Point(16, 245);
             this.cb_vcom3_dis.Name = "cb_vcom3_dis";
             this.cb_vcom3_dis.Size = new System.Drawing.Size(121, 20);
@@ -1513,8 +1522,8 @@
             // 
             this.cb_vcc_dis.FormattingEnabled = true;
             this.cb_vcc_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vcc_dis.Location = new System.Drawing.Point(16, 204);
             this.cb_vcc_dis.Name = "cb_vcc_dis";
             this.cb_vcc_dis.Size = new System.Drawing.Size(121, 20);
@@ -1534,8 +1543,8 @@
             // 
             this.cb_vgl1_dis.FormattingEnabled = true;
             this.cb_vgl1_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vgl1_dis.Location = new System.Drawing.Point(16, 163);
             this.cb_vgl1_dis.Name = "cb_vgl1_dis";
             this.cb_vgl1_dis.Size = new System.Drawing.Size(121, 20);
@@ -1555,8 +1564,8 @@
             // 
             this.cb_vgh_dis.FormattingEnabled = true;
             this.cb_vgh_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vgh_dis.Location = new System.Drawing.Point(16, 122);
             this.cb_vgh_dis.Name = "cb_vgh_dis";
             this.cb_vgh_dis.Size = new System.Drawing.Size(121, 20);
@@ -1576,8 +1585,8 @@
             // 
             this.cb_havdd_dis.FormattingEnabled = true;
             this.cb_havdd_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_havdd_dis.Location = new System.Drawing.Point(16, 80);
             this.cb_havdd_dis.Name = "cb_havdd_dis";
             this.cb_havdd_dis.Size = new System.Drawing.Size(121, 20);
@@ -1597,8 +1606,8 @@
             // 
             this.cb_avdd_dis.FormattingEnabled = true;
             this.cb_avdd_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_avdd_dis.Location = new System.Drawing.Point(16, 36);
             this.cb_avdd_dis.Name = "cb_avdd_dis";
             this.cb_avdd_dis.Size = new System.Drawing.Size(121, 20);
@@ -2833,6 +2842,7 @@
             this.VGL2LTSL.Name = "VGL2LTSL";
             this.VGL2LTSL.Size = new System.Drawing.Size(166, 17);
             this.VGL2LTSL.TabIndex = 160;
+            this.VGL2LTSL.Scroll += new System.Windows.Forms.ScrollEventHandler(this.VGL2LTSL_Scroll);
             // 
             // label7
             // 
@@ -3012,10 +3022,10 @@
             0,
             0});
             this.VGHHTV.Minimum = new decimal(new int[] {
-            356,
+            20,
             0,
             0,
-            65536});
+            0});
             this.VGHHTV.Name = "VGHHTV";
             this.VGHHTV.ReadOnly = true;
             this.VGHHTV.Size = new System.Drawing.Size(46, 22);
@@ -3136,7 +3146,7 @@
             // 
             this.VCC2SL.LargeChange = 1;
             this.VCC2SL.Location = new System.Drawing.Point(12, 26);
-            this.VCC2SL.Maximum = 15;
+            this.VCC2SL.Maximum = 31;
             this.VCC2SL.Name = "VCC2SL";
             this.VCC2SL.Size = new System.Drawing.Size(166, 17);
             this.VCC2SL.TabIndex = 160;
@@ -3186,7 +3196,7 @@
             this.VCC2H.Hexadecimal = true;
             this.VCC2H.Location = new System.Drawing.Point(181, 21);
             this.VCC2H.Maximum = new decimal(new int[] {
-            15,
+            31,
             0,
             0,
             0});
@@ -3355,8 +3365,14 @@
             // 
             this.cb_ch_mode.FormattingEnabled = true;
             this.cb_ch_mode.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0x41[2:0] = 000: 4 phase of L/S operation",
+            "0x41[2:0] = 001: 6 phase of L/S operation",
+            "0x41[2:0] = 010: 8 phase of L/S operation",
+            "0x41[2:0] = 011: 10 phase of L/S operation",
+            "0x41[2:0] = 100: 12 phase of L/S operation",
+            "0x41[2:0] = 101: 12 phase of L/S operation",
+            "0x41[2:0] = 110: 12 phase of L/S operation",
+            "0x41[2:0] = 111: 12 phase of L/S operation"});
             this.cb_ch_mode.Location = new System.Drawing.Point(16, 122);
             this.cb_ch_mode.Name = "cb_ch_mode";
             this.cb_ch_mode.Size = new System.Drawing.Size(121, 20);
@@ -3376,8 +3392,8 @@
             // 
             this.cb_stv_rest.FormattingEnabled = true;
             this.cb_stv_rest.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Do not reset anything",
+            "1h : STV1 rising reset all CLKx to VGL2"});
             this.cb_stv_rest.Location = new System.Drawing.Point(16, 80);
             this.cb_stv_rest.Name = "cb_stv_rest";
             this.cb_stv_rest.Size = new System.Drawing.Size(121, 20);
@@ -3435,8 +3451,10 @@
             // 
             this.cb_enE_Type.FormattingEnabled = true;
             this.cb_enE_Type.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : EN control AVDD, HAVDD, VGH, VCOM, GMA",
+            "1h : EN control all channels",
+            "2h : EN do not control any channels",
+            "3h : EN do not control any channels"});
             this.cb_enE_Type.Location = new System.Drawing.Point(16, 163);
             this.cb_enE_Type.Name = "cb_enE_Type";
             this.cb_enE_Type.Size = new System.Drawing.Size(121, 20);
@@ -3456,8 +3474,10 @@
             // 
             this.cb_vin_uvlo.FormattingEnabled = true;
             this.cb_vin_uvlo.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 6.5V",
+            "1h : 7V",
+            "2h : 7.5V",
+            "3h : 8V"});
             this.cb_vin_uvlo.Location = new System.Drawing.Point(16, 122);
             this.cb_vin_uvlo.Name = "cb_vin_uvlo";
             this.cb_vin_uvlo.Size = new System.Drawing.Size(121, 20);
@@ -3477,8 +3497,8 @@
             // 
             this.cb_ilmta.FormattingEnabled = true;
             this.cb_ilmta.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 5A (0.25V)",
+            "1h : 8A (0.4V)"});
             this.cb_ilmta.Location = new System.Drawing.Point(16, 80);
             this.cb_ilmta.Name = "cb_ilmta";
             this.cb_ilmta.Size = new System.Drawing.Size(121, 20);
@@ -3498,8 +3518,8 @@
             // 
             this.cb_ilmt1.FormattingEnabled = true;
             this.cb_ilmt1.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 1.5A",
+            "1h : 3.2A"});
             this.cb_ilmt1.Location = new System.Drawing.Point(16, 36);
             this.cb_ilmt1.Name = "cb_ilmt1";
             this.cb_ilmt1.Size = new System.Drawing.Size(121, 20);
@@ -3534,8 +3554,10 @@
             // 
             this.cb_xon_off_dly.FormattingEnabled = true;
             this.cb_xon_off_dly.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0ms",
+            "1h : 5ms",
+            "2h : 10ms",
+            "3h : 20ms"});
             this.cb_xon_off_dly.Location = new System.Drawing.Point(16, 122);
             this.cb_xon_off_dly.Name = "cb_xon_off_dly";
             this.cb_xon_off_dly.Size = new System.Drawing.Size(121, 20);
@@ -3555,8 +3577,10 @@
             // 
             this.cb_xon_on_dly.FormattingEnabled = true;
             this.cb_xon_on_dly.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0ms",
+            "1h : 5ms",
+            "2h : 10ms",
+            "3h : 20ms"});
             this.cb_xon_on_dly.Location = new System.Drawing.Point(16, 80);
             this.cb_xon_on_dly.Name = "cb_xon_on_dly";
             this.cb_xon_on_dly.Size = new System.Drawing.Size(121, 20);
@@ -3576,8 +3600,14 @@
             // 
             this.cb_vcom_dly.FormattingEnabled = true;
             this.cb_vcom_dly.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0ms",
+            "1h : 30ms",
+            "2h : 60ms",
+            "3h : 90ms",
+            "4h : 120ms",
+            "5h : 150ms",
+            "6h : 180ms",
+            "7h : 210ms"});
             this.cb_vcom_dly.Location = new System.Drawing.Point(16, 36);
             this.cb_vcom_dly.Name = "cb_vcom_dly";
             this.cb_vcom_dly.Size = new System.Drawing.Size(121, 20);
@@ -3635,8 +3665,13 @@
             // 
             this.cb_lc_init.FormattingEnabled = true;
             this.cb_lc_init.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Follow VGH until LC_IN rising edge",
+            "1h : Follow VGH until VGH_UVLO_R",
+            "2h : Follow VGL2 until LC_IN rising edge",
+            "3h : Follow VGL2 until VGH_UVLO_R",
+            "4h : LC1 follow VGL2 and LC2 follow VGH until LC_IN rising edge",
+            "5h : LC1 follow VGH and LC2 follow VGL2 until LC_IN rising edge",
+            "6h : LC1 follow VGH and LC2 follow VGL2 until VGH_UVLO_R"});
             this.cb_lc_init.Location = new System.Drawing.Point(16, 122);
             this.cb_lc_init.Name = "cb_lc_init";
             this.cb_lc_init.Size = new System.Drawing.Size(121, 20);
@@ -3656,8 +3691,10 @@
             // 
             this.cb_lc_dis.FormattingEnabled = true;
             this.cb_lc_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_lc_dis.Location = new System.Drawing.Point(16, 80);
             this.cb_lc_dis.Name = "cb_lc_dis";
             this.cb_lc_dis.Size = new System.Drawing.Size(121, 20);
@@ -3677,8 +3714,10 @@
             // 
             this.cb_clk_dis.FormattingEnabled = true;
             this.cb_clk_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_clk_dis.Location = new System.Drawing.Point(16, 36);
             this.cb_clk_dis.Name = "cb_clk_dis";
             this.cb_clk_dis.Size = new System.Drawing.Size(121, 20);
@@ -3715,8 +3754,10 @@
             // 
             this.cb_disch_dis.FormattingEnabled = true;
             this.cb_disch_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_disch_dis.Location = new System.Drawing.Point(16, 166);
             this.cb_disch_dis.Name = "cb_disch_dis";
             this.cb_disch_dis.Size = new System.Drawing.Size(121, 20);
@@ -3736,8 +3777,10 @@
             // 
             this.cb_stv3_dis.FormattingEnabled = true;
             this.cb_stv3_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_stv3_dis.Location = new System.Drawing.Point(16, 122);
             this.cb_stv3_dis.Name = "cb_stv3_dis";
             this.cb_stv3_dis.Size = new System.Drawing.Size(121, 20);
@@ -3757,8 +3800,10 @@
             // 
             this.cb_stv2_dis.FormattingEnabled = true;
             this.cb_stv2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_stv2_dis.Location = new System.Drawing.Point(16, 80);
             this.cb_stv2_dis.Name = "cb_stv2_dis";
             this.cb_stv2_dis.Size = new System.Drawing.Size(121, 20);
@@ -3778,8 +3823,10 @@
             // 
             this.cb_stv1_dis.FormattingEnabled = true;
             this.cb_stv1_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Pull to VGH",
+            "1h : Pull to VGL2",
+            "2h : Hi-Z",
+            "3h : Hi-Z"});
             this.cb_stv1_dis.Location = new System.Drawing.Point(16, 36);
             this.cb_stv1_dis.Name = "cb_stv1_dis";
             this.cb_stv1_dis.Size = new System.Drawing.Size(121, 20);
@@ -3816,8 +3863,10 @@
             // 
             this.cb_clk_falling.FormattingEnabled = true;
             this.cb_clk_falling.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 1000V/μs",
+            "1h : 700V/μs",
+            "2h : 400V/μs",
+            "3h : 100V/μs"});
             this.cb_clk_falling.Location = new System.Drawing.Point(16, 166);
             this.cb_clk_falling.Name = "cb_clk_falling";
             this.cb_clk_falling.Size = new System.Drawing.Size(121, 20);
@@ -3837,8 +3886,10 @@
             // 
             this.cb_clk_rising.FormattingEnabled = true;
             this.cb_clk_rising.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 1000V/μs",
+            "1h : 700V/μs",
+            "2h : 400V/μs",
+            "3h : 100V/μs"});
             this.cb_clk_rising.Location = new System.Drawing.Point(16, 122);
             this.cb_clk_rising.Name = "cb_clk_rising";
             this.cb_clk_rising.Size = new System.Drawing.Size(121, 20);
@@ -3858,8 +3909,14 @@
             // 
             this.cb_hsr.FormattingEnabled = true;
             this.cb_hsr.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Normal Mode – LC 1-In, 2-Out",
+            "1h : Normal Mode – LC 2-In, 2-Out",
+            "2h : Only enable at forward, wo Dummy, signal.",
+            "3h : Only enable at forward, wo Dummy, signal.",
+            "4h : Only enable at forward, wo Dummy, signal.",
+            "5h : Only enable at forward, wo Dummy, signal.",
+            "6h : Only enable at forward, wo Dummy, signal.",
+            "7h : Only enable at forward, wo Dummy, signal."});
             this.cb_hsr.Location = new System.Drawing.Point(16, 80);
             this.cb_hsr.Name = "cb_hsr";
             this.cb_hsr.Size = new System.Drawing.Size(121, 20);
@@ -3879,8 +3936,8 @@
             // 
             this.cb_ls_en.FormattingEnabled = true;
             this.cb_ls_en.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : All L/S outputs Hi-Z",
+            "1h : All L/S outputs normally operate"});
             this.cb_ls_en.Location = new System.Drawing.Point(16, 36);
             this.cb_ls_en.Name = "cb_ls_en";
             this.cb_ls_en.Size = new System.Drawing.Size(121, 20);
@@ -3925,8 +3982,8 @@
             // 
             this.cb_otp_protect.FormattingEnabled = true;
             this.cb_otp_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_OTP = 0",
+            "FT_OTP = 1"});
             this.cb_otp_protect.Location = new System.Drawing.Point(16, 332);
             this.cb_otp_protect.Name = "cb_otp_protect";
             this.cb_otp_protect.Size = new System.Drawing.Size(121, 20);
@@ -3946,8 +4003,8 @@
             // 
             this.cb_ls1_protect.FormattingEnabled = true;
             this.cb_ls1_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S1 = 0",
+            "FT_L/S1 = 1"});
             this.cb_ls1_protect.Location = new System.Drawing.Point(16, 291);
             this.cb_ls1_protect.Name = "cb_ls1_protect";
             this.cb_ls1_protect.Size = new System.Drawing.Size(121, 20);
@@ -3967,8 +4024,8 @@
             // 
             this.cb_ls2_protect.FormattingEnabled = true;
             this.cb_ls2_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S2 = 0",
+            "FT_L/S2 = 1"});
             this.cb_ls2_protect.Location = new System.Drawing.Point(16, 249);
             this.cb_ls2_protect.Name = "cb_ls2_protect";
             this.cb_ls2_protect.Size = new System.Drawing.Size(121, 20);
@@ -3988,8 +4045,8 @@
             // 
             this.cb_ls3_protect.FormattingEnabled = true;
             this.cb_ls3_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S3 = 0",
+            "FT_L/S3 = 1"});
             this.cb_ls3_protect.Location = new System.Drawing.Point(16, 208);
             this.cb_ls3_protect.Name = "cb_ls3_protect";
             this.cb_ls3_protect.Size = new System.Drawing.Size(121, 20);
@@ -4009,8 +4066,8 @@
             // 
             this.cb_ls4_protect.FormattingEnabled = true;
             this.cb_ls4_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S4 = 0",
+            "FT_L/S4 = 1"});
             this.cb_ls4_protect.Location = new System.Drawing.Point(16, 166);
             this.cb_ls4_protect.Name = "cb_ls4_protect";
             this.cb_ls4_protect.Size = new System.Drawing.Size(121, 20);
@@ -4030,8 +4087,8 @@
             // 
             this.cb_ls5_protect.FormattingEnabled = true;
             this.cb_ls5_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S5 = 0",
+            "FT_L/S5 = 1"});
             this.cb_ls5_protect.Location = new System.Drawing.Point(16, 122);
             this.cb_ls5_protect.Name = "cb_ls5_protect";
             this.cb_ls5_protect.Size = new System.Drawing.Size(121, 20);
@@ -4051,8 +4108,8 @@
             // 
             this.cb_ls6_protect.FormattingEnabled = true;
             this.cb_ls6_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S6 = 0",
+            "FT_L/S6 = 1"});
             this.cb_ls6_protect.Location = new System.Drawing.Point(16, 80);
             this.cb_ls6_protect.Name = "cb_ls6_protect";
             this.cb_ls6_protect.Size = new System.Drawing.Size(121, 20);
@@ -4072,8 +4129,8 @@
             // 
             this.cb_ls7_protect.FormattingEnabled = true;
             this.cb_ls7_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_L/S7 = 0",
+            "FT_L/S7 = 1"});
             this.cb_ls7_protect.Location = new System.Drawing.Point(16, 36);
             this.cb_ls7_protect.Name = "cb_ls7_protect";
             this.cb_ls7_protect.Size = new System.Drawing.Size(121, 20);
@@ -4114,8 +4171,8 @@
             // 
             this.cb_vgl1_protect.FormattingEnabled = true;
             this.cb_vgl1_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_VGL1 = 0",
+            "FT_VGL1 = 1"});
             this.cb_vgl1_protect.Location = new System.Drawing.Point(16, 249);
             this.cb_vgl1_protect.Name = "cb_vgl1_protect";
             this.cb_vgl1_protect.Size = new System.Drawing.Size(121, 20);
@@ -4135,8 +4192,8 @@
             // 
             this.cb_vgl2_protect.FormattingEnabled = true;
             this.cb_vgl2_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_VGL2 = 0",
+            "FT_VGL2 = 1"});
             this.cb_vgl2_protect.Location = new System.Drawing.Point(16, 208);
             this.cb_vgl2_protect.Name = "cb_vgl2_protect";
             this.cb_vgl2_protect.Size = new System.Drawing.Size(121, 20);
@@ -4156,8 +4213,8 @@
             // 
             this.cb_vgh_protect.FormattingEnabled = true;
             this.cb_vgh_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_VGH = 0",
+            "FT_VGH = 1"});
             this.cb_vgh_protect.Location = new System.Drawing.Point(16, 166);
             this.cb_vgh_protect.Name = "cb_vgh_protect";
             this.cb_vgh_protect.Size = new System.Drawing.Size(121, 20);
@@ -4177,8 +4234,8 @@
             // 
             this.cb_havdd_protect.FormattingEnabled = true;
             this.cb_havdd_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_HAVDD = 0",
+            "FT_HAVDD = 1"});
             this.cb_havdd_protect.Location = new System.Drawing.Point(16, 122);
             this.cb_havdd_protect.Name = "cb_havdd_protect";
             this.cb_havdd_protect.Size = new System.Drawing.Size(121, 20);
@@ -4198,8 +4255,8 @@
             // 
             this.cb_vcc1_protect.FormattingEnabled = true;
             this.cb_vcc1_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_VCC1 = 0",
+            "FT_VCC1 = 1"});
             this.cb_vcc1_protect.Location = new System.Drawing.Point(16, 80);
             this.cb_vcc1_protect.Name = "cb_vcc1_protect";
             this.cb_vcc1_protect.Size = new System.Drawing.Size(121, 20);
@@ -4219,8 +4276,8 @@
             // 
             this.cb_avdd_protect.FormattingEnabled = true;
             this.cb_avdd_protect.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_AVDD = 0",
+            "FT_AVDD = 1"});
             this.cb_avdd_protect.Location = new System.Drawing.Point(16, 36);
             this.cb_avdd_protect.Name = "cb_avdd_protect";
             this.cb_avdd_protect.Size = new System.Drawing.Size(121, 20);
@@ -4253,8 +4310,14 @@
             // 
             this.cb_ocp_time.FormattingEnabled = true;
             this.cb_ocp_time.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 40mA",
+            "1h : 50mA",
+            "2h : 60mA",
+            "3h : 70mA",
+            "4h : 80mA",
+            "5h : 120mA",
+            "6h : 135mA",
+            "7h : Disable"});
             this.cb_ocp_time.Location = new System.Drawing.Point(16, 72);
             this.cb_ocp_time.Name = "cb_ocp_time";
             this.cb_ocp_time.Size = new System.Drawing.Size(121, 20);
@@ -4274,8 +4337,14 @@
             // 
             this.cb_ocp_level.FormattingEnabled = true;
             this.cb_ocp_level.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 10us",
+            "1h : 20us",
+            "2h : 30us",
+            "3h : 50us",
+            "4h : 80us",
+            "5h : 100us",
+            "6h : 120us",
+            "7h : 160us"});
             this.cb_ocp_level.Location = new System.Drawing.Point(16, 34);
             this.cb_ocp_level.Name = "cb_ocp_level";
             this.cb_ocp_level.Size = new System.Drawing.Size(121, 20);
@@ -4338,8 +4407,8 @@
             // 
             this.cb_fre_vgl.FormattingEnabled = true;
             this.cb_fre_vgl.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 750kHz",
+            "1h : 500kHz"});
             this.cb_fre_vgl.Location = new System.Drawing.Point(16, 249);
             this.cb_fre_vgl.Name = "cb_fre_vgl";
             this.cb_fre_vgl.Size = new System.Drawing.Size(121, 20);
@@ -4358,8 +4427,8 @@
             // 
             this.cb_fre_vgh.FormattingEnabled = true;
             this.cb_fre_vgh.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : AVDD x 1",
+            "1h : AVDD x 2"});
             this.cb_fre_vgh.Location = new System.Drawing.Point(16, 208);
             this.cb_fre_vgh.Name = "cb_fre_vgh";
             this.cb_fre_vgh.Size = new System.Drawing.Size(121, 20);
@@ -4378,8 +4447,8 @@
             // 
             this.cb_fre_havdd.FormattingEnabled = true;
             this.cb_fre_havdd.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : AVDD x 1",
+            "1h : AVDD x 2"});
             this.cb_fre_havdd.Location = new System.Drawing.Point(16, 166);
             this.cb_fre_havdd.Name = "cb_fre_havdd";
             this.cb_fre_havdd.Size = new System.Drawing.Size(121, 20);
@@ -4398,8 +4467,8 @@
             // 
             this.cb_fre_avdd.FormattingEnabled = true;
             this.cb_fre_avdd.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 750kHz",
+            "1h : 500kHz"});
             this.cb_fre_avdd.Location = new System.Drawing.Point(16, 122);
             this.cb_fre_avdd.Name = "cb_fre_avdd";
             this.cb_fre_avdd.Size = new System.Drawing.Size(121, 20);
@@ -4418,8 +4487,10 @@
             // 
             this.cb_avdd_ss.FormattingEnabled = true;
             this.cb_avdd_ss.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 5ms",
+            "1h : 10ms",
+            "2h : 15ms",
+            "3h : 20ms"});
             this.cb_avdd_ss.Location = new System.Drawing.Point(16, 80);
             this.cb_avdd_ss.Name = "cb_avdd_ss";
             this.cb_avdd_ss.Size = new System.Drawing.Size(121, 20);
@@ -4438,8 +4509,8 @@
             // 
             this.cb_vgh_sst.FormattingEnabled = true;
             this.cb_vgh_sst.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 3ms",
+            "1h : 6ms"});
             this.cb_vgh_sst.Location = new System.Drawing.Point(16, 36);
             this.cb_vgh_sst.Name = "cb_vgh_sst";
             this.cb_vgh_sst.Size = new System.Drawing.Size(121, 20);
@@ -4474,8 +4545,8 @@
             // 
             this.cb_double.FormattingEnabled = true;
             this.cb_double.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0",
+            "1h : 1"});
             this.cb_double.Location = new System.Drawing.Point(16, 111);
             this.cb_double.Name = "cb_double";
             this.cb_double.Size = new System.Drawing.Size(121, 20);
@@ -4494,8 +4565,8 @@
             // 
             this.cb_reverse.FormattingEnabled = true;
             this.cb_reverse.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0",
+            "1h : 1"});
             this.cb_reverse.Location = new System.Drawing.Point(16, 72);
             this.cb_reverse.Name = "cb_reverse";
             this.cb_reverse.Size = new System.Drawing.Size(121, 20);
@@ -4514,8 +4585,8 @@
             // 
             this.cb_dummy_clk.FormattingEnabled = true;
             this.cb_dummy_clk.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 0",
+            "1h : 1"});
             this.cb_dummy_clk.Location = new System.Drawing.Point(16, 34);
             this.cb_dummy_clk.Name = "cb_dummy_clk";
             this.cb_dummy_clk.Size = new System.Drawing.Size(121, 20);
@@ -4554,8 +4625,8 @@
             // 
             this.cb_ft_vcc2.FormattingEnabled = true;
             this.cb_ft_vcc2.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "FT_VCC2: the UVP, SCP flag = 0",
+            "FT_VCC2: the UVP, SCP flag = 1"});
             this.cb_ft_vcc2.Location = new System.Drawing.Point(16, 208);
             this.cb_ft_vcc2.Name = "cb_ft_vcc2";
             this.cb_ft_vcc2.Size = new System.Drawing.Size(121, 20);
@@ -4575,8 +4646,8 @@
             // 
             this.cb_fre_vcc1.FormattingEnabled = true;
             this.cb_fre_vcc1.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 750kHz",
+            "1h : 500kHz"});
             this.cb_fre_vcc1.Location = new System.Drawing.Point(16, 166);
             this.cb_fre_vcc1.Name = "cb_fre_vcc1";
             this.cb_fre_vcc1.Size = new System.Drawing.Size(121, 20);
@@ -4617,8 +4688,8 @@
             // 
             this.cb_vcc2_sync.FormattingEnabled = true;
             this.cb_vcc2_sync.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Sync.",
+            "1h : Async."});
             this.cb_vcc2_sync.Location = new System.Drawing.Point(16, 80);
             this.cb_vcc2_sync.Name = "cb_vcc2_sync";
             this.cb_vcc2_sync.Size = new System.Drawing.Size(121, 20);
@@ -4638,8 +4709,8 @@
             // 
             this.cb_vcc1_sync.FormattingEnabled = true;
             this.cb_vcc1_sync.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Sync.",
+            "1h : Async."});
             this.cb_vcc1_sync.Location = new System.Drawing.Point(16, 36);
             this.cb_vcc1_sync.Name = "cb_vcc1_sync";
             this.cb_vcc1_sync.Size = new System.Drawing.Size(121, 20);
@@ -4676,8 +4747,8 @@
             // 
             this.cb_ext_int.FormattingEnabled = true;
             this.cb_ext_int.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Internal",
+            "1h : External"});
             this.cb_ext_int.Location = new System.Drawing.Point(16, 163);
             this.cb_ext_int.Name = "cb_ext_int";
             this.cb_ext_int.Size = new System.Drawing.Size(121, 20);
@@ -4696,8 +4767,10 @@
             // 
             this.cb_avdd_ext_drv.FormattingEnabled = true;
             this.cb_avdd_ext_drv.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : EXT_DRV1_FF: 2Ω",
+            "1h : EXT_DRV2_F: 10Ω",
+            "2h : EXT_DRV3_S: 50Ω",
+            "3h : EXT_DRV4_SS: 200Ω"});
             this.cb_avdd_ext_drv.Location = new System.Drawing.Point(16, 122);
             this.cb_avdd_ext_drv.Name = "cb_avdd_ext_drv";
             this.cb_avdd_ext_drv.Size = new System.Drawing.Size(121, 20);
@@ -4716,8 +4789,8 @@
             // 
             this.cb_vgl2_dis.FormattingEnabled = true;
             this.cb_vgl2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vgl2_dis.Location = new System.Drawing.Point(16, 80);
             this.cb_vgl2_dis.Name = "cb_vgl2_dis";
             this.cb_vgl2_dis.Size = new System.Drawing.Size(121, 20);
@@ -4736,8 +4809,8 @@
             // 
             this.cb_vcc2_dis.FormattingEnabled = true;
             this.cb_vcc2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : Discharge Operation Disable",
+            "1h : Discharge Operation Enable"});
             this.cb_vcc2_dis.Location = new System.Drawing.Point(16, 36);
             this.cb_vcc2_dis.Name = "cb_vcc2_dis";
             this.cb_vcc2_dis.Size = new System.Drawing.Size(121, 20);
@@ -4758,8 +4831,8 @@
             // 
             this.cb_sclk_psk_rst.FormattingEnabled = true;
             this.cb_sclk_psk_rst.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : detecting(INX, HKC,SDP)",
+            "1h : detecting(LGD, BOE)"});
             this.cb_sclk_psk_rst.Location = new System.Drawing.Point(16, 21);
             this.cb_sclk_psk_rst.Name = "cb_sclk_psk_rst";
             this.cb_sclk_psk_rst.Size = new System.Drawing.Size(121, 20);
@@ -4813,8 +4886,22 @@
             // 
             this.cb_socp_time.FormattingEnabled = true;
             this.cb_socp_time.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 1us",
+            "1h : 1.5us",
+            "2h : 2us",
+            "3h : 2.5us",
+            "4h : 3us",
+            "5h : 3.5us",
+            "6h : 4us",
+            "7h : 4.5us",
+            "8h : 5us",
+            "9h : 5.5us",
+            "Ah : 6us",
+            "Bh : 6.5us",
+            "Ch : 7us",
+            "Dh : 7.5us",
+            "Eh : 8us",
+            "Fh : 8.5us"});
             this.cb_socp_time.Location = new System.Drawing.Point(16, 34);
             this.cb_socp_time.Name = "cb_socp_time";
             this.cb_socp_time.Size = new System.Drawing.Size(121, 20);
@@ -4847,8 +4934,22 @@
             // 
             this.cb_gocp_level.FormattingEnabled = true;
             this.cb_gocp_level.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 20mA",
+            "1h : 30mA",
+            "2h : 40mA",
+            "3h : 50mA",
+            "4h : 60mA",
+            "5h : 70mA",
+            "6h : 80mA",
+            "7h : 90mA",
+            "8h : 100mA",
+            "9h : 110mA",
+            "Ah : 120mA",
+            "Bh : 130mA",
+            "Ch : 140mA",
+            "Dh : 150mA",
+            "Eh : 160mA",
+            "Fh : 270mA"});
             this.cb_gocp_level.Location = new System.Drawing.Point(16, 72);
             this.cb_gocp_level.Name = "cb_gocp_level";
             this.cb_gocp_level.Size = new System.Drawing.Size(121, 20);
@@ -4867,8 +4968,14 @@
             // 
             this.cb_eocp_level.FormattingEnabled = true;
             this.cb_eocp_level.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 10mA",
+            "1h : 20mA",
+            "2h : 30mA",
+            "3h : 40mA",
+            "4h : 50mA",
+            "5h : 60mA",
+            "6h : 70mA",
+            "7h : 135mA"});
             this.cb_eocp_level.Location = new System.Drawing.Point(16, 34);
             this.cb_eocp_level.Name = "cb_eocp_level";
             this.cb_eocp_level.Size = new System.Drawing.Size(121, 20);
@@ -4901,8 +5008,22 @@
             // 
             this.cb_gocp_time.FormattingEnabled = true;
             this.cb_gocp_time.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 1us",
+            "1h : 1.5us",
+            "2h : 2us",
+            "3h : 2.5us",
+            "4h : 3us",
+            "5h : 3.5us",
+            "6h : 4us",
+            "7h : 4.5us",
+            "8h : 5us",
+            "9h : 5.5us",
+            "Ah : 6us",
+            "Bh : 6.5us",
+            "Ch : 7us",
+            "Dh : 7.5us",
+            "Eh : 8us",
+            "Fh : 8.5us"});
             this.cb_gocp_time.Location = new System.Drawing.Point(16, 72);
             this.cb_gocp_time.Name = "cb_gocp_time";
             this.cb_gocp_time.Size = new System.Drawing.Size(121, 20);
@@ -4922,8 +5043,22 @@
             // 
             this.cb_eocp_time.FormattingEnabled = true;
             this.cb_eocp_time.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 10us",
+            "1h : 20us",
+            "2h : 30us",
+            "3h : 40us",
+            "4h : 50us",
+            "5h : 60us",
+            "6h : 70us",
+            "7h : 80us",
+            "8h : 90us",
+            "9h : 100us",
+            "Ah : 110us",
+            "Bh : 120us",
+            "Ch : 130us",
+            "Dh : 140us",
+            "Eh : 150us",
+            "Fh : 160us"});
             this.cb_eocp_time.Location = new System.Drawing.Point(16, 34);
             this.cb_eocp_time.Name = "cb_eocp_time";
             this.cb_eocp_time.Size = new System.Drawing.Size(121, 20);
@@ -4958,8 +5093,22 @@
             // 
             this.cb_vcom_tc.FormattingEnabled = true;
             this.cb_vcom_tc.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : VCOM-GLDO/1024*14",
+            "1h : VCOM-GLDO1024*12",
+            "2h : VCOM-GLDO/1024*10",
+            "3h : VCOM-GLDO/1024*8",
+            "4h : VCOM- GLDO /1024*6",
+            "5h : VCOM- GLDO /1024*4",
+            "6h : VCOM- GLDO /1024*2",
+            "7h : VCOM",
+            "8h : VCOM+ GLDO /1024*2",
+            "9h : VCOM+ GLDO /1024*4",
+            "Ah : VCOM+ GLDO /1024*6",
+            "Bh : VCOM+ GLDO /1024*8",
+            "Ch : VCOM+ GLDO /1024*10",
+            "Dh : VCOM+ GLDO /1024*12",
+            "Eh : VCOM+ GLDO /1024*14",
+            "Fh : VCOM+ GLDO /1024*16"});
             this.cb_vcom_tc.Location = new System.Drawing.Point(16, 110);
             this.cb_vcom_tc.Name = "cb_vcom_tc";
             this.cb_vcom_tc.Size = new System.Drawing.Size(121, 20);
@@ -4978,8 +5127,8 @@
             // 
             this.cb_vgx_prt_off.FormattingEnabled = true;
             this.cb_vgx_prt_off.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : VGH, VGL1, VGL2 Protection Enable",
+            "1h : VGH, VGL1, VGL2 Protection Disable"});
             this.cb_vgx_prt_off.Location = new System.Drawing.Point(16, 72);
             this.cb_vgx_prt_off.Name = "cb_vgx_prt_off";
             this.cb_vgx_prt_off.Size = new System.Drawing.Size(121, 20);
@@ -5251,6 +5400,7 @@
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.Silver;
+            this.tabPage3.Controls.Add(this.bt_ReadtoWrite);
             this.tabPage3.Controls.Add(this.label189);
             this.tabPage3.Controls.Add(this.label00);
             this.tabPage3.Controls.Add(this.label187);
@@ -5614,6 +5764,7 @@
             this.W30.Size = new System.Drawing.Size(46, 22);
             this.W30.TabIndex = 344;
             this.W30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W30.ValueChanged += new System.EventHandler(this.W30_ValueChanged);
             // 
             // label72
             // 
@@ -5708,6 +5859,7 @@
             this.W32.Size = new System.Drawing.Size(46, 22);
             this.W32.TabIndex = 352;
             this.W32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W32.ValueChanged += new System.EventHandler(this.W32_ValueChanged);
             // 
             // label70
             // 
@@ -5755,6 +5907,7 @@
             this.W33.Size = new System.Drawing.Size(46, 22);
             this.W33.TabIndex = 354;
             this.W33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W33.ValueChanged += new System.EventHandler(this.W32_ValueChanged);
             // 
             // label69
             // 
@@ -5802,6 +5955,7 @@
             this.W34.Size = new System.Drawing.Size(46, 22);
             this.W34.TabIndex = 356;
             this.W34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W34.ValueChanged += new System.EventHandler(this.W34_ValueChanged);
             // 
             // label68
             // 
@@ -5849,6 +6003,7 @@
             this.W35.Size = new System.Drawing.Size(46, 22);
             this.W35.TabIndex = 358;
             this.W35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W35.ValueChanged += new System.EventHandler(this.W34_ValueChanged);
             // 
             // label67
             // 
@@ -5896,6 +6051,7 @@
             this.W36.Size = new System.Drawing.Size(46, 22);
             this.W36.TabIndex = 360;
             this.W36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W36.ValueChanged += new System.EventHandler(this.W36_ValueChanged);
             // 
             // label66
             // 
@@ -5943,6 +6099,7 @@
             this.W37.Size = new System.Drawing.Size(46, 22);
             this.W37.TabIndex = 362;
             this.W37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W37.ValueChanged += new System.EventHandler(this.W36_ValueChanged);
             // 
             // label65
             // 
@@ -5990,6 +6147,7 @@
             this.W38.Size = new System.Drawing.Size(46, 22);
             this.W38.TabIndex = 364;
             this.W38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W38.ValueChanged += new System.EventHandler(this.W38_ValueChanged);
             // 
             // label64
             // 
@@ -6037,6 +6195,7 @@
             this.W39.Size = new System.Drawing.Size(46, 22);
             this.W39.TabIndex = 366;
             this.W39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W39.ValueChanged += new System.EventHandler(this.W38_ValueChanged);
             // 
             // label63
             // 
@@ -6084,6 +6243,7 @@
             this.W3A.Size = new System.Drawing.Size(46, 22);
             this.W3A.TabIndex = 368;
             this.W3A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W3A.ValueChanged += new System.EventHandler(this.W3A_ValueChanged);
             // 
             // label62
             // 
@@ -6131,6 +6291,7 @@
             this.W3B.Size = new System.Drawing.Size(46, 22);
             this.W3B.TabIndex = 370;
             this.W3B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W3B.ValueChanged += new System.EventHandler(this.W3A_ValueChanged);
             // 
             // label61
             // 
@@ -6178,6 +6339,7 @@
             this.W3C.Size = new System.Drawing.Size(46, 22);
             this.W3C.TabIndex = 372;
             this.W3C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W3C.ValueChanged += new System.EventHandler(this.W3C_ValueChanged);
             // 
             // label60
             // 
@@ -6225,6 +6387,7 @@
             this.W3D.Size = new System.Drawing.Size(46, 22);
             this.W3D.TabIndex = 374;
             this.W3D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W3D.ValueChanged += new System.EventHandler(this.W3C_ValueChanged);
             // 
             // label59
             // 
@@ -8189,6 +8352,7 @@
             this.R2D.Size = new System.Drawing.Size(46, 22);
             this.R2D.TabIndex = 334;
             this.R2D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2D.ValueChanged += new System.EventHandler(this.R2D_ValueChanged);
             // 
             // label43
             // 
@@ -8212,6 +8376,7 @@
             this.R2C.Size = new System.Drawing.Size(46, 22);
             this.R2C.TabIndex = 333;
             this.R2C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R2C.ValueChanged += new System.EventHandler(this.R2C_ValueChanged);
             // 
             // W26
             // 
@@ -8330,7 +8495,6 @@
             this.W28.Size = new System.Drawing.Size(46, 22);
             this.W28.TabIndex = 306;
             this.W28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.W28.ValueChanged += new System.EventHandler(this.W28_ValueChanged);
             // 
             // R27
             // 
@@ -8602,6 +8766,7 @@
             this.W2F.Size = new System.Drawing.Size(46, 22);
             this.W2F.TabIndex = 318;
             this.W2F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W2F.ValueChanged += new System.EventHandler(this.W2F_ValueChanged);
             // 
             // label35
             // 
@@ -8612,12 +8777,77 @@
             this.label35.TabIndex = 317;
             this.label35.Text = "2Fh";
             // 
+            // bt_ReadtoWrite
+            // 
+            this.bt_ReadtoWrite.Location = new System.Drawing.Point(47, 478);
+            this.bt_ReadtoWrite.Name = "bt_ReadtoWrite";
+            this.bt_ReadtoWrite.Size = new System.Drawing.Size(98, 23);
+            this.bt_ReadtoWrite.TabIndex = 443;
+            this.bt_ReadtoWrite.Text = "<<";
+            this.bt_ReadtoWrite.UseVisualStyleBackColor = true;
+            this.bt_ReadtoWrite.Click += new System.EventHandler(this.bt_ReadtoWrite_Click);
+            // 
+            // bt_write_all
+            // 
+            this.bt_write_all.Location = new System.Drawing.Point(641, 34);
+            this.bt_write_all.Name = "bt_write_all";
+            this.bt_write_all.Size = new System.Drawing.Size(98, 34);
+            this.bt_write_all.TabIndex = 444;
+            this.bt_write_all.Text = "Write DAC";
+            this.bt_write_all.UseVisualStyleBackColor = true;
+            this.bt_write_all.Click += new System.EventHandler(this.bt_write_all_Click);
+            // 
+            // bt_read_all
+            // 
+            this.bt_read_all.Location = new System.Drawing.Point(745, 34);
+            this.bt_read_all.Name = "bt_read_all";
+            this.bt_read_all.Size = new System.Drawing.Size(98, 34);
+            this.bt_read_all.TabIndex = 445;
+            this.bt_read_all.Text = "Read DAC";
+            this.bt_read_all.UseVisualStyleBackColor = true;
+            this.bt_read_all.Click += new System.EventHandler(this.bt_read_all_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(953, 34);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(98, 34);
+            this.button1.TabIndex = 447;
+            this.button1.Text = "Read MTP";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(849, 34);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(98, 34);
+            this.button2.TabIndex = 446;
+            this.button2.Text = "Write MTP";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(1057, 34);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(98, 34);
+            this.button3.TabIndex = 448;
+            this.button3.Text = "Write VCOM to MTP";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.ClientSize = new System.Drawing.Size(1288, 797);
+            this.Controls.Add(this.button3);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.bt_read_all);
+            this.Controls.Add(this.bt_write_all);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.tbSlave);
             this.Controls.Add(this.btScan);
@@ -9572,6 +9802,12 @@
         private System.Windows.Forms.ComboBox cb_stv_rest;
         private System.Windows.Forms.Label label211;
         private System.Windows.Forms.ComboBox cb_vgh_uvlo;
+        private System.Windows.Forms.Button bt_ReadtoWrite;
+        private System.Windows.Forms.Button bt_write_all;
+        private System.Windows.Forms.Button bt_read_all;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button3;
     }
 }
 
