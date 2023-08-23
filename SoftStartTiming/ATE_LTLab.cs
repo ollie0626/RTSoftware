@@ -61,7 +61,7 @@ namespace SoftStartTiming
 
         private void RefleshMeasure(Object source, ElapsedEventArgs e)
         {
-            //InsControl._oscilloscope.DoCommand("MEASUrement:STATIstics:COUNt RESET");
+            InsControl._oscilloscope.DoCommand("MEASUrement:STATIstics:COUNt RESET");
             Console.WriteLine("1s send clear counter command");
         }
 

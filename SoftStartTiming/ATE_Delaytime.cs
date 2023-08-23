@@ -403,21 +403,40 @@ namespace SoftStartTiming
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
 #endif
             MyLib.Delay1ms(1000);
-
-            for (int i = 0; i < 100; i++)
-            {
-                int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
-                Console.WriteLine("I2C Return value {0}", ret);
-                if (ret == 0) break;
-            }
             TriggerEvent(idx);
+
+            RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            // FF = 0x01
+            // 9F = 0x62
+            // 9D = 0x86
+            // 9A = 0x98
+            // RT5151 into test mode
+            byte[] tm_code = new byte[] { 0x01 };
+            byte addr = 0xFF;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9F;
+            tm_code[0] = 0x62;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9D;
+            tm_code[0] = 0x86;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9A;
+            tm_code[0] = 0x98;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+
+            addr = 0x85;
+            tm_code = new byte[] { 0x08, 0x40, 0xff };
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            tm_code = new byte[] { 0x01 };
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            
             //MyLib.Delay1ms(3000);
-            for (int i = 0; i < 100; i++)
-            {
-                int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
-                Console.WriteLine("I2C Return value {0}", ret);
-                if (ret == 0) break;
-            }
+            //for (int i = 0; i < 100; i++)
+            //{
+            //    int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            //    Console.WriteLine("I2C Return value {0}", ret);
+            //    if (ret == 0) break;
+            //}
 
 
             //MyLib.Delay1s(1);

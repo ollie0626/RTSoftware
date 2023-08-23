@@ -266,6 +266,25 @@ namespace SoftStartTiming
             }
             MyLib.Delay1s(1);
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            //RT5151
+            byte[] tm_code = new byte[] { 0x01 };
+            byte addr = 0xFF;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9F;
+            tm_code[0] = 0x62;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9D;
+            tm_code[0] = 0x86;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            addr = 0x9A;
+            tm_code[0] = 0x98;
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+
+            addr = 0x85;
+            tm_code = new byte[] { 0x08, 0x40, 0xff };
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            tm_code = new byte[] { 0x01 };
+            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
             MyLib.Delay1ms(800);
 
             // initial channel 
