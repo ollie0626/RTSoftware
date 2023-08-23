@@ -2,6 +2,7 @@
 #define Report_en
 #define Power_en
 #define Eload_en
+#define Scope_en
 
 
 using System;
@@ -1236,6 +1237,7 @@ namespace SoftStartTiming
                     InsControl._eload.Loading(test_parameter.eload_chx[measNParameter.select_idx], measNParameter.iout_n);
                 else
                     InsControl._eload.LoadOFF(test_parameter.eload_chx[measNParameter.select_idx]);
+                InsControl._oscilloscope.SetClear();
 #endif
 
                 MyLib.Delay1s(1);
