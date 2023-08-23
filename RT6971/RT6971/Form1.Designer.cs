@@ -392,6 +392,7 @@
             this.label75 = new System.Windows.Forms.Label();
             this.cb_vcc1_ss = new System.Windows.Forms.ComboBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.bt_ReadtoWrite = new System.Windows.Forms.Button();
             this.label189 = new System.Windows.Forms.Label();
             this.label00 = new System.Windows.Forms.Label();
             this.label187 = new System.Windows.Forms.Label();
@@ -642,7 +643,6 @@
             this.W2D = new System.Windows.Forms.NumericUpDown();
             this.W2F = new System.Windows.Forms.NumericUpDown();
             this.label35 = new System.Windows.Forms.Label();
-            this.bt_ReadtoWrite = new System.Windows.Forms.Button();
             this.bt_write_all = new System.Windows.Forms.Button();
             this.bt_read_all = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
@@ -945,14 +945,14 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
             this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
             this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
@@ -3286,6 +3286,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Silver;
+            this.tabPage2.Controls.Add(this.groupBox31);
             this.tabPage2.Controls.Add(this.groupBox51);
             this.tabPage2.Controls.Add(this.groupBox50);
             this.tabPage2.Controls.Add(this.groupBox49);
@@ -3303,7 +3304,6 @@
             this.tabPage2.Controls.Add(this.groupBox34);
             this.tabPage2.Controls.Add(this.groupBox33);
             this.tabPage2.Controls.Add(this.groupBox32);
-            this.tabPage2.Controls.Add(this.groupBox31);
             this.tabPage2.Controls.Add(this.groupBox30);
             this.tabPage2.Controls.Add(this.groupBox29);
             this.tabPage2.Controls.Add(this.groupBox28);
@@ -5154,6 +5154,8 @@
             this.cb_vgh_tc_mode.Size = new System.Drawing.Size(121, 20);
             this.cb_vgh_tc_mode.TabIndex = 1;
             this.cb_vgh_tc_mode.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_tc_mode_SelectedIndexChanged);
+            this.cb_vgh_tc_mode.MouseEnter += new System.EventHandler(this.cb_vgh_tc_mode_MouseEnter);
+            this.cb_vgh_tc_mode.MouseLeave += new System.EventHandler(this.cb_vgh_tc_mode_MouseLeave);
             // 
             // groupBox30
             // 
@@ -5657,6 +5659,16 @@
             this.tabPage3.Size = new System.Drawing.Size(1237, 685);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Register";
+            // 
+            // bt_ReadtoWrite
+            // 
+            this.bt_ReadtoWrite.Location = new System.Drawing.Point(47, 478);
+            this.bt_ReadtoWrite.Name = "bt_ReadtoWrite";
+            this.bt_ReadtoWrite.Size = new System.Drawing.Size(98, 23);
+            this.bt_ReadtoWrite.TabIndex = 443;
+            this.bt_ReadtoWrite.Text = "<<";
+            this.bt_ReadtoWrite.UseVisualStyleBackColor = true;
+            this.bt_ReadtoWrite.Click += new System.EventHandler(this.bt_ReadtoWrite_Click);
             // 
             // label189
             // 
@@ -8776,16 +8788,6 @@
             this.label35.Size = new System.Drawing.Size(23, 12);
             this.label35.TabIndex = 317;
             this.label35.Text = "2Fh";
-            // 
-            // bt_ReadtoWrite
-            // 
-            this.bt_ReadtoWrite.Location = new System.Drawing.Point(47, 478);
-            this.bt_ReadtoWrite.Name = "bt_ReadtoWrite";
-            this.bt_ReadtoWrite.Size = new System.Drawing.Size(98, 23);
-            this.bt_ReadtoWrite.TabIndex = 443;
-            this.bt_ReadtoWrite.Text = "<<";
-            this.bt_ReadtoWrite.UseVisualStyleBackColor = true;
-            this.bt_ReadtoWrite.Click += new System.EventHandler(this.bt_ReadtoWrite_Click);
             // 
             // bt_write_all
             // 

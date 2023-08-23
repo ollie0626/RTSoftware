@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -565,6 +566,35 @@ namespace RT6971
             if (cb_tc_type.SelectedIndex == -1) return;
 
             W1D.Value = cb_vgh_tc_en.SelectedIndex << 7 | cb_vcom_tc_en.SelectedIndex << 6 | cb_tc_type.SelectedIndex << 5 | (int)W1D.Value & 0x1F;
+
+
+            string[] TC_Mode1 = new string[]
+            { 
+                "0h : TCOMP_L = 2.94V, TCOMP_H = 2.09V",
+                "1h : TCOMP_L = 3.35V, TCOMP_H = 2.95V",
+                "2h : TCOMP_L = 2.94V, TCOMP_H = 2.44V",
+                "3h : TCOMP_L = 2.94V, TCOMP_H = 2.64V"
+            };
+
+            string[] TC_Mode2 = new string[]
+            {
+                "0h : TCOMP_L1 = 3.79V, TCOMP_L = 2.94V, TCOMP_H = 2.09V, TCOMP_H1 = 1.24V",
+                "1h : TCOMP_L1 = 3.75V, TCOMP_L = 3.35V, TCOMP_H = 2.95V, TCOMP_H1 = 2.55V",
+                "2h : TCOMP_L1 = 3.44V, TCOMP_L = 2.94V, TCOMP_H = 2.44V, TCOMP_H1 = 1.94V",
+                "3h : TCOMP_L1 = 3.24V, TCOMP_L = 2.94V, TCOMP_H = 2.64V, TCOMP_H1 = 2.34V"
+            };
+            cb_vgh_tc_mode.Items.Clear();
+            switch (cb_tc_type.SelectedIndex)
+            {
+                case 0:
+                    foreach(string item in TC_Mode1)
+                        cb_vgh_tc_mode.Items.Add(item);
+                    break;
+                case 1:
+                    foreach (string item in TC_Mode2)
+                        cb_vgh_tc_mode.Items.Add(item);
+                    break;
+            }
         }
 
         private void cb_vgh_tc_mode_SelectedIndexChanged(object sender, EventArgs e)
@@ -573,10 +603,14 @@ namespace RT6971
             if (cb_vgh_tc_mode.SelectedIndex == -1) return;
             if (cb_vgx_prt_off.SelectedIndex == -1) return;
             if (cb_vcom_tc.SelectedIndex == -1) return;
-
+            
             W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | (int)W1E.Value & 0x3F;
             W1E.Value = cb_vgx_prt_off.SelectedIndex << 5 | (int)W1E.Value & 0xDF;
             W1E.Value = cb_vcom_tc.SelectedIndex | (int)W1E.Value & 0xF0;
+
+
+            cb_vgh_tc_mode.Width = 121;
+            groupBox31.Width = 165;
         }
 
         private void cb_eocp_time_SelectedIndexChanged(object sender, EventArgs e)
@@ -691,28 +725,28 @@ namespace RT6971
 
         private void cb_avdd_protect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cb_avdd_protect.SelectedIndex == -1) return;
-            if (cb_vcc1_protect.SelectedIndex == -1) return;
-            if (cb_havdd_protect.SelectedIndex == -1) return;
-            if (cb_vgh_protect.SelectedIndex == -1) return;
-            if (cb_vgh_protect.SelectedIndex == -1) return;
-            if (cb_vgl1_protect.SelectedIndex == -1) return;
+            //if (cb_avdd_protect.SelectedIndex == -1) return;
+            //if (cb_vcc1_protect.SelectedIndex == -1) return;
+            //if (cb_havdd_protect.SelectedIndex == -1) return;
+            //if (cb_vgh_protect.SelectedIndex == -1) return;
+            //if (cb_vgh_protect.SelectedIndex == -1) return;
+            //if (cb_vgl1_protect.SelectedIndex == -1) return;
 
-            try
-            {
-                ComboBox[] cb_arr = new ComboBox[]
-                {
-                    cb_vgl1_protect, cb_vgh_protect, cb_vgh_protect, cb_havdd_protect, cb_vcc1_protect, cb_avdd_protect
-                };
+            //try
+            //{
+            //    ComboBox[] cb_arr = new ComboBox[]
+            //    {
+            //        cb_vgl1_protect, cb_vgh_protect, cb_vgh_protect, cb_havdd_protect, cb_vcc1_protect, cb_avdd_protect
+            //    };
 
-                int data = 0x00;
-                for (int i = 0; i < 6; i++) data |= cb_arr[i].SelectedIndex << i;
-                W2C.Value = data | (int)W2C.Value & 0xC0;
-            }
-            catch
-            {
+            //    int data = 0x00;
+            //    for (int i = 0; i < 6; i++) data |= cb_arr[i].SelectedIndex << i;
+            //    W2C.Value = data | (int)W2C.Value & 0xC0;
+            //}
+            //catch
+            //{
 
-            }
+            //}
         }
 
         private void cb_ls7_protect_SelectedIndexChanged(object sender, EventArgs e)
@@ -1312,12 +1346,52 @@ namespace RT6971
 
         private void saveBinToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "Bin File|*.bin";
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = saveDlg.FileName;
+                List<byte> bin_buf = new List<byte>();
+                BinaryWriter bw = new BinaryWriter(new FileStream(file_name, FileMode.Create));
 
+                for (int i = 0; i < 0x100; i++)
+                {
+                    if (i < WriteTable.Length)
+                    {
+                        bin_buf.Add(Convert.ToByte(WriteTable[i].Value));
+                    }
+                    else
+                    {
+                        bin_buf.Add(0);
+                    }
+
+                }
+                bw.Write(bin_buf.ToArray());
+                bw.Close();
+            }
         }
 
         private void openBinToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "Bin File|*.bin";
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                byte[] ReadBuf = new byte[255];
+                string file_name = openDlg.FileName;
+                BinaryReader br = new BinaryReader(new FileStream(file_name, FileMode.Open));
 
+                br.Read(ReadBuf, 0, 0xff);
+
+                for (int i = 0; i < 0x100; i++)
+                {
+                    if (i < WriteTable.Length)
+                    {
+                        WriteTable[i].Value = ReadBuf[i];
+                    }
+                }
+                br.Close();
+            }
         }
 
         private void linkRTBridgeBoardToolStripMenuItem_Click(object sender, EventArgs e)
@@ -1326,6 +1400,28 @@ namespace RT6971
             {
                 MessageBox.Show("Linking bridge board fail !!!", this.Text);
             }
+        }
+
+        private void cb_vgh_tc_mode_MouseEnter(object sender, EventArgs e)
+        {
+            if(cb_tc_type.SelectedIndex == 0)
+            {
+                cb_vgh_tc_mode.Width = 300;
+                groupBox31.Width = 350;
+            }
+            else
+            {
+                cb_vgh_tc_mode.Width = 450;
+                groupBox31.Width = 550;
+            }
+
+
+        }
+
+        private void cb_vgh_tc_mode_MouseLeave(object sender, EventArgs e)
+        {
+            cb_vgh_tc_mode.Width = 121;
+            groupBox31.Width = 165;
         }
     }
 }
