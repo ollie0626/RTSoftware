@@ -160,7 +160,16 @@ namespace CS601C
             AVDDOCH.Value = 1;
             AVDDOCH.Value = 0;
 
+            DefaultCode_User();
+            DefaultCode_TM();
 
+            GetRTBridgeStatus();
+            toolStripStatusLabel5.Text = win_ver;
+        }
+
+
+        private void DefaultCode_User()
+        {
             string setup_path = Application.StartupPath + @"\default_code.bin";
 
             byte[] ReadBuf = new byte[255];
@@ -181,11 +190,32 @@ namespace CS601C
                 }
             }
             br.Close();
-
-
-            GetRTBridgeStatus();
-            toolStripStatusLabel5.Text = win_ver;
         }
+
+        private void DefaultCode_TM()
+        {
+            string setup_path = Application.StartupPath + @"\default_code_tm.bin";
+
+            byte[] ReadBuf = new byte[255];
+            string file_name = setup_path;
+            BinaryReader br = new BinaryReader(new FileStream(file_name, FileMode.Open));
+
+            br.Read(ReadBuf, 0, 0xff);
+
+            for (int i = 0; i < 0x100; i++)
+            {
+                if (i < WriteTMTable.Length)
+                {
+                    WriteTMTable[i].Value = ReadBuf[i];
+                }
+                else if (i >= WriteTMTable.Length && i < WriteTMTable2.Length + WriteTMTable.Length)
+                {
+                    WriteTMTable2[i - WriteTMTable.Length].Value = ReadBuf[i];
+                }
+            }
+            br.Close();
+        }
+
 
         private void CalculateGAM_VCOM()
         {
