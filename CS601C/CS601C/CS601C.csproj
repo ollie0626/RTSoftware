@@ -88,6 +88,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="gree_led.jpg" />
+    <Content Include="red_led.png" />
     <Content Include="RTBBLib.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

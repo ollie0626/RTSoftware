@@ -17,7 +17,8 @@ namespace CS601C
 {
     public partial class Form1 : Form
     {
-        string win_name = "CS601C_v1.0.0";
+        string win_name = "PMIC CS601C";
+        string win_ver = "1.01";
 
         public static NumericUpDown[] WriteTable;
         public static NumericUpDown[] ReadTable;
@@ -54,13 +55,6 @@ namespace CS601C
         public Form1()
         {
             InitializeComponent();
-            RTDev.BoadInit();
-            List<byte> list = new List<byte>();
-            if(list != null)
-            {
-                if (list.Count > 0)
-                    nuSlave.Value = list[0] << 1;
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -165,6 +159,32 @@ namespace CS601C
             comboBox1.SelectedIndex = 0;
             AVDDOCH.Value = 1;
             AVDDOCH.Value = 0;
+
+
+            string setup_path = Application.StartupPath + @"\default_code.bin";
+
+            byte[] ReadBuf = new byte[255];
+            string file_name = setup_path;
+            BinaryReader br = new BinaryReader(new FileStream(file_name, FileMode.Open));
+
+            br.Read(ReadBuf, 0, 0xff);
+
+            for (int i = 0; i < 0x100; i++)
+            {
+                if (i < WriteTable.Length)
+                {
+                    WriteTable[i].Value = ReadBuf[i];
+                }
+                else if (i >= WriteTable.Length && i < WriteTable2.Length + WriteTable.Length)
+                {
+                    WriteTable2[i - WriteTable.Length].Value = ReadBuf[i];
+                }
+            }
+            br.Close();
+
+
+            GetRTBridgeStatus();
+            toolStripStatusLabel5.Text = win_ver;
         }
 
         private void CalculateGAM_VCOM()
@@ -464,8 +484,8 @@ namespace CS601C
         private void OPLDOH_ValueChanged(object sender, EventArgs e)
         {
             decimal volt = (OPLDOH.Value * 2 + 130) / 10;
-            if (volt <= 18)
-                OPLDOV.Value = volt;
+            if (volt > 18) volt = 18;
+            OPLDOV.Value = volt;
             OPLDOSL.Value = (int)OPLDOH.Value;
             W09.Value = (int)OPLDOH.Value | ((int)W09.Value & 0xE0);
         }
@@ -941,7 +961,7 @@ namespace CS601C
                     }
                     else if(i >= WriteTable.Length && i < WriteTable2.Length + WriteTable.Length)
                     {
-                        bin_buf.Add(Convert.ToByte(WriteTable2[i - WriteTable2.Length].Value));
+                        bin_buf.Add(Convert.ToByte(WriteTable2[i - WriteTable.Length].Value));
                     }
                     else
                     {
@@ -970,11 +990,11 @@ namespace CS601C
                 {
                     if(i < WriteTable.Length)
                     {
-                        WriteTable[i].Value = ReadBuf[i];
+                        ReadTable[i].Value = ReadBuf[i];
                     }
                     else if(i >= WriteTable.Length && i < WriteTable2.Length + WriteTable.Length)
                     {
-                        WriteTable2[i - WriteTable.Length].Value = ReadBuf[i];
+                        ReadTable2[i - WriteTable.Length].Value = ReadBuf[i];
                     }
                 }
                 br.Close();
@@ -1092,6 +1112,9 @@ namespace CS601C
                 if (volt <= 19.2)
                     AVDD2V.Value = (decimal)volt;
             }
+
+            if (code == 0) AVDD2V.Value = 13;
+
             AVDD2SL.Value = (int)AVDD2H.Value;
             int other = ((int)W32.Value & 0xC0);
             W32.Value = ((int)AVDD2H.Value | other);
@@ -1136,10 +1159,11 @@ namespace CS601C
 
         private void OPLDO2H_ValueChanged(object sender, EventArgs e)
         {
-            decimal volt = (OPLDO2H.Value * 2 + 130) / 10;
-            if (volt <= 18)
-                OPLDO2V.Value = volt;
-            OPLDO2SL.Value = (int)OPLDO2H.Value;
+            int code = (int)OPLDO2H.Value;
+            decimal volt = (code * 2 + 130) / 10;
+            if (volt > 18) volt = 18;
+            OPLDO2V.Value = volt;
+            OPLDO2SL.Value = (int)code;
             W39.Value = (int)OPLDO2H.Value | ((int)W39.Value & 0xE0);
         }
 
@@ -1499,7 +1523,7 @@ namespace CS601C
 
         private void W39_ValueChanged(object sender, EventArgs e)
         {
-            OPLDOH.Value = (int)W39.Value & 0x1F;
+            OPLDO2H.Value = (int)W39.Value & 0x1F;
         }
 
         private void W3A_ValueChanged(object sender, EventArgs e)
@@ -1734,13 +1758,39 @@ namespace CS601C
             RTDev.I2C_Write((byte)((int)nuSlave.Value >> 1), 0x64, buf);
         }
 
+        private bool GetRTBridgeStatus()
+        {
+            if (RTDev.BoadInit())
+            {
+                List<byte> list = new List<byte>();
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuSlave.Value = list[0] << 1;
+                }
+                toolStripStatusLabel2.Text = "Connected.";
+                toolStripStatusLabel2.Image = pictureBox1.Image;
+                return true;
+            }
+            else
+            {
+                toolStripStatusLabel2.Text = "Disconnected.";
+                toolStripStatusLabel2.Image = pictureBox2.Image;
+                return false;
+            }
+        }
+
         private void linkRTBridgeBoardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            bool status = RTDev.BoadInit();
-            if (status)
-                MessageBox.Show("Linking RTBridge Board Successful!!!", this.Text);
+            if(GetRTBridgeStatus())
+            {
+                MessageBox.Show("Link RTBride Board Success !!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             else
-                MessageBox.Show("Linking RTBridge Board Fail!!!", this.Text);
+            {
+                MessageBox.Show("Link RTBride Board Success !!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void BT_IntoTestMode_Click(object sender, EventArgs e)
@@ -1881,6 +1931,63 @@ namespace CS601C
             }
         }
 
+        private void bt_test_mode_save_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog saveDlg = new SaveFileDialog();
+            saveDlg.Filter = "Bin File|*.bin";
+            if (saveDlg.ShowDialog() == DialogResult.OK)
+            {
+                string file_name = saveDlg.FileName;
+                List<byte> bin_buf = new List<byte>();
+                BinaryWriter bw = new BinaryWriter(new FileStream(file_name, FileMode.Create));
+
+                for (int i = 0; i < 0x100; i++)
+                {
+                    if (i < WriteTMTable.Length)
+                    {
+                        bin_buf.Add(Convert.ToByte(WriteTMTable[i].Value));
+                    }
+                    else if (i >= WriteTMTable.Length && i < WriteTMTable2.Length + WriteTMTable.Length)
+                    {
+                        bin_buf.Add(Convert.ToByte(WriteTMTable2[i - WriteTMTable.Length].Value));
+                    }
+                    else
+                    {
+                        bin_buf.Add(0);
+                    }
+                }
+
+                bw.Write(bin_buf.ToArray());
+                bw.Close();
+            }
+        }
+
+        private void bt_test_mode_open_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openDlg = new OpenFileDialog();
+            openDlg.Filter = "Bin File|*.bin";
+            if (openDlg.ShowDialog() == DialogResult.OK)
+            {
+                byte[] ReadBuf = new byte[255];
+                string file_name = openDlg.FileName;
+                BinaryReader br = new BinaryReader(new FileStream(file_name, FileMode.Open));
+
+                br.Read(ReadBuf, 0, 0xff);
+
+                for (int i = 0; i < 0x100; i++)
+                {
+                    if (i < WriteTMTable.Length)
+                    {
+                        ReadTMTable[i].Value = ReadBuf[i];
+                    }
+                    else if (i >= WriteTMTable.Length && i < WriteTMTable2.Length + WriteTMTable.Length)
+                    {
+                        ReadTMTable2[i - WriteTMTable.Length].Value = ReadBuf[i];
+                    }
+                }
+                br.Close();
+            }
+        }
     }
 }
 
