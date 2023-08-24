@@ -1423,5 +1423,10 @@ namespace RT6971
             cb_vgh_tc_mode.Width = 121;
             groupBox31.Width = 165;
         }
+
+        private void btScan_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

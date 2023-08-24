@@ -989,6 +989,7 @@
             this.btScan.TabIndex = 7;
             this.btScan.Text = "Scan SlaveID";
             this.btScan.UseVisualStyleBackColor = true;
+            this.btScan.Click += new System.EventHandler(this.btScan_Click);
             // 
             // nuSlave
             // 
