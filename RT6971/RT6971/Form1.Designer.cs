@@ -217,6 +217,13 @@
             this.VCC1V = new System.Windows.Forms.NumericUpDown();
             this.VCC1H = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox31 = new System.Windows.Forms.GroupBox();
+            this.label84 = new System.Windows.Forms.Label();
+            this.cb_vcom_tc = new System.Windows.Forms.ComboBox();
+            this.label85 = new System.Windows.Forms.Label();
+            this.cb_vgx_prt_off = new System.Windows.Forms.ComboBox();
+            this.label86 = new System.Windows.Forms.Label();
+            this.cb_vgh_tc_mode = new System.Windows.Forms.ComboBox();
             this.groupBox51 = new System.Windows.Forms.GroupBox();
             this.label208 = new System.Windows.Forms.Label();
             this.cb_power_off = new System.Windows.Forms.ComboBox();
@@ -363,13 +370,6 @@
             this.cb_gocp_time = new System.Windows.Forms.ComboBox();
             this.label89 = new System.Windows.Forms.Label();
             this.cb_eocp_time = new System.Windows.Forms.ComboBox();
-            this.groupBox31 = new System.Windows.Forms.GroupBox();
-            this.label84 = new System.Windows.Forms.Label();
-            this.cb_vcom_tc = new System.Windows.Forms.ComboBox();
-            this.label85 = new System.Windows.Forms.Label();
-            this.cb_vgx_prt_off = new System.Windows.Forms.ComboBox();
-            this.label86 = new System.Windows.Forms.Label();
-            this.cb_vgh_tc_mode = new System.Windows.Forms.ComboBox();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
             this.label83 = new System.Windows.Forms.Label();
             this.cb_tc_type = new System.Windows.Forms.ComboBox();
@@ -737,6 +737,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.VCC1V)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VCC1H)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox31.SuspendLayout();
             this.groupBox51.SuspendLayout();
             this.groupBox50.SuspendLayout();
             this.groupBox49.SuspendLayout();
@@ -754,7 +755,6 @@
             this.groupBox34.SuspendLayout();
             this.groupBox33.SuspendLayout();
             this.groupBox32.SuspendLayout();
-            this.groupBox31.SuspendLayout();
             this.groupBox30.SuspendLayout();
             this.groupBox29.SuspendLayout();
             this.groupBox28.SuspendLayout();
@@ -3314,6 +3314,98 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "IC Configure";
             // 
+            // groupBox31
+            // 
+            this.groupBox31.Controls.Add(this.label84);
+            this.groupBox31.Controls.Add(this.cb_vcom_tc);
+            this.groupBox31.Controls.Add(this.label85);
+            this.groupBox31.Controls.Add(this.cb_vgx_prt_off);
+            this.groupBox31.Controls.Add(this.label86);
+            this.groupBox31.Controls.Add(this.cb_vgh_tc_mode);
+            this.groupBox31.Location = new System.Drawing.Point(17, 455);
+            this.groupBox31.Name = "groupBox31";
+            this.groupBox31.Size = new System.Drawing.Size(165, 140);
+            this.groupBox31.TabIndex = 6;
+            this.groupBox31.TabStop = false;
+            this.groupBox31.Text = "1Eh MISC";
+            // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(14, 95);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(83, 12);
+            this.label84.TabIndex = 4;
+            this.label84.Text = "VCOM_TC[3:0]";
+            // 
+            // cb_vcom_tc
+            // 
+            this.cb_vcom_tc.FormattingEnabled = true;
+            this.cb_vcom_tc.Items.AddRange(new object[] {
+            "0h : VCOM-GLDO/1024*14",
+            "1h : VCOM-GLDO1024*12",
+            "2h : VCOM-GLDO/1024*10",
+            "3h : VCOM-GLDO/1024*8",
+            "4h : VCOM- GLDO /1024*6",
+            "5h : VCOM- GLDO /1024*4",
+            "6h : VCOM- GLDO /1024*2",
+            "7h : VCOM",
+            "8h : VCOM+ GLDO /1024*2",
+            "9h : VCOM+ GLDO /1024*4",
+            "Ah : VCOM+ GLDO /1024*6",
+            "Bh : VCOM+ GLDO /1024*8",
+            "Ch : VCOM+ GLDO /1024*10",
+            "Dh : VCOM+ GLDO /1024*12",
+            "Eh : VCOM+ GLDO /1024*14",
+            "Fh : VCOM+ GLDO /1024*16"});
+            this.cb_vcom_tc.Location = new System.Drawing.Point(16, 110);
+            this.cb_vcom_tc.Name = "cb_vcom_tc";
+            this.cb_vcom_tc.Size = new System.Drawing.Size(121, 20);
+            this.cb_vcom_tc.TabIndex = 5;
+            // 
+            // label85
+            // 
+            this.label85.AutoSize = true;
+            this.label85.Location = new System.Drawing.Point(14, 57);
+            this.label85.Name = "label85";
+            this.label85.Size = new System.Drawing.Size(96, 12);
+            this.label85.TabIndex = 2;
+            this.label85.Text = "VGX_PRT_OFF[5]";
+            // 
+            // cb_vgx_prt_off
+            // 
+            this.cb_vgx_prt_off.FormattingEnabled = true;
+            this.cb_vgx_prt_off.Items.AddRange(new object[] {
+            "0h : VGH, VGL1, VGL2 Protection Enable",
+            "1h : VGH, VGL1, VGL2 Protection Disable"});
+            this.cb_vgx_prt_off.Location = new System.Drawing.Point(16, 72);
+            this.cb_vgx_prt_off.Name = "cb_vgx_prt_off";
+            this.cb_vgx_prt_off.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgx_prt_off.TabIndex = 3;
+            // 
+            // label86
+            // 
+            this.label86.AutoSize = true;
+            this.label86.Location = new System.Drawing.Point(14, 19);
+            this.label86.Name = "label86";
+            this.label86.Size = new System.Drawing.Size(115, 12);
+            this.label86.TabIndex = 1;
+            this.label86.Text = "VGH_TC_MODE [7:6]";
+            // 
+            // cb_vgh_tc_mode
+            // 
+            this.cb_vgh_tc_mode.FormattingEnabled = true;
+            this.cb_vgh_tc_mode.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vgh_tc_mode.Location = new System.Drawing.Point(16, 34);
+            this.cb_vgh_tc_mode.Name = "cb_vgh_tc_mode";
+            this.cb_vgh_tc_mode.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgh_tc_mode.TabIndex = 1;
+            this.cb_vgh_tc_mode.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_tc_mode_SelectedIndexChanged);
+            this.cb_vgh_tc_mode.MouseEnter += new System.EventHandler(this.cb_vgh_tc_mode_MouseEnter);
+            this.cb_vgh_tc_mode.MouseLeave += new System.EventHandler(this.cb_vgh_tc_mode_MouseLeave);
+            // 
             // groupBox51
             // 
             this.groupBox51.Controls.Add(this.label208);
@@ -3671,7 +3763,8 @@
             "3h : Follow VGL2 until VGH_UVLO_R",
             "4h : LC1 follow VGL2 and LC2 follow VGH until LC_IN rising edge",
             "5h : LC1 follow VGH and LC2 follow VGL2 until LC_IN rising edge",
-            "6h : LC1 follow VGH and LC2 follow VGL2 until VGH_UVLO_R"});
+            "6h : LC1 follow VGH and LC2 follow VGL2 until VGH_UVLO_R",
+            "7h : LC1 follow VGH and LC2 follow VGL2 until VGH_UVLO_R"});
             this.cb_lc_init.Location = new System.Drawing.Point(16, 122);
             this.cb_lc_init.Name = "cb_lc_init";
             this.cb_lc_init.Size = new System.Drawing.Size(121, 20);
@@ -4865,8 +4958,22 @@
             // 
             this.cb_socp_level.FormattingEnabled = true;
             this.cb_socp_level.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : 20mA",
+            "1h : 30mA",
+            "2h : 40mA",
+            "3h : 50mA",
+            "4h : 60mA",
+            "5h : 70mA",
+            "6h : 80mA",
+            "7h : 90mA",
+            "8h : 100mA",
+            "9h : 110mA",
+            "Ah : 120mA",
+            "Bh : 130mA",
+            "Ch : 135mA",
+            "Dh : 135mA",
+            "Eh : 135mA",
+            "Fh : 135mA"});
             this.cb_socp_level.Location = new System.Drawing.Point(16, 72);
             this.cb_socp_level.Name = "cb_socp_level";
             this.cb_socp_level.Size = new System.Drawing.Size(121, 20);
@@ -5064,98 +5171,6 @@
             this.cb_eocp_time.Size = new System.Drawing.Size(121, 20);
             this.cb_eocp_time.TabIndex = 1;
             this.cb_eocp_time.SelectedIndexChanged += new System.EventHandler(this.cb_eocp_time_SelectedIndexChanged);
-            // 
-            // groupBox31
-            // 
-            this.groupBox31.Controls.Add(this.label84);
-            this.groupBox31.Controls.Add(this.cb_vcom_tc);
-            this.groupBox31.Controls.Add(this.label85);
-            this.groupBox31.Controls.Add(this.cb_vgx_prt_off);
-            this.groupBox31.Controls.Add(this.label86);
-            this.groupBox31.Controls.Add(this.cb_vgh_tc_mode);
-            this.groupBox31.Location = new System.Drawing.Point(17, 455);
-            this.groupBox31.Name = "groupBox31";
-            this.groupBox31.Size = new System.Drawing.Size(165, 140);
-            this.groupBox31.TabIndex = 6;
-            this.groupBox31.TabStop = false;
-            this.groupBox31.Text = "1Eh MISC";
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(14, 95);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(83, 12);
-            this.label84.TabIndex = 4;
-            this.label84.Text = "VCOM_TC[3:0]";
-            // 
-            // cb_vcom_tc
-            // 
-            this.cb_vcom_tc.FormattingEnabled = true;
-            this.cb_vcom_tc.Items.AddRange(new object[] {
-            "0h : VCOM-GLDO/1024*14",
-            "1h : VCOM-GLDO1024*12",
-            "2h : VCOM-GLDO/1024*10",
-            "3h : VCOM-GLDO/1024*8",
-            "4h : VCOM- GLDO /1024*6",
-            "5h : VCOM- GLDO /1024*4",
-            "6h : VCOM- GLDO /1024*2",
-            "7h : VCOM",
-            "8h : VCOM+ GLDO /1024*2",
-            "9h : VCOM+ GLDO /1024*4",
-            "Ah : VCOM+ GLDO /1024*6",
-            "Bh : VCOM+ GLDO /1024*8",
-            "Ch : VCOM+ GLDO /1024*10",
-            "Dh : VCOM+ GLDO /1024*12",
-            "Eh : VCOM+ GLDO /1024*14",
-            "Fh : VCOM+ GLDO /1024*16"});
-            this.cb_vcom_tc.Location = new System.Drawing.Point(16, 110);
-            this.cb_vcom_tc.Name = "cb_vcom_tc";
-            this.cb_vcom_tc.Size = new System.Drawing.Size(121, 20);
-            this.cb_vcom_tc.TabIndex = 5;
-            // 
-            // label85
-            // 
-            this.label85.AutoSize = true;
-            this.label85.Location = new System.Drawing.Point(14, 57);
-            this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(96, 12);
-            this.label85.TabIndex = 2;
-            this.label85.Text = "VGX_PRT_OFF[5]";
-            // 
-            // cb_vgx_prt_off
-            // 
-            this.cb_vgx_prt_off.FormattingEnabled = true;
-            this.cb_vgx_prt_off.Items.AddRange(new object[] {
-            "0h : VGH, VGL1, VGL2 Protection Enable",
-            "1h : VGH, VGL1, VGL2 Protection Disable"});
-            this.cb_vgx_prt_off.Location = new System.Drawing.Point(16, 72);
-            this.cb_vgx_prt_off.Name = "cb_vgx_prt_off";
-            this.cb_vgx_prt_off.Size = new System.Drawing.Size(121, 20);
-            this.cb_vgx_prt_off.TabIndex = 3;
-            // 
-            // label86
-            // 
-            this.label86.AutoSize = true;
-            this.label86.Location = new System.Drawing.Point(14, 19);
-            this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(115, 12);
-            this.label86.TabIndex = 1;
-            this.label86.Text = "VGH_TC_MODE [7:6]";
-            // 
-            // cb_vgh_tc_mode
-            // 
-            this.cb_vgh_tc_mode.FormattingEnabled = true;
-            this.cb_vgh_tc_mode.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
-            this.cb_vgh_tc_mode.Location = new System.Drawing.Point(16, 34);
-            this.cb_vgh_tc_mode.Name = "cb_vgh_tc_mode";
-            this.cb_vgh_tc_mode.Size = new System.Drawing.Size(121, 20);
-            this.cb_vgh_tc_mode.TabIndex = 1;
-            this.cb_vgh_tc_mode.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_tc_mode_SelectedIndexChanged);
-            this.cb_vgh_tc_mode.MouseEnter += new System.EventHandler(this.cb_vgh_tc_mode_MouseEnter);
-            this.cb_vgh_tc_mode.MouseLeave += new System.EventHandler(this.cb_vgh_tc_mode_MouseLeave);
             // 
             // groupBox30
             // 
@@ -8980,6 +8995,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.VCC1V)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VCC1H)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox31.ResumeLayout(false);
+            this.groupBox31.PerformLayout();
             this.groupBox51.ResumeLayout(false);
             this.groupBox51.PerformLayout();
             this.groupBox50.ResumeLayout(false);
@@ -9013,8 +9030,6 @@
             this.groupBox33.PerformLayout();
             this.groupBox32.ResumeLayout(false);
             this.groupBox32.PerformLayout();
-            this.groupBox31.ResumeLayout(false);
-            this.groupBox31.PerformLayout();
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
             this.groupBox29.ResumeLayout(false);
