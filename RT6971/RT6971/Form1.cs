@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,7 +19,7 @@ namespace RT6971
         NumericUpDown[] WriteTable;
         NumericUpDown[] ReadTable;
         RTBBControl RTDev = new RTBBControl();
-
+        Thread thread;
 
 
         public Form1()
@@ -1424,9 +1425,40 @@ namespace RT6971
             groupBox31.Width = 165;
         }
 
+        private void ScanSlaveID()
+        {
+            tbSlave.Invoke((MethodInvoker)(() => tbSlave.Text = ""));
+            System.Threading.Thread.Sleep(100);
+            List<byte> list = RTDev.ScanSlaveID();
+            if (list == null || list.Count == 0)
+            {
+                tbSlave.Invoke((MethodInvoker)(() => tbSlave.Text = "No Found Slave Address"));
+            }
+            else
+            {
+                string tmp = "Slave Address (8bits) : ";
+                for (int i = 0; i < list.Count; i++)
+                {
+                    if (i == list.Count - 1)
+                    {
+                        tmp += "0x" + (list[i] << 1).ToString("x").ToUpper();
+                    }
+                    else
+                    {
+                        tmp += "0x" + (list[i] << 1).ToString("x").ToUpper() + ", ";
+                    }
+                }
+                tbSlave.Invoke((MethodInvoker)(() => tbSlave.Text = tmp));
+                nuSlave.Invoke((MethodInvoker)(() => nuSlave.Value = list[0] << 1));
+            }
+        }
+        
+
         private void btScan_Click(object sender, EventArgs e)
         {
-
+            thread = new Thread(ScanSlaveID);
+            thread.IsBackground = true;
+            thread.Start();
         }
     }
 }

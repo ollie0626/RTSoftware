@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTool", "SimpleTool\Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RT6971", "RT6971\RT6971\RT6971.csproj", "{BE5E8245-414E-4AAE-AFFE-C65B0296616D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CS601C", "CS601C\CS601C\CS601C.csproj", "{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,14 @@ Global
 		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|x86.ActiveCfg = Release|Any CPU
 		{BE5E8245-414E-4AAE-AFFE-C65B0296616D}.Release|x86.Build.0 = Release|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Debug|x86.Build.0 = Debug|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Release|x86.ActiveCfg = Release|Any CPU
+		{59D599B1-A0ED-47C0-87E0-18D0D8FF0B02}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
