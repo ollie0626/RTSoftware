@@ -764,6 +764,8 @@
             this.R60 = new System.Windows.Forms.NumericUpDown();
             this.label180 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.bt_test_mode_open = new System.Windows.Forms.Button();
+            this.bt_test_mode_save = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -1113,12 +1115,10 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.bt_test_mode_open = new System.Windows.Forms.Button();
-            this.bt_test_mode_save = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSlave)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -11401,6 +11401,26 @@
             this.tabPage1.Text = "Test Mode";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // bt_test_mode_open
+            // 
+            this.bt_test_mode_open.Location = new System.Drawing.Point(177, 500);
+            this.bt_test_mode_open.Name = "bt_test_mode_open";
+            this.bt_test_mode_open.Size = new System.Drawing.Size(130, 24);
+            this.bt_test_mode_open.TabIndex = 555;
+            this.bt_test_mode_open.Text = "Open Bin File";
+            this.bt_test_mode_open.UseVisualStyleBackColor = true;
+            this.bt_test_mode_open.Click += new System.EventHandler(this.bt_test_mode_open_Click);
+            // 
+            // bt_test_mode_save
+            // 
+            this.bt_test_mode_save.Location = new System.Drawing.Point(45, 500);
+            this.bt_test_mode_save.Name = "bt_test_mode_save";
+            this.bt_test_mode_save.Size = new System.Drawing.Size(130, 24);
+            this.bt_test_mode_save.TabIndex = 554;
+            this.bt_test_mode_save.Text = "Save Bin File";
+            this.bt_test_mode_save.UseVisualStyleBackColor = true;
+            this.bt_test_mode_save.Click += new System.EventHandler(this.bt_test_mode_save_Click);
+            // 
             // button11
             // 
             this.button11.Location = new System.Drawing.Point(823, 249);
@@ -15572,6 +15592,20 @@
             this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
             this.toolStripStatusLabel3.Text = "toolStripStatusLabel3";
             // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 20);
+            this.toolStripStatusLabel4.Text = "Ver:";
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(132, 20);
+            this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
@@ -15593,40 +15627,6 @@
             this.pictureBox2.TabIndex = 380;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
-            // 
-            // toolStripStatusLabel4
-            // 
-            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 20);
-            this.toolStripStatusLabel4.Text = "Ver:";
-            // 
-            // toolStripStatusLabel5
-            // 
-            this.toolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
-            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(132, 20);
-            this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
-            // 
-            // bt_test_mode_open
-            // 
-            this.bt_test_mode_open.Location = new System.Drawing.Point(177, 500);
-            this.bt_test_mode_open.Name = "bt_test_mode_open";
-            this.bt_test_mode_open.Size = new System.Drawing.Size(130, 24);
-            this.bt_test_mode_open.TabIndex = 555;
-            this.bt_test_mode_open.Text = "Open Bin File";
-            this.bt_test_mode_open.UseVisualStyleBackColor = true;
-            this.bt_test_mode_open.Click += new System.EventHandler(this.bt_test_mode_open_Click);
-            // 
-            // bt_test_mode_save
-            // 
-            this.bt_test_mode_save.Location = new System.Drawing.Point(45, 500);
-            this.bt_test_mode_save.Name = "bt_test_mode_save";
-            this.bt_test_mode_save.Size = new System.Drawing.Size(130, 24);
-            this.bt_test_mode_save.TabIndex = 554;
-            this.bt_test_mode_save.Text = "Save Bin File";
-            this.bt_test_mode_save.UseVisualStyleBackColor = true;
-            this.bt_test_mode_save.Click += new System.EventHandler(this.bt_test_mode_save_Click);
             // 
             // Form1
             // 
@@ -15670,6 +15670,7 @@
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.pictureBox2);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
             this.Text = "CS601-C";
