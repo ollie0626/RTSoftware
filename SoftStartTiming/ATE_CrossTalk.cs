@@ -1,8 +1,8 @@
 ﻿
 #define Report_en
-#define Power_en
-#define Eload_en
-#define Scope_en
+//#define Power_en
+//#define Eload_en
+//#define Scope_en
 
 
 using System;
@@ -92,9 +92,10 @@ namespace SoftStartTiming
                         }
                         break;
                     case 1:
+#if Report_en
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
                         _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? "Enable" : "0";
-
+#endif
                         List<byte> en_addr = new List<byte>();
                         List<byte> en_data = new List<byte>();
                         List<byte> disen_data = new List<byte>();
@@ -1170,6 +1171,9 @@ namespace SoftStartTiming
             // turn vout channel
             string name = test_parameter.scope_chx[measNParameter.select_idx];
             string res = test_parameter.scope_lx[measNParameter.select_idx];
+            //Dictionary< string , string > hashMap = new Dictionary< string , string >();
+            Dictionary<int, int> ch_map = new Dictionary<int, int>();
+
 #if Scope_en
             switch (name)
             {
@@ -1188,12 +1192,13 @@ namespace SoftStartTiming
                 case "CH4": InsControl._oscilloscope.CHx_On(4); break;
             }
 #endif
-
+            int load_idx = 0;
             for (int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
             {
                 if (test_parameter.eload_chx[aggressor] != test_parameter.eload_chx[measNParameter.select_idx])
                 {
                     sw_en[idx++] = test_parameter.eload_chx[aggressor] - 1;
+                    ch_map.Add(test_parameter.eload_chx[aggressor] - 1, load_idx++);
                 }
             }
 #if Scope_en
@@ -1215,8 +1220,13 @@ namespace SoftStartTiming
                 }
                 else
                 {
-                    iout[i] = measNParameter.group < test_parameter.ccm_eload[sw_en[i]].Count ?
-                        test_parameter.ccm_eload[sw_en[i]][measNParameter.group] : test_parameter.ccm_eload[sw_en[i]].Max();
+                    //iout[i] = measNParameter.group < test_parameter.ccm_eload[sw_en[i]].Count ?
+                    //    test_parameter.ccm_eload[sw_en[i]][measNParameter.group] : test_parameter.ccm_eload[sw_en[i]].Max();
+
+                    iout[i] = measNParameter.group < test_parameter.ccm_eload[ch_map[sw_en[i]]].Count ?
+                            test_parameter.ccm_eload[ch_map[sw_en[i]]][measNParameter.group] : test_parameter.ccm_eload[ch_map[sw_en[i]]].Max();
+
+
                 }
             }
 
