@@ -21,6 +21,9 @@ namespace RT6971
         RTBBControl RTDev = new RTBBControl();
         Thread thread;
 
+        string win_name = "PMIC RT6971";
+        string win_ver = "1.00";
+
 
         public Form1()
         {
@@ -50,15 +53,70 @@ namespace RT6971
                 R40, R41, R42, R43, R44, R45, R46, R47, R48, R49, R4A, R4B, R4C, R4D, R4E, R4F,
             };
 
-
-            RTDev.BoadInit();
-            List<byte> list = RTDev.ScanSlaveID();
-            if (list != null)
+            for (int i = 0; i < WriteTable.Length; i++)
             {
-                if (list.Count > 0)
-                    nuSlave.Value = list[0];
+                WriteTable[i].Value = 0xff;
+                WriteTable[i].Value = 0x00;
             }
 
+            ComboBox[] cb_arr = new ComboBox[]
+            {
+                cb_avdd_protect, cb_vcc1_protect, cb_havdd_protect, cb_vgh_protect, cb_vgl2_protect, cb_vgl1_protect,
+                cb_ls1_protect, cb_ls2_protect, cb_ls3_protect, cb_ls4_protect, cb_ls5_protect, cb_ls6_protect, cb_ls7_protect, cb_otp_protect
+            };
+
+            for (int i = 0; i < cb_arr.Length; i++)
+            {
+                cb_arr[i].SelectedIndex = 0;
+            }
+
+
+            DefaultCode_User();
+            GetRTBridgeStatus();
+            this.Text = win_name;
+            toolStripStatusLabel5.Text = win_ver;
+        }
+
+        private void DefaultCode_User()
+        {
+            string setup_path = Application.StartupPath + @"\default_code.bin";
+
+            byte[] ReadBuf = new byte[255];
+            string file_name = setup_path;
+            BinaryReader br = new BinaryReader(new FileStream(file_name, FileMode.Open));
+
+            br.Read(ReadBuf, 0, 0xff);
+
+            for (int i = 0; i < 0x100; i++)
+            {
+                if (i < WriteTable.Length)
+                {
+                    WriteTable[i].Value = ReadBuf[i];
+                }
+            }
+            br.Close();
+        }
+
+        private bool GetRTBridgeStatus()
+        {
+            if (RTDev.BoadInit())
+            {
+                List<byte> list = new List<byte>();
+                if (list != null)
+                {
+                    if (list.Count > 0)
+                        nuSlave.Value = list[0] << 1;
+                }
+                toolStripStatusLabel2.Text = "Connected.";
+                toolStripStatusLabel2.Image = pictureBox1.Image;
+                return true;
+            }
+            else
+            {
+                toolStripStatusLabel2.Text = "Disconnected.";
+                toolStripStatusLabel2.Image = pictureBox2.Image;
+                return false;
+            }
         }
 
         private double GAMOut_Calculate(int code)
@@ -570,7 +628,7 @@ namespace RT6971
 
 
             string[] TC_Mode1 = new string[]
-            { 
+            {
                 "0h : TCOMP_L = 2.94V, TCOMP_H = 2.09V",
                 "1h : TCOMP_L = 3.35V, TCOMP_H = 2.95V",
                 "2h : TCOMP_L = 2.94V, TCOMP_H = 2.44V",
@@ -588,7 +646,7 @@ namespace RT6971
             switch (cb_tc_type.SelectedIndex)
             {
                 case 0:
-                    foreach(string item in TC_Mode1)
+                    foreach (string item in TC_Mode1)
                         cb_vgh_tc_mode.Items.Add(item);
                     break;
                 case 1:
@@ -604,7 +662,7 @@ namespace RT6971
             if (cb_vgh_tc_mode.SelectedIndex == -1) return;
             if (cb_vgx_prt_off.SelectedIndex == -1) return;
             if (cb_vcom_tc.SelectedIndex == -1) return;
-            
+
             W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | (int)W1E.Value & 0x3F;
             W1E.Value = cb_vgx_prt_off.SelectedIndex << 5 | (int)W1E.Value & 0xDF;
             W1E.Value = cb_vcom_tc.SelectedIndex | (int)W1E.Value & 0xF0;
@@ -843,7 +901,7 @@ namespace RT6971
             int res = 0x00;
             int[] bit_arr = new int[] { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80 };
             int mask_value = 0x00;
-            for(int i = end_bit; i < strart_bit + 1; i++)
+            for (int i = end_bit; i < strart_bit + 1; i++)
             {
                 mask_value |= bit_arr[i];
             }
@@ -1019,7 +1077,7 @@ namespace RT6971
         {
             int code = (int)W1F.Value;
             cb_eocp_time.SelectedIndex = GetValue(code, 7, 4);
-            cb_gocp_time.SelectedIndex = GetValue(code, 4, 0);
+            cb_gocp_time.SelectedIndex = GetValue(code, 3, 0);
         }
 
         private void W20_ValueChanged(object sender, EventArgs e)
@@ -1278,7 +1336,7 @@ namespace RT6971
 
         private void bt_ReadtoWrite_Click(object sender, EventArgs e)
         {
-            for(int i = 0; i < WriteTable.Length; i++)
+            for (int i = 0; i < WriteTable.Length; i++)
             {
                 WriteTable[i].Value = ReadTable[i].Value;
             }
@@ -1289,7 +1347,7 @@ namespace RT6971
             byte slave = (byte)((byte)nuSlave.Value >> 1);
             byte[] WriteBuffer = new byte[WriteTable.Length];
 
-            for(int i = 0; i < WriteTable.Length; i++)
+            for (int i = 0; i < WriteTable.Length; i++)
             {
                 WriteBuffer[i] = (byte)WriteTable[i].Value;
             }
@@ -1305,7 +1363,7 @@ namespace RT6971
             RTDev.I2C_Read(slave, 0x00, ref ReadBuffer);
 
 
-            for(int i = 0; i < ReadTable.Length; i++)
+            for (int i = 0; i < ReadTable.Length; i++)
             {
                 ReadTable[i].Value = ReadBuffer[i];
             }
@@ -1388,7 +1446,7 @@ namespace RT6971
                 {
                     if (i < WriteTable.Length)
                     {
-                        WriteTable[i].Value = ReadBuf[i];
+                        ReadTable[i].Value = ReadBuf[i];
                     }
                 }
                 br.Close();
@@ -1397,15 +1455,19 @@ namespace RT6971
 
         private void linkRTBridgeBoardToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!RTDev.BoadInit())
+            if (GetRTBridgeStatus())
             {
-                MessageBox.Show("Linking bridge board fail !!!", this.Text);
+                MessageBox.Show("Link RTBride Board Success !!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Link RTBride Board Success !!!", this.Text, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void cb_vgh_tc_mode_MouseEnter(object sender, EventArgs e)
         {
-            if(cb_tc_type.SelectedIndex == 0)
+            if (cb_tc_type.SelectedIndex == 0)
             {
                 cb_vgh_tc_mode.Width = 300;
                 groupBox31.Width = 350;
@@ -1415,8 +1477,6 @@ namespace RT6971
                 cb_vgh_tc_mode.Width = 450;
                 groupBox31.Width = 550;
             }
-
-
         }
 
         private void cb_vgh_tc_mode_MouseLeave(object sender, EventArgs e)
@@ -1452,13 +1512,37 @@ namespace RT6971
                 nuSlave.Invoke((MethodInvoker)(() => nuSlave.Value = list[0] << 1));
             }
         }
-        
+
 
         private void btScan_Click(object sender, EventArgs e)
         {
             thread = new Thread(ScanSlaveID);
             thread.IsBackground = true;
             thread.Start();
+        }
+
+        private void cb_vcom_tc_MouseEnter(object sender, EventArgs e)
+        {
+            cb_vcom_tc.Width = 300;
+            groupBox31.Width = 350;
+        }
+
+        private void cb_vcom_tc_MouseLeave(object sender, EventArgs e)
+        {
+            cb_vcom_tc.Width = 121;
+            groupBox31.Width = 165;
+        }
+
+        private void cb_vgx_prt_off_MouseEnter(object sender, EventArgs e)
+        {
+            cb_vgx_prt_off.Width = 300;
+            groupBox31.Width = 350;
+        }
+
+        private void cb_vgx_prt_off_MouseLeave(object sender, EventArgs e)
+        {
+            cb_vgx_prt_off.Width = 121;
+            groupBox31.Width = 165;
         }
     }
 }

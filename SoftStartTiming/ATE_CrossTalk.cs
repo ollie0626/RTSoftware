@@ -163,7 +163,7 @@ namespace SoftStartTiming
 
         private void MessageNotify()
         {
-            System.Windows.Forms.MessageBox.Show("Cross Talk test finished!!!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK);
+            System.Windows.Forms.MessageBox.Show("Cross Talk test finished!!!", "ATE Tool", System.Windows.Forms.MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void OSCInit()
@@ -351,8 +351,6 @@ namespace SoftStartTiming
                         else
                             RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { dis_off[i] });
                     }
-
-
                     // turn on rails
                     RTDev.I2C_Write((byte)(test_parameter.slave), en_addr[i], new byte[] { wr_en[en_addr[i]] });
                 }
