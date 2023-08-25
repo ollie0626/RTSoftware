@@ -240,12 +240,21 @@ namespace CS601C
             {
                 vcom1_code = (int)VCOM1H.Value + 250;
             }
+            else
+            {
+                vcom1_code = 640;
+            }
+
 
             if(VCOM2H.Value <= 0x186)
             {
                 vcom2_code = (int)VCOM2H.Value + 250;
             }
-            
+            else
+            {
+                vcom2_code = 640;
+            }
+
 
             double VCOM1 = vcom1_code * res;
             double VCOM2 = vcom2_code * res;
@@ -287,10 +296,18 @@ namespace CS601C
             {
                 vcom1_code = (int)VCOM1_2H.Value + 250;
             }
+            else
+            {
+                vcom1_code = 640;
+            }
 
             if (VCOM2_2H.Value <= 0x186)
             {
                 vcom2_code = (int)VCOM2_2H.Value + 250;
+            }
+            else
+            {
+                vcom2_code = 640;
             }
 
             VCOM1 = vcom1_code * res;
@@ -1190,11 +1207,11 @@ namespace CS601C
         private void OPLDO2H_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)OPLDO2H.Value;
-            decimal volt = (code * 2 + 130) / 10;
+            decimal volt = (decimal)(((OPLDO2H.Value * 2) + 130) / 10);
             if (volt > 18) volt = 18;
             OPLDO2V.Value = volt;
             OPLDO2SL.Value = (int)code;
-            W39.Value = (int)OPLDO2H.Value | ((int)W39.Value & 0xE0);
+            W39.Value = code | ((int)W39.Value & 0xE0);
         }
 
         private void AVDD_OC2H_ValueChanged(object sender, EventArgs e)

@@ -150,6 +150,9 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
+            VIDIO_Criteria_parameter criteria_container = new VIDIO_Criteria_parameter();
+
+
             //test_parameter.vidio.lpm_sel.Clear();
             //test_parameter.vidio.g1_sel.Clear();
             //test_parameter.vidio.g2_sel.Clear();
@@ -175,6 +178,8 @@ namespace SoftStartTiming
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
 
+            test_parameter.vidio.criteria.Clear();
+
             int temp = 0;
             for(int idx = 0; idx < dataGridView2.RowCount; idx++)
             {
@@ -197,6 +202,20 @@ namespace SoftStartTiming
             {
                 test_parameter.vidio.vout_list.Add(dataGridView1[0, i].Value);
                 test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[1, i].Value));
+            }
+
+            for(int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                criteria_container.vout_begin = dataGridView1[0, i].Value;          // vout start
+                criteria_container.vout_end  = dataGridView1[1, i].Value;           // vout end
+                criteria_container.rise_time = dataGridView1[2, i].Value;          // rise time
+                criteria_container.sr_rise = dataGridView1[3, i].Value;          // slew rate (rise)
+                criteria_container.fall_time = dataGridView1[4, i].Value;          // fall time
+                criteria_container.sr_fall = dataGridView1[5, i].Value;          // slew rate (fall)
+                criteria_container.overshoot = Convert.ToDouble((string)dataGridView1[6, i].Value);          // overshoot (spec)
+                criteria_container.undershoot = Convert.ToDouble((string)dataGridView1[7, i].Value);          // undershoot (spec)
+
+                test_parameter.vidio.criteria.Add(criteria_container);
             }
 
             int program_max = test_parameter.VinList.Count *
@@ -712,22 +731,34 @@ namespace SoftStartTiming
     {
         public List<int> io_table = new List<int>();
         public Dictionary<object, int> vout_map = new Dictionary<object, int>();
-
         public Dictionary<double, int> lpm_vout_map = new Dictionary<double, int>();
         public List<string> lpm_str = new List<string>();
-
-        //public List<int> lpm_sel = new List<int>();
-        //public List<int> g1_sel = new List<int>();
-        //public List<int> g2_sel = new List<int>();
         public List<object> vout_list = new List<object>();
-
-        //public List<int> lpm_sel_af = new List<int>();
-        //public List<int> g1_sel_af = new List<int>();
-        //public List<int> g2_sel_af = new List<int>();
         public List<object> vout_list_af = new List<object>();
         public double discharge_time;
         public double discharge_load;
         public int test_cnt;
+
+        public List<VIDIO_Criteria_parameter> criteria = new List<VIDIO_Criteria_parameter>();
+
+
+    }
+
+
+
+    public class VIDIO_Criteria_parameter
+    {
+        public object vout_begin;
+        public object vout_end;
+        public object rise_time;
+        public object fall_time;
+        public object sr_rise;
+        public object sr_fall;
+        public double overshoot;
+        public double undershoot;
+
+        public double hi;
+        public double lo;
     }
 
 

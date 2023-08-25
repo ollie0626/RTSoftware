@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveBinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -648,6 +649,14 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSlave)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -919,6 +928,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.W2E)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W2D)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.W2F)).BeginInit();
+            this.statusStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -929,7 +941,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1288, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1292, 24);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -945,14 +957,14 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
             this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
             this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
@@ -3363,6 +3375,8 @@
             this.cb_vcom_tc.Name = "cb_vcom_tc";
             this.cb_vcom_tc.Size = new System.Drawing.Size(121, 20);
             this.cb_vcom_tc.TabIndex = 5;
+            this.cb_vcom_tc.MouseEnter += new System.EventHandler(this.cb_vcom_tc_MouseEnter);
+            this.cb_vcom_tc.MouseLeave += new System.EventHandler(this.cb_vcom_tc_MouseLeave);
             // 
             // label85
             // 
@@ -3383,6 +3397,8 @@
             this.cb_vgx_prt_off.Name = "cb_vgx_prt_off";
             this.cb_vgx_prt_off.Size = new System.Drawing.Size(121, 20);
             this.cb_vgx_prt_off.TabIndex = 3;
+            this.cb_vgx_prt_off.MouseEnter += new System.EventHandler(this.cb_vgx_prt_off_MouseEnter);
+            this.cb_vgx_prt_off.MouseLeave += new System.EventHandler(this.cb_vgx_prt_off_MouseLeave);
             // 
             // label86
             // 
@@ -3437,8 +3453,14 @@
             // 
             this.cb_power_off.FormattingEnabled = true;
             this.cb_power_off.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
+            "0h : VIN_UVLO_F",
+            "1h : 7V",
+            "2h : 7.5V",
+            "3h : 8V",
+            "4h : 8.5V",
+            "5h : 9V",
+            "6h : 9.5V",
+            "7h : 10V"});
             this.cb_power_off.Location = new System.Drawing.Point(16, 163);
             this.cb_power_off.Name = "cb_power_off";
             this.cb_power_off.Size = new System.Drawing.Size(121, 20);
@@ -7264,6 +7286,7 @@
             this.label155.Size = new System.Drawing.Size(23, 12);
             this.label155.TabIndex = 407;
             this.label155.Text = "46h";
+            this.label155.Visible = false;
             // 
             // W17
             // 
@@ -7293,6 +7316,7 @@
             this.W46.Size = new System.Drawing.Size(46, 22);
             this.W46.TabIndex = 408;
             this.W46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W46.Visible = false;
             // 
             // label33
             // 
@@ -7311,6 +7335,7 @@
             this.label154.Size = new System.Drawing.Size(23, 12);
             this.label154.TabIndex = 409;
             this.label154.Text = "47h";
+            this.label154.Visible = false;
             // 
             // W18
             // 
@@ -7340,6 +7365,7 @@
             this.W47.Size = new System.Drawing.Size(46, 22);
             this.W47.TabIndex = 410;
             this.W47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W47.Visible = false;
             // 
             // label32
             // 
@@ -7358,6 +7384,7 @@
             this.label153.Size = new System.Drawing.Size(23, 12);
             this.label153.TabIndex = 411;
             this.label153.Text = "48h";
+            this.label153.Visible = false;
             // 
             // W19
             // 
@@ -7387,6 +7414,7 @@
             this.W48.Size = new System.Drawing.Size(46, 22);
             this.W48.TabIndex = 412;
             this.W48.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W48.Visible = false;
             // 
             // label31
             // 
@@ -7405,6 +7433,7 @@
             this.label152.Size = new System.Drawing.Size(23, 12);
             this.label152.TabIndex = 413;
             this.label152.Text = "49h";
+            this.label152.Visible = false;
             // 
             // W1A
             // 
@@ -7434,6 +7463,7 @@
             this.W49.Size = new System.Drawing.Size(46, 22);
             this.W49.TabIndex = 414;
             this.W49.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W49.Visible = false;
             // 
             // label30
             // 
@@ -7452,6 +7482,7 @@
             this.label151.Size = new System.Drawing.Size(25, 12);
             this.label151.TabIndex = 415;
             this.label151.Text = "4Ah";
+            this.label151.Visible = false;
             // 
             // W1B
             // 
@@ -7481,6 +7512,7 @@
             this.W4A.Size = new System.Drawing.Size(46, 22);
             this.W4A.TabIndex = 416;
             this.W4A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4A.Visible = false;
             // 
             // label29
             // 
@@ -7499,6 +7531,7 @@
             this.label150.Size = new System.Drawing.Size(25, 12);
             this.label150.TabIndex = 417;
             this.label150.Text = "4Bh";
+            this.label150.Visible = false;
             // 
             // W1C
             // 
@@ -7528,6 +7561,7 @@
             this.W4B.Size = new System.Drawing.Size(46, 22);
             this.W4B.TabIndex = 418;
             this.W4B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4B.Visible = false;
             // 
             // label28
             // 
@@ -7546,6 +7580,7 @@
             this.label149.Size = new System.Drawing.Size(25, 12);
             this.label149.TabIndex = 419;
             this.label149.Text = "4Ch";
+            this.label149.Visible = false;
             // 
             // W1D
             // 
@@ -7575,6 +7610,7 @@
             this.W4C.Size = new System.Drawing.Size(46, 22);
             this.W4C.TabIndex = 420;
             this.W4C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4C.Visible = false;
             // 
             // label27
             // 
@@ -7593,6 +7629,7 @@
             this.label148.Size = new System.Drawing.Size(25, 12);
             this.label148.TabIndex = 421;
             this.label148.Text = "4Dh";
+            this.label148.Visible = false;
             // 
             // W1F
             // 
@@ -7622,6 +7659,7 @@
             this.W4D.Size = new System.Drawing.Size(46, 22);
             this.W4D.TabIndex = 422;
             this.W4D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4D.Visible = false;
             // 
             // label26
             // 
@@ -7640,6 +7678,7 @@
             this.label147.Size = new System.Drawing.Size(23, 12);
             this.label147.TabIndex = 423;
             this.label147.Text = "4Fh";
+            this.label147.Visible = false;
             // 
             // W1E
             // 
@@ -7669,6 +7708,7 @@
             this.W4F.Size = new System.Drawing.Size(46, 22);
             this.W4F.TabIndex = 424;
             this.W4F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4F.Visible = false;
             // 
             // R10
             // 
@@ -7692,6 +7732,7 @@
             this.label146.Size = new System.Drawing.Size(24, 12);
             this.label146.TabIndex = 425;
             this.label146.Text = "4Eh";
+            this.label146.Visible = false;
             // 
             // R11
             // 
@@ -7720,6 +7761,7 @@
             this.W4E.Size = new System.Drawing.Size(46, 22);
             this.W4E.TabIndex = 426;
             this.W4E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W4E.Visible = false;
             // 
             // R12
             // 
@@ -7804,6 +7846,7 @@
             this.R4E.Size = new System.Drawing.Size(46, 22);
             this.R4E.TabIndex = 442;
             this.R4E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4E.Visible = false;
             // 
             // R15
             // 
@@ -7860,6 +7903,7 @@
             this.R4F.Size = new System.Drawing.Size(46, 22);
             this.R4F.TabIndex = 441;
             this.R4F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4F.Visible = false;
             // 
             // R17
             // 
@@ -7916,6 +7960,7 @@
             this.R4D.Size = new System.Drawing.Size(46, 22);
             this.R4D.TabIndex = 440;
             this.R4D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4D.Visible = false;
             // 
             // R19
             // 
@@ -7972,6 +8017,7 @@
             this.R4C.Size = new System.Drawing.Size(46, 22);
             this.R4C.TabIndex = 439;
             this.R4C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4C.Visible = false;
             // 
             // R1B
             // 
@@ -8028,6 +8074,7 @@
             this.R4B.Size = new System.Drawing.Size(46, 22);
             this.R4B.TabIndex = 438;
             this.R4B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4B.Visible = false;
             // 
             // R1D
             // 
@@ -8056,6 +8103,7 @@
             this.R46.Size = new System.Drawing.Size(46, 22);
             this.R46.TabIndex = 433;
             this.R46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R46.Visible = false;
             // 
             // R1F
             // 
@@ -8084,6 +8132,7 @@
             this.R4A.Size = new System.Drawing.Size(46, 22);
             this.R4A.TabIndex = 437;
             this.R4A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R4A.Visible = false;
             // 
             // R1E
             // 
@@ -8112,6 +8161,7 @@
             this.R47.Size = new System.Drawing.Size(46, 22);
             this.R47.TabIndex = 434;
             this.R47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R47.Visible = false;
             // 
             // label49
             // 
@@ -8135,6 +8185,7 @@
             this.R49.Size = new System.Drawing.Size(46, 22);
             this.R49.TabIndex = 436;
             this.R49.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R49.Visible = false;
             // 
             // W20
             // 
@@ -8164,6 +8215,7 @@
             this.R48.Size = new System.Drawing.Size(46, 22);
             this.R48.TabIndex = 435;
             this.R48.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R48.Visible = false;
             // 
             // label48
             // 
@@ -8782,7 +8834,6 @@
             // 
             // W2F
             // 
-            this.W2F.Enabled = false;
             this.W2F.Hexadecimal = true;
             this.W2F.Location = new System.Drawing.Point(332, 452);
             this.W2F.Maximum = new decimal(new int[] {
@@ -8855,12 +8906,90 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.FloralWhite;
+            this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 776);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1292, 25);
+            this.statusStrip1.TabIndex = 449;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(104, 20);
+            this.toolStripStatusLabel1.Text = "Connect status:";
+            // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel2.Image")));
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(148, 20);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
+            // toolStripStatusLabel3
+            // 
+            this.toolStripStatusLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
+            this.toolStripStatusLabel3.Text = "toolStripStatusLabel3";
+            // 
+            // toolStripStatusLabel4
+            // 
+            this.toolStripStatusLabel4.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 20);
+            this.toolStripStatusLabel4.Text = "Ver:";
+            // 
+            // toolStripStatusLabel5
+            // 
+            this.toolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
+            this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(132, 20);
+            this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(1161, 34);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(40, 33);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 450;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(1217, 33);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(38, 34);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 451;
+            this.pictureBox2.TabStop = false;
+            this.pictureBox2.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1288, 797);
+            this.ClientSize = new System.Drawing.Size(1309, 797);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.button2);
@@ -8873,6 +9002,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "RT6971 v1.0.0";
@@ -9199,6 +9329,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.W2E)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W2D)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.W2F)).EndInit();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9826,6 +9960,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
     }
 }
 

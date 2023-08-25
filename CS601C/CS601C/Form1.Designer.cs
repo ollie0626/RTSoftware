@@ -15635,7 +15635,7 @@
             this.AutoScroll = true;
             this.AutoSize = true;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(1324, 864);
+            this.ClientSize = new System.Drawing.Size(1284, 864);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.label352);
             this.Controls.Add(this.label351);

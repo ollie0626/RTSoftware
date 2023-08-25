@@ -262,6 +262,97 @@ namespace SoftStartTiming
             }
         }
 
+
+        private bool TriggerStatus()
+        {
+            int cnt = 0;
+            while (InsControl._oscilloscope.GetCount() == 0)
+            {
+                cnt++;
+                MyLib.Delay1ms(100);
+                if (cnt > 100) return false;
+            }
+            return true;
+        }
+
+        private void Scope_Task_Setting(int meas_idx, double vout, double vout_af)
+        {
+            InsControl._oscilloscope.SetTimeOutTrigger();
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
+            InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
+            InsControl._oscilloscope.SetTimeOutEither();
+
+            InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.7);
+            InsControl._oscilloscope.CHx_Offset(1, vout);
+            InsControl._oscilloscope.CHx_Position(1, -2);
+            InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
+            Initial_TimeScale(true, false);
+            InsControl._oscilloscope.SetAnnotation(meas_rising);
+        }
+
+        private void Rise_Task(int case_idx)
+        {
+            double vout = 0;
+            double vout_af = 0;
+            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+            vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
+            int intital_state = test_parameter.vidio.vout_map[vout.ToString()];
+            int next_State = test_parameter.vidio.vout_map[vout_af.ToString()];
+            Scope_Task_Setting(meas_rising, vout, vout_af);
+
+            IOStateSetting(intital_state);
+            IOStateSetting(next_State);
+
+            double hi = test_parameter.vidio.criteria[case_idx].hi;
+            double lo = test_parameter.vidio.criteria[case_idx].lo;
+
+            // setting measure level threshold
+            // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
+            InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
+            
+
+            for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
+            {
+                double slew_rate = 0;
+                double over_shoot = 0;
+                double under_shoot = 0;
+                double vmax = 0, vmin = 0;
+
+                IOStateSetting(intital_state);
+            Trigger_Fail_retry:
+                InsControl._oscilloscope.SetRun();
+                MyLib.Delay1ms(200);
+                InsControl._oscilloscope.SetNormalTrigger();
+                MyLib.Delay1ms(100);
+
+                IOStateSetting(next_State);
+                if (!TriggerStatus()) goto Trigger_Fail_retry;
+                InsControl._oscilloscope.SetStop();
+
+
+                InsControl._oscilloscope.SetAnnotation(meas_rising);
+                double x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+                double x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                InsControl._oscilloscope.SetCursorMode();
+                InsControl._oscilloscope.SetCursorOn();
+                InsControl._oscilloscope.SetCursorSource(1, 1);
+                InsControl._oscilloscope.SetCursorSource(2, 1);
+                InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+
+                // measure slew rate and rise time
+                // measure overshoot level
+
+
+
+
+            }
+        }
+
+        private void Fall_Task(int case_idx)
+        {
+
+        }
+
         private void Phase1Test(int case_idx, bool overshoot_en = false)
         {
             overshoot_list.Clear();
@@ -276,26 +367,8 @@ namespace SoftStartTiming
             string vout_str = "";
             string vout_af_str = "";
 
-            try
-            {
-                vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
-            }
-            catch
-            {
-                vout_str = (string)test_parameter.vidio.vout_list[case_idx];
-                vout = 0;
-            }
-
-            try
-            {
-                vout_af = Convert.ToDouble(test_parameter.vidio.vout_list_af[case_idx]);
-            }
-            catch
-            {
-                vout_af_str = (string)test_parameter.vidio.vout_list_af[case_idx];
-                vout_af = 0;
-            }
-
+            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+            vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
 
             bool rising_en = vout < vout_af ? true : false;
             bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
