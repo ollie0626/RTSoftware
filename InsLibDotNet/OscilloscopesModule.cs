@@ -1062,6 +1062,20 @@ namespace InsLibDotNet
                 case 0:
                     doCommand("CURSor:STATE ON");
                     break;
+                case 1:
+                    break;
+            }
+        }
+
+        public void SetCursorOff()
+        {
+            switch (osc_sel)
+            {
+                case 0:
+                    doCommand("CURSor:STATE OFF");
+                    break;
+                case 1:
+                    break;
             }
         }
 

@@ -740,8 +740,6 @@ namespace SoftStartTiming
         public int test_cnt;
 
         public List<VIDIO_Criteria_parameter> criteria = new List<VIDIO_Criteria_parameter>();
-
-
     }
 
 
