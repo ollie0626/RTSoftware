@@ -291,16 +291,15 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Position(1, -2);
             InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
             Initial_TimeScale(true, false);
-            InsControl._oscilloscope.SetAnnotation(meas_rising);
+            InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
         private void SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
-            vmin_list.Clear();
             vmax_list.Clear();
             slewrate_list.Clear();
             rise_time_list.Clear();
-
+            overshoot_list.Clear();
 
             double vout = 0;
             double vout_af = 0;
@@ -308,10 +307,8 @@ namespace SoftStartTiming
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
             int intital_state = test_parameter.vidio.vout_map[vout.ToString()];
             int next_State = test_parameter.vidio.vout_map[vout_af.ToString()];
-            Scope_Task_Setting(meas_rising, vout, vout_af);
-
+            Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
             IOStateSetting(intital_state);
-            IOStateSetting(next_State);
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
@@ -319,6 +316,7 @@ namespace SoftStartTiming
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
             InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
+            InsControl._oscilloscope.SetTriggerRise();
 
             if(overshoot_en)
             {
@@ -332,7 +330,7 @@ namespace SoftStartTiming
             {
                 double slew_rate = 0;
                 double rise_time = 0;
-                double vmax = 0, vmin = 0;
+                double vmax = 0;
 
             Trigger_Fail_retry:
                 IOStateSetting(intital_state);
@@ -354,10 +352,12 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetCursorSource(1, 1);
                 InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
-                // measure slew rate and rise time
+
+                vmax = InsControl._oscilloscope.MeasureMean(meas_vmax);
+                vmax_list.Add(vmax);
 
                 // get delta T
-                if(overshoot_en)
+                if(!overshoot_en)
                 {
                     rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
@@ -366,19 +366,113 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                     phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                 }
-            }
+                else
+                {
+                    // measure overshoot
+                    double res = (vmax - vout_af) / vout_af;
+                    overshoot_list.Add(res);
+                }
 
+            }
 
             if (overshoot_en)
             {
+                InsControl._oscilloscope.SetCursorOff();
+                MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_overshoot");
             }
 
         }
 
-        private void SlewRate_Fall_Task(int case_idx)
+        private void SlewRate_Fall_Task(int case_idx, bool undershoot_en = false)
         {
+            vmin_list.Clear();
+            slewrate_list.Clear();
+            fall_time_list.Clear();
+            undershoot_list.Clear();
+
+            double vout = 0;
+            double vout_af = 0;
+            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+            vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
+            int inittal_state = test_parameter.vidio.vout_map[vout.ToString()];
+            int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
+            Scope_Task_Setting(meas_falling, vout, vout_af);
+
+            IOStateSetting(next_state);
+            InsControl._oscilloscope.SetTriggerFall();
+
+            double hi = test_parameter.vidio.criteria[case_idx].hi;
+            double lo = test_parameter.vidio.criteria[case_idx].lo;
+
+            // setting measure level threshold
+            // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
+            InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
+
+            if (undershoot_en)
+            {
+                InsControl._oscilloscope.SetPERSistence();
+                InsControl._oscilloscope.SetNormalTrigger();
+                InsControl._oscilloscope.SetClear();
+                MyLib.Delay1ms(500);
+            }
+
+            for(int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
+            {
+                double slew_rate = 0;
+                double fall_time = 0;
+                double vmin = 0;
+
+            Trigger_Fail_retry:
+                IOStateSetting(next_state);
+                InsControl._oscilloscope.SetRun();
+                MyLib.Delay1ms(200);
+                InsControl._oscilloscope.SetNormalTrigger();
+                MyLib.Delay1ms(100);
+
+                IOStateSetting(inittal_state);
+                if (!TriggerStatus()) goto Trigger_Fail_retry;
+                InsControl._oscilloscope.SetStop();
+
+                // set cursor position
+                InsControl._oscilloscope.SetAnnotation(meas_rising);
+                double x1 = InsControl._oscilloscope.GetAnnotationXn(1);
+                double x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                InsControl._oscilloscope.SetCursorMode();
+                InsControl._oscilloscope.SetCursorOn();
+                InsControl._oscilloscope.SetCursorSource(1, 1);
+                InsControl._oscilloscope.SetCursorSource(2, 1);
+                InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+
+                vmin = InsControl._oscilloscope.MeasureMean(meas_vmax);
+                vmin_list.Add(vmin);
+
+                // get delta T
+                if (!undershoot_en)
+                {
+                    fall_time = InsControl._oscilloscope.GetCursorVBarDelta();
+                    // slew rate delta V / delta T
+                    slew_rate = fall_time / InsControl._oscilloscope.GetCursorHBarDelta();
+                    slewrate_list.Add(slew_rate);
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
+                    phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
+                }
+                else
+                {
+                    // measure undershoot
+                    double res = (vmin - vout) / vout;
+                    undershoot_list.Add(res);
+                }
+            }
+
+            if (undershoot_en)
+            {
+                InsControl._oscilloscope.SetCursorOff();
+                MyLib.Delay1ms(200);
+                InsControl._oscilloscope.SetPERSistenceOff();
+                InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_undershoot");
+            }
 
         }
 
@@ -902,18 +996,27 @@ namespace SoftStartTiming
 
             _sheet.Cells[row, XLS_Table.C] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.D] = "超連結";
-            _sheet.Cells[row, XLS_Table.E] = "Vin(V)";
-            _sheet.Cells[row, XLS_Table.F] = "Vout Change(V)";
-            _sheet.Cells[row, XLS_Table.G] = "Iout (A)";
-            _sheet.Cells[row, XLS_Table.H] = "Rise SR (us/V)";
-            _sheet.Cells[row, XLS_Table.I] = "Fall SR (us/V)";
-            _sheet.Cells[row, XLS_Table.J] = "VMax (V)";
-            _sheet.Cells[row, XLS_Table.K] = "VMin (V)";
-            _sheet.Cells[row, XLS_Table.L] = "Overshoot (%)";
-            _sheet.Cells[row, XLS_Table.M] = "Undershoot (%)";
-            _sheet.Cells[row, XLS_Table.N] = "Result";
+            _sheet.Cells[row, XLS_Table.E] = "Vin (V)";
+            _sheet.Cells[row, XLS_Table.F] = "Vout Change (V)";
+            _sheet.Cells[row, XLS_Table.G] = "VID spec (V)";
+            _sheet.Cells[row, XLS_Table.H] = "Iout (A)";
+            _sheet.Cells[row, XLS_Table.I] = "Rise SR spec (us/V)";
+            _sheet.Cells[row, XLS_Table.J] = "Rise Time spec (us)";
+            _sheet.Cells[row, XLS_Table.K] = "Rise SR (us/V)";
+            _sheet.Cells[row, XLS_Table.L] = "Rise Time (us)";
+            _sheet.Cells[row, XLS_Table.M] = "Fall SR spec (us/V)";
+            _sheet.Cells[row, XLS_Table.N] = "Fall Time spec (us)";
+            _sheet.Cells[row, XLS_Table.O] = "Fall SR (us/V)";
+            _sheet.Cells[row, XLS_Table.P] = "Fall Time (us)";
+            _sheet.Cells[row, XLS_Table.Q] = "Vmax spec (V)";
+            _sheet.Cells[row, XLS_Table.R] = "Vmax (V)";
+            _sheet.Cells[row, XLS_Table.S] = "Vmin spec (V)";
+            _sheet.Cells[row, XLS_Table.T] = "Vmin (V)";
+            _sheet.Cells[row, XLS_Table.U] = "overshoot (%)";
+            _sheet.Cells[row, XLS_Table.V] = "underhoot (%)";
+            _sheet.Cells[row, XLS_Table.W] = "Result";
 
-            _range = _sheet.Range["C" + row, "N" + row];
+            _range = _sheet.Range["C" + row, "W" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
@@ -955,136 +1058,135 @@ namespace SoftStartTiming
                         double vout = 0;
                         double vout_af = 0;
 
-
-                        try
-                        {
-                            vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
-                        }
-                        catch
-                        {
-                            vout = 0;
-                        }
-
-                        try
-                        {
-                            vout_af = Convert.ToDouble(test_parameter.vidio.vout_list_af[case_idx]);
-                        }
-                        catch
-                        {
-                            vout_af = 0;
-                        }
+                        vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
+                        vout_af = Convert.ToDouble(test_parameter.vidio.vout_list_af[case_idx]);
 
                         bool rising_en = vout < vout_af ? true : false;
                         bool diff = Math.Abs(vout - vout_af) < 0.13 ? true : false;
 #if Report_en
+                        //_sheet.Cells[row, XLS_Table.C] = "Temp(C)";
+                        //_sheet.Cells[row, XLS_Table.D] = "超連結";
+                        //_sheet.Cells[row, XLS_Table.E] = "Vin (V)";
+                        //_sheet.Cells[row, XLS_Table.F] = "Vout Change (V)";
+                        //_sheet.Cells[row, XLS_Table.G] = "VID spec (V)";
+                        //_sheet.Cells[row, XLS_Table.H] = "Iout (A)";
+                        //_sheet.Cells[row, XLS_Table.I] = "Rise SR spec (us/V)";
+                        //_sheet.Cells[row, XLS_Table.J] = "Rise Time spec (us)";
+                        //_sheet.Cells[row, XLS_Table.K] = "Rise SR (us/V)";
+                        //_sheet.Cells[row, XLS_Table.L] = "Rise Time (us)";
+                        //_sheet.Cells[row, XLS_Table.M] = "Fall SR spec (us/V)";
+                        //_sheet.Cells[row, XLS_Table.N] = "Fall Time spec (us)";
+                        //_sheet.Cells[row, XLS_Table.O] = "Fall SR (us/V)";
+                        //_sheet.Cells[row, XLS_Table.P] = "Fall Time (us)";
+                        //_sheet.Cells[row, XLS_Table.Q] = "Vmax spec (V)";
+                        //_sheet.Cells[row, XLS_Table.R] = "Vmax (V)";
+                        //_sheet.Cells[row, XLS_Table.S] = "Vmin spec (V)";
+                        //_sheet.Cells[row, XLS_Table.T] = "Vmin (V)";
+                        //_sheet.Cells[row, XLS_Table.U] = "overshoot (%)";
+                        //_sheet.Cells[row, XLS_Table.V] = "underhoot (%)";
+                        //_sheet.Cells[row, XLS_Table.W] = "Result";
+
+                        double vin = test_parameter.VinList[vin_idx];
+                        double spec_hi = test_parameter.vidio.criteria[case_idx].spec_hi;
+                        double spec_lo = test_parameter.vidio.criteria[case_idx].spec_lo;
+                        double iout = test_parameter.IoutList[iout_idx];
+                        double rise_spec = (double)test_parameter.vidio.criteria[case_idx].rise_time;
+                        double sr_rise = (double)test_parameter.vidio.criteria[case_idx].sr_rise;
+                        double fall_spec = (double)test_parameter.vidio.criteria[case_idx].fall_time;
+                        double sr_fall = (double)test_parameter.vidio.criteria[case_idx].sr_fall;
+                        double vmax = (double)test_parameter.vidio.criteria[case_idx].overshoot;
+                        double vmin = (double)test_parameter.vidio.criteria[case_idx].undershoot;
+
                         _sheet.Cells[row, XLS_Table.C] = temp;
                         _sheet.Cells[row, XLS_Table.D] = "LINK";
-                        _sheet.Cells[row, XLS_Table.E] = test_parameter.VinList[vin_idx];
-                        _sheet.Cells[row, XLS_Table.F] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
-                        _sheet.Cells[row, XLS_Table.G] = test_parameter.IoutList[iout_idx];
+                        _sheet.Cells[row, XLS_Table.E] = vin;
+                        _sheet.Cells[row, XLS_Table.F] = vout + "->" + vout_af;
+                        _sheet.Cells[row, XLS_Table.G] = spec_hi + "->" + spec_lo;
+                        _sheet.Cells[row, XLS_Table.H] = iout;
+                        _sheet.Cells[row, XLS_Table.I] = rise_spec;
+                        _sheet.Cells[row, XLS_Table.J] = sr_rise;
+                        _sheet.Cells[row, XLS_Table.I] = fall_spec;
+                        _sheet.Cells[row, XLS_Table.J] = sr_fall;
+                        _sheet.Cells[row, XLS_Table.Q] = vmax;
+                        _sheet.Cells[row, XLS_Table.S] = vmin;
 #endif
 
 #if Report_en
-                        Phase1Test(case_idx);
+                        // waveform 9:24
+                        SlewRate_Rise_Task(case_idx);               // Rise time and slew
                         string slewrate_min = phase1_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                        // past slew rate min case
-                        _range = _sheet.Range["Q" + (wave_row + 2), "Y" + (wave_row + 25)];
+                        _range = _sheet.Range["AA" + (wave_row + 2), "AI" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
-                        Phase1Test(case_idx, true);
-                        string shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_overshoot" : "_undershoot");
-                        // past over/under-shoot max case
+
+                        _sheet.Cells[row, XLS_Table.K] = rise_time_list.Min();
+                        _sheet.Cells[row, XLS_Table.L] = slewrate_list.Min();
+                        _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
+
+                        SlewRate_Rise_Task(case_idx, true);         // overshoot
+                        string shoot_max = test_parameter.waveform_name + "_overshoot";
                         _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
-                        if (rising_en)
-                        {
-                            _sheet.Cells[row, XLS_Table.H] = Math.Abs(res); // rise time
-                            _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
-                            _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
-                        }
-                        else
-                        {
-                            _sheet.Cells[row, XLS_Table.I] = Math.Abs(res);
-                            _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
-                            _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
-                        }
 
+                        _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max();
                         // --------------------------------------------------------------------------------------------------------
-                        Phase2Test(case_idx);
+                        
+                        SlewRate_Fall_Task(case_idx);
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                        _range = _sheet.Range["Z" + (wave_row + 2), "AH" + (wave_row + 25)];
+                        _range = _sheet.Range["AU" + (wave_row + 2), "BC" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
-                        Phase2Test(case_idx, true);
-                        shoot_max = test_parameter.waveform_name + ((vout_af > vout) ? "_undershoot" : "_overshoot");
+
+                        _sheet.Cells[row, XLS_Table.O] = fall_time_list.Min();
+                        _sheet.Cells[row, XLS_Table.P] = slewrate_list.Min();
+                        _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
+
+
+                        SlewRate_Fall_Task(case_idx, true);
+                        shoot_max = test_parameter.waveform_name + "_undershoot";
                         // past over/under-shoot max case
-                        _range = _sheet.Range["AT" + (wave_row + 2), "BB" + (wave_row + 25)];
+                        _range = _sheet.Range["BE" + (wave_row + 2), "BM" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
-                        if (!rising_en)
-                        {
-                            _sheet.Cells[row, XLS_Table.H] = Math.Abs(res); // rise time
-                            _sheet.Cells[row, XLS_Table.J] = vmax_list.Max();
-                            _sheet.Cells[row, XLS_Table.L] = overshoot_list.Max(); // overshoot
-                        }
-                        else
-                        {
-                            _sheet.Cells[row, XLS_Table.I] = Math.Abs(res);
-                            _sheet.Cells[row, XLS_Table.K] = vmin_list.Min();
-                            _sheet.Cells[row, XLS_Table.M] = undershoot_list.Max();
-                        }
+                        _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min();
+
 #endif
                         //-----------------------------------------------------------------------------------------
 #if Report_en
-                        if (diff)
-                        {
-                            // < 130mV case: slew < 6.5us
-                            double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
-                            double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
-                            _sheet.Cells[row, XLS_Table.N] = (rise < 6.5) | (fall < 6.5) ? "Pass" : "Fail";
-                            _range = _sheet.Cells[row, XLS_Table.N];
-                            _range.Interior.Color = (rise < 6.5) | (fall < 6.5) ? Color.LightGreen : Color.LightPink;
-                        }
-                        else
-                        {
-                            // > 130mV case: slew > 20mV/s
-                            double rise = Convert.ToDouble(_sheet.Cells[row, XLS_Table.H].Value);
-                            double fall = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
-                            _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
 
-                            _range = _sheet.Cells[row, XLS_Table.N];
-                            _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
-                        }
+                        //    _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
+                        //    _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
 
                         Excel.Range main_range = _sheet.Range["D" + row];
-                        Excel.Range hyper = _sheet.Range["Q" + (wave_row + 1)];
+                        Excel.Range hyper = _sheet.Range["AA" + (wave_row + 1)];
                         // A to B
                         _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!Q" + (wave_row + 1));
                         _sheet.Hyperlinks.Add(hyper, "#'" + _sheet.Name + "'!D" + row);
 
-                        _sheet.Cells[wave_row, XLS_Table.Q] = "超連結";
-                        _sheet.Cells[wave_row, XLS_Table.R] = "VIN";
-                        _sheet.Cells[wave_row, XLS_Table.S] = "Vout";
-                        _sheet.Cells[wave_row, XLS_Table.T] = "Iout";
-                        _sheet.Cells[wave_row, XLS_Table.U] = "Rise (us)";
-                        _sheet.Cells[wave_row, XLS_Table.V] = "Fall (us)";
-                        _sheet.Cells[wave_row, XLS_Table.W] = "Overshoot(%)";
-                        _sheet.Cells[wave_row, XLS_Table.X] = "Undershoot(%)";
-                        _sheet.Cells[wave_row, XLS_Table.Y] = "SR worst case";
-                        _range = _sheet.Range["Q" + wave_row, "Y" + wave_row];
+                        _sheet.Cells[wave_row, XLS_Table.AA] = "超連結";
+                        _sheet.Cells[wave_row, XLS_Table.AB] = "VIN";
+                        _sheet.Cells[wave_row, XLS_Table.AC] = "Vout";
+                        _sheet.Cells[wave_row, XLS_Table.AD] = "Iout";
+                        _sheet.Cells[wave_row, XLS_Table.AE] = "Rise (us)";
+                        _sheet.Cells[wave_row, XLS_Table.AF] = "Rise SR (us/V)";
+                        _sheet.Cells[wave_row, XLS_Table.AG] = "Fall (us)";
+                        _sheet.Cells[wave_row, XLS_Table.AH] = "Fall SR (us/V)";
+                        _sheet.Cells[wave_row, XLS_Table.AI] = "Overshoot(%)";
+                        _sheet.Cells[wave_row, XLS_Table.AJ] = "Undershoot(%)";
+                        _range = _sheet.Range["AA" + wave_row, "AJ" + wave_row];
                         _range.Interior.Color = Color.FromArgb(124, 252, 0);
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.Q] = "Go back";
-                        _sheet.Cells[wave_row + 1, XLS_Table.R] = test_parameter.VinList[vin_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.S] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.T] = test_parameter.IoutList[iout_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.U] = "=H" + row.ToString(); // rise time
-                        _sheet.Cells[wave_row + 1, XLS_Table.V] = "=I" + row.ToString(); // fall time
-                        _sheet.Cells[wave_row + 1, XLS_Table.W] = "=L" + row.ToString(); // over shoot
-                        _sheet.Cells[wave_row + 1, XLS_Table.X] = "=M" + row.ToString(); // under shoot
-                        _sheet.Cells[wave_row + 1, XLS_Table.Y] = "SR worst case";
-                        _sheet.Cells[wave_row + 1, XLS_Table.AK] = "Over/Under shoot worst case";
+                        _sheet.Cells[wave_row + 1, XLS_Table.AA] = "Go back";
+                        _sheet.Cells[wave_row + 1, XLS_Table.AB] = test_parameter.VinList[vin_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AC] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AD] = test_parameter.IoutList[iout_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=L" + row; // tise time
+                        _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=K" + row; // rise slew rate
+                        _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=P" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AH] = "=O" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=U" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=V" + row;
 #endif
 
                         InsControl._oscilloscope.SetAutoTrigger();

@@ -755,6 +755,9 @@ namespace SoftStartTiming
         public double overshoot;
         public double undershoot;
 
+        public double spec_hi;
+        public double spec_lo;
+
         public double hi;
         public double lo;
     }

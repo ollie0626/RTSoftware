@@ -65,31 +65,31 @@ namespace SoftStartTiming
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.nu_test_cnt = new System.Windows.Forms.NumericUpDown();
-            this.label6 = new System.Windows.Forms.Label();
-            this.nuDisLoad = new System.Windows.Forms.NumericUpDown();
-            this.label5 = new System.Windows.Forms.Label();
-            this.nuDischarge = new System.Windows.Forms.NumericUpDown();
-            this.label4 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewComboBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.tb_iout = new System.Windows.Forms.TextBox();
-            this.tb_connect3 = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.BT_Sub = new System.Windows.Forms.Button();
-            this.tb_connect2 = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.tb_vinList = new System.Windows.Forms.TextBox();
-            this.tb_connect1 = new System.Windows.Forms.TextBox();
+            this.nuDisLoad = new System.Windows.Forms.NumericUpDown();
             this.BT_Add = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tb_connect1 = new System.Windows.Forms.TextBox();
+            this.tb_connect2 = new System.Windows.Forms.TextBox();
+            this.nuDischarge = new System.Windows.Forms.NumericUpDown();
+            this.tb_connect3 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.BTPause = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewComboBoxColumn2 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewComboBoxColumn3 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -106,11 +106,11 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_test_cnt)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -394,7 +394,7 @@ namespace SoftStartTiming
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(826, 575);
+            this.tabPage1.Size = new System.Drawing.Size(872, 560);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
@@ -529,72 +529,6 @@ namespace SoftStartTiming
             0,
             0});
             // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(322, 221);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 12);
-            this.label6.TabIndex = 141;
-            this.label6.Text = "Test Count";
-            // 
-            // nuDisLoad
-            // 
-            this.nuDisLoad.DecimalPlaces = 3;
-            this.nuDisLoad.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuDisLoad.Location = new System.Drawing.Point(510, 188);
-            this.nuDisLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuDisLoad.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.nuDisLoad.Name = "nuDisLoad";
-            this.nuDisLoad.Size = new System.Drawing.Size(77, 23);
-            this.nuDisLoad.TabIndex = 139;
-            this.nuDisLoad.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(322, 192);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(129, 12);
-            this.label5.TabIndex = 140;
-            this.label5.Text = "Discharge Loading(A)";
-            // 
-            // nuDischarge
-            // 
-            this.nuDischarge.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuDischarge.Location = new System.Drawing.Point(510, 161);
-            this.nuDischarge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuDischarge.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.nuDischarge.Name = "nuDischarge";
-            this.nuDischarge.Size = new System.Drawing.Size(77, 23);
-            this.nuDischarge.TabIndex = 137;
-            this.nuDischarge.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(322, 165);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(182, 12);
-            this.label4.TabIndex = 138;
-            this.label4.Text = "LPM Mode Discharge Time(ms)";
-            // 
             // dataGridView2
             // 
             this.dataGridView2.AllowUserToAddRows = false;
@@ -611,6 +545,35 @@ namespace SoftStartTiming
             this.dataGridView2.Size = new System.Drawing.Size(301, 230);
             this.dataGridView2.TabIndex = 137;
             this.dataGridView2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView2_MouseDown);
+            // 
+            // dataGridViewComboBoxColumn1
+            // 
+            this.dataGridViewComboBoxColumn1.HeaderText = "LPM";
+            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
+            this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn1.Width = 50;
+            // 
+            // dataGridViewComboBoxColumn2
+            // 
+            this.dataGridViewComboBoxColumn2.HeaderText = "G0";
+            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
+            this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn2.Width = 50;
+            // 
+            // dataGridViewComboBoxColumn3
+            // 
+            this.dataGridViewComboBoxColumn3.HeaderText = "G1";
+            this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
+            this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.dataGridViewComboBoxColumn3.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Vout (V)";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // groupBox2
             // 
@@ -635,15 +598,14 @@ namespace SoftStartTiming
             this.tb_iout.TabIndex = 49;
             this.tb_iout.Text = "0.5";
             // 
-            // tb_connect3
+            // label6
             // 
-            this.tb_connect3.Enabled = false;
-            this.tb_connect3.Location = new System.Drawing.Point(322, 129);
-            this.tb_connect3.Name = "tb_connect3";
-            this.tb_connect3.Size = new System.Drawing.Size(146, 22);
-            this.tb_connect3.TabIndex = 136;
-            this.tb_connect3.Text = "G1 = GPIO2.2";
-            this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(322, 221);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 12);
+            this.label6.TabIndex = 141;
+            this.label6.Text = "Test Count";
             // 
             // BT_Sub
             // 
@@ -654,16 +616,6 @@ namespace SoftStartTiming
             this.BT_Sub.Text = "-";
             this.BT_Sub.UseVisualStyleBackColor = true;
             this.BT_Sub.Click += new System.EventHandler(this.BT_Sub_Click);
-            // 
-            // tb_connect2
-            // 
-            this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(322, 101);
-            this.tb_connect2.Name = "tb_connect2";
-            this.tb_connect2.Size = new System.Drawing.Size(146, 22);
-            this.tb_connect2.TabIndex = 135;
-            this.tb_connect2.Text = "G0 = GPIO2.1";
-            this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // groupBox1
             // 
@@ -688,15 +640,25 @@ namespace SoftStartTiming
             this.tb_vinList.TabIndex = 49;
             this.tb_vinList.Text = "3.3";
             // 
-            // tb_connect1
+            // nuDisLoad
             // 
-            this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(322, 73);
-            this.tb_connect1.Name = "tb_connect1";
-            this.tb_connect1.Size = new System.Drawing.Size(146, 22);
-            this.tb_connect1.TabIndex = 134;
-            this.tb_connect1.Text = "LPM = GPIO2.0";
-            this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuDisLoad.DecimalPlaces = 3;
+            this.nuDisLoad.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuDisLoad.Location = new System.Drawing.Point(510, 188);
+            this.nuDisLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuDisLoad.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nuDisLoad.Name = "nuDisLoad";
+            this.nuDisLoad.Size = new System.Drawing.Size(77, 23);
+            this.nuDisLoad.TabIndex = 139;
+            this.nuDisLoad.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             // 
             // BT_Add
             // 
@@ -707,6 +669,73 @@ namespace SoftStartTiming
             this.BT_Add.Text = "+";
             this.BT_Add.UseVisualStyleBackColor = true;
             this.BT_Add.Click += new System.EventHandler(this.BT_Add_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(322, 192);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(129, 12);
+            this.label5.TabIndex = 140;
+            this.label5.Text = "Discharge Loading(A)";
+            // 
+            // tb_connect1
+            // 
+            this.tb_connect1.Enabled = false;
+            this.tb_connect1.Location = new System.Drawing.Point(322, 73);
+            this.tb_connect1.Name = "tb_connect1";
+            this.tb_connect1.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect1.TabIndex = 134;
+            this.tb_connect1.Text = "LPM = GPIO2.0";
+            this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tb_connect2
+            // 
+            this.tb_connect2.Enabled = false;
+            this.tb_connect2.Location = new System.Drawing.Point(322, 101);
+            this.tb_connect2.Name = "tb_connect2";
+            this.tb_connect2.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect2.TabIndex = 135;
+            this.tb_connect2.Text = "G0 = GPIO2.1";
+            this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nuDischarge
+            // 
+            this.nuDischarge.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuDischarge.Location = new System.Drawing.Point(510, 161);
+            this.nuDischarge.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuDischarge.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nuDischarge.Name = "nuDischarge";
+            this.nuDischarge.Size = new System.Drawing.Size(77, 23);
+            this.nuDischarge.TabIndex = 137;
+            this.nuDischarge.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // tb_connect3
+            // 
+            this.tb_connect3.Enabled = false;
+            this.tb_connect3.Location = new System.Drawing.Point(322, 129);
+            this.tb_connect3.Name = "tb_connect3";
+            this.tb_connect3.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect3.TabIndex = 136;
+            this.tb_connect3.Text = "G1 = GPIO2.2";
+            this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(322, 165);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(182, 12);
+            this.label4.TabIndex = 138;
+            this.label4.Text = "LPM Mode Discharge Time(ms)";
             // 
             // BTPause
             // 
@@ -764,35 +793,6 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
-            // dataGridViewComboBoxColumn1
-            // 
-            this.dataGridViewComboBoxColumn1.HeaderText = "LPM";
-            this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
-            this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewComboBoxColumn1.Width = 50;
-            // 
-            // dataGridViewComboBoxColumn2
-            // 
-            this.dataGridViewComboBoxColumn2.HeaderText = "G0";
-            this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
-            this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewComboBoxColumn2.Width = 50;
-            // 
-            // dataGridViewComboBoxColumn3
-            // 
-            this.dataGridViewComboBoxColumn3.HeaderText = "G1";
-            this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
-            this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.dataGridViewComboBoxColumn3.Width = 50;
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.HeaderText = "Vout (V)";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
             // Column4
             // 
             this.Column4.HeaderText = "Vout (V) (begin)";
@@ -827,12 +827,12 @@ namespace SoftStartTiming
             // 
             // Column6
             // 
-            this.Column6.HeaderText = "overshoot criteria (V) ";
+            this.Column6.HeaderText = "Vmax (V) ";
             this.Column6.Name = "Column6";
             // 
             // Column7
             // 
-            this.Column7.HeaderText = "undershoot  criteria (V)";
+            this.Column7.HeaderText = "Vmin (V)";
             this.Column7.Name = "Column7";
             // 
             // VIDIO
@@ -862,13 +862,13 @@ namespace SoftStartTiming
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_test_cnt)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
