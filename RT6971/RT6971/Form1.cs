@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.00";
+        string win_ver = "1.01";
 
 
         public Form1()
@@ -122,14 +122,14 @@ namespace RT6971
         private double GAMOut_Calculate(int code)
         {
             double res = (double)GLDOV.Value / 1024;
-            double GAMout = res * code;
+            double GAMout = res + (res * code);
             return GAMout;
         }
 
         private double VCOMout_Calculate(int code)
         {
             double res = (double)GLDOV.Value / 1024;
-            double VCOMout = res * code;
+            double VCOMout = res + (res * code);
             return VCOMout;
         }
 
@@ -183,8 +183,8 @@ namespace RT6971
         private void VCC2H_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VCC2H.Value;
-            double vol = 2.2;
-            vol = (double)(code * 1 + 22) / 10;
+            double vol = 0.8;
+            vol = (double)(code * 1 + 8) / 10;
             if (vol > 3.7) vol = 3.7;
             VCC2V.Value = (decimal)vol;
 
@@ -252,7 +252,7 @@ namespace RT6971
         private void VGL2LTH_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VGL2LTH.Value;
-            double vol = ((double)code * 2 + 125) / -10;
+            double vol = ((double)code * 2 + 45) / -10;
 
             if (vol < -20) vol = -20;
 
@@ -264,7 +264,7 @@ namespace RT6971
         private void VGL2HTH_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VGL2HTH.Value;
-            double vol = ((double)code * 2 + 125) / -10;
+            double vol = ((double)code * 2 + 45) / -10;
 
             if (vol < -20) vol = -20;
 
@@ -389,9 +389,8 @@ namespace RT6971
             int code = (int)GAM10H.Value;
             int MSB = (code & 0x300) >> 8;
             int LSB = (code & 0xFF);
+            W28.Value = MSB;
             W2F.Value = LSB;
-            W30.Value = MSB << 6 | (int)W30.Value & 0x3F;
-
         }
 
         private void GAM11H_ValueChanged(object sender, EventArgs e)
@@ -711,10 +710,12 @@ namespace RT6971
             if (cb_dummy_clk.SelectedIndex == -1) return;
             if (cb_reverse.SelectedIndex == -1) return;
             if (cb_double.SelectedIndex == -1) return;
+            if (cb_en120hz.SelectedIndex == -1) return;
 
             W23.Value = cb_dummy_clk.SelectedIndex << 5 | (int)W23.Value & 0xDF;
             W23.Value = cb_reverse.SelectedIndex << 3 | (int)W23.Value & 0xF7;
             W23.Value = cb_double.SelectedIndex << 2 | (int)W23.Value & 0xFB;
+            W23.Value = cb_en120hz.SelectedIndex << 4 | (int)W23.Value & 0xEF;
         }
 
         private void cb_vcc2_dis_SelectedIndexChanged(object sender, EventArgs e)
@@ -778,7 +779,7 @@ namespace RT6971
             if (cb_ocp_level.SelectedIndex == -1) return;
             if (cb_ocp_time.SelectedIndex == -1) return;
 
-            W2B.Value = cb_ocp_level.SelectedIndex << 4 | (int)W2B.Value & 0x8F;
+            W2B.Value = cb_ocp_level.SelectedIndex << 5 | (int)W2B.Value & 0x1F;
             W2B.Value = cb_ocp_time.SelectedIndex << 0 | (int)W2B.Value & 0xF8;
         }
 
@@ -854,9 +855,9 @@ namespace RT6971
             if (cb_stv1_dis.SelectedIndex == -1) return;
             if (cb_stv2_dis.SelectedIndex == -1) return;
             if (cb_stv3_dis.SelectedIndex == -1) return;
-            if (cb_disch_dis.SelectedIndex == -1) return;
+            if (cb_en120hz.SelectedIndex == -1) return;
 
-            W41.Value = cb_stv1_dis.SelectedIndex << 6 | cb_stv2_dis.SelectedIndex << 4 | cb_stv3_dis.SelectedIndex << 2 | cb_disch_dis.SelectedIndex;
+            W41.Value = cb_stv1_dis.SelectedIndex << 6 | cb_stv2_dis.SelectedIndex << 4 | cb_stv3_dis.SelectedIndex << 2 | cb_en120hz.SelectedIndex;
 
         }
 
@@ -1106,6 +1107,7 @@ namespace RT6971
             cb_dummy_clk.SelectedIndex = GetValue(code, 5, 5);
             cb_reverse.SelectedIndex = GetValue(code, 3, 3);
             cb_double.SelectedIndex = GetValue(code, 2, 2);
+            cb_en120hz.SelectedIndex = GetValue(code, 4, 4);
         }
 
         private void W24_ValueChanged(object sender, EventArgs e)
@@ -1205,7 +1207,7 @@ namespace RT6971
             cb_stv1_dis.SelectedIndex = GetValue(code, 7, 6);
             cb_stv2_dis.SelectedIndex = GetValue(code, 5, 4);
             cb_stv3_dis.SelectedIndex = GetValue(code, 3, 2);
-            cb_disch_dis.SelectedIndex = GetValue(code, 1, 0);
+            cb_en120hz.SelectedIndex = GetValue(code, 1, 0);
         }
 
         private void W42_ValueChanged(object sender, EventArgs e)
@@ -1254,16 +1256,16 @@ namespace RT6971
         private void W30_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)W30.Value;
-            int GAM10_MSB = GetValue(code, 7, 6);
             int GAM11_MSB = GetValue(code, 1, 0);
 
-            GAM10H.Value = GAM10_MSB << 8 | (int)W2F.Value;
+            //GAM10H.Value = GAM10_MSB << 8 | (int)W2F.Value;
             GAM11H.Value = GAM11_MSB << 8 | (int)W31.Value;
 
         }
 
         private void W32_ValueChanged(object sender, EventArgs e)
         {
+            // 32h/33h
             int code = (int)W32.Value;
             int MSB = GetValue(code, 1, 0);
             GAM12H.Value = MSB << 8 | (int)W33.Value;
@@ -1271,6 +1273,7 @@ namespace RT6971
 
         private void W34_ValueChanged(object sender, EventArgs e)
         {
+            // 34h/35h
             int code = (int)W34.Value;
             int MSB = GetValue(code, 1, 0);
             GAM13H.Value = MSB << 8 | (int)W35.Value;
@@ -1278,6 +1281,7 @@ namespace RT6971
 
         private void W36_ValueChanged(object sender, EventArgs e)
         {
+            // 36h/37h
             int code = (int)W36.Value;
             int MSB = GetValue(code, 1, 0);
             GAM14H.Value = MSB << 8 | (int)W37.Value;
@@ -1285,6 +1289,7 @@ namespace RT6971
 
         private void W38_ValueChanged(object sender, EventArgs e)
         {
+            // 38h/39h
             int code = (int)W38.Value;
             int MSB = GetValue(code, 1, 0);
             VCOM1H.Value = MSB << 8 | (int)W39.Value;
@@ -1292,6 +1297,7 @@ namespace RT6971
 
         private void W3A_ValueChanged(object sender, EventArgs e)
         {
+            // 3Ah/3Bh
             int code = (int)W3A.Value;
             int MSB = GetValue(code, 1, 0);
             VCOM2H.Value = MSB << 8 | (int)W3B.Value;
@@ -1299,6 +1305,7 @@ namespace RT6971
 
         private void W3C_ValueChanged(object sender, EventArgs e)
         {
+            // 3Ch/3Dh
             int code = (int)W3C.Value;
             int MSB = GetValue(code, 1, 0);
             VCOM3H.Value = MSB << 8 | (int)W3D.Value;
@@ -1423,8 +1430,11 @@ namespace RT6971
                     {
                         bin_buf.Add(0);
                     }
-
                 }
+
+                
+
+
                 bw.Write(bin_buf.ToArray());
                 bw.Close();
             }
@@ -1543,6 +1553,16 @@ namespace RT6971
         {
             cb_vgx_prt_off.Width = 121;
             groupBox31.Width = 165;
+        }
+
+        private void W28_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W28.Value;
+            int MSB = code & 0x03;
+            int LSB = (int)W2F.Value;
+
+            GAM10H.Value = MSB << 8 | LSB;
+
         }
     }
 }

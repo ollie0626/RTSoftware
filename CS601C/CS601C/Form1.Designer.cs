@@ -1709,14 +1709,14 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
             this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
             this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
@@ -15355,7 +15355,7 @@
             // 
             this.groupBox68.Controls.Add(this.CBMode);
             this.groupBox68.Controls.Add(this.label228);
-            this.groupBox68.Location = new System.Drawing.Point(535, 24);
+            this.groupBox68.Location = new System.Drawing.Point(535, 28);
             this.groupBox68.Name = "groupBox68";
             this.groupBox68.Size = new System.Drawing.Size(222, 60);
             this.groupBox68.TabIndex = 201;

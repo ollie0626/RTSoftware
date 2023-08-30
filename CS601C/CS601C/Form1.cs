@@ -1016,6 +1016,8 @@ namespace CS601C
                     }
                 }
 
+                bin_buf[0x64] = (byte)(CBMode.SelectedIndex << 7);
+
                 bw.Write(bin_buf.ToArray());
                 bw.Close();
             }
@@ -1044,6 +1046,10 @@ namespace CS601C
                         ReadTable2[i - WriteTable.Length].Value = ReadBuf[i];
                     }
                 }
+
+                CBMode.SelectedIndex = ReadBuf[0x64] >> 7;
+
+
                 br.Close();
             }
         }

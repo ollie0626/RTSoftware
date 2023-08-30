@@ -261,7 +261,7 @@
             this.cb_clk_dis = new System.Windows.Forms.ComboBox();
             this.groupBox47 = new System.Windows.Forms.GroupBox();
             this.label179 = new System.Windows.Forms.Label();
-            this.cb_disch_dis = new System.Windows.Forms.ComboBox();
+            this.cb_en120hz = new System.Windows.Forms.ComboBox();
             this.label180 = new System.Windows.Forms.Label();
             this.cb_stv3_dis = new System.Windows.Forms.ComboBox();
             this.label195 = new System.Windows.Forms.Label();
@@ -657,6 +657,10 @@
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.groupBox52 = new System.Windows.Forms.GroupBox();
+            this.groupBox53 = new System.Windows.Forms.GroupBox();
+            this.label212 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSlave)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -931,6 +935,8 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox52.SuspendLayout();
+            this.groupBox53.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1126,6 +1132,8 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.Silver;
+            this.tabPage1.Controls.Add(this.groupBox53);
+            this.tabPage1.Controls.Add(this.groupBox52);
             this.tabPage1.Controls.Add(this.groupBox38);
             this.tabPage1.Controls.Add(this.groupBox40);
             this.tabPage1.Controls.Add(this.groupBox36);
@@ -1173,7 +1181,7 @@
             this.groupBox38.Controls.Add(this.cb_vcom1_en);
             this.groupBox38.Location = new System.Drawing.Point(963, 16);
             this.groupBox38.Name = "groupBox38";
-            this.groupBox38.Size = new System.Drawing.Size(165, 167);
+            this.groupBox38.Size = new System.Drawing.Size(150, 167);
             this.groupBox38.TabIndex = 20;
             this.groupBox38.TabStop = false;
             this.groupBox38.Text = "26h Vcom EN";
@@ -1261,7 +1269,7 @@
             this.groupBox40.Controls.Add(this.cb_protection);
             this.groupBox40.Location = new System.Drawing.Point(650, 310);
             this.groupBox40.Name = "groupBox40";
-            this.groupBox40.Size = new System.Drawing.Size(165, 369);
+            this.groupBox40.Size = new System.Drawing.Size(151, 369);
             this.groupBox40.TabIndex = 22;
             this.groupBox40.TabStop = false;
             this.groupBox40.Text = "29h";
@@ -1452,9 +1460,9 @@
             this.groupBox36.Controls.Add(this.cb_havdd_dis);
             this.groupBox36.Controls.Add(this.label93);
             this.groupBox36.Controls.Add(this.cb_avdd_dis);
-            this.groupBox36.Location = new System.Drawing.Point(821, 310);
+            this.groupBox36.Location = new System.Drawing.Point(807, 310);
             this.groupBox36.Name = "groupBox36";
-            this.groupBox36.Size = new System.Drawing.Size(165, 371);
+            this.groupBox36.Size = new System.Drawing.Size(150, 371);
             this.groupBox36.TabIndex = 11;
             this.groupBox36.TabStop = false;
             this.groupBox36.Text = "24h Discharge en";
@@ -1472,8 +1480,8 @@
             // 
             this.cb_vcom1_dis.FormattingEnabled = true;
             this.cb_vcom1_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vcom1_dis.Location = new System.Drawing.Point(16, 327);
             this.cb_vcom1_dis.Name = "cb_vcom1_dis";
             this.cb_vcom1_dis.Size = new System.Drawing.Size(121, 20);
@@ -1493,8 +1501,8 @@
             // 
             this.cb_vcom2_dis.FormattingEnabled = true;
             this.cb_vcom2_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vcom2_dis.Location = new System.Drawing.Point(16, 286);
             this.cb_vcom2_dis.Name = "cb_vcom2_dis";
             this.cb_vcom2_dis.Size = new System.Drawing.Size(121, 20);
@@ -1514,8 +1522,8 @@
             // 
             this.cb_vcom3_dis.FormattingEnabled = true;
             this.cb_vcom3_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vcom3_dis.Location = new System.Drawing.Point(16, 245);
             this.cb_vcom3_dis.Name = "cb_vcom3_dis";
             this.cb_vcom3_dis.Size = new System.Drawing.Size(121, 20);
@@ -1535,8 +1543,8 @@
             // 
             this.cb_vcc_dis.FormattingEnabled = true;
             this.cb_vcc_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vcc_dis.Location = new System.Drawing.Point(16, 204);
             this.cb_vcc_dis.Name = "cb_vcc_dis";
             this.cb_vcc_dis.Size = new System.Drawing.Size(121, 20);
@@ -1556,8 +1564,8 @@
             // 
             this.cb_vgl1_dis.FormattingEnabled = true;
             this.cb_vgl1_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vgl1_dis.Location = new System.Drawing.Point(16, 163);
             this.cb_vgl1_dis.Name = "cb_vgl1_dis";
             this.cb_vgl1_dis.Size = new System.Drawing.Size(121, 20);
@@ -1577,8 +1585,8 @@
             // 
             this.cb_vgh_dis.FormattingEnabled = true;
             this.cb_vgh_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_vgh_dis.Location = new System.Drawing.Point(16, 122);
             this.cb_vgh_dis.Name = "cb_vgh_dis";
             this.cb_vgh_dis.Size = new System.Drawing.Size(121, 20);
@@ -1598,8 +1606,8 @@
             // 
             this.cb_havdd_dis.FormattingEnabled = true;
             this.cb_havdd_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_havdd_dis.Location = new System.Drawing.Point(16, 80);
             this.cb_havdd_dis.Name = "cb_havdd_dis";
             this.cb_havdd_dis.Size = new System.Drawing.Size(121, 20);
@@ -1619,8 +1627,8 @@
             // 
             this.cb_avdd_dis.FormattingEnabled = true;
             this.cb_avdd_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_avdd_dis.Location = new System.Drawing.Point(16, 36);
             this.cb_avdd_dis.Name = "cb_avdd_dis";
             this.cb_avdd_dis.Size = new System.Drawing.Size(121, 20);
@@ -2044,7 +2052,7 @@
             this.groupBox20.Size = new System.Drawing.Size(313, 54);
             this.groupBox20.TabIndex = 180;
             this.groupBox20.TabStop = false;
-            this.groupBox20.Text = "2F_30h GAM10";
+            this.groupBox20.Text = "28/2Fh GAM10";
             // 
             // GAM10SL
             // 
@@ -2799,7 +2807,7 @@
             65536});
             this.VGL2HTV.Location = new System.Drawing.Point(233, 21);
             this.VGL2HTV.Maximum = new decimal(new int[] {
-            125,
+            45,
             0,
             0,
             -2147418112});
@@ -2814,7 +2822,7 @@
             this.VGL2HTV.TabIndex = 157;
             this.VGL2HTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGL2HTV.Value = new decimal(new int[] {
-            125,
+            45,
             0,
             0,
             -2147418112});
@@ -2876,7 +2884,7 @@
             131072});
             this.VGL2LTV.Location = new System.Drawing.Point(233, 21);
             this.VGL2LTV.Maximum = new decimal(new int[] {
-            125,
+            45,
             0,
             0,
             -2147418112});
@@ -2891,7 +2899,7 @@
             this.VGL2LTV.TabIndex = 157;
             this.VGL2LTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGL2LTV.Value = new decimal(new int[] {
-            125,
+            45,
             0,
             0,
             -2147418112});
@@ -3189,7 +3197,7 @@
             0,
             65536});
             this.VCC2V.Minimum = new decimal(new int[] {
-            22,
+            8,
             0,
             0,
             65536});
@@ -3843,7 +3851,7 @@
             // groupBox47
             // 
             this.groupBox47.Controls.Add(this.label179);
-            this.groupBox47.Controls.Add(this.cb_disch_dis);
+            this.groupBox47.Controls.Add(this.cb_en120hz);
             this.groupBox47.Controls.Add(this.label180);
             this.groupBox47.Controls.Add(this.cb_stv3_dis);
             this.groupBox47.Controls.Add(this.label195);
@@ -3866,19 +3874,19 @@
             this.label179.TabIndex = 10;
             this.label179.Text = "DISCH_DIS[1:0]";
             // 
-            // cb_disch_dis
+            // cb_en120hz
             // 
-            this.cb_disch_dis.FormattingEnabled = true;
-            this.cb_disch_dis.Items.AddRange(new object[] {
+            this.cb_en120hz.FormattingEnabled = true;
+            this.cb_en120hz.Items.AddRange(new object[] {
             "0h : Pull to VGH",
             "1h : Pull to VGL2",
             "2h : Hi-Z",
             "3h : Hi-Z"});
-            this.cb_disch_dis.Location = new System.Drawing.Point(16, 166);
-            this.cb_disch_dis.Name = "cb_disch_dis";
-            this.cb_disch_dis.Size = new System.Drawing.Size(121, 20);
-            this.cb_disch_dis.TabIndex = 9;
-            this.cb_disch_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
+            this.cb_en120hz.Location = new System.Drawing.Point(16, 166);
+            this.cb_en120hz.Name = "cb_en120hz";
+            this.cb_en120hz.Size = new System.Drawing.Size(121, 20);
+            this.cb_en120hz.TabIndex = 9;
+            this.cb_en120hz.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
             // 
             // label180
             // 
@@ -4096,13 +4104,14 @@
             // 
             // cb_otp_protect
             // 
+            this.cb_otp_protect.Enabled = false;
             this.cb_otp_protect.FormattingEnabled = true;
             this.cb_otp_protect.Items.AddRange(new object[] {
             "FT_OTP = 0",
             "FT_OTP = 1"});
             this.cb_otp_protect.Location = new System.Drawing.Point(16, 332);
             this.cb_otp_protect.Name = "cb_otp_protect";
-            this.cb_otp_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_otp_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_otp_protect.TabIndex = 17;
             this.cb_otp_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4117,13 +4126,14 @@
             // 
             // cb_ls1_protect
             // 
+            this.cb_ls1_protect.Enabled = false;
             this.cb_ls1_protect.FormattingEnabled = true;
             this.cb_ls1_protect.Items.AddRange(new object[] {
             "FT_L/S1 = 0",
             "FT_L/S1 = 1"});
             this.cb_ls1_protect.Location = new System.Drawing.Point(16, 291);
             this.cb_ls1_protect.Name = "cb_ls1_protect";
-            this.cb_ls1_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls1_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls1_protect.TabIndex = 15;
             this.cb_ls1_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4138,13 +4148,14 @@
             // 
             // cb_ls2_protect
             // 
+            this.cb_ls2_protect.Enabled = false;
             this.cb_ls2_protect.FormattingEnabled = true;
             this.cb_ls2_protect.Items.AddRange(new object[] {
             "FT_L/S2 = 0",
             "FT_L/S2 = 1"});
             this.cb_ls2_protect.Location = new System.Drawing.Point(16, 249);
             this.cb_ls2_protect.Name = "cb_ls2_protect";
-            this.cb_ls2_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls2_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls2_protect.TabIndex = 13;
             this.cb_ls2_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4159,13 +4170,14 @@
             // 
             // cb_ls3_protect
             // 
+            this.cb_ls3_protect.Enabled = false;
             this.cb_ls3_protect.FormattingEnabled = true;
             this.cb_ls3_protect.Items.AddRange(new object[] {
             "FT_L/S3 = 0",
             "FT_L/S3 = 1"});
             this.cb_ls3_protect.Location = new System.Drawing.Point(16, 208);
             this.cb_ls3_protect.Name = "cb_ls3_protect";
-            this.cb_ls3_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls3_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls3_protect.TabIndex = 11;
             this.cb_ls3_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4180,13 +4192,14 @@
             // 
             // cb_ls4_protect
             // 
+            this.cb_ls4_protect.Enabled = false;
             this.cb_ls4_protect.FormattingEnabled = true;
             this.cb_ls4_protect.Items.AddRange(new object[] {
             "FT_L/S4 = 0",
             "FT_L/S4 = 1"});
             this.cb_ls4_protect.Location = new System.Drawing.Point(16, 166);
             this.cb_ls4_protect.Name = "cb_ls4_protect";
-            this.cb_ls4_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls4_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls4_protect.TabIndex = 9;
             this.cb_ls4_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4201,13 +4214,14 @@
             // 
             // cb_ls5_protect
             // 
+            this.cb_ls5_protect.Enabled = false;
             this.cb_ls5_protect.FormattingEnabled = true;
             this.cb_ls5_protect.Items.AddRange(new object[] {
             "FT_L/S5 = 0",
             "FT_L/S5 = 1"});
             this.cb_ls5_protect.Location = new System.Drawing.Point(16, 122);
             this.cb_ls5_protect.Name = "cb_ls5_protect";
-            this.cb_ls5_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls5_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls5_protect.TabIndex = 7;
             this.cb_ls5_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4222,13 +4236,14 @@
             // 
             // cb_ls6_protect
             // 
+            this.cb_ls6_protect.Enabled = false;
             this.cb_ls6_protect.FormattingEnabled = true;
             this.cb_ls6_protect.Items.AddRange(new object[] {
             "FT_L/S6 = 0",
             "FT_L/S6 = 1"});
             this.cb_ls6_protect.Location = new System.Drawing.Point(16, 80);
             this.cb_ls6_protect.Name = "cb_ls6_protect";
-            this.cb_ls6_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls6_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls6_protect.TabIndex = 5;
             this.cb_ls6_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4243,13 +4258,14 @@
             // 
             // cb_ls7_protect
             // 
+            this.cb_ls7_protect.Enabled = false;
             this.cb_ls7_protect.FormattingEnabled = true;
             this.cb_ls7_protect.Items.AddRange(new object[] {
             "FT_L/S7 = 0",
             "FT_L/S7 = 1"});
             this.cb_ls7_protect.Location = new System.Drawing.Point(16, 36);
             this.cb_ls7_protect.Name = "cb_ls7_protect";
-            this.cb_ls7_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls7_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_ls7_protect.TabIndex = 1;
             this.cb_ls7_protect.SelectedIndexChanged += new System.EventHandler(this.cb_ls7_protect_SelectedIndexChanged);
             // 
@@ -4285,13 +4301,14 @@
             // 
             // cb_vgl1_protect
             // 
+            this.cb_vgl1_protect.Enabled = false;
             this.cb_vgl1_protect.FormattingEnabled = true;
             this.cb_vgl1_protect.Items.AddRange(new object[] {
-            "FT_VGL1 = 0",
-            "FT_VGL1 = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_vgl1_protect.Location = new System.Drawing.Point(16, 249);
             this.cb_vgl1_protect.Name = "cb_vgl1_protect";
-            this.cb_vgl1_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgl1_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_vgl1_protect.TabIndex = 13;
             this.cb_vgl1_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4306,13 +4323,14 @@
             // 
             // cb_vgl2_protect
             // 
+            this.cb_vgl2_protect.Enabled = false;
             this.cb_vgl2_protect.FormattingEnabled = true;
             this.cb_vgl2_protect.Items.AddRange(new object[] {
-            "FT_VGL2 = 0",
-            "FT_VGL2 = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_vgl2_protect.Location = new System.Drawing.Point(16, 208);
             this.cb_vgl2_protect.Name = "cb_vgl2_protect";
-            this.cb_vgl2_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgl2_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_vgl2_protect.TabIndex = 11;
             this.cb_vgl2_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4327,13 +4345,14 @@
             // 
             // cb_vgh_protect
             // 
+            this.cb_vgh_protect.Enabled = false;
             this.cb_vgh_protect.FormattingEnabled = true;
             this.cb_vgh_protect.Items.AddRange(new object[] {
-            "FT_VGH = 0",
-            "FT_VGH = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_vgh_protect.Location = new System.Drawing.Point(16, 166);
             this.cb_vgh_protect.Name = "cb_vgh_protect";
-            this.cb_vgh_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgh_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_vgh_protect.TabIndex = 9;
             this.cb_vgh_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4348,13 +4367,14 @@
             // 
             // cb_havdd_protect
             // 
+            this.cb_havdd_protect.Enabled = false;
             this.cb_havdd_protect.FormattingEnabled = true;
             this.cb_havdd_protect.Items.AddRange(new object[] {
-            "FT_HAVDD = 0",
-            "FT_HAVDD = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_havdd_protect.Location = new System.Drawing.Point(16, 122);
             this.cb_havdd_protect.Name = "cb_havdd_protect";
-            this.cb_havdd_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_havdd_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_havdd_protect.TabIndex = 7;
             this.cb_havdd_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4369,13 +4389,14 @@
             // 
             // cb_vcc1_protect
             // 
+            this.cb_vcc1_protect.Enabled = false;
             this.cb_vcc1_protect.FormattingEnabled = true;
             this.cb_vcc1_protect.Items.AddRange(new object[] {
-            "FT_VCC1 = 0",
-            "FT_VCC1 = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_vcc1_protect.Location = new System.Drawing.Point(16, 80);
             this.cb_vcc1_protect.Name = "cb_vcc1_protect";
-            this.cb_vcc1_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_vcc1_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_vcc1_protect.TabIndex = 5;
             this.cb_vcc1_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4390,13 +4411,14 @@
             // 
             // cb_avdd_protect
             // 
+            this.cb_avdd_protect.Enabled = false;
             this.cb_avdd_protect.FormattingEnabled = true;
             this.cb_avdd_protect.Items.AddRange(new object[] {
-            "FT_AVDD = 0",
-            "FT_AVDD = 1"});
+            "the UVP, SCP Flag = 0",
+            "the UVP, SCP Flag = 1"});
             this.cb_avdd_protect.Location = new System.Drawing.Point(16, 36);
             this.cb_avdd_protect.Name = "cb_avdd_protect";
-            this.cb_avdd_protect.Size = new System.Drawing.Size(121, 20);
+            this.cb_avdd_protect.Size = new System.Drawing.Size(143, 20);
             this.cb_avdd_protect.TabIndex = 1;
             this.cb_avdd_protect.SelectedIndexChanged += new System.EventHandler(this.cb_avdd_protect_SelectedIndexChanged);
             // 
@@ -4406,7 +4428,7 @@
             this.groupBox43.Controls.Add(this.cb_ocp_time);
             this.groupBox43.Controls.Add(this.label132);
             this.groupBox43.Controls.Add(this.cb_ocp_level);
-            this.groupBox43.Location = new System.Drawing.Point(530, 348);
+            this.groupBox43.Location = new System.Drawing.Point(359, 347);
             this.groupBox43.Name = "groupBox43";
             this.groupBox43.Size = new System.Drawing.Size(165, 100);
             this.groupBox43.TabIndex = 9;
@@ -4418,9 +4440,9 @@
             this.label131.AutoSize = true;
             this.label131.Location = new System.Drawing.Point(14, 57);
             this.label131.Name = "label131";
-            this.label131.Size = new System.Drawing.Size(80, 12);
+            this.label131.Size = new System.Drawing.Size(135, 12);
             this.label131.TabIndex = 2;
-            this.label131.Text = "OCP_Time[2:0]";
+            this.label131.Text = "DISCH1/2_OCP_Time[2:0]";
             // 
             // cb_ocp_time
             // 
@@ -4445,9 +4467,9 @@
             this.label132.AutoSize = true;
             this.label132.Location = new System.Drawing.Point(14, 19);
             this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(82, 12);
+            this.label132.Size = new System.Drawing.Size(140, 12);
             this.label132.TabIndex = 1;
-            this.label132.Text = "OCP_Level[6:4]";
+            this.label132.Text = "DISCH1/2_OCP_Level [7:5]";
             // 
             // cb_ocp_level
             // 
@@ -4635,6 +4657,8 @@
             // 
             // groupBox41
             // 
+            this.groupBox41.Controls.Add(this.label212);
+            this.groupBox41.Controls.Add(this.comboBox1);
             this.groupBox41.Controls.Add(this.label123);
             this.groupBox41.Controls.Add(this.cb_double);
             this.groupBox41.Controls.Add(this.label121);
@@ -4643,7 +4667,7 @@
             this.groupBox41.Controls.Add(this.cb_dummy_clk);
             this.groupBox41.Location = new System.Drawing.Point(188, 393);
             this.groupBox41.Name = "groupBox41";
-            this.groupBox41.Size = new System.Drawing.Size(165, 142);
+            this.groupBox41.Size = new System.Drawing.Size(165, 182);
             this.groupBox41.TabIndex = 10;
             this.groupBox41.TabStop = false;
             this.groupBox41.Text = "23h";
@@ -4651,7 +4675,7 @@
             // label123
             // 
             this.label123.AutoSize = true;
-            this.label123.Location = new System.Drawing.Point(14, 96);
+            this.label123.Location = new System.Drawing.Point(14, 135);
             this.label123.Name = "label123";
             this.label123.Size = new System.Drawing.Size(53, 12);
             this.label123.TabIndex = 4;
@@ -4661,17 +4685,18 @@
             // 
             this.cb_double.FormattingEnabled = true;
             this.cb_double.Items.AddRange(new object[] {
-            "0h : 0",
-            "1h : 1"});
-            this.cb_double.Location = new System.Drawing.Point(16, 111);
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_double.Location = new System.Drawing.Point(16, 150);
             this.cb_double.Name = "cb_double";
             this.cb_double.Size = new System.Drawing.Size(121, 20);
             this.cb_double.TabIndex = 5;
+            this.cb_double.SelectedIndexChanged += new System.EventHandler(this.cb_dummy_clk_SelectedIndexChanged);
             // 
             // label121
             // 
             this.label121.AutoSize = true;
-            this.label121.Location = new System.Drawing.Point(14, 57);
+            this.label121.Location = new System.Drawing.Point(14, 96);
             this.label121.Name = "label121";
             this.label121.Size = new System.Drawing.Size(56, 12);
             this.label121.TabIndex = 2;
@@ -4681,12 +4706,13 @@
             // 
             this.cb_reverse.FormattingEnabled = true;
             this.cb_reverse.Items.AddRange(new object[] {
-            "0h : 0",
-            "1h : 1"});
-            this.cb_reverse.Location = new System.Drawing.Point(16, 72);
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_reverse.Location = new System.Drawing.Point(16, 111);
             this.cb_reverse.Name = "cb_reverse";
             this.cb_reverse.Size = new System.Drawing.Size(121, 20);
             this.cb_reverse.TabIndex = 3;
+            this.cb_reverse.SelectedIndexChanged += new System.EventHandler(this.cb_dummy_clk_SelectedIndexChanged);
             // 
             // label122
             // 
@@ -4701,8 +4727,8 @@
             // 
             this.cb_dummy_clk.FormattingEnabled = true;
             this.cb_dummy_clk.Items.AddRange(new object[] {
-            "0h : 0",
-            "1h : 1"});
+            "0h : Disable",
+            "1h : Enable"});
             this.cb_dummy_clk.Location = new System.Drawing.Point(16, 34);
             this.cb_dummy_clk.Name = "cb_dummy_clk";
             this.cb_dummy_clk.Size = new System.Drawing.Size(121, 20);
@@ -4715,15 +4741,13 @@
             this.groupBox39.Controls.Add(this.cb_ft_vcc2);
             this.groupBox39.Controls.Add(this.label112);
             this.groupBox39.Controls.Add(this.cb_fre_vcc1);
-            this.groupBox39.Controls.Add(this.label101);
-            this.groupBox39.Controls.Add(this.cb_vcc2_en);
             this.groupBox39.Controls.Add(this.label109);
             this.groupBox39.Controls.Add(this.cb_vcc2_sync);
             this.groupBox39.Controls.Add(this.label110);
             this.groupBox39.Controls.Add(this.cb_vcc1_sync);
-            this.groupBox39.Location = new System.Drawing.Point(359, 220);
+            this.groupBox39.Location = new System.Drawing.Point(359, 141);
             this.groupBox39.Name = "groupBox39";
-            this.groupBox39.Size = new System.Drawing.Size(165, 239);
+            this.groupBox39.Size = new System.Drawing.Size(165, 199);
             this.groupBox39.TabIndex = 21;
             this.groupBox39.TabStop = false;
             this.groupBox39.Text = "27h OP.";
@@ -4731,7 +4755,7 @@
             // label111
             // 
             this.label111.AutoSize = true;
-            this.label111.Location = new System.Drawing.Point(14, 190);
+            this.label111.Location = new System.Drawing.Point(14, 152);
             this.label111.Name = "label111";
             this.label111.Size = new System.Drawing.Size(68, 12);
             this.label111.TabIndex = 12;
@@ -4743,7 +4767,7 @@
             this.cb_ft_vcc2.Items.AddRange(new object[] {
             "FT_VCC2: the UVP, SCP flag = 0",
             "FT_VCC2: the UVP, SCP flag = 1"});
-            this.cb_ft_vcc2.Location = new System.Drawing.Point(16, 208);
+            this.cb_ft_vcc2.Location = new System.Drawing.Point(16, 170);
             this.cb_ft_vcc2.Name = "cb_ft_vcc2";
             this.cb_ft_vcc2.Size = new System.Drawing.Size(121, 20);
             this.cb_ft_vcc2.TabIndex = 11;
@@ -4752,7 +4776,7 @@
             // label112
             // 
             this.label112.AutoSize = true;
-            this.label112.Location = new System.Drawing.Point(14, 148);
+            this.label112.Location = new System.Drawing.Point(14, 110);
             this.label112.Name = "label112";
             this.label112.Size = new System.Drawing.Size(85, 12);
             this.label112.TabIndex = 10;
@@ -4764,7 +4788,7 @@
             this.cb_fre_vcc1.Items.AddRange(new object[] {
             "0h : 750kHz",
             "1h : 500kHz"});
-            this.cb_fre_vcc1.Location = new System.Drawing.Point(16, 166);
+            this.cb_fre_vcc1.Location = new System.Drawing.Point(16, 128);
             this.cb_fre_vcc1.Name = "cb_fre_vcc1";
             this.cb_fre_vcc1.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_vcc1.TabIndex = 9;
@@ -4773,7 +4797,7 @@
             // label101
             // 
             this.label101.AutoSize = true;
-            this.label101.Location = new System.Drawing.Point(14, 104);
+            this.label101.Location = new System.Drawing.Point(17, 18);
             this.label101.Name = "label101";
             this.label101.Size = new System.Drawing.Size(65, 12);
             this.label101.TabIndex = 8;
@@ -4785,7 +4809,7 @@
             this.cb_vcc2_en.Items.AddRange(new object[] {
             "0h : Disable",
             "1h : Enable"});
-            this.cb_vcc2_en.Location = new System.Drawing.Point(16, 122);
+            this.cb_vcc2_en.Location = new System.Drawing.Point(19, 36);
             this.cb_vcc2_en.Name = "cb_vcc2_en";
             this.cb_vcc2_en.Size = new System.Drawing.Size(121, 20);
             this.cb_vcc2_en.TabIndex = 7;
@@ -4839,13 +4863,9 @@
             this.groupBox37.Controls.Add(this.cb_ext_int);
             this.groupBox37.Controls.Add(this.label106);
             this.groupBox37.Controls.Add(this.cb_avdd_ext_drv);
-            this.groupBox37.Controls.Add(this.label107);
-            this.groupBox37.Controls.Add(this.cb_vgl2_dis);
-            this.groupBox37.Controls.Add(this.label108);
-            this.groupBox37.Controls.Add(this.cb_vcc2_dis);
             this.groupBox37.Location = new System.Drawing.Point(359, 16);
             this.groupBox37.Name = "groupBox37";
-            this.groupBox37.Size = new System.Drawing.Size(165, 198);
+            this.groupBox37.Size = new System.Drawing.Size(165, 116);
             this.groupBox37.TabIndex = 19;
             this.groupBox37.TabStop = false;
             this.groupBox37.Text = "25h Discharge En";
@@ -4853,7 +4873,7 @@
             // label105
             // 
             this.label105.AutoSize = true;
-            this.label105.Location = new System.Drawing.Point(14, 145);
+            this.label105.Location = new System.Drawing.Point(14, 60);
             this.label105.Name = "label105";
             this.label105.Size = new System.Drawing.Size(96, 12);
             this.label105.TabIndex = 10;
@@ -4865,7 +4885,7 @@
             this.cb_ext_int.Items.AddRange(new object[] {
             "0h : Internal",
             "1h : External"});
-            this.cb_ext_int.Location = new System.Drawing.Point(16, 163);
+            this.cb_ext_int.Location = new System.Drawing.Point(16, 78);
             this.cb_ext_int.Name = "cb_ext_int";
             this.cb_ext_int.Size = new System.Drawing.Size(121, 20);
             this.cb_ext_int.TabIndex = 9;
@@ -4873,7 +4893,7 @@
             // label106
             // 
             this.label106.AutoSize = true;
-            this.label106.Location = new System.Drawing.Point(14, 104);
+            this.label106.Location = new System.Drawing.Point(14, 19);
             this.label106.Name = "label106";
             this.label106.Size = new System.Drawing.Size(118, 12);
             this.label106.TabIndex = 8;
@@ -4887,7 +4907,7 @@
             "1h : EXT_DRV2_F: 10Ω",
             "2h : EXT_DRV3_S: 50Ω",
             "3h : EXT_DRV4_SS: 200Ω"});
-            this.cb_avdd_ext_drv.Location = new System.Drawing.Point(16, 122);
+            this.cb_avdd_ext_drv.Location = new System.Drawing.Point(16, 37);
             this.cb_avdd_ext_drv.Name = "cb_avdd_ext_drv";
             this.cb_avdd_ext_drv.Size = new System.Drawing.Size(121, 20);
             this.cb_avdd_ext_drv.TabIndex = 7;
@@ -4895,7 +4915,7 @@
             // label107
             // 
             this.label107.AutoSize = true;
-            this.label107.Location = new System.Drawing.Point(14, 62);
+            this.label107.Location = new System.Drawing.Point(9, 62);
             this.label107.Name = "label107";
             this.label107.Size = new System.Drawing.Size(72, 12);
             this.label107.TabIndex = 6;
@@ -4905,9 +4925,9 @@
             // 
             this.cb_vgl2_dis.FormattingEnabled = true;
             this.cb_vgl2_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
-            this.cb_vgl2_dis.Location = new System.Drawing.Point(16, 80);
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vgl2_dis.Location = new System.Drawing.Point(11, 80);
             this.cb_vgl2_dis.Name = "cb_vgl2_dis";
             this.cb_vgl2_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_vgl2_dis.TabIndex = 5;
@@ -4915,7 +4935,7 @@
             // label108
             // 
             this.label108.AutoSize = true;
-            this.label108.Location = new System.Drawing.Point(14, 18);
+            this.label108.Location = new System.Drawing.Point(9, 18);
             this.label108.Name = "label108";
             this.label108.Size = new System.Drawing.Size(73, 12);
             this.label108.TabIndex = 4;
@@ -4925,9 +4945,9 @@
             // 
             this.cb_vcc2_dis.FormattingEnabled = true;
             this.cb_vcc2_dis.Items.AddRange(new object[] {
-            "0h : Discharge Operation Disable",
-            "1h : Discharge Operation Enable"});
-            this.cb_vcc2_dis.Location = new System.Drawing.Point(16, 36);
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vcc2_dis.Location = new System.Drawing.Point(11, 36);
             this.cb_vcc2_dis.Name = "cb_vcc2_dis";
             this.cb_vcc2_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_vcc2_dis.TabIndex = 1;
@@ -5862,6 +5882,7 @@
             this.W31.Size = new System.Drawing.Size(46, 22);
             this.W31.TabIndex = 350;
             this.W31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W31.ValueChanged += new System.EventHandler(this.W30_ValueChanged);
             // 
             // label71
             // 
@@ -8575,6 +8596,7 @@
             this.W28.Size = new System.Drawing.Size(46, 22);
             this.W28.TabIndex = 306;
             this.W28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.W28.ValueChanged += new System.EventHandler(this.W28_ValueChanged);
             // 
             // R27
             // 
@@ -8845,7 +8867,7 @@
             this.W2F.Size = new System.Drawing.Size(46, 22);
             this.W2F.TabIndex = 318;
             this.W2F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.W2F.ValueChanged += new System.EventHandler(this.W2F_ValueChanged);
+            this.W2F.ValueChanged += new System.EventHandler(this.W28_ValueChanged);
             // 
             // label35
             // 
@@ -8980,6 +9002,51 @@
             this.pictureBox2.TabIndex = 451;
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
+            // 
+            // groupBox52
+            // 
+            this.groupBox52.Controls.Add(this.label108);
+            this.groupBox52.Controls.Add(this.cb_vcc2_dis);
+            this.groupBox52.Controls.Add(this.cb_vgl2_dis);
+            this.groupBox52.Controls.Add(this.label107);
+            this.groupBox52.Location = new System.Drawing.Point(963, 189);
+            this.groupBox52.Name = "groupBox52";
+            this.groupBox52.Size = new System.Drawing.Size(150, 113);
+            this.groupBox52.TabIndex = 185;
+            this.groupBox52.TabStop = false;
+            this.groupBox52.Text = "25h";
+            // 
+            // groupBox53
+            // 
+            this.groupBox53.Controls.Add(this.label101);
+            this.groupBox53.Controls.Add(this.cb_vcc2_en);
+            this.groupBox53.Location = new System.Drawing.Point(963, 310);
+            this.groupBox53.Name = "groupBox53";
+            this.groupBox53.Size = new System.Drawing.Size(150, 66);
+            this.groupBox53.TabIndex = 186;
+            this.groupBox53.TabStop = false;
+            this.groupBox53.Text = "24h";
+            // 
+            // label212
+            // 
+            this.label212.AutoSize = true;
+            this.label212.Location = new System.Drawing.Point(14, 57);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(71, 12);
+            this.label212.TabIndex = 6;
+            this.label212.Text = "EN_120Hz[4]";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.comboBox1.Location = new System.Drawing.Point(16, 72);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.cb_dummy_clk_SelectedIndexChanged);
             // 
             // Form1
             // 
@@ -9333,6 +9400,10 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox52.ResumeLayout(false);
+            this.groupBox52.PerformLayout();
+            this.groupBox53.ResumeLayout(false);
+            this.groupBox53.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -9913,7 +9984,7 @@
         private System.Windows.Forms.ComboBox cb_ls_en;
         private System.Windows.Forms.GroupBox groupBox47;
         private System.Windows.Forms.Label label179;
-        private System.Windows.Forms.ComboBox cb_disch_dis;
+        private System.Windows.Forms.ComboBox cb_en120hz;
         private System.Windows.Forms.Label label180;
         private System.Windows.Forms.ComboBox cb_stv3_dis;
         private System.Windows.Forms.Label label195;
@@ -9968,6 +10039,10 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.GroupBox groupBox52;
+        private System.Windows.Forms.GroupBox groupBox53;
+        private System.Windows.Forms.Label label212;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 
