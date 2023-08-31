@@ -294,6 +294,22 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
+        private void GetTriggerSel(int initial, int next)
+        {
+            int initial_G01 = (initial & 0x06) >> 1;
+            int next_G01 = (next & 0x06) >> 1;
+
+            int res_G0 = (initial_G01 ^ next_G01) & 0x01;
+            int res_G1 = (initial_G01 ^ next_G01) & 0x02;
+
+
+
+
+
+
+        }
+
+
         private void SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
             vmax_list.Clear();
@@ -305,10 +321,15 @@ namespace SoftStartTiming
             double vout_af = 0;
             vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
-            int intital_state = test_parameter.vidio.vout_map[vout.ToString()];
-            int next_State = test_parameter.vidio.vout_map[vout_af.ToString()];
+            int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
+            int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
+
+
+            
+
+
             Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
-            IOStateSetting(intital_state);
+            IOStateSetting(initial_state);
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
@@ -333,13 +354,13 @@ namespace SoftStartTiming
                 double vmax = 0;
 
             Trigger_Fail_retry:
-                IOStateSetting(intital_state);
+                IOStateSetting(initial_state);
                 InsControl._oscilloscope.SetRun();
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetNormalTrigger();
                 MyLib.Delay1ms(100);
 
-                IOStateSetting(next_State);
+                IOStateSetting(next_state);
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
 
