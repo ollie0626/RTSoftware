@@ -99,6 +99,8 @@ namespace SoftStartTiming
                 }
             }
 
+            
+
         }
 
         public VIDIO()
@@ -208,12 +210,15 @@ namespace SoftStartTiming
             {
                 criteria_container.vout_begin = dataGridView1[0, i].Value;          // vout start
                 criteria_container.vout_end  = dataGridView1[1, i].Value;           // vout end
-                criteria_container.rise_time = dataGridView1[2, i].Value;          // rise time
-                criteria_container.sr_rise = dataGridView1[3, i].Value;          // slew rate (rise)
-                criteria_container.fall_time = dataGridView1[4, i].Value;          // fall time
-                criteria_container.sr_fall = dataGridView1[5, i].Value;          // slew rate (fall)
+                criteria_container.rise_time = dataGridView1[2, i].Value;           // rise time
+                criteria_container.sr_rise = dataGridView1[3, i].Value;             // slew rate (rise)
+                criteria_container.fall_time = dataGridView1[4, i].Value;           // fall time
+                criteria_container.sr_fall = dataGridView1[5, i].Value;             // slew rate (fall)
                 criteria_container.overshoot = Convert.ToDouble((string)dataGridView1[6, i].Value);          // overshoot (spec)
                 criteria_container.undershoot = Convert.ToDouble((string)dataGridView1[7, i].Value);          // undershoot (spec)
+
+                criteria_container.hi = 0.87;
+                criteria_container.lo = 0.7;
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }

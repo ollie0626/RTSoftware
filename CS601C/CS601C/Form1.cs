@@ -155,6 +155,7 @@ namespace CS601C
             // GUI initial
             CBSEL_5V12V.SelectedIndex = 1;
             CBSEL_5V12V2.SelectedIndex = 1;
+            CBMode.SelectedIndex = 0;
 
             comboBox1.SelectedIndex = 0;
             AVDDOCH.Value = 1;

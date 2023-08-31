@@ -1,7 +1,7 @@
 ﻿
 #define Report_en
-#define Power_en
-#define Eload_en
+//#define Power_en
+//#define Eload_en
 
 using RTBBLibDotNet;
 using System;
@@ -336,10 +336,15 @@ namespace SoftStartTiming
 
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
+            InsControl._oscilloscope.SetREFLevelMethod(meas_rising, false);
             InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
             InsControl._oscilloscope.SetTriggerRise();
+            //InsControl._oscilloscope.SetCursorMode();
+            InsControl._oscilloscope.SetCursorWaveform();
+            InsControl._oscilloscope.SetCursorOn();
+            
 
-            if(overshoot_en)
+            if (overshoot_en)
             {
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
@@ -363,13 +368,13 @@ namespace SoftStartTiming
                 IOStateSetting(next_state);
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
-
+                if(repeat_idx == 0) MyLib.Delay1ms(200);
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
-                double x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                double x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                InsControl._oscilloscope.SetCursorMode();
-                InsControl._oscilloscope.SetCursorOn();
+                MyLib.Delay1ms(50);
+                double x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+                double x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
+
                 InsControl._oscilloscope.SetCursorSource(1, 1);
                 InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
@@ -384,6 +389,7 @@ namespace SoftStartTiming
                     // slew rate delta V / delta T
                     slew_rate = rise_time / InsControl._oscilloscope.GetCursorHBarDelta();
                     slewrate_list.Add(slew_rate);
+                    rise_time_list.Add(rise_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                     phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                 }
@@ -429,7 +435,10 @@ namespace SoftStartTiming
 
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
-            InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
+            InsControl._oscilloscope.SetREFLevelMethod(meas_falling, false);
+            InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_falling, false);
+            InsControl._oscilloscope.SetCursorWaveform();
+            InsControl._oscilloscope.SetCursorOn();
 
             if (undershoot_en)
             {
@@ -455,13 +464,14 @@ namespace SoftStartTiming
                 IOStateSetting(inittal_state);
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
+                if (repeat_idx == 0) MyLib.Delay1ms(200);
 
                 // set cursor position
-                InsControl._oscilloscope.SetAnnotation(meas_rising);
-                double x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                double x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                InsControl._oscilloscope.SetCursorMode();
-                InsControl._oscilloscope.SetCursorOn();
+                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                double x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+                double x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
+                //InsControl._oscilloscope.SetCursorMode();
+                //InsControl._oscilloscope.SetCursorOn();
                 InsControl._oscilloscope.SetCursorSource(1, 1);
                 InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
@@ -476,6 +486,7 @@ namespace SoftStartTiming
                     // slew rate delta V / delta T
                     slew_rate = fall_time / InsControl._oscilloscope.GetCursorHBarDelta();
                     slewrate_list.Add(slew_rate);
+                    fall_time_list.Add(fall_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
                     phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
                 }
@@ -1111,12 +1122,12 @@ namespace SoftStartTiming
                         double spec_hi = test_parameter.vidio.criteria[case_idx].spec_hi;
                         double spec_lo = test_parameter.vidio.criteria[case_idx].spec_lo;
                         double iout = test_parameter.IoutList[iout_idx];
-                        double rise_spec = (double)test_parameter.vidio.criteria[case_idx].rise_time;
-                        double sr_rise = (double)test_parameter.vidio.criteria[case_idx].sr_rise;
-                        double fall_spec = (double)test_parameter.vidio.criteria[case_idx].fall_time;
-                        double sr_fall = (double)test_parameter.vidio.criteria[case_idx].sr_fall;
-                        double vmax = (double)test_parameter.vidio.criteria[case_idx].overshoot;
-                        double vmin = (double)test_parameter.vidio.criteria[case_idx].undershoot;
+                        double rise_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
+                        double sr_rise = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
+                        double fall_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
+                        double sr_fall = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
+                        double vmax = test_parameter.vidio.criteria[case_idx].overshoot;
+                        double vmin = test_parameter.vidio.criteria[case_idx].undershoot;
 
                         _sheet.Cells[row, XLS_Table.C] = temp;
                         _sheet.Cells[row, XLS_Table.D] = "LINK";
@@ -1209,7 +1220,6 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=U" + row;
                         _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=V" + row;
 #endif
-
                         InsControl._oscilloscope.SetAutoTrigger();
                         wave_row += 31;
                         row++;
