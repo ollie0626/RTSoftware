@@ -281,15 +281,17 @@ namespace SoftStartTiming
 
         private void Scope_Task_Setting(int meas_idx, double vout, double vout_af)
         {
-            InsControl._oscilloscope.SetTimeOutTrigger();
-            InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
+            //InsControl._oscilloscope.SetTimeOutTrigger();
+            //InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
             InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
-            InsControl._oscilloscope.SetTimeOutEither();
+            InsControl._oscilloscope.DoCommand("TRIGger:A:EDGE:SLOpe EITher");
+            InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1");
+            //InsControl._oscilloscope.SetTimeOutEither();
 
             InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.7);
             InsControl._oscilloscope.CHx_Offset(1, vout);
             InsControl._oscilloscope.CHx_Position(1, -2);
-            InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
+            //InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
             Initial_TimeScale(true, false);
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
@@ -306,11 +308,11 @@ namespace SoftStartTiming
             {
                 if((res & (0x01 << i)) != 0)
                 {
-                    ch = i + 1;
+                    ch = i;
                     break;
                 }
             }
-            InsControl._oscilloscope.SetTimeOutTriggerCHx(ch);
+            InsControl._oscilloscope.DoCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch + 3));
 
             //mask = 0x01 << (ch - 1);
             //res = (mask & next_G01) >> (ch - 1);
@@ -499,7 +501,7 @@ namespace SoftStartTiming
                     slewrate_list.Add(slew_rate);
                     fall_time_list.Add(fall_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
-                    phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
+                    phase2_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
                 }
                 else
                 {
