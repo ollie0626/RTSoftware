@@ -298,15 +298,27 @@ namespace SoftStartTiming
         {
             int initial_G01 = (initial & 0x06) >> 1;
             int next_G01 = (next & 0x06) >> 1;
-
-            int res_G0 = (initial_G01 ^ next_G01) & 0x01;
-            int res_G1 = (initial_G01 ^ next_G01) & 0x02;
-
+            int res = initial_G01 ^ next_G01;
+            int ch = 0;
 
 
+            for(int i = 0; i < 2; i++)
+            {
+                if((res & (0x01 << i)) != 0)
+                {
+                    ch = i + 1;
+                    break;
+                }
+            }
+            InsControl._oscilloscope.SetTimeOutTriggerCHx(ch);
 
-
-
+            //mask = 0x01 << (ch - 1);
+            //res = (mask & next_G01) >> (ch - 1);
+            //bool rise_en = (res == 1) ? true : false;
+            //if (rise_en) InsControl._oscilloscope.SetTriggerRise();
+            //else InsControl._oscilloscope.SetTriggerFall();
+            //doCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch));
+            //InsControl._oscilloscope.DoCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch));
         }
 
 
@@ -323,10 +335,6 @@ namespace SoftStartTiming
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
             int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
             int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
-
-
-            
-
 
             Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
             IOStateSetting(initial_state);
@@ -351,6 +359,8 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetClear();
                 MyLib.Delay1ms(500);
             }
+
+            GetTriggerSel(initial_state, next_state);
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
@@ -423,7 +433,7 @@ namespace SoftStartTiming
             double vout_af = 0;
             vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
-            int inittal_state = test_parameter.vidio.vout_map[vout.ToString()];
+            int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
             int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
             Scope_Task_Setting(meas_falling, vout, vout_af);
 
@@ -448,7 +458,8 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
             }
 
-            for(int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
+            GetTriggerSel(initial_state, next_state);
+            for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
                 double slew_rate = 0;
                 double fall_time = 0;
@@ -461,7 +472,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetNormalTrigger();
                 MyLib.Delay1ms(100);
 
-                IOStateSetting(inittal_state);
+                IOStateSetting(initial_state);
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
@@ -1096,27 +1107,6 @@ namespace SoftStartTiming
                         bool rising_en = vout < vout_af ? true : false;
                         bool diff = Math.Abs(vout - vout_af) < 0.13 ? true : false;
 #if Report_en
-                        //_sheet.Cells[row, XLS_Table.C] = "Temp(C)";
-                        //_sheet.Cells[row, XLS_Table.D] = "超連結";
-                        //_sheet.Cells[row, XLS_Table.E] = "Vin (V)";
-                        //_sheet.Cells[row, XLS_Table.F] = "Vout Change (V)";
-                        //_sheet.Cells[row, XLS_Table.G] = "VID spec (V)";
-                        //_sheet.Cells[row, XLS_Table.H] = "Iout (A)";
-                        //_sheet.Cells[row, XLS_Table.I] = "Rise SR spec (us/V)";
-                        //_sheet.Cells[row, XLS_Table.J] = "Rise Time spec (us)";
-                        //_sheet.Cells[row, XLS_Table.K] = "Rise SR (us/V)";
-                        //_sheet.Cells[row, XLS_Table.L] = "Rise Time (us)";
-                        //_sheet.Cells[row, XLS_Table.M] = "Fall SR spec (us/V)";
-                        //_sheet.Cells[row, XLS_Table.N] = "Fall Time spec (us)";
-                        //_sheet.Cells[row, XLS_Table.O] = "Fall SR (us/V)";
-                        //_sheet.Cells[row, XLS_Table.P] = "Fall Time (us)";
-                        //_sheet.Cells[row, XLS_Table.Q] = "Vmax spec (V)";
-                        //_sheet.Cells[row, XLS_Table.R] = "Vmax (V)";
-                        //_sheet.Cells[row, XLS_Table.S] = "Vmin spec (V)";
-                        //_sheet.Cells[row, XLS_Table.T] = "Vmin (V)";
-                        //_sheet.Cells[row, XLS_Table.U] = "overshoot (%)";
-                        //_sheet.Cells[row, XLS_Table.V] = "underhoot (%)";
-                        //_sheet.Cells[row, XLS_Table.W] = "Result";
 
                         double vin = test_parameter.VinList[vin_idx];
                         double spec_hi = test_parameter.vidio.criteria[case_idx].spec_hi;
