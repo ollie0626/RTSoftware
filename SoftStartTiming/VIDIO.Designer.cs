@@ -98,6 +98,8 @@ namespace SoftStartTiming
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -260,7 +262,9 @@ namespace SoftStartTiming
             this.Column3,
             this.Column5,
             this.Column6,
-            this.Column7});
+            this.Column7,
+            this.Column9,
+            this.Column10});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(15, 309);
             this.dataGridView1.Name = "dataGridView1";
@@ -835,6 +839,16 @@ namespace SoftStartTiming
             this.Column7.HeaderText = "Vmin (V)";
             this.Column7.Name = "Column7";
             // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Vrise_point (V)";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Vfall_point (V)";
+            this.Column10.Name = "Column10";
+            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -945,5 +959,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
     }
 }

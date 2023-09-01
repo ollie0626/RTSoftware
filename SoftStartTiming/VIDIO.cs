@@ -52,9 +52,9 @@ namespace SoftStartTiming
 
             dataGridView2.RowCount = 8;
 
-            for(int idx = 0; idx < 8; idx++)
+            for (int idx = 0; idx < 8; idx++)
             {
-                switch(idx)
+                switch (idx)
                 {
                     case 0:
                         dataGridView2[0, 0].Value = "0";
@@ -99,7 +99,7 @@ namespace SoftStartTiming
                 }
             }
 
-            
+
 
         }
 
@@ -144,7 +144,7 @@ namespace SoftStartTiming
 
         private void BT_Sub_Click(object sender, EventArgs e)
         {
-            if(dataGridView1.RowCount - 1 > 0)
+            if (dataGridView1.RowCount - 1 > 0)
                 dataGridView1.RowCount = dataGridView1.RowCount - 1;
             else
                 dataGridView1.RowCount = 0;
@@ -172,9 +172,9 @@ namespace SoftStartTiming
 
             test_parameter.tool_ver = win_name + "\r\n";
             test_parameter.vin_conditions = "Vin = " + tb_vinList.Text + "\r\n";
-            test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" + 
+            test_parameter.iout_conditions = "Iout = " + tb_iout.Text + "\r\n" +
                                              "VID Contions number = " + dataGridView2.RowCount + "\r\n";
-            
+
             test_parameter.waveform_path = tbWave.Text;
 
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
@@ -183,9 +183,9 @@ namespace SoftStartTiming
             test_parameter.vidio.criteria.Clear();
 
             int temp = 0;
-            for(int idx = 0; idx < dataGridView2.RowCount; idx++)
+            for (int idx = 0; idx < dataGridView2.RowCount; idx++)
             {
-                temp =  Convert.ToInt16(dataGridView2[0, idx].Value) << 0 | // LPM
+                temp = Convert.ToInt16(dataGridView2[0, idx].Value) << 0 | // LPM
                         Convert.ToInt16(dataGridView2[1, idx].Value) << 1 | // G1
                         Convert.ToInt16(dataGridView2[2, idx].Value) << 2;  // G2
 
@@ -206,10 +206,10 @@ namespace SoftStartTiming
                 test_parameter.vidio.vout_list_af.Add(Convert.ToDouble(dataGridView1[1, i].Value));
             }
 
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 criteria_container.vout_begin = dataGridView1[0, i].Value;          // vout start
-                criteria_container.vout_end  = dataGridView1[1, i].Value;           // vout end
+                criteria_container.vout_end = dataGridView1[1, i].Value;           // vout end
                 criteria_container.rise_time = dataGridView1[2, i].Value;           // rise time
                 criteria_container.sr_rise = dataGridView1[3, i].Value;             // slew rate (rise)
                 criteria_container.fall_time = dataGridView1[4, i].Value;           // fall time
@@ -217,8 +217,8 @@ namespace SoftStartTiming
                 criteria_container.overshoot = Convert.ToDouble((string)dataGridView1[6, i].Value);          // overshoot (spec)
                 criteria_container.undershoot = Convert.ToDouble((string)dataGridView1[7, i].Value);          // undershoot (spec)
 
-                criteria_container.hi = 0.87;
-                criteria_container.lo = 0.7;
+                criteria_container.hi = Convert.ToDouble((string)dataGridView1[7, i].Value);
+                criteria_container.lo = Convert.ToDouble((string)dataGridView1[8, i].Value);
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
@@ -239,11 +239,32 @@ namespace SoftStartTiming
             labStatus.Invoke((MethodInvoker)(() => labStatus.Text = string.Format("Status Progress : {0} / {1}", val, progressBar2.Maximum)));
         }
 
+        private void detect_datagridview()
+        {
+            for (int i = 0; i < dataGridView1.RowCount; i++)
+            {
+                for (int j = 0; j < dataGridView1.ColumnCount; j++)
+                {
+                    try
+                    {
+                        string tmp = (string)dataGridView1[j, i].Value;
+                    }
+                    catch
+                    {
+                        dataGridView1[j, i].Value = "NA";
+                    }
+
+                }
+            }
+        }
+
+
         private void BTRun_Click(object sender, EventArgs e)
         {
             BTRun.Enabled = false;
             try
             {
+                detect_datagridview();
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
                 {
@@ -259,7 +280,7 @@ namespace SoftStartTiming
                     ATETask.Start(0);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine("Error Message:" + ex.Message);
                 Console.WriteLine("StackTrace:" + ex.StackTrace);
@@ -341,7 +362,7 @@ namespace SoftStartTiming
             }
             return 0;
         }
-        
+
         private Task<int> ConnectTask(string res, int ins_sel)
         {
             return Task.Factory.StartNew(() => ConnectFunc(res, ins_sel));
@@ -542,7 +563,7 @@ namespace SoftStartTiming
                 settings += (i + 12).ToString() + ".Vout=$" + dataGridView2[3, i].Value.ToString() + "$\r\n";
             }
 
-            for(int i = 0; i < dataGridView1.RowCount; i++)
+            for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 settings += (i + 13).ToString() + ".Vout=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
                 settings += (i + 14).ToString() + ".Vout_af=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
@@ -613,7 +634,7 @@ namespace SoftStartTiming
                     }
                 }
 
-                fullDG:
+            fullDG:
                 for (int i = 0; i < dataGridView2.RowCount; i++)
                 {
                     dataGridView2[0, i].Value = Convert.ToString(info[idx + 1]); // lpm
