@@ -154,15 +154,8 @@ namespace SoftStartTiming
         {
             VIDIO_Criteria_parameter criteria_container = new VIDIO_Criteria_parameter();
 
-
-            //test_parameter.vidio.lpm_sel.Clear();
-            //test_parameter.vidio.g1_sel.Clear();
-            //test_parameter.vidio.g2_sel.Clear();
             test_parameter.vidio.vout_list.Clear();
 
-            //test_parameter.vidio.lpm_sel_af.Clear();
-            //test_parameter.vidio.g1_sel_af.Clear();
-            //test_parameter.vidio.g2_sel_af.Clear();
             test_parameter.vidio.vout_list_af.Clear();
             test_parameter.vidio.vout_map.Clear();
             test_parameter.vidio.io_table.Clear();
@@ -209,7 +202,7 @@ namespace SoftStartTiming
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 criteria_container.vout_begin = dataGridView1[0, i].Value;          // vout start
-                criteria_container.vout_end = dataGridView1[1, i].Value;           // vout end
+                criteria_container.vout_end = dataGridView1[1, i].Value;            // vout end
                 criteria_container.rise_time = dataGridView1[2, i].Value;           // rise time
                 criteria_container.sr_rise = dataGridView1[3, i].Value;             // slew rate (rise)
                 criteria_container.fall_time = dataGridView1[4, i].Value;           // fall time
@@ -253,7 +246,6 @@ namespace SoftStartTiming
                     {
                         dataGridView1[j, i].Value = "NA";
                     }
-
                 }
             }
         }
@@ -567,6 +559,14 @@ namespace SoftStartTiming
             {
                 settings += (i + 13).ToString() + ".Vout=$" + dataGridView1[0, i].Value.ToString() + "$\r\n";
                 settings += (i + 14).ToString() + ".Vout_af=$" + dataGridView1[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 15).ToString() + ".Rise_time=$" + dataGridView1[2, i].Value.ToString() + "$\r\n";
+                settings += (i + 16).ToString() + ".Rise_SR=$" + dataGridView1[3, i].Value.ToString() + "$\r\n";
+                settings += (i + 17).ToString() + ".Fall_time=$" + dataGridView1[4, i].Value.ToString() + "$\r\n";
+                settings += (i + 18).ToString() + ".Fall_SR=$" + dataGridView1[5, i].Value.ToString() + "$\r\n";
+                settings += (i + 19).ToString() + ".Vmax=$" + dataGridView1[6, i].Value.ToString() + "$\r\n";
+                settings += (i + 20).ToString() + ".Vmin=$" + dataGridView1[7, i].Value.ToString() + "$\r\n";
+                settings += (i + 21).ToString() + ".Vrise_point=$" + dataGridView1[8, i].Value.ToString() + "$\r\n";
+                settings += (i + 22).ToString() + ".Vfall_point=$" + dataGridView1[9, i].Value.ToString() + "$\r\n";
             }
 
             using (StreamWriter sw = new StreamWriter(file))
@@ -648,7 +648,17 @@ namespace SoftStartTiming
                 {
                     dataGridView1[0, i].Value = Convert.ToString(info[idx + 1]); // vout
                     dataGridView1[1, i].Value = Convert.ToString(info[idx + 2]); // vout_af
-                    idx += 2;
+
+                    dataGridView1[2, i].Value = Convert.ToString(info[idx + 3]); 
+                    dataGridView1[3, i].Value = Convert.ToString(info[idx + 4]); 
+                    dataGridView1[4, i].Value = Convert.ToString(info[idx + 5]); 
+                    dataGridView1[5, i].Value = Convert.ToString(info[idx + 6]); 
+                    dataGridView1[6, i].Value = Convert.ToString(info[idx + 7]); 
+                    dataGridView1[7, i].Value = Convert.ToString(info[idx + 8]); 
+                    dataGridView1[8, i].Value = Convert.ToString(info[idx + 9]); 
+                    dataGridView1[9, i].Value = Convert.ToString(info[idx + 10]); 
+
+                    idx += 10;
                 }
             }
         }
@@ -749,6 +759,16 @@ namespace SoftStartTiming
                 menu.Items.AddRange(_item);
                 menu.Show(DV, new System.Drawing.Point(e.X, e.Y));
             }
+        }
+
+        private void vbase_ValueChanged(object sender, EventArgs e)
+        {
+            double vbase = (double)nu_vbase.Value;
+            double vtop = (double)nu_vtop.Value;
+
+            nu_diff.Value = (decimal)(vtop - vbase);
+            nu_vmax.Value = (decimal)(vtop * 1.05);
+            nu_vmin.Value = (decimal)(vbase * 1.05);
         }
     }
 

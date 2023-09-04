@@ -43,6 +43,16 @@ namespace SoftStartTiming
             this.CBPower = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tb_power = new System.Windows.Forms.TextBox();
             this.tb_eload = new System.Windows.Forms.TextBox();
             this.led_power = new System.Windows.Forms.TextBox();
@@ -64,6 +74,16 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.nu_vmin = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.nu_vmax = new System.Windows.Forms.NumericUpDown();
+            this.label11 = new System.Windows.Forms.Label();
+            this.nu_diff = new System.Windows.Forms.NumericUpDown();
+            this.nu_vtop = new System.Windows.Forms.NumericUpDown();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nu_vbase = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
             this.nu_test_cnt = new System.Windows.Forms.NumericUpDown();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
@@ -90,16 +110,6 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -107,6 +117,11 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vmax)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_diff)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vtop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vbase)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_test_cnt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -272,6 +287,58 @@ namespace SoftStartTiming
             this.dataGridView1.Size = new System.Drawing.Size(833, 230);
             this.dataGridView1.TabIndex = 122;
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Vout (V) (begin)";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 80;
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Vout (after)";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 95;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Rise time (us)";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Slew Rate (mV/us)";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Fall time (us)";
+            this.Column3.Name = "Column3";
+            // 
+            // Column5
+            // 
+            this.Column5.HeaderText = "Slew Rate (mV/us)";
+            this.Column5.Name = "Column5";
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "Vmax (V) ";
+            this.Column6.Name = "Column6";
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Vmin (V)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Vrise_point (V)";
+            this.Column9.Name = "Column9";
+            // 
+            // Column10
+            // 
+            this.Column10.HeaderText = "Vfall_point (V)";
+            this.Column10.Name = "Column10";
             // 
             // tb_power
             // 
@@ -492,6 +559,16 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.label13);
+            this.tabPage2.Controls.Add(this.nu_vmin);
+            this.tabPage2.Controls.Add(this.label12);
+            this.tabPage2.Controls.Add(this.nu_vmax);
+            this.tabPage2.Controls.Add(this.label11);
+            this.tabPage2.Controls.Add(this.nu_diff);
+            this.tabPage2.Controls.Add(this.nu_vtop);
+            this.tabPage2.Controls.Add(this.label8);
+            this.tabPage2.Controls.Add(this.nu_vbase);
+            this.tabPage2.Controls.Add(this.label7);
             this.tabPage2.Controls.Add(this.nu_test_cnt);
             this.tabPage2.Controls.Add(this.dataGridView2);
             this.tabPage2.Controls.Add(this.groupBox2);
@@ -513,6 +590,153 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(872, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(769, 87);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 12);
+            this.label13.TabIndex = 152;
+            this.label13.Text = "Min";
+            // 
+            // nu_vmin
+            // 
+            this.nu_vmin.DecimalPlaces = 3;
+            this.nu_vmin.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_vmin.Location = new System.Drawing.Point(771, 101);
+            this.nu_vmin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_vmin.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_vmin.Name = "nu_vmin";
+            this.nu_vmin.Size = new System.Drawing.Size(77, 23);
+            this.nu_vmin.TabIndex = 151;
+            this.nu_vmin.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(686, 86);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.TabIndex = 150;
+            this.label12.Text = "Max";
+            // 
+            // nu_vmax
+            // 
+            this.nu_vmax.DecimalPlaces = 3;
+            this.nu_vmax.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_vmax.Location = new System.Drawing.Point(688, 100);
+            this.nu_vmax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_vmax.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_vmax.Name = "nu_vmax";
+            this.nu_vmax.Size = new System.Drawing.Size(77, 23);
+            this.nu_vmax.TabIndex = 149;
+            this.nu_vmax.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(599, 86);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(28, 12);
+            this.label11.TabIndex = 148;
+            this.label11.Text = "Diff";
+            // 
+            // nu_diff
+            // 
+            this.nu_diff.DecimalPlaces = 3;
+            this.nu_diff.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_diff.Location = new System.Drawing.Point(601, 100);
+            this.nu_diff.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_diff.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_diff.Name = "nu_diff";
+            this.nu_diff.Size = new System.Drawing.Size(77, 23);
+            this.nu_diff.TabIndex = 147;
+            this.nu_diff.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // nu_vtop
+            // 
+            this.nu_vtop.DecimalPlaces = 3;
+            this.nu_vtop.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_vtop.Location = new System.Drawing.Point(688, 60);
+            this.nu_vtop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_vtop.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_vtop.Name = "nu_vtop";
+            this.nu_vtop.Size = new System.Drawing.Size(77, 23);
+            this.nu_vtop.TabIndex = 146;
+            this.nu_vtop.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nu_vtop.ValueChanged += new System.EventHandler(this.vbase_ValueChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(686, 46);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(32, 12);
+            this.label8.TabIndex = 145;
+            this.label8.Text = "Vtop";
+            // 
+            // nu_vbase
+            // 
+            this.nu_vbase.DecimalPlaces = 3;
+            this.nu_vbase.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_vbase.Location = new System.Drawing.Point(601, 60);
+            this.nu_vbase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_vbase.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_vbase.Name = "nu_vbase";
+            this.nu_vbase.Size = new System.Drawing.Size(77, 23);
+            this.nu_vbase.TabIndex = 144;
+            this.nu_vbase.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.nu_vbase.ValueChanged += new System.EventHandler(this.vbase_ValueChanged);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(599, 46);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 12);
+            this.label7.TabIndex = 143;
+            this.label7.Text = "Vbase";
             // 
             // nu_test_cnt
             // 
@@ -797,58 +1021,6 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Vout (V) (begin)";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 80;
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Vout (after)";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 95;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Rise time (us)";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Slew Rate (mV/us)";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Fall time (us)";
-            this.Column3.Name = "Column3";
-            // 
-            // Column5
-            // 
-            this.Column5.HeaderText = "Slew Rate (mV/us)";
-            this.Column5.Name = "Column5";
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "Vmax (V) ";
-            this.Column6.Name = "Column6";
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Vmin (V)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Vrise_point (V)";
-            this.Column9.Name = "Column9";
-            // 
-            // Column10
-            // 
-            this.Column10.HeaderText = "Vfall_point (V)";
-            this.Column10.Name = "Column10";
-            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -875,6 +1047,11 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vmax)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_diff)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vtop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_vbase)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_test_cnt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -961,5 +1138,15 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
+        private System.Windows.Forms.NumericUpDown nu_vtop;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.NumericUpDown nu_vbase;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.NumericUpDown nu_diff;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.NumericUpDown nu_vmin;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.NumericUpDown nu_vmax;
     }
 }
