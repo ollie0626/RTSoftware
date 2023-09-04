@@ -285,7 +285,7 @@ namespace SoftStartTiming
             //InsControl._oscilloscope.SetTimeOutTriggerCHx(1);
             InsControl._oscilloscope.SetTimeOutTime(5 * Math.Pow(10, -12));
             InsControl._oscilloscope.DoCommand("TRIGger:A:EDGE:SLOpe EITher");
-            InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1");
+            InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1.2");
             //InsControl._oscilloscope.SetTimeOutEither();
 
             InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.7);
@@ -348,7 +348,7 @@ namespace SoftStartTiming
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
             InsControl._oscilloscope.SetREFLevelMethod(meas_rising, false);
             InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
-            InsControl._oscilloscope.SetTriggerRise();
+            //InsControl._oscilloscope.SetTriggerRise();
             //InsControl._oscilloscope.SetCursorMode();
             InsControl._oscilloscope.SetCursorWaveform();
             InsControl._oscilloscope.SetCursorOn();
@@ -440,7 +440,7 @@ namespace SoftStartTiming
             Scope_Task_Setting(meas_falling, vout, vout_af);
 
             IOStateSetting(next_state);
-            InsControl._oscilloscope.SetTriggerFall();
+            //InsControl._oscilloscope.SetTriggerFall();
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
@@ -489,7 +489,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
 
-                vmin = InsControl._oscilloscope.MeasureMean(meas_vmax);
+                vmin = InsControl._oscilloscope.MeasureMean(meas_vmin);
                 vmin_list.Add(vmin);
 
                 // get delta T
@@ -1125,7 +1125,7 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.D] = "LINK";
                         _sheet.Cells[row, XLS_Table.E] = vin;
                         _sheet.Cells[row, XLS_Table.F] = vout + "->" + vout_af;
-                        _sheet.Cells[row, XLS_Table.G] = spec_hi + "->" + spec_lo;
+                        _sheet.Cells[row, XLS_Table.G] = vout + "->" + vout;
                         _sheet.Cells[row, XLS_Table.H] = iout;
                         _sheet.Cells[row, XLS_Table.I] = rise_spec;
                         _sheet.Cells[row, XLS_Table.J] = sr_rise;
@@ -1143,7 +1143,7 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.K] = rise_time_list.Min();
+                        _sheet.Cells[row, XLS_Table.K] = rise_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.L] = slewrate_list.Min();
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
 
@@ -1161,7 +1161,7 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.O] = fall_time_list.Min();
+                        _sheet.Cells[row, XLS_Table.O] = fall_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.P] = slewrate_list.Min();
                         _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
 
@@ -1173,6 +1173,9 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
                         _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min();
+
+
+                        _sheet.Cells[row, XLS_Table.F] = vmin_list.Max() + "->" + vmax_list.Max();
 
 #endif
                         //-----------------------------------------------------------------------------------------

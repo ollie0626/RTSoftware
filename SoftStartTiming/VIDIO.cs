@@ -217,8 +217,8 @@ namespace SoftStartTiming
                 criteria_container.overshoot = Convert.ToDouble((string)dataGridView1[6, i].Value);          // overshoot (spec)
                 criteria_container.undershoot = Convert.ToDouble((string)dataGridView1[7, i].Value);          // undershoot (spec)
 
-                criteria_container.hi = Convert.ToDouble((string)dataGridView1[7, i].Value);
-                criteria_container.lo = Convert.ToDouble((string)dataGridView1[8, i].Value);
+                criteria_container.hi = Convert.ToDouble((string)dataGridView1[8, i].Value);
+                criteria_container.lo = Convert.ToDouble((string)dataGridView1[9, i].Value);
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
