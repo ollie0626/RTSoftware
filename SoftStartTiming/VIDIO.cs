@@ -16,6 +16,7 @@ using System.Diagnostics;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
+using Microsoft.Win32;
 
 namespace SoftStartTiming
 {
@@ -152,7 +153,7 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            VIDIO_Criteria_parameter criteria_container = new VIDIO_Criteria_parameter();
+            
 
             test_parameter.vidio.vout_list.Clear();
 
@@ -184,12 +185,6 @@ namespace SoftStartTiming
 
                 test_parameter.vidio.io_table.Add(temp);
                 test_parameter.vidio.vout_map.Add(dataGridView2[3, idx].Value, temp);
-
-                //if (Convert.ToDouble(dataGridView2[3, idx].Value) != 0)
-                //    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
-                //else
-                //    test_parameter.vidio.vout_map.Add(Convert.ToDouble(dataGridView2[3, idx].Value), temp);
-                //test_parameter.vidio.lpm_vout_map.Add((double)dataGridView2[3, idx].Value, temp);
             }
 
 
@@ -201,6 +196,7 @@ namespace SoftStartTiming
 
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
+                VIDIO_Criteria_parameter criteria_container = new VIDIO_Criteria_parameter();
                 criteria_container.vout_begin = dataGridView1[0, i].Value;          // vout start
                 criteria_container.vout_end = dataGridView1[1, i].Value;            // vout end
                 criteria_container.rise_time = dataGridView1[2, i].Value;           // rise time
@@ -212,6 +208,9 @@ namespace SoftStartTiming
 
                 criteria_container.hi = Convert.ToDouble((string)dataGridView1[8, i].Value);
                 criteria_container.lo = Convert.ToDouble((string)dataGridView1[9, i].Value);
+                if((string)dataGridView1[2, i].Value == "NA") criteria_container.sr_time_jd = false;
+
+
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
@@ -238,14 +237,19 @@ namespace SoftStartTiming
             {
                 for (int j = 0; j < dataGridView1.ColumnCount; j++)
                 {
-                    try
-                    {
-                        string tmp = (string)dataGridView1[j, i].Value;
-                    }
-                    catch
+
+                    if(dataGridView1[j, i].Value == null)
                     {
                         dataGridView1[j, i].Value = "NA";
                     }
+                    //try
+                    //{
+                    //    string tmp = (string)dataGridView1[j, i].Value;
+                    //}
+                    //catch
+                    //{
+                    //    dataGridView1[j, i].Value = "NA";
+                    //}
                 }
             }
         }
@@ -769,6 +773,12 @@ namespace SoftStartTiming
             nu_diff.Value = (decimal)(vtop - vbase);
             nu_vmax.Value = (decimal)(vtop * 1.05);
             nu_vmin.Value = (decimal)(vbase * 1.05);
+
+
+            numericUpDown1.Value = (decimal)(vtop - ((double)nu_diff.Value * 0.2));
+            numericUpDown2.Value = (decimal)(vbase + ((double)nu_diff.Value * 0.2));
+
+
         }
     }
 
@@ -806,6 +816,10 @@ namespace SoftStartTiming
 
         public double hi;
         public double lo;
+
+
+        public bool sr_time_jd;
+
     }
 
 

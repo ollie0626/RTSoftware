@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SoftStartTiming
@@ -241,10 +242,10 @@ namespace SoftStartTiming
                 {
                     double delta_v = vout_af - vout;
                     double parameter = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise) / 1000;
-                    time_scale = ((delta_v / parameter) / 2) * Math.Pow(10, -6);
+                    time_scale = ((delta_v / parameter)) * Math.Pow(10, -6);
                 }
 
-                InsControl._oscilloscope.SetTimeScale(time_scale);
+                InsControl._oscilloscope.SetTimeScale(time_scale / 2);
                 InsControl._oscilloscope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
@@ -253,16 +254,16 @@ namespace SoftStartTiming
             {
                 if ((string)test_parameter.vidio.criteria[case_idx].fall_time != "NA")
                 {
-                    time_scale = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
+                    time_scale = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time) * Math.Pow(10, -6);
                 }
                 else
                 {
                     double delta_v = vout_af - vout;
                     double parameter = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall) / 1000;
-                    time_scale = ((delta_v / parameter) / 2) * Math.Pow(10, -6);
+                    time_scale = ((delta_v / parameter)) * Math.Pow(10, -6);
                 }
 
-                InsControl._oscilloscope.SetTimeScale(time_scale);
+                InsControl._oscilloscope.SetTimeScale(time_scale / 2);
                 InsControl._oscilloscope.DoCommand("HORizontal:ROLL OFF");
                 InsControl._oscilloscope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._oscilloscope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
@@ -348,6 +349,7 @@ namespace SoftStartTiming
 
             if (overshoot_en)
             {
+                InsControl._oscilloscope.SetCursorOff();
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
@@ -391,7 +393,7 @@ namespace SoftStartTiming
                 {
                     rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
-                    slew_rate = rise_time / InsControl._oscilloscope.GetCursorHBarDelta();
+                    slew_rate = InsControl._oscilloscope.GetCursorHBarDelta() / rise_time;
                     slewrate_list.Add(slew_rate);
                     rise_time_list.Add(rise_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
@@ -407,7 +409,7 @@ namespace SoftStartTiming
 
             if (overshoot_en)
             {
-                InsControl._oscilloscope.SetCursorOff();
+                
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_overshoot");
@@ -446,6 +448,7 @@ namespace SoftStartTiming
 
             if (undershoot_en)
             {
+                InsControl._oscilloscope.SetCursorOff();
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
@@ -489,7 +492,7 @@ namespace SoftStartTiming
                 {
                     fall_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
-                    slew_rate = fall_time / InsControl._oscilloscope.GetCursorHBarDelta();
+                    slew_rate = Math.Abs(InsControl._oscilloscope.GetCursorHBarDelta() / fall_time);
                     slewrate_list.Add(slew_rate);
                     fall_time_list.Add(fall_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
@@ -505,7 +508,7 @@ namespace SoftStartTiming
 
             if (undershoot_en)
             {
-                InsControl._oscilloscope.SetCursorOff();
+                //InsControl._oscilloscope.SetCursorOff();
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_undershoot");
@@ -563,13 +566,13 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.F] = "Vout Change (V)";
             _sheet.Cells[row, XLS_Table.G] = "VID spec (V)";
             _sheet.Cells[row, XLS_Table.H] = "Iout (A)";
-            _sheet.Cells[row, XLS_Table.I] = "Rise SR spec (us/V)";
+            _sheet.Cells[row, XLS_Table.I] = "Rise SR spec (V/us)";
             _sheet.Cells[row, XLS_Table.J] = "Rise Time spec (us)";
-            _sheet.Cells[row, XLS_Table.K] = "Rise SR (us/V)";
+            _sheet.Cells[row, XLS_Table.K] = "Rise SR (V/us)";
             _sheet.Cells[row, XLS_Table.L] = "Rise Time (us)";
-            _sheet.Cells[row, XLS_Table.M] = "Fall SR spec (us/V)";
+            _sheet.Cells[row, XLS_Table.M] = "Fall SR spec (V/us)";
             _sheet.Cells[row, XLS_Table.N] = "Fall Time spec (us)";
-            _sheet.Cells[row, XLS_Table.O] = "Fall SR (us/V)";
+            _sheet.Cells[row, XLS_Table.O] = "Fall SR (V/us)";
             _sheet.Cells[row, XLS_Table.P] = "Fall Time (us)";
             _sheet.Cells[row, XLS_Table.Q] = "Vmax spec (V)"; // overshoot vol (1.05)
             _sheet.Cells[row, XLS_Table.R] = "Vmax (V)";
@@ -631,10 +634,10 @@ namespace SoftStartTiming
                         double spec_hi = test_parameter.vidio.criteria[case_idx].spec_hi;
                         double spec_lo = test_parameter.vidio.criteria[case_idx].spec_lo;
                         double iout = test_parameter.IoutList[iout_idx];
-                        double rise_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
-                        double sr_rise = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
-                        double fall_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
-                        double sr_fall = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
+                        //double rise_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
+                        //double sr_rise = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
+                        //double fall_spec = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
+                        //double sr_fall = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
                         double vmax = test_parameter.vidio.criteria[case_idx].overshoot;
                         double vmin = test_parameter.vidio.criteria[case_idx].undershoot;
 
@@ -642,12 +645,12 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.D] = "LINK";
                         _sheet.Cells[row, XLS_Table.E] = vin;
                         _sheet.Cells[row, XLS_Table.F] = vout + "->" + vout_af;
-                        _sheet.Cells[row, XLS_Table.G] = vout + "->" + vout;
+                        _sheet.Cells[row, XLS_Table.G] = vmin + "->" + vmax;
                         _sheet.Cells[row, XLS_Table.H] = iout;
-                        _sheet.Cells[row, XLS_Table.I] = rise_spec;
-                        _sheet.Cells[row, XLS_Table.J] = sr_rise;
-                        _sheet.Cells[row, XLS_Table.I] = fall_spec;
-                        _sheet.Cells[row, XLS_Table.J] = sr_fall;
+                        _sheet.Cells[row, XLS_Table.I] = (string)test_parameter.vidio.criteria[case_idx].rise_time;
+                        _sheet.Cells[row, XLS_Table.J] = (string)test_parameter.vidio.criteria[case_idx].sr_rise;
+                        _sheet.Cells[row, XLS_Table.M] = (string)test_parameter.vidio.criteria[case_idx].fall_time;
+                        _sheet.Cells[row, XLS_Table.N] = (string)test_parameter.vidio.criteria[case_idx].sr_fall;
                         _sheet.Cells[row, XLS_Table.Q] = vmax;
                         _sheet.Cells[row, XLS_Table.S] = vmin;
 #endif
@@ -660,8 +663,8 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.K] = rise_time_list.Min() * Math.Pow(10, 6);
-                        _sheet.Cells[row, XLS_Table.L] = slewrate_list.Min();
+                        _sheet.Cells[row, XLS_Table.K] = slewrate_list.Min() * Math.Pow(10, -3);
+                        _sheet.Cells[row, XLS_Table.L] = rise_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
 
                         SlewRate_Rise_Task(case_idx, true);         // overshoot
@@ -678,8 +681,8 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.O] = fall_time_list.Min() * Math.Pow(10, 6);
-                        _sheet.Cells[row, XLS_Table.P] = slewrate_list.Min();
+                        _sheet.Cells[row, XLS_Table.O] = slewrate_list.Min() * Math.Pow(10, -3);
+                        _sheet.Cells[row, XLS_Table.P] = fall_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
 
 
@@ -690,11 +693,48 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
                         _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min();
-                        _sheet.Cells[row, XLS_Table.F] = vmin_list.Max() + "->" + vmax_list.Max();
+                        //_sheet.Cells[row, XLS_Table.F] = vmin_list.Max() + "->" + vmax_list.Max();
 
 #endif
                         //-----------------------------------------------------------------------------------------
 #if Report_en
+
+                        double vmax_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.R].Value);
+                        double vmin_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.T].Value);
+                        bool judge_vol = vmax_res > vmax | vmin_res < vmin_res ? false : true;
+
+                        if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
+                        {
+                            // slew rate judege
+                            double rise_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
+                            double fall_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
+                            double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
+                            double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
+                            bool judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? false : true;
+
+                            bool judge  = judge_sr & judge_vol;
+
+                            _range = _sheet.Cells[row, XLS_Table.W];
+                            _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                            _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        }
+                        else
+                        {
+                            // rise / fall judege
+                            double rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
+                            double fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
+                            double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
+                            double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
+                            bool judge_time = (rise_res > rise_time | fall_res > fall_time) ? false : true;
+
+                            bool judge = judge_time & judge_vol;
+
+                            _range = _sheet.Cells[row, XLS_Table.W];
+                            _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                            _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        }
+
+
 
                         //    _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
                         //    _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
@@ -765,3 +805,4 @@ namespace SoftStartTiming
 
     }
 }
+

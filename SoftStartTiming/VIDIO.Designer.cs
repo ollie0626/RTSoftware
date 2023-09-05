@@ -74,6 +74,8 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.nu_vmin = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -117,6 +119,8 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmax)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_diff)).BeginInit();
@@ -559,6 +563,8 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.numericUpDown2);
+            this.tabPage2.Controls.Add(this.numericUpDown1);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.nu_vmin);
             this.tabPage2.Controls.Add(this.label12);
@@ -590,6 +596,46 @@ namespace SoftStartTiming
             this.tabPage2.Size = new System.Drawing.Size(872, 560);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DecimalPlaces = 3;
+            this.numericUpDown2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown2.Location = new System.Drawing.Point(688, 139);
+            this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown2.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(77, 23);
+            this.numericUpDown2.TabIndex = 154;
+            this.numericUpDown2.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DecimalPlaces = 3;
+            this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.numericUpDown1.Location = new System.Drawing.Point(601, 139);
+            this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.numericUpDown1.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(77, 23);
+            this.numericUpDown1.TabIndex = 153;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
             // 
             // label13
             // 
@@ -654,9 +700,9 @@ namespace SoftStartTiming
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(599, 86);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(28, 12);
+            this.label11.Size = new System.Drawing.Size(26, 12);
             this.label11.TabIndex = 148;
-            this.label11.Text = "Diff";
+            this.label11.Text = "Sub";
             // 
             // nu_diff
             // 
@@ -1047,6 +1093,8 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmax)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_diff)).EndInit();
@@ -1148,5 +1196,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_vmin;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.NumericUpDown nu_vmax;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
     }
 }
