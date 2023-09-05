@@ -153,10 +153,7 @@ namespace SoftStartTiming
 
         private void test_parameter_copy()
         {
-            
-
             test_parameter.vidio.vout_list.Clear();
-
             test_parameter.vidio.vout_list_af.Clear();
             test_parameter.vidio.vout_map.Clear();
             test_parameter.vidio.io_table.Clear();
@@ -187,7 +184,6 @@ namespace SoftStartTiming
                 test_parameter.vidio.vout_map.Add(dataGridView2[3, idx].Value, temp);
             }
 
-
             for (int i = 0; i < dataGridView1.RowCount; i++)
             {
                 test_parameter.vidio.vout_list.Add(dataGridView1[0, i].Value);
@@ -210,7 +206,10 @@ namespace SoftStartTiming
                 criteria_container.lo = Convert.ToDouble((string)dataGridView1[9, i].Value);
                 if((string)dataGridView1[2, i].Value == "NA") criteria_container.sr_time_jd = false;
 
-
+                if (dataGridView1[0, i].Value.ToString().IndexOf("LPM") != -1)
+                    criteria_container.lpm_en = true;
+                else
+                    criteria_container.lpm_en = false;
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
@@ -242,14 +241,6 @@ namespace SoftStartTiming
                     {
                         dataGridView1[j, i].Value = "NA";
                     }
-                    //try
-                    //{
-                    //    string tmp = (string)dataGridView1[j, i].Value;
-                    //}
-                    //catch
-                    //{
-                    //    dataGridView1[j, i].Value = "NA";
-                    //}
                 }
             }
         }
@@ -817,9 +808,8 @@ namespace SoftStartTiming
         public double hi;
         public double lo;
 
-
         public bool sr_time_jd;
-
+        public bool lpm_en;
     }
 
 

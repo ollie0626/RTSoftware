@@ -46,6 +46,7 @@ namespace SoftStartTiming
         int meas_falling = 2;
         int meas_vmax = 3;
         int meas_vmin = 4;
+        int meas_delay = 5;
 
 
         public delegate void FinishNotification();
@@ -136,100 +137,19 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetTimeBasePosition(25);
         }
 
-        private void CursorAdjust(int case_idx)
-        {
-            //double vout = test_parameter.vidio.vout_list[case_idx];
-            //double vout_af = test_parameter.vidio.vout_list_af[case_idx];
-
-            double vout = 0;
-            double vout_af = 0;
-
-
-            try
-            {
-                vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
-            }
-            catch
-            {
-                vout = 0;
-            }
-
-            try
-            {
-                vout_af = Convert.ToDouble(test_parameter.vidio.vout_list_af[case_idx]);
-            }
-            catch
-            {
-                vout_af = 0;
-            }
-
-            bool diff = Math.Abs(vout - vout_af) > 0.13 ? true : false;
-            bool rising_en = vout < vout_af ? true : false;
-            diff = (vout == 0 || vout_af == 0) ? false : true;
-
-            double x1 = 0, x2 = 0;
-
-            if (diff)
-            {
-                // > 130mV: 20% to 80%
-                //InsControl._oscilloscope.SetREFLevelMethod(1);
-                //InsControl._oscilloscope.SetREFLevel(80, 50, 20, 1);
-
-                InsControl._oscilloscope.SetCursorMode();
-                InsControl._oscilloscope.SetCursorWaveform();
-
-                MyLib.Delay1ms(100);
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                MyLib.Delay1ms(100);
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                MyLib.Delay1ms(100);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                MyLib.Delay1ms(100);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                MyLib.Delay1ms(100);
-            }
-            else
-            {
-                // < 130mV: 0% to 100%
-                // get 0% position
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                MyLib.Delay1ms(100);
-                x1 = InsControl._oscilloscope.GetAnnotationXn(1);
-                MyLib.Delay1ms(100);
-
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-                MyLib.Delay1ms(100);
-                x2 = InsControl._oscilloscope.GetAnnotationXn(2);
-
-                double high = rising_en ? vout_af : vout;
-                double mid = Math.Abs(vout - vout_af) + (rising_en ? vout : vout_af);
-                double low = rising_en ? vout : vout_af;
-            }
-
-            InsControl._oscilloscope.SetCursorMode();
-            InsControl._oscilloscope.SetCursorOn();
-            MyLib.Delay1ms(300);
-            InsControl._oscilloscope.SetCursorSource(1, 1);
-            InsControl._oscilloscope.SetCursorSource(2, 1);
-            MyLib.Delay1ms(300);
-            InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
-            MyLib.Delay1ms(100);
-            InsControl._oscilloscope.SetCursorScreenYpos(diff ? vout * 0.8 : vout, diff ? vout_af * 0.2 : vout_af);
-            MyLib.Delay1ms(100);
-        }
-
         private void Initial_TimeScale(bool rising_en, int case_idx)
         {
             double time_scale = 5;
             double vout = 0;
             double vout_af = 0;
-            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
-            vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
 
+
+            if (test_parameter.vidio.criteria[case_idx].lpm_en) 
+                vout = 0;
+            else 
+                vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+
+            vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
 
             if (rising_en)
             {
@@ -270,7 +190,6 @@ namespace SoftStartTiming
             }
         }
 
-
         private bool TriggerStatus()
         {
             int cnt = 0;
@@ -305,8 +224,6 @@ namespace SoftStartTiming
             int next_G01 = (next & 0x06) >> 1;
             int res = initial_G01 ^ next_G01;
             int ch = 0;
-
-
             for(int i = 0; i < 2; i++)
             {
                 if((res & (0x01 << i)) != 0)
@@ -318,6 +235,13 @@ namespace SoftStartTiming
             InsControl._oscilloscope.DoCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch + 3));
         }
 
+        private void LPMTrigger(int meas_idx)
+        {
+            InsControl._oscilloscope.SetTriggerLevel(3, 1.2);
+            InsControl._oscilloscope.DoCommand("TRIGger:A:EDGE:SLOpe EITher");
+            InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1.2");
+            InsControl._oscilloscope.SetAnnotation(meas_idx);
+        }
 
         private void SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
@@ -328,7 +252,10 @@ namespace SoftStartTiming
 
             double vout = 0;
             double vout_af = 0;
-            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+            if (test_parameter.vidio.criteria[case_idx].lpm_en) 
+                vout = 0;
+            else
+                vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
             int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
             int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
@@ -347,6 +274,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetCursorOn();
             Initial_TimeScale(true, case_idx);
 
+
             if (overshoot_en)
             {
                 InsControl._oscilloscope.SetCursorOff();
@@ -356,7 +284,10 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
             }
 
-            GetTriggerSel(initial_state, next_state);
+            if (!test_parameter.vidio.criteria[case_idx].lpm_en) 
+                GetTriggerSel(initial_state, next_state);
+            else 
+                LPMTrigger(meas_rising);
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
@@ -426,10 +357,15 @@ namespace SoftStartTiming
 
             double vout = 0;
             double vout_af = 0;
-            vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                vout = 0;
+            else
+                vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
+
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
             int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
             int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
+
             Scope_Task_Setting(meas_falling, vout, vout_af);
 
             IOStateSetting(next_state);
@@ -455,7 +391,11 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
             }
 
-            GetTriggerSel(initial_state, next_state);
+            if (!test_parameter.vidio.criteria[case_idx].lpm_en) 
+                GetTriggerSel(initial_state, next_state);
+            else 
+                LPMTrigger(meas_falling);
+
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
                 double slew_rate = 0;
@@ -623,8 +563,10 @@ namespace SoftStartTiming
 
                         double vout = 0;
                         double vout_af = 0;
-
-                        vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                            vout = 0;
+                        else
+                            vout = Convert.ToDouble(test_parameter.vidio.vout_list[case_idx]);
                         vout_af = Convert.ToDouble(test_parameter.vidio.vout_list_af[case_idx]);
 
                         bool rising_en = vout < vout_af ? true : false;

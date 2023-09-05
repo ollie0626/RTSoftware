@@ -601,7 +601,7 @@ namespace SoftStartTiming
             // 
             this.numericUpDown2.DecimalPlaces = 3;
             this.numericUpDown2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(688, 139);
+            this.numericUpDown2.Location = new System.Drawing.Point(696, 108);
             this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             6000,
@@ -621,7 +621,7 @@ namespace SoftStartTiming
             // 
             this.numericUpDown1.DecimalPlaces = 3;
             this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(601, 139);
+            this.numericUpDown1.Location = new System.Drawing.Point(609, 108);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             6000,
@@ -640,7 +640,7 @@ namespace SoftStartTiming
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(769, 87);
+            this.label13.Location = new System.Drawing.Point(777, 56);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(27, 12);
             this.label13.TabIndex = 152;
@@ -650,7 +650,7 @@ namespace SoftStartTiming
             // 
             this.nu_vmin.DecimalPlaces = 3;
             this.nu_vmin.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vmin.Location = new System.Drawing.Point(771, 101);
+            this.nu_vmin.Location = new System.Drawing.Point(779, 70);
             this.nu_vmin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vmin.Maximum = new decimal(new int[] {
             6000,
@@ -669,7 +669,7 @@ namespace SoftStartTiming
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(686, 86);
+            this.label12.Location = new System.Drawing.Point(694, 55);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(29, 12);
             this.label12.TabIndex = 150;
@@ -679,7 +679,7 @@ namespace SoftStartTiming
             // 
             this.nu_vmax.DecimalPlaces = 3;
             this.nu_vmax.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vmax.Location = new System.Drawing.Point(688, 100);
+            this.nu_vmax.Location = new System.Drawing.Point(696, 69);
             this.nu_vmax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vmax.Maximum = new decimal(new int[] {
             6000,
@@ -698,7 +698,7 @@ namespace SoftStartTiming
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(599, 86);
+            this.label11.Location = new System.Drawing.Point(607, 55);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 12);
             this.label11.TabIndex = 148;
@@ -708,7 +708,7 @@ namespace SoftStartTiming
             // 
             this.nu_diff.DecimalPlaces = 3;
             this.nu_diff.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_diff.Location = new System.Drawing.Point(601, 100);
+            this.nu_diff.Location = new System.Drawing.Point(609, 69);
             this.nu_diff.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_diff.Maximum = new decimal(new int[] {
             6000,
@@ -728,7 +728,7 @@ namespace SoftStartTiming
             // 
             this.nu_vtop.DecimalPlaces = 3;
             this.nu_vtop.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vtop.Location = new System.Drawing.Point(688, 60);
+            this.nu_vtop.Location = new System.Drawing.Point(696, 29);
             this.nu_vtop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vtop.Maximum = new decimal(new int[] {
             6000,
@@ -748,7 +748,7 @@ namespace SoftStartTiming
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(686, 46);
+            this.label8.Location = new System.Drawing.Point(694, 15);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(32, 12);
             this.label8.TabIndex = 145;
@@ -758,7 +758,7 @@ namespace SoftStartTiming
             // 
             this.nu_vbase.DecimalPlaces = 3;
             this.nu_vbase.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vbase.Location = new System.Drawing.Point(601, 60);
+            this.nu_vbase.Location = new System.Drawing.Point(609, 29);
             this.nu_vbase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vbase.Maximum = new decimal(new int[] {
             6000,
@@ -778,7 +778,7 @@ namespace SoftStartTiming
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(599, 46);
+            this.label7.Location = new System.Drawing.Point(607, 15);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 12);
             this.label7.TabIndex = 143;
