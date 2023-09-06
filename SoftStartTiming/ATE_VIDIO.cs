@@ -349,8 +349,6 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_delay");
                 }
 
-
-
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
                 MyLib.Delay1ms(50);
