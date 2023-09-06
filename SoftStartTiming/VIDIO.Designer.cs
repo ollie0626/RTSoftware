@@ -987,7 +987,7 @@ namespace SoftStartTiming
             this.nuDischarge.Size = new System.Drawing.Size(77, 23);
             this.nuDischarge.TabIndex = 137;
             this.nuDischarge.Value = new decimal(new int[] {
-            100,
+            10,
             0,
             0,
             0});

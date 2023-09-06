@@ -16,6 +16,7 @@ namespace InsLibDotNet
          * 
          * 0: Tektronix 7 series
          * 1: Agilent 9 series
+         * 2: R&S Scope
          * 
          */
         public int osc_sel;
@@ -30,13 +31,18 @@ namespace InsLibDotNet
         public OscilloscopesModule(string Addr)
         {
             LinkingIns(Addr);
-            if (doQueryIDN().Split(',')[0].IndexOf("TEKTRONIX") != -1)
+            string IDN_res = doQueryIDN().Split(',')[0];
+            if (IDN_res.IndexOf("TEKTRONIX") != -1)
             {
                 osc_sel = 0;
             }
-            else
+            else if(IDN_res.IndexOf("Keysight") != -1)
             {
                 osc_sel = 1;
+            }
+            else
+            {
+                osc_sel = 2;
             }
         }
 
@@ -77,6 +83,8 @@ namespace InsLibDotNet
                 case 1:
                     doCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandGnd\"");
                     break;
+                case 2:
+                    break;
             }
         }
 
@@ -87,6 +95,8 @@ namespace InsLibDotNet
                 case 0: break;
                 case 1:
                     doCommand("SYSTem:CONTrol \"ExpandAbout - 1 xpandCenter\"");
+                    break;
+                case 2:
                     break;
             }
         }
@@ -106,6 +116,8 @@ namespace InsLibDotNet
                 case 1:
                     doCommand(":RUN");
                     break;
+                case 2:
+                    break;
             }
         }
 
@@ -118,6 +130,8 @@ namespace InsLibDotNet
                     break;
                 case 1:
                     doCommand(":STOP");
+                    break;
+                case 2:
                     break;
             }
         }

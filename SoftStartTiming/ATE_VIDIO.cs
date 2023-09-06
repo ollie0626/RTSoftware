@@ -284,10 +284,21 @@ namespace SoftStartTiming
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
             InsControl._oscilloscope.SetREFLevelMethod(meas_rising, false);
             InsControl._oscilloscope.SetREFLevel(hi, lo + ((hi * lo) / 2), lo, meas_rising, false);
+
+
+            if(test_parameter.vidio.criteria[case_idx].lpm_en)
+            {
+                InsControl._oscilloscope.SetREFLevelMethod(meas_rising, true);
+                InsControl._oscilloscope.SetREFLevel(100, 50, 1, meas_rising, true);
+
+                InsControl._oscilloscope.SetDelayTime(meas_delay, 3, 1, true, true);
+                InsControl._oscilloscope.SetREFLevel(100, 50, 1, meas_delay, true);
+            }
+
+
             InsControl._oscilloscope.SetCursorWaveform();
             InsControl._oscilloscope.SetCursorOn();
             Initial_TimeScale(true, case_idx);
-
 
             if (overshoot_en)
             {
@@ -321,11 +332,30 @@ namespace SoftStartTiming
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
+                double x1 = 0;
+                double x2 = 0;
+
+
+                if (test_parameter.vidio.criteria[case_idx].lpm_en && repeat_idx == 0)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_delay);
+                    MyLib.Delay1ms(50);
+                    x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
+                    InsControl._oscilloscope.SetCursorSource(1, 3);
+                    InsControl._oscilloscope.SetCursorSource(2, 1);
+                    InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_delay");
+                }
+
+
+
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
                 MyLib.Delay1ms(50);
-                double x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
-                double x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
+                x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+                x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
 
                 InsControl._oscilloscope.SetCursorSource(1, 1);
                 InsControl._oscilloscope.SetCursorSource(2, 1);
@@ -415,7 +445,7 @@ namespace SoftStartTiming
             Initial_TimeScale(false, case_idx);
 
             if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                InsControl._oscilloscope.SetTimeScale(10 * Math.Pow(10, -3));
+                InsControl._oscilloscope.SetTimeScale(test_parameter.vidio.discharge_time * Math.Pow(10, -3));
 
             if (undershoot_en)
             {
