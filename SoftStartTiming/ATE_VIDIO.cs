@@ -42,7 +42,7 @@ namespace SoftStartTiming
         List<double> vmin_list = new List<double>();
         List<string> phase1_name = new List<string>();
         List<string> phase2_name = new List<string>();
-        
+
 
         int meas_rising = 1;
         int meas_falling = 2;
@@ -146,9 +146,9 @@ namespace SoftStartTiming
             double vout_af = 0;
 
 
-            if (test_parameter.vidio.criteria[case_idx].lpm_en) 
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
                 vout = 0;
-            else 
+            else
                 vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
 
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
@@ -156,7 +156,7 @@ namespace SoftStartTiming
             if (rising_en)
             {
                 // normal mode
-                if((string)test_parameter.vidio.criteria[case_idx].rise_time != "NA")
+                if ((string)test_parameter.vidio.criteria[case_idx].rise_time != "NA")
                 {
                     time_scale = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time) * Math.Pow(10, -6);
                 }
@@ -226,9 +226,9 @@ namespace SoftStartTiming
             int next_G01 = (next & 0x06) >> 1;
             int res = initial_G01 ^ next_G01;
             int ch = 0;
-            for(int i = 0; i < 2; i++)
+            for (int i = 0; i < 2; i++)
             {
-                if((res & (0x01 << i)) != 0)
+                if ((res & (0x01 << i)) != 0)
                 {
                     ch = i;
                     break;
@@ -254,7 +254,7 @@ namespace SoftStartTiming
 
             double vout = 0;
             double vout_af = 0;
-            if (test_parameter.vidio.criteria[case_idx].lpm_en) 
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
                 vout = 0;
             else
                 vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
@@ -271,7 +271,7 @@ namespace SoftStartTiming
             {
                 initial_state = test_parameter.vidio.vout_map[vout.ToString()];
             }
-                
+
             next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
 
             Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
@@ -298,9 +298,9 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
             }
 
-            if (!test_parameter.vidio.criteria[case_idx].lpm_en) 
+            if (!test_parameter.vidio.criteria[case_idx].lpm_en)
                 GetTriggerSel(initial_state, next_state);
-            else 
+            else
                 LPMTrigger(meas_rising);
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
@@ -320,7 +320,7 @@ namespace SoftStartTiming
                 IOStateSetting(next_state);
                 if (!TriggerStatus()) goto Trigger_Fail_retry;
                 InsControl._oscilloscope.SetStop();
-                if(repeat_idx == 0) MyLib.Delay1ms(200);
+                if (repeat_idx == 0) MyLib.Delay1ms(200);
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
                 MyLib.Delay1ms(50);
@@ -335,7 +335,7 @@ namespace SoftStartTiming
                 vmax_list.Add(vmax);
 
                 // get delta T
-                if(!overshoot_en)
+                if (!overshoot_en)
                 {
                     rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
@@ -362,7 +362,7 @@ namespace SoftStartTiming
 
             if (overshoot_en)
             {
-                
+
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_overshoot");
@@ -426,9 +426,9 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
             }
 
-            if (!test_parameter.vidio.criteria[case_idx].lpm_en) 
+            if (!test_parameter.vidio.criteria[case_idx].lpm_en)
                 GetTriggerSel(initial_state, next_state);
-            else 
+            else
                 LPMTrigger(meas_falling);
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
@@ -670,7 +670,7 @@ namespace SoftStartTiming
 
                         _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max();
                         // --------------------------------------------------------------------------------------------------------
-                        
+
                         SlewRate_Fall_Task(case_idx);
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
                         _range = _sheet.Range["AU" + (wave_row + 2), "BC" + (wave_row + 25)];
@@ -708,10 +708,10 @@ namespace SoftStartTiming
                             double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
                             bool judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? false : true;
 
-                            bool judge  = judge_sr & judge_vol;
+                            bool judge = judge_sr & judge_vol;
 
 
-                            if(test_parameter.vidio.criteria[case_idx].lpm_en)
+                            if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
                                 _range = _sheet.Cells[row, XLS_Table.X];
                                 _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
@@ -736,7 +736,7 @@ namespace SoftStartTiming
 
                             bool judge = judge_time & judge_vol;
 
-                            if(test_parameter.vidio.criteria[case_idx].lpm_en)
+                            if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
                                 _range = _sheet.Cells[row, XLS_Table.X];
                                 _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
