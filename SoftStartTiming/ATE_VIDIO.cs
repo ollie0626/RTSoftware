@@ -661,7 +661,7 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.L] = rise_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                            _sheet.Cells[row, XLS_Table.W] = delay_list.Max();
+                            _sheet.Cells[row, XLS_Table.X] = delay_list.Max() * Math.Pow(10, 6);
 
                         SlewRate_Rise_Task(case_idx, true);         // overshoot
                         string shoot_max = test_parameter.waveform_name + "_overshoot";
