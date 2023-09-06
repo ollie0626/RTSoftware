@@ -222,7 +222,7 @@ namespace SoftStartTiming
                                 dataGridView1.RowCount;
 
             progressBar2.Maximum = program_max;
-            test_parameter.vidio.discharge_time = ((double)(nuDischarge.Value / 4) * Math.Pow(10, -3));
+            test_parameter.vidio.discharge_time = (double)(nuDischarge.Value);
             test_parameter.vidio.discharge_load = (double)nuDisLoad.Value;
             test_parameter.vidio.test_cnt = (int)nu_test_cnt.Value;
         }

@@ -37,6 +37,7 @@ namespace SoftStartTiming
         List<double> rise_time_list = new List<double>();
         List<double> fall_time_list = new List<double>();
         List<double> delay_list = new List<double>();
+        List<double> delay100_list = new List<double>();
 
         List<double> vmax_list = new List<double>();
         List<double> vmin_list = new List<double>();
@@ -49,6 +50,7 @@ namespace SoftStartTiming
         int meas_vmax = 3;
         int meas_vmin = 4;
         int meas_delay = 5;
+        int meas_delay100 = 6;
 
 
         public delegate void FinishNotification();
@@ -144,7 +146,6 @@ namespace SoftStartTiming
             double time_scale = 5;
             double vout = 0;
             double vout_af = 0;
-
 
             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                 vout = 0;
@@ -251,6 +252,7 @@ namespace SoftStartTiming
             slewrate_list.Clear();
             rise_time_list.Clear();
             overshoot_list.Clear();
+            delay100_list.Clear();
 
             double vout = 0;
             double vout_af = 0;
@@ -291,8 +293,15 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetREFLevelMethod(meas_rising, true);
                 InsControl._oscilloscope.SetREFLevel(100, 50, 1, meas_rising, true);
 
+                InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 8", meas_delay));
+                InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID100 8", meas_delay100));
                 InsControl._oscilloscope.SetDelayTime(meas_delay, 3, 1, true, true);
-                InsControl._oscilloscope.SetREFLevel(100, 50, 1, meas_delay, true);
+                InsControl._oscilloscope.SetDelayTime(meas_delay100, 3, 1, true, true);
+                InsControl._oscilloscope.SetAnnotation(meas_delay);
+                MyLib.Delay1ms(100);
+                InsControl._oscilloscope.SetAnnotation(meas_delay);
+                InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
+                InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
             }
 
 
@@ -306,6 +315,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
+                InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
                 MyLib.Delay1ms(500);
             }
 
@@ -320,6 +330,7 @@ namespace SoftStartTiming
                 double rise_time = 0;
                 double vmax = 0;
                 double delay = 0;
+                double delay100 = 0;
 
             Trigger_Fail_retry:
                 IOStateSetting(initial_state);
@@ -336,25 +347,30 @@ namespace SoftStartTiming
                 double x2 = 0;
 
 
-                if (test_parameter.vidio.criteria[case_idx].lpm_en && repeat_idx == 0)
+                if (test_parameter.vidio.criteria[case_idx].lpm_en && repeat_idx == 0 && !overshoot_en)
                 {
                     InsControl._oscilloscope.SetAnnotation(meas_delay);
-                    MyLib.Delay1ms(50);
+                    MyLib.Delay1ms(500);
                     x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
-                    InsControl._oscilloscope.SetCursorSource(1, 3);
-                    InsControl._oscilloscope.SetCursorSource(2, 1);
+                    InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
+                    InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
-
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_delay");
                 }
 
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_rising);
-                MyLib.Delay1ms(50);
+                InsControl._oscilloscope.SetAnnotation(meas_rising);
+                if(overshoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
+                if (repeat_idx == 0) MyLib.Delay1ms(500);
+                else MyLib.Delay1ms(50);
+
                 x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                 x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
 
+                InsControl._oscilloscope.SetCursorSource(1, 1);
+                InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorSource(1, 1);
                 InsControl._oscilloscope.SetCursorSource(2, 1);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
@@ -373,6 +389,9 @@ namespace SoftStartTiming
                     {
                         delay = InsControl._oscilloscope.MeasureMean(meas_delay);
                         delay_list.Add(delay);
+
+                        delay100 = InsControl._oscilloscope.MeasureMean(meas_delay100);
+                        delay100_list.Add(delay100);
                     }
 
                     slewrate_list.Add(slew_rate);
@@ -442,6 +461,13 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetCursorOn();
             Initial_TimeScale(false, case_idx);
 
+
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
+            {
+                InsControl._oscilloscope.SetREFLevelMethod(meas_falling, true);
+                InsControl._oscilloscope.SetREFLevel(100, 50, 1, meas_falling, true);
+            }
+
             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                 InsControl._oscilloscope.SetTimeScale(test_parameter.vidio.discharge_time * Math.Pow(10, -3));
 
@@ -451,6 +477,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetPERSistence();
                 InsControl._oscilloscope.SetNormalTrigger();
                 InsControl._oscilloscope.SetClear();
+                InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
                 MyLib.Delay1ms(500);
             }
 
@@ -473,12 +500,20 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(100);
 
                 IOStateSetting(initial_state);
-                if (!TriggerStatus()) goto Trigger_Fail_retry;
+                if (!TriggerStatus())
+                {
+                    IOStateSetting(next_state);
+                    InsControl._oscilloscope.SetClear();
+                    goto Trigger_Fail_retry;
+                }
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
 
                 // set cursor position
                 InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+
+                if(undershoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
                 double x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                 double x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
                 //InsControl._oscilloscope.SetCursorMode();
@@ -586,9 +621,10 @@ namespace SoftStartTiming
 
             if (test_parameter.vidio.criteria[0].lpm_en)
             {
-                _sheet.Cells[row, XLS_Table.W] = "Delay time (us)";
-                _sheet.Cells[row, XLS_Table.X] = "Result";
-                _range = _sheet.Range["C" + row, "X" + row];
+                _sheet.Cells[row, XLS_Table.W] = "Delay time (LPM->vout)";
+                _sheet.Cells[row, XLS_Table.X] = "Delay time (LPM->100%)";
+                _sheet.Cells[row, XLS_Table.Y] = "Result";
+                _range = _sheet.Range["C" + row, "Y" + row];
                 _range.Interior.Color = Color.FromArgb(124, 252, 0);
                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             }
@@ -689,7 +725,13 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.L] = rise_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                            _sheet.Cells[row, XLS_Table.X] = delay_list.Max() * Math.Pow(10, 6);
+                        {
+                            //_sheet.Cells[row, XLS_Table.W] = "Delay time (LPM->vout)";
+                            //_sheet.Cells[row, XLS_Table.X] = "Delay time (LPM->100%)";
+                            _sheet.Cells[row, XLS_Table.W] = delay_list.Max() * Math.Pow(10, 6);
+                            _sheet.Cells[row, XLS_Table.X] = delay100_list.Max() * Math.Pow(10, 6);
+                        }
+                            
 
                         SlewRate_Rise_Task(case_idx, true);         // overshoot
                         string shoot_max = test_parameter.waveform_name + "_overshoot";
@@ -741,8 +783,9 @@ namespace SoftStartTiming
 
                             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
-                                _range = _sheet.Cells[row, XLS_Table.X];
-                                _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
+                                judge = judge & (delay100_list.Max() < 120);
+                                _range = _sheet.Cells[row, XLS_Table.Y];
+                                _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
                                 _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
                             }
                             else
@@ -766,8 +809,9 @@ namespace SoftStartTiming
 
                             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
-                                _range = _sheet.Cells[row, XLS_Table.X];
-                                _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
+                                judge = judge & (delay100_list.Max() < 120);
+                                _range = _sheet.Cells[row, XLS_Table.Y];
+                                _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
                                 _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
                             }
                             else
