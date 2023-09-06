@@ -587,8 +587,6 @@ namespace SoftStartTiming
                             InsControl._oscilloscope.SetDelayTime(meas_delay, 3, 1);
                         }
 
-
-
                         updateMain.UpdateProgressBar(++progress);
                         phase1_name.Clear();
                         phase2_name.Clear();
@@ -712,9 +710,20 @@ namespace SoftStartTiming
 
                             bool judge  = judge_sr & judge_vol;
 
-                            _range = _sheet.Cells[row, XLS_Table.W];
-                            _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                            _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+
+                            if(test_parameter.vidio.criteria[case_idx].lpm_en)
+                            {
+                                _range = _sheet.Cells[row, XLS_Table.X];
+                                _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
+                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                            }
+                            else
+                            {
+                                _range = _sheet.Cells[row, XLS_Table.W];
+                                _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                            }
+
                         }
                         else
                         {
@@ -727,13 +736,19 @@ namespace SoftStartTiming
 
                             bool judge = judge_time & judge_vol;
 
-                            _range = _sheet.Cells[row, XLS_Table.W];
-                            _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                            _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                            if(test_parameter.vidio.criteria[case_idx].lpm_en)
+                            {
+                                _range = _sheet.Cells[row, XLS_Table.X];
+                                _sheet.Cells[row, XLS_Table.X] = judge ? "Pass" : "Fail";
+                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                            }
+                            else
+                            {
+                                _range = _sheet.Cells[row, XLS_Table.W];
+                                _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                            }
                         }
-
-
-
                         //    _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
                         //    _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
 
