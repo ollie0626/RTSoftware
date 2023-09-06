@@ -36,11 +36,13 @@ namespace SoftStartTiming
 
         List<double> rise_time_list = new List<double>();
         List<double> fall_time_list = new List<double>();
+        List<double> delay_list = new List<double>();
 
         List<double> vmax_list = new List<double>();
         List<double> vmin_list = new List<double>();
         List<string> phase1_name = new List<string>();
         List<string> phase2_name = new List<string>();
+        
 
         int meas_rising = 1;
         int meas_falling = 2;
@@ -257,8 +259,20 @@ namespace SoftStartTiming
             else
                 vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
-            int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
-            int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
+
+            int initial_state = 0;
+            int next_state = 0;
+
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
+            {
+                initial_state = test_parameter.vidio.vout_map[test_parameter.vidio.criteria[case_idx].vout_begin];
+            }
+            else
+            {
+                initial_state = test_parameter.vidio.vout_map[vout.ToString()];
+            }
+                
+            next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
 
             Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
             IOStateSetting(initial_state);
@@ -294,6 +308,7 @@ namespace SoftStartTiming
                 double slew_rate = 0;
                 double rise_time = 0;
                 double vmax = 0;
+                double delay = 0;
 
             Trigger_Fail_retry:
                 IOStateSetting(initial_state);
@@ -325,6 +340,13 @@ namespace SoftStartTiming
                     rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
                     slew_rate = InsControl._oscilloscope.GetCursorHBarDelta() / rise_time;
+
+                    if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                    {
+                        delay = InsControl._oscilloscope.MeasureMean(meas_delay);
+                        delay_list.Add(delay);
+                    }
+
                     slewrate_list.Add(slew_rate);
                     rise_time_list.Add(rise_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
@@ -363,9 +385,19 @@ namespace SoftStartTiming
                 vout = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_begin);
 
             vout_af = Convert.ToDouble(test_parameter.vidio.criteria[case_idx].vout_end);
-            int initial_state = test_parameter.vidio.vout_map[vout.ToString()];
-            int next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
 
+            int initial_state = 0;
+            int next_state = 0;
+
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
+            {
+                initial_state = test_parameter.vidio.vout_map[test_parameter.vidio.criteria[case_idx].vout_begin];
+            }
+            else
+            {
+                initial_state = test_parameter.vidio.vout_map[vout.ToString()];
+            }
+            next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
             Scope_Task_Setting(meas_falling, vout, vout_af);
 
             IOStateSetting(next_state);
@@ -381,6 +413,9 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetCursorWaveform();
             InsControl._oscilloscope.SetCursorOn();
             Initial_TimeScale(false, case_idx);
+
+            if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                InsControl._oscilloscope.SetTimeScale(10 * Math.Pow(10, -3));
 
             if (undershoot_en)
             {
@@ -520,11 +555,22 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.T] = "Vmin (V)";
             _sheet.Cells[row, XLS_Table.U] = "overshoot (%)";
             _sheet.Cells[row, XLS_Table.V] = "underhoot (%)";
-            _sheet.Cells[row, XLS_Table.W] = "Result";
 
-            _range = _sheet.Range["C" + row, "W" + row];
-            _range.Interior.Color = Color.FromArgb(124, 252, 0);
-            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            if (test_parameter.vidio.criteria[0].lpm_en)
+            {
+                _sheet.Cells[row, XLS_Table.W] = "Delay time (us)";
+                _sheet.Cells[row, XLS_Table.X] = "Result";
+                _range = _sheet.Range["C" + row, "X" + row];
+                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            }
+            else
+            {
+                _sheet.Cells[row, XLS_Table.W] = "Result";
+                _range = _sheet.Range["C" + row, "W" + row];
+                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+            }
             row++;
 #endif
 
@@ -535,6 +581,14 @@ namespace SoftStartTiming
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
                         InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx]);
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        {
+                            // default rising to rising
+                            InsControl._oscilloscope.SetDelayTime(meas_delay, 3, 1);
+                        }
+
+
+
                         updateMain.UpdateProgressBar(++progress);
                         phase1_name.Clear();
                         phase2_name.Clear();
@@ -608,6 +662,8 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.K] = slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.L] = rise_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                            _sheet.Cells[row, XLS_Table.W] = delay_list.Max();
 
                         SlewRate_Rise_Task(case_idx, true);         // overshoot
                         string shoot_max = test_parameter.waveform_name + "_overshoot";

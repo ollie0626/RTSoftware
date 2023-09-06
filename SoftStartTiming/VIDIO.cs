@@ -204,7 +204,10 @@ namespace SoftStartTiming
 
                 criteria_container.hi = Convert.ToDouble((string)dataGridView1[8, i].Value);
                 criteria_container.lo = Convert.ToDouble((string)dataGridView1[9, i].Value);
-                if((string)dataGridView1[2, i].Value == "NA") criteria_container.sr_time_jd = false;
+                if((string)dataGridView1[2, i].Value == "NA") 
+                    criteria_container.sr_time_jd = true;
+                else 
+                    criteria_container.sr_time_jd = false;
 
                 if (dataGridView1[0, i].Value.ToString().IndexOf("LPM") != -1)
                     criteria_container.lpm_en = true;
