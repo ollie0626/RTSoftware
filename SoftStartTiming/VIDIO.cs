@@ -763,16 +763,12 @@ namespace SoftStartTiming
         {
             double vbase = (double)nu_vbase.Value;
             double vtop = (double)nu_vtop.Value;
-
+            if (vbase > vtop) return;
             nu_diff.Value = (decimal)(vtop - vbase);
             nu_vmax.Value = (decimal)(vtop * 1.05);
             nu_vmin.Value = (decimal)(vbase * 1.05);
-
-
             numericUpDown1.Value = (decimal)(vtop - ((double)nu_diff.Value * 0.2));
             numericUpDown2.Value = (decimal)(vbase + ((double)nu_diff.Value * 0.2));
-
-
         }
     }
 

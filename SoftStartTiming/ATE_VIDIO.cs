@@ -346,7 +346,6 @@ namespace SoftStartTiming
                 double x1 = 0;
                 double x2 = 0;
 
-
                 if (test_parameter.vidio.criteria[case_idx].lpm_en && repeat_idx == 0 && !overshoot_en)
                 {
                     InsControl._oscilloscope.SetAnnotation(meas_delay);
@@ -356,7 +355,7 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
-                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_delay");
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_delay");
                 }
 
                 // set cursor position
@@ -726,8 +725,6 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
-                            //_sheet.Cells[row, XLS_Table.W] = "Delay time (LPM->vout)";
-                            //_sheet.Cells[row, XLS_Table.X] = "Delay time (LPM->100%)";
                             _sheet.Cells[row, XLS_Table.W] = delay_list.Max() * Math.Pow(10, 6);
                             _sheet.Cells[row, XLS_Table.X] = delay100_list.Max() * Math.Pow(10, 6);
                         }
@@ -738,7 +735,7 @@ namespace SoftStartTiming
                         _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
-                        _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max();
+                        _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max() * 100;
                         // --------------------------------------------------------------------------------------------------------
 
                         SlewRate_Fall_Task(case_idx);
@@ -751,16 +748,20 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.P] = fall_time_list.Min() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
 
-
                         SlewRate_Fall_Task(case_idx, true);
                         shoot_max = test_parameter.waveform_name + "_undershoot";
                         // past over/under-shoot max case
                         _range = _sheet.Range["BE" + (wave_row + 2), "BM" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
-
-                        _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min();
+                        _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min() * 100;
                         //_sheet.Cells[row, XLS_Table.F] = vmin_list.Max() + "->" + vmax_list.Max();
 
+                        if(test_parameter.vidio.criteria[case_idx].lpm_en)
+                        {
+                            _range = _sheet.Range["BO" + (wave_row + 2), "BW" + (wave_row + 25)];
+                            string name = test_parameter.waveform_name + "_delay";
+                            MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, name);
+                        }
 #endif
                         //-----------------------------------------------------------------------------------------
 #if Report_en
@@ -783,7 +784,7 @@ namespace SoftStartTiming
 
                             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
-                                judge = judge & (delay100_list.Max() < 120);
+                                judge = judge & (delay100_list.Max() < 120) & (delay_list.Max() < 20);
                                 _range = _sheet.Cells[row, XLS_Table.Y];
                                 _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
                                 _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
@@ -809,7 +810,7 @@ namespace SoftStartTiming
 
                             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                             {
-                                judge = judge & (delay100_list.Max() < 120);
+                                judge = judge & (delay100_list.Max() < 120) & (delay_list.Max() < 20);
                                 _range = _sheet.Cells[row, XLS_Table.Y];
                                 _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
                                 _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;

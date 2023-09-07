@@ -112,6 +112,8 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -563,6 +565,8 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.label17);
+            this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.numericUpDown2);
             this.tabPage2.Controls.Add(this.numericUpDown1);
             this.tabPage2.Controls.Add(this.label13);
@@ -642,9 +646,9 @@ namespace SoftStartTiming
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(777, 56);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(27, 12);
+            this.label13.Size = new System.Drawing.Size(66, 12);
             this.label13.TabIndex = 152;
-            this.label13.Text = "Min";
+            this.label13.Text = "Min (0.95)";
             // 
             // nu_vmin
             // 
@@ -671,9 +675,9 @@ namespace SoftStartTiming
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(694, 55);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 12);
+            this.label12.Size = new System.Drawing.Size(68, 12);
             this.label12.TabIndex = 150;
-            this.label12.Text = "Max";
+            this.label12.Text = "Max (1.05)";
             // 
             // nu_vmax
             // 
@@ -1067,6 +1071,24 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(607, 94);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 12);
+            this.label16.TabIndex = 155;
+            this.label16.Text = "top-diff*0.2 ";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(695, 94);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 12);
+            this.label17.TabIndex = 156;
+            this.label17.Text = "base+diff*0.2 ";
+            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1198,5 +1220,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_vmax;
         private System.Windows.Forms.NumericUpDown numericUpDown2;
         private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label17;
     }
 }
