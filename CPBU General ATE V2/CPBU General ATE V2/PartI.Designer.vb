@@ -291,7 +291,125 @@ Partial Class PartI
         Me.cbox_IIN_meter = New System.Windows.Forms.ComboBox()
         Me.txt_IIN_addr = New System.Windows.Forms.TextBox()
         Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.TabPage_Instrument2 = New System.Windows.Forms.TabPage()
+        Me.Panel10 = New System.Windows.Forms.Panel()
+        Me.Panel26 = New System.Windows.Forms.Panel()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
+        Me.ss = New System.Windows.Forms.TextBox()
+        Me.Label110 = New System.Windows.Forms.Label()
+        Me.txt_load_model12 = New System.Windows.Forms.TextBox()
+        Me.Panel58 = New System.Windows.Forms.Panel()
+        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
+        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
+        Me.Label111 = New System.Windows.Forms.Label()
+        Me.Label112 = New System.Windows.Forms.Label()
+        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label113 = New System.Windows.Forms.Label()
+        Me.Label114 = New System.Windows.Forms.Label()
+        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
+        Me.Label115 = New System.Windows.Forms.Label()
+        Me.Label116 = New System.Windows.Forms.Label()
+        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
+        Me.Panel59 = New System.Windows.Forms.Panel()
+        Me.Label117 = New System.Windows.Forms.Label()
+        Me.Panel60 = New System.Windows.Forms.Panel()
+        Me.txt_OTP2 = New System.Windows.Forms.TextBox()
+        Me.Label118 = New System.Windows.Forms.Label()
+        Me.check_OTP2 = New System.Windows.Forms.CheckBox()
+        Me.check_shutdown2 = New System.Windows.Forms.CheckBox()
+        Me.Label119 = New System.Windows.Forms.Label()
+        Me.Label120 = New System.Windows.Forms.Label()
+        Me.Label121 = New System.Windows.Forms.Label()
+        Me.Label122 = New System.Windows.Forms.Label()
+        Me.num_Temp2 = New System.Windows.Forms.NumericUpDown()
+        Me.num_Vout_error2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label123 = New System.Windows.Forms.Label()
+        Me.Label124 = New System.Windows.Forms.Label()
+        Me.cbox_vout1_daq2 = New System.Windows.Forms.ComboBox()
+        Me.cbox_vout_daq2 = New System.Windows.Forms.ComboBox()
+        Me.Panel61 = New System.Windows.Forms.Panel()
+        Me.TextBox16 = New System.Windows.Forms.TextBox()
+        Me.TextBox18 = New System.Windows.Forms.TextBox()
+        Me.Panel62 = New System.Windows.Forms.Panel()
+        Me.Label125 = New System.Windows.Forms.Label()
+        Me.Panel63 = New System.Windows.Forms.Panel()
+        Me.TextBox19 = New System.Windows.Forms.TextBox()
+        Me.TextBox20 = New System.Windows.Forms.TextBox()
+        Me.Panel64 = New System.Windows.Forms.Panel()
+        Me.TextBox21 = New System.Windows.Forms.TextBox()
+        Me.TextBox22 = New System.Windows.Forms.TextBox()
+        Me.Panel65 = New System.Windows.Forms.Panel()
+        Me.TextBox23 = New System.Windows.Forms.TextBox()
+        Me.TextBox26 = New System.Windows.Forms.TextBox()
+        Me.TextBox31 = New System.Windows.Forms.TextBox()
+        Me.Panel66 = New System.Windows.Forms.Panel()
+        Me.Label126 = New System.Windows.Forms.Label()
+        Me.Panel67 = New System.Windows.Forms.Panel()
+        Me.Label127 = New System.Windows.Forms.Label()
+        Me.Panel68 = New System.Windows.Forms.Panel()
+        Me.Label128 = New System.Windows.Forms.Label()
+        Me.Panel69 = New System.Windows.Forms.Panel()
+        Me.Label129 = New System.Windows.Forms.Label()
+        Me.Label130 = New System.Windows.Forms.Label()
+        Me.Label131 = New System.Windows.Forms.Label()
+        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
+        Me.ComboBox5 = New System.Windows.Forms.ComboBox()
+        Me.Label132 = New System.Windows.Forms.Label()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.TextBox34 = New System.Windows.Forms.TextBox()
+        Me.ComboBox6 = New System.Windows.Forms.ComboBox()
+        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
+        Me.ComboBox7 = New System.Windows.Forms.ComboBox()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.Panel70 = New System.Windows.Forms.Panel()
+        Me.TextBox35 = New System.Windows.Forms.TextBox()
+        Me.Label133 = New System.Windows.Forms.Label()
+        Me.num_VIN_OCP2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label134 = New System.Windows.Forms.Label()
+        Me.check_vin_sense2 = New System.Windows.Forms.CheckBox()
+        Me.Label135 = New System.Windows.Forms.Label()
+        Me.Label136 = New System.Windows.Forms.Label()
+        Me.num_vin_sense2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label137 = New System.Windows.Forms.Label()
+        Me.cbox_vin2 = New System.Windows.Forms.ComboBox()
+        Me.num_vin_max2 = New System.Windows.Forms.NumericUpDown()
+        Me.cbox_vin_ch2 = New System.Windows.Forms.ComboBox()
+        Me.cbox_vin_daq2 = New System.Windows.Forms.ComboBox()
+        Me.Label138 = New System.Windows.Forms.Label()
+        Me.Label139 = New System.Windows.Forms.Label()
+        Me.Panel71 = New System.Windows.Forms.Panel()
+        Me.rbtn_Iin_PW2 = New System.Windows.Forms.RadioButton()
+        Me.Label140 = New System.Windows.Forms.Label()
+        Me.Label141 = New System.Windows.Forms.Label()
+        Me.num_iin_change2 = New System.Windows.Forms.NumericUpDown()
+        Me.Label142 = New System.Windows.Forms.Label()
+        Me.Label143 = New System.Windows.Forms.Label()
+        Me.rbtn_meter_iin2 = New System.Windows.Forms.RadioButton()
+        Me.rbtn_board_iin2 = New System.Windows.Forms.RadioButton()
+        Me.cbox_IIN_relay2 = New System.Windows.Forms.ComboBox()
+        Me.check_iin2 = New System.Windows.Forms.CheckBox()
+        Me.cbox_IIN_meter2 = New System.Windows.Forms.ComboBox()
+        Me.txt_IIN_addr2 = New System.Windows.Forms.TextBox()
+        Me.TextBox40 = New System.Windows.Forms.TextBox()
         Me.TabPage_Scope1 = New System.Windows.Forms.TabPage()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.Panel72 = New System.Windows.Forms.Panel()
+        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
+        Me.TextBox15 = New System.Windows.Forms.TextBox()
+        Me.ComboBox9 = New System.Windows.Forms.ComboBox()
+        Me.NumericUpDown7 = New System.Windows.Forms.NumericUpDown()
+        Me.ComboBox10 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox11 = New System.Windows.Forms.ComboBox()
+        Me.TextBox10 = New System.Windows.Forms.TextBox()
+        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
+        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
+        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
+        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
+        Me.ComboBox8 = New System.Windows.Forms.ComboBox()
         Me.txt_board_VOUT = New System.Windows.Forms.TextBox()
         Me.txt_board_VIN = New System.Windows.Forms.TextBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -600,124 +718,6 @@ Partial Class PartI
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TabPage_Instrument2 = New System.Windows.Forms.TabPage()
-        Me.Panel10 = New System.Windows.Forms.Panel()
-        Me.Panel26 = New System.Windows.Forms.Panel()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox2 = New System.Windows.Forms.CheckBox()
-        Me.ss = New System.Windows.Forms.TextBox()
-        Me.Label110 = New System.Windows.Forms.Label()
-        Me.txt_load_model12 = New System.Windows.Forms.TextBox()
-        Me.Panel58 = New System.Windows.Forms.Panel()
-        Me.CheckBox3 = New System.Windows.Forms.CheckBox()
-        Me.CheckBox4 = New System.Windows.Forms.CheckBox()
-        Me.Label111 = New System.Windows.Forms.Label()
-        Me.Label112 = New System.Windows.Forms.Label()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label113 = New System.Windows.Forms.Label()
-        Me.Label114 = New System.Windows.Forms.Label()
-        Me.NumericUpDown3 = New System.Windows.Forms.NumericUpDown()
-        Me.Label115 = New System.Windows.Forms.Label()
-        Me.Label116 = New System.Windows.Forms.Label()
-        Me.ComboBox2 = New System.Windows.Forms.ComboBox()
-        Me.Panel59 = New System.Windows.Forms.Panel()
-        Me.Label117 = New System.Windows.Forms.Label()
-        Me.Panel60 = New System.Windows.Forms.Panel()
-        Me.txt_OTP2 = New System.Windows.Forms.TextBox()
-        Me.Label118 = New System.Windows.Forms.Label()
-        Me.check_OTP2 = New System.Windows.Forms.CheckBox()
-        Me.check_shutdown2 = New System.Windows.Forms.CheckBox()
-        Me.Label119 = New System.Windows.Forms.Label()
-        Me.Label120 = New System.Windows.Forms.Label()
-        Me.Label121 = New System.Windows.Forms.Label()
-        Me.Label122 = New System.Windows.Forms.Label()
-        Me.num_Temp2 = New System.Windows.Forms.NumericUpDown()
-        Me.num_Vout_error2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label123 = New System.Windows.Forms.Label()
-        Me.Label124 = New System.Windows.Forms.Label()
-        Me.cbox_vout1_daq2 = New System.Windows.Forms.ComboBox()
-        Me.cbox_vout_daq2 = New System.Windows.Forms.ComboBox()
-        Me.Panel61 = New System.Windows.Forms.Panel()
-        Me.TextBox16 = New System.Windows.Forms.TextBox()
-        Me.TextBox18 = New System.Windows.Forms.TextBox()
-        Me.Panel62 = New System.Windows.Forms.Panel()
-        Me.Label125 = New System.Windows.Forms.Label()
-        Me.Panel63 = New System.Windows.Forms.Panel()
-        Me.TextBox19 = New System.Windows.Forms.TextBox()
-        Me.TextBox20 = New System.Windows.Forms.TextBox()
-        Me.Panel64 = New System.Windows.Forms.Panel()
-        Me.TextBox21 = New System.Windows.Forms.TextBox()
-        Me.TextBox22 = New System.Windows.Forms.TextBox()
-        Me.Panel65 = New System.Windows.Forms.Panel()
-        Me.TextBox23 = New System.Windows.Forms.TextBox()
-        Me.TextBox26 = New System.Windows.Forms.TextBox()
-        Me.TextBox31 = New System.Windows.Forms.TextBox()
-        Me.Panel66 = New System.Windows.Forms.Panel()
-        Me.Label126 = New System.Windows.Forms.Label()
-        Me.Panel67 = New System.Windows.Forms.Panel()
-        Me.Label127 = New System.Windows.Forms.Label()
-        Me.Panel68 = New System.Windows.Forms.Panel()
-        Me.Label128 = New System.Windows.Forms.Label()
-        Me.Panel69 = New System.Windows.Forms.Panel()
-        Me.Label129 = New System.Windows.Forms.Label()
-        Me.Label130 = New System.Windows.Forms.Label()
-        Me.Label131 = New System.Windows.Forms.Label()
-        Me.NumericUpDown6 = New System.Windows.Forms.NumericUpDown()
-        Me.ComboBox5 = New System.Windows.Forms.ComboBox()
-        Me.Label132 = New System.Windows.Forms.Label()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.TextBox34 = New System.Windows.Forms.TextBox()
-        Me.ComboBox6 = New System.Windows.Forms.ComboBox()
-        Me.CheckBox7 = New System.Windows.Forms.CheckBox()
-        Me.ComboBox7 = New System.Windows.Forms.ComboBox()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.Panel70 = New System.Windows.Forms.Panel()
-        Me.TextBox35 = New System.Windows.Forms.TextBox()
-        Me.Label133 = New System.Windows.Forms.Label()
-        Me.num_VIN_OCP2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label134 = New System.Windows.Forms.Label()
-        Me.check_vin_sense2 = New System.Windows.Forms.CheckBox()
-        Me.Label135 = New System.Windows.Forms.Label()
-        Me.Label136 = New System.Windows.Forms.Label()
-        Me.num_vin_sense2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label137 = New System.Windows.Forms.Label()
-        Me.cbox_vin2 = New System.Windows.Forms.ComboBox()
-        Me.num_vin_max2 = New System.Windows.Forms.NumericUpDown()
-        Me.cbox_vin_ch2 = New System.Windows.Forms.ComboBox()
-        Me.cbox_vin_daq2 = New System.Windows.Forms.ComboBox()
-        Me.Label138 = New System.Windows.Forms.Label()
-        Me.Label139 = New System.Windows.Forms.Label()
-        Me.Panel71 = New System.Windows.Forms.Panel()
-        Me.rbtn_Iin_PW2 = New System.Windows.Forms.RadioButton()
-        Me.Label140 = New System.Windows.Forms.Label()
-        Me.Label141 = New System.Windows.Forms.Label()
-        Me.num_iin_change2 = New System.Windows.Forms.NumericUpDown()
-        Me.Label142 = New System.Windows.Forms.Label()
-        Me.Label143 = New System.Windows.Forms.Label()
-        Me.rbtn_meter_iin2 = New System.Windows.Forms.RadioButton()
-        Me.rbtn_board_iin2 = New System.Windows.Forms.RadioButton()
-        Me.cbox_IIN_relay2 = New System.Windows.Forms.ComboBox()
-        Me.check_iin2 = New System.Windows.Forms.CheckBox()
-        Me.cbox_IIN_meter2 = New System.Windows.Forms.ComboBox()
-        Me.txt_IIN_addr2 = New System.Windows.Forms.TextBox()
-        Me.TextBox40 = New System.Windows.Forms.TextBox()
-        Me.TextBox10 = New System.Windows.Forms.TextBox()
-        Me.ComboBox3 = New System.Windows.Forms.ComboBox()
-        Me.NumericUpDown4 = New System.Windows.Forms.NumericUpDown()
-        Me.NumericUpDown5 = New System.Windows.Forms.NumericUpDown()
-        Me.ComboBox4 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox8 = New System.Windows.Forms.ComboBox()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
-        Me.Panel72 = New System.Windows.Forms.Panel()
-        Me.CheckBox5 = New System.Windows.Forms.CheckBox()
-        Me.TextBox15 = New System.Windows.Forms.TextBox()
-        Me.ComboBox9 = New System.Windows.Forms.ComboBox()
-        Me.NumericUpDown7 = New System.Windows.Forms.NumericUpDown()
-        Me.ComboBox10 = New System.Windows.Forms.ComboBox()
-        Me.ComboBox11 = New System.Windows.Forms.ComboBox()
         Me.Tab_Set.SuspendLayout
         Me.TabPage_Main1.SuspendLayout
         Me.Panel57.SuspendLayout
@@ -789,7 +789,38 @@ Partial Class PartI
         CType(Me.num_vin_max, System.ComponentModel.ISupportInitialize).BeginInit
         Me.Panel15.SuspendLayout
         CType(Me.num_iin_change, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TabPage_Instrument2.SuspendLayout
+        Me.Panel10.SuspendLayout
+        Me.Panel26.SuspendLayout
+        Me.Panel58.SuspendLayout
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel59.SuspendLayout
+        Me.Panel60.SuspendLayout
+        CType(Me.num_Temp2, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_Vout_error2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel61.SuspendLayout
+        Me.Panel62.SuspendLayout
+        Me.Panel63.SuspendLayout
+        Me.Panel64.SuspendLayout
+        Me.Panel65.SuspendLayout
+        Me.Panel66.SuspendLayout
+        Me.Panel67.SuspendLayout
+        Me.Panel68.SuspendLayout
+        Me.Panel69.SuspendLayout
+        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel70.SuspendLayout
+        CType(Me.num_VIN_OCP2, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_vin_sense2, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_vin_max2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel71.SuspendLayout
+        CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).BeginInit
         Me.TabPage_Scope1.SuspendLayout
+        Me.Panel72.SuspendLayout
+        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit
         Me.Panel28.SuspendLayout
         Me.Panel30.SuspendLayout
         CType(Me.num_vin_scale, System.ComponentModel.ISupportInitialize).BeginInit
@@ -883,37 +914,6 @@ Partial Class PartI
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.TabPage_Instrument2.SuspendLayout
-        Me.Panel10.SuspendLayout
-        Me.Panel26.SuspendLayout
-        Me.Panel58.SuspendLayout
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel59.SuspendLayout
-        Me.Panel60.SuspendLayout
-        CType(Me.num_Temp2, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_Vout_error2, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel61.SuspendLayout
-        Me.Panel62.SuspendLayout
-        Me.Panel63.SuspendLayout
-        Me.Panel64.SuspendLayout
-        Me.Panel65.SuspendLayout
-        Me.Panel66.SuspendLayout
-        Me.Panel67.SuspendLayout
-        Me.Panel68.SuspendLayout
-        Me.Panel69.SuspendLayout
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel70.SuspendLayout
-        CType(Me.num_VIN_OCP2, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_vin_sense2, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_vin_max2, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel71.SuspendLayout
-        CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel72.SuspendLayout
-        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'Tab_Set
@@ -3273,6 +3273,1171 @@ Partial Class PartI
         Me.TextBox8.Text = "Instrument"
         Me.TextBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'TabPage_Instrument2
+        '
+        Me.TabPage_Instrument2.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel10)
+        Me.TabPage_Instrument2.Controls.Add(Me.Label114)
+        Me.TabPage_Instrument2.Controls.Add(Me.NumericUpDown3)
+        Me.TabPage_Instrument2.Controls.Add(Me.Label115)
+        Me.TabPage_Instrument2.Controls.Add(Me.Label116)
+        Me.TabPage_Instrument2.Controls.Add(Me.ComboBox2)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel59)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel61)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel62)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel63)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel64)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel65)
+        Me.TabPage_Instrument2.Controls.Add(Me.TextBox31)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel66)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel67)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel68)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel69)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel70)
+        Me.TabPage_Instrument2.Controls.Add(Me.Panel71)
+        Me.TabPage_Instrument2.Controls.Add(Me.TextBox40)
+        Me.TabPage_Instrument2.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage_Instrument2.Name = "TabPage_Instrument2"
+        Me.TabPage_Instrument2.Size = New System.Drawing.Size(751, 471)
+        Me.TabPage_Instrument2.TabIndex = 9
+        Me.TabPage_Instrument2.Text = "Instrument2"
+        '
+        'Panel10
+        '
+        Me.Panel10.BackColor = System.Drawing.Color.LightGray
+        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel10.Controls.Add(Me.Panel26)
+        Me.Panel10.Controls.Add(Me.ss)
+        Me.Panel10.Controls.Add(Me.Label110)
+        Me.Panel10.Controls.Add(Me.txt_load_model12)
+        Me.Panel10.Controls.Add(Me.Panel58)
+        Me.Panel10.Controls.Add(Me.Label111)
+        Me.Panel10.Controls.Add(Me.Label112)
+        Me.Panel10.Controls.Add(Me.ComboBox1)
+        Me.Panel10.Controls.Add(Me.NumericUpDown1)
+        Me.Panel10.Controls.Add(Me.NumericUpDown2)
+        Me.Panel10.Controls.Add(Me.Label113)
+        Me.Panel10.Location = New System.Drawing.Point(122, 255)
+        Me.Panel10.Name = "Panel10"
+        Me.Panel10.Size = New System.Drawing.Size(626, 84)
+        Me.Panel10.TabIndex = 3291
+        '
+        'Panel26
+        '
+        Me.Panel26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel26.Controls.Add(Me.CheckBox1)
+        Me.Panel26.Controls.Add(Me.CheckBox2)
+        Me.Panel26.Location = New System.Drawing.Point(304, 26)
+        Me.Panel26.Name = "Panel26"
+        Me.Panel26.Size = New System.Drawing.Size(214, 26)
+        Me.Panel26.TabIndex = 3262
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.ForeColor = System.Drawing.Color.Black
+        Me.CheckBox1.Location = New System.Drawing.Point(110, 3)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(51, 19)
+        Me.CheckBox1.TabIndex = 2968
+        Me.CheckBox1.Text = "CH4"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
+        'CheckBox2
+        '
+        Me.CheckBox2.AutoSize = True
+        Me.CheckBox2.ForeColor = System.Drawing.Color.Black
+        Me.CheckBox2.Location = New System.Drawing.Point(8, 3)
+        Me.CheckBox2.Name = "CheckBox2"
+        Me.CheckBox2.Size = New System.Drawing.Size(51, 19)
+        Me.CheckBox2.TabIndex = 2967
+        Me.CheckBox2.Text = "CH3"
+        Me.CheckBox2.UseVisualStyleBackColor = True
+        '
+        'ss
+        '
+        Me.ss.Location = New System.Drawing.Point(303, 3)
+        Me.ss.Name = "ss"
+        Me.ss.ReadOnly = True
+        Me.ss.Size = New System.Drawing.Size(214, 21)
+        Me.ss.TabIndex = 3261
+        Me.ss.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label110
+        '
+        Me.Label110.AutoSize = True
+        Me.Label110.ForeColor = System.Drawing.Color.Black
+        Me.Label110.Location = New System.Drawing.Point(7, 1)
+        Me.Label110.Name = "Label110"
+        Me.Label110.Size = New System.Drawing.Size(59, 15)
+        Me.Label110.TabIndex = 3253
+        Me.Label110.Text = "DC Load:"
+        '
+        'txt_load_model12
+        '
+        Me.txt_load_model12.Location = New System.Drawing.Point(84, 3)
+        Me.txt_load_model12.Name = "txt_load_model12"
+        Me.txt_load_model12.ReadOnly = True
+        Me.txt_load_model12.Size = New System.Drawing.Size(214, 21)
+        Me.txt_load_model12.TabIndex = 3260
+        Me.txt_load_model12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel58
+        '
+        Me.Panel58.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel58.Controls.Add(Me.CheckBox3)
+        Me.Panel58.Controls.Add(Me.CheckBox4)
+        Me.Panel58.Location = New System.Drawing.Point(84, 26)
+        Me.Panel58.Name = "Panel58"
+        Me.Panel58.Size = New System.Drawing.Size(214, 26)
+        Me.Panel58.TabIndex = 3260
+        '
+        'CheckBox3
+        '
+        Me.CheckBox3.AutoSize = True
+        Me.CheckBox3.ForeColor = System.Drawing.Color.Black
+        Me.CheckBox3.Location = New System.Drawing.Point(110, 3)
+        Me.CheckBox3.Name = "CheckBox3"
+        Me.CheckBox3.Size = New System.Drawing.Size(51, 19)
+        Me.CheckBox3.TabIndex = 2966
+        Me.CheckBox3.Text = "CH2"
+        Me.CheckBox3.UseVisualStyleBackColor = True
+        '
+        'CheckBox4
+        '
+        Me.CheckBox4.AutoSize = True
+        Me.CheckBox4.Checked = True
+        Me.CheckBox4.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox4.ForeColor = System.Drawing.Color.Black
+        Me.CheckBox4.Location = New System.Drawing.Point(8, 3)
+        Me.CheckBox4.Name = "CheckBox4"
+        Me.CheckBox4.Size = New System.Drawing.Size(51, 19)
+        Me.CheckBox4.TabIndex = 2965
+        Me.CheckBox4.Text = "CH1"
+        Me.CheckBox4.UseVisualStyleBackColor = True
+        '
+        'Label111
+        '
+        Me.Label111.AutoSize = True
+        Me.Label111.BackColor = System.Drawing.Color.LightGray
+        Me.Label111.ForeColor = System.Drawing.Color.Black
+        Me.Label111.Location = New System.Drawing.Point(76, 60)
+        Me.Label111.Name = "Label111"
+        Me.Label111.Size = New System.Drawing.Size(62, 15)
+        Me.Label111.TabIndex = 3113
+        Me.Label111.Text = "( Iout(A)  >"
+        '
+        'Label112
+        '
+        Me.Label112.AutoSize = True
+        Me.Label112.BackColor = System.Drawing.Color.LightGray
+        Me.Label112.ForeColor = System.Drawing.Color.Black
+        Me.Label112.Location = New System.Drawing.Point(221, 60)
+        Me.Label112.Name = "Label112"
+        Me.Label112.Size = New System.Drawing.Size(44, 15)
+        Me.Label112.TabIndex = 3254
+        Me.Label112.Text = ", Delay"
+        '
+        'ComboBox1
+        '
+        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"ms", "s"})
+        Me.ComboBox1.Location = New System.Drawing.Point(352, 57)
+        Me.ComboBox1.Name = "ComboBox1"
+        Me.ComboBox1.Size = New System.Drawing.Size(62, 23)
+        Me.ComboBox1.TabIndex = 3111
+        '
+        'NumericUpDown1
+        '
+        Me.NumericUpDown1.Location = New System.Drawing.Point(266, 58)
+        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
+        Me.NumericUpDown1.Name = "NumericUpDown1"
+        Me.NumericUpDown1.Size = New System.Drawing.Size(83, 21)
+        Me.NumericUpDown1.TabIndex = 3077
+        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {100, 0, 0, 0})
+        '
+        'NumericUpDown2
+        '
+        Me.NumericUpDown2.DecimalPlaces = 2
+        Me.NumericUpDown2.Location = New System.Drawing.Point(143, 58)
+        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
+        Me.NumericUpDown2.Name = "NumericUpDown2"
+        Me.NumericUpDown2.Size = New System.Drawing.Size(70, 21)
+        Me.NumericUpDown2.TabIndex = 3112
+        Me.NumericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label113
+        '
+        Me.Label113.AutoSize = True
+        Me.Label113.BackColor = System.Drawing.Color.LightGray
+        Me.Label113.ForeColor = System.Drawing.Color.Black
+        Me.Label113.Location = New System.Drawing.Point(413, 60)
+        Me.Label113.Name = "Label113"
+        Me.Label113.Size = New System.Drawing.Size(11, 15)
+        Me.Label113.TabIndex = 3111
+        Me.Label113.Text = ")"
+        '
+        'Label114
+        '
+        Me.Label114.AutoSize = True
+        Me.Label114.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Label114.Location = New System.Drawing.Point(13, 448)
+        Me.Label114.Name = "Label114"
+        Me.Label114.Size = New System.Drawing.Size(175, 15)
+        Me.Label114.TabIndex = 3290
+        Me.Label114.Text = "Note: DAQ and Meter Measure:"
+        '
+        'NumericUpDown3
+        '
+        Me.NumericUpDown3.Location = New System.Drawing.Point(521, 445)
+        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDown3.Name = "NumericUpDown3"
+        Me.NumericUpDown3.Size = New System.Drawing.Size(64, 21)
+        Me.NumericUpDown3.TabIndex = 3246
+        Me.NumericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown3.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
+        'Label115
+        '
+        Me.Label115.AutoSize = True
+        Me.Label115.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Label115.Location = New System.Drawing.Point(389, 448)
+        Me.Label115.Name = "Label115"
+        Me.Label115.Size = New System.Drawing.Size(126, 15)
+        Me.Label115.TabIndex = 3245
+        Me.Label115.Text = "Numbers of Measure:"
+        '
+        'Label116
+        '
+        Me.Label116.AutoSize = True
+        Me.Label116.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.Label116.Location = New System.Drawing.Point(204, 448)
+        Me.Label116.Name = "Label116"
+        Me.Label116.Size = New System.Drawing.Size(70, 15)
+        Me.Label116.TabIndex = 2965
+        Me.Label116.Text = "Resolution:"
+        '
+        'ComboBox2
+        '
+        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox2.FormattingEnabled = True
+        Me.ComboBox2.Items.AddRange(New Object() {"DEF", "MIN", "MAX"})
+        Me.ComboBox2.Location = New System.Drawing.Point(280, 445)
+        Me.ComboBox2.Name = "ComboBox2"
+        Me.ComboBox2.Size = New System.Drawing.Size(98, 23)
+        Me.ComboBox2.TabIndex = 2964
+        '
+        'Panel59
+        '
+        Me.Panel59.BackColor = System.Drawing.Color.LightGray
+        Me.Panel59.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel59.Controls.Add(Me.Label117)
+        Me.Panel59.Controls.Add(Me.Panel60)
+        Me.Panel59.Controls.Add(Me.Label123)
+        Me.Panel59.Controls.Add(Me.Label124)
+        Me.Panel59.Controls.Add(Me.cbox_vout1_daq2)
+        Me.Panel59.Controls.Add(Me.cbox_vout_daq2)
+        Me.Panel59.Location = New System.Drawing.Point(122, 171)
+        Me.Panel59.Name = "Panel59"
+        Me.Panel59.Size = New System.Drawing.Size(626, 82)
+        Me.Panel59.TabIndex = 3256
+        '
+        'Label117
+        '
+        Me.Label117.AutoSize = True
+        Me.Label117.ForeColor = System.Drawing.Color.Black
+        Me.Label117.Location = New System.Drawing.Point(7, 57)
+        Me.Label117.Name = "Label117"
+        Me.Label117.Size = New System.Drawing.Size(35, 15)
+        Me.Label117.TabIndex = 3260
+        Me.Label117.Text = "DAQ:"
+        '
+        'Panel60
+        '
+        Me.Panel60.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel60.Controls.Add(Me.txt_OTP2)
+        Me.Panel60.Controls.Add(Me.Label118)
+        Me.Panel60.Controls.Add(Me.check_OTP2)
+        Me.Panel60.Controls.Add(Me.check_shutdown2)
+        Me.Panel60.Controls.Add(Me.Label119)
+        Me.Panel60.Controls.Add(Me.Label120)
+        Me.Panel60.Controls.Add(Me.Label121)
+        Me.Panel60.Controls.Add(Me.Label122)
+        Me.Panel60.Controls.Add(Me.num_Temp2)
+        Me.Panel60.Controls.Add(Me.num_Vout_error2)
+        Me.Panel60.Location = New System.Drawing.Point(143, 3)
+        Me.Panel60.Name = "Panel60"
+        Me.Panel60.Size = New System.Drawing.Size(465, 50)
+        Me.Panel60.TabIndex = 3259
+        '
+        'txt_OTP2
+        '
+        Me.txt_OTP2.BackColor = System.Drawing.SystemColors.Window
+        Me.txt_OTP2.Location = New System.Drawing.Point(68, 23)
+        Me.txt_OTP2.Name = "txt_OTP2"
+        Me.txt_OTP2.ReadOnly = True
+        Me.txt_OTP2.Size = New System.Drawing.Size(57, 21)
+        Me.txt_OTP2.TabIndex = 3260
+        Me.txt_OTP2.Text = "100"
+        Me.txt_OTP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label118
+        '
+        Me.Label118.AutoSize = True
+        Me.Label118.BackColor = System.Drawing.Color.LightGray
+        Me.Label118.ForeColor = System.Drawing.Color.Black
+        Me.Label118.Location = New System.Drawing.Point(131, 26)
+        Me.Label118.Name = "Label118"
+        Me.Label118.Size = New System.Drawing.Size(256, 15)
+        Me.Label118.TabIndex = 3259
+        Me.Label118.Text = "℃, Vout shutdown -> Power OFF -> Power ON"
+        '
+        'check_OTP2
+        '
+        Me.check_OTP2.AutoSize = True
+        Me.check_OTP2.ForeColor = System.Drawing.Color.Black
+        Me.check_OTP2.Location = New System.Drawing.Point(3, 26)
+        Me.check_OTP2.Name = "check_OTP2"
+        Me.check_OTP2.Size = New System.Drawing.Size(70, 19)
+        Me.check_OTP2.TabIndex = 3258
+        Me.check_OTP2.Text = "Temp > "
+        Me.check_OTP2.UseVisualStyleBackColor = True
+        '
+        'check_shutdown2
+        '
+        Me.check_shutdown2.AutoSize = True
+        Me.check_shutdown2.Checked = True
+        Me.check_shutdown2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.check_shutdown2.ForeColor = System.Drawing.Color.Black
+        Me.check_shutdown2.Location = New System.Drawing.Point(3, 2)
+        Me.check_shutdown2.Name = "check_shutdown2"
+        Me.check_shutdown2.Size = New System.Drawing.Size(151, 19)
+        Me.check_shutdown2.TabIndex = 3240
+        Me.check_shutdown2.Text = "Check Vout Shutdown :"
+        Me.check_shutdown2.UseVisualStyleBackColor = True
+        '
+        'Label119
+        '
+        Me.Label119.AutoSize = True
+        Me.Label119.ForeColor = System.Drawing.Color.Black
+        Me.Label119.Location = New System.Drawing.Point(430, 3)
+        Me.Label119.Name = "Label119"
+        Me.Label119.Size = New System.Drawing.Size(23, 15)
+        Me.Label119.TabIndex = 3257
+        Me.Label119.Text = "℃)"
+        '
+        'Label120
+        '
+        Me.Label120.AutoSize = True
+        Me.Label120.ForeColor = System.Drawing.Color.Black
+        Me.Label120.Location = New System.Drawing.Point(151, 3)
+        Me.Label120.Name = "Label120"
+        Me.Label120.Size = New System.Drawing.Size(51, 15)
+        Me.Label120.TabIndex = 3242
+        Me.Label120.Text = "<  Vout *"
+        '
+        'Label121
+        '
+        Me.Label121.AutoSize = True
+        Me.Label121.ForeColor = System.Drawing.Color.Black
+        Me.Label121.Location = New System.Drawing.Point(309, 3)
+        Me.Label121.Name = "Label121"
+        Me.Label121.Size = New System.Drawing.Size(52, 15)
+        Me.Label121.TabIndex = 3256
+        Me.Label121.Text = "(Temp <"
+        '
+        'Label122
+        '
+        Me.Label122.AutoSize = True
+        Me.Label122.ForeColor = System.Drawing.Color.Black
+        Me.Label122.Location = New System.Drawing.Point(258, 3)
+        Me.Label122.Name = "Label122"
+        Me.Label122.Size = New System.Drawing.Size(18, 15)
+        Me.Label122.TabIndex = 3241
+        Me.Label122.Text = "%"
+        '
+        'num_Temp2
+        '
+        Me.num_Temp2.Location = New System.Drawing.Point(367, 0)
+        Me.num_Temp2.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
+        Me.num_Temp2.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
+        Me.num_Temp2.Name = "num_Temp2"
+        Me.num_Temp2.Size = New System.Drawing.Size(61, 21)
+        Me.num_Temp2.TabIndex = 3255
+        Me.num_Temp2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_Temp2.Value = New Decimal(New Integer() {100, 0, 0, 0})
+        '
+        'num_Vout_error2
+        '
+        Me.num_Vout_error2.ForeColor = System.Drawing.Color.Black
+        Me.num_Vout_error2.Location = New System.Drawing.Point(202, 0)
+        Me.num_Vout_error2.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.num_Vout_error2.Name = "num_Vout_error2"
+        Me.num_Vout_error2.Size = New System.Drawing.Size(50, 21)
+        Me.num_Vout_error2.TabIndex = 3243
+        Me.num_Vout_error2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_Vout_error2.Value = New Decimal(New Integer() {90, 0, 0, 0})
+        '
+        'Label123
+        '
+        Me.Label123.AutoSize = True
+        Me.Label123.ForeColor = System.Drawing.Color.Black
+        Me.Label123.Location = New System.Drawing.Point(7, 8)
+        Me.Label123.Name = "Label123"
+        Me.Label123.Size = New System.Drawing.Size(35, 15)
+        Me.Label123.TabIndex = 3254
+        Me.Label123.Text = "DAQ:"
+        '
+        'Label124
+        '
+        Me.Label124.AutoSize = True
+        Me.Label124.ForeColor = System.Drawing.Color.Black
+        Me.Label124.Location = New System.Drawing.Point(147, 60)
+        Me.Label124.Name = "Label124"
+        Me.Label124.Size = New System.Drawing.Size(72, 15)
+        Me.Label124.TabIndex = 3249
+        Me.Label124.Text = "( Efficiency )"
+        '
+        'cbox_vout1_daq2
+        '
+        Me.cbox_vout1_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_vout1_daq2.FormattingEnabled = True
+        Me.cbox_vout1_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
+        Me.cbox_vout1_daq2.Location = New System.Drawing.Point(61, 54)
+        Me.cbox_vout1_daq2.Name = "cbox_vout1_daq2"
+        Me.cbox_vout1_daq2.Size = New System.Drawing.Size(80, 23)
+        Me.cbox_vout1_daq2.TabIndex = 3143
+        '
+        'cbox_vout_daq2
+        '
+        Me.cbox_vout_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_vout_daq2.FormattingEnabled = True
+        Me.cbox_vout_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
+        Me.cbox_vout_daq2.Location = New System.Drawing.Point(60, 3)
+        Me.cbox_vout_daq2.Name = "cbox_vout_daq2"
+        Me.cbox_vout_daq2.Size = New System.Drawing.Size(80, 23)
+        Me.cbox_vout_daq2.TabIndex = 3143
+        '
+        'Panel61
+        '
+        Me.Panel61.BackColor = System.Drawing.Color.LightGray
+        Me.Panel61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel61.Controls.Add(Me.TextBox16)
+        Me.Panel61.Controls.Add(Me.TextBox18)
+        Me.Panel61.Location = New System.Drawing.Point(47, 171)
+        Me.Panel61.Name = "Panel61"
+        Me.Panel61.Size = New System.Drawing.Size(74, 82)
+        Me.Panel61.TabIndex = 3285
+        '
+        'TextBox16
+        '
+        Me.TextBox16.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox16.Location = New System.Drawing.Point(-1, 17)
+        Me.TextBox16.Name = "TextBox16"
+        Me.TextBox16.Size = New System.Drawing.Size(73, 21)
+        Me.TextBox16.TabIndex = 3125
+        Me.TextBox16.Text = "VOUT"
+        Me.TextBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox18
+        '
+        Me.TextBox18.BackColor = System.Drawing.Color.LightGray
+        Me.TextBox18.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox18.Location = New System.Drawing.Point(0, 43)
+        Me.TextBox18.Name = "TextBox18"
+        Me.TextBox18.ReadOnly = True
+        Me.TextBox18.Size = New System.Drawing.Size(73, 14)
+        Me.TextBox18.TabIndex = 3123
+        Me.TextBox18.Text = "VOUT (V)"
+        Me.TextBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel62
+        '
+        Me.Panel62.BackColor = System.Drawing.Color.LightYellow
+        Me.Panel62.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel62.Controls.Add(Me.Label125)
+        Me.Panel62.Location = New System.Drawing.Point(3, 171)
+        Me.Panel62.Name = "Panel62"
+        Me.Panel62.Size = New System.Drawing.Size(44, 82)
+        Me.Panel62.TabIndex = 3284
+        '
+        'Label125
+        '
+        Me.Label125.AutoSize = True
+        Me.Label125.ForeColor = System.Drawing.Color.Black
+        Me.Label125.Location = New System.Drawing.Point(0, 33)
+        Me.Label125.Name = "Label125"
+        Me.Label125.Size = New System.Drawing.Size(39, 15)
+        Me.Label125.TabIndex = 3165
+        Me.Label125.Text = "VOUT"
+        '
+        'Panel63
+        '
+        Me.Panel63.BackColor = System.Drawing.Color.LightGray
+        Me.Panel63.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel63.Controls.Add(Me.TextBox19)
+        Me.Panel63.Controls.Add(Me.TextBox20)
+        Me.Panel63.Location = New System.Drawing.Point(47, 255)
+        Me.Panel63.Name = "Panel63"
+        Me.Panel63.Size = New System.Drawing.Size(74, 184)
+        Me.Panel63.TabIndex = 3283
+        '
+        'TextBox19
+        '
+        Me.TextBox19.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox19.Location = New System.Drawing.Point(0, 64)
+        Me.TextBox19.Name = "TextBox19"
+        Me.TextBox19.Size = New System.Drawing.Size(73, 21)
+        Me.TextBox19.TabIndex = 3125
+        Me.TextBox19.Text = "IOUT"
+        Me.TextBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox20
+        '
+        Me.TextBox20.BackColor = System.Drawing.Color.LightGray
+        Me.TextBox20.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox20.Location = New System.Drawing.Point(-1, 94)
+        Me.TextBox20.Name = "TextBox20"
+        Me.TextBox20.ReadOnly = True
+        Me.TextBox20.Size = New System.Drawing.Size(73, 14)
+        Me.TextBox20.TabIndex = 3123
+        Me.TextBox20.Text = "IOUT (A)"
+        Me.TextBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel64
+        '
+        Me.Panel64.BackColor = System.Drawing.Color.LightGray
+        Me.Panel64.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel64.Controls.Add(Me.TextBox21)
+        Me.Panel64.Controls.Add(Me.TextBox22)
+        Me.Panel64.Location = New System.Drawing.Point(47, 93)
+        Me.Panel64.Name = "Panel64"
+        Me.Panel64.Size = New System.Drawing.Size(74, 76)
+        Me.Panel64.TabIndex = 3282
+        '
+        'TextBox21
+        '
+        Me.TextBox21.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox21.Location = New System.Drawing.Point(-1, 24)
+        Me.TextBox21.Name = "TextBox21"
+        Me.TextBox21.Size = New System.Drawing.Size(73, 21)
+        Me.TextBox21.TabIndex = 3126
+        Me.TextBox21.Text = "IIN"
+        Me.TextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox22
+        '
+        Me.TextBox22.BackColor = System.Drawing.Color.LightGray
+        Me.TextBox22.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox22.Location = New System.Drawing.Point(0, 51)
+        Me.TextBox22.Name = "TextBox22"
+        Me.TextBox22.ReadOnly = True
+        Me.TextBox22.Size = New System.Drawing.Size(73, 14)
+        Me.TextBox22.TabIndex = 3122
+        Me.TextBox22.Text = "IIN (A)"
+        Me.TextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel65
+        '
+        Me.Panel65.BackColor = System.Drawing.Color.LightGray
+        Me.Panel65.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel65.Controls.Add(Me.TextBox23)
+        Me.Panel65.Controls.Add(Me.TextBox26)
+        Me.Panel65.Location = New System.Drawing.Point(47, 32)
+        Me.Panel65.Name = "Panel65"
+        Me.Panel65.Size = New System.Drawing.Size(74, 60)
+        Me.Panel65.TabIndex = 3281
+        '
+        'TextBox23
+        '
+        Me.TextBox23.BackColor = System.Drawing.SystemColors.Window
+        Me.TextBox23.Location = New System.Drawing.Point(0, 6)
+        Me.TextBox23.Name = "TextBox23"
+        Me.TextBox23.Size = New System.Drawing.Size(73, 21)
+        Me.TextBox23.TabIndex = 3126
+        Me.TextBox23.Text = "VIN"
+        Me.TextBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox26
+        '
+        Me.TextBox26.BackColor = System.Drawing.Color.LightGray
+        Me.TextBox26.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TextBox26.Location = New System.Drawing.Point(-1, 35)
+        Me.TextBox26.Name = "TextBox26"
+        Me.TextBox26.ReadOnly = True
+        Me.TextBox26.Size = New System.Drawing.Size(73, 14)
+        Me.TextBox26.TabIndex = 3122
+        Me.TextBox26.Text = "VIN (V)"
+        Me.TextBox26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox31
+        '
+        Me.TextBox31.BackColor = System.Drawing.Color.Gray
+        Me.TextBox31.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox31.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox31.Location = New System.Drawing.Point(47, 9)
+        Me.TextBox31.Name = "TextBox31"
+        Me.TextBox31.ReadOnly = True
+        Me.TextBox31.Size = New System.Drawing.Size(74, 21)
+        Me.TextBox31.TabIndex = 3280
+        Me.TextBox31.Text = "Name"
+        Me.TextBox31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel66
+        '
+        Me.Panel66.BackColor = System.Drawing.Color.LightYellow
+        Me.Panel66.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel66.Controls.Add(Me.Label126)
+        Me.Panel66.Location = New System.Drawing.Point(3, 32)
+        Me.Panel66.Name = "Panel66"
+        Me.Panel66.Size = New System.Drawing.Size(44, 60)
+        Me.Panel66.TabIndex = 3277
+        '
+        'Label126
+        '
+        Me.Label126.AutoSize = True
+        Me.Label126.ForeColor = System.Drawing.Color.Black
+        Me.Label126.Location = New System.Drawing.Point(8, 22)
+        Me.Label126.Name = "Label126"
+        Me.Label126.Size = New System.Drawing.Size(26, 15)
+        Me.Label126.TabIndex = 3164
+        Me.Label126.Text = "VIN"
+        '
+        'Panel67
+        '
+        Me.Panel67.BackColor = System.Drawing.Color.LightYellow
+        Me.Panel67.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel67.Controls.Add(Me.Label127)
+        Me.Panel67.Location = New System.Drawing.Point(3, 93)
+        Me.Panel67.Name = "Panel67"
+        Me.Panel67.Size = New System.Drawing.Size(44, 76)
+        Me.Panel67.TabIndex = 3276
+        '
+        'Label127
+        '
+        Me.Label127.AutoSize = True
+        Me.Label127.ForeColor = System.Drawing.Color.Black
+        Me.Label127.Location = New System.Drawing.Point(10, 30)
+        Me.Label127.Name = "Label127"
+        Me.Label127.Size = New System.Drawing.Size(22, 15)
+        Me.Label127.TabIndex = 3163
+        Me.Label127.Text = "IIN"
+        '
+        'Panel68
+        '
+        Me.Panel68.BackColor = System.Drawing.Color.LightYellow
+        Me.Panel68.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel68.Controls.Add(Me.Label128)
+        Me.Panel68.Location = New System.Drawing.Point(3, 255)
+        Me.Panel68.Name = "Panel68"
+        Me.Panel68.Size = New System.Drawing.Size(44, 184)
+        Me.Panel68.TabIndex = 3279
+        '
+        'Label128
+        '
+        Me.Label128.AutoSize = True
+        Me.Label128.ForeColor = System.Drawing.Color.Black
+        Me.Label128.Location = New System.Drawing.Point(4, 84)
+        Me.Label128.Name = "Label128"
+        Me.Label128.Size = New System.Drawing.Size(35, 15)
+        Me.Label128.TabIndex = 3166
+        Me.Label128.Text = "IOUT"
+        '
+        'Panel69
+        '
+        Me.Panel69.BackColor = System.Drawing.Color.LightGray
+        Me.Panel69.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel69.Controls.Add(Me.Label129)
+        Me.Panel69.Controls.Add(Me.Label130)
+        Me.Panel69.Controls.Add(Me.Label131)
+        Me.Panel69.Controls.Add(Me.NumericUpDown6)
+        Me.Panel69.Controls.Add(Me.ComboBox5)
+        Me.Panel69.Controls.Add(Me.Label132)
+        Me.Panel69.Controls.Add(Me.RadioButton1)
+        Me.Panel69.Controls.Add(Me.TextBox34)
+        Me.Panel69.Controls.Add(Me.ComboBox6)
+        Me.Panel69.Controls.Add(Me.CheckBox7)
+        Me.Panel69.Controls.Add(Me.ComboBox7)
+        Me.Panel69.Controls.Add(Me.RadioButton2)
+        Me.Panel69.Controls.Add(Me.RadioButton3)
+        Me.Panel69.Location = New System.Drawing.Point(122, 340)
+        Me.Panel69.Name = "Panel69"
+        Me.Panel69.Size = New System.Drawing.Size(626, 99)
+        Me.Panel69.TabIndex = 3278
+        '
+        'Label129
+        '
+        Me.Label129.AutoSize = True
+        Me.Label129.ForeColor = System.Drawing.Color.Black
+        Me.Label129.Location = New System.Drawing.Point(358, 4)
+        Me.Label129.Name = "Label129"
+        Me.Label129.Size = New System.Drawing.Size(11, 15)
+        Me.Label129.TabIndex = 3262
+        Me.Label129.Text = ")"
+        '
+        'Label130
+        '
+        Me.Label130.AutoSize = True
+        Me.Label130.ForeColor = System.Drawing.Color.Black
+        Me.Label130.Location = New System.Drawing.Point(206, 4)
+        Me.Label130.Name = "Label130"
+        Me.Label130.Size = New System.Drawing.Size(81, 15)
+        Me.Label130.TabIndex = 3243
+        Me.Label130.Text = "IOUT (mA) >="
+        '
+        'Label131
+        '
+        Me.Label131.AutoSize = True
+        Me.Label131.ForeColor = System.Drawing.Color.Black
+        Me.Label131.Location = New System.Drawing.Point(6, 4)
+        Me.Label131.Name = "Label131"
+        Me.Label131.Size = New System.Drawing.Size(86, 15)
+        Me.Label131.TabIndex = 3259
+        Me.Label131.Text = "Measurement:"
+        '
+        'NumericUpDown6
+        '
+        Me.NumericUpDown6.Location = New System.Drawing.Point(293, 2)
+        Me.NumericUpDown6.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.NumericUpDown6.Name = "NumericUpDown6"
+        Me.NumericUpDown6.Size = New System.Drawing.Size(61, 21)
+        Me.NumericUpDown6.TabIndex = 3240
+        Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown6.Value = New Decimal(New Integer() {400, 0, 0, 0})
+        '
+        'ComboBox5
+        '
+        Me.ComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox5.FormattingEnabled = True
+        Me.ComboBox5.Items.AddRange(New Object() {"Buck1", "Buck2", "Buck1&2"})
+        Me.ComboBox5.Location = New System.Drawing.Point(235, 50)
+        Me.ComboBox5.Name = "ComboBox5"
+        Me.ComboBox5.Size = New System.Drawing.Size(80, 23)
+        Me.ComboBox5.TabIndex = 3258
+        '
+        'Label132
+        '
+        Me.Label132.AutoSize = True
+        Me.Label132.ForeColor = System.Drawing.Color.Black
+        Me.Label132.Location = New System.Drawing.Point(107, 4)
+        Me.Label132.Name = "Label132"
+        Me.Label132.Size = New System.Drawing.Size(98, 15)
+        Me.Label132.TabIndex = 3244
+        Me.Label132.Text = "(Range Change:"
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(17, 74)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(74, 19)
+        Me.RadioButton1.TabIndex = 3257
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "DC Load"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'TextBox34
+        '
+        Me.TextBox34.Location = New System.Drawing.Point(195, 26)
+        Me.TextBox34.Name = "TextBox34"
+        Me.TextBox34.ReadOnly = True
+        Me.TextBox34.Size = New System.Drawing.Size(55, 21)
+        Me.TextBox34.TabIndex = 2959
+        Me.TextBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'ComboBox6
+        '
+        Me.ComboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox6.FormattingEnabled = True
+        Me.ComboBox6.Items.AddRange(New Object() {"OFF"})
+        Me.ComboBox6.Location = New System.Drawing.Point(84, 26)
+        Me.ComboBox6.Name = "ComboBox6"
+        Me.ComboBox6.Size = New System.Drawing.Size(109, 23)
+        Me.ComboBox6.TabIndex = 2942
+        '
+        'CheckBox7
+        '
+        Me.CheckBox7.AutoSize = True
+        Me.CheckBox7.Checked = True
+        Me.CheckBox7.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.CheckBox7.Location = New System.Drawing.Point(256, 28)
+        Me.CheckBox7.Name = "CheckBox7"
+        Me.CheckBox7.Size = New System.Drawing.Size(60, 19)
+        Me.CheckBox7.TabIndex = 2994
+        Me.CheckBox7.Text = "Relay:"
+        Me.CheckBox7.UseVisualStyleBackColor = True
+        '
+        'ComboBox7
+        '
+        Me.ComboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox7.FormattingEnabled = True
+        Me.ComboBox7.Items.AddRange(New Object() {"P2.4", "P2.5"})
+        Me.ComboBox7.Location = New System.Drawing.Point(327, 26)
+        Me.ComboBox7.Name = "ComboBox7"
+        Me.ComboBox7.Size = New System.Drawing.Size(80, 23)
+        Me.ComboBox7.TabIndex = 2952
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(17, 27)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(55, 19)
+        Me.RadioButton2.TabIndex = 3238
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "Meter"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(17, 52)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(220, 19)
+        Me.RadioButton3.TabIndex = 3239
+        Me.RadioButton3.TabStop = True
+        Me.RadioButton3.Text = "Current Monitor (Need Relay Board)"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'Panel70
+        '
+        Me.Panel70.BackColor = System.Drawing.Color.LightGray
+        Me.Panel70.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel70.Controls.Add(Me.TextBox35)
+        Me.Panel70.Controls.Add(Me.Label133)
+        Me.Panel70.Controls.Add(Me.num_VIN_OCP2)
+        Me.Panel70.Controls.Add(Me.Label134)
+        Me.Panel70.Controls.Add(Me.check_vin_sense2)
+        Me.Panel70.Controls.Add(Me.Label135)
+        Me.Panel70.Controls.Add(Me.Label136)
+        Me.Panel70.Controls.Add(Me.num_vin_sense2)
+        Me.Panel70.Controls.Add(Me.Label137)
+        Me.Panel70.Controls.Add(Me.cbox_vin2)
+        Me.Panel70.Controls.Add(Me.num_vin_max2)
+        Me.Panel70.Controls.Add(Me.cbox_vin_ch2)
+        Me.Panel70.Controls.Add(Me.cbox_vin_daq2)
+        Me.Panel70.Controls.Add(Me.Label138)
+        Me.Panel70.Controls.Add(Me.Label139)
+        Me.Panel70.Location = New System.Drawing.Point(122, 32)
+        Me.Panel70.Name = "Panel70"
+        Me.Panel70.Size = New System.Drawing.Size(626, 60)
+        Me.Panel70.TabIndex = 3275
+        '
+        'TextBox35
+        '
+        Me.TextBox35.Location = New System.Drawing.Point(291, 4)
+        Me.TextBox35.Name = "TextBox35"
+        Me.TextBox35.ReadOnly = True
+        Me.TextBox35.Size = New System.Drawing.Size(55, 21)
+        Me.TextBox35.TabIndex = 3255
+        Me.TextBox35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label133
+        '
+        Me.Label133.AutoSize = True
+        Me.Label133.ForeColor = System.Drawing.Color.Black
+        Me.Label133.Location = New System.Drawing.Point(491, 7)
+        Me.Label133.Name = "Label133"
+        Me.Label133.Size = New System.Drawing.Size(109, 15)
+        Me.Label133.TabIndex = 3254
+        Me.Label133.Text = " ( OCP=0, Not set )"
+        '
+        'num_VIN_OCP2
+        '
+        Me.num_VIN_OCP2.DecimalPlaces = 1
+        Me.num_VIN_OCP2.ForeColor = System.Drawing.Color.Black
+        Me.num_VIN_OCP2.Location = New System.Drawing.Point(418, 5)
+        Me.num_VIN_OCP2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
+        Me.num_VIN_OCP2.Name = "num_VIN_OCP2"
+        Me.num_VIN_OCP2.Size = New System.Drawing.Size(67, 21)
+        Me.num_VIN_OCP2.TabIndex = 3253
+        Me.num_VIN_OCP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label134
+        '
+        Me.Label134.AutoSize = True
+        Me.Label134.ForeColor = System.Drawing.Color.Black
+        Me.Label134.Location = New System.Drawing.Point(7, 34)
+        Me.Label134.Name = "Label134"
+        Me.Label134.Size = New System.Drawing.Size(35, 15)
+        Me.Label134.TabIndex = 3252
+        Me.Label134.Text = "DAQ:"
+        '
+        'check_vin_sense2
+        '
+        Me.check_vin_sense2.AutoSize = True
+        Me.check_vin_sense2.Checked = True
+        Me.check_vin_sense2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.check_vin_sense2.ForeColor = System.Drawing.Color.Black
+        Me.check_vin_sense2.Location = New System.Drawing.Point(156, 32)
+        Me.check_vin_sense2.Name = "check_vin_sense2"
+        Me.check_vin_sense2.Size = New System.Drawing.Size(86, 19)
+        Me.check_vin_sense2.TabIndex = 3251
+        Me.check_vin_sense2.Text = "Sence VIN:"
+        Me.check_vin_sense2.UseVisualStyleBackColor = True
+        '
+        'Label135
+        '
+        Me.Label135.AutoSize = True
+        Me.Label135.ForeColor = System.Drawing.Color.Black
+        Me.Label135.Location = New System.Drawing.Point(353, 33)
+        Me.Label135.Name = "Label135"
+        Me.Label135.Size = New System.Drawing.Size(14, 15)
+        Me.Label135.TabIndex = 3250
+        Me.Label135.Text = "V"
+        '
+        'Label136
+        '
+        Me.Label136.AutoSize = True
+        Me.Label136.ForeColor = System.Drawing.Color.Black
+        Me.Label136.Location = New System.Drawing.Point(358, 7)
+        Me.Label136.Name = "Label136"
+        Me.Label136.Size = New System.Drawing.Size(54, 15)
+        Me.Label136.TabIndex = 3068
+        Me.Label136.Text = "OCP (A):"
+        '
+        'num_vin_sense2
+        '
+        Me.num_vin_sense2.DecimalPlaces = 3
+        Me.num_vin_sense2.ForeColor = System.Drawing.Color.Black
+        Me.num_vin_sense2.Location = New System.Drawing.Point(268, 31)
+        Me.num_vin_sense2.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
+        Me.num_vin_sense2.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_vin_sense2.Name = "num_vin_sense2"
+        Me.num_vin_sense2.Size = New System.Drawing.Size(79, 21)
+        Me.num_vin_sense2.TabIndex = 3246
+        Me.num_vin_sense2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_vin_sense2.Value = New Decimal(New Integer() {1, 0, 0, 131072})
+        '
+        'Label137
+        '
+        Me.Label137.AutoSize = True
+        Me.Label137.ForeColor = System.Drawing.Color.Black
+        Me.Label137.Location = New System.Drawing.Point(496, 33)
+        Me.Label137.Name = "Label137"
+        Me.Label137.Size = New System.Drawing.Size(21, 15)
+        Me.Label137.TabIndex = 3249
+        Me.Label137.Text = "V )"
+        '
+        'cbox_vin2
+        '
+        Me.cbox_vin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_vin2.FormattingEnabled = True
+        Me.cbox_vin2.Location = New System.Drawing.Point(3, 3)
+        Me.cbox_vin2.Name = "cbox_vin2"
+        Me.cbox_vin2.Size = New System.Drawing.Size(150, 23)
+        Me.cbox_vin2.TabIndex = 3217
+        '
+        'num_vin_max2
+        '
+        Me.num_vin_max2.DecimalPlaces = 1
+        Me.num_vin_max2.ForeColor = System.Drawing.Color.Black
+        Me.num_vin_max2.Location = New System.Drawing.Point(422, 31)
+        Me.num_vin_max2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
+        Me.num_vin_max2.Name = "num_vin_max2"
+        Me.num_vin_max2.Size = New System.Drawing.Size(67, 21)
+        Me.num_vin_max2.TabIndex = 3248
+        Me.num_vin_max2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'cbox_vin_ch2
+        '
+        Me.cbox_vin_ch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_vin_ch2.FormattingEnabled = True
+        Me.cbox_vin_ch2.Location = New System.Drawing.Point(155, 3)
+        Me.cbox_vin_ch2.Name = "cbox_vin_ch2"
+        Me.cbox_vin_ch2.Size = New System.Drawing.Size(130, 23)
+        Me.cbox_vin_ch2.TabIndex = 3218
+        '
+        'cbox_vin_daq2
+        '
+        Me.cbox_vin_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_vin_daq2.FormattingEnabled = True
+        Me.cbox_vin_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
+        Me.cbox_vin_daq2.Location = New System.Drawing.Point(60, 30)
+        Me.cbox_vin_daq2.Name = "cbox_vin_daq2"
+        Me.cbox_vin_daq2.Size = New System.Drawing.Size(80, 23)
+        Me.cbox_vin_daq2.TabIndex = 3143
+        '
+        'Label138
+        '
+        Me.Label138.AutoSize = True
+        Me.Label138.ForeColor = System.Drawing.Color.Black
+        Me.Label138.Location = New System.Drawing.Point(368, 33)
+        Me.Label138.Name = "Label138"
+        Me.Label138.Size = New System.Drawing.Size(48, 15)
+        Me.Label138.TabIndex = 3247
+        Me.Label138.Text = " ( Max.="
+        '
+        'Label139
+        '
+        Me.Label139.AutoSize = True
+        Me.Label139.ForeColor = System.Drawing.Color.Black
+        Me.Label139.Location = New System.Drawing.Point(244, 34)
+        Me.Label139.Name = "Label139"
+        Me.Label139.Size = New System.Drawing.Size(18, 15)
+        Me.Label139.TabIndex = 3245
+        Me.Label139.Text = "+-"
+        '
+        'Panel71
+        '
+        Me.Panel71.BackColor = System.Drawing.Color.LightGray
+        Me.Panel71.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel71.Controls.Add(Me.rbtn_Iin_PW2)
+        Me.Panel71.Controls.Add(Me.Label140)
+        Me.Panel71.Controls.Add(Me.Label141)
+        Me.Panel71.Controls.Add(Me.num_iin_change2)
+        Me.Panel71.Controls.Add(Me.Label142)
+        Me.Panel71.Controls.Add(Me.Label143)
+        Me.Panel71.Controls.Add(Me.rbtn_meter_iin2)
+        Me.Panel71.Controls.Add(Me.rbtn_board_iin2)
+        Me.Panel71.Controls.Add(Me.cbox_IIN_relay2)
+        Me.Panel71.Controls.Add(Me.check_iin2)
+        Me.Panel71.Controls.Add(Me.cbox_IIN_meter2)
+        Me.Panel71.Controls.Add(Me.txt_IIN_addr2)
+        Me.Panel71.Location = New System.Drawing.Point(122, 93)
+        Me.Panel71.Name = "Panel71"
+        Me.Panel71.Size = New System.Drawing.Size(626, 76)
+        Me.Panel71.TabIndex = 3274
+        '
+        'rbtn_Iin_PW2
+        '
+        Me.rbtn_Iin_PW2.AutoSize = True
+        Me.rbtn_Iin_PW2.Location = New System.Drawing.Point(286, 52)
+        Me.rbtn_Iin_PW2.Name = "rbtn_Iin_PW2"
+        Me.rbtn_Iin_PW2.Size = New System.Drawing.Size(100, 19)
+        Me.rbtn_Iin_PW2.TabIndex = 3265
+        Me.rbtn_Iin_PW2.TabStop = True
+        Me.rbtn_Iin_PW2.Text = "Power Supply"
+        Me.rbtn_Iin_PW2.UseVisualStyleBackColor = True
+        '
+        'Label140
+        '
+        Me.Label140.AutoSize = True
+        Me.Label140.ForeColor = System.Drawing.Color.Black
+        Me.Label140.Location = New System.Drawing.Point(9, 6)
+        Me.Label140.Name = "Label140"
+        Me.Label140.Size = New System.Drawing.Size(86, 15)
+        Me.Label140.TabIndex = 3264
+        Me.Label140.Text = "Measurement:"
+        '
+        'Label141
+        '
+        Me.Label141.AutoSize = True
+        Me.Label141.ForeColor = System.Drawing.Color.Black
+        Me.Label141.Location = New System.Drawing.Point(373, 4)
+        Me.Label141.Name = "Label141"
+        Me.Label141.Size = New System.Drawing.Size(11, 15)
+        Me.Label141.TabIndex = 3263
+        Me.Label141.Text = ")"
+        '
+        'num_iin_change2
+        '
+        Me.num_iin_change2.Location = New System.Drawing.Point(306, 2)
+        Me.num_iin_change2.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
+        Me.num_iin_change2.Name = "num_iin_change2"
+        Me.num_iin_change2.Size = New System.Drawing.Size(61, 21)
+        Me.num_iin_change2.TabIndex = 3242
+        Me.num_iin_change2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_iin_change2.Value = New Decimal(New Integer() {400, 0, 0, 0})
+        '
+        'Label142
+        '
+        Me.Label142.AutoSize = True
+        Me.Label142.ForeColor = System.Drawing.Color.Black
+        Me.Label142.Location = New System.Drawing.Point(219, 6)
+        Me.Label142.Name = "Label142"
+        Me.Label142.Size = New System.Drawing.Size(68, 15)
+        Me.Label142.TabIndex = 3243
+        Me.Label142.Text = "IIN (mA) >="
+        '
+        'Label143
+        '
+        Me.Label143.AutoSize = True
+        Me.Label143.ForeColor = System.Drawing.Color.Black
+        Me.Label143.Location = New System.Drawing.Point(121, 4)
+        Me.Label143.Name = "Label143"
+        Me.Label143.Size = New System.Drawing.Size(98, 15)
+        Me.Label143.TabIndex = 3244
+        Me.Label143.Text = "(Range Change:"
+        '
+        'rbtn_meter_iin2
+        '
+        Me.rbtn_meter_iin2.AutoSize = True
+        Me.rbtn_meter_iin2.Location = New System.Drawing.Point(19, 29)
+        Me.rbtn_meter_iin2.Name = "rbtn_meter_iin2"
+        Me.rbtn_meter_iin2.Size = New System.Drawing.Size(55, 19)
+        Me.rbtn_meter_iin2.TabIndex = 3241
+        Me.rbtn_meter_iin2.TabStop = True
+        Me.rbtn_meter_iin2.Text = "Meter"
+        Me.rbtn_meter_iin2.UseVisualStyleBackColor = True
+        '
+        'rbtn_board_iin2
+        '
+        Me.rbtn_board_iin2.AutoSize = True
+        Me.rbtn_board_iin2.Location = New System.Drawing.Point(19, 52)
+        Me.rbtn_board_iin2.Name = "rbtn_board_iin2"
+        Me.rbtn_board_iin2.Size = New System.Drawing.Size(220, 19)
+        Me.rbtn_board_iin2.TabIndex = 3240
+        Me.rbtn_board_iin2.TabStop = True
+        Me.rbtn_board_iin2.Text = "Current Monitor (Need Relay Board)"
+        Me.rbtn_board_iin2.UseVisualStyleBackColor = True
+        '
+        'cbox_IIN_relay2
+        '
+        Me.cbox_IIN_relay2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_IIN_relay2.FormattingEnabled = True
+        Me.cbox_IIN_relay2.Items.AddRange(New Object() {"P2.4", "P2.5"})
+        Me.cbox_IIN_relay2.Location = New System.Drawing.Point(321, 24)
+        Me.cbox_IIN_relay2.Name = "cbox_IIN_relay2"
+        Me.cbox_IIN_relay2.Size = New System.Drawing.Size(80, 23)
+        Me.cbox_IIN_relay2.TabIndex = 2952
+        '
+        'check_iin2
+        '
+        Me.check_iin2.AutoSize = True
+        Me.check_iin2.Checked = True
+        Me.check_iin2.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.check_iin2.Location = New System.Drawing.Point(255, 26)
+        Me.check_iin2.Name = "check_iin2"
+        Me.check_iin2.Size = New System.Drawing.Size(60, 19)
+        Me.check_iin2.TabIndex = 2994
+        Me.check_iin2.Text = "Relay:"
+        Me.check_iin2.UseVisualStyleBackColor = True
+        '
+        'cbox_IIN_meter2
+        '
+        Me.cbox_IIN_meter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cbox_IIN_meter2.FormattingEnabled = True
+        Me.cbox_IIN_meter2.Items.AddRange(New Object() {"OFF"})
+        Me.cbox_IIN_meter2.Location = New System.Drawing.Point(84, 25)
+        Me.cbox_IIN_meter2.Name = "cbox_IIN_meter2"
+        Me.cbox_IIN_meter2.Size = New System.Drawing.Size(109, 23)
+        Me.cbox_IIN_meter2.TabIndex = 2942
+        '
+        'txt_IIN_addr2
+        '
+        Me.txt_IIN_addr2.Location = New System.Drawing.Point(195, 25)
+        Me.txt_IIN_addr2.Name = "txt_IIN_addr2"
+        Me.txt_IIN_addr2.ReadOnly = True
+        Me.txt_IIN_addr2.Size = New System.Drawing.Size(55, 21)
+        Me.txt_IIN_addr2.TabIndex = 2959
+        Me.txt_IIN_addr2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox40
+        '
+        Me.TextBox40.BackColor = System.Drawing.Color.Gray
+        Me.TextBox40.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox40.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox40.Location = New System.Drawing.Point(122, 9)
+        Me.TextBox40.Name = "TextBox40"
+        Me.TextBox40.ReadOnly = True
+        Me.TextBox40.Size = New System.Drawing.Size(626, 21)
+        Me.TextBox40.TabIndex = 3273
+        Me.TextBox40.Text = "Instrument"
+        Me.TextBox40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'TabPage_Scope1
         '
         Me.TabPage_Scope1.BackColor = System.Drawing.Color.DimGray
@@ -3336,6 +4501,153 @@ Partial Class PartI
         Me.TabPage_Scope1.Size = New System.Drawing.Size(751, 471)
         Me.TabPage_Scope1.TabIndex = 5
         Me.TabPage_Scope1.Text = "Scope"
+        '
+        'TextBox12
+        '
+        Me.TextBox12.BackColor = System.Drawing.SystemColors.Control
+        Me.TextBox12.Location = New System.Drawing.Point(179, 163)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.ReadOnly = True
+        Me.TextBox12.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox12.TabIndex = 3243
+        Me.TextBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Panel72
+        '
+        Me.Panel72.BackColor = System.Drawing.Color.Gainsboro
+        Me.Panel72.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel72.Controls.Add(Me.CheckBox5)
+        Me.Panel72.Location = New System.Drawing.Point(324, 164)
+        Me.Panel72.Name = "Panel72"
+        Me.Panel72.Size = New System.Drawing.Size(74, 23)
+        Me.Panel72.TabIndex = 3242
+        '
+        'CheckBox5
+        '
+        Me.CheckBox5.AutoSize = True
+        Me.CheckBox5.ForeColor = System.Drawing.Color.Black
+        Me.CheckBox5.Location = New System.Drawing.Point(11, 1)
+        Me.CheckBox5.Name = "CheckBox5"
+        Me.CheckBox5.Size = New System.Drawing.Size(50, 19)
+        Me.CheckBox5.TabIndex = 3169
+        Me.CheckBox5.Text = "Auto"
+        Me.CheckBox5.UseVisualStyleBackColor = True
+        '
+        'TextBox15
+        '
+        Me.TextBox15.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox15.Location = New System.Drawing.Point(31, 163)
+        Me.TextBox15.Name = "TextBox15"
+        Me.TextBox15.ReadOnly = True
+        Me.TextBox15.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox15.TabIndex = 3241
+        Me.TextBox15.Text = "VOUT2"
+        Me.TextBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'ComboBox9
+        '
+        Me.ComboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox9.FormattingEnabled = True
+        Me.ComboBox9.Items.AddRange(New Object() {"CH1", "CH2", "CH3", "CH4"})
+        Me.ComboBox9.Location = New System.Drawing.Point(102, 163)
+        Me.ComboBox9.Name = "ComboBox9"
+        Me.ComboBox9.Size = New System.Drawing.Size(75, 23)
+        Me.ComboBox9.TabIndex = 3240
+        '
+        'NumericUpDown7
+        '
+        Me.NumericUpDown7.DecimalPlaces = 1
+        Me.NumericUpDown7.Location = New System.Drawing.Point(401, 164)
+        Me.NumericUpDown7.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NumericUpDown7.Minimum = New Decimal(New Integer() {10, 0, 0, -2147483648})
+        Me.NumericUpDown7.Name = "NumericUpDown7"
+        Me.NumericUpDown7.Size = New System.Drawing.Size(77, 21)
+        Me.NumericUpDown7.TabIndex = 3239
+        Me.NumericUpDown7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown7.Value = New Decimal(New Integer() {1, 0, 0, 0})
+        '
+        'ComboBox10
+        '
+        Me.ComboBox10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox10.FormattingEnabled = True
+        Me.ComboBox10.Items.AddRange(New Object() {"20MHz", "Full"})
+        Me.ComboBox10.Location = New System.Drawing.Point(481, 163)
+        Me.ComboBox10.Name = "ComboBox10"
+        Me.ComboBox10.Size = New System.Drawing.Size(81, 23)
+        Me.ComboBox10.TabIndex = 3238
+        '
+        'ComboBox11
+        '
+        Me.ComboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox11.FormattingEnabled = True
+        Me.ComboBox11.Items.AddRange(New Object() {"DC (1MΩ)", "AC", "DC (50Ω)"})
+        Me.ComboBox11.Location = New System.Drawing.Point(250, 163)
+        Me.ComboBox11.Name = "ComboBox11"
+        Me.ComboBox11.Size = New System.Drawing.Size(73, 23)
+        Me.ComboBox11.TabIndex = 3237
+        '
+        'TextBox10
+        '
+        Me.TextBox10.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox10.Location = New System.Drawing.Point(31, 107)
+        Me.TextBox10.Name = "TextBox10"
+        Me.TextBox10.ReadOnly = True
+        Me.TextBox10.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox10.TabIndex = 3236
+        Me.TextBox10.Text = "LX2"
+        Me.TextBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'ComboBox3
+        '
+        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox3.FormattingEnabled = True
+        Me.ComboBox3.Items.AddRange(New Object() {"CH1", "CH2", "CH3", "CH4"})
+        Me.ComboBox3.Location = New System.Drawing.Point(102, 107)
+        Me.ComboBox3.Name = "ComboBox3"
+        Me.ComboBox3.Size = New System.Drawing.Size(75, 23)
+        Me.ComboBox3.TabIndex = 3235
+        '
+        'NumericUpDown4
+        '
+        Me.NumericUpDown4.DecimalPlaces = 1
+        Me.NumericUpDown4.Location = New System.Drawing.Point(401, 108)
+        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.NumericUpDown4.Minimum = New Decimal(New Integer() {10, 0, 0, -2147483648})
+        Me.NumericUpDown4.Name = "NumericUpDown4"
+        Me.NumericUpDown4.Size = New System.Drawing.Size(77, 21)
+        Me.NumericUpDown4.TabIndex = 3234
+        Me.NumericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.NumericUpDown4.Value = New Decimal(New Integer() {3, 0, 0, -2147483648})
+        '
+        'NumericUpDown5
+        '
+        Me.NumericUpDown5.DecimalPlaces = 2
+        Me.NumericUpDown5.Location = New System.Drawing.Point(324, 108)
+        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
+        Me.NumericUpDown5.Name = "NumericUpDown5"
+        Me.NumericUpDown5.Size = New System.Drawing.Size(74, 21)
+        Me.NumericUpDown5.TabIndex = 3231
+        Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'ComboBox4
+        '
+        Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox4.FormattingEnabled = True
+        Me.ComboBox4.Items.AddRange(New Object() {"20MHz", "Full"})
+        Me.ComboBox4.Location = New System.Drawing.Point(481, 107)
+        Me.ComboBox4.Name = "ComboBox4"
+        Me.ComboBox4.Size = New System.Drawing.Size(81, 23)
+        Me.ComboBox4.TabIndex = 3233
+        '
+        'ComboBox8
+        '
+        Me.ComboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.ComboBox8.FormattingEnabled = True
+        Me.ComboBox8.Items.AddRange(New Object() {"DC (1MΩ)", "AC", "DC (50Ω)"})
+        Me.ComboBox8.Location = New System.Drawing.Point(250, 107)
+        Me.ComboBox8.Name = "ComboBox8"
+        Me.ComboBox8.Size = New System.Drawing.Size(73, 23)
+        Me.ComboBox8.TabIndex = 3232
         '
         'txt_board_VOUT
         '
@@ -3954,7 +5266,7 @@ Partial Class PartI
         Me.txt_scope_lx.ReadOnly = True
         Me.txt_scope_lx.Size = New System.Drawing.Size(69, 21)
         Me.txt_scope_lx.TabIndex = 3215
-        Me.txt_scope_lx.Text = "LX"
+        Me.txt_scope_lx.Text = "LX1"
         Me.txt_scope_lx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'txt_scope_vin
@@ -3989,7 +5301,7 @@ Partial Class PartI
         Me.txt_scope_vout.ReadOnly = True
         Me.txt_scope_vout.Size = New System.Drawing.Size(69, 21)
         Me.txt_scope_vout.TabIndex = 3213
-        Me.txt_scope_vout.Text = "VOUT"
+        Me.txt_scope_vout.Text = "VOUT1"
         Me.txt_scope_vout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
         'GroupBox8
@@ -6971,1318 +8283,6 @@ Partial Class PartI
         Me.Column12.Name = "Column12"
         Me.Column12.Width = 80
         '
-        'TabPage_Instrument2
-        '
-        Me.TabPage_Instrument2.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel10)
-        Me.TabPage_Instrument2.Controls.Add(Me.Label114)
-        Me.TabPage_Instrument2.Controls.Add(Me.NumericUpDown3)
-        Me.TabPage_Instrument2.Controls.Add(Me.Label115)
-        Me.TabPage_Instrument2.Controls.Add(Me.Label116)
-        Me.TabPage_Instrument2.Controls.Add(Me.ComboBox2)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel59)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel61)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel62)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel63)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel64)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel65)
-        Me.TabPage_Instrument2.Controls.Add(Me.TextBox31)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel66)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel67)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel68)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel69)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel70)
-        Me.TabPage_Instrument2.Controls.Add(Me.Panel71)
-        Me.TabPage_Instrument2.Controls.Add(Me.TextBox40)
-        Me.TabPage_Instrument2.Location = New System.Drawing.Point(4, 24)
-        Me.TabPage_Instrument2.Name = "TabPage_Instrument2"
-        Me.TabPage_Instrument2.Size = New System.Drawing.Size(751, 471)
-        Me.TabPage_Instrument2.TabIndex = 9
-        Me.TabPage_Instrument2.Text = "Instrument2"
-        '
-        'Panel10
-        '
-        Me.Panel10.BackColor = System.Drawing.Color.LightGray
-        Me.Panel10.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel10.Controls.Add(Me.Panel26)
-        Me.Panel10.Controls.Add(Me.ss)
-        Me.Panel10.Controls.Add(Me.Label110)
-        Me.Panel10.Controls.Add(Me.txt_load_model12)
-        Me.Panel10.Controls.Add(Me.Panel58)
-        Me.Panel10.Controls.Add(Me.Label111)
-        Me.Panel10.Controls.Add(Me.Label112)
-        Me.Panel10.Controls.Add(Me.ComboBox1)
-        Me.Panel10.Controls.Add(Me.NumericUpDown1)
-        Me.Panel10.Controls.Add(Me.NumericUpDown2)
-        Me.Panel10.Controls.Add(Me.Label113)
-        Me.Panel10.Location = New System.Drawing.Point(122, 255)
-        Me.Panel10.Name = "Panel10"
-        Me.Panel10.Size = New System.Drawing.Size(626, 84)
-        Me.Panel10.TabIndex = 3291
-        '
-        'Panel26
-        '
-        Me.Panel26.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel26.Controls.Add(Me.CheckBox1)
-        Me.Panel26.Controls.Add(Me.CheckBox2)
-        Me.Panel26.Location = New System.Drawing.Point(304, 26)
-        Me.Panel26.Name = "Panel26"
-        Me.Panel26.Size = New System.Drawing.Size(214, 26)
-        Me.Panel26.TabIndex = 3262
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.ForeColor = System.Drawing.Color.Black
-        Me.CheckBox1.Location = New System.Drawing.Point(110, 3)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(51, 19)
-        Me.CheckBox1.TabIndex = 2968
-        Me.CheckBox1.Text = "CH4"
-        Me.CheckBox1.UseVisualStyleBackColor = True
-        '
-        'CheckBox2
-        '
-        Me.CheckBox2.AutoSize = True
-        Me.CheckBox2.ForeColor = System.Drawing.Color.Black
-        Me.CheckBox2.Location = New System.Drawing.Point(8, 3)
-        Me.CheckBox2.Name = "CheckBox2"
-        Me.CheckBox2.Size = New System.Drawing.Size(51, 19)
-        Me.CheckBox2.TabIndex = 2967
-        Me.CheckBox2.Text = "CH3"
-        Me.CheckBox2.UseVisualStyleBackColor = True
-        '
-        'ss
-        '
-        Me.ss.Location = New System.Drawing.Point(303, 3)
-        Me.ss.Name = "ss"
-        Me.ss.ReadOnly = True
-        Me.ss.Size = New System.Drawing.Size(214, 21)
-        Me.ss.TabIndex = 3261
-        Me.ss.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label110
-        '
-        Me.Label110.AutoSize = True
-        Me.Label110.ForeColor = System.Drawing.Color.Black
-        Me.Label110.Location = New System.Drawing.Point(7, 1)
-        Me.Label110.Name = "Label110"
-        Me.Label110.Size = New System.Drawing.Size(59, 15)
-        Me.Label110.TabIndex = 3253
-        Me.Label110.Text = "DC Load:"
-        '
-        'txt_load_model12
-        '
-        Me.txt_load_model12.Location = New System.Drawing.Point(84, 3)
-        Me.txt_load_model12.Name = "txt_load_model12"
-        Me.txt_load_model12.ReadOnly = True
-        Me.txt_load_model12.Size = New System.Drawing.Size(214, 21)
-        Me.txt_load_model12.TabIndex = 3260
-        Me.txt_load_model12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel58
-        '
-        Me.Panel58.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel58.Controls.Add(Me.CheckBox3)
-        Me.Panel58.Controls.Add(Me.CheckBox4)
-        Me.Panel58.Location = New System.Drawing.Point(84, 26)
-        Me.Panel58.Name = "Panel58"
-        Me.Panel58.Size = New System.Drawing.Size(214, 26)
-        Me.Panel58.TabIndex = 3260
-        '
-        'CheckBox3
-        '
-        Me.CheckBox3.AutoSize = True
-        Me.CheckBox3.ForeColor = System.Drawing.Color.Black
-        Me.CheckBox3.Location = New System.Drawing.Point(110, 3)
-        Me.CheckBox3.Name = "CheckBox3"
-        Me.CheckBox3.Size = New System.Drawing.Size(51, 19)
-        Me.CheckBox3.TabIndex = 2966
-        Me.CheckBox3.Text = "CH2"
-        Me.CheckBox3.UseVisualStyleBackColor = True
-        '
-        'CheckBox4
-        '
-        Me.CheckBox4.AutoSize = True
-        Me.CheckBox4.Checked = True
-        Me.CheckBox4.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox4.ForeColor = System.Drawing.Color.Black
-        Me.CheckBox4.Location = New System.Drawing.Point(8, 3)
-        Me.CheckBox4.Name = "CheckBox4"
-        Me.CheckBox4.Size = New System.Drawing.Size(51, 19)
-        Me.CheckBox4.TabIndex = 2965
-        Me.CheckBox4.Text = "CH1"
-        Me.CheckBox4.UseVisualStyleBackColor = True
-        '
-        'Label111
-        '
-        Me.Label111.AutoSize = True
-        Me.Label111.BackColor = System.Drawing.Color.LightGray
-        Me.Label111.ForeColor = System.Drawing.Color.Black
-        Me.Label111.Location = New System.Drawing.Point(76, 60)
-        Me.Label111.Name = "Label111"
-        Me.Label111.Size = New System.Drawing.Size(62, 15)
-        Me.Label111.TabIndex = 3113
-        Me.Label111.Text = "( Iout(A)  >"
-        '
-        'Label112
-        '
-        Me.Label112.AutoSize = True
-        Me.Label112.BackColor = System.Drawing.Color.LightGray
-        Me.Label112.ForeColor = System.Drawing.Color.Black
-        Me.Label112.Location = New System.Drawing.Point(221, 60)
-        Me.Label112.Name = "Label112"
-        Me.Label112.Size = New System.Drawing.Size(44, 15)
-        Me.Label112.TabIndex = 3254
-        Me.Label112.Text = ", Delay"
-        '
-        'ComboBox1
-        '
-        Me.ComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Items.AddRange(New Object() {"ms", "s"})
-        Me.ComboBox1.Location = New System.Drawing.Point(352, 57)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(62, 23)
-        Me.ComboBox1.TabIndex = 3111
-        '
-        'NumericUpDown1
-        '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(266, 58)
-        Me.NumericUpDown1.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(83, 21)
-        Me.NumericUpDown1.TabIndex = 3077
-        Me.NumericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {100, 0, 0, 0})
-        '
-        'NumericUpDown2
-        '
-        Me.NumericUpDown2.DecimalPlaces = 2
-        Me.NumericUpDown2.Location = New System.Drawing.Point(143, 58)
-        Me.NumericUpDown2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
-        Me.NumericUpDown2.Name = "NumericUpDown2"
-        Me.NumericUpDown2.Size = New System.Drawing.Size(70, 21)
-        Me.NumericUpDown2.TabIndex = 3112
-        Me.NumericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label113
-        '
-        Me.Label113.AutoSize = True
-        Me.Label113.BackColor = System.Drawing.Color.LightGray
-        Me.Label113.ForeColor = System.Drawing.Color.Black
-        Me.Label113.Location = New System.Drawing.Point(413, 60)
-        Me.Label113.Name = "Label113"
-        Me.Label113.Size = New System.Drawing.Size(11, 15)
-        Me.Label113.TabIndex = 3111
-        Me.Label113.Text = ")"
-        '
-        'Label114
-        '
-        Me.Label114.AutoSize = True
-        Me.Label114.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Label114.Location = New System.Drawing.Point(13, 448)
-        Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(175, 15)
-        Me.Label114.TabIndex = 3290
-        Me.Label114.Text = "Note: DAQ and Meter Measure:"
-        '
-        'NumericUpDown3
-        '
-        Me.NumericUpDown3.Location = New System.Drawing.Point(521, 445)
-        Me.NumericUpDown3.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDown3.Name = "NumericUpDown3"
-        Me.NumericUpDown3.Size = New System.Drawing.Size(64, 21)
-        Me.NumericUpDown3.TabIndex = 3246
-        Me.NumericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown3.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'Label115
-        '
-        Me.Label115.AutoSize = True
-        Me.Label115.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Label115.Location = New System.Drawing.Point(389, 448)
-        Me.Label115.Name = "Label115"
-        Me.Label115.Size = New System.Drawing.Size(126, 15)
-        Me.Label115.TabIndex = 3245
-        Me.Label115.Text = "Numbers of Measure:"
-        '
-        'Label116
-        '
-        Me.Label116.AutoSize = True
-        Me.Label116.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Label116.Location = New System.Drawing.Point(204, 448)
-        Me.Label116.Name = "Label116"
-        Me.Label116.Size = New System.Drawing.Size(70, 15)
-        Me.Label116.TabIndex = 2965
-        Me.Label116.Text = "Resolution:"
-        '
-        'ComboBox2
-        '
-        Me.ComboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox2.FormattingEnabled = True
-        Me.ComboBox2.Items.AddRange(New Object() {"DEF", "MIN", "MAX"})
-        Me.ComboBox2.Location = New System.Drawing.Point(280, 445)
-        Me.ComboBox2.Name = "ComboBox2"
-        Me.ComboBox2.Size = New System.Drawing.Size(98, 23)
-        Me.ComboBox2.TabIndex = 2964
-        '
-        'Panel59
-        '
-        Me.Panel59.BackColor = System.Drawing.Color.LightGray
-        Me.Panel59.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel59.Controls.Add(Me.Label117)
-        Me.Panel59.Controls.Add(Me.Panel60)
-        Me.Panel59.Controls.Add(Me.Label123)
-        Me.Panel59.Controls.Add(Me.Label124)
-        Me.Panel59.Controls.Add(Me.cbox_vout1_daq2)
-        Me.Panel59.Controls.Add(Me.cbox_vout_daq2)
-        Me.Panel59.Location = New System.Drawing.Point(122, 171)
-        Me.Panel59.Name = "Panel59"
-        Me.Panel59.Size = New System.Drawing.Size(626, 82)
-        Me.Panel59.TabIndex = 3256
-        '
-        'Label117
-        '
-        Me.Label117.AutoSize = True
-        Me.Label117.ForeColor = System.Drawing.Color.Black
-        Me.Label117.Location = New System.Drawing.Point(7, 57)
-        Me.Label117.Name = "Label117"
-        Me.Label117.Size = New System.Drawing.Size(35, 15)
-        Me.Label117.TabIndex = 3260
-        Me.Label117.Text = "DAQ:"
-        '
-        'Panel60
-        '
-        Me.Panel60.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel60.Controls.Add(Me.txt_OTP2)
-        Me.Panel60.Controls.Add(Me.Label118)
-        Me.Panel60.Controls.Add(Me.check_OTP2)
-        Me.Panel60.Controls.Add(Me.check_shutdown2)
-        Me.Panel60.Controls.Add(Me.Label119)
-        Me.Panel60.Controls.Add(Me.Label120)
-        Me.Panel60.Controls.Add(Me.Label121)
-        Me.Panel60.Controls.Add(Me.Label122)
-        Me.Panel60.Controls.Add(Me.num_Temp2)
-        Me.Panel60.Controls.Add(Me.num_Vout_error2)
-        Me.Panel60.Location = New System.Drawing.Point(143, 3)
-        Me.Panel60.Name = "Panel60"
-        Me.Panel60.Size = New System.Drawing.Size(465, 50)
-        Me.Panel60.TabIndex = 3259
-        '
-        'txt_OTP2
-        '
-        Me.txt_OTP2.BackColor = System.Drawing.SystemColors.Window
-        Me.txt_OTP2.Location = New System.Drawing.Point(68, 23)
-        Me.txt_OTP2.Name = "txt_OTP2"
-        Me.txt_OTP2.ReadOnly = True
-        Me.txt_OTP2.Size = New System.Drawing.Size(57, 21)
-        Me.txt_OTP2.TabIndex = 3260
-        Me.txt_OTP2.Text = "100"
-        Me.txt_OTP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label118
-        '
-        Me.Label118.AutoSize = True
-        Me.Label118.BackColor = System.Drawing.Color.LightGray
-        Me.Label118.ForeColor = System.Drawing.Color.Black
-        Me.Label118.Location = New System.Drawing.Point(131, 26)
-        Me.Label118.Name = "Label118"
-        Me.Label118.Size = New System.Drawing.Size(256, 15)
-        Me.Label118.TabIndex = 3259
-        Me.Label118.Text = "℃, Vout shutdown -> Power OFF -> Power ON"
-        '
-        'check_OTP2
-        '
-        Me.check_OTP2.AutoSize = True
-        Me.check_OTP2.ForeColor = System.Drawing.Color.Black
-        Me.check_OTP2.Location = New System.Drawing.Point(3, 26)
-        Me.check_OTP2.Name = "check_OTP2"
-        Me.check_OTP2.Size = New System.Drawing.Size(70, 19)
-        Me.check_OTP2.TabIndex = 3258
-        Me.check_OTP2.Text = "Temp > "
-        Me.check_OTP2.UseVisualStyleBackColor = True
-        '
-        'check_shutdown2
-        '
-        Me.check_shutdown2.AutoSize = True
-        Me.check_shutdown2.Checked = True
-        Me.check_shutdown2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.check_shutdown2.ForeColor = System.Drawing.Color.Black
-        Me.check_shutdown2.Location = New System.Drawing.Point(3, 2)
-        Me.check_shutdown2.Name = "check_shutdown2"
-        Me.check_shutdown2.Size = New System.Drawing.Size(151, 19)
-        Me.check_shutdown2.TabIndex = 3240
-        Me.check_shutdown2.Text = "Check Vout Shutdown :"
-        Me.check_shutdown2.UseVisualStyleBackColor = True
-        '
-        'Label119
-        '
-        Me.Label119.AutoSize = True
-        Me.Label119.ForeColor = System.Drawing.Color.Black
-        Me.Label119.Location = New System.Drawing.Point(430, 3)
-        Me.Label119.Name = "Label119"
-        Me.Label119.Size = New System.Drawing.Size(23, 15)
-        Me.Label119.TabIndex = 3257
-        Me.Label119.Text = "℃)"
-        '
-        'Label120
-        '
-        Me.Label120.AutoSize = True
-        Me.Label120.ForeColor = System.Drawing.Color.Black
-        Me.Label120.Location = New System.Drawing.Point(151, 3)
-        Me.Label120.Name = "Label120"
-        Me.Label120.Size = New System.Drawing.Size(51, 15)
-        Me.Label120.TabIndex = 3242
-        Me.Label120.Text = "<  Vout *"
-        '
-        'Label121
-        '
-        Me.Label121.AutoSize = True
-        Me.Label121.ForeColor = System.Drawing.Color.Black
-        Me.Label121.Location = New System.Drawing.Point(309, 3)
-        Me.Label121.Name = "Label121"
-        Me.Label121.Size = New System.Drawing.Size(52, 15)
-        Me.Label121.TabIndex = 3256
-        Me.Label121.Text = "(Temp <"
-        '
-        'Label122
-        '
-        Me.Label122.AutoSize = True
-        Me.Label122.ForeColor = System.Drawing.Color.Black
-        Me.Label122.Location = New System.Drawing.Point(258, 3)
-        Me.Label122.Name = "Label122"
-        Me.Label122.Size = New System.Drawing.Size(18, 15)
-        Me.Label122.TabIndex = 3241
-        Me.Label122.Text = "%"
-        '
-        'num_Temp2
-        '
-        Me.num_Temp2.Location = New System.Drawing.Point(367, 0)
-        Me.num_Temp2.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
-        Me.num_Temp2.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
-        Me.num_Temp2.Name = "num_Temp2"
-        Me.num_Temp2.Size = New System.Drawing.Size(61, 21)
-        Me.num_Temp2.TabIndex = 3255
-        Me.num_Temp2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_Temp2.Value = New Decimal(New Integer() {100, 0, 0, 0})
-        '
-        'num_Vout_error2
-        '
-        Me.num_Vout_error2.ForeColor = System.Drawing.Color.Black
-        Me.num_Vout_error2.Location = New System.Drawing.Point(202, 0)
-        Me.num_Vout_error2.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.num_Vout_error2.Name = "num_Vout_error2"
-        Me.num_Vout_error2.Size = New System.Drawing.Size(50, 21)
-        Me.num_Vout_error2.TabIndex = 3243
-        Me.num_Vout_error2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_Vout_error2.Value = New Decimal(New Integer() {90, 0, 0, 0})
-        '
-        'Label123
-        '
-        Me.Label123.AutoSize = True
-        Me.Label123.ForeColor = System.Drawing.Color.Black
-        Me.Label123.Location = New System.Drawing.Point(7, 8)
-        Me.Label123.Name = "Label123"
-        Me.Label123.Size = New System.Drawing.Size(35, 15)
-        Me.Label123.TabIndex = 3254
-        Me.Label123.Text = "DAQ:"
-        '
-        'Label124
-        '
-        Me.Label124.AutoSize = True
-        Me.Label124.ForeColor = System.Drawing.Color.Black
-        Me.Label124.Location = New System.Drawing.Point(147, 60)
-        Me.Label124.Name = "Label124"
-        Me.Label124.Size = New System.Drawing.Size(72, 15)
-        Me.Label124.TabIndex = 3249
-        Me.Label124.Text = "( Efficiency )"
-        '
-        'cbox_vout1_daq2
-        '
-        Me.cbox_vout1_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_vout1_daq2.FormattingEnabled = True
-        Me.cbox_vout1_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_vout1_daq2.Location = New System.Drawing.Point(61, 54)
-        Me.cbox_vout1_daq2.Name = "cbox_vout1_daq2"
-        Me.cbox_vout1_daq2.Size = New System.Drawing.Size(80, 23)
-        Me.cbox_vout1_daq2.TabIndex = 3143
-        '
-        'cbox_vout_daq2
-        '
-        Me.cbox_vout_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_vout_daq2.FormattingEnabled = True
-        Me.cbox_vout_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_vout_daq2.Location = New System.Drawing.Point(60, 3)
-        Me.cbox_vout_daq2.Name = "cbox_vout_daq2"
-        Me.cbox_vout_daq2.Size = New System.Drawing.Size(80, 23)
-        Me.cbox_vout_daq2.TabIndex = 3143
-        '
-        'Panel61
-        '
-        Me.Panel61.BackColor = System.Drawing.Color.LightGray
-        Me.Panel61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel61.Controls.Add(Me.TextBox16)
-        Me.Panel61.Controls.Add(Me.TextBox18)
-        Me.Panel61.Location = New System.Drawing.Point(47, 171)
-        Me.Panel61.Name = "Panel61"
-        Me.Panel61.Size = New System.Drawing.Size(74, 82)
-        Me.Panel61.TabIndex = 3285
-        '
-        'TextBox16
-        '
-        Me.TextBox16.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox16.Location = New System.Drawing.Point(-1, 17)
-        Me.TextBox16.Name = "TextBox16"
-        Me.TextBox16.Size = New System.Drawing.Size(73, 21)
-        Me.TextBox16.TabIndex = 3125
-        Me.TextBox16.Text = "VOUT"
-        Me.TextBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox18
-        '
-        Me.TextBox18.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox18.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox18.Location = New System.Drawing.Point(0, 43)
-        Me.TextBox18.Name = "TextBox18"
-        Me.TextBox18.ReadOnly = True
-        Me.TextBox18.Size = New System.Drawing.Size(73, 14)
-        Me.TextBox18.TabIndex = 3123
-        Me.TextBox18.Text = "VOUT (V)"
-        Me.TextBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel62
-        '
-        Me.Panel62.BackColor = System.Drawing.Color.LightYellow
-        Me.Panel62.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel62.Controls.Add(Me.Label125)
-        Me.Panel62.Location = New System.Drawing.Point(3, 171)
-        Me.Panel62.Name = "Panel62"
-        Me.Panel62.Size = New System.Drawing.Size(44, 82)
-        Me.Panel62.TabIndex = 3284
-        '
-        'Label125
-        '
-        Me.Label125.AutoSize = True
-        Me.Label125.ForeColor = System.Drawing.Color.Black
-        Me.Label125.Location = New System.Drawing.Point(0, 33)
-        Me.Label125.Name = "Label125"
-        Me.Label125.Size = New System.Drawing.Size(39, 15)
-        Me.Label125.TabIndex = 3165
-        Me.Label125.Text = "VOUT"
-        '
-        'Panel63
-        '
-        Me.Panel63.BackColor = System.Drawing.Color.LightGray
-        Me.Panel63.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel63.Controls.Add(Me.TextBox19)
-        Me.Panel63.Controls.Add(Me.TextBox20)
-        Me.Panel63.Location = New System.Drawing.Point(47, 255)
-        Me.Panel63.Name = "Panel63"
-        Me.Panel63.Size = New System.Drawing.Size(74, 184)
-        Me.Panel63.TabIndex = 3283
-        '
-        'TextBox19
-        '
-        Me.TextBox19.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox19.Location = New System.Drawing.Point(0, 64)
-        Me.TextBox19.Name = "TextBox19"
-        Me.TextBox19.Size = New System.Drawing.Size(73, 21)
-        Me.TextBox19.TabIndex = 3125
-        Me.TextBox19.Text = "IOUT"
-        Me.TextBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox20
-        '
-        Me.TextBox20.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox20.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox20.Location = New System.Drawing.Point(-1, 94)
-        Me.TextBox20.Name = "TextBox20"
-        Me.TextBox20.ReadOnly = True
-        Me.TextBox20.Size = New System.Drawing.Size(73, 14)
-        Me.TextBox20.TabIndex = 3123
-        Me.TextBox20.Text = "IOUT (A)"
-        Me.TextBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel64
-        '
-        Me.Panel64.BackColor = System.Drawing.Color.LightGray
-        Me.Panel64.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel64.Controls.Add(Me.TextBox21)
-        Me.Panel64.Controls.Add(Me.TextBox22)
-        Me.Panel64.Location = New System.Drawing.Point(47, 93)
-        Me.Panel64.Name = "Panel64"
-        Me.Panel64.Size = New System.Drawing.Size(74, 76)
-        Me.Panel64.TabIndex = 3282
-        '
-        'TextBox21
-        '
-        Me.TextBox21.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox21.Location = New System.Drawing.Point(-1, 24)
-        Me.TextBox21.Name = "TextBox21"
-        Me.TextBox21.Size = New System.Drawing.Size(73, 21)
-        Me.TextBox21.TabIndex = 3126
-        Me.TextBox21.Text = "IIN"
-        Me.TextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox22
-        '
-        Me.TextBox22.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox22.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox22.Location = New System.Drawing.Point(0, 51)
-        Me.TextBox22.Name = "TextBox22"
-        Me.TextBox22.ReadOnly = True
-        Me.TextBox22.Size = New System.Drawing.Size(73, 14)
-        Me.TextBox22.TabIndex = 3122
-        Me.TextBox22.Text = "IIN (A)"
-        Me.TextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel65
-        '
-        Me.Panel65.BackColor = System.Drawing.Color.LightGray
-        Me.Panel65.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel65.Controls.Add(Me.TextBox23)
-        Me.Panel65.Controls.Add(Me.TextBox26)
-        Me.Panel65.Location = New System.Drawing.Point(47, 32)
-        Me.Panel65.Name = "Panel65"
-        Me.Panel65.Size = New System.Drawing.Size(74, 60)
-        Me.Panel65.TabIndex = 3281
-        '
-        'TextBox23
-        '
-        Me.TextBox23.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox23.Location = New System.Drawing.Point(0, 6)
-        Me.TextBox23.Name = "TextBox23"
-        Me.TextBox23.Size = New System.Drawing.Size(73, 21)
-        Me.TextBox23.TabIndex = 3126
-        Me.TextBox23.Text = "VIN"
-        Me.TextBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox26
-        '
-        Me.TextBox26.BackColor = System.Drawing.Color.LightGray
-        Me.TextBox26.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox26.Location = New System.Drawing.Point(-1, 35)
-        Me.TextBox26.Name = "TextBox26"
-        Me.TextBox26.ReadOnly = True
-        Me.TextBox26.Size = New System.Drawing.Size(73, 14)
-        Me.TextBox26.TabIndex = 3122
-        Me.TextBox26.Text = "VIN (V)"
-        Me.TextBox26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox31
-        '
-        Me.TextBox31.BackColor = System.Drawing.Color.Gray
-        Me.TextBox31.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox31.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox31.Location = New System.Drawing.Point(47, 9)
-        Me.TextBox31.Name = "TextBox31"
-        Me.TextBox31.ReadOnly = True
-        Me.TextBox31.Size = New System.Drawing.Size(74, 21)
-        Me.TextBox31.TabIndex = 3280
-        Me.TextBox31.Text = "Name"
-        Me.TextBox31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel66
-        '
-        Me.Panel66.BackColor = System.Drawing.Color.LightYellow
-        Me.Panel66.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel66.Controls.Add(Me.Label126)
-        Me.Panel66.Location = New System.Drawing.Point(3, 32)
-        Me.Panel66.Name = "Panel66"
-        Me.Panel66.Size = New System.Drawing.Size(44, 60)
-        Me.Panel66.TabIndex = 3277
-        '
-        'Label126
-        '
-        Me.Label126.AutoSize = True
-        Me.Label126.ForeColor = System.Drawing.Color.Black
-        Me.Label126.Location = New System.Drawing.Point(8, 22)
-        Me.Label126.Name = "Label126"
-        Me.Label126.Size = New System.Drawing.Size(26, 15)
-        Me.Label126.TabIndex = 3164
-        Me.Label126.Text = "VIN"
-        '
-        'Panel67
-        '
-        Me.Panel67.BackColor = System.Drawing.Color.LightYellow
-        Me.Panel67.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel67.Controls.Add(Me.Label127)
-        Me.Panel67.Location = New System.Drawing.Point(3, 93)
-        Me.Panel67.Name = "Panel67"
-        Me.Panel67.Size = New System.Drawing.Size(44, 76)
-        Me.Panel67.TabIndex = 3276
-        '
-        'Label127
-        '
-        Me.Label127.AutoSize = True
-        Me.Label127.ForeColor = System.Drawing.Color.Black
-        Me.Label127.Location = New System.Drawing.Point(10, 30)
-        Me.Label127.Name = "Label127"
-        Me.Label127.Size = New System.Drawing.Size(22, 15)
-        Me.Label127.TabIndex = 3163
-        Me.Label127.Text = "IIN"
-        '
-        'Panel68
-        '
-        Me.Panel68.BackColor = System.Drawing.Color.LightYellow
-        Me.Panel68.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel68.Controls.Add(Me.Label128)
-        Me.Panel68.Location = New System.Drawing.Point(3, 255)
-        Me.Panel68.Name = "Panel68"
-        Me.Panel68.Size = New System.Drawing.Size(44, 184)
-        Me.Panel68.TabIndex = 3279
-        '
-        'Label128
-        '
-        Me.Label128.AutoSize = True
-        Me.Label128.ForeColor = System.Drawing.Color.Black
-        Me.Label128.Location = New System.Drawing.Point(4, 84)
-        Me.Label128.Name = "Label128"
-        Me.Label128.Size = New System.Drawing.Size(35, 15)
-        Me.Label128.TabIndex = 3166
-        Me.Label128.Text = "IOUT"
-        '
-        'Panel69
-        '
-        Me.Panel69.BackColor = System.Drawing.Color.LightGray
-        Me.Panel69.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel69.Controls.Add(Me.Label129)
-        Me.Panel69.Controls.Add(Me.Label130)
-        Me.Panel69.Controls.Add(Me.Label131)
-        Me.Panel69.Controls.Add(Me.NumericUpDown6)
-        Me.Panel69.Controls.Add(Me.ComboBox5)
-        Me.Panel69.Controls.Add(Me.Label132)
-        Me.Panel69.Controls.Add(Me.RadioButton1)
-        Me.Panel69.Controls.Add(Me.TextBox34)
-        Me.Panel69.Controls.Add(Me.ComboBox6)
-        Me.Panel69.Controls.Add(Me.CheckBox7)
-        Me.Panel69.Controls.Add(Me.ComboBox7)
-        Me.Panel69.Controls.Add(Me.RadioButton2)
-        Me.Panel69.Controls.Add(Me.RadioButton3)
-        Me.Panel69.Location = New System.Drawing.Point(122, 340)
-        Me.Panel69.Name = "Panel69"
-        Me.Panel69.Size = New System.Drawing.Size(626, 99)
-        Me.Panel69.TabIndex = 3278
-        '
-        'Label129
-        '
-        Me.Label129.AutoSize = True
-        Me.Label129.ForeColor = System.Drawing.Color.Black
-        Me.Label129.Location = New System.Drawing.Point(358, 4)
-        Me.Label129.Name = "Label129"
-        Me.Label129.Size = New System.Drawing.Size(11, 15)
-        Me.Label129.TabIndex = 3262
-        Me.Label129.Text = ")"
-        '
-        'Label130
-        '
-        Me.Label130.AutoSize = True
-        Me.Label130.ForeColor = System.Drawing.Color.Black
-        Me.Label130.Location = New System.Drawing.Point(206, 4)
-        Me.Label130.Name = "Label130"
-        Me.Label130.Size = New System.Drawing.Size(81, 15)
-        Me.Label130.TabIndex = 3243
-        Me.Label130.Text = "IOUT (mA) >="
-        '
-        'Label131
-        '
-        Me.Label131.AutoSize = True
-        Me.Label131.ForeColor = System.Drawing.Color.Black
-        Me.Label131.Location = New System.Drawing.Point(6, 4)
-        Me.Label131.Name = "Label131"
-        Me.Label131.Size = New System.Drawing.Size(86, 15)
-        Me.Label131.TabIndex = 3259
-        Me.Label131.Text = "Measurement:"
-        '
-        'NumericUpDown6
-        '
-        Me.NumericUpDown6.Location = New System.Drawing.Point(293, 2)
-        Me.NumericUpDown6.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
-        Me.NumericUpDown6.Name = "NumericUpDown6"
-        Me.NumericUpDown6.Size = New System.Drawing.Size(61, 21)
-        Me.NumericUpDown6.TabIndex = 3240
-        Me.NumericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown6.Value = New Decimal(New Integer() {400, 0, 0, 0})
-        '
-        'ComboBox5
-        '
-        Me.ComboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox5.FormattingEnabled = True
-        Me.ComboBox5.Items.AddRange(New Object() {"Buck1", "Buck2", "Buck1&2"})
-        Me.ComboBox5.Location = New System.Drawing.Point(235, 50)
-        Me.ComboBox5.Name = "ComboBox5"
-        Me.ComboBox5.Size = New System.Drawing.Size(80, 23)
-        Me.ComboBox5.TabIndex = 3258
-        '
-        'Label132
-        '
-        Me.Label132.AutoSize = True
-        Me.Label132.ForeColor = System.Drawing.Color.Black
-        Me.Label132.Location = New System.Drawing.Point(107, 4)
-        Me.Label132.Name = "Label132"
-        Me.Label132.Size = New System.Drawing.Size(98, 15)
-        Me.Label132.TabIndex = 3244
-        Me.Label132.Text = "(Range Change:"
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(17, 74)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(74, 19)
-        Me.RadioButton1.TabIndex = 3257
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "DC Load"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        '
-        'TextBox34
-        '
-        Me.TextBox34.Location = New System.Drawing.Point(195, 26)
-        Me.TextBox34.Name = "TextBox34"
-        Me.TextBox34.ReadOnly = True
-        Me.TextBox34.Size = New System.Drawing.Size(55, 21)
-        Me.TextBox34.TabIndex = 2959
-        Me.TextBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'ComboBox6
-        '
-        Me.ComboBox6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox6.FormattingEnabled = True
-        Me.ComboBox6.Items.AddRange(New Object() {"OFF"})
-        Me.ComboBox6.Location = New System.Drawing.Point(84, 26)
-        Me.ComboBox6.Name = "ComboBox6"
-        Me.ComboBox6.Size = New System.Drawing.Size(109, 23)
-        Me.ComboBox6.TabIndex = 2942
-        '
-        'CheckBox7
-        '
-        Me.CheckBox7.AutoSize = True
-        Me.CheckBox7.Checked = True
-        Me.CheckBox7.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.CheckBox7.Location = New System.Drawing.Point(256, 28)
-        Me.CheckBox7.Name = "CheckBox7"
-        Me.CheckBox7.Size = New System.Drawing.Size(60, 19)
-        Me.CheckBox7.TabIndex = 2994
-        Me.CheckBox7.Text = "Relay:"
-        Me.CheckBox7.UseVisualStyleBackColor = True
-        '
-        'ComboBox7
-        '
-        Me.ComboBox7.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox7.FormattingEnabled = True
-        Me.ComboBox7.Items.AddRange(New Object() {"P2.4", "P2.5"})
-        Me.ComboBox7.Location = New System.Drawing.Point(327, 26)
-        Me.ComboBox7.Name = "ComboBox7"
-        Me.ComboBox7.Size = New System.Drawing.Size(80, 23)
-        Me.ComboBox7.TabIndex = 2952
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(17, 27)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(55, 19)
-        Me.RadioButton2.TabIndex = 3238
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Meter"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        '
-        'RadioButton3
-        '
-        Me.RadioButton3.AutoSize = True
-        Me.RadioButton3.Location = New System.Drawing.Point(17, 52)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(220, 19)
-        Me.RadioButton3.TabIndex = 3239
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Current Monitor (Need Relay Board)"
-        Me.RadioButton3.UseVisualStyleBackColor = True
-        '
-        'Panel70
-        '
-        Me.Panel70.BackColor = System.Drawing.Color.LightGray
-        Me.Panel70.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel70.Controls.Add(Me.TextBox35)
-        Me.Panel70.Controls.Add(Me.Label133)
-        Me.Panel70.Controls.Add(Me.num_VIN_OCP2)
-        Me.Panel70.Controls.Add(Me.Label134)
-        Me.Panel70.Controls.Add(Me.check_vin_sense2)
-        Me.Panel70.Controls.Add(Me.Label135)
-        Me.Panel70.Controls.Add(Me.Label136)
-        Me.Panel70.Controls.Add(Me.num_vin_sense2)
-        Me.Panel70.Controls.Add(Me.Label137)
-        Me.Panel70.Controls.Add(Me.cbox_vin2)
-        Me.Panel70.Controls.Add(Me.num_vin_max2)
-        Me.Panel70.Controls.Add(Me.cbox_vin_ch2)
-        Me.Panel70.Controls.Add(Me.cbox_vin_daq2)
-        Me.Panel70.Controls.Add(Me.Label138)
-        Me.Panel70.Controls.Add(Me.Label139)
-        Me.Panel70.Location = New System.Drawing.Point(122, 32)
-        Me.Panel70.Name = "Panel70"
-        Me.Panel70.Size = New System.Drawing.Size(626, 60)
-        Me.Panel70.TabIndex = 3275
-        '
-        'TextBox35
-        '
-        Me.TextBox35.Location = New System.Drawing.Point(291, 4)
-        Me.TextBox35.Name = "TextBox35"
-        Me.TextBox35.ReadOnly = True
-        Me.TextBox35.Size = New System.Drawing.Size(55, 21)
-        Me.TextBox35.TabIndex = 3255
-        Me.TextBox35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label133
-        '
-        Me.Label133.AutoSize = True
-        Me.Label133.ForeColor = System.Drawing.Color.Black
-        Me.Label133.Location = New System.Drawing.Point(491, 7)
-        Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(109, 15)
-        Me.Label133.TabIndex = 3254
-        Me.Label133.Text = " ( OCP=0, Not set )"
-        '
-        'num_VIN_OCP2
-        '
-        Me.num_VIN_OCP2.DecimalPlaces = 1
-        Me.num_VIN_OCP2.ForeColor = System.Drawing.Color.Black
-        Me.num_VIN_OCP2.Location = New System.Drawing.Point(418, 5)
-        Me.num_VIN_OCP2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
-        Me.num_VIN_OCP2.Name = "num_VIN_OCP2"
-        Me.num_VIN_OCP2.Size = New System.Drawing.Size(67, 21)
-        Me.num_VIN_OCP2.TabIndex = 3253
-        Me.num_VIN_OCP2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label134
-        '
-        Me.Label134.AutoSize = True
-        Me.Label134.ForeColor = System.Drawing.Color.Black
-        Me.Label134.Location = New System.Drawing.Point(7, 34)
-        Me.Label134.Name = "Label134"
-        Me.Label134.Size = New System.Drawing.Size(35, 15)
-        Me.Label134.TabIndex = 3252
-        Me.Label134.Text = "DAQ:"
-        '
-        'check_vin_sense2
-        '
-        Me.check_vin_sense2.AutoSize = True
-        Me.check_vin_sense2.Checked = True
-        Me.check_vin_sense2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.check_vin_sense2.ForeColor = System.Drawing.Color.Black
-        Me.check_vin_sense2.Location = New System.Drawing.Point(156, 32)
-        Me.check_vin_sense2.Name = "check_vin_sense2"
-        Me.check_vin_sense2.Size = New System.Drawing.Size(86, 19)
-        Me.check_vin_sense2.TabIndex = 3251
-        Me.check_vin_sense2.Text = "Sence VIN:"
-        Me.check_vin_sense2.UseVisualStyleBackColor = True
-        '
-        'Label135
-        '
-        Me.Label135.AutoSize = True
-        Me.Label135.ForeColor = System.Drawing.Color.Black
-        Me.Label135.Location = New System.Drawing.Point(353, 33)
-        Me.Label135.Name = "Label135"
-        Me.Label135.Size = New System.Drawing.Size(14, 15)
-        Me.Label135.TabIndex = 3250
-        Me.Label135.Text = "V"
-        '
-        'Label136
-        '
-        Me.Label136.AutoSize = True
-        Me.Label136.ForeColor = System.Drawing.Color.Black
-        Me.Label136.Location = New System.Drawing.Point(358, 7)
-        Me.Label136.Name = "Label136"
-        Me.Label136.Size = New System.Drawing.Size(54, 15)
-        Me.Label136.TabIndex = 3068
-        Me.Label136.Text = "OCP (A):"
-        '
-        'num_vin_sense2
-        '
-        Me.num_vin_sense2.DecimalPlaces = 3
-        Me.num_vin_sense2.ForeColor = System.Drawing.Color.Black
-        Me.num_vin_sense2.Location = New System.Drawing.Point(268, 31)
-        Me.num_vin_sense2.Maximum = New Decimal(New Integer() {2, 0, 0, 0})
-        Me.num_vin_sense2.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_vin_sense2.Name = "num_vin_sense2"
-        Me.num_vin_sense2.Size = New System.Drawing.Size(79, 21)
-        Me.num_vin_sense2.TabIndex = 3246
-        Me.num_vin_sense2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_vin_sense2.Value = New Decimal(New Integer() {1, 0, 0, 131072})
-        '
-        'Label137
-        '
-        Me.Label137.AutoSize = True
-        Me.Label137.ForeColor = System.Drawing.Color.Black
-        Me.Label137.Location = New System.Drawing.Point(496, 33)
-        Me.Label137.Name = "Label137"
-        Me.Label137.Size = New System.Drawing.Size(21, 15)
-        Me.Label137.TabIndex = 3249
-        Me.Label137.Text = "V )"
-        '
-        'cbox_vin2
-        '
-        Me.cbox_vin2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_vin2.FormattingEnabled = True
-        Me.cbox_vin2.Location = New System.Drawing.Point(3, 3)
-        Me.cbox_vin2.Name = "cbox_vin2"
-        Me.cbox_vin2.Size = New System.Drawing.Size(150, 23)
-        Me.cbox_vin2.TabIndex = 3217
-        '
-        'num_vin_max2
-        '
-        Me.num_vin_max2.DecimalPlaces = 1
-        Me.num_vin_max2.ForeColor = System.Drawing.Color.Black
-        Me.num_vin_max2.Location = New System.Drawing.Point(422, 31)
-        Me.num_vin_max2.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
-        Me.num_vin_max2.Name = "num_vin_max2"
-        Me.num_vin_max2.Size = New System.Drawing.Size(67, 21)
-        Me.num_vin_max2.TabIndex = 3248
-        Me.num_vin_max2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'cbox_vin_ch2
-        '
-        Me.cbox_vin_ch2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_vin_ch2.FormattingEnabled = True
-        Me.cbox_vin_ch2.Location = New System.Drawing.Point(155, 3)
-        Me.cbox_vin_ch2.Name = "cbox_vin_ch2"
-        Me.cbox_vin_ch2.Size = New System.Drawing.Size(130, 23)
-        Me.cbox_vin_ch2.TabIndex = 3218
-        '
-        'cbox_vin_daq2
-        '
-        Me.cbox_vin_daq2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_vin_daq2.FormattingEnabled = True
-        Me.cbox_vin_daq2.Items.AddRange(New Object() {"CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_vin_daq2.Location = New System.Drawing.Point(60, 30)
-        Me.cbox_vin_daq2.Name = "cbox_vin_daq2"
-        Me.cbox_vin_daq2.Size = New System.Drawing.Size(80, 23)
-        Me.cbox_vin_daq2.TabIndex = 3143
-        '
-        'Label138
-        '
-        Me.Label138.AutoSize = True
-        Me.Label138.ForeColor = System.Drawing.Color.Black
-        Me.Label138.Location = New System.Drawing.Point(368, 33)
-        Me.Label138.Name = "Label138"
-        Me.Label138.Size = New System.Drawing.Size(48, 15)
-        Me.Label138.TabIndex = 3247
-        Me.Label138.Text = " ( Max.="
-        '
-        'Label139
-        '
-        Me.Label139.AutoSize = True
-        Me.Label139.ForeColor = System.Drawing.Color.Black
-        Me.Label139.Location = New System.Drawing.Point(244, 34)
-        Me.Label139.Name = "Label139"
-        Me.Label139.Size = New System.Drawing.Size(18, 15)
-        Me.Label139.TabIndex = 3245
-        Me.Label139.Text = "+-"
-        '
-        'Panel71
-        '
-        Me.Panel71.BackColor = System.Drawing.Color.LightGray
-        Me.Panel71.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel71.Controls.Add(Me.rbtn_Iin_PW2)
-        Me.Panel71.Controls.Add(Me.Label140)
-        Me.Panel71.Controls.Add(Me.Label141)
-        Me.Panel71.Controls.Add(Me.num_iin_change2)
-        Me.Panel71.Controls.Add(Me.Label142)
-        Me.Panel71.Controls.Add(Me.Label143)
-        Me.Panel71.Controls.Add(Me.rbtn_meter_iin2)
-        Me.Panel71.Controls.Add(Me.rbtn_board_iin2)
-        Me.Panel71.Controls.Add(Me.cbox_IIN_relay2)
-        Me.Panel71.Controls.Add(Me.check_iin2)
-        Me.Panel71.Controls.Add(Me.cbox_IIN_meter2)
-        Me.Panel71.Controls.Add(Me.txt_IIN_addr2)
-        Me.Panel71.Location = New System.Drawing.Point(122, 93)
-        Me.Panel71.Name = "Panel71"
-        Me.Panel71.Size = New System.Drawing.Size(626, 76)
-        Me.Panel71.TabIndex = 3274
-        '
-        'rbtn_Iin_PW2
-        '
-        Me.rbtn_Iin_PW2.AutoSize = True
-        Me.rbtn_Iin_PW2.Location = New System.Drawing.Point(286, 52)
-        Me.rbtn_Iin_PW2.Name = "rbtn_Iin_PW2"
-        Me.rbtn_Iin_PW2.Size = New System.Drawing.Size(100, 19)
-        Me.rbtn_Iin_PW2.TabIndex = 3265
-        Me.rbtn_Iin_PW2.TabStop = True
-        Me.rbtn_Iin_PW2.Text = "Power Supply"
-        Me.rbtn_Iin_PW2.UseVisualStyleBackColor = True
-        '
-        'Label140
-        '
-        Me.Label140.AutoSize = True
-        Me.Label140.ForeColor = System.Drawing.Color.Black
-        Me.Label140.Location = New System.Drawing.Point(9, 6)
-        Me.Label140.Name = "Label140"
-        Me.Label140.Size = New System.Drawing.Size(86, 15)
-        Me.Label140.TabIndex = 3264
-        Me.Label140.Text = "Measurement:"
-        '
-        'Label141
-        '
-        Me.Label141.AutoSize = True
-        Me.Label141.ForeColor = System.Drawing.Color.Black
-        Me.Label141.Location = New System.Drawing.Point(373, 4)
-        Me.Label141.Name = "Label141"
-        Me.Label141.Size = New System.Drawing.Size(11, 15)
-        Me.Label141.TabIndex = 3263
-        Me.Label141.Text = ")"
-        '
-        'num_iin_change2
-        '
-        Me.num_iin_change2.Location = New System.Drawing.Point(306, 2)
-        Me.num_iin_change2.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
-        Me.num_iin_change2.Name = "num_iin_change2"
-        Me.num_iin_change2.Size = New System.Drawing.Size(61, 21)
-        Me.num_iin_change2.TabIndex = 3242
-        Me.num_iin_change2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_iin_change2.Value = New Decimal(New Integer() {400, 0, 0, 0})
-        '
-        'Label142
-        '
-        Me.Label142.AutoSize = True
-        Me.Label142.ForeColor = System.Drawing.Color.Black
-        Me.Label142.Location = New System.Drawing.Point(219, 6)
-        Me.Label142.Name = "Label142"
-        Me.Label142.Size = New System.Drawing.Size(68, 15)
-        Me.Label142.TabIndex = 3243
-        Me.Label142.Text = "IIN (mA) >="
-        '
-        'Label143
-        '
-        Me.Label143.AutoSize = True
-        Me.Label143.ForeColor = System.Drawing.Color.Black
-        Me.Label143.Location = New System.Drawing.Point(121, 4)
-        Me.Label143.Name = "Label143"
-        Me.Label143.Size = New System.Drawing.Size(98, 15)
-        Me.Label143.TabIndex = 3244
-        Me.Label143.Text = "(Range Change:"
-        '
-        'rbtn_meter_iin2
-        '
-        Me.rbtn_meter_iin2.AutoSize = True
-        Me.rbtn_meter_iin2.Location = New System.Drawing.Point(19, 29)
-        Me.rbtn_meter_iin2.Name = "rbtn_meter_iin2"
-        Me.rbtn_meter_iin2.Size = New System.Drawing.Size(55, 19)
-        Me.rbtn_meter_iin2.TabIndex = 3241
-        Me.rbtn_meter_iin2.TabStop = True
-        Me.rbtn_meter_iin2.Text = "Meter"
-        Me.rbtn_meter_iin2.UseVisualStyleBackColor = True
-        '
-        'rbtn_board_iin2
-        '
-        Me.rbtn_board_iin2.AutoSize = True
-        Me.rbtn_board_iin2.Location = New System.Drawing.Point(19, 52)
-        Me.rbtn_board_iin2.Name = "rbtn_board_iin2"
-        Me.rbtn_board_iin2.Size = New System.Drawing.Size(220, 19)
-        Me.rbtn_board_iin2.TabIndex = 3240
-        Me.rbtn_board_iin2.TabStop = True
-        Me.rbtn_board_iin2.Text = "Current Monitor (Need Relay Board)"
-        Me.rbtn_board_iin2.UseVisualStyleBackColor = True
-        '
-        'cbox_IIN_relay2
-        '
-        Me.cbox_IIN_relay2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_IIN_relay2.FormattingEnabled = True
-        Me.cbox_IIN_relay2.Items.AddRange(New Object() {"P2.4", "P2.5"})
-        Me.cbox_IIN_relay2.Location = New System.Drawing.Point(321, 24)
-        Me.cbox_IIN_relay2.Name = "cbox_IIN_relay2"
-        Me.cbox_IIN_relay2.Size = New System.Drawing.Size(80, 23)
-        Me.cbox_IIN_relay2.TabIndex = 2952
-        '
-        'check_iin2
-        '
-        Me.check_iin2.AutoSize = True
-        Me.check_iin2.Checked = True
-        Me.check_iin2.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.check_iin2.Location = New System.Drawing.Point(255, 26)
-        Me.check_iin2.Name = "check_iin2"
-        Me.check_iin2.Size = New System.Drawing.Size(60, 19)
-        Me.check_iin2.TabIndex = 2994
-        Me.check_iin2.Text = "Relay:"
-        Me.check_iin2.UseVisualStyleBackColor = True
-        '
-        'cbox_IIN_meter2
-        '
-        Me.cbox_IIN_meter2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.cbox_IIN_meter2.FormattingEnabled = True
-        Me.cbox_IIN_meter2.Items.AddRange(New Object() {"OFF"})
-        Me.cbox_IIN_meter2.Location = New System.Drawing.Point(84, 25)
-        Me.cbox_IIN_meter2.Name = "cbox_IIN_meter2"
-        Me.cbox_IIN_meter2.Size = New System.Drawing.Size(109, 23)
-        Me.cbox_IIN_meter2.TabIndex = 2942
-        '
-        'txt_IIN_addr2
-        '
-        Me.txt_IIN_addr2.Location = New System.Drawing.Point(195, 25)
-        Me.txt_IIN_addr2.Name = "txt_IIN_addr2"
-        Me.txt_IIN_addr2.ReadOnly = True
-        Me.txt_IIN_addr2.Size = New System.Drawing.Size(55, 21)
-        Me.txt_IIN_addr2.TabIndex = 2959
-        Me.txt_IIN_addr2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox40
-        '
-        Me.TextBox40.BackColor = System.Drawing.Color.Gray
-        Me.TextBox40.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox40.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox40.Location = New System.Drawing.Point(122, 9)
-        Me.TextBox40.Name = "TextBox40"
-        Me.TextBox40.ReadOnly = True
-        Me.TextBox40.Size = New System.Drawing.Size(626, 21)
-        Me.TextBox40.TabIndex = 3273
-        Me.TextBox40.Text = "Instrument"
-        Me.TextBox40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox10
-        '
-        Me.TextBox10.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox10.Location = New System.Drawing.Point(31, 107)
-        Me.TextBox10.Name = "TextBox10"
-        Me.TextBox10.ReadOnly = True
-        Me.TextBox10.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox10.TabIndex = 3236
-        Me.TextBox10.Text = "LX"
-        Me.TextBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'ComboBox3
-        '
-        Me.ComboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox3.FormattingEnabled = True
-        Me.ComboBox3.Items.AddRange(New Object() {"CH1", "CH2", "CH3", "CH4"})
-        Me.ComboBox3.Location = New System.Drawing.Point(102, 107)
-        Me.ComboBox3.Name = "ComboBox3"
-        Me.ComboBox3.Size = New System.Drawing.Size(75, 23)
-        Me.ComboBox3.TabIndex = 3235
-        '
-        'NumericUpDown4
-        '
-        Me.NumericUpDown4.DecimalPlaces = 1
-        Me.NumericUpDown4.Location = New System.Drawing.Point(401, 108)
-        Me.NumericUpDown4.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.NumericUpDown4.Minimum = New Decimal(New Integer() {10, 0, 0, -2147483648})
-        Me.NumericUpDown4.Name = "NumericUpDown4"
-        Me.NumericUpDown4.Size = New System.Drawing.Size(77, 21)
-        Me.NumericUpDown4.TabIndex = 3234
-        Me.NumericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown4.Value = New Decimal(New Integer() {3, 0, 0, -2147483648})
-        '
-        'NumericUpDown5
-        '
-        Me.NumericUpDown5.DecimalPlaces = 2
-        Me.NumericUpDown5.Location = New System.Drawing.Point(324, 108)
-        Me.NumericUpDown5.Maximum = New Decimal(New Integer() {150, 0, 0, 0})
-        Me.NumericUpDown5.Name = "NumericUpDown5"
-        Me.NumericUpDown5.Size = New System.Drawing.Size(74, 21)
-        Me.NumericUpDown5.TabIndex = 3231
-        Me.NumericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'ComboBox4
-        '
-        Me.ComboBox4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox4.FormattingEnabled = True
-        Me.ComboBox4.Items.AddRange(New Object() {"20MHz", "Full"})
-        Me.ComboBox4.Location = New System.Drawing.Point(481, 107)
-        Me.ComboBox4.Name = "ComboBox4"
-        Me.ComboBox4.Size = New System.Drawing.Size(81, 23)
-        Me.ComboBox4.TabIndex = 3233
-        '
-        'ComboBox8
-        '
-        Me.ComboBox8.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox8.FormattingEnabled = True
-        Me.ComboBox8.Items.AddRange(New Object() {"DC (1MΩ)", "AC", "DC (50Ω)"})
-        Me.ComboBox8.Location = New System.Drawing.Point(250, 107)
-        Me.ComboBox8.Name = "ComboBox8"
-        Me.ComboBox8.Size = New System.Drawing.Size(73, 23)
-        Me.ComboBox8.TabIndex = 3232
-        '
-        'TextBox12
-        '
-        Me.TextBox12.BackColor = System.Drawing.SystemColors.Control
-        Me.TextBox12.Location = New System.Drawing.Point(179, 163)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.ReadOnly = True
-        Me.TextBox12.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox12.TabIndex = 3243
-        Me.TextBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Panel72
-        '
-        Me.Panel72.BackColor = System.Drawing.Color.Gainsboro
-        Me.Panel72.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel72.Controls.Add(Me.CheckBox5)
-        Me.Panel72.Location = New System.Drawing.Point(324, 164)
-        Me.Panel72.Name = "Panel72"
-        Me.Panel72.Size = New System.Drawing.Size(74, 23)
-        Me.Panel72.TabIndex = 3242
-        '
-        'CheckBox5
-        '
-        Me.CheckBox5.AutoSize = True
-        Me.CheckBox5.ForeColor = System.Drawing.Color.Black
-        Me.CheckBox5.Location = New System.Drawing.Point(11, 1)
-        Me.CheckBox5.Name = "CheckBox5"
-        Me.CheckBox5.Size = New System.Drawing.Size(50, 19)
-        Me.CheckBox5.TabIndex = 3169
-        Me.CheckBox5.Text = "Auto"
-        Me.CheckBox5.UseVisualStyleBackColor = True
-        '
-        'TextBox15
-        '
-        Me.TextBox15.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox15.Location = New System.Drawing.Point(31, 163)
-        Me.TextBox15.Name = "TextBox15"
-        Me.TextBox15.ReadOnly = True
-        Me.TextBox15.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox15.TabIndex = 3241
-        Me.TextBox15.Text = "VOUT"
-        Me.TextBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'ComboBox9
-        '
-        Me.ComboBox9.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox9.FormattingEnabled = True
-        Me.ComboBox9.Items.AddRange(New Object() {"CH1", "CH2", "CH3", "CH4"})
-        Me.ComboBox9.Location = New System.Drawing.Point(102, 163)
-        Me.ComboBox9.Name = "ComboBox9"
-        Me.ComboBox9.Size = New System.Drawing.Size(75, 23)
-        Me.ComboBox9.TabIndex = 3240
-        '
-        'NumericUpDown7
-        '
-        Me.NumericUpDown7.DecimalPlaces = 1
-        Me.NumericUpDown7.Location = New System.Drawing.Point(401, 164)
-        Me.NumericUpDown7.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
-        Me.NumericUpDown7.Minimum = New Decimal(New Integer() {10, 0, 0, -2147483648})
-        Me.NumericUpDown7.Name = "NumericUpDown7"
-        Me.NumericUpDown7.Size = New System.Drawing.Size(77, 21)
-        Me.NumericUpDown7.TabIndex = 3239
-        Me.NumericUpDown7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.NumericUpDown7.Value = New Decimal(New Integer() {1, 0, 0, 0})
-        '
-        'ComboBox10
-        '
-        Me.ComboBox10.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox10.FormattingEnabled = True
-        Me.ComboBox10.Items.AddRange(New Object() {"20MHz", "Full"})
-        Me.ComboBox10.Location = New System.Drawing.Point(481, 163)
-        Me.ComboBox10.Name = "ComboBox10"
-        Me.ComboBox10.Size = New System.Drawing.Size(81, 23)
-        Me.ComboBox10.TabIndex = 3238
-        '
-        'ComboBox11
-        '
-        Me.ComboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
-        Me.ComboBox11.FormattingEnabled = True
-        Me.ComboBox11.Items.AddRange(New Object() {"DC (1MΩ)", "AC", "DC (50Ω)"})
-        Me.ComboBox11.Location = New System.Drawing.Point(250, 163)
-        Me.ComboBox11.Name = "ComboBox11"
-        Me.ComboBox11.Size = New System.Drawing.Size(73, 23)
-        Me.ComboBox11.TabIndex = 3237
-        '
         'PartI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -8415,8 +8415,57 @@ Partial Class PartI
         Me.Panel15.ResumeLayout(False)
         Me.Panel15.PerformLayout
         CType(Me.num_iin_change, System.ComponentModel.ISupportInitialize).EndInit
+        Me.TabPage_Instrument2.ResumeLayout(False)
+        Me.TabPage_Instrument2.PerformLayout
+        Me.Panel10.ResumeLayout(False)
+        Me.Panel10.PerformLayout
+        Me.Panel26.ResumeLayout(False)
+        Me.Panel26.PerformLayout
+        Me.Panel58.ResumeLayout(False)
+        Me.Panel58.PerformLayout
+        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel59.ResumeLayout(False)
+        Me.Panel59.PerformLayout
+        Me.Panel60.ResumeLayout(False)
+        Me.Panel60.PerformLayout
+        CType(Me.num_Temp2, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.num_Vout_error2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel61.ResumeLayout(False)
+        Me.Panel61.PerformLayout
+        Me.Panel62.ResumeLayout(False)
+        Me.Panel62.PerformLayout
+        Me.Panel63.ResumeLayout(False)
+        Me.Panel63.PerformLayout
+        Me.Panel64.ResumeLayout(False)
+        Me.Panel64.PerformLayout
+        Me.Panel65.ResumeLayout(False)
+        Me.Panel65.PerformLayout
+        Me.Panel66.ResumeLayout(False)
+        Me.Panel66.PerformLayout
+        Me.Panel67.ResumeLayout(False)
+        Me.Panel67.PerformLayout
+        Me.Panel68.ResumeLayout(False)
+        Me.Panel68.PerformLayout
+        Me.Panel69.ResumeLayout(False)
+        Me.Panel69.PerformLayout
+        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel70.ResumeLayout(False)
+        Me.Panel70.PerformLayout
+        CType(Me.num_VIN_OCP2, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.num_vin_sense2, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.num_vin_max2, System.ComponentModel.ISupportInitialize).EndInit
+        Me.Panel71.ResumeLayout(False)
+        Me.Panel71.PerformLayout
+        CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).EndInit
         Me.TabPage_Scope1.ResumeLayout(False)
         Me.TabPage_Scope1.PerformLayout
+        Me.Panel72.ResumeLayout(False)
+        Me.Panel72.PerformLayout
+        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit
         Me.Panel28.ResumeLayout(False)
         Me.Panel28.PerformLayout
         Me.Panel30.ResumeLayout(False)
@@ -8535,55 +8584,6 @@ Partial Class PartI
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit
-        Me.TabPage_Instrument2.ResumeLayout(False)
-        Me.TabPage_Instrument2.PerformLayout
-        Me.Panel10.ResumeLayout(False)
-        Me.Panel10.PerformLayout
-        Me.Panel26.ResumeLayout(False)
-        Me.Panel26.PerformLayout
-        Me.Panel58.ResumeLayout(False)
-        Me.Panel58.PerformLayout
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NumericUpDown2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NumericUpDown3, System.ComponentModel.ISupportInitialize).EndInit
-        Me.Panel59.ResumeLayout(False)
-        Me.Panel59.PerformLayout
-        Me.Panel60.ResumeLayout(False)
-        Me.Panel60.PerformLayout
-        CType(Me.num_Temp2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.num_Vout_error2, System.ComponentModel.ISupportInitialize).EndInit
-        Me.Panel61.ResumeLayout(False)
-        Me.Panel61.PerformLayout
-        Me.Panel62.ResumeLayout(False)
-        Me.Panel62.PerformLayout
-        Me.Panel63.ResumeLayout(False)
-        Me.Panel63.PerformLayout
-        Me.Panel64.ResumeLayout(False)
-        Me.Panel64.PerformLayout
-        Me.Panel65.ResumeLayout(False)
-        Me.Panel65.PerformLayout
-        Me.Panel66.ResumeLayout(False)
-        Me.Panel66.PerformLayout
-        Me.Panel67.ResumeLayout(False)
-        Me.Panel67.PerformLayout
-        Me.Panel68.ResumeLayout(False)
-        Me.Panel68.PerformLayout
-        Me.Panel69.ResumeLayout(False)
-        Me.Panel69.PerformLayout
-        CType(Me.NumericUpDown6, System.ComponentModel.ISupportInitialize).EndInit
-        Me.Panel70.ResumeLayout(False)
-        Me.Panel70.PerformLayout
-        CType(Me.num_VIN_OCP2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.num_vin_sense2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.num_vin_max2, System.ComponentModel.ISupportInitialize).EndInit
-        Me.Panel71.ResumeLayout(False)
-        Me.Panel71.PerformLayout
-        CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NumericUpDown4, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.NumericUpDown5, System.ComponentModel.ISupportInitialize).EndInit
-        Me.Panel72.ResumeLayout(False)
-        Me.Panel72.PerformLayout
-        CType(Me.NumericUpDown7, System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(False)
 
     End Sub
