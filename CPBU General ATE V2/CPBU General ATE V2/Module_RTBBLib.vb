@@ -39,27 +39,14 @@ Module Module_RTBBLib
 
     Function Check_Eagleboard() As Boolean
         hEnum = RTBB_EnumBoard()
-
-
         BoardCount = RTBB_GetBoardCount(hEnum)
-
         Main.txt_ID.Text = no_slave
         Main.status_bridgeboad.Text = no_device
         Main.num_ID.Value = 0
-
-
-
-
-
-
         RTBB_board = False
-
-
         If BoardCount = 0 Then
             Main.status_bridgeboad.Text = no_device
-
             Exit Function
-
         Else
             pEnumBoardInfo = RTBB_GetEnumBoardInfo(hEnum, 0)
 
@@ -91,15 +78,8 @@ Module Module_RTBBLib
                 RTBB_GPIOSingleSetIODirection(hDevice, 32 + i, True)
                 RTBB_GPIOSingleWrite(hDevice, 32 + i, False) '0
             Next
-
-
-
-
             RTBB_board = True
-
-
             I2CScan()
-
             I2CSetFrequency(1024, 1000)
         End If
 

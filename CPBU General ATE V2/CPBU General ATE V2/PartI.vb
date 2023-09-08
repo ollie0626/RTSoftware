@@ -3404,7 +3404,7 @@ Public Class PartI
         ' "Measurement"
         row = row + 1
 
-        txt_meas1_ch.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+        txt_meas1_ch.Text = xlSheet.Range(ConvertToLetter(col) & row).Value 
         txt_type1.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
         txt_meas1.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
         row = row + 1
@@ -7876,24 +7876,12 @@ Public Class PartI
                 Else
                     vout_scale_now = num_vout_DEM.Value
                 End If
-
-
             End If
-
             CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-
             VoutScalling_CCM = True
-
             first_Check = True
         End If
-
-
-
-
-
         report_init()
-
-
         GC.Collect()
         GC.WaitForPendingFinalizers()
         Delay(100)
@@ -7913,55 +7901,30 @@ Public Class PartI
         'TA
         Delay(100)
         ''----------------------------------------------------------------------------------
-
-
-
         If check_stability.Checked = True Then
             error_pic_col = 1
-
-
             If TA_Test_num = 0 Then
                 error_pic_row = 3
                 error_pic_num = 1
                 beta_pic_num = 1
-
-
             Else
-
                 excel_open()
-
                 xlSheet = xlBook.Sheets(txt_error_sheet.Text)
                 xlSheet.Activate()
-
-
-
                 error_pic_num = xlSheet.Range(ConvertToLetter(1) & 1).Value
                 error_pic_row = (pic_height + 2) * Int(error_pic_num / 10) + 3
                 error_pic_col = (pic_width + 1) * (error_pic_num Mod 10) + 1
-
                 error_pic_num = error_pic_num + 1
                 beta_pic_num = data_set.Rows.Count * data_test.Rows.Count * TA_Test_num + 1
-
                 excel_close()
-
             End If
         End If
-
-
         PartI_file = sf_name
-
-
         If TA_Test_num = 0 Then
-
             test_point_num = 0
             txt_test_now.Text = 0
-
         End If
-
         test_point_temp = test_point_num
-
-
-
         'Start Test
         start_test_time = Now
 
@@ -7990,15 +7953,11 @@ Public Class PartI
                 Power_Dev = VCC_Dev
                 power_volt(VCC_device, VCC_out, vcc_now)
             End If
-
-
             For i = 0 To total_fs.Length - 1
                 System.Windows.Forms.Application.DoEvents()
 
                 While pause = True
                     System.Windows.Forms.Application.DoEvents()
-
-
                     If run = False Then
                         Exit While
                     End If
@@ -9666,15 +9625,15 @@ Public Class PartI
     End Sub
 
     Private Sub cbox_channel_lx_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_lx.SelectedIndexChanged
-        txt_meas1_ch.Text = cbox_channel_lx.SelectedItem
-        txt_meas2_ch.Text = cbox_channel_lx.SelectedItem
-        txt_meas3_ch.Text = cbox_channel_lx.SelectedItem
+        txt_meas1_ch.Text = cbox_channel_lx.SelectedItem & "/3"
+        txt_meas2_ch.Text = cbox_channel_lx.SelectedItem & "/3"
+        txt_meas3_ch.Text = cbox_channel_lx.SelectedItem & "/3"
     End Sub
 
     Private Sub cbox_channel_vout_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_vout.SelectedIndexChanged
-        txt_meas4_ch.Text = cbox_channel_vout.Text
-        txt_meas5_ch.Text = cbox_channel_vout.Text
-        txt_meas6_ch.Text = cbox_channel_vout.Text
+        txt_meas4_ch.Text = cbox_channel_vout.Text & "/4"
+        txt_meas5_ch.Text = cbox_channel_vout.Text & "/4"
+        txt_meas6_ch.Text = cbox_channel_vout.Text & "/4"
     End Sub
 
 
