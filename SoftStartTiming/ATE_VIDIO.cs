@@ -335,7 +335,7 @@ namespace SoftStartTiming
             Trigger_Fail_retry:
                 IOStateSetting(initial_state);
                 InsControl._oscilloscope.SetRun();
-                MyLib.Delay1ms(200);
+                MyLib.Delay1ms(800);
                 InsControl._oscilloscope.SetNormalTrigger();
                 MyLib.Delay1ms(100);
 
