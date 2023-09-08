@@ -283,13 +283,18 @@ Public Class PartI
         'Vin
 
         cbox_vin.Items.Clear()
+        cbox_vin2.Items.Clear()
         cbox_VCC.Items.Clear()
 
         If Power_num > 0 Then
             cbox_vin.Items.AddRange(Power_name)
             cbox_VCC.Items.AddRange(Power_name)
+
+            cbox_vin2.Items.AddRange(Power_name)
         Else
             cbox_vin.Items.Add(no_device)
+
+            cbox_vin2.Items.Add(no_device)
         End If
         cbox_VCC.Items.Add(no_device)
         cbox_vin.SelectedIndex = 0
@@ -564,11 +569,6 @@ Public Class PartI
 
 
         cbox_VCC_ch.SelectedIndex = vcc_dev_ch
-
-
-
-
-
 
 
         If Meter_num = 0 Then
@@ -3145,6 +3145,7 @@ Public Class PartI
             cbox_vin.SelectedIndex = 0
         End If
         cbox_vin_ch.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        cbox_vin_ch2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
         num_VIN_OCP.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
         cbox_vin_daq.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
 
@@ -7727,6 +7728,7 @@ Public Class PartI
         Return wave_data
 
     End Function
+
     Function error_hyperlink() As Integer
         Dim error_path As String
         'Update Picture
@@ -7778,11 +7780,7 @@ Public Class PartI
     '    FinalReleaseComObject(xlrange)
     '    FinalReleaseComObject(xlSheet)
     '    'xlSheet = Nothing
-
-
     'End Function
-
-
 
     Function TestITem_run() As Integer
 
@@ -8920,7 +8918,6 @@ Public Class PartI
 
     End Function
 
-
     Private Sub PartI_Activated(sender As Object, e As EventArgs) Handles Me.Activated
         If Review_set = True Then
             reflesh()
@@ -9116,7 +9113,6 @@ Public Class PartI
 
     End Sub
 
-  
     Private Sub cbox_VCC_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_VCC.SelectedIndexChanged
         Dim addr() As String
 
