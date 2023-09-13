@@ -77,6 +77,7 @@ Module Module_RTBBLib
 
                 RTBB_GPIOSingleSetIODirection(hDevice, 32 + i, True)
                 RTBB_GPIOSingleWrite(hDevice, 32 + i, False) '0
+
             Next
             RTBB_board = True
             I2CScan()

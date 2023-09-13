@@ -93,7 +93,6 @@ namespace SoftStartTiming
         }
 
 
-
         public override void ATETask()
         {
             RTDev.BoadInit();

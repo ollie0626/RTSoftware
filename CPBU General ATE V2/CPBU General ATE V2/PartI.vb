@@ -1,5 +1,8 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.Runtime.InteropServices.Marshal
+Imports System.IO
+
+
 Public Class PartI
 
     ' Dim vcc_enable As Boolean = False
@@ -414,17 +417,8 @@ Public Class PartI
         cbox_coupling_iout.SelectedIndex = 2 'DC 50Ohm
         cbox_BW_iout.SelectedItem = "20MHz"
 
-
-
         '-------------------------------------------------------------------
         'Test setup
-
-
-
-
-
-
-
     End Function
 
     Function reflesh() As Integer
@@ -432,10 +426,6 @@ Public Class PartI
         Dim fs_change As Boolean = False
         Dim vout_change As Boolean = False
         Dim i As Integer
-    
-
-
-
 
         'Chamber
         If Main.check_TA_en.Checked = True Then
@@ -530,9 +520,6 @@ Public Class PartI
 
         End If
         '-----------------------------------------------------
-
-
-
 
         If Full_load <> Main.num_full_load.Value Then
             Full_load = Main.num_full_load.Value
@@ -647,6 +634,18 @@ Public Class PartI
         Delay(100)
         x = 1
 
+
+        ' Mid example 
+        '' Creates text string.
+        'Dim testString As String = "Mid Function Demo"
+        '' Returns "Mid".
+        'Dim firstWord As String = Mid(testString, 1, 3)
+        '' Returns "Demo".
+        'Dim lastWord As String = Mid(testString, 14, 4)
+        '' Returns "Function Demo".
+        'Dim midWords As String = Mid(testString, 5)
+
+        ' CH1/3
         meas_ch = Val(Mid(txt_meas1_ch.Text, 3))
         meas_type = txt_meas1.Text
         Scope_measure_set(x, meas_ch, meas_type)
@@ -686,8 +685,6 @@ Public Class PartI
 
         Power_EN(False)
 
-
-
         ''----------------------------------------------------------------------------------
         DAQ_resolution = cbox_data_resolution.SelectedItem
 
@@ -715,14 +712,7 @@ Public Class PartI
 
 
         Load_Dev = ildev(BDINDEX, Load_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
-
-
-
         Iout_board_EN = rbtn_board_iout.Checked
-
-
-
-
         DCload_ch(0) = check_IOUT_ch1.Checked
         DCload_ch(1) = check_IOUT_ch2.Checked
         DCload_ch(2) = check_IOUT_ch3.Checked
@@ -737,10 +727,6 @@ Public Class PartI
 
                 'Load_ch = i + 1
                 Load_ch_set(load_num) = i + 1
-
-
-
-
                 Load_ch = Load_ch_set(load_num)
 
                 Load_range = Load_range_L
@@ -752,40 +738,24 @@ Public Class PartI
             End If
         Next
 
-
-
-
         ''----------------------------------------------------------------------------------
         'Meter
         If check_Efficiency.Checked = True Then
             If rbtn_meter_iin.Checked = True Then
-
-
                 Meter_iin_addr = Val(txt_IIN_addr.Text)
                 Meter_iin_dev = ildev(BDINDEX, Meter_iin_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
                 If check_iin.Checked = True Then
                     Iin_Meter_initial(check_iin, cbox_IIN_meter, cbox_IIN_relay)
                 End If
-
-
             Else
                 INA226_Iin_initial(True) 'High Range
-
             End If
-
             'Check Iin Max
-
-
-
-
-
-
         End If
 
 
         'Meter set High
         If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
-
             Meter_iout_addr = Val(txt_Iout_addr.Text)
             Meter_iout_dev = ildev(BDINDEX, Meter_iout_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
             If check_iout.Checked = True Then
@@ -798,8 +768,6 @@ Public Class PartI
             Else
                 Iout_Meter_Max = False
             End If
-
-
         End If
 
         If cbox_Icc_meter.SelectedItem <> no_device Then
@@ -830,15 +798,20 @@ Public Class PartI
         temp = data_result.Rows(0).Cells("col_test_vin1").Value
         vin_now = temp
 
+        ' get power supply ins. address
         vin_addr = Val(txt_vin_addr.Text)
+        ' get vin handle from gpib lib
         vin_Dev = ildev(BDINDEX, vin_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         Power_Dev = vin_Dev
+        ' select power 
         vin_device = cbox_vin.SelectedItem
+        ' select channel
         Vin_out = Power_channel(vin_device, cbox_vin_ch.SelectedIndex)
-       
-
+        ' get current vin condition to power on
         power_volt(vin_device, Vin_out, vin_now)
 
+
+        ' setting power opc level
         If num_VIN_OCP.Value <> 0 Then
             power_OCP_init(vin_device, Vin_out, num_VIN_OCP.Value)
 
@@ -854,8 +827,10 @@ Public Class PartI
 
         End If
 
+        ' power on 
         power_on_off(vin_device, Vin_out, "ON")
 
+        ' DAQ measure vin
         vin_meas = DAQ_read(vin_daq)
 
         If (check_vin_sense.Checked = True) And (vin_meas < (vin_now * 0.5)) Then
@@ -870,6 +845,7 @@ Public Class PartI
         Power_EN(True)
         ''---------------------------------------------------------------------------------
         'I2C Init
+        ' check i2c setting from main from
         If Main.data_i2c.Rows.Count > 0 Then
 
 
@@ -892,9 +868,9 @@ Public Class PartI
 
 
         'Fs Set
-
         temp = data_result.Rows(0).Cells("col_test_fsw1").Value
         fs_now = temp * 1000
+        ' main form get fs setting use gpio or i2c
         If Main.cbox_fs_ctr.SelectedItem <> no_device Then
             Grobal_Control(Fs_control, fs_now)
         End If
@@ -904,6 +880,7 @@ Public Class PartI
         'Vout Set
         temp = data_result.Rows(0).Cells("col_test_vout1").Value
         vout_now = temp
+        ' main form know get fs setting use gpio or i2c
         If Main.cbox_vout_ctr.SelectedItem <> no_device Then
             Grobal_Control(Vout_control, vout_now)
         End If
@@ -920,8 +897,11 @@ Public Class PartI
         monitor_vout = check_shutdown.Checked
         If monitor_vout = True Then
             'VOUT
+            ' get measure vout DAQ setting
             vout_daq = Mid(cbox_vout_daq.SelectedItem, 3)
+            ' setting vout setting
             DAQ_config(vout_daq)
+            ' measure vout result
             check_vout()
 
         End If
@@ -938,9 +918,13 @@ Public Class PartI
         Relay8_PG_MODE = False 'CH4
 
 
+        ' these item has scope function.
+        If check_stability.Checked = True Or _     ' item select -> stability
+            check_jitter.Checked = True Or _        ' item select -> jitter    
+            (check_LineR.Checked = True And check_lineR_scope.Checked = True) _
+            Then
 
-        If check_stability.Checked = True Or check_jitter.Checked = True Or (check_LineR.Checked = True And check_lineR_scope.Checked = True) Then
-
+            ' scope initial
             If (Scope_Addr <> 0) And (RS_Scope = False) Then
                 Scope_Dev = ibdev32(BDINDEX, Scope_Addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
                 RUN_set("RUNSTop")
@@ -949,7 +933,6 @@ Public Class PartI
                 If RS_Scope_EN = False Then
                     RS_visa(True)
                 End If
-
             End If
 
             Scope_RUN(False)
@@ -969,8 +952,10 @@ Public Class PartI
             End If
 
             '---------------------------------------------------------------------------------
+            ' Lx channel in scope
             lx_ch = Val(Mid(cbox_channel_lx.SelectedItem, 3))
-            '---------------------------------------------------------------------------------
+            '---------------------------------------------------------------------------------'
+            ' vout channel in scope
             vout_ch = Val(Mid(cbox_channel_vout.SelectedItem, 3))
 
             'Check Board
@@ -983,23 +968,27 @@ Public Class PartI
             '---------------------------------------------------------------------------------
 
             If (txt_board_VOUT.Text <> "") And (Main.data_relay.Rows.Count > 0) Then
+                ' i2c control relay board
                 relay_Scope_set()
             End If
 
             '---------------------------------------------------------------------------------
+            ' if scope has measure iout then assign iout channel in scope
             If check_scope_iout.Checked = True Then
                 iout_ch = Val(Mid(cbox_channel_iout.SelectedItem, 3))
             Else
                 iout_ch = 0
             End If
+
             '---------------------------------------------------------------------------------
             For i = 1 To 4
+                If (vin_ch <> i) And
+                    (lx_ch <> i) And
+                    (vout_ch <> i) And
+                    (iout_ch <> i) Then
 
-                If (vin_ch <> i) And (lx_ch <> i) And (vout_ch <> i) And (iout_ch <> i) Then
                     CHx_display(i, "OFF")
                 End If
-
-
             Next
 
             '---------------------------------------------------------------------------------
@@ -1143,11 +1132,7 @@ Public Class PartI
             H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
 
             'See the time scale formula
-
             scope_time_init()
-
-
-
             '----------------------------------------------------------
             '
             If rbtn_vin_trigger.Checked = True Then
@@ -1157,22 +1142,10 @@ Public Class PartI
             End If
             'R&S Scope需要先偵測到才能在設定Auto 
             ' Trigger_auto_level(lx_ch, "R")
-
-
-
             Trigger_run("N")
             RUN_set("RUNSTop")
             'Scope_RUN(True)
-
-
-
-
         End If
-
-
-
-
-
     End Function
 
 
@@ -1193,19 +1166,13 @@ Public Class PartI
         'Meter set High
 
         If (rbtn_meter_iout.Checked = True) And (check_iout.Checked = True) Then
-
-
             Iout_Meter_initial(check_iout, cbox_Iout_meter, cbox_Iout_relay)
-
         ElseIf rbtn_board_iout.Checked = True Then
-
             If iout_now > INA226_Iout_max_L Then
                 Iout_Meter_Max = True
             Else
                 Iout_Meter_Max = False
             End If
-
-
         End If
 
 
@@ -1275,22 +1242,12 @@ Public Class PartI
         End If
 
         If (RS_Scope = True) And (RS_Scope_EN = True) Then
-
-
             RS_Local()
             RS_visa(False)
             RS_Scope_EN = False
         End If
-
-
-
-
-
-
     End Function
 
-
-  
 
     Function eff_parameter() As Integer
         Dim i, v As Integer
@@ -1312,13 +1269,7 @@ Public Class PartI
 
         End If
 
-
-
-
-
         If (data_eff.Rows.Count > 0) Then
-
-
             ReDim vin_temp(data_eff.Rows.Count - 1)
             ReDim vout_temp(data_eff.Rows.Count - 1)
             ReDim iout_set_temp(data_eff.Rows.Count - 1)
@@ -1335,17 +1286,9 @@ Public Class PartI
         End If
 
         'iout=eff*(Iin*vin/vout)
-
-
         ' If check_Efficiency.Checked = True Then
-
-
-
         num_iout_auto_stop.Value = Full_load * 1000
-
         data_eff.Rows.Clear()
-
-
         For i = 0 To clist_vout.Items.Count - 1
 
             If clist_vout.GetItemChecked(i) = True Then
@@ -1417,8 +1360,6 @@ Public Class PartI
         Dim i As Integer
         Dim iout As Double
 
-
-
         'Iout _Max
         For i = 0 To data_iout.Rows.Count - 1
 
@@ -1431,8 +1372,6 @@ Public Class PartI
 
         'IOB
         'IOB = 0.5 * (vin_now - vout_now) * (vout_now / vin_now) / L / fs_now
-
-
 
         IOB = 0.5 * (vin_now - vout_now) * (ton_now) / L_Value(t)
 
@@ -1450,6 +1389,7 @@ Public Class PartI
             If iout < Iout_Max_set Then
 
                 ReDim Preserve IOUT_Boundary_Array(i)
+                'Round the number iout to 9 decimal 
                 IOUT_Boundary_Array(i) = Math.Round(iout, 9)
                 IOUT_Boundary_Stop = IOUT_Boundary_Array(i)
                 i = i + 1
@@ -1467,7 +1407,6 @@ Public Class PartI
 
     Function stability_parameter(ByVal num As Integer) As Double()
 
-
         Dim i, ii As Integer
         Dim iout_temp() As Double
         Dim IOB_check As Boolean = False
@@ -1476,15 +1415,11 @@ Public Class PartI
             Exit Function
         End If
 
-
-
         If data_set.Rows.Count = 0 Then
             btn_iout_add.Enabled = False
             data_eff.Rows.Clear()
-
         Else
             btn_iout_add.Enabled = True
-
         End If
 
         If data_iout.Rows.Count = 0 Or data_set.Rows.Count = 0 Then
@@ -1492,13 +1427,9 @@ Public Class PartI
             Exit Function
         End If
 
-
         iout_temp = Calculate_iout(data_iout)
         data_test.Rows.Clear()
-
-
         If (check_stability.Checked = True) Then
-
 
             If (check_IOB.Checked = True) And (check_Force_CCM.Checked = False) Then
                 vin_now = test_vin(num)
@@ -1512,10 +1443,7 @@ Public Class PartI
 
                 data_set.Rows(num).Cells("col_IOB_start").Value = Math.Round(IOUT_Boundary_Start, 4)
                 data_set.Rows(num).Cells("col_IBO_Stop").Value = Math.Round(IOUT_Boundary_Stop, 4)
-
             End If
-
-
 
             For i = 0 To iout_temp.Length - 1
 
@@ -1525,38 +1453,24 @@ Public Class PartI
                         If IOUT_Boundary_Array(ii) > iout_temp(i - 1) And IOUT_Boundary_Array(ii) < iout_temp(i) Then
 
                             data_test.Rows.Add(IOUT_Boundary_Array(ii))
-
-
                         End If
-
-
                     Next
-
                 End If
-
                 data_test.Rows.Add(iout_temp(i))
-
             Next
 
             ReDim iout_temp(data_test.Rows.Count - 1)
 
             For i = 0 To data_test.Rows.Count - 1
-
                 iout_temp(i) = data_test.Rows(i).Cells(0).Value
-
             Next
 
         End If
 
-
-
         If check_iout_up.Checked = True Then
             For i = iout_temp.Length - 2 To 0 Step -1
-
                 data_test.Rows.Add(iout_temp(i))
-
             Next
-
         End If
         Return iout_temp
 
@@ -1656,29 +1570,21 @@ Public Class PartI
 
         If data_vin.Rows.Count = 0 Then
             data_set.Rows.Clear()
-
             Exit Function
         End If
 
-
-
         '-------------------------
         For v = 0 To data_vin.Rows.Count - 1
-
             vin_now = data_vin.Rows(v).Cells(0).Value
             If (check_vin_sense.Checked = True) And (vin_now > num_vin_max.Value) Then
                 error_message("The set value is larger than ""VIN MAX""!")
                 Exit Function
-
             End If
-
         Next
 
 
         '-------------------------
-
-
-
+        ' TA_temp, fs_temp, vin_temp, vout_temp, ton_temp size follow data_set DataGridView row
         If (data_set.Rows.Count > 0) And (check_Force_CCM.Checked = False) Then
             ReDim TA_temp(data_set.Rows.Count - 1)
             ReDim fs_temp(data_set.Rows.Count - 1)
@@ -1700,7 +1606,6 @@ Public Class PartI
                 IOB_stop_temp(i) = data_set.Rows(i).Cells(8).Value
             Next
             update_ok = True
-
         End If
 
         data_set.Rows.Clear()
@@ -1712,38 +1617,29 @@ Public Class PartI
             TA_num = 0
         End If
 
-
         vin_max = data_vin.Rows(0).Cells(0).Value
         vin_min = data_vin.Rows(0).Cells(0).Value
-
-
-
-
         num = 0
 
+        For t = 0 To TA_num ' chamber loop
 
-        For t = 0 To TA_num
-
-            If (Main.check_TA_en.Checked = True) And (Main.data_Temp.Rows.Count > 0) Then
+            If (Main.check_TA_en.Checked = True) And
+                (Main.data_Temp.Rows.Count > 0) Then
                 TA_now_temp = Main.data_Temp.Rows(t).Cells(0).Value
             Else
-
                 TA_now_temp = "25"
             End If
 
-
-
-            For n = 0 To total_vcc.Length - 1
+            For n = 0 To total_vcc.Length - 1 ' main vcc loop
 
                 If data_VCC.Rows.Count = 0 Then
                     vcc_temp = ""
-
                 Else
                     vcc_temp = total_vcc(n)
                 End If
 
 
-                For i = 0 To total_fs.Length - 1
+                For i = 0 To total_fs.Length - 1 ' main freq loop
 
                     fs_now = total_fs(i)
 
@@ -1765,6 +1661,7 @@ Public Class PartI
 
                             data_set.Rows.Add(TA_now_temp, vcc_temp, fs_now.ToString, vout_now.ToString, vin_now.ToString)
 
+                            ' resize array
                             ReDim Preserve test_temp(num)
                             ReDim Preserve test_vcc(num)
                             ReDim Preserve test_fs(num)
@@ -1775,11 +1672,11 @@ Public Class PartI
                             ReDim Preserve test_IOB_start(num)
                             ReDim Preserve test_IOB_stop(num)
 
-                            test_temp(num) = t
-                            test_vcc(num) = vcc_temp
-                            test_fs(num) = fs_now.ToString
-                            test_vout(num) = vout_now.ToString
-                            test_vin(num) = vin_now.ToString
+                            test_temp(num) = t                      ' chamber
+                            test_vcc(num) = vcc_temp                ' vcc
+                            test_fs(num) = fs_now.ToString          ' freq
+                            test_vout(num) = vout_now.ToString      ' vout
+                            test_vin(num) = vin_now.ToString        ' vin
                             test_ton(num) = ""
                             test_fs0(num) = ""
                             test_IOB_start(num) = ""
@@ -1787,14 +1684,15 @@ Public Class PartI
 
 
                             If (check_stability.Checked = True) And (check_Force_CCM.Checked = False) Then
-
-
                                 ton_now = (vout_now / vin_now) * (1 / fs_now)
-
                                 If update_ok = True Then
                                     For x = 0 To TA_temp.Length - 1
 
-                                        If (TA_now_temp = TA_temp(x)) And (fs_now.ToString = fs_temp(x)) And (vout_now.ToString = vout_temp(x)) And (vin_now.ToString = vin_temp(x)) Then
+                                        If (TA_now_temp = TA_temp(x)) And
+                                            (fs_now.ToString = fs_temp(x)) And
+                                            (vout_now.ToString = vout_temp(x)) And
+                                            (vin_now.ToString = vin_temp(x)) Then
+
                                             test_ton(num) = ton_temp(x)
                                             test_fs0(num) = fs_0_temp(x)
                                             test_IOB_start(num) = IOB_start_temp(x)
@@ -2032,9 +1930,6 @@ Public Class PartI
             Exit Function
         End If
 
- 
-      
-
         data_result.Rows.Clear()
         data_result.Columns("col_test_vcc1").HeaderText = Vcc_name
         data_result.Columns("col_test_vin1").HeaderText = Vin_name
@@ -2091,9 +1986,6 @@ Public Class PartI
             Next
 
         End If
-
-
-
 
         If (Main.check_TA_en.Checked = True) And (Main.data_Temp.Rows.Count > 0) Then
             TA_num = Main.data_Temp.Rows.Count - 1
@@ -2865,12 +2757,8 @@ Public Class PartI
         row = row + 1
 
         data_test_set(data_eff)
-
-
         xlSheet.Cells(row, col) = "Minimum range"
         xlSheet.Cells(row, col + 1) = cbox_meter_mini.SelectedItem
-
-
         row = row + 1
 
         'Jitter Page
@@ -2905,19 +2793,10 @@ Public Class PartI
 
         '------------------------------------------------------------------------------------
 
-
-
-
         xlSheet.Columns(1).AutoFit()
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
-
         xlBook.Save()
-
-
-
-
-
     End Function
 
     Function Test_import() As Integer
@@ -3657,90 +3536,58 @@ Public Class PartI
     End Function
 
     Function report_init() As Integer
-
-
         '-----------------------------------------------------------------------------------
         'PartI data 
         '-----------------------------------------------------------------------------------
         note_string = ""
         note_display = True
         Information.information_run("Initial Report", note_run)
-
         excel_open()
 
         If check_LineR.Checked = True Then
             If TA_Test_num = 0 Then
-
                 If check_lineR_scope.Checked = True Then
                     sheet_init(txt_data_sheet.Text)
                 End If
 
                 sheet_init(txt_LineR_sheet.Text)
             End If
-
-
             test_report_init(Line_Regulation)
-
-
         End If
-
-
-
         '-----------------------------------------------------------------------------------
         If check_loadR.Checked = True Then
             If TA_Test_num = 0 Then
                 sheet_init(txt_LoadR_sheet.Text)
             End If
-
-
-
-
             'Load Regulation
             test_report_init(Load_Regulation)
-
-
         End If
-
         '-----------------------------------------------------------------------------------
-
         If check_Efficiency.Checked = True Then
             If TA_Test_num = 0 Then
                 sheet_init(txt_eff_sheet.Text)
                 iin_range_report_info()
             End If
             'Efficiency
-
-
             test_report_init(Efficiency)
         End If
         '-----------------------------------------------------------------------------------
-
         If check_jitter.Checked = True Then
 
             If TA_Test_num = 0 Then
                 sheet_init(txt_jitter_sheet.Text)
-
                 Jitter_folder = folderPath & "\Jitter_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
-
                 My.Computer.FileSystem.CreateDirectory(Jitter_folder)
             End If
-
-
             test_report_init(Jitter)
-
         End If
-
         '-----------------------------------------------------------------------------------
-
         If check_stability.Checked = True Then
-
             If TA_Test_num = 0 Then
-
                 'Bata
                 If (check_stability_pic.Checked = True) Then
                     'sheet_init(txt_beta_sheet.Text, False)
                     Beta_folder = folderPath & "\Beta_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
-
                     My.Computer.FileSystem.CreateDirectory(Beta_folder)
                 End If
                 '----------------------------------------------------------------------------------
@@ -3751,63 +3598,41 @@ Public Class PartI
                 'Data
                 sheet_init(txt_stability_sheet.Text)
                 '----------------------------------------------------------------------------------
-
             End If
-
-
             test_report_init(Stability)
         End If
-
         excel_close()
-
         GC.Collect()
         GC.WaitForPendingFinalizers()
-
         note_display = False
-
-
     End Function
 
     Function test_report_init(ByVal test_name As String) As Integer
 
         Dim n, f, v, i, ii, nn As Integer
-
         Dim TA_title, VCC_title, Fs_title, total_title As String
         Dim TA_serial, VCC_serial, Fs_serial, total_serial As String
         Dim first_row As Integer 'title
         Dim last_row As Integer 'last_parameter
         Dim start_col As Integer
         Dim col_num, row_num As Integer
-
         Dim chart_num As Integer = 0
-
         Dim stability_num As Integer = 0
-
         Dim row_num_temp As Integer
-
         Dim VCC_test As Boolean = False
         Dim iout_col, freq_col, ton_col, toff_col, vpp_col As Integer
         Dim eff_col() As String = {Vin_name, Iin_name, Vout_name, Iout_name, "Efficiency >" & num_pass_eff.Value & "%", "Loss (W)"}
-
-
         Dim set_num As Integer
         Dim copy_row As Integer
-
         note_string = test_name
-
         '--------------------------------------------------------------------------------------
         'for Efficiency
         jitter_col(0) = Vout_name
         stability_col(0) = Vout_name
         jitter_col(1) = Iout_name
         stability_col(1) = Iout_name
-
         jitter_col(9) = "Jitter <" & num_pass_jitter.Value & "%"
-
         col_num = eff_col.Length
-
-
-
         If (cbox_VCC.SelectedItem <> no_device) Or (cbox_VCC_daq.SelectedItem <> no_device) Then
             ReDim Preserve eff_col(col_num)
             eff_col(col_num) = Vcc_name
@@ -3834,81 +3659,48 @@ Public Class PartI
             ReDim Preserve eff_col(col_num)
             eff_col(col_num) = "Total Eff (%)"
             col_num = col_num + 1
-
         End If
-
-
         ReDim Preserve eff_col(col_num)
         eff_col(col_num) = "PASS/FAIL"
-
         eff_title_total = eff_col.Length
-
         '---------------------------------------------------------------------------------
         'for stability
-
-
         For i = 0 To data_set.Rows.Count - 1
             If data_set.Rows(i).Cells(0).Value = TA_now Then
                 stability_num = i
                 Exit For
             End If
-
-
         Next
-
         '---------------------------------------------------------------------------------
         'For line Regulation
-
         Dim data_Line_vin As Object
-
         If rbtn_lineR_test1.Checked = True Then
             data_Line_vin = data_lineR_vin
         Else
             data_Line_vin = data_vin
         End If
-
-
-
         '---------------------------------------------------------------------------------
-
         'Init
         start_col = test_col
         first_row = test_row
-
         col_num = 0
         row_num = 0
-
-
         last_row = 0
-
-
-
-
-
         ''----------------------------------------------------------------------------------
         ''Init
-
-
         ''----------------------------------------------------------------------------------
         total_serial = ""
-
-
         If TA_Test_num = 0 Then
-
             Jitter_pic_num = 1
         Else
             Jitter_pic_num = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
         End If
-
         'TA Loop
-
-
         If Main.check_TA_en.Checked = False Then
             TA_title = ""
         Else
             TA_now = Main.data_Temp.Rows(TA_Test_num).Cells(0).Value
             TA_title = "TA=" & TA_now & ", "
-
         End If
 
         If (Main.data_Temp.Rows.Count > 1) Then
@@ -3916,36 +3708,25 @@ Public Class PartI
         Else
             TA_serial = ""
         End If
-
         '---------------------------------------------------------------------------------
 
         '---------------------------------------------------------------------------------
         For n = 0 To total_vcc.Length - 1
             ' VCC Loop
-
-
-
             vcc_now = total_vcc(n)
-
             If vcc_now <> 0 Then
                 VCC_title = txt_vcc_name1.Text & "=" & vcc_now & "V, "
             Else
                 VCC_title = ""
             End If
-
             If VCC_test = True Then
-
                 VCC_serial = VCC_title
             Else
                 VCC_serial = ""
             End If
-
             '----------------------------------------------------------------------------------
-
             For f = 0 To total_fs.Length - 1
                 ' Fsw Loop
-
-
                 fs_now = total_fs(f)
                 If fs_now <> 0 Then
                     Fs_title = "Fsw=" & fs_now / 1000 & "kHz, "
@@ -3968,43 +3749,26 @@ Public Class PartI
                     vout_now = total_vout(v)
 
                     total_title = TA_title & VCC_title & Fs_title & "VOUT=" & vout_now & "V"
-
-
-
                     ''----------------------------------------------------------------------------------
-
                     'Start Test
-
                     Select Case test_name
-
                         Case Stability
-
                             'Vout, Vin, vcc往下移，fs, temp都往左移
-
                             xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
-
                             If cbox_coupling_vout.SelectedItem = "AC" Then
                                 pass_value_Max = vout_now * (num_vout_ac.Value / 100)
                                 stability_col(22) = "Vpp(max) <" & pass_value_Max & "V"
-
-
                             Else
                                 pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
                                 pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
-
                                 stability_col(23) = "Vmax(max) <" & pass_value_Max & "V"
                                 stability_col(24) = "Vmin(min) >" & pass_value_Min & "V"
-
                             End If
-
-
                             col_num = stability_col.Length
-
-
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             row_num_temp = 0
                             '----------------------------------------------------------------------------------
@@ -4014,7 +3778,6 @@ Public Class PartI
                             Else
                                 'row_num = 0
                                 For nn = 0 To v - 1
-
                                     row_num = 0
                                     For i = 0 To data_vin.Rows.Count - 1
                                         set_num = TA_Test_num * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count + n * total_fs.Length * total_vout.Length * data_vin.Rows.Count + f * total_vout.Length * data_vin.Rows.Count + nn * data_vin.Rows.Count + i
@@ -4025,20 +3788,13 @@ Public Class PartI
                                             row_num = row_num + (stability_row_stop(set_num) - stability_row_start(set_num) + 1 + 2) + 1
                                         End If
                                     Next
-
-
-
                                     'Init row
                                     If (row_num) < (4 * (chart_height + row_Space) - row_Space) Then
                                         row_num_temp = row_num_temp + (4 * (chart_height + 1 + row_Space))
-
                                     Else
                                         row_num_temp = row_num_temp + row_num + row_Space
                                     End If
-
-
                                 Next
-
                                 first_row = test_row + row_num_temp
                                 'Init row
                                 'If (row_num) < (4 * (chart_height + row_Space) - row_Space) Then
@@ -4047,70 +3803,32 @@ Public Class PartI
                                 'Else
                                 '    first_row = test_row + row_num + v * row_Space
                                 'End If
-
-
-
                             End If
                             '----------------------------------------------------------------------------------        
-
-
-
-
                             col = start_col
                             row = first_row
-
-
-
-
                             'Total Chart
                             chart_num = v * 4 + 1
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 chart_init(Freq_Chart, "VOUT=" & vout_now & "V", "Frequency vs Load Current", Iout_title, "Frequency (kHz)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Ton_Chart, "VOUT=" & vout_now & "V", "Ton vs Load Current", Iout_title, "Ton (ns)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Toff_Chart, "VOUT=" & vout_now & "V", "Toff vs Load Current", Iout_title, "Toff (ns)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Vpp_Chart, "VOUT=" & vout_now & "V", "Vpp vs Load Current", Iout_title, "Vpp (mV)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
-
                             End If
                             '-------------------------------------------------------------------------------
-
-
-
                             row = first_row
-
                             For i = 0 To data_vin.Rows.Count - 1
-
-
-
-
-
                                 xlSheet.Activate()
-
                                 first_row = row
-
-
-
                                 ReDim Preserve stability_report_row(stability_num)
                                 stability_report_row(stability_num) = first_row
-
-
                                 row = first_row
                                 col = start_col
                                 vin_now = data_vin.Rows(i).Cells(0).Value
@@ -4119,10 +3837,7 @@ Public Class PartI
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 row = row + 1
-
-
                                 If i = 0 Then
-
                                     copy_row = row
                                     For nn = 0 To stability_col.Length - 1
                                         report_title(stability_col(nn), col, row, 1, 1, data_title_color)
@@ -4130,192 +3845,99 @@ Public Class PartI
                                         col = col + 1
 
                                     Next
-
-
                                 Else
                                     xlSheet.Range(ConvertToLetter(start_col) & copy_row & ":" & ConvertToLetter(start_col + stability_col.Length - 1) & copy_row).Copy()
                                     xlSheet.Range(ConvertToLetter(start_col) & row).Select()
                                     xlSheet.Paste()
                                 End If
-
-
-
                                 vin_now = data_vin.Rows(i).Cells(0).Value
-
-
                                 row = row + 1
                                 'stability_parameter(stability_num)
-
                                 'stability_row_num(v * data_vin.Rows.Count + i) = data_test.Rows.Count + 2
-
-
-
                                 'X
                                 For ii = stability_row_start(stability_num) To stability_row_stop(stability_num)
-
-
-
-
-
                                     'Next 'stabitity
                                     last_row = row
                                     row = row + 1
-
-
                                 Next 'iout
 
                                 If check_iout_up.Checked = True Then
-
                                     For ii = (stability_row_stop(stability_num) - 1) To stability_row_start(stability_num) Step -1
-
-
                                         last_row = row
                                         row = row + 1
-
-
                                     Next 'iout
-
-
-
-
                                 End If
-
-
-
                                 col = start_col
-
                                 For nn = 0 To stability_col.Length - 1
-
                                     Select Case stability_col(nn)
-
                                         Case Vout_name
-
-
                                         Case Iout_name
-
-
                                             iout_col = col
-
-
-
                                         Case "Frequency(kHz)"
                                             freq_col = col
-
-
-
                                         Case "Ton(ns)"
                                             ton_col = col
-
-
-
                                         Case "Toff(ns)"
                                             toff_col = col
-
-
                                         Case "Vpp(mV)"
                                             vpp_col = col
-
-
                                     End Select
-
-
                                     col = col + 1
-
-
-
                                 Next 'stabitity
-
-
-
-
-
                                 stability_num = stability_num + 1
-
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
-
-
-
                                 '-------------------------------------------------------------------------------
                                 'Add Serial 
-
-
                                 chart_row_start = first_row + 2
                                 chart_row_stop = last_row
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,Fsw"
                                 chart_add_series(txt_stability_sheet.Text, Freq_Chart, chart_num, total_serial, iout_col, freq_col, False)
                                 freq_col = freq_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,mean"
                                 chart_add_series(txt_stability_sheet.Text, Freq_Chart, chart_num, total_serial, iout_col, freq_col, False)
                                 freq_col = freq_col + 1
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,min"
                                 chart_add_series(txt_stability_sheet.Text, Freq_Chart, chart_num, total_serial, iout_col, freq_col, False)
                                 freq_col = freq_col + 1
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,max"
                                 chart_add_series(txt_stability_sheet.Text, Freq_Chart, chart_num, total_serial, iout_col, freq_col, False)
                                 freq_col = freq_col + 1
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,update"
                                 chart_add_series(txt_stability_sheet.Text, Freq_Chart, chart_num, total_serial, iout_col, freq_col, False)
-
                                 chart_num = chart_num + 1
                                 '-------------------------------------------------------------------------------------------------------
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,Ton"
                                 chart_add_series(txt_stability_sheet.Text, Ton_Chart, chart_num, total_serial, iout_col, ton_col, False)
                                 ton_col = ton_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,mean"
                                 chart_add_series(txt_stability_sheet.Text, Ton_Chart, chart_num, total_serial, iout_col, ton_col, False)
                                 ton_col = ton_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,min"
                                 chart_add_series(txt_stability_sheet.Text, Ton_Chart, chart_num, total_serial, iout_col, ton_col, False)
                                 ton_col = ton_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,max"
                                 chart_add_series(txt_stability_sheet.Text, Ton_Chart, chart_num, total_serial, iout_col, ton_col, False)
                                 ton_col = ton_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,update"
                                 chart_add_series(txt_stability_sheet.Text, Ton_Chart, chart_num, total_serial, iout_col, ton_col, False)
-
                                 chart_num = chart_num + 1
                                 '----------------------------------------------------------------------------------
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,Toff"
                                 chart_add_series(txt_stability_sheet.Text, Toff_Chart, chart_num, total_serial, iout_col, toff_col, False)
                                 toff_col = toff_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,mean"
                                 chart_add_series(txt_stability_sheet.Text, Toff_Chart, chart_num, total_serial, iout_col, toff_col, False)
                                 toff_col = toff_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,min"
                                 chart_add_series(txt_stability_sheet.Text, Toff_Chart, chart_num, total_serial, iout_col, toff_col, False)
                                 toff_col = toff_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,max"
                                 chart_add_series(txt_stability_sheet.Text, Toff_Chart, chart_num, total_serial, iout_col, toff_col, False)
                                 toff_col = toff_col + 1
-
-
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V,update"
                                 chart_add_series(txt_stability_sheet.Text, Toff_Chart, chart_num, total_serial, iout_col, toff_col, False)
-
                                 chart_num = chart_num + 1
                                 '----------------------------------------------------------------------------------
                                 '----------------------------------------------------------------------------------
@@ -4339,23 +3961,12 @@ Public Class PartI
                                 '----------------------------------------------------------------------------------
                                 col = col + 1
                                 row = row + 1
-
-
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
                             '----------------------------------------------------------------------------------
-
-
-
                         Case Jitter
-
                             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                             xlSheet.Activate()
-
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
@@ -4364,70 +3975,40 @@ Public Class PartI
                             start_col = test_col + data_jitter_iout.Rows.Count * (TA_num + 1) * total_vcc.Length * total_fs.Length * (pic_width + 1) + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1) - 1
                             'Init row
                             If (check_fastAcq.Checked = True) Then
-
                                 If row_num < (2 * pic_height + 1) Then
                                     first_row = test_row + v * (data_vin.Rows.Count * (2 * pic_height + 1 + 1) + row_Space)
                                 Else
                                     first_row = test_row + v * (data_vin.Rows.Count * (row_num + 1) + row_Space)
-
-
                                 End If
                             Else
                                 If row_num < (pic_height + 1) Then
                                     first_row = test_row + v * (data_vin.Rows.Count * (pic_height + 1 + 1) + row_Space)
                                 Else
                                     first_row = test_row + v * (data_vin.Rows.Count * (row_num + 1) + row_Space)
-
-
                                 End If
                             End If
-
-
-
                             col = start_col
                             row = first_row
-
-
-
-
-
                             'pass_value_Max = num_pass_jitter.Value
                             '-------------------------------------------------------------------------------
-
                             row = first_row
-
-
-
                             For i = 0 To data_vin.Rows.Count - 1
-
                                 If (check_fastAcq.Checked = True) Then
                                     If row_num < (2 * pic_height + 1) Then
                                         first_row = test_row + v * (data_vin.Rows.Count * (2 * pic_height + 1 + 1) + row_Space) + i * (2 * pic_height + 1 + 1)
                                     Else
                                         first_row = test_row + v * (data_vin.Rows.Count * (row_num + 1) + row_Space) + i * (row_num + 1 + 1)
-
-
                                     End If
-
                                 Else
                                     If row_num < (pic_height + 1) Then
                                         first_row = test_row + v * (data_vin.Rows.Count * (pic_height + 1 + 1) + row_Space) + i * (pic_height + 1 + 1)
                                     Else
                                         first_row = test_row + v * (data_vin.Rows.Count * (row_num + 1) + row_Space) + i * (row_num + 1 + 1)
-
-
                                     End If
                                 End If
-
-
-
-
                                 row = first_row
                                 col = start_col
                                 vin_now = data_vin.Rows(i).Cells(0).Value
-
-
-
                                 total_title = TA_title & VCC_title & Fs_title & "VOUT=" & vout_now & "V, VIN=" & vin_now & "V"
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
@@ -4436,123 +4017,61 @@ Public Class PartI
                                     report_title(jitter_col(nn), col, row, 1, 1, data_title_color)
                                     xlSheet.Columns(col).AutoFit()
                                     col = col + 1
-
                                 Next
-
                                 vin_now = data_vin.Rows(i).Cells(0).Value
-
-
                                 row = row + 1
-
                                 'X
                                 For ii = 0 To data_jitter_iout.Rows.Count - 1
-
                                     iout_now = data_jitter_iout.Rows(ii).Cells(0).Value
-
                                     ReDim Preserve jitter_pic_col(Jitter_pic_num)
                                     ReDim Preserve jitter_pic_row(Jitter_pic_num)
                                     If ii = 0 Then
-
-
                                         jitter_pic_col(Jitter_pic_num) = test_col + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * data_jitter_iout.Rows.Count * (pic_width + 1)
                                         jitter_pic_row(Jitter_pic_num) = first_row
                                     Else
                                         jitter_pic_col(Jitter_pic_num) = jitter_pic_col(Jitter_pic_num - 1) + 1 + pic_width
                                         jitter_pic_row(Jitter_pic_num) = jitter_pic_row(Jitter_pic_num - 1)
                                     End If
-
-
                                     col = start_col
-
-
                                     For nn = 0 To jitter_col.Length - 1
-
-
                                         col = col + 1
-
-
-
                                     Next 'jitter
                                     last_row = row
-
-
                                     row = row + 1
-
-
                                     '-------------------------------------------------------------------------------
-
                                     'Add Picture
                                     If (check_fastAcq.Checked = True) Then
-
                                         pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 2)
                                     Else
                                         pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 1)
                                     End If
-
                                     Jitter_pic_num = Jitter_pic_num + 1
-
                                 Next 'iout
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
-
-
-
-
-
                                 '----------------------------------------------------------------------------------
                                 col = col + 1
-
                                 row = row + 1
-
-
-
-
-
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
-
-
                             '----------------------------------------------------------------------------------
-
-
-
-
                         Case Line_Regulation
-
                             If check_lineR_scope.Checked = True Then
-
-
                                 xlSheet = xlBook.Sheets(txt_data_sheet.Text)
                                 xlSheet.Activate()
-
                                 '----------------------------------------------------------------------------------
                                 'initial
                                 'Init col
                                 col_num = lineR_col.Length * data_lineR_iout.Rows.Count + 1
-
-
                                 row_num = data_Line_vin.Rows.Count + 3
-
                                 start_col = test_col + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
-
                                 first_row = test_row + v * (row_num + row_Space)
-
                                 col = start_col
                                 row = first_row
-
-
                                 chart_num = v + 1
-
-
                                 '-------------------------------------------------------------------------------
                                 'Title
-
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 '-------------------------------------------------------------------------------
                                 row = row + 1
@@ -4561,7 +4080,6 @@ Public Class PartI
                                 'VIN|n* IOUT
                                 '-------------------------------------------------------------------------------
                                 For i = 0 To data_lineR_iout.Rows.Count
-
                                     If i = 0 Then
                                         'X
                                         'Vin
@@ -4581,104 +4099,63 @@ Public Class PartI
 
                                         If (rbtn_lineR_test1.Checked = True) And (check_lineR_up.Checked = True) Then
                                             For ii = data_Line_vin.Rows.Count - 2 To 0 Step -1
-
                                                 vin_now = data_Line_vin.Rows(ii).Cells(0).Value
                                                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                                 xlrange.Value = vin_now
                                                 FinalReleaseComObject(xlrange)
-
                                                 last_row = row
                                                 row = row + 1
                                             Next  'vin
                                         End If
-
                                         row = row + 1
-
                                         col = col + 1
                                     Else
-
                                         'Y
-
                                         'Iout
-
                                         '-------------------------------------------------------------------------------
                                         'Iout
                                         row = first_row + 1
-
                                         iout_now = data_lineR_iout.Rows(i - 1).Cells(0).Value
                                         report_title("IOUT=" & iout_now & "A", col, row, lineR_col.Length, 1, data_title_color)
                                         row = row + 1
-
                                         For nn = 0 To lineR_col.Length - 1
-
                                             report_title(lineR_col(nn), col, row, 1, 1, data_title_color)
                                             col = col + 1
                                         Next
-
                                     End If
                                     xlSheet.Columns(col).AutoFit()
-
-
-
                                 Next  'iout
-
-
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
                                 '----------------------------------------------------------------------------------
                                 last_row = last_row + 3
-
-
                                 '----------------------------------------------------------------------------------
-
-
                             End If
-
                             xlSheet = xlBook.Sheets(txt_LineR_sheet.Text)
                             xlSheet.Activate()
-
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
                             col_num = data_lineR_iout.Rows.Count + 2
-
-
-
-
                             row_num = data_Line_vin.Rows.Count + 3
-
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             'init row
                             If row_num < (chart_height + 1) Then
                                 first_row = test_row + v * ((chart_height + 1) + row_Space)
                             Else
                                 first_row = test_row + v * (row_num + row_Space)
-
                             End If
-
-
-
                             col = start_col
                             row = first_row
-
-
                             chart_num = v + 1
-
-
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 pass_value_Max = vout_now * (1 + (num_pass_lineR.Value * 5 / 100))
                                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value * 5 / 100))
-
                                 chart_init(LineR_Chart, "VOUT=" & vout_now & "V", test_name, vin_title, vout_title, vin_max, vin_min, pass_value_Max, pass_value_Min, cbox_type_LineR.SelectedItem)
-
-
                             End If
-
                             pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
                             pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
                             '-------------------------------------------------------------------------------
@@ -4717,39 +4194,27 @@ Public Class PartI
 
                                     If (rbtn_lineR_test1.Checked = True) And (check_lineR_up.Checked = True) Then
                                         For ii = data_Line_vin.Rows.Count - 2 To 0 Step -1
-
                                             vin_now = data_Line_vin.Rows(ii).Cells(0).Value
                                             xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                             xlrange.Value = vin_now
                                             FinalReleaseComObject(xlrange)
-
                                             last_row = row
                                             row = row + 1
                                         Next  'vin
                                     End If
-
-
-
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "max"
                                     FinalReleaseComObject(xlrange)
-
                                     row = row + 1
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "min"
                                     FinalReleaseComObject(xlrange)
-
                                     row = row + 1
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "variation"
                                     FinalReleaseComObject(xlrange)
-
                                     row = row + 1
-
-
                                 Else
-
                                     'Y
                                     '-------------------------------------------------------------------------------
                                     'Iout
@@ -4758,99 +4223,67 @@ Public Class PartI
                                     row = row + 1
                                     iout_now = data_lineR_iout.Rows(i - 1).Cells(0).Value
                                     report_title("IOUT=" & iout_now & "A", col, row, 1, 1, data_title_color)
-
                                     '-------------------------------------------------------------------------------
                                     'Add Serial 
-
                                     chart_row_start = first_row + 3
                                     chart_row_stop = last_row
                                     total_serial = TA_serial & VCC_serial & Fs_serial & "IOUT=" & iout_now & "A"
                                     chart_add_series(txt_LineR_sheet.Text, LineR_Chart, chart_num, total_serial, start_col, col, False)
-
                                     '-------------------------------------------------------------------------------
                                     'Note
                                     row = last_row + 1
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "=MAX(" & ConvertToLetter(col) & chart_row_start & ":" & ConvertToLetter(col) & (last_row) & ")"
                                     FinalReleaseComObject(xlrange)
-
                                     ' xlSheet.Cells(row, col) = "=MAX(" & ConvertToLetter(col) & chart_row_start & ":" & ConvertToLetter(col) & (last_row) & ")"
                                     row = row + 1
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "=MIN(" & ConvertToLetter(col) & chart_row_start & ":" & ConvertToLetter(col) & (last_row) & ")"
                                     FinalReleaseComObject(xlrange)
-
                                     ' xlSheet.Cells(row, col) = "=MIN(" & ConvertToLetter(col) & chart_row_start & ":" & ConvertToLetter(col) & (last_row) & ")"
                                     row = row + 1
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "=(" & ConvertToLetter(col) & (last_row + 1) & "-" & ConvertToLetter(col) & (last_row + 2) & ")/" & vout_now
-
-
                                     'xlSheet.Cells(row, col) = "=(" & ConvertToLetter(col) & (last_row + 1) & "-" & ConvertToLetter(col) & (last_row + 2) & ")/" & vout_now
                                     ' xlSheet.Range(ConvertToLetter(col) & row & ":" & ConvertToLetter(col) & row).NumberFormatLocal = "0.00%"
                                     xlrange.NumberFormatLocal = "0.00%"
                                     FinalReleaseComObject(xlrange)
                                     row = row + 1
                                     '-------------------------------------------------------------------------------
-
-
-
                                 End If
                                 xlSheet.Columns(col).AutoFit()
                                 col = col + 1
-
-
                             Next  'iout
-
                             '----------------------------------------------------------------------------------
-
                             ' PASS & Criteria
-
                             For ii = 0 To data_Line_vin.Rows.Count - 1
                                 col = start_col + data_lineR_iout.Rows.Count + 1
-
                                 '----------------------------------------------------------------------------------
                                 'Only Last parameter
-
                                 If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Max. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_Line_vin.Rows.Count - 1
                                         chart_add_series(txt_LineR_sheet.Text, LineR_Chart, chart_num, "Max. Criteria", start_col, col, True)
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = pass_value_Max
                                     FinalReleaseComObject(xlrange)
-
-                                    '  xlSheet.Cells(row, col) = pass_value_Max
-
-
                                     col = col + 1
-
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Min. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_Line_vin.Rows.Count - 1
                                         chart_add_series(txt_LineR_sheet.Text, LineR_Chart, chart_num, "Min. Criteria", start_col, col, True)
-
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
@@ -4858,89 +4291,56 @@ Public Class PartI
                                     xlrange.Value = pass_value_Min
                                     FinalReleaseComObject(xlrange)
                                     'xlSheet.Cells(row, col) = pass_value_Min
-
                                     col = col + 1
                                 End If
-
                                 '----------------------------------------------------------------------------------
                                 'PASS
                                 If ii = 0 Then
-
                                     row = first_row + 1
                                     report_title("PASS/FAIL", col, row, 1, 2, data_title_color)
                                     row = row + 2
                                 End If
-
                                 col = col + 1
-
                                 row = row + 1
                             Next  'vin
-
                             '----------------------------------------------------------------------------------
                             'Add Line
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
-
                                 report_Group(start_col, first_row, col_num + 2, last_row - first_row + 1)
-
                             Else
-
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
                             End If
                             '----------------------------------------------------------------------------------
                             last_row = last_row + 3
-
-
                             '----------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
                         Case Load_Regulation
                             xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
-
                             col_num = data_vin.Rows.Count + 2
                             row_num = data_eff_iout.Rows.Count + 3
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             'Init row
-
                             If row_num < (chart_height + 1) Then
                                 first_row = test_row + v * ((chart_height + 1) + row_Space)
                             Else
                                 first_row = test_row + v * (row_num + row_Space)
-
                             End If
-
-
-
-
                             col = start_col
                             row = first_row
-
-
-
                             chart_num = v + 1
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 pass_value_Max = vout_now * (1 + (num_pass_loadR.Value * 5 / 100))
                                 pass_value_Min = vout_now * (1 - (num_pass_loadR.Value * 5 / 100))
                                 iout_now = data_eff_iout.Rows(data_eff_iout.Rows.Count - 1).Cells(0).Value
                                 chart_init(LoadR_Chart, "VOUT=" & vout_now & "V", test_name, Iout_title, vout_title, iout_now, 0, pass_value_Max, pass_value_Min, cbox_type_LoadR.SelectedItem)
-
                             End If
-
                             pass_value_Max = vout_now * (1 + (num_pass_loadR.Value / 100))
                             pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
                             '-------------------------------------------------------------------------------
@@ -4951,7 +4351,6 @@ Public Class PartI
                             Else
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                             End If
-
                             '-------------------------------------------------------------------------------
                             row = row + 1
                             '-------------------------------------------------------------------------------
@@ -4959,7 +4358,6 @@ Public Class PartI
                             'IOUT|n* VIN| PASS
                             '-------------------------------------------------------------------------------
                             For i = 0 To data_vin.Rows.Count
-
                                 If i = 0 Then
                                     'X
                                     'Iout
@@ -4976,7 +4374,6 @@ Public Class PartI
                                         last_row = row
                                         row = row + 1
                                     Next  'iout
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "max"
                                     FinalReleaseComObject(xlrange)
@@ -4992,10 +4389,7 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     ' xlSheet.Cells(row, col) = "variation"
                                     row = row + 1
-
-
                                 Else
-
                                     'Y
                                     '-------------------------------------------------------------------------------
                                     'Vin
@@ -5004,15 +4398,12 @@ Public Class PartI
                                     row = row + 1
                                     vin_now = data_vin.Rows(i - 1).Cells(0).Value
                                     report_title("VIN=" & vin_now & "V", col, row, 1, 1, data_title_color)
-
                                     '-------------------------------------------------------------------------------
                                     'Add Serial 
-
                                     chart_row_start = first_row + 3
                                     chart_row_stop = last_row
                                     total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V"
                                     chart_add_series(txt_LoadR_sheet.Text, LoadR_Chart, chart_num, total_serial, start_col, col, False)
-
                                     '-------------------------------------------------------------------------------
                                     'Note
                                     row = last_row + 1
@@ -5033,14 +4424,9 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     row = row + 1
                                     '-------------------------------------------------------------------------------
-
-
-
                                 End If
                                 xlSheet.Columns(col).AutoFit()
                                 col = col + 1
-
-
                             Next  'iout
 
                             '----------------------------------------------------------------------------------
@@ -5049,46 +4435,33 @@ Public Class PartI
 
                             For ii = 0 To data_eff_iout.Rows.Count - 1
                                 col = start_col + data_vin.Rows.Count + 1
-
                                 '----------------------------------------------------------------------------------
                                 'Only Last parameter
-
                                 If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Max. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_eff_iout.Rows.Count - 1
                                         chart_add_series(txt_LoadR_sheet.Text, LoadR_Chart, chart_num, "Max. Criteria", start_col, col, True)
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = pass_value_Max
                                     FinalReleaseComObject(xlrange)
                                     ' xlSheet.Cells(row, col) = pass_value_Max
-
-
                                     col = col + 1
-
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Min. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_eff_iout.Rows.Count - 1
                                         chart_add_series(txt_LoadR_sheet.Text, LoadR_Chart, chart_num, "Min. Criteria", start_col, col, True)
-
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
@@ -5096,25 +4469,18 @@ Public Class PartI
                                     xlrange.Value = pass_value_Min
                                     FinalReleaseComObject(xlrange)
                                     'xlSheet.Cells(row, col) = pass_value_Min
-
                                     col = col + 1
                                 End If
-
                                 '----------------------------------------------------------------------------------
                                 'PASS
                                 If ii = 0 Then
-
                                     row = first_row + 1
                                     report_title("PASS/FAIL", col, row, 1, 2, data_title_color)
                                     row = row + 2
                                 End If
-
-
                                 col = col + 1
-
                                 row = row + 1
                             Next  'iout
-
                             '----------------------------------------------------------------------------------
                             'Add Line
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
@@ -5127,63 +4493,42 @@ Public Class PartI
                             End If
                             '----------------------------------------------------------------------------------
                             last_row = last_row + 3
-
-
                             '----------------------------------------------------------------------------------
                             '----------------------------------------------------------------------------------
-
                         Case Efficiency
                             xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
-
                             col_num = eff_col.Length
                             row_num = data_eff_iout.Rows.Count + 2
                             start_col = test_col + chart_width + col_Space + (n * total_fs.Length + f) * ((col_num + 1) * (data_vin.Rows.Count))
                             'Init row
-
                             If row_num < (chart_height + 1) Then
-
                                 first_row = test_row + (v * (TA_num + 1) + TA_Test_num) * ((chart_height + 1) + row_Space)
                             Else
                                 first_row = test_row + (v * (TA_num + 1) + TA_Test_num) * (row_num + row_Space)
-
                             End If
-
-
-
                             col = start_col
                             row = first_row
-
-
                             'Total Chart
                             chart_num = TA_Test_num * total_vout.Length + v + 1
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (n = 0) And (f = 0) Then
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 pass_value_Max = 100
                                 pass_value_Min = 0
                                 iout_now = data_eff_iout.Rows(data_eff_iout.Rows.Count - 1).Cells(0).Value
-
                                 chart_init(Eff_Chart, TA_title & "VOUT=" & vout_now & "V", test_name, Iout_title, "Efficiency (%)", iout_now, 0, pass_value_Max, pass_value_Min, cbox_type_Eff.SelectedItem)
-
-
-
-
                             End If
                             '-------------------------------------------------------------------------------
-
                             'pass_value_Min = num_pass_eff.Value
                             '-------------------------------------------------------------------------------
                             'VIN (V)	IIN(A)	VOUT (V)	IOUT (A)	Efficiency(%)	Loss(W)	PASS/FAIL
                             '-------------------------------------------------------------------------------
-
                             For i = 0 To data_vin.Rows.Count - 1
                                 row = first_row
                                 start_col = col
@@ -5197,101 +4542,44 @@ Public Class PartI
                                     report_title(eff_col(nn), col, row, 1, 1, data_title_color)
                                     xlSheet.Columns(col).AutoFit()
                                     col = col + 1
-
                                 Next
-
-
-
                                 row = row + 1
                                 'X
                                 For ii = 0 To data_eff_iout.Rows.Count - 1
-
                                     iout_now = data_eff_iout.Rows(ii).Cells(0).Value
-
                                     col = start_col
-
-
                                     For nn = 0 To eff_col.Length - 1
-
-
                                         col = col + 1
-
-
-
                                     Next 'eff
                                     last_row = row
                                     row = row + 1
-
-
                                 Next 'iout
-
-
-
                                 '-------------------------------------------------------------------------------
                                 'Add Serial 
-
                                 chart_row_start = first_row + 2
                                 chart_row_stop = last_row
                                 total_serial = TA_serial & VCC_serial & Fs_serial & "VIN=" & vin_now & "V"
                                 chart_add_series(txt_eff_sheet.Text, Eff_Chart, chart_num, total_serial, start_col + 3, start_col + 4, False)
-
                                 xlSheet.Columns(col).AutoFit()
-
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
-
                                 '----------------------------------------------------------------------------------
                                 col = col + 1
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
                             '----------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
                     End Select
-
-
-
-
                 Next   'vout
-
                 xlBook.Save()
-
-
             Next  'fs
-
             xlBook.Save()
-
         Next  'vcc
-
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
-
         xlBook.Save()
-
-
         'Next  'TA
-
-
-
-
-
     End Function
-
-
-
-
 
 
     Function iin_range_report_info() As Integer
@@ -5637,50 +4925,29 @@ Public Class PartI
             ElseIf rbtn_board_iin.Checked = True Then
                 'relay read
                 iin_meas = INA226_IIN_meas(num_data_count.Value)
-
             Else
-
                 iin_meas = power_read(cbox_vin.SelectedItem, Vin_out, "CURR") ' Format(power_read(cbox_vin.SelectedItem, Vin_out, "CURR"), "#0.000000000")
             End If
-
-
-
-
             If cbox_VCC_daq.SelectedItem <> no_device Then
                 vcc_meas = DAQ_average(vcc_daq, num_data_count.Value)
             ElseIf cbox_VCC.SelectedItem <> no_device Then
-
                 Power_Dev = VCC_Dev
                 If cbox_VCC.SelectedItem = " 2230-30-1" Then
-
-
                     vcc_meas = Power2230_read(VCC_out, "VOLT")
                 Else
-
                     vcc_meas = power_read(cbox_VCC.SelectedItem, VCC_out, "VOLT")
                 End If
-
                 Power_Dev = vin_Dev
             End If
-
             If txt_Icc_addr.Text <> "" Then
-
                 icc_meas = meter_average(cbox_Icc_meter.SelectedItem, Meter_icc_dev, num_data_count.Value, Meter_iout_range, "4e-1") ' meter_read(Meter_icc_dev)
-
             End If
-
             update_report(Efficiency)
-
         End If
 
         If check_loadR.Checked = True Then
-
-
             update_report(Load_Regulation)
         End If
-
-
-
     End Function
 
     Function Stability_run() As Integer
@@ -5753,13 +5020,8 @@ Public Class PartI
             End If
 
             CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-
-
             'Scope_RUN(True)
-
-
             monitor_count(num_counts_CCM.Value, False, "Part I")
-
             If rbtn_auto_vout.Checked = True Then
                 '第一次調整vout scale
 
@@ -5922,38 +5184,15 @@ Public Class PartI
                         CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                         double_check = True
                     End If
-
-
-
                 End If
-
             End If
-
         End If
-
-
-
-
-
-
         iout_temp = iout_now
-
-
-
         ' ''----------------------------------------------------------------------------------
         ''Measurement
         ''Scope
-
-
-
         update_report(Stability)
-
-
-
-
-
     End Function
-
 
     Function Jitter_run() As Integer
         Dim vout_temp As Double
@@ -6099,8 +5338,6 @@ Public Class PartI
 
     End Function
 
-
-
     Function update_report(ByVal test_name As String) As Integer
         Dim note() As String
         Dim first_row As Integer 'title
@@ -6130,7 +5367,7 @@ Public Class PartI
         row_num = 0
 
         If run = False Then
-            Exit Function
+            Return False
         End If
 
         'Start Test
@@ -6138,7 +5375,6 @@ Public Class PartI
         Select Case test_name
 
             Case Stability
-
                 If check_stability_pic.Checked = True Then
                     '將每一張scope的圖都儲存
 
@@ -6147,71 +5383,30 @@ Public Class PartI
                     'xlSheet.Activate()
 
                     ' Delay(100)
-
-
-
                     beta_path = Beta_folder & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
-
-
                     Hardcopy("PNG", beta_path)
-
-
                     beta_pic_num = beta_pic_num + 1
-
-
                 End If
-
                 xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 xlSheet.Activate()
-
-                'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
-
-                'If RS_Scope = True Then
-
-                '    Scope_measure_clear()
-
-                'End If
-
-                '--------------------------------------------------------
-
-                'Ton(ns),Toff(ns),Freq(KHz)
-
-
-
                 If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
-
                     '--------------------------------------------------------
                     wave_data = Auto_Scanning()
-
-
                     If wave_data(0) <> 0 Then
                         autoscanning_update = True
                     Else
                         autoscanning_update = False
                     End If
-
                 End If
-
                 xlSheet.Activate()
-
-
-
-
-
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
                 col_num = stability_col.Length
-
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
-
-
                 first_row = stability_report_row(data_set_now)
-
                 '----------------------------------------------------------------------------------
-
                 'Update Vin
-
                 row = first_row + 2 + stability_iout_num
 
                 col = start_col
@@ -6220,11 +5415,9 @@ Public Class PartI
                 xlrange.Value = vout_meas
                 If vout_meas < (vout_now * (vout_err / 100)) Then
                     xlrange.Interior.Color = 255
-
                 End If
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
 
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = iout_now
@@ -6249,13 +5442,8 @@ Public Class PartI
                     xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
                     FinalReleaseComObject(xlrange)
                     col = col + 1
-
                 Next
-
-
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
                 'freq_update
                 If (AutoScalling_EN = True) Then
                     If autoscanning_update = True Then
@@ -6293,9 +5481,6 @@ Public Class PartI
 
                         pass_result = FAIL
                     End If
-
-
-
                 End If
 
                 FinalReleaseComObject(xlrange)
@@ -6339,15 +5524,8 @@ Public Class PartI
 
 
                 End If
-
-
-                '--------------------------------------------------------
-
-
-
                 '-------------------------------------------------------------------------
                 'ton
-
                 For ii = 0 To 3
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlrange.Value = ton(ii) * (10 ^ 9) ' Format(ton(ii) * (10 ^ 9), "#0.000")
@@ -6356,8 +5534,6 @@ Public Class PartI
 
                 Next
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
-
                 'ton_update
                 If (AutoScalling_EN = True) Then
                     If autoscanning_update = True Then
@@ -6387,8 +5563,6 @@ Public Class PartI
 
                 Next
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
-
                 'toff_update
                 If (AutoScalling_EN = True) Then
                     If (autoscanning_update = True) Then
@@ -6407,7 +5581,6 @@ Public Class PartI
                 col = col + 1
                 '-------------------------------------------------------------------------
                 'vpp
-
                 For ii = 0 To 3
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlrange.Value = vpp(ii) * (10 ^ 3) ' Format(vpp(ii) * (10 ^ 3), "#0.000")
@@ -6415,8 +5588,6 @@ Public Class PartI
                     col = col + 1
 
                 Next
-
-
                 'Vmax
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vpp(4) ' Format(vpp(4), "#0.000")
@@ -6427,34 +5598,34 @@ Public Class PartI
                 xlrange.Value = vpp(5) ' Format(vpp(5), "#0.000")
                 FinalReleaseComObject(xlrange)
                 col = col + 1
+                ' TODO: save data to text file (Stability)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Fs_Max / 1000) : data_list.Add(Fs_Min / 1000)
+                data_list.Add(ton(0) * (10 ^ 9)) : data_list.Add(ton(1) * (10 ^ 9)) : data_list.Add(ton(2) * (10 ^ 9)) : data_list.Add(ton(3) * (10 ^ 9))
+                data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
+                data_list.Add(toff(0) * (10 ^ 9)) : data_list.Add(toff(1) * (10 ^ 9)) : data_list.Add(toff(2) * (10 ^ 9)) : data_list.Add(toff(3) * (10 ^ 9))
+                data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
+                data_list.Add(vpp(0) * (10 ^ 3)) : data_list.Add(vpp(1) * (10 ^ 3)) : data_list.Add(vpp(2) * (10 ^ 3)) : data_list.Add(vpp(3) * (10 ^ 3))
+                data_list.Add(vpp(4)) : data_list.Add(vpp(5))
 
                 'PASS/FAIL
-
                 If pass_result = PASS Then
-
-
                     If cbox_coupling_vout.SelectedItem = "AC" Then
                         pass_value_Max = vout_now * (num_vout_ac.Value / 100)
-
                         If (vpp(3) > pass_value_Max) Then
                             pass_result = FAIL
                         End If
-
                     Else
                         pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
                         pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
-
-
                         If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
                             pass_result = FAIL
                         End If
-
                     End If
-
-
                 End If
-
-
+                SaveDataToFile(data_list, pass_result, stable_sel)
+                ' ------------------------------------------------------------------------------------------------
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
@@ -6462,28 +5633,17 @@ Public Class PartI
                 xlrange.Value = pass_result ' Format(vpp(5), "#0.000")
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
-
-                'temp = xlSheet.Range(ConvertToLetter(col) & row).Value()
                 If pass_result = FAIL Then
-
-
-
                     If Error_folder = "" Then
                         Error_folder = folderPath & "\Error_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
                         My.Computer.FileSystem.CreateDirectory(Error_folder)
                     End If
                     Hyperlinks_txt = "#" & error_pic_num
-
                     xlSheet = xlBook.Sheets(txt_error_sheet.Text)
                     xlSheet.Activate()
-
                     xlrange = xlSheet.Range(ConvertToLetter(1) & 1)
                     xlrange.Value = error_pic_num
-
                     xlBook.Save()
-
-
                     '若已經有用autoscanning矯正，就直接抓圖，不再取圖!
                     If autoscanning_update = False Then
                         'vpp(4)=Vmax (max)
@@ -6494,100 +5654,65 @@ Public Class PartI
                         Else
                             error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
                         End If
-
-
                     End If
                     '----------------------------------------------------------------------------------------------------------------
                     'Update Picture
                     '
                     'update_error_pic()
-
                     error_pic_path = Error_folder & "\" & error_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     Hardcopy("PNG", error_pic_path)
-
                     hyperlink_col = error_pic_col
                     hyperlink_row = error_pic_row
-
                     If (error_pic_num Mod 10 = 0) Then
                         error_pic_col = 1
                         error_pic_row = error_pic_row + pic_height + 2
                     Else
                         error_pic_col = error_pic_col + pic_width + 1
                     End If
-
                     error_pic_num = error_pic_num + 1
                     ''----------------------------------------------------------------------------------------------------------------
                     If check_cursors.Checked = True Then
-
                         Cursor_ONOFF("OFF")
-
-
                     End If
-
-
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                     xlSheet.Activate()
-
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
-
                 End If
-
                 autoscanning_update = False
                 If run = False Then
-                    Exit Function
+                    Return False
                 End If
-
-
                 ''----------------------------------------------------------------------------------------------------------------
-
                 'Auto Scalling
                 '回到原設定值
-
                 CHx_Bandwidth(lx_ch, cbox_BW_lx.SelectedItem)
                 H_reclength(RL_value)
                 'Timing Scale
                 H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
-
-
                 If rbtn_vin_trigger.Checked = True Then
                     Trigger_set(lx_ch, "R", vin_now / num_vin_trigger.Value)
                 Else
                     Trigger_auto_level(lx_ch, "R")
                 End If
-
-
-
                 RUN_set("RUNSTop")
                 'Scope_RUN(True)
-
-
                 ''----------------------------------------------------------------------------------------------------------------
-
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
-
+                ' Stability Update data finish
+                ''----------------------------------------------------------------------------------------------------------------
 
             Case Jitter
-
-
-
                 xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                 xlSheet.Activate()
                 'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
-
                 col_num = jitter_col.Length
                 row_num = (data_jitter_iout.Rows.Count + 2)
                 '----------------------------------------------------------------------------------
                 'test now
                 '--------------------------------------------------------------------------------
-
                 pass_value_Max = num_pass_jitter.Value
-
-                '----------------------------------------------------------------------
-
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
@@ -6600,8 +5725,6 @@ Public Class PartI
                         first_row = test_row + Vout_test_num * (data_vin.Rows.Count * (2 * pic_height + 1 + 1) + row_Space) + Vin_test_num * (2 * pic_height + 1 + 1)
                     Else
                         first_row = test_row + Vout_test_num * (data_vin.Rows.Count * (row_num + 1) + row_Space) + Vin_test_num * (row_num + 1)
-
-
                     End If
 
                 Else
@@ -6615,18 +5738,13 @@ Public Class PartI
                     End If
                 End If
 
-
-
                 col = start_col
                 row = first_row + 2 + jitter_iout_num
                 'Ton_mean(ns)	Toff_min(ns)	Toff_max(ns)
-
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vout_meas
                 If vout_meas < (vout_now * (vout_err / 100)) Then
                     xlrange.Interior.Color = 255
-
                 End If
                 FinalReleaseComObject(xlrange)
                 col = col + 1
@@ -6659,91 +5777,71 @@ Public Class PartI
                 xlrange.Value = Tjitter
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 Dmax = Ton_mean / (Toff_min + Ton_mean)
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = Dmax
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 Dmin = Ton_mean / (Toff_max + Ton_mean)
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = Dmin
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 Dave = Ton_mean / (Toff_min + Ton_mean + (1 / 2) * Tjitter)
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = Dave
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 Jitter_value = 100 * (Dmax - Dmin) / Dave
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = Jitter_value
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 '"PASS/FAIL"
-
                 If Jitter_value < pass_value_Max Then
                     pass_result = PASS
                 Else
                     pass_result = FAIL
                 End If
-
+                ' TODO: save data to text file (Jitter)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Ton_mean) : data_list.Add(Toff_min)
+                data_list.Add(Toff_max) : data_list.Add(Tjitter) : data_list.Add(Dmax) : data_list.Add(Dmin)
+                data_list.Add(Dave)
+                data_list.Add(Jitter_value)
+                SaveDataToFile(data_list, pass_result, jitter_sel)
+                ' ------------------------------------------------------------------------------------------------
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
                 End If
                 xlrange.Value = pass_result
                 FinalReleaseComObject(xlrange)
-
                 jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                 ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
                 Hardcopy("PNG", jitter_pic_path)
-
                 'update_pic(jitter_pic_col, jitter_pic_row)
-
                 If (RS_Scope = False) And (check_fastAcq.Checked = True) Then
-
-
                     Scope_RUN(False)
-
-
-
                     FastAcq_ONOFF("ON")
                     'Delay(100)
                     Scope_RUN(True)
-
                     Delay_s(num_FastAcq.Value)
                     jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
                     Hardcopy("PNG", jitter_pic_path)
-
                     'update_pic(jitter_pic_col, jitter_pic_row + pic_height, jitter_pic_path)
-
-
                 End If
-
                 Jitter_pic_num = Jitter_pic_num + 1
-
                 ' End If
                 If run = False Then
-                    Exit Function
+                    Return False
                 End If
-
-
                 Scope_RUN(False)
-
                 If RS_Scope = True Then
-
-
-
                     RS_Display(RS_RES_MES, RS_DISP_PREV)
                     Scope_measure_clear()
-
                     RS_Scope_measure_status(1, True)
                     RS_Scope_measure_status(2, True)
                     RS_Scope_measure_status(3, True)
@@ -6789,8 +5887,6 @@ Public Class PartI
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
-
-
                 If rbtn_lineR_test2.Checked = True Then
                     col_num = data_lineR_iout.Rows.Count + 2
                     row_num = data_vin.Rows.Count + 3
@@ -6802,41 +5898,32 @@ Public Class PartI
                     Else
                         row_num = data_lineR_vin.Rows.Count + 3
                     End If
-
                 End If
-
-
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
                 'init row
                 If row_num < (chart_height + 1) Then
                     first_row = test_row + Vout_test_num * ((chart_height + 1) + row_Space)
                 Else
                     first_row = test_row + Vout_test_num * (row_num + row_Space)
-
                 End If
-
                 '----------------------------------------------------------------------------------
-
                 'Update Vin
                 col = start_col
                 row = first_row + 3 + LR_Vin_test_num
-
                 'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 'xlrange.Value = vin_meas
                 'FinalReleaseComObject(xlrange)
                 If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
+                    pass_result = PASS
                     xlrange.Value = PASS
                 Else
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
+                    pass_result = PASS
                     xlrange.Value = PASS
                 End If
-
                 FinalReleaseComObject(xlrange)
                 'Update Vout
-
-
                 col = start_col + (1 + lineR_iout_num)
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vout_meas
@@ -6845,32 +5932,31 @@ Public Class PartI
 
                 End If
                 FinalReleaseComObject(xlrange)
-
-
                 pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
-
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
-
+                        pass_result = FAIL
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     Else
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
+                        pass_result = FAIL
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     End If
                 End If
-
                 '----------------------------------------------------------------------------------
-
+                ' TODO: save data to text file (Line Regulation)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vout_meas)
+                SaveDataToFile(data_list, pass_result, line_sel)
+                '-------------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
                 '-------------------------------------------------------------------------------------
-
                 If check_lineR_scope.Checked = True Then
                     'Dim lineR_col() As String = {Vout_name, Iout_name, Vin_name, "Frequency(kHz)", "Frequency(mean)", "Frequency(min)", "Frequency(max)", _
                     '         "Ton(ns)", "Ton(mean)", "Ton(min)", "Ton(max)", _
@@ -6947,20 +6033,10 @@ Public Class PartI
                         col = col + 1
 
                     Next
-
-
                     FinalReleaseComObject(xlrange)
                     FinalReleaseComObject(xlSheet)
-
-
                     '-------------------------------------------------------------------------------------
                 End If
-
-
-
-                '----------------------------------------------------------------------------------------
-
-
             Case Load_Regulation
 
                 xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
@@ -6979,14 +6055,8 @@ Public Class PartI
                     first_row = test_row + Vout_test_num * ((chart_height + 1) + row_Space)
                 Else
                     first_row = test_row + Vout_test_num * (row_num + row_Space)
-
                 End If
-
-
                 '----------------------------------------------------------------------------------
-
-
-
                 'Update Iout
                 col = start_col
                 row = first_row + 3 + eff_iout_num
@@ -6995,21 +6065,18 @@ Public Class PartI
                 'xlrange.Value = iout_now
                 'FinalReleaseComObject(xlrange)
                 If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
-
-
+                    pass_result = PASS
                     xlrange.Value = PASS
                 Else
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
+                    pass_result = PASS
                     xlrange.Value = PASS
                 End If
                 FinalReleaseComObject(xlrange)
-
                 'Update Vout
                 pass_value_Max = vout_now * (1 + (num_pass_loadR.Value / 100))
                 pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
-
                 col = start_col + (Vin_test_num) + 1
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vout_meas
@@ -7017,28 +6084,30 @@ Public Class PartI
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
-
+                        pass_result = FAIL
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     Else
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
-
+                        pass_result = FAIL
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     End If
                 End If
-
+                '----------------------------------------------------------------------------------
+                ' TODO: save data to text file (load Regulation)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vout_meas)
+                SaveDataToFile(data_list, pass_result, loadR_sel)
+                '-------------------------------------------------------------------------------------
                 '----------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
             Case Efficiency
-
                 xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                 xlSheet.Activate()
                 'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
-
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
@@ -7046,34 +6115,24 @@ Public Class PartI
                 row_num = data_eff_iout.Rows.Count + 2
                 start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) + Vin_test_num * (col_num + 1)
                 'Init row
-
                 If row_num < (chart_height + 1) Then
-
                     first_row = test_row + (Vout_test_num * (TA_num + 1) + TA_Test_num) * ((chart_height + 1) + row_Space)
                 Else
                     first_row = test_row + (Vout_test_num * (TA_num + 1) + TA_Test_num) * (row_num + row_Space)
-
                 End If
-
-
                 '----------------------------------------------------------------------------------
-
                 pass_value_Min = num_pass_eff.Value
                 'Update Vin
-
                 row = first_row + 2 + eff_iout_num
                 col = start_col
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vin_meas
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = iin_meas
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = Eff_vout_meas
                 If Eff_vout_meas < (vout_now * (vout_err / 100)) Then
@@ -7082,15 +6141,11 @@ Public Class PartI
                 End If
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = iout_meas
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-
                 'eff
-
-
                 'Efficiency = (VOUT × ILOAD) / (VIN × IIN)
                 eff = ((Eff_vout_meas * iout_meas) / (vin_meas * iin_meas)) * 100
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
@@ -7102,7 +6157,6 @@ Public Class PartI
                 Else
                     pass_result = FAIL
                 End If
-
 
                 'loss
                 'Loss=(VIN*IIN)-(VOUT*IOUT)
@@ -7125,12 +6179,10 @@ Public Class PartI
                     xlrange.Value = icc_meas
                     FinalReleaseComObject(xlrange)
                     col = col + 1
-
                 End If
 
                 If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then
                     'Total Effieiency = (VOUT × ILOAD) / (VIN × IIN)+(VCC*ICC)
-
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlrange.Value = ((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100
                     FinalReleaseComObject(xlrange)
@@ -7147,19 +6199,19 @@ Public Class PartI
                 xlrange.Value = pass_result
 
                 '----------------------------------------------------------------------------------
+                ' TODO: save data to text file (Efficiency)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vin_meas) : data_list.Add(iin_meas) : data_list.Add(Eff_vout_meas)
+                data_list.Add(iout_meas) : data_list.Add(eff) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)))
+                data_list.Add(vcc_meas) : data_list.Add(icc_meas) : data_list.Add(((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100)
+                SaveDataToFile(data_list, pass_result, eff_sel)
+                '-------------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
         End Select
-
-
-
-
         xlBook.Save()
-
-
-
+        Return True
     End Function
 
     Function Auto_Scanning_check() As Integer
@@ -7167,9 +6219,6 @@ Public Class PartI
         If RS_Scope = False Then
             Waveform_data_init(RL_value * 2)
         End If
-
-
-
 
         If rbtn_auto_all.Checked = True Then
             AutoScalling_EN = True
@@ -7188,8 +6237,6 @@ Public Class PartI
         'Ton_min = VOUT / VIN *(1/fs)* 0.7 判定。
         'Toff_min = (1-VOUT/VIN) *(1/fs) *0.7。
 
-
-
         If rbtn_ton_cal.Checked = True Then
             ton_pass = (vout_now / vin_now) * (1 / fs_now) * num_ton_cal.Value
         Else
@@ -7202,16 +6249,7 @@ Public Class PartI
             toff_pass = num_toff_val.Value * ns
         End If
 
-
-
-
-
         AutoScalling_EN = True
-
-
-
-
-
     End Function
 
     Function Auto_Scanning() As Double()
@@ -7782,6 +6820,8 @@ Public Class PartI
     '    'xlSheet = Nothing
     'End Function
 
+
+
     Function TestITem_run() As Integer
 
         Dim i, n, ii, v, x, y As Integer
@@ -7810,13 +6850,7 @@ Public Class PartI
         Power_recorve = check_OTP.Checked
 
         TestITem_run_now = True
-
-
-
-
-
         ''Init Parameter
-
         instrument_init()
 
 
@@ -7825,10 +6859,6 @@ Public Class PartI
         End If
 
         vout_err = num_Vout_error.Value
-
-
-
-
         Meter_iin_low = Mid(cbox_meter_mini.SelectedItem, 1, 4)
         'initial
 
@@ -7852,7 +6882,7 @@ Public Class PartI
         '--------------------------------------------------------------------------------
 
 
-
+        ' scope page: right side auto-adjust enable
         If (check_stability.Checked = True) Or (check_jitter.Checked = True) Then
             '--------------------------------------------------------------------------------
             '2020/01/31
@@ -7862,11 +6892,9 @@ Public Class PartI
                 vout_temp = Math.Floor(((vout_now * 1000) * 0.005))
                 vout_temp = Math.Floor(vout_temp / 5) * 5
                 If vout_temp > 10 Then
-
                     vout_scale_now = vout_temp
                 Else
                     vout_scale_now = 10
-
                 End If
             Else
                 If (check_Force_CCM.Checked = True) Then
@@ -7879,6 +6907,8 @@ Public Class PartI
             VoutScalling_CCM = True
             first_Check = True
         End If
+
+
         report_init()
         GC.Collect()
         GC.WaitForPendingFinalizers()
@@ -7917,7 +6947,9 @@ Public Class PartI
                 excel_close()
             End If
         End If
+
         PartI_file = sf_name
+
         If TA_Test_num = 0 Then
             test_point_num = 0
             txt_test_now.Text = 0
@@ -7926,12 +6958,11 @@ Public Class PartI
         'Start Test
         start_test_time = Now
 
-        For n = 0 To total_vcc.Length - 1
+        For n = 0 To total_vcc.Length - 1 ' vcc loop
             System.Windows.Forms.Application.DoEvents()
 
             While pause = True
                 System.Windows.Forms.Application.DoEvents()
-
 
                 If run = False Then
                     Exit While
@@ -7944,14 +6975,15 @@ Public Class PartI
 
             VCC_test_num = n
 
-
             If data_VCC.Rows.Count > 0 Then
                 vcc_now = total_vcc(n)
                 DCLoad_ONOFF("OFF")
                 Power_Dev = VCC_Dev
                 power_volt(VCC_device, VCC_out, vcc_now)
             End If
-            For i = 0 To total_fs.Length - 1
+
+
+            For i = 0 To total_fs.Length - 1 ' freq loop
                 System.Windows.Forms.Application.DoEvents()
 
                 While pause = True
@@ -7970,85 +7002,65 @@ Public Class PartI
 
 
                 If Main.cbox_fs_ctr.SelectedItem <> no_device Then
-
-
                     DCLoad_ONOFF("OFF")
                     Grobal_Control(Fs_control, fs_now)
                     If Main.check_EN_off.Checked = True Then
                         Power_EN(False)
                         Power_EN(True)
                     End If
-
-
                 End If
 
-                For ii = 0 To total_vout.Length - 1
+                For ii = 0 To total_vout.Length - 1 ' vout loop
                     System.Windows.Forms.Application.DoEvents()
-
                     While pause = True
                         System.Windows.Forms.Application.DoEvents()
-
-
                         If run = False Then
                             Exit While
                         End If
                     End While
-
                     If run = False Then
                         Exit For
                     End If
-
                     vout_now = total_vout(ii)
                     Vout_test_num = ii
-
                     DCLoad_check_range()
-
                     If Main.cbox_vout_ctr.SelectedItem <> no_device Then
-
-
-
                         DCLoad_ONOFF("OFF")
                         Grobal_Control(Vout_control, vout_now)
-
                         If Main.check_EN_off.Checked = True Then
-
                             Power_EN(False)
                             Power_EN(True)
                         End If
-
-
-
                         '確認是否要Auto_Scanning
                         first_Check = True
                     End If
-
-
-
-
                     'PartI Test
 
-                    If check_stability.Checked = True Or check_jitter.Checked = True Or check_Efficiency.Checked = True Or check_loadR.Checked = True Or ((check_LineR.Checked = True) And (rbtn_lineR_test2.Checked = True)) Then
+                    If check_stability.Checked = True Or
+                        check_jitter.Checked = True Or
+                        check_Efficiency.Checked = True Or
+                        check_loadR.Checked = True Or
+                        ((check_LineR.Checked = True) And
+                        (rbtn_lineR_test2.Checked = True)) Then
 
-                        For v = 0 To data_vin.Rows.Count - 1
+                        ' ----------------------------------------------------------------------------
+                        ' TODO: Measure data spilt from vin conditions (PartI.vb)
+                        ' 
+                        ' ----------------------------------------------------------------------------
+
+
+                        For v = 0 To data_vin.Rows.Count - 1 ' vin loop
                             System.Windows.Forms.Application.DoEvents()
-
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
-
-
                                 If run = False Then
                                     Exit While
                                 End If
                             End While
-
                             If run = False Then
                                 Exit For
                             End If
-
-
-
                             excel_open()
-
                             vin_now = data_vin.Rows(v).Cells(0).Value
                             Vin_test_num = v
 
@@ -8059,7 +7071,6 @@ Public Class PartI
 
                             '-----------------------------------------------------------------------------------------------------------
                             If check_stability.Checked = True Or check_jitter.Checked = True Then
-
                                 'CHx_scale(lx_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
                                 If rbtn_manual_lx.Checked = True Then
                                     CHx_scale(lx_ch, num_scale_lx.Value, "mV") 'Voltage Scale > SW/2
@@ -8086,17 +7097,20 @@ Public Class PartI
                             End If
 
                             '-----------------------------------------------------------------------------------------------------------
-
                             If check_stability.Checked = True Then
-                                set_num = TA_Test_num * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count + n * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count + i * total_vout.Length * data_vin.Rows.Count + ii * data_vin.Rows.Count + v
+                                set_num = TA_Test_num *
+                                    total_vcc.Length *
+                                    total_fs.Length *
+                                    total_vout.Length *
+                                    data_vin.Rows.Count +
+                                    n * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count +
+                                    i * total_vout.Length * data_vin.Rows.Count + ii * data_vin.Rows.Count + v
                                 num = 0
                                 data_set_now = set_num
                                 For x = stability_row_start(set_num) To stability_row_stop(set_num)
 
                                     ReDim Preserve stability_iout(num)
                                     stability_iout(num) = data_result.Rows(x).Cells("col_test_stability").Value
-
-
                                     ReDim Preserve total_iout(total_iout_num)
                                     total_iout(total_iout_num) = stability_iout(num)
                                     total_iout_num = total_iout_num + 1
@@ -8115,7 +7129,6 @@ Public Class PartI
                             End If
 
                             '' 過濾重複的陣列元素
-
                             If total_iout_num = 0 Then
                                 Exit For
                             End If
@@ -8148,7 +7161,7 @@ Public Class PartI
                             '-----------------------------------------------------------------------------------------------------------
                             'Start RUN
 
-                            For x = 0 To total_iout.Length - 1
+                            For x = 0 To total_iout.Length - 1 ' iout loop
 
                                 System.Windows.Forms.Application.DoEvents()
 
@@ -8167,25 +7180,17 @@ Public Class PartI
 
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
-
-
-
                                 iout_now = total_iout(x)
-
                                 '-------------------------------------------------------------------------------------
                                 If (check_Efficiency.Checked = True) Then
                                     '如果量測Eff需要調整Meter，其他都保持在Max range
-
                                     If (Iin_change = True) Then
                                         If rbtn_meter_iin.Checked = True Then
                                             Iin_meter_set(check_iin, cbox_IIN_meter, cbox_IIN_relay)
-
                                         Else
                                             INA226_IIN_set()
                                         End If
                                     End If
-
-
                                     If rbtn_meter_iout.Checked = True Then
                                         Iout_meter_set(check_iout, cbox_Iout_meter, cbox_Iout_relay)
                                     End If
@@ -8193,18 +7198,17 @@ Public Class PartI
                                 End If
 
                                 '-------------------------------------------------------------------------------------
-
                                 'Iout
-
                                 DCLoad_Iout(iout_now, monitor_vout)
                                 If (DCLoad_ON = False) Then
                                     DCLoad_ONOFF("ON")
                                 End If
 
-
                                 '-------------------------------------------------------------------------------------
                                 'Measure
-                                If (check_Efficiency.Checked = True) And (rbtn_meter_iin.Checked = True) And (Iin_Meter_Max = False) Then
+                                If (check_Efficiency.Checked = True) And
+                                    (rbtn_meter_iin.Checked = True) And
+                                    (Iin_Meter_Max = False) Then
                                     '確認小檔位的單位 100uA, 1mA....
                                     iin_meas = meter_average(cbox_IIN_meter.SelectedItem, Meter_iin_dev, 1, Meter_iin_range, Meter_iin_low)
                                     Meter_iin_range = Meter_range_now
@@ -8249,7 +7253,6 @@ Public Class PartI
 
 
                                 'iout
-
                                 If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
                                     iout_meas = meter_average(cbox_Iout_meter.SelectedItem, Meter_iout_dev, num_data_count.Value, Meter_iout_range, Meter_iout_low)
                                     Meter_iout_range = Meter_range_now
@@ -8297,15 +7300,13 @@ Public Class PartI
 
                                 '------------------------------------------------------
                                 'Update Stability and Jitter
-
-                                If ((check_stability.Checked = True) Or (check_jitter.Checked = True)) And (first_Check = True) Then
+                                If ((check_stability.Checked = True) Or
+                                    (check_jitter.Checked = True)) And
+                                    (first_Check = True) Then
 
                                     '第一次要啟動
-
                                     Auto_Scanning_check()
-
                                     If (check_scope_iout.Checked = True) Then
-
                                         If (iout_now <= 0.6) And (iout_scale_now <> 200) Then
                                             'IOUT
                                             iout_scale_now = 200
@@ -8317,40 +7318,32 @@ Public Class PartI
                                             iout_scale_now = 2000
                                             CHx_scale(iout_ch, iout_scale_now, "mV") 'a. IOUT < 600mA, Scale = 200mA, b. 600mA<IOUT < 3A, Sacle = 1A,c. 3A <IOUT< 6A, Scale = 2A
                                         End If
-
                                     End If
-
-
-
                                     first_Check = False
                                 End If
 
 
                                 '-------------------------------------------------------------------------
                                 '2020/01/22  Vout用DC量測時 Scope的offset要由DAQ校正
-                                If ((check_stability.Checked = True) Or (check_jitter.Checked = True)) And (check_offset_vout.Checked = True) And (cbox_coupling_vout.SelectedItem <> "AC") Then
+                                If ((check_stability.Checked = True) Or
+                                    (check_jitter.Checked = True)) And
+                                    (check_offset_vout.Checked = True) And
+                                    (cbox_coupling_vout.SelectedItem <> "AC") Then
 
                                     CHx_OFFSET(vout_ch, vout_meas)
 
                                 End If
 
                                 ''----------------------------------------------------------------------------------
-
-
                                 If check_stability.Checked = True Then
                                     For y = 0 To stability_iout.Length - 1
-
                                         If iout_now = stability_iout(y) Then
-
                                             stability_iout_num = y
                                             Stability_run()
                                             Exit For
                                         End If
                                     Next
                                 End If
-
-
-
 
 
                                 If check_jitter.Checked = True Then
@@ -8364,7 +7357,7 @@ Public Class PartI
                                     Next
                                 End If
 
-                            Next
+                            Next ' iout loop
 
 
                             '---------------------------------------------------------------------------------------------------------
@@ -8403,13 +7396,9 @@ Public Class PartI
                                 End If
                             End If
 
-
-
-
                             '--------------------------------------------------------------------------------------------------------
 
                             'Stability line up
-
                             If (check_stability.Checked = True) And (check_iout_up.Checked = True) And (data_test.Rows.Count > 0) Then
 
                                 For y = stability_iout.Length - 2 To 0 Step -1
@@ -8484,18 +7473,23 @@ Public Class PartI
                                     stability_iout_num = stability_iout_num + 1
                                     Stability_run()
                                 Next
-
                             End If
 
 
 
+                            Dim _range As Excel.Range
+                            Dim _sheet_name As String = IIf(check_stability.Checked, txt_stability_sheet.Text, "")
+                            xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
+                            xlSheet.Activate()
+                            _range = xlSheet.Range("M" + row, "AL" + (row + total_iout.Length))
+
+
+
+
+
+
                             excel_close()
-
-
-
-                        Next 'vin
-
-
+                        Next 'vin loop
                     End If
 
                     'Line Regulation
@@ -8600,13 +7594,9 @@ Public Class PartI
                             lineR_iout_num = x
 
                             For v = 0 To data_lineR_vin.Rows.Count - 1
-
                                 System.Windows.Forms.Application.DoEvents()
-
                                 While pause = True
                                     System.Windows.Forms.Application.DoEvents()
-
-
                                     If run = False Then
                                         Exit While
                                     End If
@@ -8625,10 +7615,7 @@ Public Class PartI
 
                                 LR_Vin_test_num = v
                                 update_report(Line_Regulation)
-
-
                             Next
-
 
                             If check_lineR_up.Checked = True Then
                                 For v = data_lineR_vin.Rows.Count - 2 To 0 Step -1
@@ -8649,36 +7636,18 @@ Public Class PartI
                                     End If
                                     test_point_num = test_point_num + 1
                                     txt_test_now.Text = test_point_num
-
-
                                     vin_now = data_lineR_vin.Rows(v).Cells(0).Value
                                     LineR_run()
-
                                     LR_Vin_test_num = LR_Vin_test_num + 1
                                     update_report(Line_Regulation)
-
                                 Next
-
                             End If
-
-
                         Next
-
-
                         excel_close()
-
                     End If
-
-
-
-
-                Next
-
-
-            Next
-
-        Next
-
+                Next ' vout loop
+            Next ' freq loop
+        Next ' vcc loop
         excel_open()
         xlSheet = xlBook.Sheets(1)
         xlSheet.Activate()
@@ -8687,18 +7656,10 @@ Public Class PartI
             report_test_info()
 
         End If
-
         report_test_update(start_test_time, test_point_num - test_point_temp)
-
-
         xlBook.Save()
-
         excel_close()
-
         instrument_closed()
-
-
-
 
     End Function
 
@@ -8919,9 +7880,9 @@ Public Class PartI
     End Function
 
     Private Sub PartI_Activated(sender As Object, e As EventArgs) Handles Me.Activated
+
         If Review_set = True Then
             reflesh()
-
             data_set_list()
             stability_parameter(0)
             'eff_parameter()
@@ -8931,35 +7892,27 @@ Public Class PartI
         If Save_set = True Then
             Tab_Set.Enabled = True
             Test_set()
-
-
         End If
 
         If (Open_set = True) And (import_now = False) Then
             import_now = True
             Tab_Set.Enabled = True
             ' initial()
-
             Test_import()
             Inst_check_list()
-
             'GC.Collect()
             result_parameter()
             Tab_Set.SelectedIndex = 6
             import_now = False
-
         End If
 
 
 
         If (Test_run = True) And (Me.Enabled = True) And (TestITem_run_now = False) Then
-
             Tab_Set.Enabled = False
             'data_set_list()
             data_list()
             TestITem_run()
-
-
             Tab_Set.Enabled = True
         End If
 
@@ -9057,6 +8010,16 @@ Public Class PartI
         cbox_board_buck.SelectedIndex = 0
 
         PartI_first = False
+
+        ' get sheet name for SaveData module
+        stability_sheet = txt_stability_sheet.Text
+        jitter_sheet = txt_jitter_sheet.Text
+        eff_sheet = txt_eff_sheet.Text
+        loadR_sheet = txt_LoadR_sheet.Text
+        line_sheet = txt_LineR_sheet.Text
+
+
+
     End Sub
 
     Private Sub Tab_Set_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Tab_Set.SelectedIndexChanged

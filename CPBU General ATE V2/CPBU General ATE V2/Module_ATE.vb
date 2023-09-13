@@ -293,8 +293,6 @@ Module Module_ATE
 
 
         If (System.IO.Directory.Exists(Main.txt_folder.Text)) = True Then
-
-
             Note.lbl_title.Text = "Paste Pic to Report"
             Note.Show()
             Dim di As New IO.DirectoryInfo(Main.txt_folder.Text)
@@ -463,21 +461,13 @@ Module Module_ATE
     Function sheet_init(ByVal sheet_name As String) As Integer
 
         If report_sheet_first = True Then
-
             xlSheet = xlBook.ActiveSheet
-
-
-
             report_sheet_first = False
-
         Else
             xlSheet = xlBook.Sheets.Add
         End If
-
         xlSheet.Name = sheet_name
-
         xlSheet.Cells.Font.Name = "Arial"
-
     End Function
 
 
@@ -577,21 +567,17 @@ Module Module_ATE
 
     Function excel_open() As Integer
 
-        xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
+        xlApp = CreateObject("Excel.Application")
         xlApp.DisplayAlerts = False
 
         If Main.check_excel_visible.Checked = True Then
-
             xlApp.WindowState = Excel.XlWindowState.xlMaximized
             xlApp.Visible = True
         Else
             xlApp.WindowState = Excel.XlWindowState.xlMinimized
-
             xlApp.Visible = False
         End If
-
         xlBook = xlApp.Workbooks.Open(sf_name)
-
     End Function
 
     Function excel_close_temp() As Integer
@@ -600,12 +586,8 @@ Module Module_ATE
 
         FinalReleaseComObject(xlBook)
         xlApp.Quit() '結束EXCEL對象
-
-
-
         xlBook = Nothing
         xlSheet = Nothing
-
         FinalReleaseComObject(xlApp)
         xlApp = Nothing
     End Function
@@ -715,32 +697,17 @@ Module Module_ATE
     Function update_pic(ByVal paste_pic_col As Integer, ByVal paste_pic_row As Integer, ByVal pic_path As String) As Integer
         Dim height_temp As Double
         Dim width_temp As Double
-
-
-
-
-
-
         'Update picture
-
-
         pic_top = ConvertToLetter(paste_pic_col) & paste_pic_row
         xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(paste_pic_col) & (paste_pic_row + pic_height - 1))
         height_temp = xlrange.Height
         xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(paste_pic_col + pic_width - 1) & paste_pic_row)
         width_temp = xlrange.Width
-
-
         pic_ByteSize = Hardcopy("PNG", pic_path)
-
-
-
         If (pic_ByteSize > 0) Then
             paste_picture(pic_path, pic_top, width_temp, height_temp)
             Delay(100)
         End If
-
-
     End Function
 
 

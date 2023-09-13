@@ -103,6 +103,7 @@
     <Compile Include="Module_Power.vb" />
     <Compile Include="Module_Relay.vb" />
     <Compile Include="Module_RTBBLib.vb" />
+    <Compile Include="Module_SaveData.vb" />
     <Compile Include="Module_Scope.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

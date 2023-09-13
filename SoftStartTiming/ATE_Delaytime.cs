@@ -32,15 +32,12 @@ namespace SoftStartTiming
         //TestClass tsClass = new TestClass();
         public delegate void FinishNotification();
         FinishNotification delegate_mess;
-
         const int meas_dt1 = 1;
         const int meas_dt2 = 2;
         const int meas_dt3 = 3;
-
         const int meas_sst1 = 4;
         const int meas_sst2 = 5;
         const int meas_sst3 = 6;
-
         const int meas_vmax = 7;
 
         public ATE_DelayTime()

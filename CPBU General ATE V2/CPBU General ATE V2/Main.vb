@@ -15,45 +15,30 @@ Public Class Main
         Dim addr() As String
         Dim addr_temp As Integer
         Dim TCP_addr As String
-
         Me.Enabled = False
-
-
         status_led_error.Visible = True
         status_led_run.Visible = False
-
         temp = visa_scan()
-
         RS_Scope = False
-
-
         RS_Scope_Dev = ""
         Scope_Addr = 0
         Power_num = 0
         Meter_num = 0
         FG_num = 0
         Scope_num = 0
-
-       
         Load_device = no_device
         DCLOAD_63600 = False
         Temp_name = no_device
         DAQ_name = no_device
-
-
         data_GPIB.Rows.Clear()
-
         addr_temp = 0
         TCP_addr = ""
-
-
         ReDim LOAD_63600_CCH(0)
         ReDim LOAD_63600_CCL(0)
         ReDim LOAD_63600_Watt_L(0)
         ReDim LOAD_63600_Watt_M(0)
         ReDim LOAD_63600_Watt_H(0)
         ReDim LOAD_63600_Model(0)
-
         If visa_count > 0 Then
 
             For i = 0 To temp.Length - 1  'visa_count - 1
@@ -1409,8 +1394,6 @@ Public Class Main
 
 
 
-
-
         If data_meas.Rows.Count > 0 Then
 
             cbox_INA226_b11_9.SelectedIndex = cbox_INA226_b11_9.Items.Count - 1
@@ -2087,8 +2070,7 @@ Public Class Main
                         GPIO_single_write(Slave_GPIO, 1)
                         System.Windows.Forms.Application.DoEvents()
                         txt_slave.Text = "Test" & t & ": OK!"
-
-                        End If
+                    End If
                     'Init
                
 
@@ -2148,11 +2130,8 @@ Public Class Main
 
         For i = 0 To data_Test.Rows.Count - 1
             System.Windows.Forms.Application.DoEvents()
-
             While pause = True
                 System.Windows.Forms.Application.DoEvents()
-
-
                 If run = False Then
                     Exit While
                 End If
@@ -2174,33 +2153,20 @@ Public Class Main
 
 
                 For ii = 0 To open_num
-
                     System.Windows.Forms.Application.DoEvents()
                     f = My.Application.OpenForms(ii)
                     If f.Name = data_Test.Rows(i).Cells(1).Value Then
                         txt_test_run.Text = txt_test_run.Text & "Test Item:" & vbNewLine
                         txt_test_run.Text = txt_test_run.Text & data_Test.Rows(i).Cells(1).Value & vbNewLine
                         f.Show()
-
                         System.Windows.Forms.Application.DoEvents()
                         f.Hide()
-
                         Exit For
-
                     End If
-
-
                 Next
-
-
-
-
             End If
             TestITem_run_now = False
             Test_run = False
-
-
-
         Next
 
         GC.Collect()

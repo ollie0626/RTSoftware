@@ -483,16 +483,19 @@ namespace BuckTool
                         test_parameter.Vin_table = MyLib.TBData(tb_lineVin);
                         test_parameter.Iout_table = tb_Iout.Text.Split(',').Select(double.Parse).ToList();
                     }
-
-
                     ate_table[i].temp = 25;
                     ate_table[i].ATETask();
+
+                    InsControl._power.AutoPowerOff();
+                    InsControl._eload.AllChannel_LoadOff();
                 }
             }
             else
             {
                 ate_table[(int)idx].temp = 25;
                 ate_table[(int)idx].ATETask();
+                InsControl._power.AutoPowerOff();
+                InsControl._eload.AllChannel_LoadOff();
             }
         }
 
