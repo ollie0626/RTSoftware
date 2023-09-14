@@ -2,8 +2,12 @@
 Imports System.Runtime.InteropServices.Marshal
 Imports System.IO
 
+'Ollie_note: report disable flag
+#Const report_en = 1
 
 Public Class PartI
+
+
 
     ' Dim vcc_enable As Boolean = False
     '--------------------------------------
@@ -85,21 +89,21 @@ Public Class PartI
     Dim vcc_max, vcc_min As Double
     '--------------------------------------
     'Test
- 
+
     Dim Full_load As Double = 0
     '--------------------------------------
     'Stability
-   
+
 
     Dim jitter_col() As String = {Vout_name, Iout_name, "Ton_mean(ns)", "Toff_min(ns)", "Toff_max(ns)", "Tjitter(ns)", "Dmax", "Dmin", "Dave", "Jitter %", "PASS/FAIL"}
-    Dim stability_col() As String = {Vout_name, Iout_name, "Max. Criteria(kHz)", "Min. Criteria(kHz)", "Frequency(kHz)", "Frequency(mean)", "Frequency(min)", "Frequency(max)", "Freq_update(kHz)", _
-                               "Ton(ns)", "Ton(mean)", "Ton(min)", "Ton(max)", "Ton_update(ns)", _
-                               "Toff(ns)", "Toff(mean)", "Toff(min)", "Toff(max)", "Toff_update(ns)", _
-                               "Vpp(mV)", "Vpp(mean)", "Vpp(min)", "Vpp(max)", _
-                               "Vmax(max)", "Vmin(min)", _
+    Dim stability_col() As String = {Vout_name, Iout_name, "Max. Criteria(kHz)", "Min. Criteria(kHz)", "Frequency(kHz)", "Frequency(mean)", "Frequency(min)", "Frequency(max)", "Freq_update(kHz)",
+                               "Ton(ns)", "Ton(mean)", "Ton(min)", "Ton(max)", "Ton_update(ns)",
+                               "Toff(ns)", "Toff(mean)", "Toff(min)", "Toff(max)", "Toff_update(ns)",
+                               "Vpp(mV)", "Vpp(mean)", "Vpp(min)", "Vpp(max)",
+                               "Vmax(max)", "Vmin(min)",
                                "PASS/FAIL", "Error"}
-    Dim lineR_col() As String = {Vout_name, "Frequency(kHz)", "Frequency(mean)", "Frequency(min)", "Frequency(max)", _
-                             "Ton(ns)", "Ton(mean)", "Ton(min)", "Ton(max)", _
+    Dim lineR_col() As String = {Vout_name, "Frequency(kHz)", "Frequency(mean)", "Frequency(min)", "Frequency(max)",
+                             "Ton(ns)", "Ton(mean)", "Ton(min)", "Ton(max)",
                              "Toff(ns)", "Toff(mean)", "Toff(min)", "Toff(max)"}
 
     Dim stability_row_start() As Integer '紀錄stability的iout數
@@ -135,12 +139,12 @@ Public Class PartI
     Dim Fs_CCM As Boolean = False
     Dim cursor_state As Boolean = False
 
-   
+
     Dim IOUT_Boundary_Start As Double
     Dim IOUT_Boundary_Stop As Double
     '--------------------------------------
     'Instrument
-  
+
     Dim Eff_vout_daq As String
     Dim iin_min_range As String
     Dim iout_min_range As String
@@ -166,17 +170,16 @@ Public Class PartI
 
 
     '----------------------------------------------------------------------------------------------
-   
+
     Dim iin_row As Integer = 10
     '----------------------------------------------------------------------------------------------
     'Efficiency(%)
 
     Dim eff_title_total As Integer
-   
+
     Dim scope_meas_col() As String = {"(value)", "(mean)", "(min)", "(max)"}
 
     Dim total_Eff As Boolean = False
-
 
     '------------------------------------------------------------------------------------------------
     'Test
@@ -384,7 +387,7 @@ Public Class PartI
 
         End If
 
-    
+
 
     End Function
 
@@ -422,7 +425,7 @@ Public Class PartI
     End Function
 
     Function reflesh() As Integer
-    
+
         Dim fs_change As Boolean = False
         Dim vout_change As Boolean = False
         Dim i As Integer
@@ -548,7 +551,7 @@ Public Class PartI
         End If
         cbox_vin_ch.SelectedIndex = vin_dev_ch
 
-       
+
         If device_select_same(cbox_VCC, txt_vcc_Addr, Power, True) = False Then
             vcc_dev_ch = 0
 
@@ -566,7 +569,7 @@ Public Class PartI
                 rbtn_Iin_PW.Checked = True
                 rbtn_iout_load.Checked = True
             End If
-        
+
         Else
             device_select_same(cbox_IIN_meter, txt_IIN_addr, Meter, True)
             device_select_same(cbox_Iout_meter, txt_Iout_addr, Meter, True)
@@ -1177,9 +1180,9 @@ Public Class PartI
 
 
 
-            ''----------------------------------------------------------------------------------
+        ''----------------------------------------------------------------------------------
 
-            'DC Load
+        'DC Load
         If Load_Dev <> 0 Then
 
             DCLoad_ONOFF("OFF")
@@ -1187,7 +1190,7 @@ Public Class PartI
             Load_Dev = 0
         End If
 
-            'Meter
+        'Meter
         If Meter_iin_dev <> 0 Then
 
 
@@ -1210,8 +1213,8 @@ Public Class PartI
         End If
 
 
-            '--------------------------------------------------
-            'Power 
+        '--------------------------------------------------
+        'Power 
         If VCC_Dev <> 0 Then
 
             ibonl(VCC_Dev, 0)
@@ -1233,8 +1236,8 @@ Public Class PartI
 
         End If
 
-            '-------------------------------------------------
-            'Scope
+        '-------------------------------------------------
+        'Scope
         If Scope_Dev <> 0 Then
 
             ibonl(Scope_Dev, 0)
@@ -1352,7 +1355,7 @@ Public Class PartI
 
     End Function
 
-    Function Calculate_IOB(ByVal t As Integer ) As Boolean
+    Function Calculate_IOB(ByVal t As Integer) As Boolean
         Dim IOB As Double
         Dim Iout_Max_set As Double
         Dim temp As String
@@ -2067,7 +2070,7 @@ Public Class PartI
 
                             total_iout = total_iout.Distinct.ToArray()
 
-                           
+
 
 
 
@@ -2183,7 +2186,7 @@ Public Class PartI
                                     vin_now = data_lineR_vin.Rows(v).Cells(0).Value
                                     data_result.Rows.Add(t, VCC_temp, (fs_now / 1000).ToString, vout_now.ToString, vin_now.ToString, iout_now)
                                     data_result.Rows(data_result.Rows.Count - 1).Cells("col_test_line").Value = iout_now.ToString
-                                  
+
                                 Next
 
 
@@ -3228,7 +3231,7 @@ Public Class PartI
         num_lx_scale.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
         rbtn_manual_lx.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value
         num_scale_lx.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
-     
+
         row = row + 1
 
         txt_scope_vout.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
@@ -3284,7 +3287,7 @@ Public Class PartI
         ' "Measurement"
         row = row + 1
 
-        txt_meas1_ch.Text = xlSheet.Range(ConvertToLetter(col) & row).Value 
+        txt_meas1_ch.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
         txt_type1.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
         txt_meas1.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
         row = row + 1
@@ -3573,7 +3576,6 @@ Public Class PartI
         End If
         '-----------------------------------------------------------------------------------
         If check_jitter.Checked = True Then
-
             If TA_Test_num = 0 Then
                 sheet_init(txt_jitter_sheet.Text)
                 Jitter_folder = folderPath & "\Jitter_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
@@ -5387,6 +5389,7 @@ Public Class PartI
                     Hardcopy("PNG", beta_path)
                     beta_pic_num = beta_pic_num + 1
                 End If
+
                 xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 xlSheet.Activate()
                 If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
@@ -5398,6 +5401,10 @@ Public Class PartI
                         autoscanning_update = False
                     End If
                 End If
+
+
+                'Ollie_note: stability print data #if
+#If report_en Then
                 xlSheet.Activate()
                 '----------------------------------------------------------------------------------
                 'initial
@@ -5459,26 +5466,20 @@ Public Class PartI
                         xlrange.Value = fs_update / (10 ^ 3)
 
                     End If
-
                 End If
 
                 If (check_Force_CCM.Checked = True) And (rbtn_auto_DEM.Checked = True) Then
                     'fs(2) = Scope_measure(x, Meas_min)
                     'fs(3) = Scope_measure(x, Meas_max)
-
                     If (fs(2) >= Fs_Min) And (fs(3) <= Fs_Max) Then
                         pass_result = PASS
                     Else
-
                         pass_result = FAIL
                     End If
-
                 Else
-
                     If (fs_update >= Fs_Min) And (fs_update <= Fs_Max) Then
                         pass_result = PASS
                     Else
-
                         pass_result = FAIL
                     End If
                 End If
@@ -5598,16 +5599,7 @@ Public Class PartI
                 xlrange.Value = vpp(5) ' Format(vpp(5), "#0.000")
                 FinalReleaseComObject(xlrange)
                 col = col + 1
-                ' TODO: save data to text file (Stability)
-                ' ------------------------------------------------------------------------------------------------
-                Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Fs_Max / 1000) : data_list.Add(Fs_Min / 1000)
-                data_list.Add(ton(0) * (10 ^ 9)) : data_list.Add(ton(1) * (10 ^ 9)) : data_list.Add(ton(2) * (10 ^ 9)) : data_list.Add(ton(3) * (10 ^ 9))
-                data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
-                data_list.Add(toff(0) * (10 ^ 9)) : data_list.Add(toff(1) * (10 ^ 9)) : data_list.Add(toff(2) * (10 ^ 9)) : data_list.Add(toff(3) * (10 ^ 9))
-                data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
-                data_list.Add(vpp(0) * (10 ^ 3)) : data_list.Add(vpp(1) * (10 ^ 3)) : data_list.Add(vpp(2) * (10 ^ 3)) : data_list.Add(vpp(3) * (10 ^ 3))
-                data_list.Add(vpp(4)) : data_list.Add(vpp(5))
+#End If
 
                 'PASS/FAIL
                 If pass_result = PASS Then
@@ -5624,8 +5616,21 @@ Public Class PartI
                         End If
                     End If
                 End If
+
+                ' Ollie_note: save data to text file (Stability)
+                ' ------------------------------------------------------------------------------------------------
+                Dim data_list As New List(Of Double)
+                data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Fs_Max / 1000) : data_list.Add(Fs_Min / 1000)
+                data_list.Add(ton(0) * (10 ^ 9)) : data_list.Add(ton(1) * (10 ^ 9)) : data_list.Add(ton(2) * (10 ^ 9)) : data_list.Add(ton(3) * (10 ^ 9))
+                data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
+                data_list.Add(toff(0) * (10 ^ 9)) : data_list.Add(toff(1) * (10 ^ 9)) : data_list.Add(toff(2) * (10 ^ 9)) : data_list.Add(toff(3) * (10 ^ 9))
+                data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
+                data_list.Add(vpp(0) * (10 ^ 3)) : data_list.Add(vpp(1) * (10 ^ 3)) : data_list.Add(vpp(2) * (10 ^ 3)) : data_list.Add(vpp(3) * (10 ^ 3))
+                data_list.Add(vpp(4)) : data_list.Add(vpp(5))
                 SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
+
+
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
@@ -5803,7 +5808,7 @@ Public Class PartI
                 Else
                     pass_result = FAIL
                 End If
-                ' TODO: save data to text file (Jitter)
+                ' Ollie_note: save data to text file (Jitter)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Ton_mean) : data_list.Add(Toff_min)
@@ -5948,7 +5953,7 @@ Public Class PartI
                     End If
                 End If
                 '----------------------------------------------------------------------------------
-                ' TODO: save data to text file (Line Regulation)
+                ' Ollie_note: save data to text file (Line Regulation)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas)
@@ -6095,7 +6100,7 @@ Public Class PartI
                     End If
                 End If
                 '----------------------------------------------------------------------------------
-                ' TODO: save data to text file (load Regulation)
+                ' Ollie_note: save data to text file (load Regulation)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas)
@@ -6199,7 +6204,7 @@ Public Class PartI
                 xlrange.Value = pass_result
 
                 '----------------------------------------------------------------------------------
-                ' TODO: save data to text file (Efficiency)
+                ' Ollie_note: save data to text file (Efficiency)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vin_meas) : data_list.Add(iin_meas) : data_list.Add(Eff_vout_meas)
@@ -6834,26 +6839,15 @@ Public Class PartI
         Dim VCC_temp As String
         Dim set_num As Integer = 0
         Dim test_point_temp As Integer
-
-
-
         Dim first_Check As Boolean = True
         Dim vout_temp As Double
-
-
         ReDim eff_iin_change(data_eff.Rows.Count - 1)
-
         Dim num As Integer
-
-
         Vout_TA_set = txt_OTP.Text
         Power_recorve = check_OTP.Checked
-
         TestITem_run_now = True
         ''Init Parameter
         instrument_init()
-
-
         If run = False Then
             Exit Function
         End If
@@ -6907,13 +6901,10 @@ Public Class PartI
             VoutScalling_CCM = True
             first_Check = True
         End If
-
-
         report_init()
         GC.Collect()
         GC.WaitForPendingFinalizers()
         Delay(100)
-
         If check_jitter.Checked = True Then
             If TA_Test_num = 0 Then
 
@@ -7359,8 +7350,12 @@ Public Class PartI
 
                             Next ' iout loop
 
-
-                            '---------------------------------------------------------------------------------------------------------
+                            ''----------------------------------------------------------------------------------
+                            ' Ollie_note: Stability txt to excel
+                            ' v is vin loop idx
+                            If check_stability.Checked Then
+                                TxtToExcel(stable_sel, stability_row_start(v), 0)
+                            End If
 
                             ''----------------------------------------------------------------------------------
                             If ((check_stability.Checked = True) And (check_iout_up.Checked = True) And (data_test.Rows.Count > 0)) Or ((check_LineR.Checked = True) And (rbtn_lineR_test1.Checked = True)) Then
@@ -7373,11 +7368,8 @@ Public Class PartI
                                     Else
                                         INA226_Iin_initial(True) 'High Range
                                     End If
-
                                     'Check Iin Max
-
                                 End If
-
 
                                 'Meter set High
                                 If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
@@ -7391,8 +7383,6 @@ Public Class PartI
                                     Else
                                         Iout_Meter_Max = False
                                     End If
-
-
                                 End If
                             End If
 
@@ -7400,94 +7390,55 @@ Public Class PartI
 
                             'Stability line up
                             If (check_stability.Checked = True) And (check_iout_up.Checked = True) And (data_test.Rows.Count > 0) Then
-
                                 For y = stability_iout.Length - 2 To 0 Step -1
-
-
                                     System.Windows.Forms.Application.DoEvents()
-
                                     While pause = True
                                         System.Windows.Forms.Application.DoEvents()
-
-
                                         If run = False Then
                                             Exit While
                                         End If
                                     End While
-
                                     If run = False Then
                                         Exit For
                                     End If
-
                                     test_point_num = test_point_num + 1
                                     txt_test_now.Text = test_point_num
-
-
-
                                     iout_now = stability_iout(y)
 
                                     'Iout
-
                                     DCLoad_Iout(iout_now, monitor_vout)
                                     If (DCLoad_ON = False) Then
                                         DCLoad_ONOFF("ON")
                                     End If
-
                                     ''----------------------------------------------------------------------------------
                                     'Vin Sense
                                     If check_vin_sense.Checked = True Then
                                         'Vin Sense
-
                                         vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
                                     End If
-
-
                                     ''----------------------------------------------------------------------------------
                                     'Measure
-
                                     If (iout_now > num_iout_delay.Value) And (num_delay.Value > 0) Then
-
                                         If cbox_delay_unit.SelectedIndex = 1 Then
-
                                             Delay_s(num_delay.Value)
                                         Else
                                             Delay(num_delay.Value)
                                         End If
                                     End If
-
                                     ''----------------------------------------------------------------------------------
                                     'Check Vout
                                     'vout
-
                                     vout_meas = DAQ_average(vout_daq, num_data_count.Value)
-
                                     '-------------------------------------------------------------------------
                                     '2020/01/22  Vout用DC量測時 Scope的offset要由DAQ校正
                                     If (check_offset_vout.Checked = True) And (cbox_coupling_vout.SelectedItem <> "AC") Then
-
                                         CHx_OFFSET(vout_ch, vout_meas)
-
                                     End If
-
                                     ''----------------------------------------------------------------------------------
                                     stability_iout_num = stability_iout_num + 1
                                     Stability_run()
                                 Next
                             End If
-
-
-
-                            Dim _range As Excel.Range
-                            Dim _sheet_name As String = IIf(check_stability.Checked, txt_stability_sheet.Text, "")
-                            xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
-                            xlSheet.Activate()
-                            _range = xlSheet.Range("M" + row, "AL" + (row + total_iout.Length))
-
-
-
-
-
-
                             excel_close()
                         Next 'vin loop
                     End If
@@ -7495,51 +7446,34 @@ Public Class PartI
                     'Line Regulation
                     If (check_LineR.Checked = True) And (rbtn_lineR_test1.Checked = True) Then
                         excel_open()
-
                         DCLoad_ONOFF("OFF")
                         vin_now = data_lineR_vin.Rows(0).Cells(0).Value
                         '-----------------------------------------------------------------------------------------------------------
-
                         Power_Dev = vin_Dev
                         power_volt(vin_device, Vin_out, vin_now)
                         DCLoad_Iout(0, monitor_vout)
                         DCLoad_ONOFF("ON")
-
-
-
                         If check_lineR_scope.Checked = True Then
-
                             Scope_RUN(False)
-
                             If RS_Scope = True Then
-
-
-
                                 RS_Display(RS_RES_MES, RS_DISP_DOCK)
                                 'RS_Display(RS_RES_MES, RS_DISP_PREV)
                                 Scope_measure_clear()
-
                                 RS_Scope_measure_status(1, True)
                                 RS_Scope_measure_status(2, True)
                                 RS_Scope_measure_status(3, True)
                                 RS_Local()
                                 'RS_View()
                             End If
-
                             '-------------------------------------------------------------------------
                             'Scope
                             'Time Scale
                             '以8格算
-
                             'If fs_now <> 0 Then
                             '    H_scale_value = ((1 / fs_now) * 2 / 8) * (10 ^ 9)
-
-
                             '    'Timing Scale
                             '    H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
                             'End If
-
-
                             'CHx_scale(lx_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
 
                             'If rbtn_vin_trigger.Checked = True Then
@@ -7550,18 +7484,13 @@ Public Class PartI
 
                             '    Trigger_auto_level(lx_ch, "R")
                             'End If
-
                             If RS_Scope = True Then
                                 RS_View(True)
                             Else
                                 FastAcq_ONOFF("OFF")
                             End If
                             RUN_set("RUNSTop")
-
-
-
                             'Scope_RUN(False)
-
                         End If
 
 
@@ -7787,7 +7716,7 @@ Public Class PartI
         Dim height_temp As Double
         Dim width_temp As Double
 
-     
+
 
         If (System.IO.Directory.Exists(Jitter_folder)) = True Then
 
@@ -8118,7 +8047,7 @@ Public Class PartI
         vin_dev_ch = cbox_vin_ch.SelectedIndex
     End Sub
 
- 
+
     Private Sub cbox_IIN_meter_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_IIN_meter.SelectedIndexChanged
         Dim addr() As String
         'If PartI_first = True Then
@@ -8230,7 +8159,7 @@ Public Class PartI
 
     End Sub
 
-   
+
 
     Private Sub cbox_Icc_meter_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_Icc_meter.SelectedIndexChanged
         Dim addr() As String
@@ -8315,7 +8244,7 @@ Public Class PartI
 
 
             End If
-          
+
 
         End If
 
@@ -8437,7 +8366,7 @@ Public Class PartI
     Private Sub rbtn_meter_iin_CheckedChanged(sender As Object, e As EventArgs) Handles rbtn_meter_iin.CheckedChanged
         If rbtn_meter_iin.Checked = True Then
 
-        
+
             ' num_iin_change.Maximum = (Meter_iin_Max) * 1000
             num_iin_change.Value = (Meter_iin_Max * 0.8 * 1000) 'mA
             Panel_meter_mini.Visible = True
@@ -8691,7 +8620,7 @@ Public Class PartI
         End If
     End Sub
 
-  
+
     Private Sub btn_vcc_add_Click(sender As Object, e As EventArgs) Handles btn_vcc_add.Click
 
         data_value_add(data_VCC, num_Vcc_volt, 2)
@@ -8702,7 +8631,7 @@ Public Class PartI
         data_set_list()
 
     End Sub
-  
+
 
     Private Sub btn_vin_add_Click(sender As Object, e As EventArgs) Handles btn_vin_add.Click
         If (check_vin_sense.Checked = True) And (num_vin.Value > num_vin_max.Value) Then
@@ -8759,7 +8688,7 @@ Public Class PartI
     End Sub
 
 
-    
+
 
     Private Sub data_set_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles data_set.CellClick
 
@@ -8881,7 +8810,7 @@ Public Class PartI
         End If
     End Sub
 
- 
+
     Private Sub data_vin_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles data_vin.CellEndEdit
 
 
@@ -8894,11 +8823,11 @@ Public Class PartI
 
         End If
 
-      
 
 
 
-            data_set_list()
+
+        data_set_list()
     End Sub
 
     Private Sub btn_lineR_vin_Click(sender As Object, e As EventArgs) Handles btn_lineR_vin.Click
@@ -8907,7 +8836,7 @@ Public Class PartI
         Dim VIN_row As Integer
 
 
-      
+
 
 
         If num_vin_step.Value = 0 Then
@@ -8934,7 +8863,7 @@ Public Class PartI
                 VIN_row = data_lineR_vin.SelectedCells(0).RowIndex + 1
             End If
             VIN = Format(VIN, "#0.000")
-           
+
             If vin_max < VIN Then
                 vin_max = VIN
             End If
@@ -8963,10 +8892,10 @@ Public Class PartI
 
     End Sub
 
-   
 
-   
-   
+
+
+
     Private Sub rbtn_lineR_test1_CheckedChanged(sender As Object, e As EventArgs) Handles rbtn_lineR_test1.CheckedChanged
         If rbtn_lineR_test1.Checked = True Then
             check_lineR_scope.Enabled = True
@@ -8985,9 +8914,9 @@ Public Class PartI
         End If
     End Sub
 
-   
+
     Private Sub check_IOUT_ch1_CheckedChanged(sender As Object, e As EventArgs) Handles check_IOUT_ch1.CheckedChanged
-         If rbtn_board_iout.Checked = True Then
+        If rbtn_board_iout.Checked = True Then
             check_IOUT_ch2.Enabled = False
             check_IOUT_ch4.Enabled = False
 
@@ -9014,7 +8943,7 @@ Public Class PartI
 
     End Sub
 
-   
+
 
     Private Sub check_IOUT_ch3_CheckedChanged(sender As Object, e As EventArgs) Handles check_IOUT_ch3.CheckedChanged
         If rbtn_board_iout.Checked = True Then
@@ -9040,11 +8969,11 @@ Public Class PartI
         End If
     End Sub
 
-  
-   
 
-  
- 
+
+
+
+
 
     Private Sub check_lineR_scope_CheckedChanged(sender As Object, e As EventArgs) Handles check_lineR_scope.CheckedChanged
         Dim i As Integer
@@ -9078,9 +9007,9 @@ Public Class PartI
         End If
     End Sub
 
- 
-  
-  
+
+
+
     Private Sub clist_fs_SelectedIndexChanged(sender As Object, e As EventArgs) Handles clist_fs.SelectedIndexChanged
         data_set_list()
     End Sub

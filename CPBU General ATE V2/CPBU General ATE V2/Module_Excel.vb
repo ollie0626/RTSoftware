@@ -15,6 +15,8 @@ Module Module_Excel
     Public xlrange As Excel.Range
     Public col As Integer = 1
     Public row As Integer = 1
+    Public data_start_row As Integer = 20
+
     Public row_index As Integer = 2
     Public excel_check As Integer
     Public xlchart As Excel.Chart

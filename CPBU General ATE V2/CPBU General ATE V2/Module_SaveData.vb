@@ -7,17 +7,20 @@ Module Module_SaveData
 
 
     Public starup_path As String = Application.StartupPath
-    Public stability_file As String = starup_path & "\\stability_data.txt"
-    Public efficiency_file As String = starup_path & "\\efficiency_data.txt"
-    Public loadR_file As String = starup_path & "\\loadR_data.txt"
-    Public jitter_file As String = starup_path & "\\jitter_data.txt"
-    Public line_file As String = starup_path & "\\line_data.txt"
+    Public stability_file As String = starup_path & "\stability_data.txt"
+    Public efficiency_file As String = starup_path & "\efficiency_data.txt"
+    Public loadR_file As String = starup_path & "\loadR_data.txt"
+    Public jitter_file As String = starup_path & "\jitter_data.txt"
+    Public line_file As String = starup_path & "\line_data.txt"
+
 
     Public stability_sheet As String
     Public jitter_sheet As String
     Public eff_sheet As String
     Public loadR_sheet As String
     Public line_sheet As String
+
+
 
 
     Public stable_sel As Integer = 0
@@ -27,17 +30,24 @@ Module Module_SaveData
     Public line_sel As Integer = 4
 
 
+    'Ollie_note: test file
+    Public test_file As String = starup_path & "\text.txt"
+    Public test_sheet As String = "工作表1"
+    Public test_sel As Integer = 5
+
+
     ' param item :  0 -> stability
     '               1 -> efficiency
     '               2 -> load regulation
     '               3 -> jitter
     '               4 -> line regulation
+    '               5 -> test
     Function SaveDataToFile(ByVal data_list As List(Of Double), ByVal pass_fail As String, ByVal item_sel As Integer) As Boolean
         Dim data_buf As String = ""
         Dim sw As StreamWriter
         Dim path_sel As String = ""
 
-        For Each item As String In data_list : data_buf += item & "\t" : Next
+        For Each item As String In data_list : data_buf += item & vbTab : Next
         data_buf += pass_fail
 
         Select Case item_sel
@@ -45,6 +55,8 @@ Module Module_SaveData
             Case 1 : path_sel = efficiency_file
             Case 2 : path_sel = loadR_file
             Case 3 : path_sel = jitter_file
+            Case 4 : path_sel = line_file
+            Case 5 : path_sel = test_file
         End Select
         If path_sel = "" Then : Return False : End If
         Try
@@ -57,12 +69,43 @@ Module Module_SaveData
         End Try
     End Function
 
+    Function ClearTxtFile(ByVal item_sel As Integer) As Boolean
+        Dim sw As StreamWriter
+        Dim path_sel As String = ""
+        Dim data_buf As String = ""
+
+        Select Case item_sel
+            Case 0 : path_sel = stability_file
+            Case 1 : path_sel = efficiency_file
+            Case 2 : path_sel = loadR_file
+            Case 3 : path_sel = jitter_file
+            Case 4 : path_sel = line_file
+            Case 5 : path_sel = test_file
+        End Select
+
+        If path_sel = "" Then : Return False : End If
+
+        Try
+            sw = New StreamWriter(path_sel)
+            sw.Write(data_buf)
+            sw.Close()
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+
+        Return True
+    End Function
+
+
+
     ' param item :  0 -> stability
     '               1 -> efficiency
     '               2 -> load regulation
     '               3 -> jitter
     '               4 -> line regulation
-    Function TxtToExcel(ByVal item_sel As Integer, ByVal row As Integer, ByVal eff_idx As Integer) As Boolean
+    '               5 -> test
+    Function TxtToExcel(ByVal item_sel As Integer, ByVal start_row As Integer, ByVal eff_idx As Integer) As Boolean
         Dim txt_path As String = ""
         Dim sheet_name As String = ""
         Dim sr As StreamReader
@@ -79,6 +122,7 @@ Module Module_SaveData
             Case 2 : txt_path = loadR_file : sheet_name = loadR_sheet : start_col = "M" : end_col = "R"
             Case 3 : txt_path = jitter_file : sheet_name = jitter_sheet : start_col = "CG" : end_col = "CQ"
             Case 4 : txt_path = line_file : sheet_name = line_sheet : start_col = "M" : end_col = "Q"
+            Case 5 : txt_path = test_file : sheet_name = test_sheet : start_col = "A" : end_col = "G"
         End Select
 
         If txt_path = "" Then : Return False : End If
@@ -90,13 +134,14 @@ Module Module_SaveData
 
         Dim str_ar() = line.Split(New String() {"\r\n"}, StringSplitOptions.None)
         For Each item As String In str_ar
-            _range = xlSheet.Range(start_col & row, end_col & row) ' row, col
-            _range.Value = item
-            row += 1
+            _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
+            _range.Value = item.Split(vbTab)
+            start_row += 1
         Next
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
         xlBook.Save()
+        sr.Close()
         Return True
     End Function
 

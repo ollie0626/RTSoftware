@@ -1241,8 +1241,8 @@ Public Class Main
 
         xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
         xlApp.DisplayAlerts = False
-
-        xlApp.Visible = False
+        ' NOTE: Excel pos1
+        xlApp.Visible = True
 
         xlApp.AutoRecover.Enabled = False
 
@@ -1388,6 +1388,23 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'Ollie_note: test txt file to Excel function
+        'Dim test_data As List(Of Double) = New List(Of Double)
+        'test_data.Add(1)
+        'test_data.Add(2)
+        'test_data.Add(3)
+        'test_data.Add(4)
+        'test_data.Add(5)
+        'test_data.Add(6)
+        'test_data.Add(7)
+        'excel_init()
+        'excel_open()
+        'xlApp.Visible = True
+        'xlSheet = xlBook.Sheets("工作表1")
+        'xlSheet.Activate()
+        'SaveDataToFile(test_data, "fail", 4)
+        'TxtToExcel(5, 1, 0)
+        'ClearTxtFile(test_sel)
         status_Version.Text = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & My.Application.Info.Version.Build
         Scan_Instrument()
         Check_Eagleboard()

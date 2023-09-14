@@ -979,8 +979,6 @@ Module Module_ATE
 
         Next
 
-
-
         xlrange = xlSheet.Range(ConvertToLetter(report_col) & report_row)
         xlrange.Offset(1, 0).Value = "Temp. (℃):"
         xlrange.Offset(2, 0).Value = "Start time:"
