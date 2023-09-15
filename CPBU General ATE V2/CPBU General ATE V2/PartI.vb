@@ -3,7 +3,7 @@ Imports System.Runtime.InteropServices.Marshal
 Imports System.IO
 
 'Ollie_note: report disable flag
-#Const report_en = 1
+#Const report_en = 0
 
 Public Class PartI
 
@@ -4992,9 +4992,10 @@ Public Class PartI
 
         'Scope_RUN(True)
 
-        If RS_Scope = True Then
-            RS_View(True)
-        End If
+        'Ollie_note: view test
+        'If RS_Scope = True Then
+        '    RS_View(True)
+        'End If
 
         ''----------------------------------------------------------------------------------
         'first iout
@@ -5601,6 +5602,21 @@ Public Class PartI
                 col = col + 1
 #End If
 
+                If (check_Force_CCM.Checked = True) And (rbtn_auto_DEM.Checked = True) Then
+                    'fs(2) = Scope_measure(x, Meas_min)
+                    'fs(3) = Scope_measure(x, Meas_max)
+                    If (fs(2) >= Fs_Min) And (fs(3) <= Fs_Max) Then
+                        pass_result = PASS
+                    Else
+                        pass_result = FAIL
+                    End If
+                Else
+                    If (fs_update >= Fs_Min) And (fs_update <= Fs_Max) Then
+                        pass_result = PASS
+                    Else
+                        pass_result = FAIL
+                    End If
+                End If
                 'PASS/FAIL
                 If pass_result = PASS Then
                     If cbox_coupling_vout.SelectedItem = "AC" Then
@@ -5620,13 +5636,32 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Stability)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas) : data_list.Add(iout_now) : data_list.Add(Fs_Max / 1000) : data_list.Add(Fs_Min / 1000)
-                data_list.Add(ton(0) * (10 ^ 9)) : data_list.Add(ton(1) * (10 ^ 9)) : data_list.Add(ton(2) * (10 ^ 9)) : data_list.Add(ton(3) * (10 ^ 9))
-                data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
-                data_list.Add(toff(0) * (10 ^ 9)) : data_list.Add(toff(1) * (10 ^ 9)) : data_list.Add(toff(2) * (10 ^ 9)) : data_list.Add(toff(3) * (10 ^ 9))
-                data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
-                data_list.Add(vpp(0) * (10 ^ 3)) : data_list.Add(vpp(1) * (10 ^ 3)) : data_list.Add(vpp(2) * (10 ^ 3)) : data_list.Add(vpp(3) * (10 ^ 3))
-                data_list.Add(vpp(4)) : data_list.Add(vpp(5))
+                data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add((Fs_Max / 1000).ToString("0.00000")) : data_list.Add((Fs_Min / 1000).ToString("0.00000"))
+                data_list.Add((fs(0) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(1) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(2) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(3) / (10 ^ 3)).ToString("0.00000"))
+
+                data_list.Add((fs_update / (10 ^ 3)).ToString("0.00000"))
+                data_list.Add((ton(0) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(2) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(3) * (10 ^ 9)).ToString("0.00000"))
+                'data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
+
+
+                If AutoScalling_EN Then
+                    If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.00000"))
+                    Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.00000"))
+                    End If
+                Else : data_list.Add(0) : End If
+
+                data_list.Add((toff(0) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(2) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(3) * (10 ^ 9)).ToString("0.00000"))
+                'data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
+
+
+                If AutoScalling_EN Then
+                    If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.00000"))
+                    Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.00000"))
+                    End If
+                Else : data_list.Add(0) : End If
+
+                data_list.Add((vpp(0) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(1) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(2) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(3) * (10 ^ 3)).ToString("0.00000"))
+                data_list.Add(vpp(4).ToString("0.00000")) : data_list.Add(vpp(5).ToString("0.00000"))
                 SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
 
@@ -7041,6 +7076,13 @@ Public Class PartI
 
 
                         For v = 0 To data_vin.Rows.Count - 1 ' vin loop
+
+                            'Ollie_note: clear text file
+                            If check_stability.Checked Then
+                                ClearTxtFile(stable_sel)
+                            End If
+
+
                             System.Windows.Forms.Application.DoEvents()
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
@@ -7354,7 +7396,7 @@ Public Class PartI
                             ' Ollie_note: Stability txt to excel
                             ' v is vin loop idx
                             If check_stability.Checked Then
-                                TxtToExcel(stable_sel, stability_row_start(v), 0)
+                                TxtToExcel(stable_sel, stability_report_row(v) + 2, 0) ' from title + 2
                             End If
 
                             ''----------------------------------------------------------------------------------

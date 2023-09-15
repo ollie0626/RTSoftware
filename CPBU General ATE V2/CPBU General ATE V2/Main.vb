@@ -1241,8 +1241,7 @@ Public Class Main
 
         xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
         xlApp.DisplayAlerts = False
-        ' NOTE: Excel pos1
-        xlApp.Visible = True
+        xlApp.Visible = False
 
         xlApp.AutoRecover.Enabled = False
 
@@ -1387,6 +1386,8 @@ Public Class Main
 
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'Console.WriteLine(IIf(True, "true ok.", "false ok."))
 
         'Ollie_note: test txt file to Excel function
         'Dim test_data As List(Of Double) = New List(Of Double)

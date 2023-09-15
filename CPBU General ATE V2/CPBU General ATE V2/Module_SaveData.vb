@@ -45,6 +45,7 @@ Module Module_SaveData
     Function SaveDataToFile(ByVal data_list As List(Of Double), ByVal pass_fail As String, ByVal item_sel As Integer) As Boolean
         Dim data_buf As String = ""
         Dim sw As StreamWriter
+        Dim sr As StreamReader
         Dim path_sel As String = ""
 
         For Each item As String In data_list : data_buf += item & vbTab : Next
@@ -60,8 +61,13 @@ Module Module_SaveData
         End Select
         If path_sel = "" Then : Return False : End If
         Try
+            sr = New StreamReader(path_sel)
+            Dim buf As String = sr.ReadToEnd()
+            sr.Close()
+
             sw = New StreamWriter(path_sel)
-            sw.WriteLine(data_buf)
+            buf += data_buf
+            sw.Write(buf & vbNewLine)
             sw.Close()
             Return True
         Catch ex As Exception
@@ -129,13 +135,17 @@ Module Module_SaveData
         If sheet_name = "" Then : Return False : End If
 
         sr = New StreamReader(txt_path)
-        Dim line = sr.ReadLine()
+        Dim line = sr.ReadToEnd()
         xlSheet = xlBook.Sheets(sheet_name)
 
-        Dim str_ar() = line.Split(New String() {"\r\n"}, StringSplitOptions.None)
+        'Dim str_ar() = line.Split(New String() {"\r\n"}, StringSplitOptions.None)
+        Dim str_ar() = line.Split(vbNewLine)
         For Each item As String In str_ar
+
+            item = item.Replace(vbLf, "")
             _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
             _range.Value = item.Split(vbTab)
+
             start_row += 1
         Next
         FinalReleaseComObject(xlSheet)
