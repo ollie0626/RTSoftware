@@ -106,6 +106,12 @@ Module Module_SaveData
         Return True
     End Function
 
+    Public Sub Clear0To4TxtFile()
+        For i As Integer = 0 To 4
+            ClearTxtFile(i)
+        Next
+    End Sub
+
 
 
     ' param item :  0 -> stability
@@ -130,7 +136,7 @@ Module Module_SaveData
             Case 1 : txt_path = efficiency_file : sheet_name = eff_sheet : start_col = eff_start(eff_idx) : end_col = eff_end(eff_idx)
             Case 2 : txt_path = loadR_file : sheet_name = loadR_sheet : start_col = "M" : end_col = "R"
             Case 3 : txt_path = jitter_file : sheet_name = jitter_sheet : start_col = "CG" : end_col = "CQ"
-            Case 4 : txt_path = line_file : sheet_name = line_sheet : start_col = "M" : end_col = "Q"
+            Case 4 : txt_path = line_file : sheet_name = line_sheet : start_col = "N" : end_col = "N"
             Case 5 : txt_path = test_file : sheet_name = test_sheet : start_col = "A" : end_col = "G"
         End Select
 
@@ -140,17 +146,29 @@ Module Module_SaveData
         sr = New StreamReader(txt_path)
         Dim line = sr.ReadToEnd()
         xlSheet = xlBook.Sheets(sheet_name)
-
-        'Dim str_ar() = line.Split(New String() {"\r\n"}, StringSplitOptions.None)
+        ' transfer string to double
         Dim str_ar() = line.Split(vbNewLine)
+        Dim dou_ar As List(Of Double)
+
+        ' transfer string to double
         For Each item As String In str_ar
-
             item = item.Replace(vbLf, "")
-            _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
-            _range.Value = item.Split(vbTab)
+            Dim temp() = item.Split(vbTab)
+            For Each data As String In temp
+                dou_ar.Add(Convert.ToDouble(data))
+            Next
 
+            _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
+            _range.Value = dou_ar.ToArray()
             start_row += 1
         Next
+
+        'For Each item As String In str_ar
+        '    item = item.Replace(vbLf, "")
+        '    _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
+        '    _range.Value = item.Split(vbTab)
+        '    start_row += 1
+        'Next
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
         xlBook.Save()

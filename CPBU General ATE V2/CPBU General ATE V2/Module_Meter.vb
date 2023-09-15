@@ -73,12 +73,13 @@
                     Case "4e-1"
                         ts = "CURR:RANG 3"
                         ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                        ts = "SENS:CURR:RANG " & range
+                        ts = "SENS:CURR:RANG:AUTO ON"
+                        range = 3
+                        'ts = "SENS:CURR:RANG " & range
                 End Select
 
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
 
-
-                '    ts = "SENS:CURR:RANG:AUTO ON"
             End If
 
 
@@ -269,206 +270,187 @@
         Dim i As Integer
 
         Dim down As Boolean = False
-
-
-
-        If range = "AUTO" Then
-            ts = "MEAS:CURRent:DC? " & range & "," & Meter_Resolution
-
+        If meter_name = "DMM6500" Then
+            ts = "MEAS:" & Meter_function & ":DC? "
             ilwrt(Meter_Dev, ts, CInt(Len(ts)))
             ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
 
-            For i = 0 To 10
-                System.Windows.Forms.Application.DoEvents()
-                If iberr = 0 Then
-
-                    If (ibcntl > 0) Then
-                        temp = ibcntl - 1
-                        test = Val(Mid(ValueStr, 1, temp))
-
-                        If test <> 0 Then
-                            Exit For
-                        End If
-                    End If
-
-                End If
-
-                If i = 5 Then
-                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                    Delay(100)
-                End If
-
-                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-
-            Next
-        Else
-
-            If meter_name = "DMM6500" Then
-                ts = "MEAS:" & Meter_function & ":DC? "
-            Else
-                ilwrt(Meter_Dev, "CURR:DC:FILT:DIG ON", CInt(Len(ts)))
-
-                ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
+            If (iberr = 0) And (ibcntl > 0) Then
+                temp = ibcntl - 1
+                test = Val(Mid(ValueStr, 1, temp))
             End If
 
-            ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-            ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+        Else
+            If range = "AUTO" Then
+                ts = "MEAS:CURRent:DC? " & range & "," & Meter_Resolution
 
-            For i = 0 To 10
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
 
-                System.Windows.Forms.Application.DoEvents()
+                For i = 0 To 10
+                    System.Windows.Forms.Application.DoEvents()
+                    If iberr = 0 Then
 
-                Meter_change_range = False
+                        If (ibcntl > 0) Then
+                            temp = ibcntl - 1
+                            test = Val(Mid(ValueStr, 1, temp))
 
-                If (iberr = 0) And (ibcntl > 0) Then
-
-
-                    temp = ibcntl - 1
-                    test = Val(Mid(ValueStr, 1, temp))
-
-                    If range = "MAX" Then
-
-                        Meter_range_now = range
-                    Else
-
-                        If test > (10 ^ 10) Then
-                            'range 過小
-                            While test > (10 ^ 10)
-                                System.Windows.Forms.Application.DoEvents()
-
-                                If run = False Then
-                                    Exit While
-                                End If
-
-                                Select Case range
-
-                                    Case "1e-4" '100uA
-                                        range = "1e-3"
-                                    Case "1e-3" '1mA
-                                        range = "1e-2"
-                                    Case "1e-2" '10mA
-                                        range = "1e-1"
-                                    Case "1e-1"  '100mA
-                                        range = "4e-1"
-
-                                End Select
-                                If meter_name = "DMM6500" Then
-                                    ts = "MEAS:" & Meter_function & ":DC? "
-                                Else
-
-                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                                End If
-
-                                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                                Meter_range_now = range
-                                Meter_change_range = True
-                                Exit Function
-
-
-
-                                'ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                                'If (iberr = 0) And (ibcntl > 0) Then
-                                '    temp = ibcntl - 1
-                                '    test = Val(Mid(ValueStr, 1, temp))
-                                '    Meter_range_now = range
-                                'End If
-                                'Delay(100)
-                            End While
-
-                        Else
-
-                            down = False
-
-
-                            '過大
-                            If (range = "1e-3") And test < (100 * 10 ^ -6) Then
-                                If mini_range <> range Then
-                                    '100uA
-                                    range = "1e-4"
-                                    down = True
-                                End If
-
-
-                            ElseIf (range = "1e-2") And test < (1 * 10 ^ -3) Then
-                                '1mA
-                                If mini_range <> range Then
-                                    range = "1e-3"
-                                    down = True
-                                End If
-
-                            ElseIf (range = "1e-1") And test < (10 * 10 ^ -3) Then
-                                '10mA
-                                If mini_range <> range Then
-                                    range = "1e-2"
-                                    down = True
-                                End If
-
-                            ElseIf (range = "4e-1") And (test < (100 * 10 ^ -3)) Then
-                                '100mA
-                                range = "1e-1"
-                                down = True
+                            If test <> 0 Then
+                                Exit For
                             End If
-
-                            If down = True Then
-                                If meter_name = "DMM6500" Then
-                                    ts = "MEAS:" & Meter_function & ":DC? "
-                                Else
-
-                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                                End If
-
-                                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                                Meter_range_now = range
-                                Meter_change_range = True
-                                Exit Function
-
-                                'ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                                'If (iberr = 0) And (ibcntl > 0) Then
-                                '    temp = ibcntl - 1
-                                '    test = Val(Mid(ValueStr, 1, temp))
-                                '    Meter_range_now = range
-                                'End If
-
-                            End If
-
-
-
                         End If
+
                     End If
-
-
-
-
-                    If test <> 0 Then
-                        Exit For
-                    End If
-
-                Else
 
                     If i = 5 Then
-
-                        GPIB_reset(Meter_Dev)
-                        Delay(100)
-                        If meter_name = "DMM6500" Then
-                            ts = "MEAS:" & Meter_function & ":DC? "
-                        Else
-
-                            ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                        End If
                         ilwrt(Meter_Dev, ts, CInt(Len(ts)))
                         Delay(100)
                     End If
 
                     ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                End If
 
-            Next
+                Next
+            Else
 
+                ilwrt(Meter_Dev, "CURR:DC:FILT:DIG ON", CInt(Len(ts)))
+
+                ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+
+                For i = 0 To 10
+
+                    System.Windows.Forms.Application.DoEvents()
+
+                    Meter_change_range = False
+
+                    If (iberr = 0) And (ibcntl > 0) Then
+
+
+                        temp = ibcntl - 1
+                        test = Val(Mid(ValueStr, 1, temp))
+
+                        If range = "MAX" Then
+
+                            Meter_range_now = range
+                        Else
+
+                            If test > (10 ^ 10) Then
+                                'range 過小
+                                While test > (10 ^ 10)
+                                    System.Windows.Forms.Application.DoEvents()
+
+                                    If run = False Then
+                                        Exit While
+                                    End If
+
+                                    Select Case range
+
+                                        Case "1e-4" '100uA
+                                            range = "1e-3"
+                                        Case "1e-3" '1mA
+                                            range = "1e-2"
+                                        Case "1e-2" '10mA
+                                            range = "1e-1"
+                                        Case "1e-1"  '100mA
+                                            range = "4e-1"
+
+                                    End Select
+
+
+                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                                    Meter_range_now = range
+                                    Meter_change_range = True
+                                    Exit Function
+
+                                End While
+
+                            Else
+
+                                down = False
+
+
+                                '過大
+                                If (range = "1e-3") And test < (100 * 10 ^ -6) Then
+                                    If mini_range <> range Then
+                                        '100uA
+                                        range = "1e-4"
+                                        down = True
+                                    End If
+
+
+                                ElseIf (range = "1e-2") And test < (1 * 10 ^ -3) Then
+                                    '1mA
+                                    If mini_range <> range Then
+                                        range = "1e-3"
+                                        down = True
+                                    End If
+
+                                ElseIf (range = "1e-1") And test < (10 * 10 ^ -3) Then
+                                    '10mA
+                                    If mini_range <> range Then
+                                        range = "1e-2"
+                                        down = True
+                                    End If
+
+                                ElseIf (range = "4e-1") And (test < (100 * 10 ^ -3)) Then
+                                    '100mA
+                                    range = "1e-1"
+                                    down = True
+                                End If
+
+                                If down = True Then
+
+
+                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                                    Meter_range_now = range
+                                    Meter_change_range = True
+                                    Exit Function
+
+                                End If
+
+
+
+                            End If
+                        End If
+
+
+
+
+                        If test <> 0 Then
+                            Exit For
+                        End If
+
+                    Else
+
+                        If i = 5 Then
+
+                            GPIB_reset(Meter_Dev)
+                            Delay(100)
+
+
+                            ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                            ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                            Delay(100)
+                        End If
+
+                        ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+                    End If
+
+                Next
+
+            End If
         End If
+
+
+
+
 
 
         Return test
