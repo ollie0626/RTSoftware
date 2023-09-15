@@ -20,9 +20,6 @@ Module Module_SaveData
     Public loadR_sheet As String
     Public line_sheet As String
 
-
-
-
     Public stable_sel As Integer = 0
     Public eff_sel As Integer = 1
     Public loadR_sel As Integer = 2
@@ -34,6 +31,12 @@ Module Module_SaveData
     Public test_file As String = starup_path & "\text.txt"
     Public test_sheet As String = "工作表1"
     Public test_sel As Integer = 5
+
+
+    Public jitter_start_row As List(Of Integer) = New List(Of Integer)()
+    Public lineR_start_row As List(Of Integer) = New List(Of Integer)()
+    Public loadR_start_row As List(Of Integer) = New List(Of Integer)()
+    Public eff_start_row As List(Of Integer) = New List(Of Integer)()
 
 
     ' param item :  0 -> stability

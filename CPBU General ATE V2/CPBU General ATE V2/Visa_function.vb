@@ -14,10 +14,13 @@
 
     Function visa_write(ByVal vi_desc As String, ByVal vi_dev As Integer, ByVal ts As String) As Integer
         Dim i As Integer
-      
 
-            visa_status = viWrite(vi_dev, ts, Len(ts), retcount)
-            If visa_status <> VI_SUCCESS Then
+
+        visa_status = viWrite(vi_dev, ts, Len(ts), retcount)
+
+        ' visa write will repeat if write fail.
+        ' each times interval 100ms.
+        If visa_status <> VI_SUCCESS Then
                 For i = 0 To 5
 
                     System.Windows.Forms.Application.DoEvents()
