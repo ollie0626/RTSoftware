@@ -1402,10 +1402,41 @@ Public Class Main
         'excel_open()
         'xlApp.Visible = True
         'xlSheet = xlBook.Sheets("工作表1")
+
+        'Dim _range As Excel.Range = xlSheet.Range("A1")
+        '_range.Value = test_data.ToArray()
+        '_range = xlSheet.Range("A1")
+        ''_range.End(Excel.XlDirection.xlToRight)
+        'Dim _range1 As Excel.Range = xlSheet.Range("A1", _range.End(Excel.XlDirection.xlToRight))
+        ''Dim dest As Excel.Range = xlSheet.Range("H1")
+        '' 轉置past past method
+        'With xlSheet
+        '    .Range("A1", _range.End(Excel.XlDirection.xlToRight)).Copy()
+        '    .Range("H1").PasteSpecial(
+        '                        Excel.XlPasteType.xlPasteAll,
+        '                        Excel.XlPasteSpecialOperation.xlPasteSpecialOperationNone,
+        '                        False, True)
+        'End With
+        '_range1.Delete()
+
+
+        '_range = xlSheet.Range("G2")
+        '_range.PasteSpecial(Excel.XlPasteType.xlPasteAll,
+        '                    Excel.XlPasteSpecialOperation.xlPasteSpecialOperationNone,
+        '                    False, True)
+
+        'Range(Selection, Selection.End(xlToRight)).Select
+        'Dim _range1 As Excel.Range = xlSheet.Cells(1, 1)
+        'Dim _range2 As Excel.Range = xlSheet.Cells(1, 4)
+        'Dim _range3 As Excel.Range = xlSheet.Range(_range1, _range2)
+        '_range3.Borders.LineStyle = Excel.XlLineStyle.xlContinuous
+
         'xlSheet.Activate()
         'SaveDataToFile(test_data, "fail", 4)
         'TxtToExcel(5, 1, 0)
         'ClearTxtFile(test_sel)
+
+
         status_Version.Text = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & My.Application.Info.Version.Build
         Scan_Instrument()
         Check_Eagleboard()

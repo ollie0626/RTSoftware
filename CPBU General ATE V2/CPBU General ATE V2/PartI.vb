@@ -3,7 +3,7 @@ Imports System.Runtime.InteropServices.Marshal
 Imports System.IO
 
 'Ollie_note: report disable flag
-#Const report_en = 0
+#Const report_en = 1
 
 Public Class PartI
 
@@ -184,7 +184,6 @@ Public Class PartI
     '------------------------------------------------------------------------------------------------
     'Test
     Function initial() As Integer
-
 
         'Chamber
         If Main.check_TA_en.Checked = True Then
@@ -3617,6 +3616,9 @@ Public Class PartI
         loadR_start_row.Clear()
         eff_start_row.Clear()
 
+        loadR_vin_col.Clear()
+        lineR_vin_col.Clear()
+
 
         Dim n, f, v, i, ii, nn As Integer
         Dim TA_title, VCC_title, Fs_title, total_title As String
@@ -3763,6 +3765,7 @@ Public Class PartI
                     Select Case test_name
                         Case Stability
 #Region "Stability Case"
+                            stable_col_len = stability_col.Length - 2
                             'Vout, Vin, vcc往下移，fs, temp都往左移
                             xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                             xlSheet.Activate()
@@ -3850,6 +3853,7 @@ Public Class PartI
                                 If i = 0 Then
                                     copy_row = row
                                     For nn = 0 To stability_col.Length - 1
+                                        ' print column title
                                         report_title(stability_col(nn), col, row, 1, 1, data_title_color)
                                         xlSheet.Columns(col).AutoFit()
                                         col = col + 1
@@ -3982,9 +3986,11 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
+                            ' TA_Test_num = t
                             col_num = jitter_col.Length
                             row_num = data_jitter_iout.Rows.Count + 2
                             start_col = test_col + data_jitter_iout.Rows.Count * (TA_num + 1) * total_vcc.Length * total_fs.Length * (pic_width + 1) + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1) - 1
+                            jitter_start_col = start_col
                             'Init row
                             If (check_fastAcq.Checked = True) Then
                                 If row_num < (2 * pic_height + 1) Then
@@ -4071,8 +4077,10 @@ Public Class PartI
                             last_row = last_row + 2
                             '----------------------------------------------------------------------------------
 #End Region
+                            jitter_stop_col = jitter_start_col + jitter_col.Length
                         Case Line_Regulation
 #Region "Line Regulation Case"
+                            lineR_col_len = 1 + data_lineR_iout.Rows.Count
                             If check_lineR_scope.Checked = True Then
                                 xlSheet = xlBook.Sheets(txt_data_sheet.Text)
                                 xlSheet.Activate()
@@ -4136,6 +4144,7 @@ Public Class PartI
                                         row = first_row + 1
                                         iout_now = data_lineR_iout.Rows(i - 1).Cells(0).Value
                                         report_title("IOUT=" & iout_now & "A", col, row, lineR_col.Length, 1, data_title_color)
+                                        lineR_vin_col.Add(col)
                                         row = row + 1
                                         For nn = 0 To lineR_col.Length - 1
                                             report_title(lineR_col(nn), col, row, 1, 1, data_title_color)
@@ -4340,6 +4349,7 @@ Public Class PartI
 #End Region
                         Case Load_Regulation
 #Region "Load Regulation Case"
+                            loadR_col_len = data_vin.Rows.Count + 1 ' or 2
                             xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
@@ -4384,7 +4394,7 @@ Public Class PartI
                             '    |VOUT  |
                             'IOUT|n* VIN| PASS
                             '-------------------------------------------------------------------------------
-                            For i = 0 To data_vin.Rows.Count
+                            For i = 0 To c
                                 If i = 0 Then
                                     'X
                                     'Iout
@@ -4425,6 +4435,8 @@ Public Class PartI
                                     row = row + 1
                                     vin_now = data_vin.Rows(i - 1).Cells(0).Value
                                     report_title("VIN=" & vin_now & "V", col, row, 1, 1, data_title_color)
+                                    'Ollie_note: record vin columns
+                                    loadR_vin_col.Add(col)
                                     '-------------------------------------------------------------------------------
                                     'Add Serial 
                                     chart_row_start = first_row + 3
@@ -4525,6 +4537,7 @@ Public Class PartI
 #End Region
                         Case Efficiency
 #Region "Efficiency Case"
+                            eff_vin_col_len = eff_col.Length
                             xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
@@ -4566,7 +4579,10 @@ Public Class PartI
                                 total_title = TA_title & VCC_title & Fs_title & "VOUT=" & vout_now & "V, VIN=" & vin_now & "V"
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
+                                'Ollie_note: get eff row and columns
                                 eff_start_row.Add(row + 2)
+                                eff_vin_col.Add(col)
+
                                 row = row + 1
                                 For nn = 0 To eff_col.Length - 1
                                     report_title(eff_col(nn), col, row, 1, 1, data_title_color)
@@ -5379,21 +5395,15 @@ Public Class PartI
         Dim temp As String
         Dim beta_path As String
         Dim row_num_temp As Integer
-
         'Jitter
         Dim Dave, Dmax, Dmin As Double
         Dim Tjitter, Ton_mean, Toff_max, Toff_min As Double
         Dim Jitter_value As Double
-
         Dim pass_result As String
-
         Dim eff As Double
         Dim Hyperlinks_txt As String = ""
         Dim error_pic_path As String
-
         Dim i, ii As Integer
-
-
         col_num = 0
         row_num = 0
 
@@ -5470,7 +5480,6 @@ Public Class PartI
 
                 '-------------------------------------------------------------------------
                 'freq
-
                 For ii = 0 To 3
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
@@ -5478,6 +5487,7 @@ Public Class PartI
                     col = col + 1
                 Next
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+
                 'freq_update
                 If (AutoScalling_EN = True) Then
                     If autoscanning_update = True Then
@@ -5664,6 +5674,7 @@ Public Class PartI
                 xlrange.Value = pass_result ' Format(vpp(5), "#0.000")
                 FinalReleaseComObject(xlrange)
                 col = col + 1
+
                 If pass_result = FAIL Then
                     If Error_folder = "" Then
                         Error_folder = folderPath & "\Error_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
@@ -5864,9 +5875,6 @@ Public Class PartI
                 Dmin = Ton_mean / (Toff_max + Ton_mean)
                 Dave = Ton_mean / (Toff_min + Ton_mean + (1 / 2) * Tjitter)
                 Jitter_value = 100 * (Dmax - Dmin) / Dave
-
-
-
 
                 '"PASS/FAIL"
                 If Jitter_value < pass_value_Max Then
@@ -7388,21 +7396,23 @@ Public Class PartI
                             ' Ollie_note: Stability txt to excel
                             ' v is vin loop idx
                             If check_stability.Checked Then
+                                ' last parameter don't care
                                 TxtToExcel(stable_sel, stability_report_row(v) + 2, 0)
                             End If
 
                             If check_jitter.Checked Then
+                                ' last parameter don't care
                                 TxtToExcel(jitter_sel, jitter_start_row(v), 0)
                                 ' need calculate report col
                             End If
 
                             If check_Efficiency.Checked Then
-                                TxtToExcel(eff_sel, eff_start_row(v), v Mod 4)
+                                TxtToExcel(eff_sel, eff_start_row(v), v Mod eff_start_row.Count)
                                 ' need calculate new row postion
                             End If
 
                             If check_loadR.Checked Then
-                                TxtToExcel(loadR_sel, loadR_start_row(v) + 2, 0)
+                                TxtToExcel(loadR_sel, loadR_start_row(v) + 2, v Mod loadR_start_row.Count)
                                 ' need forward row to column
                             End If
 
@@ -7599,7 +7609,7 @@ Public Class PartI
                     End If ' line regulation if
 
                     If check_loadR.Checked Then
-                        TxtToExcel(line_sel, lineR_start_row(v), 0)
+                        TxtToExcel(line_sel, lineR_start_row(v), v Mod lineR_start_row.Count)
                         ' need forward row to column
                     End If
 
