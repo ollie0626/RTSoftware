@@ -166,6 +166,7 @@ Module Module_SaveData
                     _range_temp = xlSheet.Range("A1")
                     _range_temp.Value = dou_ar.ToArray()
 
+                    ' past data to A1 and transfer row to columns
                     With xlSheet
                         .Range("A1", _range_temp.End(Excel.XlDirection.xlToRight)).Copy()
                         .Range(col_sel).PasteSpecial(

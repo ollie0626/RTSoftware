@@ -7067,7 +7067,7 @@ Public Class PartI
                 End If
 
                 For ii = 0 To total_vout.Length - 1 ' vout loop
-
+                    ' clear text file
                     ClearTxtFile(5)
 
                     System.Windows.Forms.Application.DoEvents()
