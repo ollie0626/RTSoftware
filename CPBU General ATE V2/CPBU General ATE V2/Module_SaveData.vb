@@ -42,7 +42,7 @@ Module Module_SaveData
     Public lineR_vin_col As List(Of Integer) = New List(Of Integer)()
     Public lineR_col_len As Integer
 
-    Public loadR_start_row As List(Of Integer) = New List(Of Integer)()
+    Public loadR_start_row As List(Of Integer) = New List(Of Integer)
     Public loadR_vin_col As List(Of Integer) = New List(Of Integer)()
     Public loadR_col_len As Integer
 
@@ -124,11 +124,9 @@ Module Module_SaveData
         xlSheet = xlBook.Sheets(sheet_name)
         ' transfer string to double
         Dim str_ar() = line.Split(vbNewLine)
-        Dim dou_ar As List(Of Double)
 
-        Dim col_sel As String = IIf(item_sel = 2,
-                                    ConvertToLetter(loadR_vin_col(idx)) & start_row,
-                                    ConvertToLetter(lineR_vin_col(idx)) & start_row)
+
+
         Dim col_number As Integer = 0
         Dim res As String = ""
 
@@ -136,8 +134,10 @@ Module Module_SaveData
         For Each item As String In str_ar
             item = item.Replace(vbLf, "")
             Dim temp() = item.Split(vbTab)
-
+            Dim dou_ar As List(Of Double) = New List(Of Double)()
             For Each data As String In temp
+
+                If data = "" Then : Return False : End If
                 If data = PASS Or data = FAIL Then
                     res = data
                 Else
@@ -149,7 +149,7 @@ Module Module_SaveData
                 Case stable_sel, 5
                     ' stability and test case
                     _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
-                    col_number = stable_col_len
+                    col_number = stable_col_len - 1
                     _range.Value = dou_ar.ToArray()
                 Case eff_sel
                     ' eff case
@@ -157,34 +157,27 @@ Module Module_SaveData
                         ConvertToLetter(eff_vin_col(idx)) & start_row,
                         ConvertToLetter(eff_vin_col(idx) + eff_vin_col_len - 1) & start_row)
                     _range.Value = dou_ar.ToArray()
-                    col_number = eff_vin_col(idx) + eff_vin_col_len
+                    col_number = eff_vin_col(idx) + eff_vin_col_len - 1
                 Case loadR_sel, line_sel
                     ' 2 : load regulation
                     ' 4 : line regulation
                     Dim _range_temp As Excel.Range
                     Dim _range_copy As Excel.Range
-                    _range_temp = xlSheet.Range("A1")
-                    _range_temp.Value = dou_ar.ToArray()
+                    Dim col_sel As String = ""
 
-                    ' past data to A1 and transfer row to columns
-                    With xlSheet
-                        .Range("A1", _range_temp.End(Excel.XlDirection.xlToRight)).Copy()
-                        .Range(col_sel).PasteSpecial(
-                                                Excel.XlPasteType.xlPasteAll,
-                                                Excel.XlPasteSpecialOperation.xlPasteSpecialOperationNone,
-                                                False, True)
-                    End With
-
-                    _range_copy = xlSheet.Range("A1", _range_temp.End(Excel.XlDirection.xlToRight))
-                    _range_copy.Delete()
-
-                    col_number = IIf(item_sel = loadR_sel,
-                                    loadR_vin_col(idx) + loadR_col_len,
-                                    lineR_vin_col(idx) + lineR_col_len)
+                    If item_sel = loadR_sel Then : col_sel = ConvertToLetter(loadR_vin_col(idx)) & start_row : End If
+                    If item_sel = line_sel Then : col_sel = ConvertToLetter(lineR_vin_col(idx)) & start_row : End If
 
 
-                    FinalReleaseComObject(_range_temp)
-                    FinalReleaseComObject(_range_copy)
+                    _range = xlSheet.Range(col_sel)
+                    _range.Value = dou_ar.ToArray()
+
+                    If item_sel = loadR_sel Then : col_number = loadR_vin_col(0) + loadR_col_len + 1 : End If
+                    If item_sel = line_sel Then : col_number = lineR_vin_col(0) + lineR_col_len + 1 : End If
+
+
+                    'FinalReleaseComObject(_range_temp)
+                    'FinalReleaseComObject(_range_copy)
                     FinalReleaseComObject(_range)
                 Case jitter_sel
                     ' jitter case
@@ -226,12 +219,10 @@ Module Module_SaveData
         xlSheet = xlBook.Sheets(sheet_name)
 
         _range = xlSheet.Range(ConvertToLetter(col) & row)
-
+        _range.Value = pass_fail
         If pass_fail = FAIL Then
             _range.Interior.Color = test_fail_color
         End If
-
-
 
     End Function
 
@@ -273,3 +264,24 @@ Module Module_SaveData
 
 
 End Module
+
+
+'_range_temp = xlSheet.Range("A1")
+'_range_temp.Value = dou_ar.ToArray()
+
+' past data to A1 and transfer row to columns
+'With xlSheet
+'    .Range("A1", _range_temp.End(Excel.XlDirection.xlToRight)).Copy()
+'    .Range(col_sel).PasteSpecial(
+'                            Excel.XlPasteType.xlPasteAll,
+'                            Excel.XlPasteSpecialOperation.xlPasteSpecialOperationNone,
+'                            False, True)
+'End With
+
+'_range_copy = xlSheet.Range("A1", _range_temp.End(Excel.XlDirection.xlToRight))
+'_range_copy.Delete()
+
+'col_number = IIf(item_sel = loadR_sel,
+'                loadR_vin_col(idx) + loadR_col_len,
+'                lineR_vin_col(idx) + lineR_col_len)
+

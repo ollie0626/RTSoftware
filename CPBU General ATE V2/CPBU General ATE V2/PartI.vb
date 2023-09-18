@@ -3613,7 +3613,7 @@ Public Class PartI
         ' Ollie_note: add report row start list
         jitter_start_row.Clear()
         lineR_start_row.Clear()
-        loadR_start_row.Clear()
+
         eff_start_row.Clear()
 
         loadR_vin_col.Clear()
@@ -3765,7 +3765,6 @@ Public Class PartI
                     Select Case test_name
                         Case Stability
 #Region "Stability Case"
-                            stable_col_len = stability_col.Length - 2
                             'Vout, Vin, vcc往下移，fs, temp都往左移
                             xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                             xlSheet.Activate()
@@ -3979,6 +3978,7 @@ Public Class PartI
                             last_row = last_row + 2
                             '----------------------------------------------------------------------------------
 #End Region
+                            stable_col_len = stability_col.Length - 2
                         Case Jitter
 #Region "Jitter Case"
                             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
@@ -4099,7 +4099,6 @@ Public Class PartI
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 lineR_start_row.Add(row + 3)
 
-
                                 '-------------------------------------------------------------------------------
                                 row = row + 1
                                 '-------------------------------------------------------------------------------
@@ -4144,7 +4143,7 @@ Public Class PartI
                                         row = first_row + 1
                                         iout_now = data_lineR_iout.Rows(i - 1).Cells(0).Value
                                         report_title("IOUT=" & iout_now & "A", col, row, lineR_col.Length, 1, data_title_color)
-                                        lineR_vin_col.Add(col)
+
                                         row = row + 1
                                         For nn = 0 To lineR_col.Length - 1
                                             report_title(lineR_col(nn), col, row, 1, 1, data_title_color)
@@ -4194,10 +4193,7 @@ Public Class PartI
                             Else
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                             End If
-
-                            If check_lineR_scope.Checked = False Then
-                                lineR_start_row.Add(row + 3)
-                            End If
+                            lineR_start_row.Add(row + 3)
 
 
                             '-------------------------------------------------------------------------------
@@ -4256,6 +4252,7 @@ Public Class PartI
                                     row = row + 1
                                     iout_now = data_lineR_iout.Rows(i - 1).Cells(0).Value
                                     report_title("IOUT=" & iout_now & "A", col, row, 1, 1, data_title_color)
+                                    lineR_vin_col.Add(col)
                                     '-------------------------------------------------------------------------------
                                     'Add Serial 
                                     chart_row_start = first_row + 3
@@ -4387,14 +4384,15 @@ Public Class PartI
                             Else
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                             End If
-                            loadR_start_row.Add(row)
+
                             '-------------------------------------------------------------------------------
                             row = row + 1
+                            loadR_start_row.Add(row)
                             '-------------------------------------------------------------------------------
                             '    |VOUT  |
                             'IOUT|n* VIN| PASS
                             '-------------------------------------------------------------------------------
-                            For i = 0 To c
+                            For i = 0 To data_vin.Rows.Count
                                 If i = 0 Then
                                     'X
                                     'Iout
@@ -4432,6 +4430,7 @@ Public Class PartI
                                     'Vin
                                     row = first_row + 1
                                     report_title(Vout_name, col, row, 1, 1, data_title_color)
+
                                     row = row + 1
                                     vin_now = data_vin.Rows(i - 1).Cells(0).Value
                                     report_title("VIN=" & vin_now & "V", col, row, 1, 1, data_title_color)
@@ -5748,30 +5747,36 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Stability)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add((Fs_Max / 1000).ToString("0.00000")) : data_list.Add((Fs_Min / 1000).ToString("0.00000"))
-                data_list.Add((fs(0) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(1) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(2) / (10 ^ 3)).ToString("0.00000")) : data_list.Add((fs(3) / (10 ^ 3)).ToString("0.00000"))
-
-                data_list.Add((fs_update / (10 ^ 3)).ToString("0.00000"))
-                data_list.Add((ton(0) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(2) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((ton(3) * (10 ^ 9)).ToString("0.00000"))
-                ' data_list.Add(IIf(AutoScalling_EN, wave_data(0) * (10 ^ 9), ton(1) * (10 ^ 9)))
+                data_list.Add(vout_meas.ToString("0.0000"))
+                data_list.Add(iout_now.ToString("0.0000"))
+                data_list.Add((Fs_Max / 1000).ToString("0.0000"))
+                data_list.Add((Fs_Min / 1000).ToString("0.0000"))
+                For ii = 0 To 3 : data_list.Add((fs(ii) / (10 ^ 3)).ToString("0.0000")) : Next
 
                 If AutoScalling_EN Then
-                    If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.00000"))
-                    Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.00000"))
+                    If autoscanning_update Then : data_list.Add(wave_data(2) / (10 ^ 3))
+                    Else : data_list.Add(fs(1) / (10 ^ 3))
+                    End If
+                End If
+                For ii = 0 To 3 : data_list.Add((ton(ii) * (10 ^ 9)).ToString("0.0000")) : Next
+
+                If AutoScalling_EN Then
+                    If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.000"))
+                    Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.0000"))
                     End If
                 Else : data_list.Add(0) : End If
 
-                data_list.Add((toff(0) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(2) * (10 ^ 9)).ToString("0.00000")) : data_list.Add((toff(3) * (10 ^ 9)).ToString("0.00000"))
-                ' data_list.Add(IIf(AutoScalling_EN, wave_data(1) * (10 ^ 9), toff(1) * (10 ^ 9)))
+                For ii = 0 To 3 : data_list.Add((toff(ii) * (10 ^ 9)).ToString("0.0000")) : Next
 
                 If AutoScalling_EN Then
-                    If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.00000"))
-                    Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.00000"))
+                    If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.000"))
+                    Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.0000"))
                     End If
                 Else : data_list.Add(0) : End If
 
-                data_list.Add((vpp(0) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(1) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(2) * (10 ^ 3)).ToString("0.00000")) : data_list.Add((vpp(3) * (10 ^ 3)).ToString("0.00000"))
-                data_list.Add(vpp(4).ToString("0.00000")) : data_list.Add(vpp(5).ToString("0.00000"))
+                For ii = 0 To 3 : data_list.Add((vpp(ii) * (10 ^ 3)).ToString("0.0000")) : Next
+                data_list.Add(vpp(4).ToString("0.0000"))
+                data_list.Add(vpp(5).ToString("0.0000"))
                 SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
             Case Jitter
@@ -5945,10 +5950,10 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Jitter)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add(Ton_mean.ToString("0.00000")) : data_list.Add(Toff_min.ToString("0.00000"))
-                data_list.Add(Toff_max.ToString("0.00000")) : data_list.Add(Tjitter.ToString("0.00000")) : data_list.Add(Dmax.ToString("0.00000")) : data_list.Add(Dmin.ToString("0.00000"))
-                data_list.Add(Dave.ToString("0.00000"))
-                data_list.Add(Jitter_value.ToString("0.00000"))
+                data_list.Add(vout_meas.ToString("0.000")) : data_list.Add(iout_now.ToString("0.000")) : data_list.Add(Ton_mean.ToString("0.000")) : data_list.Add(Toff_min.ToString("0.000"))
+                data_list.Add(Toff_max.ToString("0.000")) : data_list.Add(Tjitter.ToString("0.000")) : data_list.Add(Dmax.ToString("0.000")) : data_list.Add(Dmin.ToString("0.000"))
+                data_list.Add(Dave.ToString("0.000"))
+                data_list.Add(Jitter_value.ToString("0.000"))
                 SaveDataToFile(data_list, pass_result, jitter_sel)
                 ' ------------------------------------------------------------------------------------------------
 
@@ -5982,8 +5987,8 @@ Public Class PartI
                 End If
                 '----------------------------------------------------------------------------------
                 'Update Vin
-                col = start_col
-                row = first_row + 3 + LR_Vin_test_num
+                'col = start_col
+                'row = first_row + 3 + LR_Vin_test_num
                 'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 'xlrange.Value = vin_meas
                 'FinalReleaseComObject(xlrange)
@@ -5997,29 +6002,30 @@ Public Class PartI
                 '    pass_result = PASS
                 'End If
                 'FinalReleaseComObject(xlrange)
+
                 ''Update Vout
-                'col = start_col + (1 + lineR_iout_num)
-                'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                'xlrange.Value = vout_meas
-                'If vout_meas < (vout_now * (vout_err / 100)) Then
-                '    xlrange.Interior.Color = 255
-                'End If
-                'FinalReleaseComObject(xlrange)
-                'pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
-                'pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
-                'If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
-                '    If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-                '        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
-                '        pass_result = FAIL
-                '        xlrange.Value = FAIL
-                '        xlrange.Interior.Color = test_fail_color
-                '    Else
-                '        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
-                '        pass_result = FAIL
-                '        xlrange.Value = FAIL
-                '        xlrange.Interior.Color = test_fail_color
-                '    End If
-                'End If
+                col = start_col + (1 + lineR_iout_num)
+                xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                xlrange.Value = vout_meas
+                If vout_meas < (vout_now * (vout_err / 100)) Then
+                    xlrange.Interior.Color = 255
+                End If
+                FinalReleaseComObject(xlrange)
+                pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
+                pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
+                If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
+                    If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
+                        pass_result = FAIL
+                        xlrange.Value = FAIL
+                        xlrange.Interior.Color = test_fail_color
+                    Else
+                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
+                        pass_result = FAIL
+                        xlrange.Value = FAIL
+                        xlrange.Interior.Color = test_fail_color
+                    End If
+                End If
 
                 If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
                     pass_result = PASS
@@ -6049,7 +6055,7 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Line Regulation)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas.ToString("0.00000"))
+                data_list.Add(vout_meas.ToString("0.0000"))
 
                 '-------------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
@@ -6088,8 +6094,8 @@ Public Class PartI
                     row = first_row + 3 + LR_Vin_test_num
                     'Update Vout
                     col = start_col + (1 + lineR_iout_num * lineR_col.Length)
-                    'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                    'xlrange.Value = vout_meas
+                    xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                    xlrange.Value = vout_meas
                     data_list(0) = vout_meas.ToString("0.00000")
                     FinalReleaseComObject(xlrange)
                     col = col + 1
@@ -6098,10 +6104,10 @@ Public Class PartI
                     'freq
 
                     For ii = 0 To 3
-                        'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                        'xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
-                        'FinalReleaseComObject(xlrange)
-                        'col = col + 1
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
+                        FinalReleaseComObject(xlrange)
+                        col = col + 1
 
 
                         data_list.Add((fs(ii) / (10 ^ 3)).ToString("0.00000"))
@@ -6111,10 +6117,10 @@ Public Class PartI
                     'ton
 
                     For ii = 0 To 3
-                        'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                        'xlrange.Value = ton(ii) * (10 ^ 9) ' Format(ton(ii) * (10 ^ 9), "#0.000")
-                        'FinalReleaseComObject(xlrange)
-                        'col = col + 1
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        xlrange.Value = ton(ii) * (10 ^ 9) ' Format(ton(ii) * (10 ^ 9), "#0.000")
+                        FinalReleaseComObject(xlrange)
+                        col = col + 1
 
                         data_list.Add((ton(ii) / (10 ^ 9)).ToString("0.00000"))
                     Next
@@ -6122,10 +6128,10 @@ Public Class PartI
                     '-------------------------------------------------------------------------
                     'toff
                     For ii = 0 To 3
-                        'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                        'xlrange.Value = toff(ii) * (10 ^ 9) ' Format(toff(ii) * (10 ^ 9), "#0.000")
-                        'FinalReleaseComObject(xlrange)
-                        'col = col + 1
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        xlrange.Value = toff(ii) * (10 ^ 9) ' Format(toff(ii) * (10 ^ 9), "#0.000")
+                        FinalReleaseComObject(xlrange)
+                        col = col + 1
 
                         data_list.Add((toff(ii) / (10 ^ 9)).ToString("0.00000"))
                     Next
@@ -6309,11 +6315,11 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Efficiency)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vin_meas.ToString("0.00000")) : data_list.Add(iin_meas.ToString("0.00000")) : data_list.Add(Eff_vout_meas.ToString("0.00000"))
-                data_list.Add(iout_meas.ToString("0.00000")) : data_list.Add(eff.ToString("0.00000")) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)).ToString("0.00000"))
+                data_list.Add(vin_meas.ToString("0.000")) : data_list.Add(iin_meas.ToString("0.000")) : data_list.Add(Eff_vout_meas.ToString("0.000"))
+                data_list.Add(iout_meas.ToString("0.000")) : data_list.Add(eff.ToString("0.000")) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)).ToString("0.000"))
 
-                If cbox_VCC.SelectedItem <> no_device Then : data_list.Add(vcc_meas.ToString("0.00000")) : End If
-                If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.00000")) : End If
+                If cbox_VCC.SelectedItem <> no_device Then : data_list.Add(vcc_meas.ToString("0.000")) : End If
+                If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.000")) : End If
                 If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then : data_list.Add((((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100).ToString("0.00000")) : End If
 
                 SaveDataToFile(data_list, pass_result, eff_sel)
@@ -7412,8 +7418,8 @@ Public Class PartI
                             End If
 
                             If check_loadR.Checked Then
-                                TxtToExcel(loadR_sel, loadR_start_row(v) + 2, v Mod loadR_start_row.Count)
-                                ' need forward row to column
+                                TxtToExcel(loadR_sel, loadR_start_row(v Mod total_vout.Length) + 2, v Mod loadR_vin_col.Count)
+                                ' judge max and min
                             End If
 
                             ''----------------------------------------------------------------------------------
@@ -7553,6 +7559,7 @@ Public Class PartI
                         End If
 
                         For x = 0 To data_lineR_iout.Rows.Count - 1
+                            ClearTxtFile(4)
                             System.Windows.Forms.Application.DoEvents()
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
@@ -7563,9 +7570,11 @@ Public Class PartI
                             If run = False Then
                                 Exit For
                             End If
+
                             iout_now = data_lineR_iout.Rows(x).Cells(0).Value
                             DCLoad_Iout(iout_now, monitor_vout)
                             lineR_iout_num = x
+
                             For v = 0 To data_lineR_vin.Rows.Count - 1
                                 System.Windows.Forms.Application.DoEvents()
                                 While pause = True
@@ -7574,9 +7583,11 @@ Public Class PartI
                                         Exit While
                                     End If
                                 End While
+
                                 If run = False Then
                                     Exit For
                                 End If
+
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
                                 vin_now = data_lineR_vin.Rows(v).Cells(0).Value
@@ -7584,6 +7595,7 @@ Public Class PartI
                                 LR_Vin_test_num = v
                                 update_report(Line_Regulation)
                             Next
+
                             If check_lineR_up.Checked = True Then
                                 For v = data_lineR_vin.Rows.Count - 2 To 0 Step -1
                                     System.Windows.Forms.Application.DoEvents()
@@ -7604,14 +7616,16 @@ Public Class PartI
                                     update_report(Line_Regulation)
                                 Next
                             End If
+
+                            If check_LineR.Checked Then
+                                TxtToExcel(line_sel, lineR_start_row(v Mod total_vout.Length), x)
+                            End If
+
                         Next
                         excel_close()
                     End If ' line regulation if
 
-                    If check_loadR.Checked Then
-                        TxtToExcel(line_sel, lineR_start_row(v), v Mod lineR_start_row.Count)
-                        ' need forward row to column
-                    End If
+
 
                 Next ' vout loop
             Next ' freq loop

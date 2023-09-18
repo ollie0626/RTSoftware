@@ -577,9 +577,9 @@ Module Module_ATE
             xlApp.WindowState = Excel.XlWindowState.xlMinimized
             xlApp.Visible = False
         End If
-        'xlBook = xlApp.Workbooks.Open(sf_name)
+        xlBook = xlApp.Workbooks.Open(sf_name)
 
-        xlBook = xlApp.Workbooks.Add()
+        'xlBook = xlApp.Workbooks.Add()
     End Function
 
     Function excel_close_temp() As Integer
