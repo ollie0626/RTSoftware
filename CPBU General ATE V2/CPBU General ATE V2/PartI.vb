@@ -5637,6 +5637,35 @@ Public Class PartI
                 FinalReleaseComObject(xlrange)
                 col = col + 1
 #End If
+
+                Dim fre_update As Integer = start_col + 9
+                Dim ton_update As Integer = start_col + 14
+                Dim toff_update As Integer = start_col + 19
+
+
+                xlrange = xlSheet.Range(ConvertToLetter(fre_update) & row)
+
+                If (AutoScalling_EN = True) Then
+                    If autoscanning_update = True Then
+                        xlrange.Interior.Color = 49407 '橘色
+                    Else
+                        If (Fs_CCM = False) Then
+                            xlrange.Interior.Color = 255
+                        End If
+                    End If
+                End If
+
+
+
+
+                xlrange = xlSheet.Range(ConvertToLetter(ton_update) & row)
+                xlrange = xlSheet.Range(ConvertToLetter(toff_update) & row)
+
+
+
+
+
+
                 If (check_Force_CCM.Checked = True) And (rbtn_auto_DEM.Checked = True) Then
                     'fs(2) = Scope_measure(x, Meas_min)
                     'fs(3) = Scope_measure(x, Meas_max)
