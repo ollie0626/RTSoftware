@@ -149,7 +149,7 @@ Module Module_SaveData
                 Case stable_sel, 5
                     ' stability and test case
                     _range = xlSheet.Range(start_col & start_row, end_col & start_row) ' row, col
-                    col_number = stable_col_len - 1
+                    col_number = 38
                     _range.Value = dou_ar.ToArray()
                 Case eff_sel
                     ' eff case

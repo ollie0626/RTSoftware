@@ -6007,7 +6007,7 @@ Public Class PartI
                 ''Update Vout
                 col = start_col + (1 + lineR_iout_num)
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                xlrange.Value = vout_meas
+                'xlrange.Value = vout_meas
                 If vout_meas < (vout_now * (vout_err / 100)) Then
                     xlrange.Interior.Color = 255
                 End If
@@ -6016,15 +6016,15 @@ Public Class PartI
                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
                         pass_result = FAIL
-                        xlrange.Value = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Value = FAIL
+                        'xlrange.Interior.Color = test_fail_color
                     Else
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
                         pass_result = FAIL
-                        xlrange.Value = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Value = FAIL
+                        'xlrange.Interior.Color = test_fail_color
                     End If
                 End If
 
@@ -6042,13 +6042,13 @@ Public Class PartI
                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
                         pass_result = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Interior.Color = test_fail_color
                     Else
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
                         pass_result = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Interior.Color = test_fail_color
                     End If
                 End If
 
@@ -6172,11 +6172,11 @@ Public Class PartI
                 If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
                     pass_result = PASS
-                    xlrange.Value = PASS
+                    'xlrange.Value = PASS
                 Else
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
                     pass_result = PASS
-                    xlrange.Value = PASS
+                    'xlrange.Value = PASS
                 End If
                 FinalReleaseComObject(xlrange)
                 'Update Vout
@@ -6184,19 +6184,19 @@ Public Class PartI
                 pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
                 col = start_col + (Vin_test_num) + 1
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                xlrange.Value = vout_meas
+                'xlrange.Value = vout_meas
                 FinalReleaseComObject(xlrange)
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
                         pass_result = FAIL
-                        xlrange.Value = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Value = FAIL
+                        'xlrange.Interior.Color = test_fail_color
                     Else
-                        xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
+                        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
                         pass_result = FAIL
-                        xlrange.Value = FAIL
-                        xlrange.Interior.Color = test_fail_color
+                        'xlrange.Value = FAIL
+                        'xlrange.Interior.Color = test_fail_color
                     End If
                 End If
                 '----------------------------------------------------------------------------------
@@ -7619,7 +7619,7 @@ Public Class PartI
                             End If
 
                             If check_LineR.Checked Then
-                                TxtToExcel(line_sel, lineR_start_row(x), x)
+                                TxtToExcel(line_sel, lineR_start_row(ii), x)
                             End If
 
                         Next
