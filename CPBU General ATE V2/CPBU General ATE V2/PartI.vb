@@ -185,6 +185,7 @@ Public Class PartI
     'Test
     Function initial() As Integer
 
+
         'Chamber
         If Main.check_TA_en.Checked = True Then
             txt_TA.Text = "TA"
@@ -5946,7 +5947,6 @@ Public Class PartI
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
 #End Region
-
                 ' Ollie_note: save data to text file (Jitter)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
@@ -5978,6 +5978,7 @@ Public Class PartI
                         row_num = data_lineR_vin.Rows.Count + 3
                     End If
                 End If
+
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
                 'init row
                 If row_num < (chart_height + 1) Then
@@ -7618,7 +7619,7 @@ Public Class PartI
                             End If
 
                             If check_LineR.Checked Then
-                                TxtToExcel(line_sel, lineR_start_row(v Mod total_vout.Length), x)
+                                TxtToExcel(line_sel, lineR_start_row(x), x)
                             End If
 
                         Next
@@ -7630,6 +7631,8 @@ Public Class PartI
                 Next ' vout loop
             Next ' freq loop
         Next ' vcc loop
+
+
         excel_open()
         xlSheet = xlBook.Sheets(1)
         xlSheet.Activate()

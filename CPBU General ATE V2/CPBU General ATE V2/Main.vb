@@ -1387,6 +1387,10 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'sf_name = "Stability"
+        'excel_init()
+        'check_file_open(sf_name)
+
         'Console.WriteLine(IIf(True, "true ok.", "false ok."))
 
         'Ollie_note: test txt file to Excel function
