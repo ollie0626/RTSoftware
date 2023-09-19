@@ -3,7 +3,7 @@ Imports System.Runtime.InteropServices.Marshal
 Imports System.IO
 
 'Ollie_note: report disable flag
-#Const report_en = 1
+#Const report_en = 0
 
 Public Class PartI
 
@@ -5612,8 +5612,6 @@ Public Class PartI
                         End If
                         xlrange.Value = toff(1) * (10 ^ 9) ' Format(wave_data(1) * (10 ^ 9), "#0.000")
                     End If
-
-
                 End If
                 FinalReleaseComObject(xlrange)
                 col = col + 1
@@ -5655,13 +5653,29 @@ Public Class PartI
                     End If
                 End If
 
-
-
-
                 xlrange = xlSheet.Range(ConvertToLetter(ton_update) & row)
+
+                If (AutoScalling_EN = True) Then
+                    If (autoscanning_update = True) Then
+                        xlrange.Interior.Color = 49407
+                    Else
+                        If (Fs_CCM = False) Then
+                            xlrange.Interior.Color = 255
+                        End If
+                    End If
+                End If
+
                 xlrange = xlSheet.Range(ConvertToLetter(toff_update) & row)
-
-
+                If (AutoScalling_EN = True) Then
+                    If (autoscanning_update = True) Then
+                        xlrange.Interior.Color = 49407
+                    Else
+                        If (Fs_CCM = False) Then
+                            xlrange.Interior.Color = 255
+                        End If
+                    End If
+                End If
+                FinalReleaseComObject(xlrange)
 
 
 
@@ -5747,7 +5761,8 @@ Public Class PartI
                     End If
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                     xlSheet.Activate()
-                    xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                    Dim hyper_col As Integer = start_col + 27
+                    xlrange = xlSheet.Range(ConvertToLetter(hyper_col) & row)
                     xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
                 End If
                 autoscanning_update = False
@@ -5810,7 +5825,6 @@ Public Class PartI
                 SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
             Case Jitter
-
 #Region "jitter case"
                 xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                 xlSheet.Activate()
@@ -5993,7 +6007,6 @@ Public Class PartI
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
-
 #Region "Line Regulation Case"
                 If rbtn_lineR_test2.Checked = True Then
                     col_num = data_lineR_iout.Rows.Count + 2
@@ -6239,9 +6252,7 @@ Public Class PartI
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
 #End Region
-
             Case Efficiency
-
 #Region "Efficiency Case"
                 xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                 xlSheet.Activate()
@@ -6340,7 +6351,6 @@ Public Class PartI
                 End If
                 'xlrange.Value = pass_result
 #End Region
-
                 '----------------------------------------------------------------------------------
                 ' Ollie_note: save data to text file (Efficiency)
                 ' ------------------------------------------------------------------------------------------------
