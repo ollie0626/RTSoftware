@@ -920,12 +920,12 @@ Partial Class PartI
         '
         Me.Tab_Set.Controls.Add(Me.TabPage_Main1)
         Me.Tab_Set.Controls.Add(Me.TabPage_Instrument1)
-        Me.Tab_Set.Controls.Add(Me.TabPage_Instrument2)
         Me.Tab_Set.Controls.Add(Me.TabPage_Scope1)
         Me.Tab_Set.Controls.Add(Me.TabPage_Test1)
         Me.Tab_Set.Controls.Add(Me.TabPage_Setup1)
         Me.Tab_Set.Controls.Add(Me.TabPage_LineR)
         Me.Tab_Set.Controls.Add(Me.TabPage_Finish1)
+        Me.Tab_Set.Controls.Add(Me.TabPage_Instrument2)
         Me.Tab_Set.Location = New System.Drawing.Point(120, 8)
         Me.Tab_Set.Name = "Tab_Set"
         Me.Tab_Set.SelectedIndex = 0
