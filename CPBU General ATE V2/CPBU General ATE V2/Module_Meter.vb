@@ -210,9 +210,6 @@
     End Function
 
 
-
-
-
     Function filter_set(ByVal Meter_Dev As Integer, ByVal digital As String, ByVal analog As String) As Integer
         Dim ts As String = ""
 
@@ -260,7 +257,6 @@
 
         Return test
     End Function
-
 
     Function meter_meas(ByVal meter_name As String, ByVal Meter_Dev As Integer, ByVal range As String, ByVal mini_range As String) As Double
 
@@ -534,5 +530,90 @@
 
         Return total
     End Function
+
+
+    Function meter_auto(ByVal in_out_sel As Integer, ByVal average As Integer) As Double
+
+        Dim total As Double = 0
+        Dim curr_data As Double
+        Dim Meas_ID As Integer
+        Dim data_input As Byte
+        Dim read_error As Integer
+        Dim resolution As Double
+
+        curr_data = power_read(vin_device, Vin_out, "CURR")
+
+        Select Case in_out_sel
+            Case 0 : resolution = resolution_input
+            Case 1 : resolution = resolution_output
+        End Select
+
+        If curr_data >= Meter_H Then
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_high_id
+                Case 1 : Meas_ID = out_high_id
+            End Select
+
+            data_input = &H0
+        End If
+
+        If curr_data < Meter_H And curr_data >= Meter_L Then
+
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_middle_id
+                Case 1 : Meas_ID = out_middle_id
+            End Select
+
+            data_input = &H1
+        End If
+
+        If curr_data < Meter_L Then
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_middle_id
+                Case 1 : Meas_ID = out_middle_id
+            End Select
+            data_input = &H2
+        End If
+
+
+        reg_write_word(Meas_ID, &H1, data_input, "H")
+        Delay(1000)
+
+        Dim array As List(Of Double) = New List(Of Double)()
+        Dim remove_data As Integer
+        Dim temp() As Integer
+        total = 0
+        read_error = 0
+
+
+        For i = 0 To (average - 1)
+            System.Windows.Forms.Application.DoEvents()
+            If run = False Then
+                Exit For
+            End If
+            temp = reg_read_word(Meas_ID, &H4, "H")
+            While temp(0) <> 0 Or temp(1) = 65535
+                System.Windows.Forms.Application.DoEvents()
+
+                read_error = read_error + 1
+                If (read_error = 5) Or (run = False) Then
+                    Return 0
+                    Exit Function
+                End If
+                Delay(10)
+                temp = reg_read_word(Meas_ID, &H4, "H")
+            End While
+            Delay(10)
+            iout_now = temp(1) * resolution * 10 ^ -3
+
+            If i >= remove_data Then
+                array.Add(iout_now)
+            End If
+        Next
+        total = array.Sum() / array.Count
+        Return total
+    End Function
+
+
 
 End Module

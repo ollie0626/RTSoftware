@@ -249,11 +249,7 @@ Public Class PartI
 
 
         clist_vout.Items.AddRange(vout_value)
-
         clist_vout.SetItemChecked(0, True)
-
-
-
         If clist_vout.Items.Count = 1 Then
 
             clist_vout.Enabled = False
@@ -4975,6 +4971,8 @@ Public Class PartI
             Else
                 iin_meas = power_read(cbox_vin.SelectedItem, Vin_out, "CURR") ' Format(power_read(cbox_vin.SelectedItem, Vin_out, "CURR"), "#0.000000000")
             End If
+
+
             If cbox_VCC_daq.SelectedItem <> no_device Then
                 vcc_meas = DAQ_average(vcc_daq, num_data_count.Value)
             ElseIf cbox_VCC.SelectedItem <> no_device Then
@@ -7267,7 +7265,6 @@ Public Class PartI
                             lineR_iout_num = 0
                             stability_iout_num = 0
                             jitter_iout_num = 0
-
                             '-----------------------------------------------------------------------------------------------------------
                             'Start RUN
 
