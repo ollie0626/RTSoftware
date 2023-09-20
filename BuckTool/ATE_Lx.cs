@@ -40,7 +40,7 @@ namespace BuckTool
 
         private void WaveformPathCheck()
         {
-            if (!Directory.Exists(test_parameter.waveform_path + "Lx"))
+            if (!Directory.Exists(test_parameter.waveform_path + "\\Lx"))
             {
                 Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx");
                 Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Freqfolder);
@@ -49,11 +49,11 @@ namespace BuckTool
             }
             else
             {
-                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_Freqfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Freqfolder);
-                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_SRfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_SRfolder);
-                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_Jitterfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Jitterfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Freqfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Freqfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_SRfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_SRfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Jitterfolder);
             }
-            test_parameter.waveform_path = test_parameter.waveform_path + "Lx";
+            test_parameter.waveform_path = test_parameter.waveform_path + "\\Lx";
         }
 
         public override void ATETask()

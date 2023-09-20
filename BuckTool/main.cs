@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.62";
+        string App_name = "Buck Tool v1.63";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -618,9 +618,17 @@ namespace BuckTool
             
             for (int idx = 0; idx < Eload_DG.RowCount; idx++)
             {
-                settings += (idx + 28).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
-                settings += (idx + 29).ToString() + ".Eload_step=$" + Eload_DG[1, idx].Value.ToString() + "$\r\n";
-                settings += (idx + 30).ToString() + ".Eload_stop=$" + Eload_DG[2, idx].Value.ToString() + "$\r\n";
+                try
+                {
+                    settings += (idx + 28).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
+                    settings += (idx + 29).ToString() + ".Eload_step=$" + Eload_DG[1, idx].Value.ToString() + "$\r\n";
+                    settings += (idx + 30).ToString() + ".Eload_stop=$" + Eload_DG[2, idx].Value.ToString() + "$\r\n";
+                }
+                catch
+                {
+
+                }
+
             }
             
 
@@ -691,10 +699,18 @@ namespace BuckTool
                 fullDG:
                 for(int i = 0; i < Eload_DG.RowCount; i++)
                 {
-                    Eload_DG[0, i].Value = Convert.ToString(info[idx + 1]); // start
-                    Eload_DG[1, i].Value = Convert.ToString(info[idx + 2]); // step
-                    Eload_DG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
-                    idx += 3;
+                    try
+                    {
+                        Eload_DG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                        Eload_DG[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                        Eload_DG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                        idx += 3;
+                    }
+                    catch
+                    {
+
+                    }
+
                 }
                
             }
