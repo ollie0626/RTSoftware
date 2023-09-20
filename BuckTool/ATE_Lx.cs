@@ -241,7 +241,8 @@ namespace BuckTool
             InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Rise");
 
             // Fall
-            InsControl._scope.Bandwidth_Limit_On(1);
+            InsControl._scope.CH1_BWLimitOff();
+            //InsControl._scope.Bandwidth_Limit_On(1);
             InsControl._scope.Measure_Clear();
             InsControl._scope.DoCommand(":MARKer:MODE OFF");
             InsControl._scope.Root_RUN();
