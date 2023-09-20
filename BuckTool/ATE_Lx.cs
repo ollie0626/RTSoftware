@@ -192,7 +192,8 @@ namespace BuckTool
             InsControl._scope.Measure_Clear();
             InsControl._scope.Measure_Freq(1);
             InsControl._scope.DoCommand(":MARKer:MODE OFF");
-            InsControl._scope.Bandwidth_Limit_On(1);
+            //InsControl._scope.Bandwidth_Limit_On(1);
+            InsControl._scope.CH1_BWLimitOff();
             InsControl._scope.Ch_On(1);
             InsControl._scope.Ch_Off(2);
             InsControl._scope.Ch_Off(3);

@@ -747,7 +747,7 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         double res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.K] = slewrate_list.Max() * Math.Pow(10, -3);
+                        _sheet.Cells[row, XLS_Table.K] = slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.L] = rise_time_list.Max() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
@@ -771,7 +771,7 @@ namespace SoftStartTiming
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
-                        _sheet.Cells[row, XLS_Table.O] = test_parameter.vidio.criteria[case_idx].lpm_en ? slewrate_list.Max() : slewrate_list.Max() * Math.Pow(10, -3);
+                        _sheet.Cells[row, XLS_Table.O] = test_parameter.vidio.criteria[case_idx].lpm_en ? slewrate_list.Min() : slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.P] = test_parameter.vidio.criteria[case_idx].lpm_en ? fall_time_list.Max() * Math.Pow(10, 3) : fall_time_list.Max() * Math.Pow(10, 6);
                         _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
 
@@ -796,6 +796,11 @@ namespace SoftStartTiming
                         double vmax_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.R].Value);
                         double vmin_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.T].Value);
                         bool judge_vol = vmax_res > vmax | vmin_res < vmin_res ? false : true;
+                        // rise time min is good
+                        // fall time min is good
+
+                        // slew rate max is good
+
 
                         if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
                         {
@@ -804,8 +809,8 @@ namespace SoftStartTiming
                             double fall_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
                             double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
                             double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
-                            bool judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? false : true;
-
+                            bool judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? true : false;
+                            
                             bool judge = judge_sr & judge_vol;
 
 

@@ -100,6 +100,7 @@
     <Compile Include="Module_Excel.vb" />
     <Compile Include="Module_function.vb" />
     <Compile Include="Module_Meter.vb" />
+    <Compile Include="Module_Parameter.vb" />
     <Compile Include="Module_Power.vb" />
     <Compile Include="Module_Relay.vb" />
     <Compile Include="Module_RTBBLib.vb" />
