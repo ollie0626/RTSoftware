@@ -3616,7 +3616,7 @@ Public Class PartI
         lineR_start_row.Clear()
 
         eff_start_row.Clear()
-
+        loadR_start_row.Clear()
         loadR_vin_col.Clear()
         lineR_vin_col.Clear()
 
@@ -4571,6 +4571,7 @@ Public Class PartI
                             '-------------------------------------------------------------------------------
                             'VIN (V)	IIN(A)	VOUT (V)	IOUT (A)	Efficiency(%)	Loss(W)	PASS/FAIL
                             '-------------------------------------------------------------------------------
+                            eff_start_row.Add(first_row + 2)
                             For i = 0 To data_vin.Rows.Count - 1
                                 row = first_row
                                 start_col = col
@@ -4580,7 +4581,6 @@ Public Class PartI
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 'Ollie_note: get eff row and columns
-                                eff_start_row.Add(row + 2)
                                 eff_vin_col.Add(col)
 
                                 row = row + 1
@@ -5441,11 +5441,7 @@ Public Class PartI
                         autoscanning_update = False
                     End If
                 End If
-#If report_en Then
-                xlSheet.Activate()
-                '----------------------------------------------------------------------------------
-                'initial
-                'Init col
+
                 col_num = stability_col.Length
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
                 first_row = stability_report_row(data_set_now)
@@ -5454,6 +5450,12 @@ Public Class PartI
                 row = first_row + 2 + stability_iout_num
 
                 col = start_col
+#If report_en Then
+                xlSheet.Activate()
+                '----------------------------------------------------------------------------------
+                'initial
+                'Init col
+
 
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vout_meas
@@ -5636,10 +5638,11 @@ Public Class PartI
                 col = col + 1
 #End If
 
-                Dim fre_update As Integer = start_col + 9
-                Dim ton_update As Integer = start_col + 14
-                Dim toff_update As Integer = start_col + 19
-
+                Dim fre_update As Integer = start_col + 8
+                Dim ton_update As Integer = start_col + 13
+                Dim toff_update As Integer = start_col + 18
+                Dim pass_fail_update As Integer = start_col + 25
+                row = first_row + 2 + stability_iout_num
 
                 xlrange = xlSheet.Range(ConvertToLetter(fre_update) & row)
 
@@ -5710,7 +5713,7 @@ Public Class PartI
                         End If
                     End If
                 End If
-                xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                xlrange = xlSheet.Range(ConvertToLetter(pass_fail_update) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
                 End If
@@ -5761,7 +5764,7 @@ Public Class PartI
                     End If
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                     xlSheet.Activate()
-                    Dim hyper_col As Integer = start_col + 27
+                    Dim hyper_col As Integer = start_col + 26
                     xlrange = xlSheet.Range(ConvertToLetter(hyper_col) & row)
                     xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
                 End If
@@ -5931,12 +5934,15 @@ Public Class PartI
                 Else
                     pass_result = FAIL
                 End If
+
+                Dim pass_fail_col As Integer = start_col + 10
+
                 ' past waveform
-                xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                xlrange = xlSheet.Range(ConvertToLetter(start_col) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
                 End If
-                xlrange.Value = pass_result
+                'xlrange.Value = pass_result
                 FinalReleaseComObject(xlrange)
                 jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                 ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
@@ -6939,6 +6945,8 @@ Public Class PartI
 
 
     Function TestITem_run() As Integer
+        Dim stability_idx As Integer = 0
+        Dim jitter_idx As Integer = 0
 
         Dim i, n, ii, v, x, y As Integer
         Dim t As Integer
@@ -7442,24 +7450,21 @@ Public Class PartI
                             ' Ollie_note: Stability txt to excel
                             ' v is vin loop idx
                             If check_stability.Checked Then
-                                ' last parameter don't care
-                                TxtToExcel(stable_sel, stability_report_row(v) + 2, 0)
+                                TxtToExcel(stable_sel, stability_report_row(stability_idx) + 2, 0)
+                                stability_idx += 1
                             End If
 
                             If check_jitter.Checked Then
-                                ' last parameter don't care
-                                TxtToExcel(jitter_sel, jitter_start_row(v), 0)
-                                ' need calculate report col
+                                TxtToExcel(jitter_sel, jitter_start_row(jitter_idx), 0)
+                                jitter_idx += 1
                             End If
 
                             If check_Efficiency.Checked Then
-                                TxtToExcel(eff_sel, eff_start_row(v), v Mod eff_start_row.Count)
-                                ' need calculate new row postion
+                                TxtToExcel(eff_sel, eff_start_row(ii), v Mod eff_start_row.Count)
                             End If
 
                             If check_loadR.Checked Then
-                                TxtToExcel(loadR_sel, loadR_start_row(v Mod total_vout.Length) + 2, v Mod loadR_vin_col.Count)
-                                ' judge max and min
+                                TxtToExcel(loadR_sel, loadR_start_row(ii) + 2, v Mod loadR_vin_col.Count)
                             End If
 
                             ''----------------------------------------------------------------------------------

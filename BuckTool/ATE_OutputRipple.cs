@@ -117,6 +117,7 @@ namespace BuckTool
                         iin = InsControl._power.GetCurrent();
                         iout = InsControl._eload.GetIout();
                         vpp = InsControl._scope.Meas_CH1VPP();
+                        MyLib.Delay1s(1);
 
                         _sheet.Cells[row, XLS_Table.A] = row - 22;
                         _sheet.Cells[row, XLS_Table.B] = temp;

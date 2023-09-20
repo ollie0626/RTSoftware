@@ -8,6 +8,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Runtime.Remoting.Channels;
 
 namespace BuckTool
 {
@@ -39,7 +40,7 @@ namespace BuckTool
 
         private void WaveformPathCheck()
         {
-            if (!Directory.Exists(test_parameter.waveform_path + "\\Lx"))
+            if (!Directory.Exists(test_parameter.waveform_path + "Lx"))
             {
                 Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx");
                 Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Freqfolder);
@@ -48,11 +49,11 @@ namespace BuckTool
             }
             else
             {
-                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Freqfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Freqfolder);
-                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_SRfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_SRfolder);
-                if (!Directory.Exists(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "\\Lx" + str_Jitterfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_Freqfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Freqfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_SRfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_SRfolder);
+                if (!Directory.Exists(test_parameter.waveform_path + "Lx" + str_Jitterfolder)) Directory.CreateDirectory(test_parameter.waveform_path + "Lx" + str_Jitterfolder);
             }
-            test_parameter.waveform_path = test_parameter.waveform_path + "\\Lx";
+            test_parameter.waveform_path = test_parameter.waveform_path + "Lx";
         }
 
         public override void ATETask()
@@ -79,6 +80,7 @@ namespace BuckTool
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
             Mylib.testCondition(_sheet, "Lx", 0, temp);
+            //Mylib.SaveExcelReport(test_parameter.waveform_path, temp + "C_Lx" + DateTime.Now.ToString("yyyyMMdd_hhmm"), _book);
 #endif
             OSCInit();
 
@@ -91,7 +93,6 @@ namespace BuckTool
 #endif
                     for (int iout_idx = 0; iout_idx < test_parameter.Iout_table.Count; iout_idx++)
                     {
-                        string file_neme = "";
                         string file_name = string.Format("{0}_Vin={1}_Iout={2}_Freq={3}",
                                                         row - 22,
                                                         test_parameter.Vin_table[vin_idx],
@@ -137,24 +138,26 @@ namespace BuckTool
                             switch (item)
                             {
                                 case 0: // freq task
-                                    FreqTask(row); row++;
-                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Freqfolder, file_neme + "_freq");
+                                    FreqTask(row);
+                                    MyLib.Delay1s(1);
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Freqfolder, file_name + "_freq");
                                     InsControl._scope.Root_RUN();
                                     break;
                                 case 1: // jitter task
-                                    JitterTask(row); row++;
-                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Jitterfolder, file_neme + "_jitter");
+                                    JitterTask(row);
+                                    MyLib.Delay1s(1);
+                                    InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_Jitterfolder, file_name + "_jitter");
                                     InsControl._scope.DoCommand(":HISTogram:MODE OFF");
                                     InsControl._scope.DoCommand(":DISPlay:CGRade OFF");
                                     InsControl._scope.Root_RUN();
                                     break;
                                 case 2: // slew rate task
-                                    SlewRateTask(row, file_neme); row++;
+                                    SlewRateTask(row, file_name);
                                     InsControl._scope.Root_RUN();
                                     break;
                             }
                         }
-
+                        row++;
                         InsControl._power.AutoPowerOff();
                         InsControl._eload.AllChannel_LoadOff();
                         InsControl._scope.AutoTrigger();
@@ -197,8 +200,8 @@ namespace BuckTool
             InsControl._scope.TimeScaleUs(20);
             InsControl._scope.TimeBasePosition(0);
 
-            trigger = InsControl._scope.Meas_CH1VPP() / 3;
-            lx_level = InsControl._scope.Meas_CH1VPP() / 3;
+            trigger = InsControl._scope.Meas_CH1VPP() / 4;
+            lx_level = InsControl._scope.Meas_CH1VPP() / 4;
             InsControl._scope.SetTrigModeEdge(false);
             InsControl._scope.TriggerLevel_CH1(trigger);
             InsControl._scope.CH1_Level(lx_level);
@@ -217,22 +220,23 @@ namespace BuckTool
             InsControl._scope.DoCommand(":MARKer:MODE ON");
             InsControl._scope.DoCommand(":MEASURE:RISetime CHANnel1");
             InsControl._scope.SetTrigModeEdge(false); // trigger rise
-            double rise_time = InsControl._scope.Measure_SlewRate_Rising(1);
-            double rise = InsControl._scope.Measure_Rise(1);
+            double rise_time = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel1"); 
+            double rise = InsControl._scope.Meas_CH1Rise();
             InsControl._scope.TimeScale(rise * 2);
             MyLib.WaveformCheck();
             InsControl._scope.Root_STOP();
-            rise_time = InsControl._scope.Measure_SlewRate_Rising(1);
-            rise = InsControl._scope.Measure_Rise(1);
+            rise_time = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel1");
+            rise = InsControl._scope.Meas_CH1Rise();
 #if Report
-            _sheet.Cells[row, XLS_Table.K] = string.Format("{0:0.000}", rise_time * Math.Pow(10, 9));
-            _sheet.Cells[row, XLS_Table.L] = string.Format("{0:0.000}", rise * Math.Pow(10, -6));
+            _sheet.Cells[row, XLS_Table.K] = string.Format("{0:0.000}", rise * Math.Pow(10, 9));
+            _sheet.Cells[row, XLS_Table.L] = string.Format("{0:0.000}", rise_time * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
-            _sheet.Cells[row, XLS_Table.R] = InsControl._scope.Measure_Ch_Max(1);
-            _sheet.Cells[row, XLS_Table.S] = InsControl._scope.Measure_Ch_Min(1);
+            _sheet.Cells[row, XLS_Table.R] = InsControl._scope.Meas_CH1MAX();
+            _sheet.Cells[row, XLS_Table.S] = InsControl._scope.Meas_CH1MIN();
 #endif
             InsControl._scope.TimeScale(rise * 2);
             // Rise save waveform
+            MyLib.Delay1s(1);
             InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Rise");
 
             // Fall
@@ -247,16 +251,17 @@ namespace BuckTool
             InsControl._scope.SetTrigModeEdge(true);
             MyLib.WaveformCheck();
             InsControl._scope.Root_STOP();
-            double fall = InsControl._scope.Measure_SlewRate_Falling(1);
-            double fall_time = InsControl._scope.Measure_Fall_Time(1);
+            double fall = InsControl._scope.doQueryNumber(":MEASure:SLEWrate? CHANnel1");
+            double fall_time = InsControl._scope.Meas_CH1Fall();
 #if Report
             _sheet.Cells[row, XLS_Table.M] = string.Format("{0:0.000}", fall_time * Math.Pow(10, 9));
             _sheet.Cells[row, XLS_Table.N] = string.Format("{0:0.000}", fall * Math.Pow(10, -6));
             InsControl._scope.Bandwidth_Limit_Off(1);
-            _sheet.Cells[row, XLS_Table.T] = InsControl._scope.Measure_Ch_Max(1);
-            _sheet.Cells[row, XLS_Table.U] = InsControl._scope.Measure_Ch_Min(1);
+            _sheet.Cells[row, XLS_Table.T] = InsControl._scope.Meas_CH1MAX();
+            _sheet.Cells[row, XLS_Table.U] = InsControl._scope.Meas_CH1MIN();
 #endif
             // fall wave waveform
+            MyLib.Delay1s(1);
             InsControl._scope.SaveWaveform(test_parameter.waveform_path + str_SRfolder, file_name + "_Fall");
         }
 
@@ -281,8 +286,8 @@ namespace BuckTool
             InsControl._scope.TimeBasePosition(period * 2);
             Rlimit = (period * 5);
             Llimit = (period * 0.2);
-            trigger = InsControl._scope.Meas_CH1VPP() / 3;
-            lx_level = InsControl._scope.Meas_CH1VPP() / 3;
+            trigger = InsControl._scope.Meas_CH1VPP() / 4.5;
+            lx_level = InsControl._scope.Meas_CH1VPP() / 4.5;
             Vtop = InsControl._scope.Meas_CH1Top();
             Vbase = InsControl._scope.Meas_CH1Base();
             histogramLevel = Vtop * 0.5 + Vbase * 0.5;
@@ -306,7 +311,7 @@ namespace BuckTool
             double MeaPKPK = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?") * Math.Pow(10, 9);
             double MeaMean = InsControl._scope.doQueryNumber(":MEASure:HISTogram:PP?");
             double MeaStdDev = InsControl._scope.doQueryNumber(":MEASure:HISTogram:STDDev?") * Math.Pow(10, 9);
-            double Freq = InsControl._scope.Measure_Freq(1);
+            double Freq = 1 / period;
 
 #if Report
             _sheet.Cells[row, XLS_Table.O] = MeaPKPK;
@@ -333,8 +338,8 @@ namespace BuckTool
             period = InsControl._scope.Meas_CH1Period();
             period = period / 2; // show 5 cycle
             InsControl._scope.TimeScale(period);
-            trigger = InsControl._scope.Meas_CH1VPP() / 3;
-            lx_level = InsControl._scope.Meas_CH1VPP() / 3;
+            trigger = InsControl._scope.Meas_CH1VPP() / 4.5;
+            lx_level = InsControl._scope.Meas_CH1VPP() / 4.5;
             InsControl._scope.SetTrigModeEdge(false);
             InsControl._scope.TriggerLevel_CH1(trigger);
             InsControl._scope.CH1_Level(lx_level);
@@ -358,9 +363,9 @@ namespace BuckTool
             freq_min = InsControl._scope.Meas_Result();
 
 #if Report
-            _sheet.Cells[row, XLS_Table.H] = string.Format("{0:##.000}", freq_mean);
-            _sheet.Cells[row, XLS_Table.I] = string.Format("{0:##.000}", freq_max);
-            _sheet.Cells[row, XLS_Table.J] = string.Format("{0:##.000}", freq_min);
+            _sheet.Cells[row, XLS_Table.H] = string.Format("{0:##.000}", freq_mean * Math.Pow(10, -3));
+            _sheet.Cells[row, XLS_Table.I] = string.Format("{0:##.000}", freq_max * Math.Pow(10, -3));
+            _sheet.Cells[row, XLS_Table.J] = string.Format("{0:##.000}", freq_min * Math.Pow(10, -3));
 #endif
 
             MyLib.Delay1ms(200);

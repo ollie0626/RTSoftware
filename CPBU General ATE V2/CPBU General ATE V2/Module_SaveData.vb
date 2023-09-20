@@ -124,9 +124,6 @@ Module Module_SaveData
         xlSheet = xlBook.Sheets(sheet_name)
         ' transfer string to double
         Dim str_ar() = line.Split(vbNewLine)
-
-
-
         Dim col_number As Integer = 0
         Dim res As String = ""
 
@@ -174,7 +171,6 @@ Module Module_SaveData
 
                     If item_sel = loadR_sel Then : col_number = loadR_vin_col(0) + loadR_col_len + 1 : End If
                     If item_sel = line_sel Then : col_number = lineR_vin_col(0) + lineR_col_len + 1 : End If
-
 
                     'FinalReleaseComObject(_range_temp)
                     'FinalReleaseComObject(_range_copy)

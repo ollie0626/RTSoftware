@@ -49,7 +49,7 @@ namespace BuckTool
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.61";
+        string App_name = "Buck Tool v1.62";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -553,9 +553,12 @@ namespace BuckTool
                     if (state == System.Threading.ThreadState.Suspended) ATETask.Resume();
                     ATETask.Abort();
                     MessageBox.Show("ATE Task Stop !!", "ATE Tool", MessageBoxButtons.OK);
-                    InsControl._power.AutoPowerOff();
+
                 }
             }
+
+            InsControl._power.AutoPowerOff();
+            InsControl._eload.AllChannel_LoadOff();
         }
 
         private void uibt_save_Click(object sender, EventArgs e)
@@ -609,7 +612,10 @@ namespace BuckTool
             
 
             settings += "26.Vin_line=$" + tb_lineVin.Text + "$\r\n";
+            settings += "28.Videa=$" + nu_Videa.Value.ToString() + "$\r\n";
             settings += "27.Eload_row=$" + Eload_DG.RowCount.ToString() + "$\r\n";
+
+            
             for (int idx = 0; idx < Eload_DG.RowCount; idx++)
             {
                 settings += (idx + 28).ToString() + ".Eload_start=$" + Eload_DG[0, idx].Value.ToString() + "$\r\n";
@@ -640,7 +646,7 @@ namespace BuckTool
             {
                 textBox1, tbWave, textBox2, tb_Vin, ck_freq1, tb_freqdes1, ck_freq2, tb_freqdes2, nu_Freq, nu_duty, nu_tr,
                 nu_tf, tb_Highlevel, tb_Lowlevel, tb_Iout, tb_osc, nu_power, nu_eload, nu_34970A, nu_chamber, nu_dmm1,
-                nu_dmm2, nu_funcgen, tb_templist, tb_IPAddress, nu_steady, tb_lineVin, Eload_DG
+                nu_dmm2, nu_funcgen, tb_templist, tb_IPAddress, nu_steady, tb_lineVin, nu_Videa, Eload_DG
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
