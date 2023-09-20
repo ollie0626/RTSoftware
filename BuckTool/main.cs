@@ -74,6 +74,7 @@ namespace BuckTool
             //}
             //cb_chamber.SelectedIndex = 0;
             this.Text = App_name;
+            tb_osc.Text = "USB0::0x2A8D::0x904A::MY60060112::INSTR";
         }
 
 
