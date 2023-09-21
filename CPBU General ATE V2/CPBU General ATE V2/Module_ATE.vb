@@ -1205,124 +1205,71 @@ Module Module_ATE
     Function Iin_meter_set(ByVal check_iin As Object, ByVal cbox_IIN_meter As Object, ByVal cbox_iin_relay As Object) As Double
 
         If check_iin.Checked = True Then
-
             '以DC Load抽載的電流值來切檔位
-
-
             If (iout_now < iin_meter_change) And (Iin_Meter_Max = True) Then
-
                 '切小檔位
-
                 'DCLoad_ONOFF("OFF")
                 Power_OFF_set()
                 GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(1))
-
                 Delay(100)
-
                 If Meter_iin_range = "MAX" Then
                     ' Meter_iin_range = Meter_iin_low
                     Meter_iin_range = "4e-1"
                 End If
-
                 Iin_Meter_Max = False
-
                 meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
-
-
-
-
             ElseIf (iout_now >= iin_meter_change) And (Iin_Meter_Max = False) Then
                 '切大檔位
-
                 'DCLoad_ONOFF("OFF")
                 Power_OFF_set()
                 GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(0))
                 Delay(100)
-
                 If Meter_iin_range <> "MAX" Then
-
                     Meter_iin_range = "MAX"
                 End If
-
                 Iin_Meter_Max = True
                 meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
-
-
             End If
-
-
             If DCLoad_ON = False Then
                 Power_ON_set()
                 'DCLoad_ONOFF("ON")
                 Delay(100)
             End If
-
         End If
-
         'meter_value = meter_average(Meter_iin_dev, 1, Meter_iin_range)
-
         'Return meter_value
-
-
-
     End Function
 
     Function Iout_meter_set(ByVal check_iout As Object, ByVal cbox_Iout_meter As Object, ByVal cbox_IOUT_relay As Object) As Double
-
-
         'meter_value = meter_average(Meter_dev(num), 1, Meter_range(num))
-
         '以DC Load抽載的電流值來切檔位
 
         If check_iout.Checked = True Then
             If (iout_now < iout_meter_change) And (Iout_Meter_Max = True) Then
-
-
                 DCLoad_ONOFF("OFF")
-
                 GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(1))
-
                 Delay(100)
-
                 If Meter_iout_range = "MAX" Then
                     Meter_iout_range = "1e-4" '"4e-1"
                 End If
-
                 Iout_Meter_Max = False
-
                 meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
-
                 Delay(100)
-
-
             ElseIf (iout_now >= iout_meter_change) And (Iout_Meter_Max = False) Then
-
                 DCLoad_ONOFF("OFF")
                 GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(0))
-
-
                 Delay(100)
-
-
                 If Meter_iout_range <> "MAX" Then
                     Meter_iout_range = "MAX"
                 End If
                 Iout_Meter_Max = True
                 meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
-
             End If
-
-
             If DCLoad_ON = False Then
                 DCLoad_ONOFF("ON")
                 Delay(100)
             End If
         End If
-
-
-
-
-
         'meter_value = meter_average(Meter_iout_dev, 1, Meter_iout_range)
 
         'Return meter_value

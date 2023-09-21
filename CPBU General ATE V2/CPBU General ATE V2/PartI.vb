@@ -4678,20 +4678,17 @@ Public Class PartI
 
         iout_start_set = 0
         For i = 0 To data_eff.Rows.Count - 1
-
             If (data_eff.Rows(i).Cells(0).Value = vin_now) And (data_eff.Rows(i).Cells(1).Value = vout_now) Then
                 iout_start_set = data_eff.Rows(i).Cells(2).Value
                 eff_set_num = i
                 Exit For
             End If
-
-
         Next
 
         Iin_change = False
 
 
-        '先確認0A的時候的電流
+        '先確認0A的時候的電流 (eload setting)
         DCLoad_Iout(0, False)
 
         Power_Dev = vin_Dev
@@ -4705,6 +4702,18 @@ Public Class PartI
                 If check_iin.Checked = True Then
                     Iin_Meter_initial(check_iin, cbox_IIN_meter, cbox_IIN_relay) 'High Range
                 End If
+
+                ' Ollie_note: check current measure hi level
+                If rbtn_iin_current_measure.Checked Then
+                    relay_in_meter_intial()
+                End If
+
+                If rbtn_iout_current_measure.Checked Then
+                    realy_out_meter_initial()
+                End If
+
+
+
             Else
                 'set low
                 INA226_Iin_initial(False)
@@ -4751,6 +4760,8 @@ Public Class PartI
 
                     If rbtn_meter_iin.Checked = True Then
                         iin_meas = Math.Abs(meter_meas(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range, Meter_iin_low))
+                    ElseIf rbtn_iin_current_measure.Checked Then
+                        iin_meas = meter_auto(0, num_meter_count.Value)
                     Else
                         iin_meas = INA226_IIN_meas(1)
 
@@ -4968,6 +4979,8 @@ Public Class PartI
             ElseIf rbtn_board_iin.Checked = True Then
                 'relay read
                 iin_meas = INA226_IIN_meas(num_data_count.Value)
+            ElseIf rbtn_iin_current_measure.Checked Then
+                iin_meas = meter_auto(0, num_meter_count.Value)
             Else
                 iin_meas = power_read(cbox_vin.SelectedItem, Vin_out, "CURR") ' Format(power_read(cbox_vin.SelectedItem, Vin_out, "CURR"), "#0.000000000")
             End If
@@ -7090,7 +7103,6 @@ Public Class PartI
                 power_volt(VCC_device, VCC_out, vcc_now)
             End If
 
-
             For i = 0 To total_fs.Length - 1 ' freq loop
                 System.Windows.Forms.Application.DoEvents()
 
@@ -7216,7 +7228,6 @@ Public Class PartI
                                 num = 0
                                 data_set_now = set_num
                                 For x = stability_row_start(set_num) To stability_row_stop(set_num)
-
                                     ReDim Preserve stability_iout(num)
                                     stability_iout(num) = data_result.Rows(x).Cells("col_test_stability").Value
                                     ReDim Preserve total_iout(total_iout_num)
@@ -7232,15 +7243,12 @@ Public Class PartI
                                     IOUT_Boundary_Start = test_IOB_start(set_num)
                                     IOUT_Boundary_Stop = test_IOB_stop(set_num)
                                 End If
-
-
                             End If
 
                             '' 過濾重複的陣列元素
                             If total_iout_num = 0 Then
                                 Exit For
                             End If
-
 
                             Array.Sort(total_iout)
 
@@ -7249,15 +7257,12 @@ Public Class PartI
                             '-----------------------------------------------------------------------------------------------------------
                             'check Iin Meter
                             If (check_Efficiency.Checked = True) And ((check_iin.Checked = True) Or (rbtn_board_iin.Checked = True)) Then
-
                                 If (n = 0) And (i = 0) Then
+                                    ' Ollie_note: alread add current meter board in check_meter_iin_max
                                     check_meter_iin_max()
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
-
-
-
                             End If
                             '-----------------------------------------------------------------------------------------------------------
                             'Iout Setting
@@ -7266,16 +7271,13 @@ Public Class PartI
                             stability_iout_num = 0
                             jitter_iout_num = 0
                             '-----------------------------------------------------------------------------------------------------------
-                            'Start RUN
-
+                            ' Start RUN
                             For x = 0 To total_iout.Length - 1 ' iout loop
 
                                 System.Windows.Forms.Application.DoEvents()
 
                                 While pause = True
                                     System.Windows.Forms.Application.DoEvents()
-
-
                                     If run = False Then
                                         Exit While
                                     End If
@@ -7289,10 +7291,12 @@ Public Class PartI
                                 txt_test_now.Text = test_point_num
                                 iout_now = total_iout(x)
                                 '-------------------------------------------------------------------------------------
+
                                 If (check_Efficiency.Checked = True) Then
                                     '如果量測Eff需要調整Meter，其他都保持在Max range
                                     If (Iin_change = True) Then
                                         If rbtn_meter_iin.Checked = True Then
+                                            ' check_iin = realy check object
                                             Iin_meter_set(check_iin, cbox_IIN_meter, cbox_IIN_relay)
                                         Else
                                             INA226_IIN_set()
@@ -7301,7 +7305,6 @@ Public Class PartI
                                     If rbtn_meter_iout.Checked = True Then
                                         Iout_meter_set(check_iout, cbox_Iout_meter, cbox_Iout_relay)
                                     End If
-
                                 End If
 
                                 '-------------------------------------------------------------------------------------
@@ -7319,7 +7322,6 @@ Public Class PartI
                                     '確認小檔位的單位 100uA, 1mA....
                                     iin_meas = meter_average(cbox_IIN_meter.SelectedItem, Meter_iin_dev, 1, Meter_iin_range, Meter_iin_low)
                                     Meter_iin_range = Meter_range_now
-
                                 End If
 
 
@@ -7329,8 +7331,6 @@ Public Class PartI
                                     'Vin Sense
                                     vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
                                 End If
-
-
 
                                 ''----------------------------------------------------------------------------------
                                 'Measure
@@ -7353,6 +7353,11 @@ Public Class PartI
                                 If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
                                     iout_meas = meter_average(cbox_Iout_meter.SelectedItem, Meter_iout_dev, num_data_count.Value, Meter_iout_range, Meter_iout_low)
                                     Meter_iout_range = Meter_range_now
+                                ElseIf rbtn_iout_current_measure.Checked Then
+                                    ' Ollie_note: add current measure board
+                                    ' in_out_sel = 0: input current
+                                    ' in_out_sel = 1: output current
+                                    iout_meas = meter_auto(1, num_meter_count.Value)
                                 ElseIf rbtn_board_iout.Checked = True Then
                                     'relay read
                                     iout_meas = INA226_IOUT_meas(cbox_board_buck.SelectedIndex + 1, num_data_count.Value)
@@ -8146,7 +8151,6 @@ Public Class PartI
         Dim addr() As String
         'If PartI_first = True Then
         '    Exit Sub
-
         'End If
 
         num_iin_change.Maximum = 0.4 * 1000
@@ -8158,8 +8162,6 @@ Public Class PartI
             check_iin.Checked = True
             addr = Split(Meter_addr(cbox_IIN_meter.SelectedIndex), "::")
             txt_IIN_addr.Text = addr(1)
-
-
             'Check Relay
             Select Case Mid(cbox_IIN_meter.SelectedItem, 1, 5)
                 Case "34450"
@@ -8247,8 +8249,6 @@ Public Class PartI
             If (num_iout_change.Value > (Meter_iout_Max * 1000)) Or (num_iout_change.Value = 0) Then
                 num_iout_change.Value = (Meter_iout_Max * 0.9 * 1000)
             End If
-
-
         End If
 
     End Sub
@@ -8409,17 +8409,38 @@ Public Class PartI
                 txt_jitter_sheet.Text = "Jitter_" & PartI_num
             End If
 
-
-
-
             data_test_now = Main.data_Test.Rows.Count - 1
             Add_test = False
 
         End If
 
 
+        in_high_id = num_slave_in_H.Value
+        in_middle_id = num_slave_in_M.Value
+        in_low_id = num_slave_in_L.Value
+        in_io_id = num_slave_in_IO.Value
+
+        in_high_comp = num_comp_in_H.Value
+        in_middle_comp = num_comp_in_M.Value
+        in_low_comp = num_comp_in_L.Value
+
+        in_high_resolution = num_resolution_in_H.Value
+        in_middle_resolution = num_resolution_in_M.Value
+        in_low_resolution = num_resolution_in_L.Value
 
 
+        out_high_id = num_slave_out_H.Value
+        out_middle_id = num_slave_out_M.Value
+        out_low_id = num_slave_out_L.Value
+        out_io_id = num_slave_out_IO.Value
+
+        out_high_comp = num_comp_out_H.Value
+        out_middle_comp = num_comp_out_M.Value
+        out_low_comp = num_comp_out_L.Value
+
+        out_high_resolution = num_resolution_out_H.Value
+        out_middle_resolution = num_resolution_out_M.Value
+        out_low_resolution = num_resolution_out_L.Value
         Inst_check_list()
 
 

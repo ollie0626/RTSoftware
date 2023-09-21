@@ -8630,6 +8630,7 @@ Partial Class PartI
         Me.RadioButton1.TabStop = True
         Me.RadioButton1.Text = "DC Load"
         Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.RadioButton1.Visible = False
         '
         'RadioButton2
         '
@@ -8641,6 +8642,7 @@ Partial Class PartI
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "Meter"
         Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.RadioButton2.Visible = False
         '
         'Label144
         '
@@ -8651,6 +8653,7 @@ Partial Class PartI
         Me.Label144.Size = New System.Drawing.Size(109, 15)
         Me.Label144.TabIndex = 3652
         Me.Label144.Text = "Iout Measurement:"
+        Me.Label144.Visible = False
         '
         'Panel74
         '

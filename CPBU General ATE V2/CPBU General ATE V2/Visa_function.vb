@@ -21,34 +21,30 @@
         ' visa write will repeat if write fail.
         ' each times interval 100ms.
         If visa_status <> VI_SUCCESS Then
-                For i = 0 To 5
+            For i = 0 To 5
 
-                    System.Windows.Forms.Application.DoEvents()
-                    If run = False Then
-                        Exit For
+                System.Windows.Forms.Application.DoEvents()
+                If run = False Then
+                    Exit For
 
-                    End If
-                    Delay(100)
-                    visa_status = viWrite(vi_dev, ts, Len(ts), retcount)
-                    If visa_status = VI_SUCCESS Then
-                        Exit For
-                    ElseIf visa_status = VI_ERROR_CONN_LOST Then
-                        viOpen(defaultRM, vi_desc, VI_NO_LOCK, 2000, vi_dev)
-                    End If
-                Next
-            End If
-
-
-
-
+                End If
+                Delay(100)
+                visa_status = viWrite(vi_dev, ts, Len(ts), retcount)
+                If visa_status = VI_SUCCESS Then
+                    Exit For
+                ElseIf visa_status = VI_ERROR_CONN_LOST Then
+                    viOpen(defaultRM, vi_desc, VI_NO_LOCK, 2000, vi_dev)
+                End If
+            Next
+        End If
 
     End Function
 
 
-  
 
 
-  
+
+
 
 
     Function visa_scan() As String()
@@ -74,14 +70,14 @@
                     temp(num) = visa_descriptor
                     num = num + 1
                 End If
-              
+
             ElseIf (Mid(temp1(0), 1, 4) <> "ASRL") Then
                 ReDim Preserve temp(num)
                 temp(num) = visa_descriptor
                 num = num + 1
 
             End If
-         
+
 
 
         Next

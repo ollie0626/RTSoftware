@@ -444,48 +444,49 @@
             End If
         End If
 
-
-
-
-
-
         Return test
 
     End Function
+
+    Function relay_in_meter_intial() As Integer
+        reg_write_word(in_io_id, &H3, &H0, "H")
+        reg_write_word(in_io_id, &H1, &H0, "H") '切換最大檔位
+        reg_write_word(in_high_id, &H5, in_high_comp, "H")
+        reg_write_word(in_middle_id, &H5, in_middle_comp, "H")
+        reg_write_word(in_low_id, &H5, in_low_comp, "H")
+        Return 0
+    End Function
+
+
+    Function realy_out_meter_initial() As Integer
+        reg_write_word(out_io_id, &H3, &H0, "H")
+        reg_write_word(out_io_id, &H1, &H0, "H") '切換最大檔位
+        reg_write_word(out_high_id, &H5, out_high_comp, "H")
+        reg_write_word(out_middle_id, &H5, out_middle_comp, "H")
+        reg_write_word(out_low_id, &H5, out_low_comp, "H")
+        Return 0
+    End Function
+
 
     Function meter_average(ByVal meter_name As String, ByVal Meter_Dev As Integer, ByVal average As Integer, ByVal range As String, ByVal mini_range As String) As Double
         Dim i As Integer
         Dim temp, total As Double
         Dim error_num As Integer = 5
-
-
-
         Meter_range_now = range
         For i = 1 To average
             System.Windows.Forms.Application.DoEvents()
-
             If run = False Then
                 Exit For
             End If
-
             temp = meter_meas(meter_name, Meter_Dev, Meter_range_now, mini_range)
-
             If Meter_change_range = True Then
                 'Select Case sense_vin_test
-
                 '    Case "Test1"
-
                 '        PartI.Sense_vin()
-
-
                 'End Select
-
                 i = 1
                 temp = meter_meas(meter_name, Meter_Dev, Meter_range_now, mini_range)
-
             End If
-
-
             While temp = 0
 
                 System.Windows.Forms.Application.DoEvents()
@@ -505,9 +506,6 @@
                 End If
             End While
 
-
-
-
             If i = 1 Then
                 total = temp
             Else
@@ -515,12 +513,6 @@
             End If
 
         Next
-
-
-
-
-
-
 
         If average > 0 Then
             total = total / average
@@ -543,15 +535,10 @@
 
         curr_data = power_read(vin_device, Vin_out, "CURR")
 
-        Select Case in_out_sel
-            Case 0 : resolution = resolution_input
-            Case 1 : resolution = resolution_output
-        End Select
-
         If curr_data >= Meter_H Then
             Select Case in_out_sel
-                Case 0 : Meas_ID = in_high_id
-                Case 1 : Meas_ID = out_high_id
+                Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
+                Case 1 : Meas_ID = out_high_id : resolution = in_high_resolution
             End Select
 
             data_input = &H0
@@ -560,8 +547,8 @@
         If curr_data < Meter_H And curr_data >= Meter_L Then
 
             Select Case in_out_sel
-                Case 0 : Meas_ID = in_middle_id
-                Case 1 : Meas_ID = out_middle_id
+                Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
+                Case 1 : Meas_ID = out_middle_id : resolution = in_middle_resolution
             End Select
 
             data_input = &H1
@@ -569,8 +556,8 @@
 
         If curr_data < Meter_L Then
             Select Case in_out_sel
-                Case 0 : Meas_ID = in_middle_id
-                Case 1 : Meas_ID = out_middle_id
+                Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
+                Case 1 : Meas_ID = out_low_id : resolution = in_low_resolution
             End Select
             data_input = &H2
         End If
@@ -585,7 +572,6 @@
         total = 0
         read_error = 0
 
-
         For i = 0 To (average - 1)
             System.Windows.Forms.Application.DoEvents()
             If run = False Then
@@ -594,7 +580,6 @@
             temp = reg_read_word(Meas_ID, &H4, "H")
             While temp(0) <> 0 Or temp(1) = 65535
                 System.Windows.Forms.Application.DoEvents()
-
                 read_error = read_error + 1
                 If (read_error = 5) Or (run = False) Then
                     Return 0
