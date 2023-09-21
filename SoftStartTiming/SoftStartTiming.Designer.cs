@@ -37,10 +37,6 @@ namespace SoftStartTiming
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ck_crmode = new System.Windows.Forms.CheckBox();
             this.tb_iout = new System.Windows.Forms.TextBox();
-            this.labRail_en = new System.Windows.Forms.Label();
-            this.nuAddr = new System.Windows.Forms.NumericUpDown();
-            this.nuData1 = new System.Windows.Forms.NumericUpDown();
-            this.labAddr = new System.Windows.Forms.Label();
             this.BTSelectBinPath6 = new System.Windows.Forms.Button();
             this.group_sst = new System.Windows.Forms.GroupBox();
             this.nuILX = new System.Windows.Forms.NumericUpDown();
@@ -64,7 +60,10 @@ namespace SoftStartTiming
             this.CkBin3 = new System.Windows.Forms.CheckBox();
             this.CkBin1 = new System.Windows.Forms.CheckBox();
             this.group_channel = new System.Windows.Forms.GroupBox();
+            this.nu_ch4_level = new System.Windows.Forms.NumericUpDown();
+            this.nu_ch3_level = new System.Windows.Forms.NumericUpDown();
             this.CkCH2 = new System.Windows.Forms.CheckBox();
+            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
             this.CkCH3 = new System.Windows.Forms.CheckBox();
             this.CkCH1 = new System.Windows.Forms.CheckBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -84,6 +83,21 @@ namespace SoftStartTiming
             this.tbBin = new System.Windows.Forms.TextBox();
             this.tbWave = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.btn_i2c_data = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.nuaddr_to_dg = new System.Windows.Forms.NumericUpDown();
+            this.nudata_to_dg = new System.Windows.Forms.NumericUpDown();
+            this.i2c_datagrid = new System.Windows.Forms.DataGridView();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nuAddr = new System.Windows.Forms.NumericUpDown();
+            this.nuData1 = new System.Windows.Forms.NumericUpDown();
+            this.labAddr = new System.Windows.Forms.Label();
+            this.labRail_en = new System.Windows.Forms.Label();
+            this.nuData2 = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tb_connect4 = new System.Windows.Forms.TextBox();
             this.tb_connect3 = new System.Windows.Forms.TextBox();
@@ -130,14 +144,9 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.nu_ch3_level = new System.Windows.Forms.NumericUpDown();
-            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
-            this.nu_ch4_level = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
             this.group_sst.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuILX)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuLX)).BeginInit();
@@ -145,23 +154,31 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
             this.groupBox5.SuspendLayout();
             this.group_channel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuaddr_to_dg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudata_to_dg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_datagrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData2)).BeginInit();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Location = new System.Drawing.Point(18, 309);
             this.tabControl1.Name = "tabControl1";
@@ -175,10 +192,6 @@ namespace SoftStartTiming
             this.tabPage2.Controls.Add(this.CBEdge);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.labRail_en);
-            this.tabPage2.Controls.Add(this.nuAddr);
-            this.tabPage2.Controls.Add(this.nuData1);
-            this.tabPage2.Controls.Add(this.labAddr);
             this.tabPage2.Controls.Add(this.BTSelectBinPath6);
             this.tabPage2.Controls.Add(this.group_sst);
             this.tabPage2.Controls.Add(this.tbBin6);
@@ -264,58 +277,6 @@ namespace SoftStartTiming
             this.tb_iout.Size = new System.Drawing.Size(231, 22);
             this.tb_iout.TabIndex = 49;
             this.tb_iout.Text = "0.5";
-            // 
-            // labRail_en
-            // 
-            this.labRail_en.AutoSize = true;
-            this.labRail_en.Location = new System.Drawing.Point(327, 147);
-            this.labRail_en.Name = "labRail_en";
-            this.labRail_en.Size = new System.Drawing.Size(52, 12);
-            this.labRail_en.TabIndex = 88;
-            this.labRail_en.Text = "Rails En";
-            this.labRail_en.Visible = false;
-            // 
-            // nuAddr
-            // 
-            this.nuAddr.Hexadecimal = true;
-            this.nuAddr.Location = new System.Drawing.Point(245, 142);
-            this.nuAddr.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nuAddr.Name = "nuAddr";
-            this.nuAddr.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nuAddr.Size = new System.Drawing.Size(69, 22);
-            this.nuAddr.TabIndex = 76;
-            this.nuAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nuAddr.Visible = false;
-            // 
-            // nuData1
-            // 
-            this.nuData1.Hexadecimal = true;
-            this.nuData1.Location = new System.Drawing.Point(389, 142);
-            this.nuData1.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nuData1.Name = "nuData1";
-            this.nuData1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nuData1.Size = new System.Drawing.Size(69, 22);
-            this.nuData1.TabIndex = 88;
-            this.nuData1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nuData1.Visible = false;
-            // 
-            // labAddr
-            // 
-            this.labAddr.AutoSize = true;
-            this.labAddr.Location = new System.Drawing.Point(190, 147);
-            this.labAddr.Name = "labAddr";
-            this.labAddr.Size = new System.Drawing.Size(49, 12);
-            this.labAddr.TabIndex = 87;
-            this.labAddr.Text = "Address";
-            this.labAddr.Visible = false;
             // 
             // BTSelectBinPath6
             // 
@@ -566,6 +527,30 @@ namespace SoftStartTiming
             this.group_channel.TabStop = false;
             this.group_channel.Text = "Scope CH Enable";
             // 
+            // nu_ch4_level
+            // 
+            this.nu_ch4_level.Location = new System.Drawing.Point(115, 81);
+            this.nu_ch4_level.Name = "nu_ch4_level";
+            this.nu_ch4_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch4_level.TabIndex = 6;
+            this.nu_ch4_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // nu_ch3_level
+            // 
+            this.nu_ch3_level.Location = new System.Drawing.Point(115, 48);
+            this.nu_ch3_level.Name = "nu_ch3_level";
+            this.nu_ch3_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch3_level.TabIndex = 5;
+            this.nu_ch3_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // CkCH2
             // 
             this.CkCH2.AutoSize = true;
@@ -577,6 +562,18 @@ namespace SoftStartTiming
             this.CkCH2.TabIndex = 2;
             this.CkCH2.Text = "CK_Channel3";
             this.CkCH2.UseVisualStyleBackColor = true;
+            // 
+            // nu_ch2_level
+            // 
+            this.nu_ch2_level.Location = new System.Drawing.Point(115, 20);
+            this.nu_ch2_level.Name = "nu_ch2_level";
+            this.nu_ch2_level.Size = new System.Drawing.Size(55, 22);
+            this.nu_ch2_level.TabIndex = 4;
+            this.nu_ch2_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // CkCH3
             // 
@@ -773,6 +770,185 @@ namespace SoftStartTiming
             this.BTSelectWavePath.Text = "Wave Path";
             this.BTSelectWavePath.UseVisualStyleBackColor = true;
             this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage3.Controls.Add(this.btn_i2c_data);
+            this.tabPage3.Controls.Add(this.label19);
+            this.tabPage3.Controls.Add(this.label18);
+            this.tabPage3.Controls.Add(this.nuaddr_to_dg);
+            this.tabPage3.Controls.Add(this.nudata_to_dg);
+            this.tabPage3.Controls.Add(this.i2c_datagrid);
+            this.tabPage3.Controls.Add(this.label17);
+            this.tabPage3.Controls.Add(this.nuAddr);
+            this.tabPage3.Controls.Add(this.nuData1);
+            this.tabPage3.Controls.Add(this.labAddr);
+            this.tabPage3.Controls.Add(this.labRail_en);
+            this.tabPage3.Controls.Add(this.nuData2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(808, 412);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "I2C Setting";
+            // 
+            // btn_i2c_data
+            // 
+            this.btn_i2c_data.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_i2c_data.BackgroundImage")));
+            this.btn_i2c_data.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_i2c_data.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btn_i2c_data.Image = ((System.Drawing.Image)(resources.GetObject("btn_i2c_data.Image")));
+            this.btn_i2c_data.Location = new System.Drawing.Point(16, 107);
+            this.btn_i2c_data.Name = "btn_i2c_data";
+            this.btn_i2c_data.Size = new System.Drawing.Size(60, 35);
+            this.btn_i2c_data.TabIndex = 3022;
+            this.btn_i2c_data.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_i2c_data.UseVisualStyleBackColor = true;
+            this.btn_i2c_data.Click += new System.EventHandler(this.btn_i2c_data_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(72, 64);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(30, 12);
+            this.label19.TabIndex = 99;
+            this.label19.Text = "Data";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(17, 64);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(49, 12);
+            this.label18.TabIndex = 98;
+            this.label18.Text = "Address";
+            // 
+            // nuaddr_to_dg
+            // 
+            this.nuaddr_to_dg.Hexadecimal = true;
+            this.nuaddr_to_dg.Location = new System.Drawing.Point(16, 79);
+            this.nuaddr_to_dg.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuaddr_to_dg.Name = "nuaddr_to_dg";
+            this.nuaddr_to_dg.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuaddr_to_dg.Size = new System.Drawing.Size(50, 22);
+            this.nuaddr_to_dg.TabIndex = 96;
+            this.nuaddr_to_dg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nudata_to_dg
+            // 
+            this.nudata_to_dg.Hexadecimal = true;
+            this.nudata_to_dg.Location = new System.Drawing.Point(72, 79);
+            this.nudata_to_dg.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudata_to_dg.Name = "nudata_to_dg";
+            this.nudata_to_dg.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudata_to_dg.Size = new System.Drawing.Size(50, 22);
+            this.nudata_to_dg.TabIndex = 97;
+            this.nudata_to_dg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // i2c_datagrid
+            // 
+            this.i2c_datagrid.AllowUserToAddRows = false;
+            this.i2c_datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.i2c_datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Address,
+            this.Data});
+            this.i2c_datagrid.Location = new System.Drawing.Point(128, 64);
+            this.i2c_datagrid.Name = "i2c_datagrid";
+            this.i2c_datagrid.RowTemplate.Height = 24;
+            this.i2c_datagrid.Size = new System.Drawing.Size(253, 266);
+            this.i2c_datagrid.TabIndex = 93;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            // 
+            // Data
+            // 
+            this.Data.HeaderText = "Data";
+            this.Data.Name = "Data";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(126, 11);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(55, 12);
+            this.label17.TabIndex = 91;
+            this.label17.Text = "Rails Dis";
+            // 
+            // nuAddr
+            // 
+            this.nuAddr.Hexadecimal = true;
+            this.nuAddr.Location = new System.Drawing.Point(16, 30);
+            this.nuAddr.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuAddr.Name = "nuAddr";
+            this.nuAddr.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuAddr.Size = new System.Drawing.Size(50, 22);
+            this.nuAddr.TabIndex = 76;
+            this.nuAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nuData1
+            // 
+            this.nuData1.Hexadecimal = true;
+            this.nuData1.Location = new System.Drawing.Point(72, 30);
+            this.nuData1.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuData1.Name = "nuData1";
+            this.nuData1.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuData1.Size = new System.Drawing.Size(50, 22);
+            this.nuData1.TabIndex = 88;
+            this.nuData1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // labAddr
+            // 
+            this.labAddr.AutoSize = true;
+            this.labAddr.Location = new System.Drawing.Point(14, 11);
+            this.labAddr.Name = "labAddr";
+            this.labAddr.Size = new System.Drawing.Size(49, 12);
+            this.labAddr.TabIndex = 87;
+            this.labAddr.Text = "Address";
+            // 
+            // labRail_en
+            // 
+            this.labRail_en.AutoSize = true;
+            this.labRail_en.Location = new System.Drawing.Point(70, 11);
+            this.labRail_en.Name = "labRail_en";
+            this.labRail_en.Size = new System.Drawing.Size(52, 12);
+            this.labRail_en.TabIndex = 88;
+            this.labRail_en.Text = "Rails En";
+            // 
+            // nuData2
+            // 
+            this.nuData2.Hexadecimal = true;
+            this.nuData2.Location = new System.Drawing.Point(128, 30);
+            this.nuData2.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuData2.Name = "nuData2";
+            this.nuData2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuData2.Size = new System.Drawing.Size(50, 22);
+            this.nuData2.TabIndex = 92;
+            this.nuData2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tabPage1
             // 
@@ -1245,42 +1421,6 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
-            // nu_ch3_level
-            // 
-            this.nu_ch3_level.Location = new System.Drawing.Point(115, 48);
-            this.nu_ch3_level.Name = "nu_ch3_level";
-            this.nu_ch3_level.Size = new System.Drawing.Size(55, 22);
-            this.nu_ch3_level.TabIndex = 5;
-            this.nu_ch3_level.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nu_ch2_level
-            // 
-            this.nu_ch2_level.Location = new System.Drawing.Point(115, 20);
-            this.nu_ch2_level.Name = "nu_ch2_level";
-            this.nu_ch2_level.Size = new System.Drawing.Size(55, 22);
-            this.nu_ch2_level.TabIndex = 4;
-            this.nu_ch2_level.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // nu_ch4_level
-            // 
-            this.nu_ch4_level.Location = new System.Drawing.Point(115, 81);
-            this.nu_ch4_level.Name = "nu_ch4_level";
-            this.nu_ch4_level.Size = new System.Drawing.Size(55, 22);
-            this.nu_ch4_level.TabIndex = 6;
-            this.nu_ch4_level.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1328,8 +1468,6 @@ namespace SoftStartTiming
             this.tabPage2.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).EndInit();
             this.group_sst.ResumeLayout(false);
             this.group_sst.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuILX)).EndInit();
@@ -1341,12 +1479,23 @@ namespace SoftStartTiming
             this.groupBox5.PerformLayout();
             this.group_channel.ResumeLayout(false);
             this.group_channel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_offtime_scale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuaddr_to_dg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudata_to_dg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_datagrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuAddr)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuData2)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
@@ -1354,9 +1503,6 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1467,6 +1613,17 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_ch4_level;
         private System.Windows.Forms.NumericUpDown nu_ch3_level;
         private System.Windows.Forms.NumericUpDown nu_ch2_level;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown nuData2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView i2c_datagrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Data;
+        private System.Windows.Forms.NumericUpDown nuaddr_to_dg;
+        private System.Windows.Forms.NumericUpDown nudata_to_dg;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        internal System.Windows.Forms.Button btn_i2c_data;
     }
 }
 

@@ -15,6 +15,7 @@ using System.Diagnostics;
 
 using System.Text.RegularExpressions;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Reflection.Emit;
 
 namespace SoftStartTiming
 {
@@ -213,6 +214,7 @@ namespace SoftStartTiming
         private void test_parameter_copy()
         {
             // test condition
+            test_parameter.i2c_setting = i2c_datagrid;
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
             test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
             test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
@@ -262,6 +264,7 @@ namespace SoftStartTiming
             test_parameter.ILX_Level = (double)nuILX.Value;
 
             test_parameter.Rail_en = (byte)nuData1.Value;
+            test_parameter.Rail_dis = (byte)nuData2.Value;
             test_parameter.Rail_addr = (byte)nuAddr.Value;
 
             test_parameter.item_idx = CBItem.SelectedIndex;
@@ -680,10 +683,12 @@ namespace SoftStartTiming
 
                     // ----------------------
                     // GUI setting
-                    labAddr.Visible = false;
-                    labRail_en.Visible = false;
-                    nuAddr.Visible = false;
-                    nuData1.Visible = false;
+                    //labAddr.Visible = false;
+                    //labRail_en.Visible = false;
+                    //label17.Visible = false;
+                    //nuAddr.Visible = false;
+                    //nuData1.Visible = false;
+                    //nuData2.Visible = false;
                     break;
                 case 1:
                     tb_connect1.Text = "I2C (SCL)";
@@ -693,8 +698,10 @@ namespace SoftStartTiming
                     // GUI setting
                     labAddr.Visible = true;
                     labRail_en.Visible = true;
+                    label17.Visible = true;
                     nuAddr.Visible = true;
                     nuData1.Visible = true;
+                    nuData2.Visible = true;
                     break;
                 case 2:
                     tb_connect1.Text = "Vin";
@@ -702,10 +709,12 @@ namespace SoftStartTiming
 
                     // ----------------------
                     // GUI setting
-                    labAddr.Visible = false;
-                    labRail_en.Visible = true;
-                    nuAddr.Visible = false;
-                    nuData1.Visible = false;
+                    //labAddr.Visible = false;
+                    //labRail_en.Visible = false;
+                    //label17.Visible = false;
+                    //nuAddr.Visible = false;
+                    //nuData1.Visible = false;
+                    //nuData2.Visible = false;
                     break;
             }
         }
@@ -793,6 +802,16 @@ namespace SoftStartTiming
             settings += "26.Unit=$" + (RBUs.Checked ? "1" : "0") + "$\r\n";
             settings += "27.Time_offset=$" + nuOffset.Value.ToString() + "$\r\n";
 
+
+            settings += "28.i2c_setting_row=$" + i2c_datagrid.RowCount + "$\r\n";
+
+            for (int i = 0; i < i2c_datagrid.RowCount; i++)
+            {
+                settings += (i + 29).ToString() + ".Addr=$" + i2c_datagrid[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 30).ToString() + ".Data=$" + i2c_datagrid[1, i].Value.ToString() + "$\r\n";
+            }
+
+
             using (StreamWriter sw = new StreamWriter(file))
             {
                 sw.Write(settings);
@@ -817,7 +836,7 @@ namespace SoftStartTiming
                 tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
-                RBUs, nuOffset
+                RBUs, nuOffset, i2c_datagrid
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -833,6 +852,7 @@ namespace SoftStartTiming
                     info.Add(match.Value);
                 }
 
+                int idx = 0;
                 for (int i = 0; i < obj_arr.Length; i++)
                 {
                     switch (obj_arr[i].GetType().Name)
@@ -852,7 +872,19 @@ namespace SoftStartTiming
                         case "RadioButton":
                             ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
                             break;
+                        case "DataGridView":
+                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
+                            idx = i + 1;
+                            break;
                     }
+                }
+
+            fullDG:
+                for (int i = 0; i < i2c_datagrid.RowCount; i++)
+                {
+                    i2c_datagrid[0, i].Value = Convert.ToString(info[idx + 0]);
+                    i2c_datagrid[1, i].Value = Convert.ToString(info[idx + 1]);
+                    idx += 2;
                 }
             }
         }
@@ -867,6 +899,14 @@ namespace SoftStartTiming
             {
                 groupBox2.Text = "Iout Range (A)";
             }
+        }
+
+        private void btn_i2c_data_Click(object sender, EventArgs e)
+        {
+            i2c_datagrid.RowCount++;
+            int idx = i2c_datagrid.RowCount - 1;
+            i2c_datagrid[0, idx].Value = string.Format("{0:X}", (int)nuaddr_to_dg.Value);
+            i2c_datagrid[1, idx].Value = string.Format("{0:X}", (int)nudata_to_dg.Value);
         }
     }
 }

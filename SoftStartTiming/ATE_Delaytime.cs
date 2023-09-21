@@ -279,6 +279,7 @@ namespace SoftStartTiming
                     }
 
                     // rails enable
+                    I2C_DG_Write();
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
 
 
@@ -403,30 +404,36 @@ namespace SoftStartTiming
             TriggerEvent(idx);
 
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            if(test_parameter.trigger_event == 1)
+            {
+                I2C_DG_Write();
+                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+            }
+            
             // FF = 0x01
             // 9F = 0x62
             // 9D = 0x86
             // 9A = 0x98
             // RT5151 into test mode
-            byte[] tm_code = new byte[] { 0x01 };
-            byte addr = 0xFF;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9F;
-            tm_code[0] = 0x62;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9D;
-            tm_code[0] = 0x86;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9A;
-            tm_code[0] = 0x98;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //byte[] tm_code = new byte[] { 0x01 };
+            //byte addr = 0xFF;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9F;
+            //tm_code[0] = 0x62;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9D;
+            //tm_code[0] = 0x86;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9A;
+            //tm_code[0] = 0x98;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
 
-            addr = 0x85;
-            tm_code = new byte[] { 0x08, 0x40, 0xff };
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            tm_code = new byte[] { 0x01 };
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            
+            //addr = 0x85;
+            //tm_code = new byte[] { 0x08, 0x40, 0xff };
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //tm_code = new byte[] { 0x01 };
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+
             //MyLib.Delay1ms(3000);
             //for (int i = 0; i < 100; i++)
             //{
@@ -474,6 +481,16 @@ namespace SoftStartTiming
 
 
             //MyLib.Delay1ms(250);
+        }
+
+        private void I2C_DG_Write()
+        {
+            for (int i = 0; i < test_parameter.i2c_setting.RowCount; i++)
+            {
+                byte addr = Convert.ToByte(test_parameter.i2c_setting[0, i].Value.ToString(), 16);
+                byte data = Convert.ToByte(test_parameter.i2c_setting[1, i].Value.ToString(), 16);
+                RTDev.I2C_Write((byte)(test_parameter.slave), addr, new byte[] { data });
+            }
         }
 
         public override void ATETask()
@@ -1288,7 +1305,8 @@ namespace SoftStartTiming
                     break;
                 case 1:
                     // rails disable
-                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0x00 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
+                    I2C_DG_Write();
                     break;
                 case 2: // vin trigger
 #if Power_en

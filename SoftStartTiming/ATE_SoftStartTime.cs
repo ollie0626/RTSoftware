@@ -94,6 +94,16 @@ namespace SoftStartTiming
             }
         }
 
+        private void I2C_DG_Write()
+        {
+            for(int i = 0; i < test_parameter.i2c_setting.RowCount; i++)
+            {
+                byte addr = Convert.ToByte(test_parameter.i2c_setting[0, i].Value.ToString(), 16);
+                byte data = Convert.ToByte(test_parameter.i2c_setting[1, i].Value.ToString(), 16);
+                RTDev.I2C_Write((byte)(test_parameter.slave), addr, new byte[] { data });
+            }
+        }
+
         private void OSCInit()
         {
             if (InsControl._tek_scope_en)
@@ -120,9 +130,9 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
 
                 InsControl._tek_scope.CHx_Position(1, 0);
-                InsControl._tek_scope.CHx_Position(2, -1);
-                InsControl._tek_scope.CHx_Position(3, -2);
+                InsControl._tek_scope.CHx_Position(3, -1);
                 InsControl._tek_scope.CHx_Position(4, -3);
+                InsControl._tek_scope.CHx_Position(2, -1);
 
                 InsControl._tek_scope.CHx_BWlimitOn(1);
                 InsControl._tek_scope.CHx_BWlimitOn(2);
@@ -253,7 +263,7 @@ namespace SoftStartTiming
                         InsControl._scope.CHx_Level(1, 3.3 / 2);
                         InsControl._scope.CHx_Offset(1, 0);
                     }
-
+                    I2C_DG_Write();
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
@@ -266,25 +276,34 @@ namespace SoftStartTiming
             }
             MyLib.Delay1s(1);
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
-            //RT5151
-            byte[] tm_code = new byte[] { 0x01 };
-            byte addr = 0xFF;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9F;
-            tm_code[0] = 0x62;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9D;
-            tm_code[0] = 0x86;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            addr = 0x9A;
-            tm_code[0] = 0x98;
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
 
-            addr = 0x85;
-            tm_code = new byte[] { 0x08, 0x40, 0xff };
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            tm_code = new byte[] { 0x01 };
-            RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            if(test_parameter.trigger_event == 1)
+            {
+                I2C_DG_Write();
+                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+            }
+                
+
+
+            //RT5151
+            //byte[] tm_code = new byte[] { 0x01 };
+            //byte addr = 0xFF;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9F;
+            //tm_code[0] = 0x62;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9D;
+            //tm_code[0] = 0x86;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //addr = 0x9A;
+            //tm_code[0] = 0x98;
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+
+            //addr = 0x85;
+            //tm_code = new byte[] { 0x08, 0x40, 0xff };
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
+            //tm_code = new byte[] { 0x01 };
+            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
             MyLib.Delay1ms(800);
 
             // initial channel 
@@ -293,7 +312,6 @@ namespace SoftStartTiming
                 InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0]);
                 InsControl._tek_scope.CHx_Level(3, test_parameter.LX_Level);
                 InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
-
             }
             else
             {
@@ -753,7 +771,7 @@ namespace SoftStartTiming
                             sst = InsControl._tek_scope.CHx_Meas_Rise(2, meas_rising) * Math.Pow(10, 6);
                             vmax = InsControl._tek_scope.CHx_Meas_MAX(2, meas_vmax);
                             vmin = InsControl._tek_scope.CHx_Meas_MIN(2, meas_vmin);
-                            ilx_max = InsControl._tek_scope.CHx_Meas_MIN(4, meas_imax);
+                            ilx_max = InsControl._tek_scope.CHx_Meas_MAX(4, meas_imax);
                             ilx_min = InsControl._tek_scope.CHx_Meas_MIN(4, meas_imin);
 
                             InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
@@ -766,15 +784,23 @@ namespace SoftStartTiming
                             InsControl._tek_scope.DoCommand("CURSor:STATE ON");
                             MyLib.Delay1ms(100);
 
-                            InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS1");
-                            double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?");
-                            double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?");
+                            InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS1"); MyLib.Delay1ms(200);
+                            MyLib.Delay1ms(1000);
 
-                            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
-                            MyLib.Delay1ms(100);
-                            double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
-                            MyLib.Delay1ms(100);
-                            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
+                            for(int i = 0; i < 2; i++)
+                            {
+                                
+                                double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?"); MyLib.Delay1ms(250);
+                                double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?"); MyLib.Delay1ms(250);
+
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
+                                MyLib.Delay1ms(250);
+                                double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
+                                MyLib.Delay1ms(250);
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
+                                MyLib.Delay1ms(250);
+                            }
+
                         }
                         else
                         {
@@ -958,7 +984,7 @@ namespace SoftStartTiming
                     break;
                 case 1:
                     // rails disable
-                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { 0x00 });
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
                     break;
                 case 2: // vin trigger
 #if Power_en
@@ -966,6 +992,7 @@ namespace SoftStartTiming
 #endif
                     break;
             }
+            I2C_DG_Write();
         }
 
     }

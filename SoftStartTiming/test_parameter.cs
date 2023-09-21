@@ -93,6 +93,8 @@ namespace SoftStartTiming
 
         public static byte Rail_addr;
         public static byte Rail_en;
+        public static byte Rail_dis;
+        public static DataGridView i2c_setting;
 
         /* Cross talk */
         // test conditions
