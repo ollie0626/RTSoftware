@@ -538,7 +538,7 @@
         If curr_data >= Meter_H Then
             Select Case in_out_sel
                 Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
-                Case 1 : Meas_ID = out_high_id : resolution = in_high_resolution
+                Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
             End Select
 
             data_input = &H0
@@ -548,7 +548,7 @@
 
             Select Case in_out_sel
                 Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
-                Case 1 : Meas_ID = out_middle_id : resolution = in_middle_resolution
+                Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
             End Select
 
             data_input = &H1
@@ -557,7 +557,7 @@
         If curr_data < Meter_L Then
             Select Case in_out_sel
                 Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
-                Case 1 : Meas_ID = out_low_id : resolution = in_low_resolution
+                Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
             End Select
             data_input = &H2
         End If
