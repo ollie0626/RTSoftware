@@ -23,64 +23,64 @@ Partial Class PartI
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PartI))
-        Dim DataGridViewCellStyle1 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle2 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle3 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle5 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle4 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle6 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle7 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle8 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle9 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle10 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle11 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle12 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle13 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle14 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle15 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle16 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle17 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle18 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle19 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle20 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle21 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle22 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle23 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle24 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle25 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle26 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle27 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle28 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle32 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle29 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle30 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle31 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle33 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle34 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle35 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle36 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle37 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle38 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle39 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle40 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle41 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle42 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle43 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle44 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle45 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle46 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle47 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle48 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle49 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle50 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle51 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle52 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle53 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle54 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle55 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle56 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle57 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
-        Dim DataGridViewCellStyle58 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle59 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle60 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle61 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle63 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle62 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle64 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle65 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle66 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle67 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle68 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle69 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle70 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle71 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle72 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle73 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle74 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle75 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle76 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle77 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle78 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle79 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle80 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle81 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle82 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle83 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle84 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle85 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle86 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle90 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle87 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle88 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle89 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle91 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle92 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle93 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle94 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle95 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle96 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle97 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle98 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle99 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle100 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle101 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle102 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle103 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle104 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle105 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle106 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle107 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle108 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle109 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle110 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle111 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle112 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle113 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle114 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle115 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
+        Dim DataGridViewCellStyle116 As System.Windows.Forms.DataGridViewCellStyle = New System.Windows.Forms.DataGridViewCellStyle()
         Me.Tab_Set = New System.Windows.Forms.TabControl()
         Me.TabPage_Main1 = New System.Windows.Forms.TabPage()
         Me.TextBox7 = New System.Windows.Forms.TextBox()
@@ -248,6 +248,7 @@ Partial Class PartI
         Me.Panel11 = New System.Windows.Forms.Panel()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Panel14 = New System.Windows.Forms.Panel()
+        Me.rbtn_iout_current_measure = New System.Windows.Forms.RadioButton()
         Me.Label103 = New System.Windows.Forms.Label()
         Me.Label91 = New System.Windows.Forms.Label()
         Me.Label102 = New System.Windows.Forms.Label()
@@ -278,6 +279,7 @@ Partial Class PartI
         Me.Label18 = New System.Windows.Forms.Label()
         Me.Label19 = New System.Windows.Forms.Label()
         Me.Panel15 = New System.Windows.Forms.Panel()
+        Me.rbtn_iin_current_measure = New System.Windows.Forms.RadioButton()
         Me.rbtn_Iin_PW = New System.Windows.Forms.RadioButton()
         Me.Label105 = New System.Windows.Forms.Label()
         Me.Label104 = New System.Windows.Forms.Label()
@@ -686,6 +688,52 @@ Partial Class PartI
         Me.cbox_IIN_meter2 = New System.Windows.Forms.ComboBox()
         Me.txt_IIN_addr2 = New System.Windows.Forms.TextBox()
         Me.TextBox40 = New System.Windows.Forms.TextBox()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.Panel_out_merte = New System.Windows.Forms.Panel()
+        Me.Panel73 = New System.Windows.Forms.Panel()
+        Me.num_slave_out_IO = New System.Windows.Forms.NumericUpDown()
+        Me.TextBox12 = New System.Windows.Forms.TextBox()
+        Me.num_resolution_out_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_resolution_out_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_resolution_out_L = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_out_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_out_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_out_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_out_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_out_L = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_out_L = New System.Windows.Forms.NumericUpDown()
+        Me.TextBox34 = New System.Windows.Forms.TextBox()
+        Me.TextBox36 = New System.Windows.Forms.TextBox()
+        Me.TextBox41 = New System.Windows.Forms.TextBox()
+        Me.TextBox42 = New System.Windows.Forms.TextBox()
+        Me.TextBox43 = New System.Windows.Forms.TextBox()
+        Me.TextBox44 = New System.Windows.Forms.TextBox()
+        Me.TextBox56 = New System.Windows.Forms.TextBox()
+        Me.Label145 = New System.Windows.Forms.Label()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.num_meter_count = New System.Windows.Forms.NumericUpDown()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.TextBox66 = New System.Windows.Forms.TextBox()
+        Me.Label144 = New System.Windows.Forms.Label()
+        Me.Panel74 = New System.Windows.Forms.Panel()
+        Me.num_slave_in_IO = New System.Windows.Forms.NumericUpDown()
+        Me.TextBox59 = New System.Windows.Forms.TextBox()
+        Me.num_resolution_in_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_resolution_in_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_in_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_in_H = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_in_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_in_M = New System.Windows.Forms.NumericUpDown()
+        Me.num_comp_in_L = New System.Windows.Forms.NumericUpDown()
+        Me.num_slave_in_L = New System.Windows.Forms.NumericUpDown()
+        Me.TextBox60 = New System.Windows.Forms.TextBox()
+        Me.TextBox61 = New System.Windows.Forms.TextBox()
+        Me.TextBox62 = New System.Windows.Forms.TextBox()
+        Me.num_resolution_in_L = New System.Windows.Forms.NumericUpDown()
+        Me.TextBox63 = New System.Windows.Forms.TextBox()
+        Me.TextBox64 = New System.Windows.Forms.TextBox()
+        Me.TextBox65 = New System.Windows.Forms.TextBox()
         Me.btn_refresh = New System.Windows.Forms.Button()
         Me.GroupBox7 = New System.Windows.Forms.GroupBox()
         Me.pic_vcc = New System.Windows.Forms.PictureBox()
@@ -718,53 +766,6 @@ Partial Class PartI
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.TabPage1 = New System.Windows.Forms.TabPage()
-        Me.Panel_out_merte = New System.Windows.Forms.Panel()
-        Me.Panel73 = New System.Windows.Forms.Panel()
-        Me.num_slave_out_IO = New System.Windows.Forms.NumericUpDown()
-        Me.TextBox12 = New System.Windows.Forms.TextBox()
-        Me.num_resolution_out_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_resolution_out_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_resolution_out_L = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_out_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_out_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_out_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_out_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_out_L = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_out_L = New System.Windows.Forms.NumericUpDown()
-        Me.TextBox34 = New System.Windows.Forms.TextBox()
-        Me.TextBox36 = New System.Windows.Forms.TextBox()
-        Me.TextBox41 = New System.Windows.Forms.TextBox()
-        Me.TextBox42 = New System.Windows.Forms.TextBox()
-        Me.TextBox43 = New System.Windows.Forms.TextBox()
-        Me.TextBox44 = New System.Windows.Forms.TextBox()
-        Me.TextBox56 = New System.Windows.Forms.TextBox()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.Label144 = New System.Windows.Forms.Label()
-        Me.Panel74 = New System.Windows.Forms.Panel()
-        Me.num_slave_in_IO = New System.Windows.Forms.NumericUpDown()
-        Me.TextBox59 = New System.Windows.Forms.TextBox()
-        Me.num_resolution_in_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_resolution_in_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_in_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_in_H = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_in_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_in_M = New System.Windows.Forms.NumericUpDown()
-        Me.num_comp_in_L = New System.Windows.Forms.NumericUpDown()
-        Me.num_slave_in_L = New System.Windows.Forms.NumericUpDown()
-        Me.TextBox60 = New System.Windows.Forms.TextBox()
-        Me.TextBox61 = New System.Windows.Forms.TextBox()
-        Me.TextBox62 = New System.Windows.Forms.TextBox()
-        Me.num_resolution_in_L = New System.Windows.Forms.NumericUpDown()
-        Me.TextBox63 = New System.Windows.Forms.TextBox()
-        Me.TextBox64 = New System.Windows.Forms.TextBox()
-        Me.TextBox65 = New System.Windows.Forms.TextBox()
-        Me.TextBox66 = New System.Windows.Forms.TextBox()
-        Me.Label145 = New System.Windows.Forms.Label()
-        Me.num_meter_count = New System.Windows.Forms.NumericUpDown()
-        Me.rbtn_iin_current_measure = New System.Windows.Forms.RadioButton()
-        Me.rbtn_iout_current_measure = New System.Windows.Forms.RadioButton()
         Me.Tab_Set.SuspendLayout
         Me.TabPage_Main1.SuspendLayout
         Me.Panel57.SuspendLayout
@@ -947,6 +948,31 @@ Partial Class PartI
         CType(Me.num_vin_max2, System.ComponentModel.ISupportInitialize).BeginInit
         Me.Panel71.SuspendLayout
         CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.TabPage1.SuspendLayout
+        Me.Panel_out_merte.SuspendLayout
+        Me.Panel73.SuspendLayout
+        CType(Me.num_slave_out_IO, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_out_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_out_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_out_L, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_out_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_out_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_out_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_out_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_out_L, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_out_L, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_meter_count, System.ComponentModel.ISupportInitialize).BeginInit
+        Me.Panel74.SuspendLayout
+        CType(Me.num_slave_in_IO, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_in_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_in_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_in_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_in_H, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_in_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_in_M, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_comp_in_L, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_slave_in_L, System.ComponentModel.ISupportInitialize).BeginInit
+        CType(Me.num_resolution_in_L, System.ComponentModel.ISupportInitialize).BeginInit
         Me.GroupBox7.SuspendLayout
         CType(Me.pic_vcc, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.pic_TA, System.ComponentModel.ISupportInitialize).BeginInit
@@ -961,31 +987,6 @@ Partial Class PartI
         CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.TabPage1.SuspendLayout
-        Me.Panel_out_merte.SuspendLayout
-        Me.Panel73.SuspendLayout
-        CType(Me.num_slave_out_IO, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_out_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_out_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_out_L, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_out_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_out_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_out_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_out_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_out_L, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_out_L, System.ComponentModel.ISupportInitialize).BeginInit
-        Me.Panel74.SuspendLayout
-        CType(Me.num_slave_in_IO, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_in_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_in_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_in_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_in_H, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_in_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_in_M, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_comp_in_L, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_slave_in_L, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_resolution_in_L, System.ComponentModel.ISupportInitialize).BeginInit
-        CType(Me.num_meter_count, System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
         'Tab_Set
@@ -1297,14 +1298,14 @@ Partial Class PartI
         'data_VCC
         '
         Me.data_VCC.AllowUserToAddRows = False
-        DataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle1.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_VCC.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle1
+        DataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle59.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_VCC.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle59
         Me.data_VCC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_VCC.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col_VCC})
         Me.data_VCC.Location = New System.Drawing.Point(458, 24)
@@ -1315,9 +1316,9 @@ Partial Class PartI
         '
         'col_VCC
         '
-        DataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black
-        Me.col_VCC.DefaultCellStyle = DataGridViewCellStyle2
+        DataGridViewCellStyle60.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle60.ForeColor = System.Drawing.Color.Black
+        Me.col_VCC.DefaultCellStyle = DataGridViewCellStyle60
         Me.col_VCC.HeaderText = "VCC (V)"
         Me.col_VCC.Name = "col_VCC"
         Me.col_VCC.Width = 90
@@ -2876,6 +2877,17 @@ Partial Class PartI
         Me.Panel14.Size = New System.Drawing.Size(626, 99)
         Me.Panel14.TabIndex = 3278
         '
+        'rbtn_iout_current_measure
+        '
+        Me.rbtn_iout_current_measure.AutoSize = True
+        Me.rbtn_iout_current_measure.Location = New System.Drawing.Point(109, 74)
+        Me.rbtn_iout_current_measure.Name = "rbtn_iout_current_measure"
+        Me.rbtn_iout_current_measure.Size = New System.Drawing.Size(153, 19)
+        Me.rbtn_iout_current_measure.TabIndex = 3267
+        Me.rbtn_iout_current_measure.TabStop = True
+        Me.rbtn_iout_current_measure.Text = "Current Measure Board"
+        Me.rbtn_iout_current_measure.UseVisualStyleBackColor = True
+        '
         'Label103
         '
         Me.Label103.AutoSize = True
@@ -3207,6 +3219,17 @@ Partial Class PartI
         Me.Panel15.Name = "Panel15"
         Me.Panel15.Size = New System.Drawing.Size(626, 76)
         Me.Panel15.TabIndex = 3274
+        '
+        'rbtn_iin_current_measure
+        '
+        Me.rbtn_iin_current_measure.AutoSize = True
+        Me.rbtn_iin_current_measure.Location = New System.Drawing.Point(405, 52)
+        Me.rbtn_iin_current_measure.Name = "rbtn_iin_current_measure"
+        Me.rbtn_iin_current_measure.Size = New System.Drawing.Size(153, 19)
+        Me.rbtn_iin_current_measure.TabIndex = 3266
+        Me.rbtn_iin_current_measure.TabStop = True
+        Me.rbtn_iin_current_measure.Text = "Current Measure Board"
+        Me.rbtn_iin_current_measure.UseVisualStyleBackColor = True
         '
         'rbtn_Iin_PW
         '
@@ -4878,32 +4901,32 @@ Partial Class PartI
         'data_jitter_iout
         '
         Me.data_jitter_iout.AllowUserToAddRows = False
-        DataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle3.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_jitter_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle3
+        DataGridViewCellStyle61.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle61.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle61.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle61.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle61.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle61.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle61.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_jitter_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle61
         Me.data_jitter_iout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_jitter_iout.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn8})
         Me.data_jitter_iout.Location = New System.Drawing.Point(7, 77)
         Me.data_jitter_iout.Name = "data_jitter_iout"
-        DataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle5.ForeColor = System.Drawing.Color.Black
-        Me.data_jitter_iout.RowsDefaultCellStyle = DataGridViewCellStyle5
+        DataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle63.ForeColor = System.Drawing.Color.Black
+        Me.data_jitter_iout.RowsDefaultCellStyle = DataGridViewCellStyle63
         Me.data_jitter_iout.RowTemplate.Height = 24
         Me.data_jitter_iout.Size = New System.Drawing.Size(142, 142)
         Me.data_jitter_iout.TabIndex = 3187
         '
         'DataGridViewTextBoxColumn8
         '
-        DataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle4.Format = "N4"
-        DataGridViewCellStyle4.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle4
+        DataGridViewCellStyle62.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle62.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle62.Format = "N4"
+        DataGridViewCellStyle62.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn8.DefaultCellStyle = DataGridViewCellStyle62
         Me.DataGridViewTextBoxColumn8.HeaderText = "IOUT (A)"
         Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
         Me.DataGridViewTextBoxColumn8.Width = 80
@@ -5058,14 +5081,14 @@ Partial Class PartI
         'data_eff_iout
         '
         Me.data_eff_iout.AllowUserToAddRows = False
-        DataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle6.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_eff_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle6
+        DataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle64.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle64.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle64.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle64.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle64.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle64.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_eff_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle64
         Me.data_eff_iout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_eff_iout.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn3})
         Me.data_eff_iout.Location = New System.Drawing.Point(6, 36)
@@ -5076,9 +5099,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn3
         '
-        DataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle7.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle7
+        DataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle65.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn3.DefaultCellStyle = DataGridViewCellStyle65
         Me.DataGridViewTextBoxColumn3.HeaderText = "IOUT (A)"
         Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
         Me.DataGridViewTextBoxColumn3.Width = 80
@@ -5207,14 +5230,14 @@ Partial Class PartI
         '
         Me.data_test.AllowUserToAddRows = False
         Me.data_test.AllowUserToDeleteRows = False
-        DataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle8.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_test.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle8
+        DataGridViewCellStyle66.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle66.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle66.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle66.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle66.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle66.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle66.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_test.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle66
         Me.data_test.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_test.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column4})
         Me.data_test.Location = New System.Drawing.Point(5, 105)
@@ -5225,9 +5248,9 @@ Partial Class PartI
         '
         'Column4
         '
-        DataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle9.ForeColor = System.Drawing.Color.Black
-        Me.Column4.DefaultCellStyle = DataGridViewCellStyle9
+        DataGridViewCellStyle67.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle67.ForeColor = System.Drawing.Color.Black
+        Me.Column4.DefaultCellStyle = DataGridViewCellStyle67
         Me.Column4.HeaderText = "IOUT (A)"
         Me.Column4.Name = "Column4"
         Me.Column4.Width = 80
@@ -5235,14 +5258,14 @@ Partial Class PartI
         'data_vin
         '
         Me.data_vin.AllowUserToAddRows = False
-        DataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle10.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_vin.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle10
+        DataGridViewCellStyle68.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle68.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle68.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle68.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle68.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle68.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle68.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_vin.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle68
         Me.data_vin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_vin.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.col_VIN})
         Me.data_vin.Location = New System.Drawing.Point(483, 6)
@@ -5253,9 +5276,9 @@ Partial Class PartI
         '
         'col_VIN
         '
-        DataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle11.ForeColor = System.Drawing.Color.Black
-        Me.col_VIN.DefaultCellStyle = DataGridViewCellStyle11
+        DataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle69.ForeColor = System.Drawing.Color.Black
+        Me.col_VIN.DefaultCellStyle = DataGridViewCellStyle69
         Me.col_VIN.HeaderText = "VIN (V)"
         Me.col_VIN.Name = "col_VIN"
         Me.col_VIN.Width = 70
@@ -5273,17 +5296,17 @@ Partial Class PartI
         '
         Me.data_set.AllowUserToAddRows = False
         Me.data_set.AllowUserToDeleteRows = False
-        DataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle12.ForeColor = System.Drawing.Color.Black
-        Me.data_set.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle12
-        DataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle13.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_set.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle13
+        DataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle70.ForeColor = System.Drawing.Color.Black
+        Me.data_set.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle70
+        DataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle71.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle71.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle71.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle71.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle71.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle71.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_set.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle71
         Me.data_set.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_set.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column3, Me.col_VCC1, Me.col_Fs1, Me.col_Vout1, Me.col_Vin1, Me.col_ton, Me.col_Fs0, Me.col_IOB_start, Me.col_IBO_Stop})
         Me.data_set.Location = New System.Drawing.Point(3, 86)
@@ -5295,27 +5318,27 @@ Partial Class PartI
         '
         'Column3
         '
-        DataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle14.ForeColor = System.Drawing.Color.Black
-        Me.Column3.DefaultCellStyle = DataGridViewCellStyle14
+        DataGridViewCellStyle72.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle72.ForeColor = System.Drawing.Color.Black
+        Me.Column3.DefaultCellStyle = DataGridViewCellStyle72
         Me.Column3.HeaderText = "TA  (℃)"
         Me.Column3.Name = "Column3"
         Me.Column3.Width = 70
         '
         'col_VCC1
         '
-        DataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle15.ForeColor = System.Drawing.Color.Black
-        Me.col_VCC1.DefaultCellStyle = DataGridViewCellStyle15
+        DataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle73.ForeColor = System.Drawing.Color.Black
+        Me.col_VCC1.DefaultCellStyle = DataGridViewCellStyle73
         Me.col_VCC1.HeaderText = "VCC (V)"
         Me.col_VCC1.Name = "col_VCC1"
         Me.col_VCC1.Width = 70
         '
         'col_Fs1
         '
-        DataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle16.ForeColor = System.Drawing.Color.Black
-        Me.col_Fs1.DefaultCellStyle = DataGridViewCellStyle16
+        DataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle74.ForeColor = System.Drawing.Color.Black
+        Me.col_Fs1.DefaultCellStyle = DataGridViewCellStyle74
         Me.col_Fs1.HeaderText = "Fsw (Hz)"
         Me.col_Fs1.Name = "col_Fs1"
         Me.col_Fs1.ReadOnly = True
@@ -5323,11 +5346,11 @@ Partial Class PartI
         '
         'col_Vout1
         '
-        DataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle17.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle17.Format = "N1"
-        DataGridViewCellStyle17.NullValue = Nothing
-        Me.col_Vout1.DefaultCellStyle = DataGridViewCellStyle17
+        DataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle75.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle75.Format = "N1"
+        DataGridViewCellStyle75.NullValue = Nothing
+        Me.col_Vout1.DefaultCellStyle = DataGridViewCellStyle75
         Me.col_Vout1.HeaderText = "VOUT (V)"
         Me.col_Vout1.Name = "col_Vout1"
         Me.col_Vout1.ReadOnly = True
@@ -5335,11 +5358,11 @@ Partial Class PartI
         '
         'col_Vin1
         '
-        DataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle18.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle18.Format = "N3"
-        DataGridViewCellStyle18.NullValue = Nothing
-        Me.col_Vin1.DefaultCellStyle = DataGridViewCellStyle18
+        DataGridViewCellStyle76.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle76.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle76.Format = "N3"
+        DataGridViewCellStyle76.NullValue = Nothing
+        Me.col_Vin1.DefaultCellStyle = DataGridViewCellStyle76
         Me.col_Vin1.HeaderText = "VIN (V)"
         Me.col_Vin1.Name = "col_Vin1"
         Me.col_Vin1.ReadOnly = True
@@ -5347,36 +5370,36 @@ Partial Class PartI
         '
         'col_ton
         '
-        DataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle19.ForeColor = System.Drawing.Color.Black
-        Me.col_ton.DefaultCellStyle = DataGridViewCellStyle19
+        DataGridViewCellStyle77.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle77.ForeColor = System.Drawing.Color.Black
+        Me.col_ton.DefaultCellStyle = DataGridViewCellStyle77
         Me.col_ton.HeaderText = "ton (ns)"
         Me.col_ton.Name = "col_ton"
         Me.col_ton.Width = 70
         '
         'col_Fs0
         '
-        DataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle20.ForeColor = System.Drawing.Color.Black
-        Me.col_Fs0.DefaultCellStyle = DataGridViewCellStyle20
+        DataGridViewCellStyle78.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle78.ForeColor = System.Drawing.Color.Black
+        Me.col_Fs0.DefaultCellStyle = DataGridViewCellStyle78
         Me.col_Fs0.HeaderText = "Fsw_leak_0A (Hz)"
         Me.col_Fs0.Name = "col_Fs0"
         Me.col_Fs0.Width = 90
         '
         'col_IOB_start
         '
-        DataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle21.ForeColor = System.Drawing.Color.Black
-        Me.col_IOB_start.DefaultCellStyle = DataGridViewCellStyle21
+        DataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle79.ForeColor = System.Drawing.Color.Black
+        Me.col_IOB_start.DefaultCellStyle = DataGridViewCellStyle79
         Me.col_IOB_start.HeaderText = "IBO_start (A)"
         Me.col_IOB_start.Name = "col_IOB_start"
         Me.col_IOB_start.Width = 80
         '
         'col_IBO_Stop
         '
-        DataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle22.ForeColor = System.Drawing.Color.Black
-        Me.col_IBO_Stop.DefaultCellStyle = DataGridViewCellStyle22
+        DataGridViewCellStyle80.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle80.ForeColor = System.Drawing.Color.Black
+        Me.col_IBO_Stop.DefaultCellStyle = DataGridViewCellStyle80
         Me.col_IBO_Stop.HeaderText = "IBO_stop (A)"
         Me.col_IBO_Stop.Name = "col_IBO_Stop"
         Me.col_IBO_Stop.Width = 80
@@ -5442,14 +5465,14 @@ Partial Class PartI
         'data_iout
         '
         Me.data_iout.AllowUserToAddRows = False
-        DataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle23.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle23
+        DataGridViewCellStyle81.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle81.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle81.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle81.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle81.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle81.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle81.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle81
         Me.data_iout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_iout.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn2, Me.Column1, Me.Column2})
         Me.data_iout.Location = New System.Drawing.Point(6, 320)
@@ -5461,11 +5484,11 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn2
         '
-        DataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle24.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle24.Format = "N4"
-        DataGridViewCellStyle24.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle24
+        DataGridViewCellStyle82.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle82.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle82.Format = "N4"
+        DataGridViewCellStyle82.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn2.DefaultCellStyle = DataGridViewCellStyle82
         Me.DataGridViewTextBoxColumn2.HeaderText = "Start (A)"
         Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
         Me.DataGridViewTextBoxColumn2.ReadOnly = True
@@ -5473,11 +5496,11 @@ Partial Class PartI
         '
         'Column1
         '
-        DataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle25.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle25.Format = "N4"
-        DataGridViewCellStyle25.NullValue = Nothing
-        Me.Column1.DefaultCellStyle = DataGridViewCellStyle25
+        DataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle83.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle83.Format = "N4"
+        DataGridViewCellStyle83.NullValue = Nothing
+        Me.Column1.DefaultCellStyle = DataGridViewCellStyle83
         Me.Column1.HeaderText = "Stop (A)"
         Me.Column1.Name = "Column1"
         Me.Column1.ReadOnly = True
@@ -5485,10 +5508,10 @@ Partial Class PartI
         '
         'Column2
         '
-        DataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle26.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle26.Format = "N4"
-        Me.Column2.DefaultCellStyle = DataGridViewCellStyle26
+        DataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle84.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle84.Format = "N4"
+        Me.Column2.DefaultCellStyle = DataGridViewCellStyle84
         Me.Column2.HeaderText = "Step (A)"
         Me.Column2.Name = "Column2"
         Me.Column2.ReadOnly = True
@@ -6200,36 +6223,36 @@ Partial Class PartI
         'data_eff
         '
         Me.data_eff.AllowUserToAddRows = False
-        DataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle27.ForeColor = System.Drawing.Color.Black
-        Me.data_eff.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle27
-        DataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle28.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_eff.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle28
+        DataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle85.ForeColor = System.Drawing.Color.Black
+        Me.data_eff.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle85
+        DataGridViewCellStyle86.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle86.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle86.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle86.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle86.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle86.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle86.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_eff.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle86
         Me.data_eff.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_eff.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn12, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn16})
         Me.data_eff.Location = New System.Drawing.Point(9, 81)
         Me.data_eff.MultiSelect = False
         Me.data_eff.Name = "data_eff"
-        DataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle32.ForeColor = System.Drawing.Color.Black
-        Me.data_eff.RowsDefaultCellStyle = DataGridViewCellStyle32
+        DataGridViewCellStyle90.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle90.ForeColor = System.Drawing.Color.Black
+        Me.data_eff.RowsDefaultCellStyle = DataGridViewCellStyle90
         Me.data_eff.RowTemplate.Height = 24
         Me.data_eff.Size = New System.Drawing.Size(332, 132)
         Me.data_eff.TabIndex = 3232
         '
         'DataGridViewTextBoxColumn12
         '
-        DataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle29.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle29.Format = "N3"
-        DataGridViewCellStyle29.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn12.DefaultCellStyle = DataGridViewCellStyle29
+        DataGridViewCellStyle87.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle87.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle87.Format = "N3"
+        DataGridViewCellStyle87.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn12.DefaultCellStyle = DataGridViewCellStyle87
         Me.DataGridViewTextBoxColumn12.HeaderText = "VIN (V)"
         Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
         Me.DataGridViewTextBoxColumn12.ReadOnly = True
@@ -6237,11 +6260,11 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn11
         '
-        DataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle30.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle30.Format = "N1"
-        DataGridViewCellStyle30.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn11.DefaultCellStyle = DataGridViewCellStyle30
+        DataGridViewCellStyle88.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle88.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle88.Format = "N1"
+        DataGridViewCellStyle88.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn11.DefaultCellStyle = DataGridViewCellStyle88
         Me.DataGridViewTextBoxColumn11.HeaderText = "VOUT (V)"
         Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
         Me.DataGridViewTextBoxColumn11.ReadOnly = True
@@ -6249,9 +6272,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn16
         '
-        DataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle31.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn16.DefaultCellStyle = DataGridViewCellStyle31
+        DataGridViewCellStyle89.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle89.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn16.DefaultCellStyle = DataGridViewCellStyle89
         Me.DataGridViewTextBoxColumn16.HeaderText = "IOUT_Start (mA)"
         Me.DataGridViewTextBoxColumn16.Name = "DataGridViewTextBoxColumn16"
         '
@@ -6436,14 +6459,14 @@ Partial Class PartI
         'data_lineR_vin
         '
         Me.data_lineR_vin.AllowUserToAddRows = False
-        DataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle33.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle33.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle33.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle33.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_lineR_vin.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle33
+        DataGridViewCellStyle91.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle91.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle91.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle91.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle91.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle91.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle91.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_lineR_vin.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle91
         Me.data_lineR_vin.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_lineR_vin.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1})
         Me.data_lineR_vin.Location = New System.Drawing.Point(234, 6)
@@ -6454,9 +6477,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn1
         '
-        DataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle34.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle34
+        DataGridViewCellStyle92.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle92.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn1.DefaultCellStyle = DataGridViewCellStyle92
         Me.DataGridViewTextBoxColumn1.HeaderText = "VIN (V)"
         Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
         Me.DataGridViewTextBoxColumn1.Width = 70
@@ -6490,14 +6513,14 @@ Partial Class PartI
         'data_lineR_iout
         '
         Me.data_lineR_iout.AllowUserToAddRows = False
-        DataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle35.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle35.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle35.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle35.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle35.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle35.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_lineR_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle35
+        DataGridViewCellStyle93.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle93.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle93.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle93.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle93.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle93.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_lineR_iout.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle93
         Me.data_lineR_iout.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_lineR_iout.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn13})
         Me.data_lineR_iout.Location = New System.Drawing.Point(169, 20)
@@ -6508,9 +6531,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn13
         '
-        DataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle36.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn13.DefaultCellStyle = DataGridViewCellStyle36
+        DataGridViewCellStyle94.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle94.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn13.DefaultCellStyle = DataGridViewCellStyle94
         Me.DataGridViewTextBoxColumn13.HeaderText = "IOUT (A)"
         Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
         Me.DataGridViewTextBoxColumn13.Width = 80
@@ -6628,17 +6651,17 @@ Partial Class PartI
         '
         Me.data_result.AllowUserToAddRows = False
         Me.data_result.AllowUserToDeleteRows = False
-        DataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle37.ForeColor = System.Drawing.Color.Black
-        Me.data_result.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle37
-        DataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Control
-        DataGridViewCellStyle38.Font = New System.Drawing.Font("Arial", 9.0!)
-        DataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText
-        DataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight
-        DataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText
-        DataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
-        Me.data_result.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle38
+        DataGridViewCellStyle95.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle95.ForeColor = System.Drawing.Color.Black
+        Me.data_result.AlternatingRowsDefaultCellStyle = DataGridViewCellStyle95
+        DataGridViewCellStyle96.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle96.BackColor = System.Drawing.SystemColors.Control
+        DataGridViewCellStyle96.Font = New System.Drawing.Font("Arial", 9.0!)
+        DataGridViewCellStyle96.ForeColor = System.Drawing.SystemColors.WindowText
+        DataGridViewCellStyle96.SelectionBackColor = System.Drawing.SystemColors.Highlight
+        DataGridViewCellStyle96.SelectionForeColor = System.Drawing.SystemColors.HighlightText
+        DataGridViewCellStyle96.WrapMode = System.Windows.Forms.DataGridViewTriState.[True]
+        Me.data_result.ColumnHeadersDefaultCellStyle = DataGridViewCellStyle96
         Me.data_result.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.data_result.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.Column5, Me.col_test_vcc1, Me.col_test_fsw1, Me.col_test_vout1, Me.col_test_vin1, Me.col_test_iout1, Me.col_test_eff, Me.col_test_line, Me.col_test_jitter, Me.col_test_stability, Me.col_Fs_max, Me.col_Fs_min, Me.col_Fs_CCM, Me.col_IOB_start1, Me.col_IOB_stop1})
         Me.data_result.Location = New System.Drawing.Point(3, 3)
@@ -6651,9 +6674,9 @@ Partial Class PartI
         '
         'Column5
         '
-        DataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle39.ForeColor = System.Drawing.Color.Black
-        Me.Column5.DefaultCellStyle = DataGridViewCellStyle39
+        DataGridViewCellStyle97.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle97.ForeColor = System.Drawing.Color.Black
+        Me.Column5.DefaultCellStyle = DataGridViewCellStyle97
         Me.Column5.HeaderText = "TA num"
         Me.Column5.Name = "Column5"
         Me.Column5.ReadOnly = True
@@ -6661,9 +6684,9 @@ Partial Class PartI
         '
         'col_test_vcc1
         '
-        DataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle40.ForeColor = System.Drawing.Color.Black
-        Me.col_test_vcc1.DefaultCellStyle = DataGridViewCellStyle40
+        DataGridViewCellStyle98.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle98.ForeColor = System.Drawing.Color.Black
+        Me.col_test_vcc1.DefaultCellStyle = DataGridViewCellStyle98
         Me.col_test_vcc1.HeaderText = "VCC (V)"
         Me.col_test_vcc1.Name = "col_test_vcc1"
         Me.col_test_vcc1.ReadOnly = True
@@ -6671,9 +6694,9 @@ Partial Class PartI
         '
         'col_test_fsw1
         '
-        DataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle41.ForeColor = System.Drawing.Color.Black
-        Me.col_test_fsw1.DefaultCellStyle = DataGridViewCellStyle41
+        DataGridViewCellStyle99.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle99.ForeColor = System.Drawing.Color.Black
+        Me.col_test_fsw1.DefaultCellStyle = DataGridViewCellStyle99
         Me.col_test_fsw1.HeaderText = "Fsw (kHz)"
         Me.col_test_fsw1.Name = "col_test_fsw1"
         Me.col_test_fsw1.ReadOnly = True
@@ -6681,11 +6704,11 @@ Partial Class PartI
         '
         'col_test_vout1
         '
-        DataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle42.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle42.Format = "N1"
-        DataGridViewCellStyle42.NullValue = Nothing
-        Me.col_test_vout1.DefaultCellStyle = DataGridViewCellStyle42
+        DataGridViewCellStyle100.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle100.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle100.Format = "N1"
+        DataGridViewCellStyle100.NullValue = Nothing
+        Me.col_test_vout1.DefaultCellStyle = DataGridViewCellStyle100
         Me.col_test_vout1.HeaderText = "VOUT (V)"
         Me.col_test_vout1.Name = "col_test_vout1"
         Me.col_test_vout1.ReadOnly = True
@@ -6693,11 +6716,11 @@ Partial Class PartI
         '
         'col_test_vin1
         '
-        DataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle43.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle43.Format = "N3"
-        DataGridViewCellStyle43.NullValue = Nothing
-        Me.col_test_vin1.DefaultCellStyle = DataGridViewCellStyle43
+        DataGridViewCellStyle101.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle101.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle101.Format = "N3"
+        DataGridViewCellStyle101.NullValue = Nothing
+        Me.col_test_vin1.DefaultCellStyle = DataGridViewCellStyle101
         Me.col_test_vin1.HeaderText = "VIN (V)"
         Me.col_test_vin1.Name = "col_test_vin1"
         Me.col_test_vin1.ReadOnly = True
@@ -6705,9 +6728,9 @@ Partial Class PartI
         '
         'col_test_iout1
         '
-        DataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle44.ForeColor = System.Drawing.Color.Black
-        Me.col_test_iout1.DefaultCellStyle = DataGridViewCellStyle44
+        DataGridViewCellStyle102.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle102.ForeColor = System.Drawing.Color.Black
+        Me.col_test_iout1.DefaultCellStyle = DataGridViewCellStyle102
         Me.col_test_iout1.HeaderText = "IOUT (A)"
         Me.col_test_iout1.Name = "col_test_iout1"
         Me.col_test_iout1.ReadOnly = True
@@ -6715,9 +6738,9 @@ Partial Class PartI
         '
         'col_test_eff
         '
-        DataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle45.ForeColor = System.Drawing.Color.Black
-        Me.col_test_eff.DefaultCellStyle = DataGridViewCellStyle45
+        DataGridViewCellStyle103.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle103.ForeColor = System.Drawing.Color.Black
+        Me.col_test_eff.DefaultCellStyle = DataGridViewCellStyle103
         Me.col_test_eff.HeaderText = "Efficiency Iout (A)"
         Me.col_test_eff.Name = "col_test_eff"
         Me.col_test_eff.ReadOnly = True
@@ -6725,9 +6748,9 @@ Partial Class PartI
         '
         'col_test_line
         '
-        DataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle46.ForeColor = System.Drawing.Color.Black
-        Me.col_test_line.DefaultCellStyle = DataGridViewCellStyle46
+        DataGridViewCellStyle104.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle104.ForeColor = System.Drawing.Color.Black
+        Me.col_test_line.DefaultCellStyle = DataGridViewCellStyle104
         Me.col_test_line.HeaderText = "LineR Iout (A)"
         Me.col_test_line.Name = "col_test_line"
         Me.col_test_line.ReadOnly = True
@@ -6735,9 +6758,9 @@ Partial Class PartI
         '
         'col_test_jitter
         '
-        DataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle47.ForeColor = System.Drawing.Color.Black
-        Me.col_test_jitter.DefaultCellStyle = DataGridViewCellStyle47
+        DataGridViewCellStyle105.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle105.ForeColor = System.Drawing.Color.Black
+        Me.col_test_jitter.DefaultCellStyle = DataGridViewCellStyle105
         Me.col_test_jitter.HeaderText = "Jitter Iout (A)"
         Me.col_test_jitter.Name = "col_test_jitter"
         Me.col_test_jitter.ReadOnly = True
@@ -6745,9 +6768,9 @@ Partial Class PartI
         '
         'col_test_stability
         '
-        DataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle48.ForeColor = System.Drawing.Color.Black
-        Me.col_test_stability.DefaultCellStyle = DataGridViewCellStyle48
+        DataGridViewCellStyle106.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle106.ForeColor = System.Drawing.Color.Black
+        Me.col_test_stability.DefaultCellStyle = DataGridViewCellStyle106
         Me.col_test_stability.HeaderText = "Stability Iout (A)"
         Me.col_test_stability.Name = "col_test_stability"
         Me.col_test_stability.ReadOnly = True
@@ -6755,9 +6778,9 @@ Partial Class PartI
         '
         'col_Fs_max
         '
-        DataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle49.ForeColor = System.Drawing.Color.Black
-        Me.col_Fs_max.DefaultCellStyle = DataGridViewCellStyle49
+        DataGridViewCellStyle107.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle107.ForeColor = System.Drawing.Color.Black
+        Me.col_Fs_max.DefaultCellStyle = DataGridViewCellStyle107
         Me.col_Fs_max.HeaderText = "Fs_Max (kHz)"
         Me.col_Fs_max.Name = "col_Fs_max"
         Me.col_Fs_max.ReadOnly = True
@@ -6765,9 +6788,9 @@ Partial Class PartI
         '
         'col_Fs_min
         '
-        DataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle50.ForeColor = System.Drawing.Color.Black
-        Me.col_Fs_min.DefaultCellStyle = DataGridViewCellStyle50
+        DataGridViewCellStyle108.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle108.ForeColor = System.Drawing.Color.Black
+        Me.col_Fs_min.DefaultCellStyle = DataGridViewCellStyle108
         Me.col_Fs_min.HeaderText = "Fs_Min (kHz)"
         Me.col_Fs_min.Name = "col_Fs_min"
         Me.col_Fs_min.ReadOnly = True
@@ -6775,9 +6798,9 @@ Partial Class PartI
         '
         'col_Fs_CCM
         '
-        DataGridViewCellStyle51.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle51.ForeColor = System.Drawing.Color.Black
-        Me.col_Fs_CCM.DefaultCellStyle = DataGridViewCellStyle51
+        DataGridViewCellStyle109.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle109.ForeColor = System.Drawing.Color.Black
+        Me.col_Fs_CCM.DefaultCellStyle = DataGridViewCellStyle109
         Me.col_Fs_CCM.HeaderText = "Fs_CCM"
         Me.col_Fs_CCM.Name = "col_Fs_CCM"
         Me.col_Fs_CCM.ReadOnly = True
@@ -6785,9 +6808,9 @@ Partial Class PartI
         '
         'col_IOB_start1
         '
-        DataGridViewCellStyle52.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle52.ForeColor = System.Drawing.Color.Black
-        Me.col_IOB_start1.DefaultCellStyle = DataGridViewCellStyle52
+        DataGridViewCellStyle110.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle110.ForeColor = System.Drawing.Color.Black
+        Me.col_IOB_start1.DefaultCellStyle = DataGridViewCellStyle110
         Me.col_IOB_start1.HeaderText = "IOB_start (A)"
         Me.col_IOB_start1.Name = "col_IOB_start1"
         Me.col_IOB_start1.ReadOnly = True
@@ -6795,9 +6818,9 @@ Partial Class PartI
         '
         'col_IOB_stop1
         '
-        DataGridViewCellStyle53.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle53.ForeColor = System.Drawing.Color.Black
-        Me.col_IOB_stop1.DefaultCellStyle = DataGridViewCellStyle53
+        DataGridViewCellStyle111.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle111.ForeColor = System.Drawing.Color.Black
+        Me.col_IOB_stop1.DefaultCellStyle = DataGridViewCellStyle111
         Me.col_IOB_stop1.HeaderText = "IOB_stop (A)"
         Me.col_IOB_stop1.Name = "col_IOB_stop1"
         Me.col_IOB_stop1.ReadOnly = True
@@ -8009,6 +8032,574 @@ Partial Class PartI
         Me.TextBox40.Text = "Instrument"
         Me.TextBox40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
+        'TabPage1
+        '
+        Me.TabPage1.BackColor = System.Drawing.Color.DimGray
+        Me.TabPage1.Controls.Add(Me.Button1)
+        Me.TabPage1.Controls.Add(Me.Panel_out_merte)
+        Me.TabPage1.Controls.Add(Me.Label145)
+        Me.TabPage1.Controls.Add(Me.RadioButton1)
+        Me.TabPage1.Controls.Add(Me.num_meter_count)
+        Me.TabPage1.Controls.Add(Me.RadioButton2)
+        Me.TabPage1.Controls.Add(Me.TextBox66)
+        Me.TabPage1.Controls.Add(Me.Label144)
+        Me.TabPage1.Controls.Add(Me.Panel74)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 24)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(751, 471)
+        Me.TabPage1.TabIndex = 10
+        Me.TabPage1.Text = "Meter"
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(362, 63)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(136, 23)
+        Me.Button1.TabIndex = 3658
+        Me.Button1.Text = "test button"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
+        'Panel_out_merte
+        '
+        Me.Panel_out_merte.Controls.Add(Me.Panel73)
+        Me.Panel_out_merte.Controls.Add(Me.TextBox56)
+        Me.Panel_out_merte.Location = New System.Drawing.Point(19, 238)
+        Me.Panel_out_merte.Name = "Panel_out_merte"
+        Me.Panel_out_merte.Size = New System.Drawing.Size(336, 161)
+        Me.Panel_out_merte.TabIndex = 3657
+        '
+        'Panel73
+        '
+        Me.Panel73.BackColor = System.Drawing.Color.LightGray
+        Me.Panel73.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel73.Controls.Add(Me.num_slave_out_IO)
+        Me.Panel73.Controls.Add(Me.TextBox12)
+        Me.Panel73.Controls.Add(Me.num_resolution_out_H)
+        Me.Panel73.Controls.Add(Me.num_resolution_out_M)
+        Me.Panel73.Controls.Add(Me.num_resolution_out_L)
+        Me.Panel73.Controls.Add(Me.num_comp_out_H)
+        Me.Panel73.Controls.Add(Me.num_slave_out_H)
+        Me.Panel73.Controls.Add(Me.num_comp_out_M)
+        Me.Panel73.Controls.Add(Me.num_slave_out_M)
+        Me.Panel73.Controls.Add(Me.num_comp_out_L)
+        Me.Panel73.Controls.Add(Me.num_slave_out_L)
+        Me.Panel73.Controls.Add(Me.TextBox34)
+        Me.Panel73.Controls.Add(Me.TextBox36)
+        Me.Panel73.Controls.Add(Me.TextBox41)
+        Me.Panel73.Controls.Add(Me.TextBox42)
+        Me.Panel73.Controls.Add(Me.TextBox43)
+        Me.Panel73.Controls.Add(Me.TextBox44)
+        Me.Panel73.Location = New System.Drawing.Point(3, 26)
+        Me.Panel73.Name = "Panel73"
+        Me.Panel73.Size = New System.Drawing.Size(328, 132)
+        Me.Panel73.TabIndex = 3644
+        '
+        'num_slave_out_IO
+        '
+        Me.num_slave_out_IO.Hexadecimal = True
+        Me.num_slave_out_IO.Location = New System.Drawing.Point(81, 103)
+        Me.num_slave_out_IO.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_out_IO.Name = "num_slave_out_IO"
+        Me.num_slave_out_IO.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_out_IO.TabIndex = 3654
+        Me.num_slave_out_IO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_out_IO.Value = New Decimal(New Integer() {56, 0, 0, 0})
+        '
+        'TextBox12
+        '
+        Me.TextBox12.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox12.Location = New System.Drawing.Point(9, 103)
+        Me.TextBox12.Name = "TextBox12"
+        Me.TextBox12.ReadOnly = True
+        Me.TextBox12.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox12.TabIndex = 3653
+        Me.TextBox12.Text = "Expand I/O"
+        Me.TextBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'num_resolution_out_H
+        '
+        Me.num_resolution_out_H.DecimalPlaces = 3
+        Me.num_resolution_out_H.Location = New System.Drawing.Point(239, 78)
+        Me.num_resolution_out_H.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_out_H.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_out_H.Name = "num_resolution_out_H"
+        Me.num_resolution_out_H.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_out_H.TabIndex = 3651
+        Me.num_resolution_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_out_H.Value = New Decimal(New Integer() {65, 0, 0, 131072})
+        '
+        'num_resolution_out_M
+        '
+        Me.num_resolution_out_M.DecimalPlaces = 3
+        Me.num_resolution_out_M.Location = New System.Drawing.Point(239, 54)
+        Me.num_resolution_out_M.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_out_M.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_out_M.Name = "num_resolution_out_M"
+        Me.num_resolution_out_M.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_out_M.TabIndex = 3650
+        Me.num_resolution_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_out_M.Value = New Decimal(New Integer() {35, 0, 0, 131072})
+        '
+        'num_resolution_out_L
+        '
+        Me.num_resolution_out_L.DecimalPlaces = 3
+        Me.num_resolution_out_L.Location = New System.Drawing.Point(239, 30)
+        Me.num_resolution_out_L.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_out_L.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_out_L.Name = "num_resolution_out_L"
+        Me.num_resolution_out_L.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_out_L.TabIndex = 3649
+        Me.num_resolution_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_out_L.Value = New Decimal(New Integer() {1, 0, 0, 131072})
+        '
+        'num_comp_out_H
+        '
+        Me.num_comp_out_H.Hexadecimal = True
+        Me.num_comp_out_H.Location = New System.Drawing.Point(159, 78)
+        Me.num_comp_out_H.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_out_H.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_out_H.Name = "num_comp_out_H"
+        Me.num_comp_out_H.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_out_H.TabIndex = 3648
+        Me.num_comp_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_out_H.Value = New Decimal(New Integer() {1930, 0, 0, 0})
+        '
+        'num_slave_out_H
+        '
+        Me.num_slave_out_H.Hexadecimal = True
+        Me.num_slave_out_H.Location = New System.Drawing.Point(81, 78)
+        Me.num_slave_out_H.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_out_H.Name = "num_slave_out_H"
+        Me.num_slave_out_H.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_out_H.TabIndex = 3647
+        Me.num_slave_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_out_H.Value = New Decimal(New Integer() {79, 0, 0, 0})
+        '
+        'num_comp_out_M
+        '
+        Me.num_comp_out_M.Hexadecimal = True
+        Me.num_comp_out_M.Location = New System.Drawing.Point(159, 54)
+        Me.num_comp_out_M.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_out_M.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_out_M.Name = "num_comp_out_M"
+        Me.num_comp_out_M.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_out_M.TabIndex = 3646
+        Me.num_comp_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_out_M.Value = New Decimal(New Integer() {1840, 0, 0, 0})
+        '
+        'num_slave_out_M
+        '
+        Me.num_slave_out_M.Hexadecimal = True
+        Me.num_slave_out_M.Location = New System.Drawing.Point(81, 54)
+        Me.num_slave_out_M.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_out_M.Name = "num_slave_out_M"
+        Me.num_slave_out_M.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_out_M.TabIndex = 3645
+        Me.num_slave_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_out_M.Value = New Decimal(New Integer() {78, 0, 0, 0})
+        '
+        'num_comp_out_L
+        '
+        Me.num_comp_out_L.Hexadecimal = True
+        Me.num_comp_out_L.Location = New System.Drawing.Point(159, 30)
+        Me.num_comp_out_L.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_out_L.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_out_L.Name = "num_comp_out_L"
+        Me.num_comp_out_L.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_out_L.TabIndex = 3644
+        Me.num_comp_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_out_L.Value = New Decimal(New Integer() {1280, 0, 0, 0})
+        '
+        'num_slave_out_L
+        '
+        Me.num_slave_out_L.Hexadecimal = True
+        Me.num_slave_out_L.Location = New System.Drawing.Point(81, 30)
+        Me.num_slave_out_L.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_out_L.Name = "num_slave_out_L"
+        Me.num_slave_out_L.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_out_L.TabIndex = 3643
+        Me.num_slave_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_out_L.Value = New Decimal(New Integer() {77, 0, 0, 0})
+        '
+        'TextBox34
+        '
+        Me.TextBox34.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox34.Location = New System.Drawing.Point(9, 78)
+        Me.TextBox34.Name = "TextBox34"
+        Me.TextBox34.ReadOnly = True
+        Me.TextBox34.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox34.TabIndex = 3641
+        Me.TextBox34.Text = "High"
+        Me.TextBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox36
+        '
+        Me.TextBox36.BackColor = System.Drawing.Color.Gray
+        Me.TextBox36.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox36.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox36.Location = New System.Drawing.Point(81, 6)
+        Me.TextBox36.Name = "TextBox36"
+        Me.TextBox36.ReadOnly = True
+        Me.TextBox36.Size = New System.Drawing.Size(75, 21)
+        Me.TextBox36.TabIndex = 3625
+        Me.TextBox36.Text = "Slave(Hex)"
+        Me.TextBox36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox41
+        '
+        Me.TextBox41.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox41.Location = New System.Drawing.Point(9, 30)
+        Me.TextBox41.Name = "TextBox41"
+        Me.TextBox41.ReadOnly = True
+        Me.TextBox41.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox41.TabIndex = 3626
+        Me.TextBox41.Text = "Low"
+        Me.TextBox41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox42
+        '
+        Me.TextBox42.BackColor = System.Drawing.Color.Gray
+        Me.TextBox42.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox42.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox42.Location = New System.Drawing.Point(239, 6)
+        Me.TextBox42.Name = "TextBox42"
+        Me.TextBox42.ReadOnly = True
+        Me.TextBox42.Size = New System.Drawing.Size(77, 21)
+        Me.TextBox42.TabIndex = 3627
+        Me.TextBox42.Text = "Resolution"
+        Me.TextBox42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox43
+        '
+        Me.TextBox43.BackColor = System.Drawing.Color.Gray
+        Me.TextBox43.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox43.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox43.Location = New System.Drawing.Point(159, 6)
+        Me.TextBox43.Name = "TextBox43"
+        Me.TextBox43.ReadOnly = True
+        Me.TextBox43.Size = New System.Drawing.Size(77, 21)
+        Me.TextBox43.TabIndex = 3638
+        Me.TextBox43.Text = "Comp.(Hex)"
+        Me.TextBox43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox44
+        '
+        Me.TextBox44.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox44.Location = New System.Drawing.Point(9, 54)
+        Me.TextBox44.Name = "TextBox44"
+        Me.TextBox44.ReadOnly = True
+        Me.TextBox44.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox44.TabIndex = 3633
+        Me.TextBox44.Text = "Middle"
+        Me.TextBox44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox56
+        '
+        Me.TextBox56.BackColor = System.Drawing.Color.SteelBlue
+        Me.TextBox56.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox56.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox56.Location = New System.Drawing.Point(3, 6)
+        Me.TextBox56.Name = "TextBox56"
+        Me.TextBox56.ReadOnly = True
+        Me.TextBox56.Size = New System.Drawing.Size(328, 21)
+        Me.TextBox56.TabIndex = 3643
+        Me.TextBox56.Text = "Output Meter"
+        Me.TextBox56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label145
+        '
+        Me.Label145.AutoSize = True
+        Me.Label145.ForeColor = System.Drawing.Color.Black
+        Me.Label145.Location = New System.Drawing.Point(19, 16)
+        Me.Label145.Name = "Label145"
+        Me.Label145.Size = New System.Drawing.Size(126, 15)
+        Me.Label145.TabIndex = 3651
+        Me.Label145.Text = "Numbers of Measure:"
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Location = New System.Drawing.Point(137, 214)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(74, 19)
+        Me.RadioButton1.TabIndex = 3656
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "DC Load"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.RadioButton1.Visible = False
+        '
+        'num_meter_count
+        '
+        Me.num_meter_count.Location = New System.Drawing.Point(151, 13)
+        Me.num_meter_count.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.num_meter_count.Name = "num_meter_count"
+        Me.num_meter_count.Size = New System.Drawing.Size(64, 21)
+        Me.num_meter_count.TabIndex = 3650
+        Me.num_meter_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_meter_count.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(137, 194)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(55, 19)
+        Me.RadioButton2.TabIndex = 3655
+        Me.RadioButton2.TabStop = True
+        Me.RadioButton2.Text = "Meter"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.RadioButton2.Visible = False
+        '
+        'TextBox66
+        '
+        Me.TextBox66.BackColor = System.Drawing.Color.SteelBlue
+        Me.TextBox66.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox66.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox66.Location = New System.Drawing.Point(19, 38)
+        Me.TextBox66.Name = "TextBox66"
+        Me.TextBox66.ReadOnly = True
+        Me.TextBox66.Size = New System.Drawing.Size(328, 21)
+        Me.TextBox66.TabIndex = 3653
+        Me.TextBox66.Text = "Input Meter"
+        Me.TextBox66.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Label144
+        '
+        Me.Label144.AutoSize = True
+        Me.Label144.ForeColor = System.Drawing.Color.Black
+        Me.Label144.Location = New System.Drawing.Point(22, 196)
+        Me.Label144.Name = "Label144"
+        Me.Label144.Size = New System.Drawing.Size(109, 15)
+        Me.Label144.TabIndex = 3652
+        Me.Label144.Text = "Iout Measurement:"
+        Me.Label144.Visible = False
+        '
+        'Panel74
+        '
+        Me.Panel74.BackColor = System.Drawing.Color.LightGray
+        Me.Panel74.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel74.Controls.Add(Me.num_slave_in_IO)
+        Me.Panel74.Controls.Add(Me.TextBox59)
+        Me.Panel74.Controls.Add(Me.num_resolution_in_H)
+        Me.Panel74.Controls.Add(Me.num_resolution_in_M)
+        Me.Panel74.Controls.Add(Me.num_comp_in_H)
+        Me.Panel74.Controls.Add(Me.num_slave_in_H)
+        Me.Panel74.Controls.Add(Me.num_comp_in_M)
+        Me.Panel74.Controls.Add(Me.num_slave_in_M)
+        Me.Panel74.Controls.Add(Me.num_comp_in_L)
+        Me.Panel74.Controls.Add(Me.num_slave_in_L)
+        Me.Panel74.Controls.Add(Me.TextBox60)
+        Me.Panel74.Controls.Add(Me.TextBox61)
+        Me.Panel74.Controls.Add(Me.TextBox62)
+        Me.Panel74.Controls.Add(Me.num_resolution_in_L)
+        Me.Panel74.Controls.Add(Me.TextBox63)
+        Me.Panel74.Controls.Add(Me.TextBox64)
+        Me.Panel74.Controls.Add(Me.TextBox65)
+        Me.Panel74.Location = New System.Drawing.Point(19, 58)
+        Me.Panel74.Name = "Panel74"
+        Me.Panel74.Size = New System.Drawing.Size(328, 131)
+        Me.Panel74.TabIndex = 3654
+        '
+        'num_slave_in_IO
+        '
+        Me.num_slave_in_IO.Hexadecimal = True
+        Me.num_slave_in_IO.Location = New System.Drawing.Point(81, 102)
+        Me.num_slave_in_IO.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_in_IO.Name = "num_slave_in_IO"
+        Me.num_slave_in_IO.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_in_IO.TabIndex = 3652
+        Me.num_slave_in_IO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_in_IO.Value = New Decimal(New Integer() {63, 0, 0, 0})
+        '
+        'TextBox59
+        '
+        Me.TextBox59.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox59.Location = New System.Drawing.Point(9, 102)
+        Me.TextBox59.Name = "TextBox59"
+        Me.TextBox59.ReadOnly = True
+        Me.TextBox59.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox59.TabIndex = 3651
+        Me.TextBox59.Text = "Expand I/O"
+        Me.TextBox59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'num_resolution_in_H
+        '
+        Me.num_resolution_in_H.DecimalPlaces = 3
+        Me.num_resolution_in_H.Location = New System.Drawing.Point(239, 78)
+        Me.num_resolution_in_H.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_in_H.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_in_H.Name = "num_resolution_in_H"
+        Me.num_resolution_in_H.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_in_H.TabIndex = 3650
+        Me.num_resolution_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_in_H.Value = New Decimal(New Integer() {65, 0, 0, 131072})
+        '
+        'num_resolution_in_M
+        '
+        Me.num_resolution_in_M.DecimalPlaces = 3
+        Me.num_resolution_in_M.Location = New System.Drawing.Point(239, 54)
+        Me.num_resolution_in_M.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_in_M.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_in_M.Name = "num_resolution_in_M"
+        Me.num_resolution_in_M.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_in_M.TabIndex = 3649
+        Me.num_resolution_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_in_M.Value = New Decimal(New Integer() {35, 0, 0, 131072})
+        '
+        'num_comp_in_H
+        '
+        Me.num_comp_in_H.Hexadecimal = True
+        Me.num_comp_in_H.Location = New System.Drawing.Point(159, 78)
+        Me.num_comp_in_H.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_in_H.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_in_H.Name = "num_comp_in_H"
+        Me.num_comp_in_H.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_in_H.TabIndex = 3648
+        Me.num_comp_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_in_H.Value = New Decimal(New Integer() {1930, 0, 0, 0})
+        '
+        'num_slave_in_H
+        '
+        Me.num_slave_in_H.Hexadecimal = True
+        Me.num_slave_in_H.Location = New System.Drawing.Point(81, 78)
+        Me.num_slave_in_H.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_in_H.Name = "num_slave_in_H"
+        Me.num_slave_in_H.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_in_H.TabIndex = 3647
+        Me.num_slave_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_in_H.Value = New Decimal(New Integer() {66, 0, 0, 0})
+        '
+        'num_comp_in_M
+        '
+        Me.num_comp_in_M.Hexadecimal = True
+        Me.num_comp_in_M.Location = New System.Drawing.Point(159, 54)
+        Me.num_comp_in_M.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_in_M.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_in_M.Name = "num_comp_in_M"
+        Me.num_comp_in_M.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_in_M.TabIndex = 3646
+        Me.num_comp_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_in_M.Value = New Decimal(New Integer() {1840, 0, 0, 0})
+        '
+        'num_slave_in_M
+        '
+        Me.num_slave_in_M.Hexadecimal = True
+        Me.num_slave_in_M.Location = New System.Drawing.Point(81, 54)
+        Me.num_slave_in_M.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_in_M.Name = "num_slave_in_M"
+        Me.num_slave_in_M.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_in_M.TabIndex = 3645
+        Me.num_slave_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_in_M.Value = New Decimal(New Integer() {65, 0, 0, 0})
+        '
+        'num_comp_in_L
+        '
+        Me.num_comp_in_L.Hexadecimal = True
+        Me.num_comp_in_L.Location = New System.Drawing.Point(159, 30)
+        Me.num_comp_in_L.Margin = New System.Windows.Forms.Padding(2)
+        Me.num_comp_in_L.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
+        Me.num_comp_in_L.Name = "num_comp_in_L"
+        Me.num_comp_in_L.Size = New System.Drawing.Size(77, 21)
+        Me.num_comp_in_L.TabIndex = 3644
+        Me.num_comp_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_comp_in_L.Value = New Decimal(New Integer() {1280, 0, 0, 0})
+        '
+        'num_slave_in_L
+        '
+        Me.num_slave_in_L.Hexadecimal = True
+        Me.num_slave_in_L.Location = New System.Drawing.Point(81, 30)
+        Me.num_slave_in_L.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.num_slave_in_L.Name = "num_slave_in_L"
+        Me.num_slave_in_L.Size = New System.Drawing.Size(75, 21)
+        Me.num_slave_in_L.TabIndex = 3643
+        Me.num_slave_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_slave_in_L.Value = New Decimal(New Integer() {64, 0, 0, 0})
+        '
+        'TextBox60
+        '
+        Me.TextBox60.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox60.Location = New System.Drawing.Point(9, 78)
+        Me.TextBox60.Name = "TextBox60"
+        Me.TextBox60.ReadOnly = True
+        Me.TextBox60.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox60.TabIndex = 3641
+        Me.TextBox60.Text = "High"
+        Me.TextBox60.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox61
+        '
+        Me.TextBox61.BackColor = System.Drawing.Color.Gray
+        Me.TextBox61.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox61.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox61.Location = New System.Drawing.Point(81, 6)
+        Me.TextBox61.Name = "TextBox61"
+        Me.TextBox61.ReadOnly = True
+        Me.TextBox61.Size = New System.Drawing.Size(75, 21)
+        Me.TextBox61.TabIndex = 3625
+        Me.TextBox61.Text = "Slave(Hex)"
+        Me.TextBox61.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox62
+        '
+        Me.TextBox62.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox62.Location = New System.Drawing.Point(9, 30)
+        Me.TextBox62.Name = "TextBox62"
+        Me.TextBox62.ReadOnly = True
+        Me.TextBox62.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox62.TabIndex = 3626
+        Me.TextBox62.Text = "Low"
+        Me.TextBox62.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'num_resolution_in_L
+        '
+        Me.num_resolution_in_L.DecimalPlaces = 3
+        Me.num_resolution_in_L.Location = New System.Drawing.Point(240, 30)
+        Me.num_resolution_in_L.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
+        Me.num_resolution_in_L.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
+        Me.num_resolution_in_L.Name = "num_resolution_in_L"
+        Me.num_resolution_in_L.Size = New System.Drawing.Size(77, 21)
+        Me.num_resolution_in_L.TabIndex = 3629
+        Me.num_resolution_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.num_resolution_in_L.Value = New Decimal(New Integer() {1, 0, 0, 131072})
+        '
+        'TextBox63
+        '
+        Me.TextBox63.BackColor = System.Drawing.Color.Gray
+        Me.TextBox63.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox63.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox63.Location = New System.Drawing.Point(239, 6)
+        Me.TextBox63.Name = "TextBox63"
+        Me.TextBox63.ReadOnly = True
+        Me.TextBox63.Size = New System.Drawing.Size(77, 21)
+        Me.TextBox63.TabIndex = 3627
+        Me.TextBox63.Text = "Resolution"
+        Me.TextBox63.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox64
+        '
+        Me.TextBox64.BackColor = System.Drawing.Color.Gray
+        Me.TextBox64.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox64.ForeColor = System.Drawing.Color.WhiteSmoke
+        Me.TextBox64.Location = New System.Drawing.Point(159, 6)
+        Me.TextBox64.Name = "TextBox64"
+        Me.TextBox64.ReadOnly = True
+        Me.TextBox64.Size = New System.Drawing.Size(77, 21)
+        Me.TextBox64.TabIndex = 3638
+        Me.TextBox64.Text = "Comp.(Hex)"
+        Me.TextBox64.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'TextBox65
+        '
+        Me.TextBox65.BackColor = System.Drawing.Color.LightYellow
+        Me.TextBox65.Location = New System.Drawing.Point(9, 54)
+        Me.TextBox65.Name = "TextBox65"
+        Me.TextBox65.ReadOnly = True
+        Me.TextBox65.Size = New System.Drawing.Size(69, 21)
+        Me.TextBox65.TabIndex = 3633
+        Me.TextBox65.Text = "Middle"
+        Me.TextBox65.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
         'btn_refresh
         '
         Me.btn_refresh.BackgroundImage = CType(resources.GetObject("btn_refresh.BackgroundImage"), System.Drawing.Image)
@@ -8299,20 +8890,20 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn23
         '
-        DataGridViewCellStyle54.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle54.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn23.DefaultCellStyle = DataGridViewCellStyle54
+        DataGridViewCellStyle112.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle112.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn23.DefaultCellStyle = DataGridViewCellStyle112
         Me.DataGridViewTextBoxColumn23.HeaderText = "Iout (A)"
         Me.DataGridViewTextBoxColumn23.Name = "DataGridViewTextBoxColumn23"
         Me.DataGridViewTextBoxColumn23.Width = 80
         '
         'DataGridViewTextBoxColumn19
         '
-        DataGridViewCellStyle55.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle55.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle55.Format = "N1"
-        DataGridViewCellStyle55.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn19.DefaultCellStyle = DataGridViewCellStyle55
+        DataGridViewCellStyle113.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle113.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle113.Format = "N1"
+        DataGridViewCellStyle113.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn19.DefaultCellStyle = DataGridViewCellStyle113
         Me.DataGridViewTextBoxColumn19.HeaderText = "VOUT (V)"
         Me.DataGridViewTextBoxColumn19.Name = "DataGridViewTextBoxColumn19"
         Me.DataGridViewTextBoxColumn19.ReadOnly = True
@@ -8320,9 +8911,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn18
         '
-        DataGridViewCellStyle56.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle56.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn18.DefaultCellStyle = DataGridViewCellStyle56
+        DataGridViewCellStyle114.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle114.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn18.DefaultCellStyle = DataGridViewCellStyle114
         Me.DataGridViewTextBoxColumn18.HeaderText = "Fs (Hz)"
         Me.DataGridViewTextBoxColumn18.Name = "DataGridViewTextBoxColumn18"
         Me.DataGridViewTextBoxColumn18.ReadOnly = True
@@ -8330,11 +8921,11 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn15
         '
-        DataGridViewCellStyle57.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle57.ForeColor = System.Drawing.Color.Black
-        DataGridViewCellStyle57.Format = "N3"
-        DataGridViewCellStyle57.NullValue = Nothing
-        Me.DataGridViewTextBoxColumn15.DefaultCellStyle = DataGridViewCellStyle57
+        DataGridViewCellStyle115.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle115.ForeColor = System.Drawing.Color.Black
+        DataGridViewCellStyle115.Format = "N3"
+        DataGridViewCellStyle115.NullValue = Nothing
+        Me.DataGridViewTextBoxColumn15.DefaultCellStyle = DataGridViewCellStyle115
         Me.DataGridViewTextBoxColumn15.HeaderText = "VIN (V)"
         Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
         Me.DataGridViewTextBoxColumn15.ReadOnly = True
@@ -8342,9 +8933,9 @@ Partial Class PartI
         '
         'DataGridViewTextBoxColumn14
         '
-        DataGridViewCellStyle58.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
-        DataGridViewCellStyle58.ForeColor = System.Drawing.Color.Black
-        Me.DataGridViewTextBoxColumn14.DefaultCellStyle = DataGridViewCellStyle58
+        DataGridViewCellStyle116.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter
+        DataGridViewCellStyle116.ForeColor = System.Drawing.Color.Black
+        Me.DataGridViewTextBoxColumn14.DefaultCellStyle = DataGridViewCellStyle116
         Me.DataGridViewTextBoxColumn14.HeaderText = "EN (V)"
         Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
         Me.DataGridViewTextBoxColumn14.Width = 80
@@ -8354,586 +8945,6 @@ Partial Class PartI
         Me.Column12.HeaderText = "Temperature (℃)"
         Me.Column12.Name = "Column12"
         Me.Column12.Width = 80
-        '
-        'TabPage1
-        '
-        Me.TabPage1.BackColor = System.Drawing.Color.DimGray
-        Me.TabPage1.Controls.Add(Me.Panel_out_merte)
-        Me.TabPage1.Controls.Add(Me.Label145)
-        Me.TabPage1.Controls.Add(Me.RadioButton1)
-        Me.TabPage1.Controls.Add(Me.num_meter_count)
-        Me.TabPage1.Controls.Add(Me.RadioButton2)
-        Me.TabPage1.Controls.Add(Me.TextBox66)
-        Me.TabPage1.Controls.Add(Me.Label144)
-        Me.TabPage1.Controls.Add(Me.Panel74)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 24)
-        Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage1.Size = New System.Drawing.Size(751, 471)
-        Me.TabPage1.TabIndex = 10
-        Me.TabPage1.Text = "Meter"
-        '
-        'Panel_out_merte
-        '
-        Me.Panel_out_merte.Controls.Add(Me.Panel73)
-        Me.Panel_out_merte.Controls.Add(Me.TextBox56)
-        Me.Panel_out_merte.Location = New System.Drawing.Point(19, 238)
-        Me.Panel_out_merte.Name = "Panel_out_merte"
-        Me.Panel_out_merte.Size = New System.Drawing.Size(336, 161)
-        Me.Panel_out_merte.TabIndex = 3657
-        '
-        'Panel73
-        '
-        Me.Panel73.BackColor = System.Drawing.Color.LightGray
-        Me.Panel73.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel73.Controls.Add(Me.num_slave_out_IO)
-        Me.Panel73.Controls.Add(Me.TextBox12)
-        Me.Panel73.Controls.Add(Me.num_resolution_out_H)
-        Me.Panel73.Controls.Add(Me.num_resolution_out_M)
-        Me.Panel73.Controls.Add(Me.num_resolution_out_L)
-        Me.Panel73.Controls.Add(Me.num_comp_out_H)
-        Me.Panel73.Controls.Add(Me.num_slave_out_H)
-        Me.Panel73.Controls.Add(Me.num_comp_out_M)
-        Me.Panel73.Controls.Add(Me.num_slave_out_M)
-        Me.Panel73.Controls.Add(Me.num_comp_out_L)
-        Me.Panel73.Controls.Add(Me.num_slave_out_L)
-        Me.Panel73.Controls.Add(Me.TextBox34)
-        Me.Panel73.Controls.Add(Me.TextBox36)
-        Me.Panel73.Controls.Add(Me.TextBox41)
-        Me.Panel73.Controls.Add(Me.TextBox42)
-        Me.Panel73.Controls.Add(Me.TextBox43)
-        Me.Panel73.Controls.Add(Me.TextBox44)
-        Me.Panel73.Location = New System.Drawing.Point(3, 26)
-        Me.Panel73.Name = "Panel73"
-        Me.Panel73.Size = New System.Drawing.Size(328, 132)
-        Me.Panel73.TabIndex = 3644
-        '
-        'num_slave_out_IO
-        '
-        Me.num_slave_out_IO.Hexadecimal = True
-        Me.num_slave_out_IO.Location = New System.Drawing.Point(81, 103)
-        Me.num_slave_out_IO.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_out_IO.Name = "num_slave_out_IO"
-        Me.num_slave_out_IO.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_out_IO.TabIndex = 3654
-        Me.num_slave_out_IO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_out_IO.Value = New Decimal(New Integer() {56, 0, 0, 0})
-        '
-        'TextBox12
-        '
-        Me.TextBox12.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox12.Location = New System.Drawing.Point(9, 103)
-        Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.ReadOnly = True
-        Me.TextBox12.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox12.TabIndex = 3653
-        Me.TextBox12.Text = "Expand I/O"
-        Me.TextBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'num_resolution_out_H
-        '
-        Me.num_resolution_out_H.DecimalPlaces = 3
-        Me.num_resolution_out_H.Location = New System.Drawing.Point(239, 78)
-        Me.num_resolution_out_H.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_out_H.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_out_H.Name = "num_resolution_out_H"
-        Me.num_resolution_out_H.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_out_H.TabIndex = 3651
-        Me.num_resolution_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_out_H.Value = New Decimal(New Integer() {65, 0, 0, 131072})
-        '
-        'num_resolution_out_M
-        '
-        Me.num_resolution_out_M.DecimalPlaces = 3
-        Me.num_resolution_out_M.Location = New System.Drawing.Point(239, 54)
-        Me.num_resolution_out_M.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_out_M.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_out_M.Name = "num_resolution_out_M"
-        Me.num_resolution_out_M.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_out_M.TabIndex = 3650
-        Me.num_resolution_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_out_M.Value = New Decimal(New Integer() {35, 0, 0, 131072})
-        '
-        'num_resolution_out_L
-        '
-        Me.num_resolution_out_L.DecimalPlaces = 3
-        Me.num_resolution_out_L.Location = New System.Drawing.Point(239, 30)
-        Me.num_resolution_out_L.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_out_L.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_out_L.Name = "num_resolution_out_L"
-        Me.num_resolution_out_L.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_out_L.TabIndex = 3649
-        Me.num_resolution_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_out_L.Value = New Decimal(New Integer() {1, 0, 0, 131072})
-        '
-        'num_comp_out_H
-        '
-        Me.num_comp_out_H.Hexadecimal = True
-        Me.num_comp_out_H.Location = New System.Drawing.Point(159, 78)
-        Me.num_comp_out_H.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_out_H.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_out_H.Name = "num_comp_out_H"
-        Me.num_comp_out_H.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_out_H.TabIndex = 3648
-        Me.num_comp_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_out_H.Value = New Decimal(New Integer() {1930, 0, 0, 0})
-        '
-        'num_slave_out_H
-        '
-        Me.num_slave_out_H.Hexadecimal = True
-        Me.num_slave_out_H.Location = New System.Drawing.Point(81, 78)
-        Me.num_slave_out_H.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_out_H.Name = "num_slave_out_H"
-        Me.num_slave_out_H.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_out_H.TabIndex = 3647
-        Me.num_slave_out_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_out_H.Value = New Decimal(New Integer() {79, 0, 0, 0})
-        '
-        'num_comp_out_M
-        '
-        Me.num_comp_out_M.Hexadecimal = True
-        Me.num_comp_out_M.Location = New System.Drawing.Point(159, 54)
-        Me.num_comp_out_M.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_out_M.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_out_M.Name = "num_comp_out_M"
-        Me.num_comp_out_M.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_out_M.TabIndex = 3646
-        Me.num_comp_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_out_M.Value = New Decimal(New Integer() {1840, 0, 0, 0})
-        '
-        'num_slave_out_M
-        '
-        Me.num_slave_out_M.Hexadecimal = True
-        Me.num_slave_out_M.Location = New System.Drawing.Point(81, 54)
-        Me.num_slave_out_M.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_out_M.Name = "num_slave_out_M"
-        Me.num_slave_out_M.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_out_M.TabIndex = 3645
-        Me.num_slave_out_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_out_M.Value = New Decimal(New Integer() {78, 0, 0, 0})
-        '
-        'num_comp_out_L
-        '
-        Me.num_comp_out_L.Hexadecimal = True
-        Me.num_comp_out_L.Location = New System.Drawing.Point(159, 30)
-        Me.num_comp_out_L.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_out_L.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_out_L.Name = "num_comp_out_L"
-        Me.num_comp_out_L.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_out_L.TabIndex = 3644
-        Me.num_comp_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_out_L.Value = New Decimal(New Integer() {1280, 0, 0, 0})
-        '
-        'num_slave_out_L
-        '
-        Me.num_slave_out_L.Hexadecimal = True
-        Me.num_slave_out_L.Location = New System.Drawing.Point(81, 30)
-        Me.num_slave_out_L.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_out_L.Name = "num_slave_out_L"
-        Me.num_slave_out_L.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_out_L.TabIndex = 3643
-        Me.num_slave_out_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_out_L.Value = New Decimal(New Integer() {77, 0, 0, 0})
-        '
-        'TextBox34
-        '
-        Me.TextBox34.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox34.Location = New System.Drawing.Point(9, 78)
-        Me.TextBox34.Name = "TextBox34"
-        Me.TextBox34.ReadOnly = True
-        Me.TextBox34.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox34.TabIndex = 3641
-        Me.TextBox34.Text = "High"
-        Me.TextBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox36
-        '
-        Me.TextBox36.BackColor = System.Drawing.Color.Gray
-        Me.TextBox36.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox36.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox36.Location = New System.Drawing.Point(81, 6)
-        Me.TextBox36.Name = "TextBox36"
-        Me.TextBox36.ReadOnly = True
-        Me.TextBox36.Size = New System.Drawing.Size(75, 21)
-        Me.TextBox36.TabIndex = 3625
-        Me.TextBox36.Text = "Slave(Hex)"
-        Me.TextBox36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox41
-        '
-        Me.TextBox41.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox41.Location = New System.Drawing.Point(9, 30)
-        Me.TextBox41.Name = "TextBox41"
-        Me.TextBox41.ReadOnly = True
-        Me.TextBox41.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox41.TabIndex = 3626
-        Me.TextBox41.Text = "Low"
-        Me.TextBox41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox42
-        '
-        Me.TextBox42.BackColor = System.Drawing.Color.Gray
-        Me.TextBox42.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox42.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox42.Location = New System.Drawing.Point(239, 6)
-        Me.TextBox42.Name = "TextBox42"
-        Me.TextBox42.ReadOnly = True
-        Me.TextBox42.Size = New System.Drawing.Size(77, 21)
-        Me.TextBox42.TabIndex = 3627
-        Me.TextBox42.Text = "Resolution"
-        Me.TextBox42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox43
-        '
-        Me.TextBox43.BackColor = System.Drawing.Color.Gray
-        Me.TextBox43.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox43.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox43.Location = New System.Drawing.Point(159, 6)
-        Me.TextBox43.Name = "TextBox43"
-        Me.TextBox43.ReadOnly = True
-        Me.TextBox43.Size = New System.Drawing.Size(77, 21)
-        Me.TextBox43.TabIndex = 3638
-        Me.TextBox43.Text = "Comp.(Hex)"
-        Me.TextBox43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox44
-        '
-        Me.TextBox44.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox44.Location = New System.Drawing.Point(9, 54)
-        Me.TextBox44.Name = "TextBox44"
-        Me.TextBox44.ReadOnly = True
-        Me.TextBox44.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox44.TabIndex = 3633
-        Me.TextBox44.Text = "Middle"
-        Me.TextBox44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox56
-        '
-        Me.TextBox56.BackColor = System.Drawing.Color.SteelBlue
-        Me.TextBox56.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox56.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox56.Location = New System.Drawing.Point(3, 6)
-        Me.TextBox56.Name = "TextBox56"
-        Me.TextBox56.ReadOnly = True
-        Me.TextBox56.Size = New System.Drawing.Size(328, 21)
-        Me.TextBox56.TabIndex = 3643
-        Me.TextBox56.Text = "Output Meter"
-        Me.TextBox56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'RadioButton1
-        '
-        Me.RadioButton1.AutoSize = True
-        Me.RadioButton1.Location = New System.Drawing.Point(137, 214)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(74, 19)
-        Me.RadioButton1.TabIndex = 3656
-        Me.RadioButton1.TabStop = True
-        Me.RadioButton1.Text = "DC Load"
-        Me.RadioButton1.UseVisualStyleBackColor = True
-        Me.RadioButton1.Visible = False
-        '
-        'RadioButton2
-        '
-        Me.RadioButton2.AutoSize = True
-        Me.RadioButton2.Location = New System.Drawing.Point(137, 194)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(55, 19)
-        Me.RadioButton2.TabIndex = 3655
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Meter"
-        Me.RadioButton2.UseVisualStyleBackColor = True
-        Me.RadioButton2.Visible = False
-        '
-        'Label144
-        '
-        Me.Label144.AutoSize = True
-        Me.Label144.ForeColor = System.Drawing.Color.Black
-        Me.Label144.Location = New System.Drawing.Point(22, 196)
-        Me.Label144.Name = "Label144"
-        Me.Label144.Size = New System.Drawing.Size(109, 15)
-        Me.Label144.TabIndex = 3652
-        Me.Label144.Text = "Iout Measurement:"
-        Me.Label144.Visible = False
-        '
-        'Panel74
-        '
-        Me.Panel74.BackColor = System.Drawing.Color.LightGray
-        Me.Panel74.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.Panel74.Controls.Add(Me.num_slave_in_IO)
-        Me.Panel74.Controls.Add(Me.TextBox59)
-        Me.Panel74.Controls.Add(Me.num_resolution_in_H)
-        Me.Panel74.Controls.Add(Me.num_resolution_in_M)
-        Me.Panel74.Controls.Add(Me.num_comp_in_H)
-        Me.Panel74.Controls.Add(Me.num_slave_in_H)
-        Me.Panel74.Controls.Add(Me.num_comp_in_M)
-        Me.Panel74.Controls.Add(Me.num_slave_in_M)
-        Me.Panel74.Controls.Add(Me.num_comp_in_L)
-        Me.Panel74.Controls.Add(Me.num_slave_in_L)
-        Me.Panel74.Controls.Add(Me.TextBox60)
-        Me.Panel74.Controls.Add(Me.TextBox61)
-        Me.Panel74.Controls.Add(Me.TextBox62)
-        Me.Panel74.Controls.Add(Me.num_resolution_in_L)
-        Me.Panel74.Controls.Add(Me.TextBox63)
-        Me.Panel74.Controls.Add(Me.TextBox64)
-        Me.Panel74.Controls.Add(Me.TextBox65)
-        Me.Panel74.Location = New System.Drawing.Point(19, 58)
-        Me.Panel74.Name = "Panel74"
-        Me.Panel74.Size = New System.Drawing.Size(328, 131)
-        Me.Panel74.TabIndex = 3654
-        '
-        'num_slave_in_IO
-        '
-        Me.num_slave_in_IO.Hexadecimal = True
-        Me.num_slave_in_IO.Location = New System.Drawing.Point(81, 102)
-        Me.num_slave_in_IO.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_in_IO.Name = "num_slave_in_IO"
-        Me.num_slave_in_IO.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_in_IO.TabIndex = 3652
-        Me.num_slave_in_IO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_in_IO.Value = New Decimal(New Integer() {63, 0, 0, 0})
-        '
-        'TextBox59
-        '
-        Me.TextBox59.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox59.Location = New System.Drawing.Point(9, 102)
-        Me.TextBox59.Name = "TextBox59"
-        Me.TextBox59.ReadOnly = True
-        Me.TextBox59.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox59.TabIndex = 3651
-        Me.TextBox59.Text = "Expand I/O"
-        Me.TextBox59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'num_resolution_in_H
-        '
-        Me.num_resolution_in_H.DecimalPlaces = 3
-        Me.num_resolution_in_H.Location = New System.Drawing.Point(239, 78)
-        Me.num_resolution_in_H.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_in_H.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_in_H.Name = "num_resolution_in_H"
-        Me.num_resolution_in_H.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_in_H.TabIndex = 3650
-        Me.num_resolution_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_in_H.Value = New Decimal(New Integer() {65, 0, 0, 131072})
-        '
-        'num_resolution_in_M
-        '
-        Me.num_resolution_in_M.DecimalPlaces = 3
-        Me.num_resolution_in_M.Location = New System.Drawing.Point(239, 54)
-        Me.num_resolution_in_M.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_in_M.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_in_M.Name = "num_resolution_in_M"
-        Me.num_resolution_in_M.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_in_M.TabIndex = 3649
-        Me.num_resolution_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_in_M.Value = New Decimal(New Integer() {35, 0, 0, 131072})
-        '
-        'num_comp_in_H
-        '
-        Me.num_comp_in_H.Hexadecimal = True
-        Me.num_comp_in_H.Location = New System.Drawing.Point(159, 78)
-        Me.num_comp_in_H.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_in_H.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_in_H.Name = "num_comp_in_H"
-        Me.num_comp_in_H.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_in_H.TabIndex = 3648
-        Me.num_comp_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_in_H.Value = New Decimal(New Integer() {1930, 0, 0, 0})
-        '
-        'num_slave_in_H
-        '
-        Me.num_slave_in_H.Hexadecimal = True
-        Me.num_slave_in_H.Location = New System.Drawing.Point(81, 78)
-        Me.num_slave_in_H.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_in_H.Name = "num_slave_in_H"
-        Me.num_slave_in_H.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_in_H.TabIndex = 3647
-        Me.num_slave_in_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_in_H.Value = New Decimal(New Integer() {66, 0, 0, 0})
-        '
-        'num_comp_in_M
-        '
-        Me.num_comp_in_M.Hexadecimal = True
-        Me.num_comp_in_M.Location = New System.Drawing.Point(159, 54)
-        Me.num_comp_in_M.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_in_M.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_in_M.Name = "num_comp_in_M"
-        Me.num_comp_in_M.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_in_M.TabIndex = 3646
-        Me.num_comp_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_in_M.Value = New Decimal(New Integer() {1840, 0, 0, 0})
-        '
-        'num_slave_in_M
-        '
-        Me.num_slave_in_M.Hexadecimal = True
-        Me.num_slave_in_M.Location = New System.Drawing.Point(81, 54)
-        Me.num_slave_in_M.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_in_M.Name = "num_slave_in_M"
-        Me.num_slave_in_M.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_in_M.TabIndex = 3645
-        Me.num_slave_in_M.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_in_M.Value = New Decimal(New Integer() {65, 0, 0, 0})
-        '
-        'num_comp_in_L
-        '
-        Me.num_comp_in_L.Hexadecimal = True
-        Me.num_comp_in_L.Location = New System.Drawing.Point(159, 30)
-        Me.num_comp_in_L.Margin = New System.Windows.Forms.Padding(2)
-        Me.num_comp_in_L.Maximum = New Decimal(New Integer() {65535, 0, 0, 0})
-        Me.num_comp_in_L.Name = "num_comp_in_L"
-        Me.num_comp_in_L.Size = New System.Drawing.Size(77, 21)
-        Me.num_comp_in_L.TabIndex = 3644
-        Me.num_comp_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_comp_in_L.Value = New Decimal(New Integer() {1280, 0, 0, 0})
-        '
-        'num_slave_in_L
-        '
-        Me.num_slave_in_L.Hexadecimal = True
-        Me.num_slave_in_L.Location = New System.Drawing.Point(81, 30)
-        Me.num_slave_in_L.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
-        Me.num_slave_in_L.Name = "num_slave_in_L"
-        Me.num_slave_in_L.Size = New System.Drawing.Size(75, 21)
-        Me.num_slave_in_L.TabIndex = 3643
-        Me.num_slave_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_slave_in_L.Value = New Decimal(New Integer() {64, 0, 0, 0})
-        '
-        'TextBox60
-        '
-        Me.TextBox60.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox60.Location = New System.Drawing.Point(9, 78)
-        Me.TextBox60.Name = "TextBox60"
-        Me.TextBox60.ReadOnly = True
-        Me.TextBox60.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox60.TabIndex = 3641
-        Me.TextBox60.Text = "High"
-        Me.TextBox60.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox61
-        '
-        Me.TextBox61.BackColor = System.Drawing.Color.Gray
-        Me.TextBox61.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox61.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox61.Location = New System.Drawing.Point(81, 6)
-        Me.TextBox61.Name = "TextBox61"
-        Me.TextBox61.ReadOnly = True
-        Me.TextBox61.Size = New System.Drawing.Size(75, 21)
-        Me.TextBox61.TabIndex = 3625
-        Me.TextBox61.Text = "Slave(Hex)"
-        Me.TextBox61.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox62
-        '
-        Me.TextBox62.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox62.Location = New System.Drawing.Point(9, 30)
-        Me.TextBox62.Name = "TextBox62"
-        Me.TextBox62.ReadOnly = True
-        Me.TextBox62.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox62.TabIndex = 3626
-        Me.TextBox62.Text = "Low"
-        Me.TextBox62.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'num_resolution_in_L
-        '
-        Me.num_resolution_in_L.DecimalPlaces = 3
-        Me.num_resolution_in_L.Location = New System.Drawing.Point(240, 30)
-        Me.num_resolution_in_L.Maximum = New Decimal(New Integer() {1000000, 0, 0, 0})
-        Me.num_resolution_in_L.Minimum = New Decimal(New Integer() {1, 0, 0, 196608})
-        Me.num_resolution_in_L.Name = "num_resolution_in_L"
-        Me.num_resolution_in_L.Size = New System.Drawing.Size(77, 21)
-        Me.num_resolution_in_L.TabIndex = 3629
-        Me.num_resolution_in_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_resolution_in_L.Value = New Decimal(New Integer() {1, 0, 0, 131072})
-        '
-        'TextBox63
-        '
-        Me.TextBox63.BackColor = System.Drawing.Color.Gray
-        Me.TextBox63.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox63.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox63.Location = New System.Drawing.Point(239, 6)
-        Me.TextBox63.Name = "TextBox63"
-        Me.TextBox63.ReadOnly = True
-        Me.TextBox63.Size = New System.Drawing.Size(77, 21)
-        Me.TextBox63.TabIndex = 3627
-        Me.TextBox63.Text = "Resolution"
-        Me.TextBox63.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox64
-        '
-        Me.TextBox64.BackColor = System.Drawing.Color.Gray
-        Me.TextBox64.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox64.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox64.Location = New System.Drawing.Point(159, 6)
-        Me.TextBox64.Name = "TextBox64"
-        Me.TextBox64.ReadOnly = True
-        Me.TextBox64.Size = New System.Drawing.Size(77, 21)
-        Me.TextBox64.TabIndex = 3638
-        Me.TextBox64.Text = "Comp.(Hex)"
-        Me.TextBox64.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox65
-        '
-        Me.TextBox65.BackColor = System.Drawing.Color.LightYellow
-        Me.TextBox65.Location = New System.Drawing.Point(9, 54)
-        Me.TextBox65.Name = "TextBox65"
-        Me.TextBox65.ReadOnly = True
-        Me.TextBox65.Size = New System.Drawing.Size(69, 21)
-        Me.TextBox65.TabIndex = 3633
-        Me.TextBox65.Text = "Middle"
-        Me.TextBox65.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'TextBox66
-        '
-        Me.TextBox66.BackColor = System.Drawing.Color.SteelBlue
-        Me.TextBox66.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox66.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.TextBox66.Location = New System.Drawing.Point(19, 38)
-        Me.TextBox66.Name = "TextBox66"
-        Me.TextBox66.ReadOnly = True
-        Me.TextBox66.Size = New System.Drawing.Size(328, 21)
-        Me.TextBox66.TabIndex = 3653
-        Me.TextBox66.Text = "Input Meter"
-        Me.TextBox66.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        '
-        'Label145
-        '
-        Me.Label145.AutoSize = True
-        Me.Label145.ForeColor = System.Drawing.Color.Black
-        Me.Label145.Location = New System.Drawing.Point(19, 16)
-        Me.Label145.Name = "Label145"
-        Me.Label145.Size = New System.Drawing.Size(126, 15)
-        Me.Label145.TabIndex = 3651
-        Me.Label145.Text = "Numbers of Measure:"
-        '
-        'num_meter_count
-        '
-        Me.num_meter_count.Location = New System.Drawing.Point(151, 13)
-        Me.num_meter_count.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.num_meter_count.Name = "num_meter_count"
-        Me.num_meter_count.Size = New System.Drawing.Size(64, 21)
-        Me.num_meter_count.TabIndex = 3650
-        Me.num_meter_count.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.num_meter_count.Value = New Decimal(New Integer() {10, 0, 0, 0})
-        '
-        'rbtn_iin_current_measure
-        '
-        Me.rbtn_iin_current_measure.AutoSize = True
-        Me.rbtn_iin_current_measure.Location = New System.Drawing.Point(405, 52)
-        Me.rbtn_iin_current_measure.Name = "rbtn_iin_current_measure"
-        Me.rbtn_iin_current_measure.Size = New System.Drawing.Size(153, 19)
-        Me.rbtn_iin_current_measure.TabIndex = 3266
-        Me.rbtn_iin_current_measure.TabStop = True
-        Me.rbtn_iin_current_measure.Text = "Current Measure Board"
-        Me.rbtn_iin_current_measure.UseVisualStyleBackColor = True
-        '
-        'rbtn_iout_current_measure
-        '
-        Me.rbtn_iout_current_measure.AutoSize = True
-        Me.rbtn_iout_current_measure.Location = New System.Drawing.Point(109, 74)
-        Me.rbtn_iout_current_measure.Name = "rbtn_iout_current_measure"
-        Me.rbtn_iout_current_measure.Size = New System.Drawing.Size(153, 19)
-        Me.rbtn_iout_current_measure.TabIndex = 3267
-        Me.rbtn_iout_current_measure.TabStop = True
-        Me.rbtn_iout_current_measure.Text = "Current Measure Board"
-        Me.rbtn_iout_current_measure.UseVisualStyleBackColor = True
         '
         'PartI
         '
@@ -9221,21 +9232,6 @@ Partial Class PartI
         Me.Panel71.ResumeLayout(False)
         Me.Panel71.PerformLayout
         CType(Me.num_iin_change2, System.ComponentModel.ISupportInitialize).EndInit
-        Me.GroupBox7.ResumeLayout(False)
-        Me.GroupBox7.PerformLayout
-        CType(Me.pic_vcc, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_TA, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_vout_set, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_Fs_set, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_EN, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_i2C_init, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.pic_vcc1, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout
         Me.Panel_out_merte.ResumeLayout(False)
@@ -9252,6 +9248,7 @@ Partial Class PartI
         CType(Me.num_slave_out_M, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.num_comp_out_L, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.num_slave_out_L, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.num_meter_count, System.ComponentModel.ISupportInitialize).EndInit
         Me.Panel74.ResumeLayout(False)
         Me.Panel74.PerformLayout
         CType(Me.num_slave_in_IO, System.ComponentModel.ISupportInitialize).EndInit
@@ -9264,7 +9261,21 @@ Partial Class PartI
         CType(Me.num_comp_in_L, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.num_slave_in_L, System.ComponentModel.ISupportInitialize).EndInit
         CType(Me.num_resolution_in_L, System.ComponentModel.ISupportInitialize).EndInit
-        CType(Me.num_meter_count, System.ComponentModel.ISupportInitialize).EndInit
+        Me.GroupBox7.ResumeLayout(False)
+        Me.GroupBox7.PerformLayout
+        CType(Me.pic_vcc, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_TA, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_vout_set, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_Fs_set, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_EN, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_i2C_init, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox7, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox6, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.pic_vcc1, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox4, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox3, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(False)
 
     End Sub
@@ -9952,4 +9963,5 @@ Partial Class PartI
     Friend WithEvents TextBox65 As TextBox
     Friend WithEvents rbtn_iin_current_measure As RadioButton
     Friend WithEvents rbtn_iout_current_measure As RadioButton
+    Friend WithEvents Button1 As Button
 End Class

@@ -9137,6 +9137,42 @@ Public Class PartI
 
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+        instrument_init()
+
+        in_high_id = num_slave_in_H.Value
+        in_middle_id = num_slave_in_M.Value
+        in_low_id = num_slave_in_L.Value
+        in_io_id = num_slave_in_IO.Value
+
+        in_high_comp = num_comp_in_H.Value
+        in_middle_comp = num_comp_in_M.Value
+        in_low_comp = num_comp_in_L.Value
+
+        in_high_resolution = num_resolution_in_H.Value
+        in_middle_resolution = num_resolution_in_M.Value
+        in_low_resolution = num_resolution_in_L.Value
+
+
+        out_high_id = num_slave_out_H.Value
+        out_middle_id = num_slave_out_M.Value
+        out_low_id = num_slave_out_L.Value
+        out_io_id = num_slave_out_IO.Value
+
+        out_high_comp = num_comp_out_H.Value
+        out_middle_comp = num_comp_out_M.Value
+        out_low_comp = num_comp_out_L.Value
+
+        out_high_resolution = num_resolution_out_H.Value
+        out_middle_resolution = num_resolution_out_M.Value
+        out_low_resolution = num_resolution_out_L.Value
+
+
+        relay_in_meter_intial()
+        iin_meas = meter_auto(0, num_meter_count.Value)
+    End Sub
+
     Private Sub num_RL_ValueChanged(sender As Object, e As EventArgs) Handles num_RL.ValueChanged
 
     End Sub

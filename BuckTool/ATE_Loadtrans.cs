@@ -141,8 +141,9 @@ namespace BuckTool
                         InsControl._scope.Root_RUN();
                         MyLib.WaveformCheck();
                         ChannelResize();
-                        MyLib.WaveformCheck();
+                        //MyLib.WaveformCheck();
                         InsControl._scope.Root_STOP();
+                        MyLib.Delay1s(1);
                         InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
 
                         vpp = InsControl._scope.Meas_CH1VPP();
@@ -198,8 +199,9 @@ namespace BuckTool
                                     InsControl._scope.SetTrigModeEdge(false);
                                     InsControl._scope.TimeScaleUs(test_parameter.tr * 3);
                                     InsControl._scope.TimeBasePositionUs(test_parameter.tr * 9);
-                                    MyLib.WaveformCheck();
+                                    //MyLib.WaveformCheck();
                                     InsControl._scope.Root_STOP();
+                                    MyLib.Delay1s(1);
                                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Rise");
                                     break;
                                 case 1: // fall
@@ -207,8 +209,9 @@ namespace BuckTool
                                     InsControl._scope.SetTrigModeEdge(true);
                                     InsControl._scope.TimeScaleUs(test_parameter.tf * 3);
                                     InsControl._scope.TimeBasePositionUs(test_parameter.tf * 9);
-                                    MyLib.WaveformCheck();
+                                    //MyLib.WaveformCheck();
                                     InsControl._scope.Root_STOP();
+                                    MyLib.Delay1s(1);
                                     InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_Fall");
                                     break;
                             }

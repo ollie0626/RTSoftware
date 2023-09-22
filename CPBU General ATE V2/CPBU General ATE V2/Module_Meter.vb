@@ -407,35 +407,20 @@
                                     Meter_range_now = range
                                     Meter_change_range = True
                                     Exit Function
-
                                 End If
-
-
-
                             End If
                         End If
-
-
-
-
                         If test <> 0 Then
                             Exit For
                         End If
-
                     Else
-
                         If i = 5 Then
-
                             GPIB_reset(Meter_Dev)
                             Delay(100)
-
-
                             ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
                             ilwrt(Meter_Dev, ts, CInt(Len(ts)))
                             Delay(100)
                         End If
-
                         ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
                     End If
 
@@ -451,6 +436,8 @@
     Function relay_in_meter_intial() As Integer
         reg_write_word(in_io_id, &H3, &H0, "H")
         reg_write_word(in_io_id, &H1, &H0, "H") '切換最大檔位
+
+        ' write comp value to ic 
         reg_write_word(in_high_id, &H5, in_high_comp, "H")
         reg_write_word(in_middle_id, &H5, in_middle_comp, "H")
         reg_write_word(in_low_id, &H5, in_low_comp, "H")
@@ -529,6 +516,7 @@
         Dim total As Double = 0
         Dim curr_data As Double
         Dim Meas_ID As Integer
+        Dim IO_ID As Integer
         Dim data_input As Byte
         Dim read_error As Integer
         Dim resolution As Double
@@ -562,8 +550,14 @@
             data_input = &H2
         End If
 
+        Select Case in_out_sel
+            Case 0 : IO_ID = in_io_id
+            Case 1 : IO_ID = out_io_id
+        End Select
 
-        reg_write_word(Meas_ID, &H1, data_input, "H")
+
+        ' H: write Hi byte first then low byte
+        reg_write_word(IO_ID, &H1, data_input, "H")
         Delay(1000)
 
         Dim array As List(Of Double) = New List(Of Double)()
