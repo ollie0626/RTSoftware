@@ -7258,7 +7258,6 @@ Public Class PartI
                             'check Iin Meter
                             If (check_Efficiency.Checked = True) And ((check_iin.Checked = True) Or (rbtn_board_iin.Checked = True)) Then
                                 If (n = 0) And (i = 0) Then
-                                    ' Ollie_note: alread add current meter board in check_meter_iin_max
                                     check_meter_iin_max()
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
