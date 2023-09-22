@@ -448,6 +448,8 @@
     Function realy_out_meter_initial() As Integer
         reg_write_word(out_io_id, &H3, &H0, "H")
         reg_write_word(out_io_id, &H1, &H0, "H") '切換最大檔位
+
+        ' write comp value to ic 
         reg_write_word(out_high_id, &H5, out_high_comp, "H")
         reg_write_word(out_middle_id, &H5, out_middle_comp, "H")
         reg_write_word(out_low_id, &H5, out_low_comp, "H")
@@ -521,7 +523,12 @@
         Dim read_error As Integer
         Dim resolution As Double
 
-        curr_data = power_read(vin_device, Vin_out, "CURR")
+        Select Case in_out_sel
+            Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR")
+            Case 1 : curr_data = load_read("CURR")
+
+        End Select
+
 
         If curr_data >= Meter_H Then
             Select Case in_out_sel
@@ -539,7 +546,7 @@
                 Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
             End Select
 
-            data_input = &H1
+            data_input = &H2
         End If
 
         If curr_data < Meter_L Then
@@ -547,7 +554,7 @@
                 Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
                 Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
             End Select
-            data_input = &H2
+            data_input = &H1
         End If
 
         Select Case in_out_sel
@@ -563,6 +570,7 @@
         Dim array As List(Of Double) = New List(Of Double)()
         Dim remove_data As Integer
         Dim temp() As Integer
+        Dim iout_temp As Double
         total = 0
         read_error = 0
 
@@ -583,10 +591,10 @@
                 temp = reg_read_word(Meas_ID, &H4, "H")
             End While
             Delay(10)
-            iout_now = temp(1) * resolution * 10 ^ -3
+            iout_temp = temp(1) * resolution * 10 ^ -3
 
             If i >= remove_data Then
-                array.Add(iout_now)
+                array.Add(iout_temp)
             End If
         Next
         total = array.Sum() / array.Count

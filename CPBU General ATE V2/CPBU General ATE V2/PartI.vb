@@ -4703,17 +4703,6 @@ Public Class PartI
                     Iin_Meter_initial(check_iin, cbox_IIN_meter, cbox_IIN_relay) 'High Range
                 End If
 
-                ' Ollie_note: check current measure hi level
-                If rbtn_iin_current_measure.Checked Then
-                    relay_in_meter_intial()
-                End If
-
-                If rbtn_iout_current_measure.Checked Then
-                    realy_out_meter_initial()
-                End If
-
-
-
             Else
                 'set low
                 INA226_Iin_initial(False)
@@ -5806,36 +5795,36 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Stability)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas.ToString("0.0000"))
-                data_list.Add(iout_now.ToString("0.0000"))
-                data_list.Add((Fs_Max / 1000).ToString("0.0000"))
-                data_list.Add((Fs_Min / 1000).ToString("0.0000"))
-                For ii = 0 To 3 : data_list.Add((fs(ii) / (10 ^ 3)).ToString("0.0000")) : Next
+                data_list.Add(vout_meas.ToString("0.000000"))
+                data_list.Add(iout_now.ToString("0.000000"))
+                data_list.Add((Fs_Max / 1000).ToString("0.000000"))
+                data_list.Add((Fs_Min / 1000).ToString("0.000000"))
+                For ii = 0 To 3 : data_list.Add((fs(ii) / (10 ^ 3)).ToString("0.000000")) : Next
 
                 If AutoScalling_EN Then
                     If autoscanning_update Then : data_list.Add(wave_data(2) / (10 ^ 3))
                     Else : data_list.Add(fs(1) / (10 ^ 3))
                     End If
                 End If
-                For ii = 0 To 3 : data_list.Add((ton(ii) * (10 ^ 9)).ToString("0.0000")) : Next
+                For ii = 0 To 3 : data_list.Add((ton(ii) * (10 ^ 9)).ToString("0.000000")) : Next
 
                 If AutoScalling_EN Then
-                    If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.000"))
-                    Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.0000"))
+                    If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.00000"))
+                    Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.000000"))
                     End If
                 Else : data_list.Add(0) : End If
 
-                For ii = 0 To 3 : data_list.Add((toff(ii) * (10 ^ 9)).ToString("0.0000")) : Next
+                For ii = 0 To 3 : data_list.Add((toff(ii) * (10 ^ 9)).ToString("0.000000")) : Next
 
                 If AutoScalling_EN Then
-                    If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.000"))
-                    Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.0000"))
+                    If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.00000"))
+                    Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.000000"))
                     End If
                 Else : data_list.Add(0) : End If
 
-                For ii = 0 To 3 : data_list.Add((vpp(ii) * (10 ^ 3)).ToString("0.0000")) : Next
-                data_list.Add(vpp(4).ToString("0.0000"))
-                data_list.Add(vpp(5).ToString("0.0000"))
+                For ii = 0 To 3 : data_list.Add((vpp(ii) * (10 ^ 3)).ToString("0.000000")) : Next
+                data_list.Add(vpp(4).ToString("0.000000"))
+                data_list.Add(vpp(5).ToString("0.000000"))
                 SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
             Case Jitter
@@ -6010,10 +5999,10 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Jitter)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vout_meas.ToString("0.000")) : data_list.Add(iout_now.ToString("0.000")) : data_list.Add(Ton_mean.ToString("0.000")) : data_list.Add(Toff_min.ToString("0.000"))
-                data_list.Add(Toff_max.ToString("0.000")) : data_list.Add(Tjitter.ToString("0.000")) : data_list.Add(Dmax.ToString("0.000")) : data_list.Add(Dmin.ToString("0.000"))
-                data_list.Add(Dave.ToString("0.000"))
-                data_list.Add(Jitter_value.ToString("0.000"))
+                data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add(Ton_mean.ToString("0.00000")) : data_list.Add(Toff_min.ToString("0.00000"))
+                data_list.Add(Toff_max.ToString("0.00000")) : data_list.Add(Tjitter.ToString("0.000")) : data_list.Add(Dmax.ToString("0.00000")) : data_list.Add(Dmin.ToString("0.00000"))
+                data_list.Add(Dave.ToString("0.00000"))
+                data_list.Add(Jitter_value.ToString("0.00000"))
                 SaveDataToFile(data_list, pass_result, jitter_sel)
                 ' ------------------------------------------------------------------------------------------------
 
@@ -6372,12 +6361,12 @@ Public Class PartI
                 ' Ollie_note: save data to text file (Efficiency)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
-                data_list.Add(vin_meas.ToString("0.000")) : data_list.Add(iin_meas.ToString("0.000")) : data_list.Add(Eff_vout_meas.ToString("0.000"))
-                data_list.Add(iout_meas.ToString("0.000")) : data_list.Add(eff.ToString("0.000")) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)).ToString("0.000"))
+                data_list.Add(vin_meas.ToString("0.00000")) : data_list.Add(iin_meas.ToString("0.00000")) : data_list.Add(Eff_vout_meas.ToString("0.00000"))
+                data_list.Add(iout_meas.ToString("0.00000")) : data_list.Add(eff.ToString("0.00000")) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)).ToString("0.00000"))
 
-                If cbox_VCC.SelectedItem <> no_device Then : data_list.Add(vcc_meas.ToString("0.000")) : End If
-                If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.000")) : End If
-                If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then : data_list.Add((((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100).ToString("0.00000")) : End If
+                If cbox_VCC.SelectedItem <> no_device Then : data_list.Add(vcc_meas.ToString("0.00000")) : End If
+                If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.00000")) : End If
+                If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then : data_list.Add((((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100).ToString("0.0000000")) : End If
 
                 SaveDataToFile(data_list, pass_result, eff_sel)
                 '-------------------------------------------------------------------------------------
@@ -7262,6 +7251,15 @@ Public Class PartI
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
+                            ElseIf rbtn_iin_current_measure.Checked Or rbtn_iout_current_measure.Checked Then
+                                ' Ollie_note: check current measure hi level
+                                If rbtn_iin_current_measure.Checked Then
+                                    relay_in_meter_intial()
+                                End If
+
+                                If rbtn_iout_current_measure.Checked Then
+                                    realy_out_meter_initial()
+                                End If
                             End If
                             '-----------------------------------------------------------------------------------------------------------
                             'Iout Setting
@@ -7461,7 +7459,7 @@ Public Class PartI
                             End If
 
                             If check_Efficiency.Checked Then
-                                TxtToExcel(eff_sel, eff_start_row(ii), v Mod eff_start_row.Count)
+                                TxtToExcel(eff_sel, eff_start_row(ii), v)
                             End If
 
                             If check_loadR.Checked Then
