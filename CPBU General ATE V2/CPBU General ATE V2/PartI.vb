@@ -3606,8 +3606,6 @@ Public Class PartI
     End Function
 
     Function test_report_init(ByVal test_name As String) As Integer
-
-        ' Ollie_note: add report row start list
         jitter_start_row.Clear()
         lineR_start_row.Clear()
 
@@ -4027,7 +4025,6 @@ Public Class PartI
                                 total_title = TA_title & VCC_title & Fs_title & "VOUT=" & vout_now & "V, VIN=" & vin_now & "V"
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
-                                ' Ollie_note: jitter row
                                 jitter_start_row.Add(row + 2)
                                 row = row + 1
                                 For nn = 0 To jitter_col.Length - 1
@@ -4431,7 +4428,6 @@ Public Class PartI
                                     row = row + 1
                                     vin_now = data_vin.Rows(i - 1).Cells(0).Value
                                     report_title("VIN=" & vin_now & "V", col, row, 1, 1, data_title_color)
-                                    'Ollie_note: record vin columns
                                     loadR_vin_col.Add(col)
                                     '-------------------------------------------------------------------------------
                                     'Add Serial 
@@ -5792,7 +5788,6 @@ Public Class PartI
                 ' Stability Update data finish
                 ''----------------------------------------------------------------------------------------------------------------
 #End Region
-                ' Ollie_note: save data to text file (Stability)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas.ToString("0.000000"))
@@ -5996,7 +5991,6 @@ Public Class PartI
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
 #End Region
-                ' Ollie_note: save data to text file (Jitter)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add(Ton_mean.ToString("0.00000")) : data_list.Add(Toff_min.ToString("0.00000"))
@@ -6101,7 +6095,6 @@ Public Class PartI
                 End If
 
                 '----------------------------------------------------------------------------------
-                ' Ollie_note: save data to text file (Line Regulation)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas.ToString("0.0000"))
@@ -6188,10 +6181,7 @@ Public Class PartI
                     FinalReleaseComObject(xlSheet)
                     '-------------------------------------------------------------------------------------
                 End If
-
-                'Ollie_note: line regulation save data to txt
                 SaveDataToFile(data_list, pass_result, line_sel)
-
             Case Load_Regulation
 
                 xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
@@ -6248,7 +6238,6 @@ Public Class PartI
                     End If
                 End If
                 '----------------------------------------------------------------------------------
-                ' Ollie_note: save data to text file (load Regulation)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vout_meas)
@@ -6358,7 +6347,6 @@ Public Class PartI
                 'xlrange.Value = pass_result
 #End Region
                 '----------------------------------------------------------------------------------
-                ' Ollie_note: save data to text file (Efficiency)
                 ' ------------------------------------------------------------------------------------------------
                 Dim data_list As New List(Of Double)
                 data_list.Add(vin_meas.ToString("0.00000")) : data_list.Add(iin_meas.ToString("0.00000")) : data_list.Add(Eff_vout_meas.ToString("0.00000"))
@@ -7156,7 +7144,7 @@ Public Class PartI
                         (rbtn_lineR_test2.Checked = True)) Then
 
                         For v = 0 To data_vin.Rows.Count - 1 ' vin loop
-                            'Ollie_note: clear text file
+
                             Clear0To4TxtFile()
 
                             System.Windows.Forms.Application.DoEvents()
@@ -7252,7 +7240,6 @@ Public Class PartI
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
                             ElseIf rbtn_iin_current_measure.Checked Or rbtn_iout_current_measure.Checked Then
-                                ' Ollie_note: check current measure hi level
                                 If rbtn_iin_current_measure.Checked Then
                                     relay_in_meter_intial()
                                 End If
@@ -7351,7 +7338,6 @@ Public Class PartI
                                     iout_meas = meter_average(cbox_Iout_meter.SelectedItem, Meter_iout_dev, num_data_count.Value, Meter_iout_range, Meter_iout_low)
                                     Meter_iout_range = Meter_range_now
                                 ElseIf rbtn_iout_current_measure.Checked Then
-                                    ' Ollie_note: add current measure board
                                     ' in_out_sel = 0: input current
                                     ' in_out_sel = 1: output current
                                     iout_meas = meter_auto(1, num_meter_count.Value)
@@ -7446,7 +7432,6 @@ Public Class PartI
                             Next ' iout loop
 
                             ''----------------------------------------------------------------------------------
-                            ' Ollie_note: Stability txt to excel
                             ' v is vin loop idx
                             If check_stability.Checked Then
                                 TxtToExcel(stable_sel, stability_report_row(stability_idx) + 2, 0)

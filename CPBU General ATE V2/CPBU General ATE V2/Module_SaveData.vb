@@ -26,8 +26,6 @@ Module Module_SaveData
     Public jitter_sel As Integer = 3
     Public line_sel As Integer = 4
 
-
-    'Ollie_note: test file
     Public test_file As String = starup_path & "\text.txt"
     Public test_sheet As String = "工作表1"
     Public test_sel As Integer = 5
