@@ -212,18 +212,10 @@ Module Module_ATE
     Public total_fs() As Double
     Public total_vout() As Double
     'Public total_iout() As Double
-
-
     Public PASS As String = "PASS"
     Public FAIL As String = "FAIL"
-
-
     Public TA_now As String = ""
-
     Public vout_err As Integer = 90
-
-
-
     '//-----------------------------------------------------------------------------//
     'Scope
     'Scope Channel 
@@ -232,6 +224,11 @@ Module Module_ATE
     Public vout_ch As Integer = 2
     Public iout_ch As Integer = 4
     Public lx_ch As Integer = 3
+
+    Public lx2_ch As Integer
+    Public vout2_ch As Integer
+
+
 
     Public RL_value As Integer
     Public Wave_num As Integer
@@ -1025,40 +1022,21 @@ Module Module_ATE
         Dim trigger_error As Boolean = False
 
         Information.information_run("Monitor Count", note_count)
-
-
-
         Scope_measure_reset()
-
-
         'Information.information_run("Monitor Count", note_count)
-
-
         count_temp = Scope_measure_count(1)
-
         count_before = count_temp
-
         note_value = count_temp
-
         While count_temp <= num_counts
-
-
             System.Windows.Forms.Application.DoEvents()
-
             If run = False Then
                 Exit While
             End If
-
             count_temp = Scope_measure_count(1)
             '----------------------------------------
             note_value = count_temp
-
-
-
             '----------------------------------------
             If count_temp = count_before Then
-
-
                 If error_monitor = False Then
                     measure_time = Now
                     error_monitor = True
@@ -1074,69 +1052,42 @@ Module Module_ATE
                             Else
                                 Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
                             End If
-
                     End Select
-
                     trigger_error = True
-
                     count_temp = Scope_measure_count(1)
-
                     measure_time = Now
-
                 End If
-
                 '-----------------------------------------------------------------
                 '遇到異常重開2次還是異常直接中斷測試
                 If DateDiff(DateInterval.Second, measure_time, Now) >= second_max Then
-
                     If monitor_vout = True Then
                         check_vout()
                     End If
                     critical_message("Detecting LX count timeout!")
-
                     Exit While
-
                 End If
                 '-----------------------------------------------------------------
             Else
-
                 error_monitor = False
                 count_before = count_temp
             End If
-
-
-
         End While
-
-
         If scope_stop = True Then
             Scope_RUN(False)
-
-
         End If
 
         If trigger_error = True Then
             '回設定值
             Select Case test_item
-
                 Case "Part I"
                     If PartI.rbtn_vin_trigger.Checked = True Then
                         Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
                     Else
                         Trigger_auto_level(lx_ch, "R")
-
                     End If
             End Select
-
-
         End If
-
-
-
         note_display = False
-
-
-
     End Function
 
     Function Iin_Meter_initial(ByVal check_iin As Object, ByVal cbox_IIN_meter As Object, ByVal cbox_IIN_relay As Object) As Integer
@@ -1156,10 +1107,6 @@ Module Module_ATE
         If Meter_iin_dev <> 0 Then
             meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
         End If
-
-
-
-
 
     End Function
 
