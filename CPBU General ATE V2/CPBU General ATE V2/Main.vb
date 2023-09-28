@@ -1224,7 +1224,6 @@ Public Class Main
 
         If dlgSave.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             sf_name = dlgSave.FileName
-
         Else
             'sf_name = Environment.CurrentDirectory & "\" & cbox_test.SelectedItem & "_" & DateTime.Now.ToString("MMdd") & ".xlsx" 'Now.Month & Now.Day
             run = False
@@ -1236,38 +1235,21 @@ Public Class Main
         txt_file.Text = sf_name
 
         folderPath = testFile.DirectoryName
-
-
-
         xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
         xlApp.DisplayAlerts = False
         xlApp.Visible = False
-
         xlApp.AutoRecover.Enabled = False
-
-
         xlBook = xlApp.Workbooks.Add
         xlBook.Activate()
-
-
-
         xlApp.Calculation = Excel.XlCalculation.xlCalculationManual
-
         xlBook.SaveAs(sf_name)
-
         excel_close()
-
         dlgSave.Dispose()
-
-
     End Function
 
 
     'Function RUN_stop() As Integer
     '    'Bridgeboard Stop
-
-
-
 
     '    run = False
     '    note_display = False
@@ -1942,11 +1924,6 @@ Public Class Main
         End If
 
         ' ''---------------------------------------------------------------------------------  '------------------------------------------------------------
-
-
-
-
-
         Delay(100)
 
     End Sub

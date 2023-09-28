@@ -181,14 +181,14 @@ Public Class PartI
 
     Dim total_Eff As Boolean = False
 
-    Dim meas1 As Integer = 1
-    Dim meas2 As Integer = 2
-    Dim meas3 As Integer = 3
-    Dim meas4 As Integer = 4
-    Dim meas5 As Integer = 5
-    Dim meas6 As Integer = 6
-    Dim meas7 As Integer = 7
-    Dim meas8 As Integer = 8
+    Dim meas1 As Integer = 1 ' freq     dut1: freq
+    Dim meas2 As Integer = 2 ' pwidth   dut1: pwidth
+    Dim meas3 As Integer = 3 ' nwidth   dut1: nwidth
+    Dim meas4 As Integer = 4 ' pk2pk    dut1: pk2pk
+    Dim meas5 As Integer = 5 ' maximum  dut2: freq
+    Dim meas6 As Integer = 6 ' minimum  dut2: pwidth
+    Dim meas7 As Integer = 7 '          dut2: nwidth    
+    Dim meas8 As Integer = 8 '          dut2: pk2pk
 
     '------------------------------------------------------------------------------------------------
     'Test
@@ -604,6 +604,13 @@ Public Class PartI
     Function scope_measure_init() As Integer
         Dim meas_ch As Integer
         Dim meas_type As String
+
+        Dim meas_freq_type As String = txt_meas1.Text
+        Dim meas_pwidth_type As String = txt_meas2.Text
+        Dim meas_nwidth_type As String = txt_meas3.Text
+        Dim meas_vpp_type As String = txt_meas4.Text
+        Dim meas_vmax_type As String = txt_meas5.Text
+        Dim meas_vmin_type As String = txt_meas6.Text
         Scope_measure_clear()
         Delay(100)
 
@@ -618,30 +625,30 @@ Public Class PartI
         '' Returns "Function Demo".
         'Dim midWords As String = Mid(testString, 5)
 
-        ' CH1/3
+        ' CH1
         meas_ch = Val(Mid(txt_meas1_ch.Text, 3))
-        meas_type = txt_meas1.Text
-        Scope_measure_set(meas1, meas_ch, meas_type)
+        'meas_type = txt_meas1.Text
+        Scope_measure_set(meas1, meas_ch, meas_freq_type)
 
         meas_ch = Val(Mid(txt_meas2_ch.Text, 3))
-        meas_type = txt_meas2.Text
-        Scope_measure_set(meas2, meas_ch, meas_type)
+        'meas_type = txt_meas2.Text
+        Scope_measure_set(meas2, meas_ch, meas_pwidth_type)
 
         meas_ch = Val(Mid(txt_meas3_ch.Text, 3))
-        meas_type = txt_meas3.Text
-        Scope_measure_set(meas3, meas_ch, meas_type)
+        'meas_type = txt_meas3.Text
+        Scope_measure_set(meas3, meas_ch, meas_nwidth_type)
 
         meas_ch = Val(Mid(txt_meas4_ch.Text, 3))
-        meas_type = txt_meas4.Text
-        Scope_measure_set(meas4, meas_ch, meas_type)
+        'meas_type = txt_meas4.Text
+        Scope_measure_set(meas4, meas_ch, meas_vpp_type)
 
         meas_ch = Val(Mid(txt_meas5_ch.Text, 3))
-        meas_type = txt_meas5.Text
-        Scope_measure_set(meas5, meas_ch, meas_type)
+        'meas_type = txt_meas5.Text
+        Scope_measure_set(meas5, meas_ch, meas_vmax_type)
 
         meas_ch = Val(Mid(txt_meas6_ch.Text, 3))
-        meas_type = txt_meas6.Text
-        Scope_measure_set(meas6, meas_ch, meas_type)
+        'meas_type = txt_meas6.Text
+        Scope_measure_set(meas6, meas_ch, meas_vmin_type)
 
         If RS_Scope = True Then
             RS_Local()          ' Disable monitor screen
@@ -652,44 +659,42 @@ Public Class PartI
     Function scope_measure_init_2dut() As Integer
         Dim meas_ch As Integer
         Dim meas_type As String
+        Dim meas_freq_type As String = txt_meas1.Text
+        Dim meas_pwidth_type As String = txt_meas2.Text
+        Dim meas_nwidth_type As String = txt_meas3.Text
+        Dim meas_vpp_type As String = txt_meas4.Text
+        Dim meas_vmax_type As String = txt_meas5.Text
+        Dim meas_vmin_type As String = txt_meas6.Text
         Scope_measure_clear()
         Delay(100)
 
         ' freq
         meas_ch = Val(Mid(txt_meas1_ch.Text, 3))
-        meas_type = txt_meas1.Text
-        Scope_measure_set(meas1, meas_ch, meas_type)
+        Scope_measure_set(meas1, meas_ch, meas_freq_type)
         ' Pwidth
         meas_ch = Val(Mid(txt_meas2_ch.Text, 3))
-        meas_type = txt_meas2.Text
-        Scope_measure_set(meas2, meas_ch, meas_type)
+        Scope_measure_set(meas2, meas_ch, meas_pwidth_type)
         ' NWidth
         meas_ch = Val(Mid(txt_meas3_ch.Text, 3))
-        meas_type = txt_meas3.Text
-        Scope_measure_set(meas3, meas_ch, meas_type)
+        Scope_measure_set(meas3, meas_ch, meas_nwidth_type)
         ' PK2PK
         meas_ch = Val(Mid(txt_meas4_ch.Text, 3))
-        meas_type = txt_meas4.Text
-        Scope_measure_set(meas4, meas_ch, meas_type)
+        Scope_measure_set(meas4, meas_ch, meas_vpp_type)
 
 
         ' dut2
         ' freq
         meas_ch = Val(Mid(txt_meas1_ch.Text, 5))
-        meas_type = txt_meas1.Text
-        Scope_measure_set(meas5, meas_ch, meas_type)
+        Scope_measure_set(meas5, meas_ch, meas_freq_type)
         ' Pwidth
         meas_ch = Val(Mid(txt_meas2_ch.Text, 5))
-        meas_type = txt_meas2.Text
-        Scope_measure_set(meas6, meas_ch, meas_type)
+        Scope_measure_set(meas6, meas_ch, meas_pwidth_type)
         ' NWidth
         meas_ch = Val(Mid(txt_meas3_ch.Text, 5))
-        meas_type = txt_meas3.Text
-        Scope_measure_set(meas7, meas_ch, meas_type)
+        Scope_measure_set(meas7, meas_ch, meas_nwidth_type)
         ' PK2PK
         meas_ch = Val(Mid(txt_meas4_ch.Text, 5))
-        meas_type = txt_meas4.Text
-        Scope_measure_set(meas8, meas_ch, meas_type)
+        Scope_measure_set(meas8, meas_ch, meas_vpp_type)
 
         If RS_Scope = True Then
             RS_Local()          ' Disable monitor screen
@@ -854,19 +859,13 @@ Public Class PartI
         'I2C Init
         ' check i2c setting from main from
         If Main.data_i2c.Rows.Count > 0 Then
-
-
             For i = 0 To Main.data_i2c.Rows.Count - 1
                 System.Windows.Forms.Application.DoEvents()
                 If run = False Then
                     Exit For
                 End If
-
                 reg_write(Val("&H" & Main.data_i2c.Rows(i).Cells(0).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(1).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(2).Value))
-
             Next
-
-
         End If
 
 
@@ -948,13 +947,11 @@ Public Class PartI
             If check_scope_vin.Checked = True Then
                 vin_ch = Val(Mid(cbox_channel_vin.SelectedItem, 3))
                 'Check Board
-
                 If txt_board_VOUT.Text = "Buck1" Then
                     Relay5_VIN_SCL = True
                 Else
                     Relay1_BUCK1_VIN = True
                 End If
-
             Else
                 vin_ch = 0
             End If
@@ -1563,8 +1560,6 @@ Public Class PartI
 
     End Function
 
-
-
     Function data_set_list() As Integer
 
         Dim t, n, i, ii, v As Integer
@@ -1791,7 +1786,6 @@ Public Class PartI
 
     Function Inst_check_list() As Integer
 
-
         ReDim Preserve Scope_check(data_test_now)
         ReDim Preserve Meter_iin_check(data_test_now)
         ReDim Preserve Relay_iin_check(data_test_now)
@@ -1937,7 +1931,6 @@ Public Class PartI
         Fs_Max = Format(Fs_Max, "#0.0")
         Fs_Min = Format(Fs_Min, "#0.0")
     End Function
-
 
 
     Function result_parameter() As Integer
@@ -3011,17 +3004,12 @@ Public Class PartI
                 Else
                     import_ok = False
                 End If
-
-
-
             End If
         Next
 
         If import_ok = False Then
             cbox_Icc_meter.SelectedIndex = 0
         End If
-
-
 
         row = row + 1
         '------------------------------------------------------------------------------------
@@ -3061,7 +3049,6 @@ Public Class PartI
         num_vin_max.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
         row = row + 1
 
-
         '------------------------------------------------------------------------------------
         'xlSheet.Cells(row, col) = "IIN"
         'title_set()
@@ -3094,9 +3081,6 @@ Public Class PartI
                 Else
                     import_ok = False
                 End If
-
-
-
             End If
         Next
 
@@ -3567,13 +3551,11 @@ Public Class PartI
         note_display = True
         Information.information_run("Initial Report", note_run)
         excel_open()
-
         If check_LineR.Checked = True Then
             If TA_Test_num = 0 Then
                 If check_lineR_scope.Checked = True Then
                     sheet_init(txt_data_sheet.Text)
                 End If
-
                 sheet_init(txt_LineR_sheet.Text)
             End If
             test_report_init(Line_Regulation)
@@ -3638,7 +3620,6 @@ Public Class PartI
         loadR_start_row.Clear()
         loadR_vin_col.Clear()
         lineR_vin_col.Clear()
-
 
         Dim n, f, v, i, ii, nn As Integer
         Dim TA_title, VCC_title, Fs_title, total_title As String
@@ -4644,7 +4625,6 @@ Public Class PartI
         'Next  'TA
     End Function
 
-
     Function iin_range_report_info() As Integer
 
         Dim i, ii As Integer
@@ -4978,11 +4958,8 @@ Public Class PartI
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
         Dim iout_temp As Double
-
         Dim double_check As Boolean = False
         'inital
-
-
         'If RS_Scope = True Then
         '    RS_Scope_measure_status(4, True)
         '    RS_Scope_measure_status(5, True)
@@ -5166,13 +5143,13 @@ Public Class PartI
                 End If
             End If
         End If
+
         iout_temp = iout_now
-        ' ''----------------------------------------------------------------------------------
-        ''Measurement
+
+
         ''Scope
         update_report(Stability)
     End Function
-
 
     Function Stability_run_2dut() As Integer
         Dim vout_temp As Double
@@ -5180,202 +5157,190 @@ Public Class PartI
         Dim iout_temp As Double
         Dim double_check As Boolean = False
 
-        Scope_RUN(False)
-        Calculate_pass(TA_Test_num)
-        If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
-            H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
-        Else
-            H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
-        End If
-        ''----------------------------------------------------------------------------------
-        'Timing Scale
-        H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
-        'Scope_RUN(True)
-        If RS_Scope = True Then
-            RS_View(True)
-        End If
-        If (iout_now = data_test.Rows(0).Cells(0).Value) Then
+        Dim lx_ch_ar() As Integer = New Integer() {lx_ch, lx2_ch}
+        Dim vout_ch_ar() As Integer = New Integer() {vout_ch, vout2_ch}
 
-            If rbtn_auto_vout.Checked = True Then
-                vout_temp = Math.Floor(((vout_meas * 1000) * 0.005))
-                vout_temp = Math.Floor(vout_temp / 5) * 5
-                If vout_temp > 10 Then
-                    vout_scale_now = vout_temp
-                Else
-                    vout_scale_now = 10
-                End If
+        Dim meas_freq_sel() As Integer = New Integer() {meas1, meas5}
+        Dim meas_pwidth_sel() As Integer = New Integer() {meas2, meas6}
+        Dim meas_nwidth_sel() As Integer = New Integer() {meas3, meas7}
+        Dim meas_vpp_sel() As Integer = New Integer() {meas4, meas8}
+
+
+
+        For ch_sel As Integer = 0 To lx_ch_ar.Length - 1
+
+            Scope_RUN(False)
+            Calculate_pass(TA_Test_num)
+            If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
+                H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
             Else
-                If (check_Force_CCM.Checked = True) Then
-                    vout_scale_now = num_vout_CCM.Value
+                H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+            End If
+            ''----------------------------------------------------------------------------------
+            'Timing Scale
+            H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+            'Scope_RUN(True)
+            If RS_Scope = True Then
+                RS_View(True)
+            End If
+
+            If (iout_now = data_test.Rows(0).Cells(0).Value) Then
+
+                If rbtn_auto_vout.Checked = True Then
+                    vout_temp = Math.Floor(((vout_meas * 1000) * 0.005))
+                    vout_temp = Math.Floor(vout_temp / 5) * 5
+                    If vout_temp > 10 Then
+                        vout_scale_now = vout_temp
+                    Else
+                        vout_scale_now = 10
+                    End If
                 Else
-                    vout_scale_now = num_vout_DEM.Value
+                    If (check_Force_CCM.Checked = True) Then
+                        vout_scale_now = num_vout_CCM.Value
+                    Else
+                        vout_scale_now = num_vout_DEM.Value
+                    End If
+                End If
+
+                CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                monitor_count(num_counts_CCM.Value, False, "Part I")
+                If rbtn_auto_vout.Checked = True Then
+                    '第一次調整vout scale
+                    vpp(3) = Scope_measure(4, Meas_max)
+                    vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+
+                    'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
+                    vout_temp = Math.Floor(vout_temp)
+
+                    If vout_temp < 5 Then
+                        vout_scale_temp = vout_temp
+                    Else
+                        vout_scale_temp = Math.Floor(vout_temp / 5) * 5
+                    End If
+                    VoutScalling_CCM = False
+                Else
+                    If (Fs_CCM = True) Then
+                        vout_scale_temp = num_vout_CCM.Value
+                        VoutScalling_CCM = True
+                    Else
+                        vout_scale_temp = num_vout_DEM.Value
+                        VoutScalling_CCM = False
+                    End If
+                End If
+                If vout_scale_temp <> vout_scale_now Then
+                    vout_scale_now = vout_scale_temp
+                    CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                 End If
             End If
 
-            CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-            'Scope_RUN(True)
-            monitor_count(num_counts_CCM.Value, False, "Part I")
-            If rbtn_auto_vout.Checked = True Then
-                '第一次調整vout scale
-                vpp(3) = Scope_measure(4, Meas_max)
-                vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+            If Fs_CCM = True Then
+                monitor_count(num_counts_CCM.Value, True, "Part I")
+            Else
+                monitor_count(num_counts_DEM.Value, True, "Part I")
+            End If
 
+            fs(0) = Scope_measure(meas_freq_sel(ch_sel), Scope_Meas)
+            fs(1) = Scope_measure(meas_freq_sel(ch_sel), Meas_mean)
+            fs(2) = Scope_measure(meas_freq_sel(ch_sel), Meas_min)
+            fs(3) = Scope_measure(meas_freq_sel(ch_sel), Meas_max)
+            'Ton (ns)
+            'x = x + 1 ' = 2
+            ton(0) = Scope_measure(meas_pwidth_sel(ch_sel), Scope_Meas)
+            ton(1) = Scope_measure(meas_pwidth_sel(ch_sel), Meas_mean)
+            ton(2) = Scope_measure(meas_pwidth_sel(ch_sel), Meas_min)
+            ton(3) = Scope_measure(meas_pwidth_sel(ch_sel), Meas_max)
+
+            'Toff
+            'x = x + 1 ' = 3
+            toff(0) = Scope_measure(meas_nwidth_sel(ch_sel), Scope_Meas)
+            toff(1) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_mean)
+            toff(2) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_min)
+            toff(3) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_max)
+
+            'vpp
+            'x = x + 1 ' = 4
+            vpp(0) = Scope_measure(meas_vpp_sel(ch_sel), Scope_Meas)
+            vpp(1) = Scope_measure(meas_vpp_sel(ch_sel), Meas_mean)
+            vpp(2) = Scope_measure(meas_vpp_sel(ch_sel), Meas_min)
+            vpp(3) = Scope_measure(meas_vpp_sel(ch_sel), Meas_max)
+
+
+            If rbtn_auto_vout.Checked = True Then
+                '--------------------------------------------------------------------
+                '計算Scale
+                vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
                 'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
                 vout_temp = Math.Floor(vout_temp)
-
                 If vout_temp < 5 Then
                     vout_scale_temp = vout_temp
                 Else
                     vout_scale_temp = Math.Floor(vout_temp / 5) * 5
                 End If
-                VoutScalling_CCM = False
-            Else
-                If (Fs_CCM = True) Then
-                    vout_scale_temp = num_vout_CCM.Value
-                    VoutScalling_CCM = True
-                Else
-                    vout_scale_temp = num_vout_DEM.Value
-                    VoutScalling_CCM = False
-                End If
-            End If
-            If vout_scale_temp <> vout_scale_now Then
-                vout_scale_now = vout_scale_temp
-                CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-            End If
-        End If
-
-        If Fs_CCM = True Then
-            monitor_count(num_counts_CCM.Value, True, "Part I")
-        Else
-            monitor_count(num_counts_DEM.Value, True, "Part I")
-        End If
-
-        ''----------------------------------------------------------------------------------
-        'Measurement
-        'Scope
-
-        'x = 1 ' = 1
-        'KHz
-        fs(0) = Scope_measure(meas1, Scope_Meas)
-        fs(1) = Scope_measure(meas1, Meas_mean)
-        fs(2) = Scope_measure(meas1, Meas_min)
-        fs(3) = Scope_measure(meas1, Meas_max)
-        'Ton (ns)
-        'x = x + 1 ' = 2
-        ton(0) = Scope_measure(meas2, Scope_Meas)
-        ton(1) = Scope_measure(meas2, Meas_mean)
-        ton(2) = Scope_measure(meas2, Meas_min)
-        ton(3) = Scope_measure(meas2, Meas_max)
-
-        'Toff
-        'x = x + 1 ' = 3
-        toff(0) = Scope_measure(meas3, Scope_Meas)
-        toff(1) = Scope_measure(meas3, Meas_mean)
-        toff(2) = Scope_measure(meas3, Meas_min)
-        toff(3) = Scope_measure(meas3, Meas_max)
-
-        'vpp
-        'x = x + 1 ' = 4
-        vpp(0) = Scope_measure(meas4, Scope_Meas)
-        vpp(1) = Scope_measure(meas4, Meas_mean)
-        vpp(2) = Scope_measure(meas4, Meas_min)
-        vpp(3) = Scope_measure(meas4, Meas_max)
-
-
-
-        If rbtn_auto_vout.Checked = True Then
-            '--------------------------------------------------------------------
-            '計算Scale
-
-            vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
-            'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
-            vout_temp = Math.Floor(vout_temp)
-
-            If vout_temp < 5 Then
-                vout_scale_temp = vout_temp
-            Else
-                vout_scale_temp = Math.Floor(vout_temp / 5) * 5
-            End If
-            '--------------------------------------------------------------------
-
-
-            If Check_fixed.Checked = True Then
                 '--------------------------------------------------------------------
-                '不管CCM. DEM都固定調整在同一個隔數內
 
-                If vout_scale_temp <> vout_scale_now Then
-                    vout_scale_now = vout_scale_temp
-                    CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                End If
-                '----------------------------------------------------------------------
-            Else
-                ''只調整一次
-                If (check_Force_CCM.Checked = False) Then
-                    If (iout_now <= IOUT_Boundary_Stop) And (iout_now >= IOUT_Boundary_Start) Then
-                        double_check = False
-                        'Iout上升
-                        If (iout_now >= iout_temp) And (VoutScalling_CCM = False) And (vout_scale_temp < vout_scale_now) Then
-                            vout_scale_now = vout_scale_temp
-                            CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                            VoutScalling_CCM = True
-                        End If
-                        'Iout下降
-                        If (iout_now < iout_temp) And (VoutScalling_CCM = True) And (vout_scale_temp > vout_scale_now) Then
-                            vout_scale_now = vout_scale_temp
-
-                            CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-
-                            VoutScalling_CCM = False
-                        End If
-                    ElseIf (iout_now >= IOUT_Boundary_Stop) And (double_check = False) Then
-                        '
+                If Check_fixed.Checked = True Then
+                    '--------------------------------------------------------------------
+                    '不管CCM. DEM都固定調整在同一個隔數內
+                    If vout_scale_temp <> vout_scale_now Then
                         vout_scale_now = vout_scale_temp
-                        CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                        double_check = True
+                        CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                    End If
+                    '----------------------------------------------------------------------
+                Else
+                    ''只調整一次
+                    If (check_Force_CCM.Checked = False) Then
+                        If (iout_now <= IOUT_Boundary_Stop) And (iout_now >= IOUT_Boundary_Start) Then
+                            double_check = False
+                            'Iout上升
+                            If (iout_now >= iout_temp) And (VoutScalling_CCM = False) And (vout_scale_temp < vout_scale_now) Then
+                                vout_scale_now = vout_scale_temp
+                                CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                                VoutScalling_CCM = True
+                            End If
+                            'Iout下降
+                            If (iout_now < iout_temp) And (VoutScalling_CCM = True) And (vout_scale_temp > vout_scale_now) Then
+                                vout_scale_now = vout_scale_temp
 
-                    ElseIf (iout_now <= IOUT_Boundary_Start) And (double_check = False) Then
-                        vout_scale_now = vout_scale_temp
+                                CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
 
-                        CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                        double_check = True
+                                VoutScalling_CCM = False
+                            End If
+                        ElseIf (iout_now >= IOUT_Boundary_Stop) And (double_check = False) Then
+                            '
+                            vout_scale_now = vout_scale_temp
+                            CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                            double_check = True
+
+                        ElseIf (iout_now <= IOUT_Boundary_Start) And (double_check = False) Then
+                            vout_scale_now = vout_scale_temp
+
+                            CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                            double_check = True
+                        End If
                     End If
                 End If
             End If
-        End If
-        iout_temp = iout_now
-        ' ''----------------------------------------------------------------------------------
-        ''Measurement
-        ''Scope
-        update_report(Stability)
-
-
-
+            iout_temp = iout_now
+            update_report(Stability)
+        Next ' update measure and report loop
     End Function
-
-
 
     Function Jitter_run() As Integer
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
-
         Scope_RUN(False)
-
         If check_cursors.Checked = True Then
-
             Cursor_ONOFF("OFF")
-
-
         End If
-
         If RS_Scope = True Then
             RS_Display(RS_RES_MES, RS_DISP_DOCK)
             'RS_Display(RS_RES_MES, RS_DISP_PREV)
             Scope_measure_clear()
 
-            RS_Scope_measure_status(1, True)
-            RS_Scope_measure_status(2, True)
-            RS_Scope_measure_status(3, True)
-            RS_Scope_measure_status(4, True)
+            RS_Scope_measure_status(meas1, True)
+            RS_Scope_measure_status(meas2, True)
+            RS_Scope_measure_status(meas3, True)
+            RS_Scope_measure_status(meas4, True)
             RS_Local()
             'RS_View()
         End If
@@ -5383,36 +5348,21 @@ Public Class PartI
         'Scope
         'Time Scale
         '以8格算
-
         H_scale_value = ((1 / fs_now) * 2 / 8) * (10 ^ 9)
-
-
         'Timing Scale
         H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
-
-
         If rbtn_vin_trigger.Checked = True Then
             Trigger_set(lx_ch, "R", vin_now / num_vin_trigger.Value)
         Else
             Trigger_auto_level(lx_ch, "R")
         End If
-
-
-
         If RS_Scope = True Then
             RS_View(True)
         End If
         RUN_set("RUNSTop")
         'Scope_RUN(True)
-
-
-
-
         If (iout_now = data_jitter_iout.Rows(0).Cells(0).Value) Then
-
-
             If rbtn_auto_vout.Checked = True Then
-
                 '----------------------------------------------------------------------
                 monitor_count(num_counts_CCM.Value, True, "Part I")
 
@@ -5427,24 +5377,15 @@ Public Class PartI
                     If vout_temp < 5 Then
                         vout_scale_temp = vout_temp
                     Else
-
                         vout_scale_temp = Math.Floor(vout_temp / 5) * 5
                     End If
-
-
                     If vout_scale_temp <> vout_scale_now Then
-
                         vout_scale_now = vout_scale_temp
                         CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                     End If
-
                 End If
-
-
-
                 '----------------------------------------------------------------------
             Else
-
                 vout_scale_now = num_vout_CCM.Value
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
             End If
@@ -5455,10 +5396,7 @@ Public Class PartI
         '    RS_Scope_measure_status(5, False)
         '    RS_Scope_measure_status(6, False)
         '    RS_View()
-
         'End If
-
-
         'Scope_RUN(True)
         '----------------------------------------------------------------------
 
@@ -5466,35 +5404,119 @@ Public Class PartI
         '無限持續累積
         If check_persistence.Checked = True Then
             Scope_RUN(False)
-
             Display_persistence(True)
             Delay(100)
-
         End If
-
-
         Scope_RUN(True)
-
         Delay(100)
-
         monitor_count(num_counts_Jitter.Value, True, "Part I")
-
-
         x = 1
         fs(2) = Scope_measure(x, Meas_min)
         'Ton (ns)
         x = x + 1
         ton(1) = Scope_measure(x, Meas_mean)
-
         'Toff
         x = x + 1
-
         toff(2) = Scope_measure(x, Meas_min)
         toff(3) = Scope_measure(x, Meas_max)
         ''----------------------------------------------------------------------
         '----------------------------------------------------------------------
         update_report(Jitter)
+    End Function
 
+    Function Jitter_run_2dut() As Integer
+        Dim vout_temp As Double
+        Dim vout_scale_temp As Integer
+        Dim lx_ch_ar() As Integer = New Integer() {lx_ch, lx2_ch}
+        Dim vout_ch_ar() As Integer = New Integer() {vout_ch, vout2_ch}
+
+        Dim meas_freq_sel() As Integer = New Integer() {meas1, meas5}
+        Dim meas_pwidth_sel() As Integer = New Integer() {meas2, meas6}
+        Dim meas_nwidth_sel() As Integer = New Integer() {meas3, meas7}
+        Dim meas_vpp_sel() As Integer = New Integer() {meas4, meas8}
+
+        For ch_sel As Integer = 0 To lx_ch_ar.Length - 1
+
+            Scope_RUN(False)
+            If check_cursors.Checked = True Then
+                Cursor_ONOFF("OFF")
+            End If
+            If RS_Scope = True Then
+                RS_Display(RS_RES_MES, RS_DISP_DOCK)
+                'RS_Display(RS_RES_MES, RS_DISP_PREV)
+                Scope_measure_clear()
+
+                RS_Scope_measure_status(meas_freq_sel(ch_sel), True)
+                RS_Scope_measure_status(meas_pwidth_sel(ch_sel), True)
+                RS_Scope_measure_status(meas_nwidth_sel(ch_sel), True)
+                RS_Scope_measure_status(meas_vpp_sel(ch_sel), True)
+                RS_Local()
+                'RS_View()
+            End If
+            '-------------------------------------------------------------------------
+            'Scope
+            'Time Scale
+            '以8格算
+            H_scale_value = ((1 / fs_now) * 2 / 8) * (10 ^ 9)
+            'Timing Scale
+            H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+            If rbtn_vin_trigger.Checked = True Then
+                Trigger_set(lx_ch_ar(ch_sel), "R", vin_now / num_vin_trigger.Value)
+            Else
+                Trigger_auto_level(lx_ch_ar(ch_sel), "R")
+            End If
+            If RS_Scope = True Then
+                RS_View(True)
+            End If
+            RUN_set("RUNSTop")
+
+            If (iout_now = data_jitter_iout.Rows(0).Cells(0).Value) Then
+                If rbtn_auto_vout.Checked = True Then
+                    '----------------------------------------------------------------------
+                    monitor_count(num_counts_CCM.Value, True, "Part I")
+                    'Ollie_note: Vmax need get from Lx
+                    vpp(3) = Scope_measure(4, Meas_max)
+                    If vpp(3) < (10 ^ 20) Then
+                        vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+                        'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
+                        vout_temp = Math.Floor(vout_temp)
+                        If vout_temp < 5 Then
+                            vout_scale_temp = vout_temp
+                        Else
+                            vout_scale_temp = Math.Floor(vout_temp / 5) * 5
+                        End If
+                        If vout_scale_temp <> vout_scale_now Then
+                            vout_scale_now = vout_scale_temp
+                            CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                        End If
+                    End If
+                    '----------------------------------------------------------------------
+                Else
+                    vout_scale_now = num_vout_CCM.Value
+                    CHx_scale(vout_ch_ar(ch_sel), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                End If
+            End If
+            '----------------------------------------------------------------------
+            '無限持續累積
+            If check_persistence.Checked = True Then
+                Scope_RUN(False)
+                Display_persistence(True)
+                Delay(100)
+            End If
+            Scope_RUN(True)
+            Delay(100)
+            monitor_count(num_counts_Jitter.Value, True, "Part I")
+            ' freq
+            fs(2) = Scope_measure(meas_freq_sel(ch_sel), Meas_min)
+            ' Ton (ns)
+            ton(1) = Scope_measure(meas_pwidth_sel(ch_sel), Meas_mean)
+            ' Toff
+            toff(2) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_min)
+            toff(3) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_max)
+            ''----------------------------------------------------------------------
+            '----------------------------------------------------------------------
+            update_report(Jitter)
+        Next ' 2 dut loop
     End Function
 
     Function update_report(ByVal test_name As String) As Integer
@@ -5524,7 +5546,6 @@ Public Class PartI
         End If
 
         'Start Test
-
         Select Case test_name
 
             Case Stability
@@ -5791,9 +5812,6 @@ Public Class PartI
                     End If
                 End If
                 FinalReleaseComObject(xlrange)
-
-
-
 
                 If (check_Force_CCM.Checked = True) And (rbtn_auto_DEM.Checked = True) Then
                     'fs(2) = Scope_measure(x, Meas_min)
@@ -7063,6 +7081,7 @@ Public Class PartI
         Vout_TA_set = txt_OTP.Text
         Power_recorve = check_OTP.Checked
         TestITem_run_now = True
+
         ''Init Parameter
         instrument_init()
         If run = False Then
@@ -7080,19 +7099,13 @@ Public Class PartI
         '            vin_max = data_vin.Rows(i).Cells(0).Value
         '        End If
         '    Next
-
-
         '    num_vin_max.Value = vin_max + 3
-
         'End If
 
 
         iin_meter_change = num_iin_change.Value / 1000
-
         iout_meter_change = num_iout_change.Value / 1000
         '--------------------------------------------------------------------------------
-
-
         ' scope page: right side auto-adjust enable
         If (check_stability.Checked = True) Or (check_jitter.Checked = True) Then
             '--------------------------------------------------------------------------------
@@ -7124,7 +7137,6 @@ Public Class PartI
         Delay(100)
         If check_jitter.Checked = True Then
             If TA_Test_num = 0 Then
-
                 Jitter_pic_num = 1
             Else
                 Jitter_pic_num = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
@@ -7201,8 +7213,6 @@ Public Class PartI
 
                 fs_now = total_fs(i)
                 fs_test_num = i
-
-
                 If Main.cbox_fs_ctr.SelectedItem <> no_device Then
                     DCLoad_ONOFF("OFF")
                     Grobal_Control(Fs_control, fs_now)
@@ -7503,7 +7513,13 @@ Public Class PartI
                                     For y = 0 To stability_iout.Length - 1
                                         If iout_now = stability_iout(y) Then
                                             stability_iout_num = y
-                                            Stability_run()
+
+                                            If DUT2_en Then
+                                                Stability_run_2dut()
+                                            Else
+                                                Stability_run()
+                                            End If
+
                                             Exit For
                                         End If
                                     Next
@@ -7514,7 +7530,12 @@ Public Class PartI
 
                                         If iout_now = data_jitter_iout.Rows(y).Cells(0).Value Then
                                             jitter_iout_num = y
-                                            Jitter_run()
+                                            If DUT2_en Then
+                                                Jitter_run_2dut()
+                                            Else
+                                                Jitter_run()
+                                            End If
+
                                             Exit For
                                         End If
                                     Next
@@ -7620,7 +7641,12 @@ Public Class PartI
                                     End If
                                     ''----------------------------------------------------------------------------------
                                     stability_iout_num = stability_iout_num + 1
-                                    Stability_run()
+
+                                    If DUT2_en Then
+                                        Stability_run_2dut()
+                                    Else
+                                        Stability_run()
+                                    End If
                                 Next
                             End If
                             excel_close()
@@ -8058,6 +8084,9 @@ Public Class PartI
     End Sub
 
     Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        excel_open()
+
 
         initial()
 

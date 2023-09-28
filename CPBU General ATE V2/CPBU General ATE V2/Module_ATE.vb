@@ -433,7 +433,6 @@ Module Module_ATE
         'xlrange = Nothing
     End Function
 
-
     Function data_test_set(ByVal data As Object) As Integer
         Dim i, ii As Integer
 
@@ -456,7 +455,6 @@ Module Module_ATE
     End Function
 
     Function sheet_init(ByVal sheet_name As String) As Integer
-
         If report_sheet_first = True Then
             xlSheet = xlBook.ActiveSheet
             report_sheet_first = False
@@ -466,7 +464,6 @@ Module Module_ATE
         xlSheet.Name = sheet_name
         xlSheet.Cells.Font.Name = "Arial"
     End Function
-
 
     Function Calculate_iout(ByVal data_iout As Object) As Double()
         Dim i, ii As Integer
@@ -537,7 +534,6 @@ Module Module_ATE
         '------------------------------------------------------------
     End Function
 
-
     Function meas_type(ByVal cbox_type As Object, ByVal cbox_meas As Object) As Integer
         Dim Ampl() As String = {"AMPlitude", "PK2Pk", "RMS", "HIGH", "LOW", "MAXimum", "MINImum", "CRMs", "MEAN", "CMEan", "POVershoot", "NOVershoot"}
         Dim Time() As String = {"RISe", "FALL", "PWIdth", "NWIdth", "PERIod", "FREQuency", "PDUty", "NDUty", "DELay"}
@@ -563,7 +559,6 @@ Module Module_ATE
     End Function
 
     Function excel_open() As Integer
-
         xlApp = CreateObject("Excel.Application")
         xlApp.DisplayAlerts = False
 
@@ -575,7 +570,6 @@ Module Module_ATE
             xlApp.Visible = False
         End If
         xlBook = xlApp.Workbooks.Open(sf_name)
-
         'xlBook = xlApp.Workbooks.Add()
     End Function
 
@@ -591,21 +585,14 @@ Module Module_ATE
         xlApp = Nothing
     End Function
 
-
     Function excel_close() As Integer
-
-
         'Delay(100)
-
         excel_close_temp()
-
         GC.Collect()
         GC.WaitForPendingFinalizers()
-
         ' Kill(file_name)
         'Delay(100)
     End Function
-
 
     Function check_file_open(ByVal file_name As String) As Integer
         Dim IsError = True
