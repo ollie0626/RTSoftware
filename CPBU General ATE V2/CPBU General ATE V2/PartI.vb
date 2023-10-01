@@ -190,6 +190,8 @@ Public Class PartI
     Dim meas7 As Integer = 7 '          dut2: nwidth    
     Dim meas8 As Integer = 8 '          dut2: pk2pk
 
+    Dim add_dut2 As String = "_DUT2"
+
     '------------------------------------------------------------------------------------------------
     'Test
     Function initial() As Integer
@@ -1932,7 +1934,6 @@ Public Class PartI
         Fs_Min = Format(Fs_Min, "#0.0")
     End Function
 
-
     Function result_parameter() As Integer
         Dim i, n, ii, v, x, y As Integer
         Dim t As Integer
@@ -3525,12 +3526,8 @@ Public Class PartI
         row = row + 1
         data_test_import(data_lineR_iout, last_col)
         data_test_import(data_lineR_vin, last_col)
-
-
         'xlSheet.Cells(row, col) = "LineR Set"
         check_lineR_scope.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
-
-
         '------------------------------------------------------------------------------------
 
         import_now = False
@@ -3577,15 +3574,31 @@ Public Class PartI
             'Efficiency
             test_report_init(Efficiency)
         End If
+
+
+
+
+
         '-----------------------------------------------------------------------------------
         If check_jitter.Checked = True Then
             If TA_Test_num = 0 Then
                 sheet_init(txt_jitter_sheet.Text)
                 Jitter_folder = folderPath & "\Jitter_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
                 My.Computer.FileSystem.CreateDirectory(Jitter_folder)
+
+                If DUT2_en Then
+                    My.Computer.FileSystem.CreateDirectory(Jitter_folder & add_dut2)
+                End If
+
             End If
             test_report_init(Jitter)
+            If DUT2_en Then
+                test_report_init(Jitter & add_dut2)
+            End If
         End If
+
+
+
         '-----------------------------------------------------------------------------------
         If check_stability.Checked = True Then
             If TA_Test_num = 0 Then
@@ -3594,25 +3607,38 @@ Public Class PartI
                     'sheet_init(txt_beta_sheet.Text, False)
                     Beta_folder = folderPath & "\Beta_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
                     My.Computer.FileSystem.CreateDirectory(Beta_folder)
+                    If DUT2_en Then
+                        My.Computer.FileSystem.CreateDirectory(Beta_folder & add_dut2)
+                    End If
                 End If
                 '----------------------------------------------------------------------------------
                 'Error
                 sheet_init(txt_error_sheet.Text)
+                If DUT2_en Then
+                    sheet_init(txt_error_sheet.Text & add_dut2)
+                End If
                 Error_folder = ""
                 '----------------------------------------------------------------------------------
                 'Data
                 sheet_init(txt_stability_sheet.Text)
+                If DUT2_en Then
+                    sheet_init(txt_stability_sheet.Text & add_dut2)
+                End If
                 '----------------------------------------------------------------------------------
             End If
             test_report_init(Stability)
+            If DUT2_en Then
+                test_report_init(Stability, 1)
+            End If
         End If
+
         excel_close()
         GC.Collect()
         GC.WaitForPendingFinalizers()
         note_display = False
     End Function
 
-    Function test_report_init(ByVal test_name As String) As Integer
+    Function test_report_init(ByVal test_name As String, Optional ByVal dut_sel As Integer = 0) As Integer
         jitter_start_row.Clear()
         lineR_start_row.Clear()
 
@@ -3768,6 +3794,9 @@ Public Class PartI
 #Region "Stability Case"
                             'Vout, Vin, vcc往下移，fs, temp都往左移
                             xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
+                            If dut_sel = 1 Then
+                                xlSheet = xlBook.Sheets(txt_stability_sheet.Text & add_dut2)
+                            End If
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
                             'initial
@@ -4946,7 +4975,8 @@ Public Class PartI
             If txt_Icc_addr.Text <> "" Then
                 icc_meas = meter_average(cbox_Icc_meter.SelectedItem, Meter_icc_dev, num_data_count.Value, Meter_iout_range, "4e-1") ' meter_read(Meter_icc_dev)
             End If
-            update_report(Efficiency)
+            'update_report(Efficiency)
+            save_data_to_txt(Efficiency)
         End If
 
         If check_loadR.Checked = True Then
@@ -4959,19 +4989,6 @@ Public Class PartI
         Dim vout_scale_temp As Integer
         Dim iout_temp As Double
         Dim double_check As Boolean = False
-        'inital
-        'If RS_Scope = True Then
-        '    RS_Scope_measure_status(4, True)
-        '    RS_Scope_measure_status(5, True)
-        '    RS_Scope_measure_status(5, True)
-        '    RS_Scope_measure_status(6, True)
-        '    RS_View()
-
-        'End If
-
-        ' System.Windows.Forms.Application.DoEvents()
-
-        'Test now
 
         Scope_RUN(False)
         Calculate_pass(TA_Test_num)
@@ -5145,10 +5162,8 @@ Public Class PartI
         End If
 
         iout_temp = iout_now
-
-
-        ''Scope
-        update_report(Stability)
+        'update_report(Stability)
+        save_data_to_txt(Stability, 0)
     End Function
 
     Function Stability_run_2dut() As Integer
@@ -5165,9 +5180,21 @@ Public Class PartI
         Dim meas_nwidth_sel() As Integer = New Integer() {meas3, meas7}
         Dim meas_vpp_sel() As Integer = New Integer() {meas4, meas8}
 
-
-
         For ch_sel As Integer = 0 To lx_ch_ar.Length - 1
+            Select Case ch_sel
+                Case 0
+                    CHx_display(lx_ch, "ON")
+                    CHx_display(vout_ch, "ON")
+
+                    CHx_display(lx2_ch, "OFF")
+                    CHx_display(vout2_ch, "OFF")
+                Case 1
+                    CHx_display(lx_ch, "OFF")
+                    CHx_display(vout_ch, "OFF")
+
+                    CHx_display(lx2_ch, "ON")
+                    CHx_display(vout2_ch, "ON")
+            End Select
 
             Scope_RUN(False)
             Calculate_pass(TA_Test_num)
@@ -5264,7 +5291,6 @@ Public Class PartI
             vpp(2) = Scope_measure(meas_vpp_sel(ch_sel), Meas_min)
             vpp(3) = Scope_measure(meas_vpp_sel(ch_sel), Meas_max)
 
-
             If rbtn_auto_vout.Checked = True Then
                 '--------------------------------------------------------------------
                 '計算Scale
@@ -5321,7 +5347,8 @@ Public Class PartI
                 End If
             End If
             iout_temp = iout_now
-            update_report(Stability)
+            save_data_to_txt(Stability, ch_sel)
+            'update_report(Stability)
         Next ' update measure and report loop
     End Function
 
@@ -5399,8 +5426,6 @@ Public Class PartI
         'End If
         'Scope_RUN(True)
         '----------------------------------------------------------------------
-
-
         '無限持續累積
         If check_persistence.Checked = True Then
             Scope_RUN(False)
@@ -5421,7 +5446,8 @@ Public Class PartI
         toff(3) = Scope_measure(x, Meas_max)
         ''----------------------------------------------------------------------
         '----------------------------------------------------------------------
-        update_report(Jitter)
+        'update_report(Jitter)
+        save_data_to_txt(Jitter)
     End Function
 
     Function Jitter_run_2dut() As Integer
@@ -5436,6 +5462,21 @@ Public Class PartI
         Dim meas_vpp_sel() As Integer = New Integer() {meas4, meas8}
 
         For ch_sel As Integer = 0 To lx_ch_ar.Length - 1
+
+            Select Case ch_sel
+                Case 0
+                    CHx_display(lx_ch, "ON")
+                    CHx_display(vout_ch, "ON")
+
+                    CHx_display(lx2_ch, "OFF")
+                    CHx_display(vout2_ch, "OFF")
+                Case 1
+                    CHx_display(lx_ch, "OFF")
+                    CHx_display(vout_ch, "OFF")
+
+                    CHx_display(lx2_ch, "ON")
+                    CHx_display(vout2_ch, "ON")
+            End Select
 
             Scope_RUN(False)
             If check_cursors.Checked = True Then
@@ -5515,8 +5556,359 @@ Public Class PartI
             toff(3) = Scope_measure(meas_nwidth_sel(ch_sel), Meas_max)
             ''----------------------------------------------------------------------
             '----------------------------------------------------------------------
-            update_report(Jitter)
+            'update_report(Jitter)
+            save_data_to_txt(Jitter, ch_sel)
         Next ' 2 dut loop
+    End Function
+
+    Function save_data_to_txt(ByVal test_name As String, Optional ByVal dut_sel As Integer = 0) As Boolean
+
+        If run = False Then
+            Return False
+        End If
+
+        Dim beta_path As String = ""
+        Dim sheet_name As String = ""
+        Dim wave_data() As Double
+        Dim first_row As Integer
+        Dim start_col As Integer
+        Dim col_num As Integer
+        Dim row_num As Integer
+        Dim pass_result As String = ""
+
+        If test_name = Stability Then
+            If check_stability_pic.Checked = True Then
+
+                ' waveform name
+                Select Case dut_sel
+                    Case 0
+                        beta_path = Beta_folder & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                    Case 1
+                        beta_path = Beta_folder & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A_DUT2" & ".PNG"
+                End Select
+                Hardcopy("PNG", beta_path)
+                beta_pic_num = beta_pic_num + 1
+            End If
+
+            ' sheet name select
+            'Select Case dut_sel
+            '    Case 0
+            '        sheet_name = txt_stability_sheet.Text
+            '    Case 1
+            '        sheet_name = txt_stability_sheet.Text & add_dut2
+            'End Select
+            'xlSheet = xlBook.Sheets(sheet_name)
+            'xlSheet.Activate()
+
+            ' autoscanning_update variable judge
+            If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+                '--------------------------------------------------------
+                wave_data = Auto_Scanning()
+                If wave_data(0) <> 0 Then
+                    autoscanning_update = True
+                Else
+                    autoscanning_update = False
+                End If
+            End If
+
+            col_num = stability_col.Length
+            start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
+            first_row = stability_report_row(data_set_now)
+            row = first_row + 2 + stability_iout_num
+            col = start_col
+            Dim fre_update As Integer = start_col + 8
+            Dim ton_update As Integer = start_col + 13
+            Dim toff_update As Integer = start_col + 18
+            Dim pass_fail_update As Integer = start_col + 25
+
+            ' 1: true, 0: false
+            Dim freq_color As Integer = 1
+            Dim ton_color As Integer = 1
+            Dim toff_color As Integer = 1
+
+            ' freq_color
+            If (AutoScalling_EN = True) Then
+                If autoscanning_update = True Then
+                    'xlrange.Interior.Color = 49407 '橘色
+                    freq_color = 1
+                Else
+                    If (Fs_CCM = False) Then
+                        'xlrange.Interior.Color = 255
+                        freq_color = 0
+                    End If
+                End If
+            End If
+
+            ' ton_color
+            If (AutoScalling_EN = True) Then
+                If (autoscanning_update = True) Then
+                    'xlrange.Interior.Color = 49407
+                    ton_color = 1
+                Else
+                    If (Fs_CCM = False) Then
+                        'xlrange.Interior.Color = 255
+                        ton_color = 0
+                    End If
+                End If
+            End If
+
+            ' toff_color
+            If (AutoScalling_EN = True) Then
+                If (autoscanning_update = True) Then
+                    'xlrange.Interior.Color = 49407
+                    toff_color = 1
+                Else
+                    If (Fs_CCM = False) Then
+                        'xlrange.Interior.Color = 255
+                        toff_color = 0
+                    End If
+                End If
+            End If
+
+            'PASS/FAIL
+            If (check_Force_CCM.Checked = True) And (rbtn_auto_DEM.Checked = True) Then
+                'fs(2) = Scope_measure(x, Meas_min)
+                'fs(3) = Scope_measure(x, Meas_max)
+                If (fs(2) >= Fs_Min) And (fs(3) <= Fs_Max) Then
+                    pass_result = PASS
+                Else
+                    pass_result = FAIL
+                End If
+            Else
+                If (fs_update >= Fs_Min) And (fs_update <= Fs_Max) Then
+                    pass_result = PASS
+                Else
+                    pass_result = FAIL
+                End If
+            End If
+
+
+            If pass_result = PASS Then
+                If cbox_coupling_vout.SelectedItem = "AC" Then
+                    pass_value_Max = vout_now * (num_vout_ac.Value / 100)
+                    If (vpp(3) > pass_value_Max) Then
+                        pass_result = FAIL
+                    End If
+                Else
+                    pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
+                    pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
+                    If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
+                        pass_result = FAIL
+                    End If
+                End If
+            End If
+
+            Dim data_list As New List(Of String)
+            data_list.Add(vout_meas.ToString("0.000000"))
+            data_list.Add(iout_now.ToString("0.000000"))
+            data_list.Add((Fs_Max / 1000).ToString("0.000000"))
+            data_list.Add((Fs_Min / 1000).ToString("0.000000"))
+            For ii = 0 To 3 : data_list.Add((fs(ii) / (10 ^ 3)).ToString("0.000000")) : Next
+
+            If AutoScalling_EN Then
+                If autoscanning_update Then : data_list.Add((wave_data(2) / (10 ^ 3)).ToString("0.000000"))
+                Else : data_list.Add((fs(1) / (10 ^ 3)).ToString("0.000000"))
+                End If
+            End If
+            For ii = 0 To 3 : data_list.Add((ton(ii) * (10 ^ 9)).ToString("0.000000")) : Next
+
+            If AutoScalling_EN Then
+                If autoscanning_update Then : data_list.Add((wave_data(0) * (10 ^ 9)).ToString("0.00000"))
+                Else : data_list.Add((ton(1) * (10 ^ 9)).ToString("0.000000"))
+                End If
+            Else : data_list.Add(0) : End If
+
+            For ii = 0 To 3 : data_list.Add((toff(ii) * (10 ^ 9)).ToString("0.000000")) : Next
+
+            If AutoScalling_EN Then
+                If autoscanning_update Then : data_list.Add((wave_data(1) * (10 ^ 9)).ToString("0.00000"))
+                Else : data_list.Add((toff(1) * (10 ^ 9)).ToString("0.000000"))
+                End If
+            Else : data_list.Add(0) : End If
+
+            For ii = 0 To 3 : data_list.Add((vpp(ii) * (10 ^ 3)).ToString("0.000000")) : Next
+            data_list.Add(vpp(4).ToString("0.000000"))
+            data_list.Add(vpp(5).ToString("0.000000"))
+            'data_list.Add(freq_color)
+            'data_list.Add(ton_color)
+            'data_list.Add(toff_color)
+            SaveDataToFile(data_list, pass_result, stable_sel, dut_sel)
+        End If
+
+
+        If test_name = Jitter Then
+
+            Dim Dave, Dmax, Dmin As Double
+            Dim Tjitter, Ton_mean, Toff_max, Toff_min As Double
+            Dim Jitter_value As Double
+
+            Select Case dut_sel
+                Case 0
+                    sheet_name = txt_jitter_sheet.Text
+                Case 1
+                    sheet_name = txt_jitter_sheet.Text & add_dut2
+            End Select
+            xlSheet = xlBook.Sheets(sheet_name)
+            xlSheet.Activate()
+            col_num = jitter_col.Length
+            row_num = (data_jitter_iout.Rows.Count + 2)
+            '----------------------------------------------------------------------------------
+            'test now
+            '--------------------------------------------------------------------------------
+            pass_value_Max = num_pass_jitter.Value
+            '----------------------------------------------------------------------------------
+            'initial
+            'Init col
+            start_col = test_col + data_jitter_iout.Rows.Count * (TA_num + 1) * total_vcc.Length * total_fs.Length * (pic_width + 1) + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1) - 1
+
+            Ton_mean = ton(1) * (10 ^ 9)
+            Toff_min = toff(2) * (10 ^ 9)
+            Toff_max = toff(3) * (10 ^ 9)
+            Tjitter = Toff_max - Toff_min
+            Dmax = Ton_mean / (Toff_min + Ton_mean)
+            Dmin = Ton_mean / (Toff_max + Ton_mean)
+            Dave = Ton_mean / (Toff_min + Ton_mean + (1 / 2) * Tjitter)
+            Jitter_value = 100 * (Dmax - Dmin) / Dave
+            '"PASS/FAIL"
+            If Jitter_value < pass_value_Max Then
+                pass_result = PASS
+            Else
+                pass_result = FAIL
+            End If
+
+            Dim pass_fail_col As Integer = start_col + 10
+
+            ' past waveform
+            xlrange = xlSheet.Range(ConvertToLetter(start_col) & row)
+            If pass_result = FAIL Then
+                xlrange.Interior.Color = test_fail_color
+            End If
+            'xlrange.Value = pass_result
+            FinalReleaseComObject(xlrange)
+            jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+            ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
+            Hardcopy("PNG", jitter_pic_path)
+            'update_pic(jitter_pic_col, jitter_pic_row)
+            If (RS_Scope = False) And (check_fastAcq.Checked = True) Then
+                Scope_RUN(False)
+                FastAcq_ONOFF("ON")
+                'Delay(100)
+                Scope_RUN(True)
+                Delay_s(num_FastAcq.Value)
+                jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
+                Hardcopy("PNG", jitter_pic_path)
+                'update_pic(jitter_pic_col, jitter_pic_row + pic_height, jitter_pic_path)
+            End If
+            Jitter_pic_num = Jitter_pic_num + 1
+
+            ' some scope command
+            If run = False Then
+                Return False
+            End If
+            Scope_RUN(False)
+            If RS_Scope = True Then
+                RS_Display(RS_RES_MES, RS_DISP_PREV)
+                Scope_measure_clear()
+                RS_Scope_measure_status(1, True)
+                RS_Scope_measure_status(2, True)
+                RS_Scope_measure_status(3, True)
+                RS_Scope_measure_status(4, True)
+                RS_Scope_measure_status(5, True)
+                RS_Scope_measure_status(6, True)
+                RS_Local()
+                'RS_View()
+            End If
+            If check_persistence.Checked = True Then
+                Display_persistence(False)
+                'Delay(100)
+            End If
+            If (RS_Scope = False) And (check_fastAcq.Checked = True) Then
+                FastAcq_ONOFF("OFF")
+                'Delay(100)
+            End If
+            If rbtn_vin_trigger.Checked = True Then
+                Trigger_set(lx_ch, "R", vin_now / num_vin_trigger.Value)
+            Else
+                Trigger_auto_level(lx_ch, "R")
+            End If
+            RUN_set("RUNSTop")
+            ' Scope_RUN(True)
+            FinalReleaseComObject(xlrange)
+            FinalReleaseComObject(xlSheet)
+
+            Dim data_list As New List(Of String)
+            data_list.Add(vout_meas.ToString("0.00000")) : data_list.Add(iout_now.ToString("0.00000")) : data_list.Add(Ton_mean.ToString("0.00000")) : data_list.Add(Toff_min.ToString("0.00000"))
+            data_list.Add(Toff_max.ToString("0.00000")) : data_list.Add(Tjitter.ToString("0.000")) : data_list.Add(Dmax.ToString("0.00000")) : data_list.Add(Dmin.ToString("0.00000"))
+            data_list.Add(Dave.ToString("0.00000"))
+            data_list.Add(Jitter_value.ToString("0.00000"))
+            SaveDataToFile(data_list, pass_result, jitter_sel, dut_sel)
+
+
+            FinalReleaseComObject(xlrange)
+            FinalReleaseComObject(xlSheet)
+        End If
+
+
+        If test_name = Efficiency Then
+            Dim eff As Double
+            Select Case dut_sel
+                Case 0
+                    sheet_name = txt_eff_sheet.Text
+                Case 1
+                    sheet_name = txt_eff_sheet.Text & add_dut2
+            End Select
+
+
+            xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
+            xlSheet.Activate()
+            'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
+            '----------------------------------------------------------------------------------
+            'initial
+            'Init col
+            col_num = eff_title_total
+            row_num = data_eff_iout.Rows.Count + 2
+            start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) + Vin_test_num * (col_num + 1)
+            'Init row
+            If row_num < (chart_height + 1) Then
+                first_row = test_row + (Vout_test_num * (TA_num + 1) + TA_Test_num) * ((chart_height + 1) + row_Space)
+            Else
+                first_row = test_row + (Vout_test_num * (TA_num + 1) + TA_Test_num) * (row_num + row_Space)
+            End If
+            '----------------------------------------------------------------------------------
+            pass_value_Min = num_pass_eff.Value
+            'Update Vin
+            row = first_row + 2 + eff_iout_num
+            col = start_col
+
+            xlrange = xlSheet.Range(ConvertToLetter(col + 6) & row)
+            eff = ((Eff_vout_meas * iout_meas) / (vin_meas * iin_meas)) * 100
+            If eff > pass_value_Min Then
+                pass_result = PASS
+            Else
+                pass_result = FAIL
+            End If
+            If pass_result = FAIL Then
+                xlrange.Interior.Color = test_fail_color
+            End If
+
+            Dim data_list As New List(Of String)
+            data_list.Add(vin_meas.ToString("0.00000")) : data_list.Add(iin_meas.ToString("0.00000")) : data_list.Add(Eff_vout_meas.ToString("0.00000"))
+            data_list.Add(iout_meas.ToString("0.00000")) : data_list.Add(eff.ToString("0.00000")) : data_list.Add(((vin_meas * iin_meas) - (Eff_vout_meas * iout_meas)).ToString("0.00000"))
+
+            If cbox_VCC.SelectedItem <> no_device Then : data_list.Add(vcc_meas.ToString("0.00000")) : End If
+            If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.00000")) : End If
+            If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then : data_list.Add((((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100).ToString("0.0000000")) : End If
+
+            'SaveDataToFile(data_list, pass_result, eff_sel)
+            '-------------------------------------------------------------------------------------
+            FinalReleaseComObject(xlrange)
+            FinalReleaseComObject(xlSheet)
+
+            SaveDataToFile(data_list, pass_result, eff_sel, dut_sel)
+        End If
+
+
     End Function
 
     Function update_report(ByVal test_name As String) As Integer
@@ -5581,7 +5973,6 @@ Public Class PartI
                 '----------------------------------------------------------------------------------
                 'Update Vin
                 row = first_row + 2 + stability_iout_num
-
                 col = start_col
 #If report_en Then
                 xlSheet.Activate()
@@ -5954,7 +6345,7 @@ Public Class PartI
                 For ii = 0 To 3 : data_list.Add((vpp(ii) * (10 ^ 3)).ToString("0.000000")) : Next
                 data_list.Add(vpp(4).ToString("0.000000"))
                 data_list.Add(vpp(5).ToString("0.000000"))
-                SaveDataToFile(data_list, pass_result, stable_sel)
+                'SaveDataToFile(data_list, pass_result, stable_sel)
                 ' ------------------------------------------------------------------------------------------------
             Case Jitter
 #Region "jitter case"
@@ -6131,7 +6522,7 @@ Public Class PartI
                 data_list.Add(Toff_max.ToString("0.00000")) : data_list.Add(Tjitter.ToString("0.000")) : data_list.Add(Dmax.ToString("0.00000")) : data_list.Add(Dmin.ToString("0.00000"))
                 data_list.Add(Dave.ToString("0.00000"))
                 data_list.Add(Jitter_value.ToString("0.00000"))
-                SaveDataToFile(data_list, pass_result, jitter_sel)
+                'SaveDataToFile(data_list, pass_result, jitter_sel)
                 ' ------------------------------------------------------------------------------------------------
 
             Case Line_Regulation
@@ -6490,7 +6881,7 @@ Public Class PartI
                 If txt_Icc_addr.Text <> "" Then : data_list.Add(icc_meas.ToString("0.00000")) : End If
                 If (cbox_VCC.SelectedItem <> no_device) And (txt_Icc_addr.Text <> "") Then : data_list.Add((((Eff_vout_meas * iout_meas) / ((vin_meas * iin_meas) + (vcc_meas * icc_meas))) * 100).ToString("0.0000000")) : End If
 
-                SaveDataToFile(data_list, pass_result, eff_sel)
+                'SaveDataToFile(data_list, pass_result, eff_sel)
                 '-------------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
@@ -7128,6 +7519,7 @@ Public Class PartI
                 End If
             End If
             CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+            If DUT2_en Then : CHx_scale(vout2_ch, vout_scale_now, "mV") : End If
             VoutScalling_CCM = True
             first_Check = True
         End If
@@ -7554,6 +7946,7 @@ Public Class PartI
                                 jitter_idx += 1
                             End If
 
+                            ' Ollie_note: need add efficiency 2 dut test flow
                             If check_Efficiency.Checked Then
                                 TxtToExcel(eff_sel, eff_start_row(ii), v)
                             End If
@@ -7778,6 +8171,39 @@ Public Class PartI
 
 
         excel_open()
+        If check_stability.Checked Then
+            For i = 0 To stability_report_row.Length - 1
+                'TxtToExcel(stable_sel, stability_report_row(stability_idx) + 2, 0)
+                TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, total_iout.Length - 1, 0)
+                If DUT2_en Then
+                    TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, total_iout.Length - 1, 1)
+                End If
+            Next
+        End If
+
+
+        If check_jitter.Checked Then
+            For i = 0 To jitter_start_row.Count - 1
+                TxttoExcel_v2(jitter_sel, jitter_start_row(i), total_iout.Length - 1, 0)
+                If DUT2_en Then
+                    TxttoExcel_v2(jitter_sel, jitter_start_row(i), total_iout.Length - 1, 1)
+                End If
+            Next
+        End If
+
+
+        If check_Efficiency.Checked Then
+            'TxtToExcel(eff_sel, eff_start_row(ii), v)
+            For i = 0 To eff_start_row.Count - 1
+                TxttoExcel_v2(eff_sel, eff_start_row(i), total_iout.Length - 1, 0)
+                If DUT2_en Then
+                    TxttoExcel_v2(eff_sel, eff_start_row(i), total_iout.Length - 1, 1)
+                End If
+            Next
+        End If
+
+
+
         xlSheet = xlBook.Sheets(1)
         xlSheet.Activate()
         If TA_Test_num = 0 Then
@@ -8083,14 +8509,53 @@ Public Class PartI
 
     End Sub
 
+    Function excel_init() As Integer
+        Dim temp As String
+
+        dlgSave.Filter = "Excel Worksheets|*.xlsx|Excel 97-2003 Worksheets|*.xls"
+        dlgSave.FilterIndex = 1
+        dlgSave.RestoreDirectory = True
+        dlgSave.DefaultExt = ".xlsx"
+
+        sf_name = ""
+        If num_fs_set.Value <> 0 Then
+            temp = "fs=" & num_fs_set.Value & "KHz_"
+        End If
+
+        If num_vout_set.Value <> 0 Then
+            temp = temp & "vout=" & num_vout_set.Value & "V_"
+        End If
+
+        dlgSave.FileName = "CPBU ATE_" & temp & DateTime.Now.ToString("MMdd")
+
+        If dlgSave.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            sf_name = dlgSave.FileName
+        Else
+            'sf_name = Environment.CurrentDirectory & "\" & cbox_test.SelectedItem & "_" & DateTime.Now.ToString("MMdd") & ".xlsx" 'Now.Month & Now.Day
+            run = False
+            Exit Function
+        End If
+
+        Dim testFile As System.IO.FileInfo
+        testFile = My.Computer.FileSystem.GetFileInfo(sf_name)
+        txt_file.Text = sf_name
+
+        folderPath = testFile.DirectoryName
+        xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
+        xlApp.DisplayAlerts = False
+        xlApp.Visible = False
+        xlApp.AutoRecover.Enabled = False
+        xlBook = xlApp.Workbooks.Add
+        xlBook.Activate()
+        xlApp.Calculation = Excel.XlCalculation.xlCalculationManual
+        xlBook.SaveAs(sf_name)
+        excel_close()
+        dlgSave.Dispose()
+    End Function
+
     Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-        excel_open()
-
-
         initial()
-
-
         scope_init_set()
 
 

@@ -394,25 +394,14 @@ Module Module_ATE
             FinalReleaseComObject(xlSheet)
             Note.Close()
         End If
-
-
-
-
-
     End Function
 
     Function data_test_import(ByVal data As Object, ByVal last_col As Integer) As Integer
         Dim temp As String
-
-
         data.Rows.Clear()
-
         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
         For i = 0 To last_col
-
             temp = xlrange.Offset(, 1 + i).Value
-
             If (temp <> Nothing) And (temp <> " ") And (temp <> "") Then
                 data.Rows.Add(temp)
                 For ii = 1 To data.Columns.Count - 1
