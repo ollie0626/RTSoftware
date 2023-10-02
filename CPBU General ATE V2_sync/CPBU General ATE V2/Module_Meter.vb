@@ -73,12 +73,13 @@
                     Case "4e-1"
                         ts = "CURR:RANG 3"
                         ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                        ts = "SENS:CURR:RANG " & range
+                        ts = "SENS:CURR:RANG:AUTO ON"
+                        range = 3
+                        'ts = "SENS:CURR:RANG " & range
                 End Select
 
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
 
-
-                '    ts = "SENS:CURR:RANG:AUTO ON"
             End If
 
 
@@ -209,9 +210,6 @@
     End Function
 
 
-
-
-
     Function filter_set(ByVal Meter_Dev As Integer, ByVal digital As String, ByVal analog As String) As Integer
         Dim ts As String = ""
 
@@ -260,7 +258,6 @@
         Return test
     End Function
 
-
     Function meter_meas(ByVal meter_name As String, ByVal Meter_Dev As Integer, ByVal range As String, ByVal mini_range As String) As Double
 
 
@@ -269,245 +266,216 @@
         Dim i As Integer
 
         Dim down As Boolean = False
-
-
-
-        If range = "AUTO" Then
-            ts = "MEAS:CURRent:DC? " & range & "," & Meter_Resolution
-
+        If meter_name = "DMM6500" Then
+            ts = "MEAS:" & Meter_function & ":DC? "
             ilwrt(Meter_Dev, ts, CInt(Len(ts)))
             ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
 
-            For i = 0 To 10
-                System.Windows.Forms.Application.DoEvents()
-                If iberr = 0 Then
-
-                    If (ibcntl > 0) Then
-                        temp = ibcntl - 1
-                        test = Val(Mid(ValueStr, 1, temp))
-
-                        If test <> 0 Then
-                            Exit For
-                        End If
-                    End If
-
-                End If
-
-                If i = 5 Then
-                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                    Delay(100)
-                End If
-
-                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-
-            Next
-        Else
-
-            If meter_name = "DMM6500" Then
-                ts = "MEAS:" & Meter_function & ":DC? "
-            Else
-                ilwrt(Meter_Dev, "CURR:DC:FILT:DIG ON", CInt(Len(ts)))
-
-                ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
+            If (iberr = 0) And (ibcntl > 0) Then
+                temp = ibcntl - 1
+                test = Val(Mid(ValueStr, 1, temp))
             End If
 
-            ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-            ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+        Else
+            If range = "AUTO" Then
+                ts = "MEAS:CURRent:DC? " & range & "," & Meter_Resolution
 
-            For i = 0 To 10
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
 
-                System.Windows.Forms.Application.DoEvents()
+                For i = 0 To 10
+                    System.Windows.Forms.Application.DoEvents()
+                    If iberr = 0 Then
 
-                Meter_change_range = False
+                        If (ibcntl > 0) Then
+                            temp = ibcntl - 1
+                            test = Val(Mid(ValueStr, 1, temp))
 
-                If (iberr = 0) And (ibcntl > 0) Then
-
-
-                    temp = ibcntl - 1
-                    test = Val(Mid(ValueStr, 1, temp))
-
-                    If range = "MAX" Then
-
-                        Meter_range_now = range
-                    Else
-
-                        If test > (10 ^ 10) Then
-                            'range 過小
-                            While test > (10 ^ 10)
-                                System.Windows.Forms.Application.DoEvents()
-
-                                If run = False Then
-                                    Exit While
-                                End If
-
-                                Select Case range
-
-                                    Case "1e-4" '100uA
-                                        range = "1e-3"
-                                    Case "1e-3" '1mA
-                                        range = "1e-2"
-                                    Case "1e-2" '10mA
-                                        range = "1e-1"
-                                    Case "1e-1"  '100mA
-                                        range = "4e-1"
-
-                                End Select
-                                If meter_name = "DMM6500" Then
-                                    ts = "MEAS:" & Meter_function & ":DC? "
-                                Else
-
-                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                                End If
-
-                                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                                Meter_range_now = range
-                                Meter_change_range = True
-                                Exit Function
-
-
-
-                                'ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                                'If (iberr = 0) And (ibcntl > 0) Then
-                                '    temp = ibcntl - 1
-                                '    test = Val(Mid(ValueStr, 1, temp))
-                                '    Meter_range_now = range
-                                'End If
-                                'Delay(100)
-                            End While
-
-                        Else
-
-                            down = False
-
-
-                            '過大
-                            If (range = "1e-3") And test < (100 * 10 ^ -6) Then
-                                If mini_range <> range Then
-                                    '100uA
-                                    range = "1e-4"
-                                    down = True
-                                End If
-
-
-                            ElseIf (range = "1e-2") And test < (1 * 10 ^ -3) Then
-                                '1mA
-                                If mini_range <> range Then
-                                    range = "1e-3"
-                                    down = True
-                                End If
-
-                            ElseIf (range = "1e-1") And test < (10 * 10 ^ -3) Then
-                                '10mA
-                                If mini_range <> range Then
-                                    range = "1e-2"
-                                    down = True
-                                End If
-
-                            ElseIf (range = "4e-1") And (test < (100 * 10 ^ -3)) Then
-                                '100mA
-                                range = "1e-1"
-                                down = True
+                            If test <> 0 Then
+                                Exit For
                             End If
-
-                            If down = True Then
-                                If meter_name = "DMM6500" Then
-                                    ts = "MEAS:" & Meter_function & ":DC? "
-                                Else
-
-                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                                End If
-
-                                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-                                Meter_range_now = range
-                                Meter_change_range = True
-                                Exit Function
-
-                                'ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                                'If (iberr = 0) And (ibcntl > 0) Then
-                                '    temp = ibcntl - 1
-                                '    test = Val(Mid(ValueStr, 1, temp))
-                                '    Meter_range_now = range
-                                'End If
-
-                            End If
-
-
-
                         End If
+
                     End If
-
-
-
-
-                    If test <> 0 Then
-                        Exit For
-                    End If
-
-                Else
 
                     If i = 5 Then
-
-                        GPIB_reset(Meter_Dev)
-                        Delay(100)
-                        If meter_name = "DMM6500" Then
-                            ts = "MEAS:" & Meter_function & ":DC? "
-                        Else
-
-                            ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
-
-                        End If
                         ilwrt(Meter_Dev, ts, CInt(Len(ts)))
                         Delay(100)
                     End If
 
                     ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
-                End If
 
-            Next
+                Next
+            Else
 
+                ilwrt(Meter_Dev, "CURR:DC:FILT:DIG ON", CInt(Len(ts)))
+
+                ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+
+                For i = 0 To 10
+
+                    System.Windows.Forms.Application.DoEvents()
+
+                    Meter_change_range = False
+
+                    If (iberr = 0) And (ibcntl > 0) Then
+
+
+                        temp = ibcntl - 1
+                        test = Val(Mid(ValueStr, 1, temp))
+
+                        If range = "MAX" Then
+
+                            Meter_range_now = range
+                        Else
+
+                            If test > (10 ^ 10) Then
+                                'range 過小
+                                While test > (10 ^ 10)
+                                    System.Windows.Forms.Application.DoEvents()
+
+                                    If run = False Then
+                                        Exit While
+                                    End If
+
+                                    Select Case range
+
+                                        Case "1e-4" '100uA
+                                            range = "1e-3"
+                                        Case "1e-3" '1mA
+                                            range = "1e-2"
+                                        Case "1e-2" '10mA
+                                            range = "1e-1"
+                                        Case "1e-1"  '100mA
+                                            range = "4e-1"
+
+                                    End Select
+
+
+                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                                    Meter_range_now = range
+                                    Meter_change_range = True
+                                    Exit Function
+
+                                End While
+
+                            Else
+
+                                down = False
+
+
+                                '過大
+                                If (range = "1e-3") And test < (100 * 10 ^ -6) Then
+                                    If mini_range <> range Then
+                                        '100uA
+                                        range = "1e-4"
+                                        down = True
+                                    End If
+
+
+                                ElseIf (range = "1e-2") And test < (1 * 10 ^ -3) Then
+                                    '1mA
+                                    If mini_range <> range Then
+                                        range = "1e-3"
+                                        down = True
+                                    End If
+
+                                ElseIf (range = "1e-1") And test < (10 * 10 ^ -3) Then
+                                    '10mA
+                                    If mini_range <> range Then
+                                        range = "1e-2"
+                                        down = True
+                                    End If
+
+                                ElseIf (range = "4e-1") And (test < (100 * 10 ^ -3)) Then
+                                    '100mA
+                                    range = "1e-1"
+                                    down = True
+                                End If
+
+                                If down = True Then
+
+
+                                    ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+
+                                    ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                                    Meter_range_now = range
+                                    Meter_change_range = True
+                                    Exit Function
+                                End If
+                            End If
+                        End If
+                        If test <> 0 Then
+                            Exit For
+                        End If
+                    Else
+                        If i = 5 Then
+                            GPIB_reset(Meter_Dev)
+                            Delay(100)
+                            ts = "MEAS:" & Meter_function & ":DC? " & range & "," & Meter_Resolution
+                            ilwrt(Meter_Dev, ts, CInt(Len(ts)))
+                            Delay(100)
+                        End If
+                        ilrd(Meter_Dev, ValueStr, ARRAYSIZE)
+                    End If
+
+                Next
+
+            End If
         End If
-
 
         Return test
 
     End Function
 
+    Function relay_in_meter_intial() As Integer
+        reg_write_word(in_io_id, &H3, &H0, "H")
+        reg_write_word(in_io_id, &H1, &H0, "H") '切換最大檔位
+
+        ' write comp value to ic 
+        reg_write_word(in_high_id, &H5, in_high_comp, "H")
+        reg_write_word(in_middle_id, &H5, in_middle_comp, "H")
+        reg_write_word(in_low_id, &H5, in_low_comp, "H")
+        Return 0
+    End Function
+
+
+    Function realy_out_meter_initial() As Integer
+        reg_write_word(out_io_id, &H3, &H0, "H")
+        reg_write_word(out_io_id, &H1, &H0, "H") '切換最大檔位
+
+        ' write comp value to ic 
+        reg_write_word(out_high_id, &H5, out_high_comp, "H")
+        reg_write_word(out_middle_id, &H5, out_middle_comp, "H")
+        reg_write_word(out_low_id, &H5, out_low_comp, "H")
+        Return 0
+    End Function
+
+
     Function meter_average(ByVal meter_name As String, ByVal Meter_Dev As Integer, ByVal average As Integer, ByVal range As String, ByVal mini_range As String) As Double
         Dim i As Integer
         Dim temp, total As Double
         Dim error_num As Integer = 5
-
-
-
         Meter_range_now = range
         For i = 1 To average
             System.Windows.Forms.Application.DoEvents()
-
             If run = False Then
                 Exit For
             End If
-
             temp = meter_meas(meter_name, Meter_Dev, Meter_range_now, mini_range)
-
             If Meter_change_range = True Then
                 'Select Case sense_vin_test
-
                 '    Case "Test1"
-
                 '        PartI.Sense_vin()
-
-
                 'End Select
-
                 i = 1
                 temp = meter_meas(meter_name, Meter_Dev, Meter_range_now, mini_range)
-
             End If
-
-
             While temp = 0
 
                 System.Windows.Forms.Application.DoEvents()
@@ -527,9 +495,6 @@
                 End If
             End While
 
-
-
-
             If i = 1 Then
                 total = temp
             Else
@@ -537,12 +502,6 @@
             End If
 
         Next
-
-
-
-
-
-
 
         If average > 0 Then
             total = total / average
@@ -553,4 +512,92 @@
         Return total
     End Function
 
+
+    Function meter_auto(ByVal in_out_sel As Integer, ByVal average As Integer) As Double
+
+        Dim total As Double = 0
+        Dim curr_data As Double
+        Dim Meas_ID As Integer
+        Dim IO_ID As Integer
+        Dim data_input As Byte
+        Dim read_error As Integer
+        Dim resolution As Double
+
+        Select Case in_out_sel
+            Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR")
+            Case 1 : curr_data = load_read("CURR")
+
+        End Select
+
+
+        If curr_data >= Meter_H Then
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
+                Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
+            End Select
+
+            data_input = &H0
+        End If
+
+        If curr_data < Meter_H And curr_data >= Meter_L Then
+
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
+                Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
+            End Select
+
+            data_input = &H2
+        End If
+
+        If curr_data < Meter_L Then
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
+                Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
+            End Select
+            data_input = &H1
+        End If
+
+        Select Case in_out_sel
+            Case 0 : IO_ID = in_io_id
+            Case 1 : IO_ID = out_io_id
+        End Select
+
+
+        ' H: write Hi byte first then low byte
+        reg_write_word(IO_ID, &H1, data_input, "H")
+        Delay(1000)
+
+        Dim array As List(Of Double) = New List(Of Double)()
+        Dim remove_data As Integer
+        Dim temp() As Integer
+        Dim iout_temp As Double
+        total = 0
+        read_error = 0
+
+        For i = 0 To (average - 1)
+            System.Windows.Forms.Application.DoEvents()
+            If run = False Then
+                Exit For
+            End If
+            temp = reg_read_word(Meas_ID, &H4, "H")
+            While temp(0) <> 0 Or temp(1) = 65535
+                System.Windows.Forms.Application.DoEvents()
+                read_error = read_error + 1
+                If (read_error = 5) Or (run = False) Then
+                    Return 0
+                    Exit Function
+                End If
+                Delay(10)
+                temp = reg_read_word(Meas_ID, &H4, "H")
+            End While
+            Delay(10)
+            iout_temp = temp(1) * resolution * 10 ^ -3
+
+            If i >= remove_data Then
+                array.Add(iout_temp)
+            End If
+        Next
+        total = array.Sum() / array.Count
+        Return total
+    End Function
 End Module

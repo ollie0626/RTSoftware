@@ -230,13 +230,13 @@ Module Module_ATE
     Public Scope_check() As Boolean
     Public vin_ch As Integer = 1
     Public vout_ch As Integer = 2
-    Public iout_ch As Integer = 4
     Public lx_ch As Integer = 3
+    Public iout_ch As Integer = 4
+
 
     Public RL_value As Integer
     Public Wave_num As Integer
     Public Samplerate_num As Integer
-
 
     Public wave_pc_path As String = Environment.CurrentDirectory & "\wave.CSV"
     Public xlBook_wave As Excel.Workbook
@@ -716,31 +716,18 @@ Module Module_ATE
         Dim height_temp As Double
         Dim width_temp As Double
 
-
-
-
-
-
         'Update picture
-
-
         pic_top = ConvertToLetter(paste_pic_col) & paste_pic_row
         xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(paste_pic_col) & (paste_pic_row + pic_height - 1))
         height_temp = xlrange.Height
         xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(paste_pic_col + pic_width - 1) & paste_pic_row)
         width_temp = xlrange.Width
 
-
         pic_ByteSize = Hardcopy("PNG", pic_path)
-
-
-
         If (pic_ByteSize > 0) Then
             paste_picture(pic_path, pic_top, width_temp, height_temp)
             Delay(100)
         End If
-
-
     End Function
 
 
@@ -769,8 +756,6 @@ Module Module_ATE
                         Ven_out = Power_channel(vin_device, Main.cbox_ven_ch.SelectedIndex)
                     End If
 
-
-
                     Power_Dev = Ven_Dev
 
                     If EN_ON = True Then
@@ -779,22 +764,13 @@ Module Module_ATE
                         power_volt(ven_device, Ven_out, Main.num_EN_OFF.Value)
                     End If
 
-
-
-
                     If Main.num_en_delay.Value <> 0 Then
                         Delay(Main.num_en_delay.Value)
                     End If
                     power_on_off(ven_device, Ven_out, "ON")
-
                     Power_Dev = vin_Dev
-
-
                 End If
-
             Else
-
-
                 If EN_ON = True Then
                     temp = Split(Main.txt_EN_set_ON.Text, ",")
                 Else
@@ -804,8 +780,6 @@ Module Module_ATE
                 If Main.num_en_delay.Value <> 0 Then
                     Delay(Main.num_en_delay.Value)
                 End If
-
-
 
                 If Main.status_bridgeboad.Text <> no_device Then
 
@@ -820,7 +794,6 @@ Module Module_ATE
                                 ID = Val("&H" & test(0))
                                 addr = Val("&H" & Mid(test(1), 1, 2))
                                 data = Val("&H" & Mid(test(1), 4, 2))
-
                                 reg_write(ID, addr, data)
                             Next
 
@@ -1186,12 +1159,16 @@ Module Module_ATE
         End If
         Iin_Meter_Max = True
 
-        If Meter_iin_dev <> 0 Then
+
+
+
+        If Meter_iin_dev <> 0 And Not (DUT2_en) Then
             meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
         End If
 
-
-
+        If Meter_iin_dev2 <> 0 And DUT2_en Then
+            meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev2, Meter_iin_range)
+        End If
 
 
     End Function
@@ -1212,11 +1189,13 @@ Module Module_ATE
             Meter_iout_range = "MAX"
         End If
 
-        If Meter_iout_dev <> 0 Then
+        If Meter_iout_dev <> 0 And Not (DUT2_en) Then
             meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
-
         End If
 
+        If Meter_iout_dev2 <> 0 And DUT2_en Then
+            meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev2, Meter_iout_range)
+        End If
         Iout_Meter_Max = True
 
 

@@ -1015,9 +1015,7 @@
 
 
         If (Mid(device, 1, 6) = "62006P") Or (Mid(device, 1, 6) = "62012P") Then
-
             ts = "SOURce:VOLTage " & Format(volt, "#0.000")
-
         Else
 
 
@@ -1056,30 +1054,18 @@
 
             End Select
         End If
-
-
-
-        '  
-
-
         ilwrt(Power_Dev, ts, CInt(Len(ts)))
-
         Delay(200)
-
         If device = "E3632A" Then
-
             If (volt <= 15) Then
                 If E3632_Range_H = True Then
                     power_OCP_init(device, power_out, E3632_OCP)
                 End If
-
                 E3632_Range_H = False
             Else
                 E3632_Range_H = True
             End If
-
         End If
-
     End Function
 
     Function power_read(ByVal device As String, ByVal power_out As String, ByVal volt_curr As String) As Double

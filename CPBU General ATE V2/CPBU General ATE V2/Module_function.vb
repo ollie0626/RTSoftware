@@ -40,7 +40,6 @@ Module Module_function
         oMsg.Subject = subject
         oMsg.Body = Body
 
-        ' TODO: Replace with a valid e-mail address.
         oMsg.To = send_to
 
         If send_file_path = "" Or send_file_path = " " Then
@@ -54,9 +53,7 @@ Module Module_function
         Else
 
             ' Add an attachment
-            ' TODO: Replace with a valid attachment path.
             Dim sSource As String = send_file_path
-            ' TODO: Replace with attachment name
             Dim sDisplayName As String = send_file
 
             Dim sBodyLen As String = oMsg.Body.Length
