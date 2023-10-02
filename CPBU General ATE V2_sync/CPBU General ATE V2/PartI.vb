@@ -7937,7 +7937,6 @@ Public Class PartI
                                     End If
                                 End If
                             End If
-                            ' Ollie_note: test flow update to here.
 
 
 
@@ -7992,7 +7991,11 @@ Public Class PartI
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
-                            ElseIf rbtn_iin_current_measure.Checked Or rbtn_iout_current_measure.Checked Then
+                            ElseIf rbtn_iin_current_measure.Checked Or
+                                   rbtn_iout_current_measure.Checked Or
+                                   rbtn_iin_current_measure2.Checked Or
+                                   rbtn_iout_current_measure2.Checked Then
+
                                 If rbtn_iin_current_measure.Checked Then
                                     relay_in_meter_intial()
                                 End If
@@ -8000,6 +8003,19 @@ Public Class PartI
                                 If rbtn_iout_current_measure.Checked Then
                                     realy_out_meter_initial()
                                 End If
+
+                                ' Ollie_note: current meter board add initial code
+                                If DUT2_en Then
+                                    If rbtn_iin_current_measure2.Checked Then
+                                        relay_in_meter_intial()
+                                    End If
+
+                                    If rbtn_iout_current_measure2.Checked Then
+                                        realy_out_meter_initial()
+                                    End If
+                                End If
+
+
                             End If
                             '-----------------------------------------------------------------------------------------------------------
                             'Iout Setting
@@ -8037,12 +8053,22 @@ Public Class PartI
                                         Else
                                             INA226_IIN_set()
                                         End If
+
+                                        If rbtn_meter_iin2.Checked And DUT2_en Then
+                                            Iin_meter_set(check_iin2, cbox_IIN_meter2, cbox_IIN_relay2)
+                                        End If
+
                                     End If
 
 
                                     If rbtn_meter_iout.Checked = True Then
                                         Iout_meter_set(check_iout, cbox_Iout_meter, cbox_Iout_relay)
                                     End If
+
+                                    If rbtn_meter_iout2.Checked And DUT2_en Then
+                                        Iout_meter_set(check_iout2, cbox_Iout_meter2, cbox_Iout_relay2)
+                                    End If
+
 
                                 End If
 
@@ -8054,7 +8080,7 @@ Public Class PartI
                                     DCLoad_ONOFF("ON")
                                 End If
 
-
+                                'Ollie_note: test flow update here
                                 '-------------------------------------------------------------------------------------
                                 'Measure
                                 If (check_Efficiency.Checked = True) And (rbtn_meter_iin.Checked = True) And (Iin_Meter_Max = False) Then
