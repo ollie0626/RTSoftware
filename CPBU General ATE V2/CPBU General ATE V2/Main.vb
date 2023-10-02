@@ -382,7 +382,7 @@ Public Class Main
         'Power Supply
 
 
-      
+
         If cbox_ven.SelectedIndex = -1 Then
             'init
             cbox_ven.Items.Clear()
@@ -409,7 +409,7 @@ Public Class Main
         End If
 
 
-    
+
 
         '--------------------------------------------
 
@@ -428,7 +428,7 @@ Public Class Main
 
     End Function
 
-   
+
 
     Function main_reset() As Integer
         Dim f As Form
@@ -447,7 +447,7 @@ Public Class Main
 
 
         PartI_num = 0
-     
+
     End Function
 
     Function main_set() As Integer
@@ -486,7 +486,7 @@ Public Class Main
 
         data_test_set(data_Temp)
 
-      
+
         '------------------------------------------------------------------------------------
 
         xlSheet.Cells(row, col) = "I2C Initial Setting"
@@ -495,7 +495,7 @@ Public Class Main
 
         data_test_set(data_i2c)
 
-      
+
         '//------------------------------------------------------------------------------------//
         'Global Page
 
@@ -601,7 +601,7 @@ Public Class Main
         End If
         row = row + 1
         row = row + 1
-      
+
 
         '//------------------------------------------------------------------------------------//
 
@@ -845,7 +845,7 @@ Public Class Main
 
         row = row + 1
 
-      
+
         cbox_vout_ctr.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Value
         row = row + 1
 
@@ -1224,7 +1224,6 @@ Public Class Main
 
         If dlgSave.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             sf_name = dlgSave.FileName
-
         Else
             'sf_name = Environment.CurrentDirectory & "\" & cbox_test.SelectedItem & "_" & DateTime.Now.ToString("MMdd") & ".xlsx" 'Now.Month & Now.Day
             run = False
@@ -1236,38 +1235,21 @@ Public Class Main
         txt_file.Text = sf_name
 
         folderPath = testFile.DirectoryName
-
-
-
         xlApp = CreateObject("Excel.Application") '?萄遣EXCEL撠情
         xlApp.DisplayAlerts = False
         xlApp.Visible = False
-
         xlApp.AutoRecover.Enabled = False
-
-
         xlBook = xlApp.Workbooks.Add
         xlBook.Activate()
-
-
-
         xlApp.Calculation = Excel.XlCalculation.xlCalculationManual
-
         xlBook.SaveAs(sf_name)
-
         excel_close()
-
         dlgSave.Dispose()
-
-
     End Function
 
 
     'Function RUN_stop() As Integer
     '    'Bridgeboard Stop
-
-
-
 
     '    run = False
     '    note_display = False
@@ -1386,6 +1368,10 @@ Public Class Main
 
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'Dim arr() As Integer = New Integer(10) {}
+        'Console.WriteLine(arr.Length) ' output 11
+
 
         'sf_name = "Stability"
         'excel_init()
@@ -1545,7 +1531,7 @@ Public Class Main
 
     Private Sub cbox_ven_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_ven.SelectedIndexChanged
         Dim addr() As String
-       
+
         power_channel_set(cbox_ven, cbox_ven_ch)
         If cbox_ven.SelectedItem = no_device Then
             txt_ven_Addr.Text = ""
@@ -1556,7 +1542,7 @@ Public Class Main
         End If
 
         cbox_ven_ch.SelectedIndex = ven_dev_ch
-   
+
     End Sub
 
     Private Sub cbox_en_mode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_en_mode.SelectedIndexChanged
@@ -1686,7 +1672,7 @@ Public Class Main
 
     Private Sub btn_RUN_Click(sender As Object, e As EventArgs) Handles btn_RUN.Click
         Dim i As Integer
-  
+
         Dim start_test_time As Date
         Dim txt_test_time As String
         Dim title As String
@@ -1832,9 +1818,6 @@ Public Class Main
 
 
                 If (Relay_iin_check(i) = True) Or (Relay_iout_check(i) = True) Then
-
-
-
                     If data_meas.Rows.Count = 0 Then
                         error_message("Current Monitor of relay Board is not detected!!")
                         RUN_stop()
@@ -1873,7 +1856,7 @@ Public Class Main
             TA_now = "25"
         End If
 
-     
+
         ''Report
         excel_init()
 
@@ -1942,11 +1925,6 @@ Public Class Main
         End If
 
         ' ''---------------------------------------------------------------------------------  '------------------------------------------------------------
-
-
-
-
-
         Delay(100)
 
     End Sub
@@ -1972,7 +1950,7 @@ Public Class Main
                 Next
                 RTBB_GPIOSingleSetIODirection(hDevice, 32 + Slave_GPIO, True) 'Output
                 GPIO_single_write(Slave_GPIO, 0) 'Output=0
-             
+
             Else
 
                 RTBB_GPIOSingleSetIODirection(hDevice, 32 + Slave_GPIO, False) 'Input
@@ -1982,8 +1960,8 @@ Public Class Main
                 Next
 
             End If
-         
-          
+
+
         End If
 
 
@@ -2079,10 +2057,10 @@ Public Class Main
                         'RUN
                         RUN_test()
 
-                      
 
-                        Else
-                            'Slave
+
+                    Else
+                        'Slave
                         '確認Master的溫度是否達到?
                         'P2.0~P2.2
 
@@ -2125,22 +2103,22 @@ Public Class Main
                         txt_slave.Text = "Test" & t & ": OK!"
                     End If
                     'Init
-               
+
 
 
 
                     'RUN
-                  
 
 
-                    Else
-                        'Normal
+
+                Else
+                    'Normal
 
 
                     'set Chamber
 
-                        Chamber_Temp(TA_now)
-                        Delay_s(num_delay_Temp.Value)
+                    Chamber_Temp(TA_now)
+                    Delay_s(num_delay_Temp.Value)
 
                     'RUN Test
 
@@ -2148,7 +2126,7 @@ Public Class Main
 
 
 
-                    End If
+                End If
 
 
             Else
@@ -2265,7 +2243,7 @@ Public Class Main
         Open_file("Relay_SCH.pdf")
     End Sub
 
-   
+
 
     Private Sub txt_ID_TextChanged(sender As Object, e As EventArgs) Handles txt_ID.TextChanged
         'If txt_ID.Text = no_slave Then
@@ -2289,7 +2267,7 @@ Public Class Main
     Private Sub num_pic_width_ValueChanged(sender As Object, e As EventArgs) Handles num_pic_width.ValueChanged
         pic_width = num_pic_width.Value
     End Sub
-  
+
     Private Sub num_chart_width_ValueChanged(sender As Object, e As EventArgs) Handles num_chart_width.ValueChanged
         chart_width = num_chart_width.Value
 
@@ -2314,7 +2292,7 @@ Public Class Main
         data_title_color = num_data_color.Value
     End Sub
 
-   
+
     Private Sub btn_pause_Click(sender As Object, e As EventArgs) Handles btn_pause.Click
         Dim title As String
         Dim style As MsgBoxStyle
@@ -2346,8 +2324,8 @@ Public Class Main
         System.Windows.Forms.Application.DoEvents()
     End Sub
 
-  
- 
+
+
 
     Function Final_update() As Integer
         Dim open_num As Integer
@@ -2364,7 +2342,7 @@ Public Class Main
 
 
         open_num = My.Application.OpenForms.Count - 1
-     
+
         For i = 0 To data_Test.Rows.Count - 1
 
 
@@ -2424,12 +2402,12 @@ Public Class Main
 
 
         If (check_TA_en.Checked = True) And data_Temp.Rows.Count > 0 Then
- 
-                TA_num = data_Temp.Rows.Count - 1
-                ReDim TA_value(TA_num)
-                ReDim Cin_Value(TA_num)
-                ReDim Cout_Value(TA_num)
-                ReDim L_Value(TA_num)
+
+            TA_num = data_Temp.Rows.Count - 1
+            ReDim TA_value(TA_num)
+            ReDim Cin_Value(TA_num)
+            ReDim Cout_Value(TA_num)
+            ReDim L_Value(TA_num)
 
             For i = 0 To TA_num
 
@@ -2475,7 +2453,7 @@ Public Class Main
                 Cout_Value(i) = Cout
                 L_Value(i) = L
             Next
-          
+
 
         Else
             TA_num = 0
@@ -2496,8 +2474,8 @@ Public Class Main
 
     End Function
 
- 
-  
+
+
     Private Sub data_Temp_CellEndEdit(sender As Object, e As DataGridViewCellEventArgs) Handles data_Temp.CellEndEdit
         Dim i As Integer
         Dim TA As Double
@@ -2567,7 +2545,7 @@ Public Class Main
         txt_IOUT_H.Text = INA226_Iout_max_L & "~" & INA226_Iout_max_H & "A"
     End Sub
 
- 
+
     Private Sub cbox_INA226_b11_9_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_INA226_b11_9.SelectedIndexChanged
 
         INA226_config_data = (1 * 2 ^ 14 + cbox_INA226_b11_9.SelectedIndex * 2 ^ 9 + 1 * 2 ^ 8 + Val("&H27"))
@@ -2601,7 +2579,7 @@ Public Class Main
         End If
     End Sub
 
-   
+
 
     Private Sub btn_update_Click(sender As Object, e As EventArgs) Handles btn_update.Click
 
@@ -2623,7 +2601,7 @@ Public Class Main
             dlgSave.DefaultExt = ".xlsx"
 
 
-           
+
 
             dlgSave.FileName = "CPBU ATE_" & DateTime.Now.ToString("MMdd")
 
@@ -2655,12 +2633,12 @@ Public Class Main
 
     End Sub
 
-  
+
     Private Sub cbox_ven_ch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_ven_ch.SelectedIndexChanged
         ven_dev_ch = cbox_ven_ch.SelectedIndex
     End Sub
 
-   
+
     Private Sub check_TA_en_CheckedChanged(sender As Object, e As EventArgs) Handles check_TA_en.CheckedChanged
         TA_set()
 

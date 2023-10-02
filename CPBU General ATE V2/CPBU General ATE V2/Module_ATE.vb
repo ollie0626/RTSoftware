@@ -212,18 +212,10 @@ Module Module_ATE
     Public total_fs() As Double
     Public total_vout() As Double
     'Public total_iout() As Double
-
-
     Public PASS As String = "PASS"
     Public FAIL As String = "FAIL"
-
-
     Public TA_now As String = ""
-
     Public vout_err As Integer = 90
-
-
-
     '//-----------------------------------------------------------------------------//
     'Scope
     'Scope Channel 
@@ -232,6 +224,11 @@ Module Module_ATE
     Public vout_ch As Integer = 2
     Public iout_ch As Integer = 4
     Public lx_ch As Integer = 3
+
+    Public lx2_ch As Integer
+    Public vout2_ch As Integer
+
+
 
     Public RL_value As Integer
     Public Wave_num As Integer
@@ -397,25 +394,14 @@ Module Module_ATE
             FinalReleaseComObject(xlSheet)
             Note.Close()
         End If
-
-
-
-
-
     End Function
 
     Function data_test_import(ByVal data As Object, ByVal last_col As Integer) As Integer
         Dim temp As String
-
-
         data.Rows.Clear()
-
         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
         For i = 0 To last_col
-
             temp = xlrange.Offset(, 1 + i).Value
-
             If (temp <> Nothing) And (temp <> " ") And (temp <> "") Then
                 data.Rows.Add(temp)
                 For ii = 1 To data.Columns.Count - 1
@@ -435,7 +421,6 @@ Module Module_ATE
 
         'xlrange = Nothing
     End Function
-
 
     Function data_test_set(ByVal data As Object) As Integer
         Dim i, ii As Integer
@@ -459,7 +444,6 @@ Module Module_ATE
     End Function
 
     Function sheet_init(ByVal sheet_name As String) As Integer
-
         If report_sheet_first = True Then
             xlSheet = xlBook.ActiveSheet
             report_sheet_first = False
@@ -469,7 +453,6 @@ Module Module_ATE
         xlSheet.Name = sheet_name
         xlSheet.Cells.Font.Name = "Arial"
     End Function
-
 
     Function Calculate_iout(ByVal data_iout As Object) As Double()
         Dim i, ii As Integer
@@ -540,7 +523,6 @@ Module Module_ATE
         '------------------------------------------------------------
     End Function
 
-
     Function meas_type(ByVal cbox_type As Object, ByVal cbox_meas As Object) As Integer
         Dim Ampl() As String = {"AMPlitude", "PK2Pk", "RMS", "HIGH", "LOW", "MAXimum", "MINImum", "CRMs", "MEAN", "CMEan", "POVershoot", "NOVershoot"}
         Dim Time() As String = {"RISe", "FALL", "PWIdth", "NWIdth", "PERIod", "FREQuency", "PDUty", "NDUty", "DELay"}
@@ -566,7 +548,6 @@ Module Module_ATE
     End Function
 
     Function excel_open() As Integer
-
         xlApp = CreateObject("Excel.Application")
         xlApp.DisplayAlerts = False
 
@@ -578,7 +559,6 @@ Module Module_ATE
             xlApp.Visible = False
         End If
         xlBook = xlApp.Workbooks.Open(sf_name)
-
         'xlBook = xlApp.Workbooks.Add()
     End Function
 
@@ -594,21 +574,14 @@ Module Module_ATE
         xlApp = Nothing
     End Function
 
-
     Function excel_close() As Integer
-
-
         'Delay(100)
-
         excel_close_temp()
-
         GC.Collect()
         GC.WaitForPendingFinalizers()
-
         ' Kill(file_name)
         'Delay(100)
     End Function
-
 
     Function check_file_open(ByVal file_name As String) As Integer
         Dim IsError = True
@@ -1025,40 +998,21 @@ Module Module_ATE
         Dim trigger_error As Boolean = False
 
         Information.information_run("Monitor Count", note_count)
-
-
-
         Scope_measure_reset()
-
-
         'Information.information_run("Monitor Count", note_count)
-
-
         count_temp = Scope_measure_count(1)
-
         count_before = count_temp
-
         note_value = count_temp
-
         While count_temp <= num_counts
-
-
             System.Windows.Forms.Application.DoEvents()
-
             If run = False Then
                 Exit While
             End If
-
             count_temp = Scope_measure_count(1)
             '----------------------------------------
             note_value = count_temp
-
-
-
             '----------------------------------------
             If count_temp = count_before Then
-
-
                 If error_monitor = False Then
                     measure_time = Now
                     error_monitor = True
@@ -1074,69 +1028,42 @@ Module Module_ATE
                             Else
                                 Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
                             End If
-
                     End Select
-
                     trigger_error = True
-
                     count_temp = Scope_measure_count(1)
-
                     measure_time = Now
-
                 End If
-
                 '-----------------------------------------------------------------
                 '遇到異常重開2次還是異常直接中斷測試
                 If DateDiff(DateInterval.Second, measure_time, Now) >= second_max Then
-
                     If monitor_vout = True Then
                         check_vout()
                     End If
                     critical_message("Detecting LX count timeout!")
-
                     Exit While
-
                 End If
                 '-----------------------------------------------------------------
             Else
-
                 error_monitor = False
                 count_before = count_temp
             End If
-
-
-
         End While
-
-
         If scope_stop = True Then
             Scope_RUN(False)
-
-
         End If
 
         If trigger_error = True Then
             '回設定值
             Select Case test_item
-
                 Case "Part I"
                     If PartI.rbtn_vin_trigger.Checked = True Then
                         Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
                     Else
                         Trigger_auto_level(lx_ch, "R")
-
                     End If
             End Select
-
-
         End If
-
-
-
         note_display = False
-
-
-
     End Function
 
     Function Iin_Meter_initial(ByVal check_iin As Object, ByVal cbox_IIN_meter As Object, ByVal cbox_IIN_relay As Object) As Integer
@@ -1156,10 +1083,6 @@ Module Module_ATE
         If Meter_iin_dev <> 0 Then
             meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
         End If
-
-
-
-
 
     End Function
 

@@ -49,7 +49,7 @@ Module Module_SaveData
     Public eff_vin_col_len As Integer
 
 
-
+    Public add_dut2 As String = "_dut2"
 
     ' param item :  0 -> stability
     '               1 -> efficiency
@@ -57,7 +57,7 @@ Module Module_SaveData
     '               3 -> jitter
     '               4 -> line regulation
     '               5 -> test
-    Function SaveDataToFile(ByVal data_list As List(Of Double), ByVal pass_fail As String, ByVal item_sel As Integer) As Boolean
+    Function SaveDataToFile(ByVal data_list As List(Of String), ByVal pass_fail As String, ByVal item_sel As Integer, Optional ByVal dut_sel As Integer = 0) As Boolean
         Dim data_buf As String = ""
         Dim sw As StreamWriter
         Dim sr As StreamReader
@@ -75,15 +75,22 @@ Module Module_SaveData
             Case 5 : path_sel = test_file
         End Select
         If path_sel = "" Then : Return False : End If
+
+        Dim buf As String = ""
+        If dut_sel = 1 Then : path_sel = path_sel & add_dut2 : End If
         Try
-            sr = New StreamReader(path_sel)
-            Dim buf As String = sr.ReadToEnd()
-            sr.Close()
+
+            If File.Exists(path_sel) Then
+                sr = New StreamReader(path_sel)
+                buf = sr.ReadToEnd()
+                sr.Close()
+            End If
 
             sw = New StreamWriter(path_sel)
             buf += data_buf
             sw.Write(buf & vbNewLine)
             sw.Close()
+
             Return True
         Catch ex As Exception
             Return False
@@ -194,6 +201,69 @@ Module Module_SaveData
         Return True
     End Function
 
+    Function TxttoExcel_v2(ByVal item_sel As Integer, ByVal start_row As Integer, ByVal data_idx As Integer, ByVal data_len As Integer, Optional ByVal dut_sel As Integer = 0) As Boolean
+
+        Dim txt_path As String = ""
+        Dim sheet_name As String = ""
+        Dim sr As StreamReader
+        Dim start_col As String = ""
+        Dim end_col As String = ""
+
+        Select Case item_sel
+            Case stable_sel : txt_path = stability_file : sheet_name = stability_sheet : start_col = "M" : end_col = "AL"
+            Case jitter_sel : txt_path = jitter_file : sheet_name = jitter_sheet : start_col = ConvertToLetter(jitter_start_col) : end_col = ConvertToLetter(jitter_stop_col - 1)
+            Case eff_sel : txt_path = efficiency_file : sheet_name = eff_sheet : start_col = ConvertToLetter(eff_vin_col(idx)) : end_col = ConvertToLetter(eff_vin_col(idx) + eff_vin_col_len - 1)
+        End Select
+
+        If txt_path = "" Then : Return False : End If
+        If sheet_name = "" Then : Return False : End If
+
+        ' open text file
+        sr = New StreamReader(txt_path)
+        Dim line = sr.ReadToEnd()
+        ' transfer string to double
+        Dim str_ar() = line.Split(vbNewLine)
+        Dim col_number As Integer = 0
+        Dim res As String = ""
+        sr.Close()
+
+        Dim start_data_pos As Integer = data_idx * data_len
+        Dim stop_data_pos As Integer = data_idx * data_len + data_len
+        Dim all_data As List(Of List(Of String)) = New List(Of List(Of String))()
+
+        For line_idx = 0 To str_ar.Length - 1
+            If line_idx >= start_data_pos And line_idx < stop_data_pos Then
+                Dim item As String = str_ar(line_idx).Replace(vbLf, "")
+                ' string data
+                Dim temp() = item.Split(vbTab)
+                all_data.Add(temp.ToList())
+                ' converter to double
+                'Dim doubleAry As Double() = Array.ConvertAll(item.Split(vbTab), New Converter(Of String, Double)(AddressOf Double.Parse))
+                'Dim dou_ar As List(Of List(Of Double)) = New List(Of List(Of Double))()
+                'dou_ar.Add(doubleAry.ToList())
+            End If
+        Next
+
+        If dut_sel = 1 Then
+            sheet_name = sheet_name & add_dut2
+        End If
+
+        ' past data to Excel
+        xlSheet = xlBook.Sheets(sheet_name)
+        xlrange = xlSheet.Range(start_col & start_row, end_col & (start_row + data_len))
+        xlrange.Value = all_data.ToArray()
+
+        FinalReleaseComObject(xlSheet)
+        FinalReleaseComObject(xlrange)
+
+        xlSheet = Nothing
+        xlBook.Save()
+        sr.Close()
+        Return True
+    End Function
+
+
+
     Function PassAndFailToExcel(ByVal item_sel As Integer,
                                 ByVal col As Integer,
                                 ByVal row As Integer,
@@ -217,8 +287,8 @@ Module Module_SaveData
         If pass_fail = FAIL Then
             _range.Interior.Color = test_fail_color
         End If
-
     End Function
+
 
 
 

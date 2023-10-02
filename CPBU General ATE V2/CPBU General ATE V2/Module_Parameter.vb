@@ -16,4 +16,7 @@
     Public Meter_H As Double = 9.5
     Public Meter_L As Double = 0.18
 
+
+    Public DUT2_en As Boolean = False
+
 End Module
