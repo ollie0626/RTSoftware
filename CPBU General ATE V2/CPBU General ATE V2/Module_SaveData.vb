@@ -113,10 +113,7 @@ Module Module_SaveData
         Dim end_col As String = ""
 
         Select Case item_sel
-            Case stable_sel : txt_path = stability_file : sheet_name = stability_sheet : start_col = "M" : end_col = "AK"
-            Case eff_sel : txt_path = efficiency_file : sheet_name = eff_sheet
             Case loadR_sel : txt_path = loadR_file : sheet_name = loadR_sheet
-            Case jitter_sel : txt_path = jitter_file : sheet_name = jitter_sheet
             Case line_sel : txt_path = line_file : sheet_name = line_sheet
             Case 5 : txt_path = test_file : sheet_name = test_sheet : start_col = "A" : end_col = "G"
         End Select
@@ -201,7 +198,11 @@ Module Module_SaveData
         Return True
     End Function
 
-    Function TxttoExcel_v2(ByVal item_sel As Integer, ByVal start_row As Integer, ByVal data_idx As Integer, ByVal data_len As Integer, Optional ByVal dut_sel As Integer = 0) As Boolean
+    Function TxttoExcel_v2(ByVal item_sel As Integer,
+                           ByVal start_row As Integer,
+                           ByVal data_idx As Integer,
+                           ByVal data_len As Integer,
+                           Optional ByVal dut_sel As Integer = 0) As Boolean
 
         Dim txt_path As String = ""
         Dim sheet_name As String = ""
@@ -212,7 +213,7 @@ Module Module_SaveData
         Select Case item_sel
             Case stable_sel : txt_path = stability_file : sheet_name = stability_sheet : start_col = "M" : end_col = "AL"
             Case jitter_sel : txt_path = jitter_file : sheet_name = jitter_sheet : start_col = ConvertToLetter(jitter_start_col) : end_col = ConvertToLetter(jitter_stop_col - 1)
-            Case eff_sel : txt_path = efficiency_file : sheet_name = eff_sheet : start_col = ConvertToLetter(eff_vin_col(idx)) : end_col = ConvertToLetter(eff_vin_col(idx) + eff_vin_col_len - 1)
+            Case eff_sel : txt_path = efficiency_file : sheet_name = eff_sheet : start_col = ConvertToLetter(eff_vin_col(data_idx)) : end_col = ConvertToLetter(eff_vin_col(data_idx) + eff_vin_col_len - 1)
         End Select
 
         If txt_path = "" Then : Return False : End If
@@ -290,9 +291,7 @@ Module Module_SaveData
     End Function
 
 
-
-
-    Function ClearTxtFile(ByVal item_sel As Integer) As Boolean
+    Function ClearTxtFile(ByVal item_sel As Integer, Optional ByVal dut_sel As Integer = 0) As Boolean
         Dim sw As StreamWriter
         Dim path_sel As String = ""
         Dim data_buf As String = ""
@@ -307,6 +306,7 @@ Module Module_SaveData
         End Select
 
         If path_sel = "" Then : Return False : End If
+        If dut_sel = 1 Then : path_sel = path_sel & add_dut2 : End If
 
         Try
             sw = New StreamWriter(path_sel)
@@ -320,9 +320,9 @@ Module Module_SaveData
         Return True
     End Function
 
-    Public Sub Clear0To4TxtFile()
+    Public Sub Clear0To4TxtFile(Optional ByVal dut_sel As Integer = 0)
         For i As Integer = 0 To 4
-            ClearTxtFile(i)
+            ClearTxtFile(i, dut_sel)
         Next
     End Sub
 
