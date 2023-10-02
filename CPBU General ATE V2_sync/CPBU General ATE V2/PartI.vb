@@ -8026,11 +8026,7 @@ Public Class PartI
 
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
-
-
-
                                 iout_now = total_iout(x)
-
                                 '-------------------------------------------------------------------------------------
                                 If (check_Efficiency.Checked = True) Then
                                     '如果量測Eff需要調整Meter，其他都保持在Max range
@@ -8038,7 +8034,6 @@ Public Class PartI
                                     If (Iin_change = True) Then
                                         If rbtn_meter_iin.Checked = True Then
                                             Iin_meter_set(check_iin, cbox_IIN_meter, cbox_IIN_relay)
-
                                         Else
                                             INA226_IIN_set()
                                         End If
@@ -8076,15 +8071,10 @@ Public Class PartI
                                     vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
                                 End If
 
-
-
                                 ''----------------------------------------------------------------------------------
                                 'Measure
-
                                 If (iout_now > num_iout_delay.Value) And (num_delay.Value > 0) Then
-
                                     If cbox_delay_unit.SelectedIndex = 1 Then
-
                                         Delay_s(num_delay.Value)
                                     Else
                                         Delay(num_delay.Value)
