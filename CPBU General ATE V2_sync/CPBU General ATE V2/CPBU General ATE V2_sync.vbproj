@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{847D6380-A4EA-46BE-8568-196DAB958FAD}</ProjectGuid>
+    <ProjectGuid>{AFE3268E-C8B0-4547-8641-431C1469F644}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <StartupObject>CPBU_General_ATE_V2_sync_sync.My.MyApplication</StartupObject>
     <RootNamespace>CPBU_General_ATE_V2_sync_sync</RootNamespace>
