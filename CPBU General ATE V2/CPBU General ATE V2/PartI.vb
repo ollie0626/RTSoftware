@@ -5837,6 +5837,7 @@ Public Class PartI
                 'initial
                 'Init col
                 start_col = test_col + data_jitter_iout.Rows.Count * (TA_num + 1) * total_vcc.Length * total_fs.Length * (pic_width + 1) + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1) - 1
+
 #If report_en Then
                 'Init row
                 If check_fastAcq.Checked = True Then
