@@ -192,6 +192,10 @@ Public Class PartI
 
     Dim add_dut2 As String = "_DUT2"
 
+    Dim sigle_loadR As New List(Of Double)
+    Dim loadR_data As New List(Of List(Of Double))
+    'Dim arr2 As New List(Of List(Of Double))
+
     '------------------------------------------------------------------------------------------------
     'Test
     Function initial() As Integer
@@ -3540,6 +3544,7 @@ Public Class PartI
 
     End Function
 
+
     Function report_init() As Integer
         '-----------------------------------------------------------------------------------
         'PartI data 
@@ -3574,10 +3579,6 @@ Public Class PartI
             'Efficiency
             test_report_init(Efficiency)
         End If
-
-
-
-
 
         '-----------------------------------------------------------------------------------
         If check_jitter.Checked = True Then
@@ -3618,6 +3619,7 @@ Public Class PartI
                     sheet_init(txt_error_sheet.Text & add_dut2)
                 End If
                 Error_folder = ""
+
                 '----------------------------------------------------------------------------------
                 'Data
                 sheet_init(txt_stability_sheet.Text)
@@ -4936,7 +4938,6 @@ Public Class PartI
 
     End Function
 
-
     Function Efficiency_run() As Integer
         'Eff & LoadR
         If check_Efficiency.Checked = True Then
@@ -4980,7 +4981,10 @@ Public Class PartI
         End If
 
         If check_loadR.Checked = True Then
-            update_report(Load_Regulation)
+
+            save_data_to_txt(Load_Regulation)
+
+            'update_report(Load_Regulation)
         End If
     End Function
 
@@ -5908,6 +5912,70 @@ Public Class PartI
             SaveDataToFile(data_list, pass_result, eff_sel, dut_sel)
         End If
 
+        If test_name = Load_Regulation Then
+
+            xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
+            xlSheet.Activate()
+            'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
+            '----------------------------------------------------------------------------------
+            'initial
+            'Init col
+            col_num = data_vin.Rows.Count + 2
+            row_num = data_eff_iout.Rows.Count + 3
+            start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
+            'Init row
+            If row_num < (chart_height + 1) Then
+                first_row = test_row + Vout_test_num * ((chart_height + 1) + row_Space)
+            Else
+                first_row = test_row + Vout_test_num * (row_num + row_Space)
+            End If
+            '----------------------------------------------------------------------------------
+            'Update Iout
+            col = start_col
+            row = first_row + 3 + eff_iout_num
+
+            'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+            'xlrange.Value = iout_now
+            'FinalReleaseComObject(xlrange)
+            'If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+            '    xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
+            '    pass_result = PASS
+            '    'xlrange.Value = PASS
+            'Else
+            '    xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
+            '    pass_result = PASS
+            '    'xlrange.Value = PASS
+            'End If
+            'FinalReleaseComObject(xlrange)
+
+            'Update Vout
+            pass_value_Max = vout_now * (1 + (num_pass_loadR.Value / 100))
+            pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
+            col = start_col + (Vin_test_num) + 1
+            'xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+            ''xlrange.Value = vout_meas
+            'FinalReleaseComObject(xlrange)
+            'If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
+            '    If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+            '        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
+            '        pass_result = FAIL
+            '        'xlrange.Value = FAIL
+            '        'xlrange.Interior.Color = test_fail_color
+            '    Else
+            '        'xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
+            '        pass_result = FAIL
+            '        'xlrange.Value = FAIL
+            '        'xlrange.Interior.Color = test_fail_color
+            '    End If
+            'End If
+            '----------------------------------------------------------------------------------
+            ' ------------------------------------------------------------------------------------------------
+            'Dim data_list As New List(Of String)
+            'data_list.Add(vout_meas.ToString("0.00000"))
+            sigle_loadR.Add(vout_meas)
+            'SaveDataToFile(data_list, pass_result, loadR_sel)
+
+        End If
 
     End Function
 
@@ -6621,7 +6689,7 @@ Public Class PartI
 
                 '----------------------------------------------------------------------------------
                 ' ------------------------------------------------------------------------------------------------
-                Dim data_list As New List(Of Double)
+                Dim data_list As New List(Of String)
                 data_list.Add(vout_meas.ToString("0.0000"))
 
                 '-------------------------------------------------------------------------------------
@@ -6764,7 +6832,7 @@ Public Class PartI
                 End If
                 '----------------------------------------------------------------------------------
                 ' ------------------------------------------------------------------------------------------------
-                Dim data_list As New List(Of Double)
+                Dim data_list As New List(Of String)
                 data_list.Add(vout_meas)
                 SaveDataToFile(data_list, pass_result, loadR_sel)
                 '-------------------------------------------------------------------------------------
@@ -7615,7 +7683,6 @@ Public Class PartI
                 End If
 
                 For ii = 0 To total_vout.Length - 1 ' vout loop
-                    ClearTxtFile(5)
                     System.Windows.Forms.Application.DoEvents()
                     While pause = True
                         System.Windows.Forms.Application.DoEvents()
@@ -7647,8 +7714,11 @@ Public Class PartI
                         check_loadR.Checked = True Or
                         ((check_LineR.Checked = True) And
                         (rbtn_lineR_test2.Checked = True)) Then
+
                         For v = 0 To data_vin.Rows.Count - 1 ' vin loop
                             Clear0To4TxtFile()
+                            If DUT2_en Then : Clear0To4TxtFile(1) : End If
+
                             System.Windows.Forms.Application.DoEvents()
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
@@ -7952,7 +8022,9 @@ Public Class PartI
                             End If
 
                             If check_loadR.Checked Then
-                                TxtToExcel(loadR_sel, loadR_start_row(ii) + 2, v Mod loadR_vin_col.Count)
+                                'TxtToExcel(loadR_sel, loadR_start_row(ii) + 2, v Mod loadR_vin_col.Count)
+
+                                loadR_data.Add(sigle_loadR)
                             End If
 
                             ''----------------------------------------------------------------------------------
@@ -8098,6 +8170,9 @@ Public Class PartI
 
                         For x = 0 To data_lineR_iout.Rows.Count - 1
                             ClearTxtFile(4)
+                            If DUT2_en Then : ClearTxtFile(4, 1) : End If
+
+
                             System.Windows.Forms.Application.DoEvents()
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
@@ -8171,12 +8246,12 @@ Public Class PartI
 
 
         excel_open()
+
         If check_stability.Checked Then
             For i = 0 To stability_report_row.Length - 1
-                'TxtToExcel(stable_sel, stability_report_row(stability_idx) + 2, 0)
-                TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, total_iout.Length - 1, 0)
+                TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, i, total_iout.Length - 1, 0)
                 If DUT2_en Then
-                    TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, total_iout.Length - 1, 1)
+                    TxttoExcel_v2(stable_sel, stability_report_row(i) + 2, i, total_iout.Length - 1, 1)
                 End If
             Next
         End If
@@ -8184,9 +8259,9 @@ Public Class PartI
 
         If check_jitter.Checked Then
             For i = 0 To jitter_start_row.Count - 1
-                TxttoExcel_v2(jitter_sel, jitter_start_row(i), total_iout.Length - 1, 0)
+                TxttoExcel_v2(jitter_sel, jitter_start_row(i), i, total_iout.Length - 1, 0)
                 If DUT2_en Then
-                    TxttoExcel_v2(jitter_sel, jitter_start_row(i), total_iout.Length - 1, 1)
+                    TxttoExcel_v2(jitter_sel, jitter_start_row(i), i, total_iout.Length - 1, 1)
                 End If
             Next
         End If
@@ -8195,11 +8270,15 @@ Public Class PartI
         If check_Efficiency.Checked Then
             'TxtToExcel(eff_sel, eff_start_row(ii), v)
             For i = 0 To eff_start_row.Count - 1
-                TxttoExcel_v2(eff_sel, eff_start_row(i), total_iout.Length - 1, 0)
+                TxttoExcel_v2(eff_sel, eff_start_row(i), i, total_iout.Length - 1, 0)
                 If DUT2_en Then
-                    TxttoExcel_v2(eff_sel, eff_start_row(i), total_iout.Length - 1, 1)
+                    TxttoExcel_v2(eff_sel, eff_start_row(i), i, total_iout.Length - 1, 1)
                 End If
             Next
+        End If
+
+        If check_loadR.Checked Then
+
         End If
 
 
