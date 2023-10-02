@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{847D6380-A4EA-46BE-8568-196DAB958FAD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>CPBU_General_ATE_V2.My.MyApplication</StartupObject>
-    <RootNamespace>CPBU_General_ATE_V2</RootNamespace>
-    <AssemblyName>CPBU General ATE V2</AssemblyName>
+    <StartupObject>CPBU_General_ATE_V2_sync_sync.My.MyApplication</StartupObject>
+    <RootNamespace>CPBU_General_ATE_V2_sync_sync</RootNamespace>
+    <AssemblyName>CPBU General ATE V2_sync</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
@@ -23,7 +23,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>CPBU General ATE V2.xml</DocumentationFile>
+    <DocumentationFile>CPBU General ATE V2_sync.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
@@ -34,7 +34,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>CPBU General ATE V2.xml</DocumentationFile>
+    <DocumentationFile>CPBU General ATE V2_sync.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
