@@ -239,14 +239,21 @@ Module Module_RTBBLib
 
     End Function
 
-    Function GPIO_single_write(ByVal bit As Integer, ByVal value As Integer) As Integer
+    Function GPIO_single_write(ByVal bit As Integer, ByVal value As Integer, Optional ByVal dut2_en As Boolean = False) As Integer
 
-        If value = 0 Then
-            RTBB_GPIOSingleWrite(hDevice, 32 + bit, False) '0
+        If dut2_en Then
+            If value = 0 Then
+                RTBB_GPIOSingleWrite(hDevice2, 32 + bit, False) '0
+            Else
+                RTBB_GPIOSingleWrite(hDevice2, 32 + bit, True) '1
+            End If
         Else
-            RTBB_GPIOSingleWrite(hDevice, 32 + bit, True) '1
+            If value = 0 Then
+                RTBB_GPIOSingleWrite(hDevice, 32 + bit, False) '0
+            Else
+                RTBB_GPIOSingleWrite(hDevice, 32 + bit, True) '1
+            End If
         End If
-
     End Function
 
     Function GPIO_single_read(ByVal bit As Integer) As Integer
@@ -344,7 +351,7 @@ Module Module_RTBBLib
 
     End Function
 
-    Function reg_write_word(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Integer, ByVal H_L As String) As Integer
+    Function reg_write_word(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Integer, ByVal H_L As String, Optional ByVal dut2_en As Boolean = False) As Integer
         Dim i2c_error As Integer
         Dim w_data(1) As Byte
         Dim DataBuffer(2) As Byte
@@ -356,7 +363,11 @@ Module Module_RTBBLib
         DataBuffer(0) = w_data(0)
         DataBuffer(1) = w_data(1)
 
-        i2c_error = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        If dut2_en Then
+            i2c_error = RTBB_I2CWrite(hDevice2, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        Else
+            i2c_error = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        End If
 
         '設定 register data 為"data", I2C data to be written to device
         If i2c_error = 0 Then
@@ -404,13 +415,19 @@ Module Module_RTBBLib
 
     End Function
 
-    Function reg_read_word(ByVal ID As Byte, ByVal addr As Byte, ByVal H_L As String) As Integer()
+    Function reg_read_word(ByVal ID As Byte, ByVal addr As Byte, ByVal H_L As String, Optional ByVal dut2_en As Boolean = False) As Integer()
 
         Dim i2c_error As Integer
         Dim return_data(1) As Integer
         Dim DataBuffer(2) As Byte
         Main.status_error.Text = ""
-        i2c_error = RTBB_I2CRead(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        If dut2_en Then
+            i2c_error = RTBB_I2CRead(hDevice2, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        Else
+            i2c_error = RTBB_I2CRead(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        End If
+
+
         return_data(0) = i2c_error
         If i2c_error = 0 Then
 

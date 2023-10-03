@@ -1369,6 +1369,8 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+
+
         'Dim arr() As Integer = New Integer(10) {}
         'Console.WriteLine(arr.Length) ' output 11
 

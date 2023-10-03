@@ -844,7 +844,7 @@ Module Module_ATE
     '    FinalReleaseComObject(xlSheet_source)
     'End Function
 
-    Function vin_power_sense(ByVal vin_instrument As String, ByVal volt_step As Double, ByVal volt_max As Double, ByVal volt_sense As Double) As Integer
+    Function vin_power_sense(ByVal vin_instrument As String, ByVal volt_step As Double, ByVal volt_max As Double, ByVal volt_sense As Double, Optional ByVal dut2 As Boolean = False) As Integer
         Dim temp As Double
         Dim value As Double
         Dim new_volt As Double
@@ -852,6 +852,11 @@ Module Module_ATE
         Dim power_now As Double
 
         Power_Dev = vin_Dev
+
+        If dut2 Then
+            Power_Dev = vin_Dev2
+        End If
+
         If vin_instrument = " 2230-30-1" Then
 
 
@@ -1214,55 +1219,42 @@ Module Module_ATE
     End Function
 
 
-    Function Iin_meter_set(ByVal check_iin As Object, ByVal cbox_IIN_meter As Object, ByVal cbox_iin_relay As Object) As Double
+    Function Iin_meter_set(ByVal check_iin As Object, ByVal cbox_IIN_meter As Object, ByVal cbox_iin_relay As Object, Optional ByVal dut2_en As Boolean = False) As Double
 
         If check_iin.Checked = True Then
-
             '以DC Load抽載的電流值來切檔位
-
-
             If (iout_now < iin_meter_change) And (Iin_Meter_Max = True) Then
-
                 '切小檔位
-
                 'DCLoad_ONOFF("OFF")
-                Power_OFF_set()
-                GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(1))
-
+                Power_OFF_set(dut2_en)
+                GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(1), dut2_en)
                 Delay(100)
-
                 If Meter_iin_range = "MAX" Then
                     ' Meter_iin_range = Meter_iin_low
                     Meter_iin_range = "4e-1"
                 End If
-
                 Iin_Meter_Max = False
-
-                meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
-
-
-
-
+                If dut2_en Then
+                    meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev2, Meter_iin_range)
+                Else
+                    meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
+                End If
             ElseIf (iout_now >= iin_meter_change) And (Iin_Meter_Max = False) Then
                 '切大檔位
-
                 'DCLoad_ONOFF("OFF")
-                Power_OFF_set()
-                GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(0))
+                Power_OFF_set(dut2_en)
+                GPIO_single_write(Mid(cbox_iin_relay.SelectedItem, 4, 1), Meter_iin_relay(0), dut2_en)
                 Delay(100)
-
                 If Meter_iin_range <> "MAX" Then
-
                     Meter_iin_range = "MAX"
                 End If
-
                 Iin_Meter_Max = True
-                meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
-
-
+                If dut2_en Then
+                    meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev2, Meter_iin_range)
+                Else
+                    meter_config(cbox_IIN_meter.SelectedItem, Meter_iin_dev, Meter_iin_range)
+                End If
             End If
-
-
             If DCLoad_ON = False Then
                 Power_ON_set()
                 'DCLoad_ONOFF("ON")
@@ -1279,7 +1271,7 @@ Module Module_ATE
 
     End Function
 
-    Function Iout_meter_set(ByVal check_iout As Object, ByVal cbox_Iout_meter As Object, ByVal cbox_IOUT_relay As Object) As Double
+    Function Iout_meter_set(ByVal check_iout As Object, ByVal cbox_Iout_meter As Object, ByVal cbox_IOUT_relay As Object, Optional ByVal dut2_en As Boolean = False) As Double
 
 
         'meter_value = meter_average(Meter_dev(num), 1, Meter_range(num))
@@ -1288,21 +1280,23 @@ Module Module_ATE
 
         If check_iout.Checked = True Then
             If (iout_now < iout_meter_change) And (Iout_Meter_Max = True) Then
-
-
                 DCLoad_ONOFF("OFF")
-
-                GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(1))
-
+                GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(1), dut2_en)
                 Delay(100)
-
                 If Meter_iout_range = "MAX" Then
                     Meter_iout_range = "1e-4" '"4e-1"
                 End If
 
                 Iout_Meter_Max = False
 
-                meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
+
+                If dut2_en Then
+                    meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev2, Meter_iout_range)
+                Else
+                    meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
+                End If
+
+
 
                 Delay(100)
 
@@ -1310,17 +1304,24 @@ Module Module_ATE
             ElseIf (iout_now >= iout_meter_change) And (Iout_Meter_Max = False) Then
 
                 DCLoad_ONOFF("OFF")
-                GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(0))
 
-
-                Delay(100)
-
-
-                If Meter_iout_range <> "MAX" Then
-                    Meter_iout_range = "MAX"
+                If dut2_en Then
+                    GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(0), dut2_en)
+                    Delay(100)
+                    If Meter_iout_range <> "MAX" Then
+                        Meter_iout_range = "MAX"
+                    End If
+                    Iout_Meter_Max = True
+                    meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev2, Meter_iout_range)
+                Else
+                    GPIO_single_write(Mid(cbox_IOUT_relay.SelectedItem, 4, 1), Meter_iout_relay(0), dut2_en)
+                    Delay(100)
+                    If Meter_iout_range <> "MAX" Then
+                        Meter_iout_range = "MAX"
+                    End If
+                    Iout_Meter_Max = True
+                    meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
                 End If
-                Iout_Meter_Max = True
-                meter_config(cbox_Iout_meter.SelectedItem, Meter_iout_dev, Meter_iout_range)
 
             End If
 
@@ -1330,23 +1331,10 @@ Module Module_ATE
                 Delay(100)
             End If
         End If
-
-
-
-
-
-        'meter_value = meter_average(Meter_iout_dev, 1, Meter_iout_range)
-
-        'Return meter_value
-
     End Function
 
     Function DCLoad_ONOFF(ByVal onoff As String) As Integer
         Dim i As Integer
-
-
-
-
         For i = 0 To Load_ch_set.Length - 1
 
             Load_ch = Load_ch_set(i)
@@ -1370,71 +1358,18 @@ Module Module_ATE
 
                         Load_ch = Load_ch_set(i)
                         load_onoff("ON")
-
-
-
-
                     End If
                 Else
-
-
                     load_onoff("OFF")
                     Load_ch = Load_ch_set(i) + 1
                     load_onoff("OFF")
                 End If
-
-
-
-
-
             Else
 
                 load_onoff(onoff)
             End If
         Next
     End Function
-    'Function DCLoad_ONOFF(ByVal onoff As String) As Integer
-    '    Dim ch_temp As Integer
-    '    If Iout_board_EN = True Then
-
-    '        If (DCload_ch(0) = True) Then
-    '            Load_ch = 1
-    '        Else
-    '            Load_ch = 3
-    '        End If
-    '        If onoff = "ON" Then
-    '            If Iout_Meter_Max = True Then
-
-    '                'Iout >80mA-> CH2,CH4
-    '                load_onoff("OFF")
-    '                Load_ch = Load_ch + 1
-    '                load_onoff("ON")
-    '            Else
-    '                'Iout <80mA-> CH2,CH4
-    '                ch_temp = Load_ch
-    '                Load_ch = Load_ch + 1
-    '                load_onoff("OFF")
-
-    '                Load_ch = ch_temp
-    '                load_onoff("ON")
-
-
-
-
-    '            End If
-    '        Else
-    '            load_onoff("OFF")
-    '            Load_ch = Load_ch + 1
-    '            load_onoff("OFF")
-    '        End If
-
-
-    '    Else
-
-    '        load_onoff(onoff)
-    '    End If
-
-    'End Function
 
     Function DCLoad_check_range() As Integer
         Dim iout_temp As Double
@@ -1934,69 +1869,54 @@ Module Module_ATE
 
     End Function
 
-    Function Power_OFF_set() As Integer
+    Function Power_OFF_set(Optional ByVal dut2_en As Boolean = False) As Integer
         DCLoad_ONOFF("OFF")
         Power_EN(False)
 
         'Vin
+        If dut2_en Then
+            Power_Dev = vin_Dev2
+        Else
+            Power_Dev = vin_Dev
+        End If
 
-        Power_Dev = vin_Dev
         power_on_off(vin_device, Vin_out, "OFF")
 
 
     End Function
-    Function Power_ON_set() As Integer
-
-
-
+    Function Power_ON_set(Optional ByVal dut2_en As Boolean = False) As Integer
         ' ''----------------------------------------------------------------------------------
         'Vin
-
-        Power_Dev = vin_Dev
-        power_on_off(vin_device, Vin_out, "ON")
-
+        If dut2_en Then
+            Power_Dev = vin_Dev2
+            power_on_off(vin_device2, Vin_out2, "ON")
+        Else
+            Power_Dev = vin_Dev
+            power_on_off(vin_device, Vin_out, "ON")
+        End If
         Delay(100)
         ' ''----------------------------------------------------------------------------------
-
-        'Power Enable
-
         'Enable
         Power_EN(True)
         Delay(100)
         ''---------------------------------------------------------------------------------
         'I2C Init
         If Main.data_i2c.Rows.Count > 0 Then
-
-
             For i = 0 To Main.data_i2c.Rows.Count - 1
                 System.Windows.Forms.Application.DoEvents()
                 If run = False Then
                     Exit For
                 End If
-
                 reg_write(Val("&H" & Main.data_i2c.Rows(i).Cells(0).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(1).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(2).Value))
-
             Next
-
-
         End If
-
-
-
         ''---------------------------------------------------------------------------------
-
-
         'Fs Set
-
-
         If Main.cbox_fs_ctr.SelectedItem <> no_device Then
             Grobal_Control(Fs_control, fs_now)
         End If
 
-
-
         'Vout Set
-
         If Main.cbox_vout_ctr.SelectedItem <> no_device Then
             Grobal_Control(Vout_control, vout_now)
         End If

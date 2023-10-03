@@ -77,12 +77,8 @@
                         range = 3
                         'ts = "SENS:CURR:RANG " & range
                 End Select
-
                 ilwrt(Meter_Dev, ts, CInt(Len(ts)))
-
             End If
-
-
         Else
             ts = "SYST:BEEP:STAT OFF"
 
@@ -513,7 +509,7 @@
     End Function
 
 
-    Function meter_auto(ByVal in_out_sel As Integer, ByVal average As Integer) As Double
+    Function meter_auto(ByVal in_out_sel As Integer, ByVal average As Integer, Optional ByVal dut2_en As Boolean = False) As Double
 
         Dim total As Double = 0
         Dim curr_data As Double
@@ -524,9 +520,8 @@
         Dim resolution As Double
 
         Select Case in_out_sel
-            Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR")
+            Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR", dut2_en)
             Case 1 : curr_data = load_read("CURR")
-
         End Select
 
 
@@ -564,7 +559,7 @@
 
 
         ' H: write Hi byte first then low byte
-        reg_write_word(IO_ID, &H1, data_input, "H")
+        reg_write_word(IO_ID, &H1, data_input, "H", dut2_en)
         Delay(1000)
 
         Dim array As List(Of Double) = New List(Of Double)()
@@ -579,7 +574,7 @@
             If run = False Then
                 Exit For
             End If
-            temp = reg_read_word(Meas_ID, &H4, "H")
+            temp = reg_read_word(Meas_ID, &H4, "H", dut2_en)
             While temp(0) <> 0 Or temp(1) = 65535
                 System.Windows.Forms.Application.DoEvents()
                 read_error = read_error + 1
@@ -588,7 +583,7 @@
                     Exit Function
                 End If
                 Delay(10)
-                temp = reg_read_word(Meas_ID, &H4, "H")
+                temp = reg_read_word(Meas_ID, &H4, "H", dut2_en)
             End While
             Delay(10)
             iout_temp = temp(1) * resolution * 10 ^ -3

@@ -1403,6 +1403,10 @@ Public Class Main
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
+        'For i = 0 To 0
+        '    Console.WriteLine(i)
+        'Next
+
         status_Version.Text = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & My.Application.Info.Version.Build
         Scan_Instrument()
         Check_Eagleboard()

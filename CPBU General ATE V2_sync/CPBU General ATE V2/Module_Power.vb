@@ -1068,10 +1068,15 @@
         End If
     End Function
 
-    Function power_read(ByVal device As String, ByVal power_out As String, ByVal volt_curr As String) As Double
+    Function power_read(ByVal device As String, ByVal power_out As String, ByVal volt_curr As String, Optional ByVal dut2_en As Boolean = False) As Double
         Dim test As Double = 0
         Dim temp As String
 
+        If dut2_en Then
+            Power_Dev = vin_Dev2
+        Else
+            Power_Dev = vin_Dev
+        End If
 
         If device = "6210-40" Then
 

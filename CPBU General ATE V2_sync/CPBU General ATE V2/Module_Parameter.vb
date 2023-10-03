@@ -20,6 +20,9 @@
 
     Public add_dut2 As String = "_DUT2"
 
+    ' RTBB handle2
+    Public hDevice2 As Integer
+
     ' some variable
     Public meas1 As Integer = 1
     Public meas2 As Integer = 2
@@ -38,9 +41,10 @@
     ' meter handle
     Public Meter_iin_addr2 As String
     Public Meter_iin_dev2 As Integer
-
     Public Meter_iout_addr2 As String
     Public Meter_iout_dev2 As Integer
+    Public iout_meas2 As Double
+    Public iin_meas2 As Double
 
     ' vin handle
     Public vin_addr2 As String
@@ -48,6 +52,9 @@
     Public Power_Dev2 As Integer
     Public vin_device2 As String
     Public Vin_out2 As String
+    Public vin_meas2 As Double
+    Public vout_meas2 As Double
+
 
     ' scope channel
     Public lx2_ch As Integer
@@ -58,6 +65,9 @@
 
     ' Stability
     Public Beta_folder2 As String
+
+    ' Efficiency
+    Public Eff_vout_meas2 As Double
 
 
 
