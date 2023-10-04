@@ -116,9 +116,13 @@
 
     End Function
 
-    Function load_init(ByVal range As String) As Double
+    Function load_init(ByVal range As String, Optional ByVal dut2_en As Boolean = False) As Double
 
-        ts = "CHAN " & Load_ch
+        If dut2_en Then
+            ts = "CHAN " & Load_ch2
+        Else
+            ts = "CHAN " & Load_ch
+        End If
 
         ilwrt(Load_Dev, ts, CInt(Len(ts)))
 
@@ -133,7 +137,6 @@
 
                         Case "H"
                             ts = "CURR:RANGE MAX"
-
                     End Select
                 Else
                     Select Case range
@@ -142,34 +145,20 @@
 
                         Case "H"
                             ts = "MODE CCH"
-
-
                         Case "M"
-
                             ts = "MODE CCM"
-
                     End Select
                 End If
             Case "CRL"
-
                 ts = "MODE CRL"
-
-
             Case "CRH"
-
                 ts = "MODE CRH"
-
             Case "CV"
                 If Mid(Load_device, 1, 3) = "631" Then
-
                     ts = "MODE CV"
-
                 Else
                     ts = "MODE CVL"
-
-
                 End If
-
         End Select
 
 
@@ -180,8 +169,13 @@
     End Function
 
 
-    Function load_onoff(ByVal onoff As String) As Integer
-        ts = "CHAN " & Load_ch
+    Function load_onoff(ByVal onoff As String, Optional ByVal dut2_en As Boolean = False) As Integer
+        If dut2_en Then
+            ts = "CHAN " & Load_ch2
+        Else
+            ts = "CHAN " & Load_ch
+        End If
+
 
         ilwrt(Load_Dev, ts, CInt(Len(ts)))
 
@@ -200,9 +194,13 @@
 
     End Function
 
-    Function load_set(ByVal iout As Double) As Double
+    Function load_set(ByVal iout As Double, Optional ByVal dut2_en As Boolean = False) As Double
 
-        ts = "CHAN " & Load_ch
+        If dut2_en Then
+            ts = "CHAN " & Load_ch2
+        Else
+            ts = "CHAN " & Load_ch
+        End If
 
         ilwrt(Load_Dev, ts, CInt(Len(ts)))
 
@@ -271,11 +269,17 @@
 
     End Function
 
-    Function load_read(ByVal volt_curr As String) As Double
+    Function load_read(ByVal volt_curr As String, Optional ByVal dut2_en As Boolean = False) As Double
         Dim test As Double = 0
         Dim temp As String
 
-        ts = "CHAN " & Load_ch
+        If dut2_en Then
+            ts = "CHAN " & Load_ch2
+        Else
+            ts = "CHAN " & Load_ch
+        End If
+
+
         ilwrt(Load_Dev, ts, CInt(Len(ts)))
         Delay(50)
 

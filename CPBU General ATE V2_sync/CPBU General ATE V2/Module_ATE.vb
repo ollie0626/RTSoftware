@@ -5,6 +5,7 @@ Module Module_ATE
     Public load_num As Integer = 0
     Public Load_ch_set(0) As Integer
 
+
     Public Test_Error As Boolean = False
 
     Public Power As String = "Power"
@@ -206,7 +207,7 @@ Module Module_ATE
     Public fs_now As Double
     Public vout_now As Double
 
-  
+
 
     Public total_vcc() As Double
     Public total_fs() As Double
@@ -757,7 +758,6 @@ Module Module_ATE
                     End If
 
                     Power_Dev = Ven_Dev
-
                     If EN_ON = True Then
                         power_volt(ven_device, Ven_out, Main.num_EN_ON.Value)
                     Else
@@ -784,11 +784,8 @@ Module Module_ATE
                 If Main.status_bridgeboad.Text <> no_device Then
 
                     Select Case Main.cbox_en_mode.SelectedItem
-
                         Case "I2C"
-
                             For ii = 0 To temp.Length - 1
-
                                 ' ID_Addr[Data],
                                 test = Split(temp(ii), "_")
                                 ID = Val("&H" & test(0))
@@ -796,20 +793,12 @@ Module Module_ATE
                                 data = Val("&H" & Mid(test(1), 4, 2))
                                 reg_write(ID, addr, data)
                             Next
-
                         Case "GPIO"
-
                             For ii = 0 To temp.Length - 1
-
                                 gpio_b3_0(ii) = temp(ii)
                             Next
-
                             GPIO_out(control_bits, gpio_b3_0)
-
                     End Select
-
-
-
                 Else
                     error_message("No Bridge Board detected!!")
                     RUN_stop()
@@ -1333,42 +1322,71 @@ Module Module_ATE
         End If
     End Function
 
-    Function DCLoad_ONOFF(ByVal onoff As String) As Integer
+    Function DCLoad_ONOFF(ByVal onoff As String, Optional ByVal dut2_en As Boolean = False) As Integer
         Dim i As Integer
-        For i = 0 To Load_ch_set.Length - 1
-
-            Load_ch = Load_ch_set(i)
-
-            If Iout_board_EN = True Then
 
 
-                If onoff = "ON" Then
-                    If Iout_Meter_Max = True Then
+        If dut2_en Then
+            For i = 0 To Load_ch_set2.Length - 1
+                Load_ch2 = Load_ch_set2(i)
+                If Iout_board_EN = True Then
+                    If onoff = "ON" Then
+                        If Iout_Meter_Max = True Then
 
-                        'Iout >80mA-> CH2,CH4
+                            'Iout >80mA-> CH2,CH4
 
-                        load_onoff("OFF")
-                        Load_ch = Load_ch_set(i) + 1
-                        load_onoff("ON")
+                            load_onoff("OFF", dut2_en)
+                            Load_ch2 = Load_ch_set2(i) + 1
+                            load_onoff("ON", dut2_en)
+                        Else
+                            'Iout <80mA-> CH2,CH4
+
+                            Load_ch2 = Load_ch_set2(i) + 1
+                            load_onoff("OFF", dut2_en)
+
+                            Load_ch2 = Load_ch_set2(i)
+                            load_onoff("ON", dut2_en)
+                        End If
                     Else
-                        'Iout <80mA-> CH2,CH4
-
-                        Load_ch = Load_ch_set(i) + 1
-                        load_onoff("OFF")
-
-                        Load_ch = Load_ch_set(i)
-                        load_onoff("ON")
+                        load_onoff("OFF", dut2_en)
+                        Load_ch2 = Load_ch_set2(i) + 1
+                        load_onoff("OFF", dut2_en)
                     End If
                 Else
-                    load_onoff("OFF")
-                    Load_ch = Load_ch_set(i) + 1
-                    load_onoff("OFF")
+                    load_onoff(onoff, dut2_en)
                 End If
-            Else
+            Next
+        Else
+            For i = 0 To Load_ch_set.Length - 1
+                Load_ch = Load_ch_set(i)
+                If Iout_board_EN = True Then
+                    If onoff = "ON" Then
+                        If Iout_Meter_Max = True Then
 
-                load_onoff(onoff)
-            End If
-        Next
+                            'Iout >80mA-> CH2,CH4
+
+                            load_onoff("OFF")
+                            Load_ch = Load_ch_set(i) + 1
+                            load_onoff("ON")
+                        Else
+                            'Iout <80mA-> CH2,CH4
+
+                            Load_ch = Load_ch_set(i) + 1
+                            load_onoff("OFF")
+
+                            Load_ch = Load_ch_set(i)
+                            load_onoff("ON")
+                        End If
+                    Else
+                        load_onoff("OFF")
+                        Load_ch = Load_ch_set(i) + 1
+                        load_onoff("OFF")
+                    End If
+                Else
+                    load_onoff(onoff)
+                End If
+            Next
+        End If
     End Function
 
     Function DCLoad_check_range() As Integer
@@ -1409,7 +1427,7 @@ Module Module_ATE
 
     End Function
 
-    Function DCLoad_Iout(ByVal iout_now As Double, ByVal vout_check As Boolean) As Integer
+    Function DCLoad_Iout(ByVal iout_now As Double, ByVal vout_check As Boolean, Optional ByVal dut2_en As Boolean = False) As Integer
         Dim change_mode As Boolean = False
         Dim module_sel As Integer
         Dim i As Integer
@@ -1438,8 +1456,6 @@ Module Module_ATE
                 End If
 
             Else
-
-
                 If iout_now > DCLoad_CCH And Load_range <> Load_range_H Then
                     Load_range = Load_range_H
                     change_mode = True '   load_init(Load_range)
@@ -1447,18 +1463,10 @@ Module Module_ATE
                     Load_range = Load_range_L
                     change_mode = True '   load_init(Load_range)
                 End If
-
             End If
 
-
-
-
             'Current monitor change
-
             If Iout_board_EN = True Then
-
-
-
                 'CH1,CH2
                 If iout_now > INA226_Iout_max_L Then
                     If Iout_Meter_Max <> True Then
@@ -1468,25 +1476,18 @@ Module Module_ATE
                         load_init(Load_range_L)
                         load_set(0)
                     End If
-
                     Load_ch = Load_ch_set(i) + 1
-
                 Else
                     'H -> L
-
                     If Iout_Meter_Max <> False Then
-
                         Iout_Meter_Max = False
-
                         Load_ch = Load_ch_set(i) + 1
                         load_onoff("OFF")
                         load_init(Load_range_L)
                         load_set(0)
                         Load_ch = Load_ch_set(i)
                     End If
-
                 End If
-
             End If
 
 
@@ -1495,29 +1496,92 @@ Module Module_ATE
                 Load_ch = Load_ch_set(i)
                 load_init(Load_range)
             End If
-
-
-
-
-
             load_set(iout_now / Load_ch_set.Length)
-
-
             If DCLoad_ON = False Then
                 DCLoad_ONOFF("ON")
-
                 Delay(100)
             End If
+
+
+            If dut2_en Then
+                Load_ch2 = Load_ch_set2(i)
+                If DCLOAD_63600 = True Then
+
+                    module_sel = Int((Load_ch_set(0) - 1) / 2)
+
+                    DCLoad_CCH = LOAD_63600_CCH(module_sel)
+                    DCLoad_CCL = LOAD_63600_CCL(module_sel)
+
+                    If iout_now > DCLoad_CCH And Load_range <> Load_range_H Then
+                        Load_range = Load_range_H
+                        change_mode = True '   load_init(Load_range)
+                    ElseIf iout_now <= DCLoad_CCH And iout_now > DCLoad_CCL And Load_range <> Load_range_M Then
+                        Load_range = Load_range_M
+                        change_mode = True '   load_init(Load_range)
+                    ElseIf iout_now <= DCLoad_CCL And Load_range <> Load_range_L Then
+                        Load_range = Load_range_L
+                        change_mode = True '   load_init(Load_range)
+                    End If
+
+                Else
+                    If iout_now > DCLoad_CCH And Load_range <> Load_range_H Then
+                        Load_range = Load_range_H
+                        change_mode = True '   load_init(Load_range)
+                    ElseIf iout_now <= DCLoad_CCH And Load_range <> Load_range_L Then
+                        Load_range = Load_range_L
+                        change_mode = True '   load_init(Load_range)
+                    End If
+                End If
+
+                'Current monitor change
+                If Iout_board_EN = True Then
+                    'CH1,CH2
+                    If iout_now > INA226_Iout_max_L Then
+                        If Iout_Meter_Max <> True Then
+                            'L->H
+                            Iout_Meter_Max = True
+                            load_onoff("OFF", dut2_en)
+                            load_init(Load_range_L, dut2_en)
+                            load_set(0, dut2_en)
+                        End If
+                        Load_ch2 = Load_ch_set2(i) + 1
+                    Else
+                        'H -> L
+                        If Iout_Meter_Max <> False Then
+                            Iout_Meter_Max = False
+                            Load_ch2 = Load_ch_set2(i) + 1
+                            load_onoff("OFF", dut2_en)
+                            load_init(Load_range_L, dut2_en)
+                            load_set(0, dut2_en)
+                            Load_ch2 = Load_ch_set2(i)
+                        End If
+                    End If
+                End If
+
+
+                If change_mode = True Then
+                    DCLoad_ONOFF("OFF")
+                    Load_ch2 = Load_ch_set2(i)
+                    load_init(Load_range, dut2_en)
+                End If
+                load_set(iout_now / Load_ch_set.Length, dut2_en)
+                If DCLoad_ON = False Then
+                    DCLoad_ONOFF("ON", dut2_en)
+                    Delay(100)
+                End If
+            End If
+
+
         Next
 
-       
 
         If vout_check = True Then
             check_vout()
+
+            If dut2_en Then
+                check_vout2()
+            End If
         End If
-
-
-
     End Function
 
     'Function DCLoad_Iout(ByVal iout_now As Double, ByVal vout_check As Boolean) As Integer
@@ -1840,10 +1904,7 @@ Module Module_ATE
         Main.TabControl1.Enabled = True
     End Function
 
-
-
     Function check_vout() As Integer
-
         If Val(TA_now) > Val(Vout_TA_set) Then
             If Power_recorve = True Then
                 Power_OFF_set()
@@ -1851,22 +1912,24 @@ Module Module_ATE
             End If
             Exit Function
         End If
-
         vout_meas = DAQ_read(vout_daq)
-
-
-
         If vout_meas < (vout_now * vout_err / 100) Then
-
-
             critical_message("Please confirm the output voltage!")
-
-
-
-
         End If
+    End Function
 
-
+    Function check_vout2() As Integer
+        If Val(TA_now) > Val(Vout_TA_set) Then
+            If Power_recorve = True Then
+                Power_OFF_set(DUT2_en)
+                Power_ON_set(DUT2_en)
+            End If
+            Exit Function
+        End If
+        vout_meas2 = DAQ_read(vout_daq2)
+        If vout_meas2 < (vout_now * vout_err / 100) Then
+            critical_message("Please confirm the output voltage!")
+        End If
     End Function
 
     Function Power_OFF_set(Optional ByVal dut2_en As Boolean = False) As Integer
@@ -2155,7 +2218,7 @@ Module Module_ATE
     'End Function
 
 
-    Function Grobal_Control(ByVal type As String, ByVal test_value As Double) As Double
+    Function Grobal_Control(ByVal type As String, ByVal test_value As Double, Optional ByVal dut2_en As Boolean = False) As Double
         Dim temp() As String
         Dim test() As String
         Dim i, ii, n As Integer
@@ -2192,43 +2255,27 @@ Module Module_ATE
                     Case "I2C"
                         For ii = 0 To temp.Length - 1
                             ' ID_Addr[Data],
-
                             test = Split(temp(ii), "_")
                             ID = Val("&H" & test(0))
                             'test(1) -> xx[xx,xx]
-
                             addr = Val("&H" & Mid(test(1), 1, 2))
                             data_num = test(1).Length - 4
-
                             data_temp = Mid(test(1), 4, data_num)
-
                             test = Split(data_temp, ":")
-
                             ReDim data(test.Length - 1)
                             For n = 0 To test.Length - 1
                                 data(n) = Val("&H" & test(n))
                             Next
-
-
-                            reg_write_multi(ID, addr, data)
-
+                            reg_write_multi(ID, addr, data, dut2_en)
                             'data = Val("&H" & Mid(test(1), 4, 2))
                             'reg_write(ID, addr, data)
-
-
                         Next
-
                         Exit For
-
                     Case "GPIO"
-
                         For ii = 0 To temp.Length - 1
-
                             gpio_b3_0(ii) = temp(ii)
                         Next
-
                         GPIO_out(control_bits, gpio_b3_0)
-
                         Exit For
 
                 End Select

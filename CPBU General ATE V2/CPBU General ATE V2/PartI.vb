@@ -301,35 +301,44 @@ Public Class PartI
 
         cbox_vin.Items.Clear()
         cbox_vin2.Items.Clear()
+        cbox_vin2.Items.Clear()
         cbox_VCC.Items.Clear()
 
         If Power_num > 0 Then
             cbox_vin.Items.AddRange(Power_name)
             cbox_VCC.Items.AddRange(Power_name)
-
             cbox_vin2.Items.AddRange(Power_name)
         Else
             cbox_vin.Items.Add(no_device)
-
             cbox_vin2.Items.Add(no_device)
         End If
         cbox_VCC.Items.Add(no_device)
         cbox_vin.SelectedIndex = 0
+        cbox_vin2.SelectedIndex = 0
         cbox_VCC.SelectedItem = no_device
 
         '-----------------------------------------------------
-
         cbox_IIN_meter.Items.Clear()
         cbox_Iout_meter.Items.Clear()
+
+        cbox_IIN_meter2.Items.Clear()
+        cbox_Iout_meter2.Items.Clear()
+
         cbox_Icc_meter.Items.Clear()
 
 
         If Meter_num > 0 Then
-
             rbtn_meter_iin.Checked = True
             rbtn_meter_iout.Checked = True
+
+            rbtn_meter_iin2.Checked = True
+            rbtn_meter_iout2.Checked = True
             cbox_IIN_meter.Items.AddRange(Meter_name)
             cbox_Iout_meter.Items.AddRange(Meter_name)
+
+            cbox_IIN_meter2.Items.AddRange(Meter_name)
+            cbox_Iout_meter2.Items.AddRange(Meter_name)
+
             cbox_Icc_meter.Items.AddRange(Meter_name)
         ElseIf Main.data_meas.Rows.Count > 0 Then
 
@@ -343,22 +352,27 @@ Public Class PartI
 
         cbox_IIN_meter.Items.Add(no_device)
         cbox_Iout_meter.Items.Add(no_device)
+        cbox_IIN_meter2.Items.Add(no_device)
+        cbox_Iout_meter2.Items.Add(no_device)
         cbox_Icc_meter.Items.Add(no_device)
 
         cbox_IIN_meter.SelectedIndex = 0
         cbox_IIN_relay.SelectedIndex = 0
-
+        cbox_IIN_meter2.SelectedIndex = 0
+        cbox_IIN_relay2.SelectedIndex = 0
 
 
 
         If Meter_num > 1 Then
             cbox_Iout_meter.SelectedIndex = 1
-
+            cbox_Iout_meter2.SelectedIndex = 1
         Else
             cbox_Iout_meter.SelectedIndex = 0
+            cbox_Iout_meter2.SelectedIndex = 0
         End If
 
         cbox_Iout_relay.SelectedIndex = 1
+        cbox_Iout_relay2.SelectedIndex = 1
 
         If Meter_num > 2 Then
             cbox_Icc_meter.SelectedIndex = 2
@@ -370,9 +384,15 @@ Public Class PartI
 
             check_iin.Checked = False
             check_iout.Checked = False
+
+            check_iin2.Checked = False
+            check_iout2.Checked = False
         Else
             check_iin.Checked = True
             check_iout.Checked = True
+
+            check_iin2.Checked = True
+            check_iout2.Checked = True
         End If
 
         Panel_model2.Enabled = True

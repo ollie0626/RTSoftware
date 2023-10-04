@@ -223,19 +223,27 @@ Module Module_RTBBLib
 
     'End Function
 
-    Function GPIO_out(ByVal bits As Integer, ByVal bit_value() As Integer) As Integer
+    Function GPIO_out(ByVal bits As Integer, ByVal bit_value() As Integer, Optional ByVal dut2_en As Boolean = False) As Integer
         Dim i As Integer
 
         For i = 0 To bits - 1
-            If bit_value(i) = 0 Then
-                RTBB_GPIOSingleWrite(hDevice, 32 + i, False) '0
-            Else
-                RTBB_GPIOSingleWrite(hDevice, 32 + i, True) '1
-            End If
 
+            If dut2_en Then
+                If bit_value(i) = 0 Then
+                    RTBB_GPIOSingleWrite(hDevice2, 32 + i, False) '0
+                Else
+                    RTBB_GPIOSingleWrite(hDevice2, 32 + i, True) '1
+                End If
+            Else
+                If bit_value(i) = 0 Then
+                    RTBB_GPIOSingleWrite(hDevice, 32 + i, False) '0
+                Else
+                    RTBB_GPIOSingleWrite(hDevice, 32 + i, True) '1
+                End If
+            End If
         Next
 
-      
+
 
     End Function
 
@@ -272,7 +280,7 @@ Module Module_RTBBLib
 
     End Function
 
-    Function reg_write_multi(ByVal ID As Byte, ByVal addr As Byte, ByVal data() As Byte) As String
+    Function reg_write_multi(ByVal ID As Byte, ByVal addr As Byte, ByVal data() As Byte, Optional ByVal dut2_en As Boolean = False) As String
         Dim num As Integer
         Dim i As Integer
 
@@ -282,10 +290,20 @@ Module Module_RTBBLib
             W_DataBuffer(i) = data(i)
         Next
 
-        Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
-        If Result <> 0 Then
+        If dut2_en Then
+            Result = RTBB_I2CWrite(hDevice2, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
+            If Result <> 0 Then
+                Result = RTBB_I2CWrite(hDevice2, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
+            End If
+        Else
             Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
+            If Result <> 0 Then
+                Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
+            End If
         End If
+
+
+
 
         Main.status_error.Text = i2c_status(Result)
 
@@ -382,10 +400,18 @@ Module Module_RTBBLib
         Return i2c_error
     End Function
 
-    Function reg_write(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Byte) As String
+    Function reg_write(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Byte, Optional ByVal dut2_en As Boolean = False) As String
 
         W_DataBuffer(0) = data
-        Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
+
+        If dut2_en Then
+            Result = RTBB_I2CWrite(hDevice2, I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
+        Else
+            Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
+        End If
+
+
+
 
         Return Result
 

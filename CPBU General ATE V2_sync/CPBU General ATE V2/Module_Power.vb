@@ -956,7 +956,14 @@
 
 
 
-    Function power_on_off(ByVal device As String, ByVal power_out As String, ByVal on_off As String) As Integer
+    Function power_on_off(ByVal device As String, ByVal power_out As String, ByVal on_off As String, Optional ByVal dut2_en As Boolean = False) As Integer
+
+        If dut2_en Then
+            Power_Dev = vin_Dev2
+        Else
+            Power_Dev = vin_Dev
+        End If
+
 
         If (Mid(device, 1, 6) = "62006P") Or (Mid(device, 1, 6) = "62012P") Then
 

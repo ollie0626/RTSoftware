@@ -45,6 +45,9 @@
     Public Meter_iout_dev2 As Integer
     Public iout_meas2 As Double
     Public iin_meas2 As Double
+    Public iin_meter_change2 As Double
+    Public iout_meter_change2 As Double
+
 
     ' vin handle
     Public vin_addr2 As String
@@ -54,11 +57,14 @@
     Public Vin_out2 As String
     Public vin_meas2 As Double
     Public vout_meas2 As Double
+    Public monitor_vout2 As Boolean
+    Public vin_dev_ch2 As Integer
 
 
     ' scope channel
     Public lx2_ch As Integer
     Public vout2_ch As Integer
+    Public iout2_ch As Integer
 
     ' jitter 
     Public Jitter_folder2 As String
@@ -68,6 +74,10 @@
 
     ' Efficiency
     Public Eff_vout_meas2 As Double
+
+    ' Eload
+    Public Load_ch2 As Integer = 1
+    Public Load_ch_set2(0) As Integer
 
 
 
