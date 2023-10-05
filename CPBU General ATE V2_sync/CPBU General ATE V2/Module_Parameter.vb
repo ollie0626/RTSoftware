@@ -78,7 +78,7 @@
     ' Eload
     Public Load_ch2 As Integer = 1
     Public Load_ch_set2(0) As Integer
-
-
+    Public DCload_ch2(3) As Boolean
+    Public Iout_board_EN2 As Boolean = False
 
 End Module

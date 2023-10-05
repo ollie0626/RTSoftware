@@ -1534,7 +1534,7 @@ Module Module_ATE
                 End If
 
                 'Current monitor change
-                If Iout_board_EN = True Then
+                If Iout_board_EN2 = True Then
                     'CH1,CH2
                     If iout_now > INA226_Iout_max_L Then
                         If Iout_Meter_Max <> True Then

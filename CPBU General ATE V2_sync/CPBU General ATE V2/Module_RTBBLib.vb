@@ -409,12 +409,7 @@ Module Module_RTBBLib
         Else
             Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
         End If
-
-
-
-
         Return Result
-
     End Function
 
     Function reg_read_word(ByVal ID As Byte, ByVal addr As Byte) As Integer()

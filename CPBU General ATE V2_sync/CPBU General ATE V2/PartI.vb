@@ -551,9 +551,6 @@ Public Class PartI
             num_iout_change.Maximum = INA226_Iout_max_L * 1000
             num_iout_change2.Maximum = INA226_Iout_max_L * 1000
         End If
-
-
-
     End Function
 
 
@@ -631,7 +628,7 @@ Public Class PartI
         End If
         If RS_Scope = True Then
             RS_Local()
-            If DUT2_en Then : RS_View(True) : End If
+            'If DUT2_en Then : RS_View(True) : End If
         End If
     End Function
 
@@ -774,36 +771,56 @@ Public Class PartI
         'DC Load 
         Load_Dev = ildev(BDINDEX, Load_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         Iout_board_EN = rbtn_board_iout.Checked
+        Iout_board_EN2 = rbtn_board_iout2.Checked
         DCload_ch(0) = check_IOUT_ch1.Checked
         DCload_ch(1) = check_IOUT_ch2.Checked
         DCload_ch(2) = check_IOUT_ch3.Checked
         DCload_ch(3) = check_IOUT_ch4.Checked
-        iout_now = data_result.Rows(0).Cells("col_test_iout1").Value
 
+        DCload_ch2(0) = check_IOUT_ch12.Checked
+        DCload_ch2(1) = check_IOUT_ch22.Checked
+        DCload_ch2(2) = check_IOUT_ch32.Checked
+        DCload_ch2(3) = check_IOUT_ch42.Checked
+
+        iout_now = data_result.Rows(0).Cells("col_test_iout1").Value
         load_num = 0
         For i = 0 To 3
             If DCload_ch(i) = True Then
                 ReDim Preserve Load_ch_set(load_num)
-                ReDim Preserve Load_ch_set2(load_num)
                 'Load_ch = i + 1
                 Load_ch_set(load_num) = i + 1
                 Load_ch = Load_ch_set(load_num)
                 Load_range = Load_range_L
-                Load_ch_set2(load_num) = i + 1
-                Load_ch2 = Load_ch_set2(load_num)
 
 
                 load_init(Load_range)
                 load_set(0)
                 DCLoad_ONOFF("OFF")
-
-                load_init(Load_range, DUT2_en)
-                load_set(0, DUT2_en)
-                DCLoad_ONOFF("OFF", DUT2_en)
-
                 load_num = load_num + 1
             End If
         Next
+
+        If DUT2_en Then
+            load_num = 0
+            For i = 0 To 3
+                If DCload_ch2(i) = True Then
+                    ReDim Preserve Load_ch_set2(load_num)
+                    'Load_ch = i + 1
+                    Load_ch_set2(load_num) = i + 1
+                    Load_ch2 = Load_ch_set2(load_num)
+                    Load_range = Load_range_L
+
+
+                    load_init(Load_range, DUT2_en)
+                    load_set(0, DUT2_en)
+                    DCLoad_ONOFF("OFF", DUT2_en)
+                    load_num = load_num + 1
+                End If
+            Next
+        End If
+
+
+
 
         ''----------------------------------------------------------------------------------
         'Meter
@@ -817,7 +834,6 @@ Public Class PartI
             Else
                 INA226_Iin_initial(True) 'High Range
             End If
-
 
             If DUT2_en Then
                 If rbtn_meter_iin2.Checked = True Then
@@ -864,19 +880,15 @@ Public Class PartI
             End If
         End If
 
-
-
         If cbox_Icc_meter.SelectedItem <> no_device Then
             Meter_icc_addr = Val(txt_Icc_addr.Text)
             Meter_icc_dev = ildev(BDINDEX, Meter_icc_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         End If
 
         ''----------------------------------------------------------------------------------
-        ' ''Power Supply
         'Vcc
         temp = data_result.Rows(0).Cells("col_test_vcc1").Value
         If (cbox_VCC.SelectedItem <> no_device) And (temp <> "") Then
-
             vcc_addr = Val(txt_vcc_Addr.Text)
             VCC_Dev = ildev(BDINDEX, vcc_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
             VCC_device = cbox_VCC.SelectedItem
@@ -888,7 +900,7 @@ Public Class PartI
         End If
 
 
-        ' ''----------------------------------------------------------------------------------
+        '----------------------------------------------------------------------------------
         'Vin
         temp = data_result.Rows(0).Cells("col_test_vin1").Value
         vin_now = temp
@@ -940,7 +952,6 @@ Public Class PartI
         If (check_vin_sense2.Checked = True) And (vin_meas < (vin_now * 0.5)) Then
             error_message("Please confirm the VIN DAQ channel setting is correct!")
         End If
-
 
         ' ''----------------------------------------------------------------------------------
         'Power Enable
@@ -996,8 +1007,6 @@ Public Class PartI
                 Grobal_Control(Vout_control, vout_now, DUT2_en)
             End If
         End If
-
-
 
         If Main.check_EN_off.Checked = True Then
             Power_EN(False)
@@ -1063,16 +1072,12 @@ Public Class PartI
             '---------------------------------------------------------------------------------
             vout_ch = Val(Mid(cbox_channel_vout.SelectedItem, 3))
 
-
             If DUT2_en Then
                 lx2_ch = Val(Mid(cbox_channel_lx2.SelectedItem, 3))
                 vout2_ch = Val(Mid(cbox_channel_vout2.SelectedItem, 3))
             End If
 
-
-
             'Check Board
-
             If txt_board_VOUT.Text = "Buck1" Then
                 Relay1_BUCK1_VIN = True
             ElseIf txt_board_VOUT.Text = "Buck2" Then
@@ -1117,12 +1122,10 @@ Public Class PartI
 
             If check_cursors.Checked = True Then
                 Cursor_set("VBArs", lx_ch, lx_ch)
-
                 Cursor_ONOFF("OFF")
             End If
 
             '----------------------------------------------------------
-            ' Ollie_note: test flow add dut2 flow
             'Measurement setup:
             scope_measure_init()
             ''----------------------------------------------------------------------------------
@@ -1148,8 +1151,6 @@ Public Class PartI
                 CHx_scale(lx_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
             End If
 
-
-
             ''----------------------------------------------------------------------------------
             'VOUT
             CHx_display(vout_ch, "ON")
@@ -1162,13 +1163,10 @@ Public Class PartI
             Else
                 CHx_OFFSET(vout_ch, 0)
             End If
-
             CHx_Bandwidth(vout_ch, cbox_BW_vout.SelectedItem)
-
 
             '--------------------------------------------------------------------------------
             'Vin
-
             If check_scope_vin.Checked = True Then
                 'VIN
 
@@ -5480,19 +5478,28 @@ Public Class PartI
         Delay(100)
     End Function
 
-    Function LineR_run() As Integer
+    Function LineR_run(Optional ByVal dut2_en As Boolean = False) As Integer
 
         '-----------------------------------------------------------------------------------------------------------
 
         Power_Dev = vin_Dev
         power_volt(vin_device, Vin_out, vin_now)
-
         ''----------------------------------------------------------------------------------
         'Vin Sense
         If check_vin_sense.Checked = True Then
             'Vin Sense
-
             vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
+        End If
+
+        If dut2_en Then
+            Power_Dev = vin_Dev2
+            power_volt(vin_device, Vin_out, vin_now)
+            ''----------------------------------------------------------------------------------
+            'Vin Sense
+            If check_vin_sense2.Checked = True Then
+                'Vin Sense
+                vin_power_sense(cbox_vin2.SelectedItem, num_vin_sense2.Value, num_vin_max2.Value, vin_now)
+            End If
         End If
 
 
@@ -5502,7 +5509,6 @@ Public Class PartI
         If (iout_now > num_iout_delay.Value) And (num_delay.Value > 0) Then
 
             If cbox_delay_unit.SelectedIndex = 1 Then
-
                 Delay_s(num_delay.Value)
             Else
                 Delay(num_delay.Value)
@@ -5514,7 +5520,9 @@ Public Class PartI
         'vout
 
         vout_meas = DAQ_average(vout_daq, num_data_count.Value)
-
+        If dut2_en Then
+            vout_meas2 = DAQ_average(vout_daq2, num_data_count.Value)
+        End If
 
 
         If check_lineR_scope.Checked = True Then
@@ -5555,7 +5563,6 @@ Public Class PartI
             If rbtn_manual_lx.Checked = True Then
                 CHx_scale(lx_ch, num_scale_lx.Value, "mV") 'Voltage Scale > SW/2
             Else
-
                 CHx_scale(lx_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
             End If
 
@@ -5566,37 +5573,64 @@ Public Class PartI
             End If
 
 
+            If dut2_en Then
+                If rbtn_manual_lx.Checked = True Then
+                    CHx_scale(lx2_ch, num_scale_lx.Value, "mV") 'Voltage Scale > SW/2
+                Else
+                    CHx_scale(lx2_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
+                End If
 
+                If rbtn_vin_trigger.Checked = True Then
+                    Trigger_set(lx2_ch, "R", vin_now / num_vin_trigger.Value)
+                Else
+                    Trigger_auto_level(lx2_ch, "R")
+                End If
+            End If
             'Scope_RUN(True)
             monitor_count(num_counts_CCM.Value, True, "Part I")
-
             ''----------------------------------------------------------------------------------
             'Measurement
             'Scope
 
-            x = 1
-
             'KHz
-
-            fs(0) = Scope_measure(x, Scope_Meas)
-            fs(1) = Scope_measure(x, Meas_mean)
-            fs(2) = Scope_measure(x, Meas_min)
-            fs(3) = Scope_measure(x, Meas_max)
+            fs(0) = Scope_measure(meas1, Scope_Meas)
+            fs(1) = Scope_measure(meas1, Meas_mean)
+            fs(2) = Scope_measure(meas1, Meas_min)
+            fs(3) = Scope_measure(meas1, Meas_max)
             'Ton (ns)
-            x = x + 1
 
-            ton(0) = Scope_measure(x, Scope_Meas)
-            ton(1) = Scope_measure(x, Meas_mean)
-            ton(2) = Scope_measure(x, Meas_min)
-            ton(3) = Scope_measure(x, Meas_max)
+            ton(0) = Scope_measure(meas2, Scope_Meas)
+            ton(1) = Scope_measure(meas2, Meas_mean)
+            ton(2) = Scope_measure(meas2, Meas_min)
+            ton(3) = Scope_measure(meas2, Meas_max)
 
             'Toff
-            x = x + 1
+            toff(0) = Scope_measure(meas3, Scope_Meas)
+            toff(1) = Scope_measure(meas3, Meas_mean)
+            toff(2) = Scope_measure(meas3, Meas_min)
+            toff(3) = Scope_measure(meas3, Meas_max)
 
-            toff(0) = Scope_measure(x, Scope_Meas)
-            toff(1) = Scope_measure(x, Meas_mean)
-            toff(2) = Scope_measure(x, Meas_min)
-            toff(3) = Scope_measure(x, Meas_max)
+
+            If dut2_en Then
+                fs(0) = Scope_measure(meas4, Scope_Meas)
+                fs(1) = Scope_measure(meas4, Meas_mean)
+                fs(2) = Scope_measure(meas4, Meas_min)
+                fs(3) = Scope_measure(meas4, Meas_max)
+                'Ton (ns)
+
+                ton(0) = Scope_measure(meas5, Scope_Meas)
+                ton(1) = Scope_measure(meas5, Meas_mean)
+                ton(2) = Scope_measure(meas5, Meas_min)
+                ton(3) = Scope_measure(meas5, Meas_max)
+
+                'Toff
+                toff(0) = Scope_measure(meas6, Scope_Meas)
+                toff(1) = Scope_measure(meas6, Meas_mean)
+                toff(2) = Scope_measure(meas6, Meas_min)
+                toff(3) = Scope_measure(meas6, Meas_max)
+            End If
+
+
         End If
     End Function
 
@@ -7585,6 +7619,7 @@ Public Class PartI
                 excel_close()
             End If
         End If
+
         PartI_file = sf_name
         If TA_Test_num = 0 Then
             test_point_num = 0
@@ -7608,6 +7643,7 @@ Public Class PartI
             If data_VCC.Rows.Count > 0 Then
                 vcc_now = total_vcc(n)
                 DCLoad_ONOFF("OFF")
+                If DUT2_en Then : DCLoad_ONOFF("OFF", DUT2_en) : End If
                 Power_Dev = VCC_Dev
                 power_volt(VCC_device, VCC_out, vcc_now)
             End If
@@ -7627,6 +7663,10 @@ Public Class PartI
                 If Main.cbox_fs_ctr.SelectedItem <> no_device Then
                     DCLoad_ONOFF("OFF")
                     Grobal_Control(Fs_control, fs_now)
+                    If DUT2_en Then
+                        DCLoad_ONOFF("OFF", DUT2_en)
+                        Grobal_Control(Fs_control, fs_now, DUT2_en)
+                    End If
                     If Main.check_EN_off.Checked = True Then
                         Power_EN(False)
                         Power_EN(True)
@@ -7650,6 +7690,11 @@ Public Class PartI
                     If Main.cbox_vout_ctr.SelectedItem <> no_device Then
                         DCLoad_ONOFF("OFF")
                         Grobal_Control(Vout_control, vout_now)
+                        If DUT2_en Then
+                            DCLoad_ONOFF("OFF", DUT2_en)
+                            Grobal_Control(Vout_control, vout_now, DUT2_en)
+                        End If
+
                         If Main.check_EN_off.Checked = True Then
                             Power_EN(False)
                             Power_EN(True)
@@ -7658,7 +7703,7 @@ Public Class PartI
                         first_Check = True
                     End If
 
-                    'Ollie_note: PartI Test
+                    ' Ollie_note: check test flow
                     If check_stability.Checked = True Or check_jitter.Checked = True Or check_Efficiency.Checked = True Or check_loadR.Checked = True Or ((check_LineR.Checked = True) And (rbtn_lineR_test2.Checked = True)) Then
                         For v = 0 To data_vin.Rows.Count - 1
                             System.Windows.Forms.Application.DoEvents()
@@ -7677,6 +7722,9 @@ Public Class PartI
                             Vin_test_num = v
                             '-----------------------------------------------------------------------------------------------------------
                             DCLoad_ONOFF("OFF")
+                            If DUT2_en Then
+                                DCLoad_ONOFF("OFF", DUT2_en)
+                            End If
 
                             Power_Dev = vin_Dev
                             power_volt(vin_device, Vin_out, vin_now)
@@ -7749,8 +7797,6 @@ Public Class PartI
                                     IOUT_Boundary_Start = test_IOB_start(set_num)
                                     IOUT_Boundary_Stop = test_IOB_stop(set_num)
                                 End If
-
-
                             End If
 
                             '' 過濾重複的陣列元素
@@ -7923,9 +7969,9 @@ Public Class PartI
                                 If (rbtn_meter_iout2.Checked = True) And (cbox_Iout_meter2.SelectedItem <> no_device) And DUT2_en Then
                                     iout_meas2 = meter_average(cbox_Iout_meter2.SelectedItem, Meter_iout_dev2, num_data_count2.Value, Meter_iout_range, Meter_iout_low)
                                     Meter_iout_range = Meter_range_now
-                                ElseIf rbtn_board_iout2.Checked Then
+                                ElseIf rbtn_board_iout2.Checked And DUT2_en Then
                                     iout_meas2 = meter_auto(1, num_meter_count.Value, DUT2_en)
-                                Else
+                                ElseIf DUT2_en Then
                                     iout_meas2 = load_read("CURR", DUT2_en)
                                 End If
 
@@ -7950,6 +7996,7 @@ Public Class PartI
                                     For y = 0 To data_lineR_iout.Rows.Count - 1
                                         If iout_now = data_lineR_iout.Rows(y).Cells(0).Value Then
                                             lineR_iout_num = y
+                                            LineR_run(DUT2_en) ' alread add dut2 flow
                                             update_report(Line_Regulation)
 
                                             Exit For
@@ -7962,12 +8009,9 @@ Public Class PartI
                                 'Update Stability and Jitter
 
                                 If ((check_stability.Checked = True) Or (check_jitter.Checked = True)) And (first_Check = True) Then
-
                                     '第一次要啟動
                                     Auto_Scanning_check()
-
                                     If (check_scope_iout.Checked = True) Then
-
                                         If (iout_now <= 0.6) And (iout_scale_now <> 200) Then
                                             'IOUT
                                             iout_scale_now = 200
@@ -7979,11 +8023,7 @@ Public Class PartI
                                             iout_scale_now = 2000
                                             CHx_scale(iout_ch, iout_scale_now, "mV") 'a. IOUT < 600mA, Scale = 200mA, b. 600mA<IOUT < 3A, Sacle = 1A,c. 3A <IOUT< 6A, Scale = 2A
                                         End If
-
                                     End If
-
-
-
                                     first_Check = False
                                 End If
 
@@ -7991,29 +8031,19 @@ Public Class PartI
                                 '-------------------------------------------------------------------------
                                 '2020/01/22  Vout用DC量測時 Scope的offset要由DAQ校正
                                 If ((check_stability.Checked = True) Or (check_jitter.Checked = True)) And (check_offset_vout.Checked = True) And (cbox_coupling_vout.SelectedItem <> "AC") Then
-
                                     CHx_OFFSET(vout_ch, vout_meas)
-
                                 End If
 
                                 ''----------------------------------------------------------------------------------
-
-
                                 If check_stability.Checked = True Then
                                     For y = 0 To stability_iout.Length - 1
-
                                         If iout_now = stability_iout(y) Then
-
                                             stability_iout_num = y
                                             Stability_run()
                                             Exit For
                                         End If
                                     Next
                                 End If
-
-
-
-
 
                                 If check_jitter.Checked = True Then
                                     For y = 0 To data_jitter_iout.Rows.Count - 1
@@ -8112,8 +8142,12 @@ Public Class PartI
                                     'Vin Sense
                                     If check_vin_sense.Checked = True Then
                                         'Vin Sense
-
                                         vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
+                                    End If
+
+                                    If check_vin_sense2.Checked = True And DUT2_en Then
+                                        'Vin Sense
+                                        vin_power_sense(cbox_vin2.SelectedItem, num_vin_sense2.Value, num_vin_max2.Value, vin_now)
                                     End If
 
 
@@ -8121,9 +8155,7 @@ Public Class PartI
                                     'Measure
 
                                     If (iout_now > num_iout_delay.Value) And (num_delay.Value > 0) Then
-
                                         If cbox_delay_unit.SelectedIndex = 1 Then
-
                                             Delay_s(num_delay.Value)
                                         Else
                                             Delay(num_delay.Value)
@@ -8135,31 +8167,23 @@ Public Class PartI
                                     'vout
 
                                     vout_meas = DAQ_average(vout_daq, num_data_count.Value)
+                                    If DUT2_en Then
+                                        vout_meas2 = DAQ_average(vout_daq2, num_data_count.Value)
+                                    End If
 
                                     '-------------------------------------------------------------------------
                                     '2020/01/22  Vout用DC量測時 Scope的offset要由DAQ校正
                                     If (check_offset_vout.Checked = True) And (cbox_coupling_vout.SelectedItem <> "AC") Then
-
                                         CHx_OFFSET(vout_ch, vout_meas)
-
                                     End If
 
                                     ''----------------------------------------------------------------------------------
                                     stability_iout_num = stability_iout_num + 1
                                     Stability_run()
                                 Next
-
                             End If
-
-
-
                             excel_close()
-
-
-
                         Next 'vin
-
-
                     End If
 
                     'Line Regulation
@@ -8173,6 +8197,13 @@ Public Class PartI
 
                         Power_Dev = vin_Dev
                         power_volt(vin_device, Vin_out, vin_now)
+
+
+                        If DUT2_en Then
+                            Power_Dev = vin_Dev2
+                            power_volt(vin_device2, Vin_out2, vin_now)
+                        End If
+
                         DCLoad_Iout(0, monitor_vout, DUT2_en)
                         'DCLoad_Iout(0, monitor_vout)
                         DCLoad_ONOFF("ON")
@@ -8186,15 +8217,20 @@ Public Class PartI
 
                             If RS_Scope = True Then
 
-
-
                                 RS_Display(RS_RES_MES, RS_DISP_DOCK)
                                 'RS_Display(RS_RES_MES, RS_DISP_PREV)
                                 Scope_measure_clear()
 
-                                RS_Scope_measure_status(1, True)
-                                RS_Scope_measure_status(2, True)
-                                RS_Scope_measure_status(3, True)
+                                RS_Scope_measure_status(meas1, True)
+                                RS_Scope_measure_status(meas2, True)
+                                RS_Scope_measure_status(meas3, True)
+
+                                If DUT2_en Then
+                                    RS_Scope_measure_status(meas4, True)
+                                    RS_Scope_measure_status(meas5, True)
+                                    RS_Scope_measure_status(meas6, True)
+                                End If
+
                                 RS_Local()
                                 'RS_View()
                             End If
@@ -8230,18 +8266,12 @@ Public Class PartI
                                 FastAcq_ONOFF("OFF")
                             End If
                             RUN_set("RUNSTop")
-                            'Scope_RUN(False)
                         End If
-
-
-
 
                         For x = 0 To data_lineR_iout.Rows.Count - 1
                             System.Windows.Forms.Application.DoEvents()
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
-
-
                                 If run = False Then
                                     Exit While
                                 End If
@@ -8251,13 +8281,9 @@ Public Class PartI
                                 Exit For
                             End If
 
-
-
                             iout_now = data_lineR_iout.Rows(x).Cells(0).Value
                             DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
                             'DCLoad_Iout(iout_now, monitor_vout)
-
-
                             lineR_iout_num = x
 
                             For v = 0 To data_lineR_vin.Rows.Count - 1
@@ -8266,40 +8292,27 @@ Public Class PartI
 
                                 While pause = True
                                     System.Windows.Forms.Application.DoEvents()
-
-
                                     If run = False Then
                                         Exit While
                                     End If
                                 End While
-
                                 If run = False Then
                                     Exit For
                                 End If
 
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
-
-
                                 vin_now = data_lineR_vin.Rows(v).Cells(0).Value
-                                LineR_run()
-
+                                LineR_run(DUT2_en)
                                 LR_Vin_test_num = v
                                 update_report(Line_Regulation)
-
-
                             Next
-
 
                             If check_lineR_up.Checked = True Then
                                 For v = data_lineR_vin.Rows.Count - 2 To 0 Step -1
-
                                     System.Windows.Forms.Application.DoEvents()
-
                                     While pause = True
                                         System.Windows.Forms.Application.DoEvents()
-
-
                                         If run = False Then
                                             Exit While
                                         End If
@@ -8310,34 +8323,17 @@ Public Class PartI
                                     End If
                                     test_point_num = test_point_num + 1
                                     txt_test_now.Text = test_point_num
-
-
                                     vin_now = data_lineR_vin.Rows(v).Cells(0).Value
-                                    LineR_run()
-
+                                    LineR_run(DUT2_en)
                                     LR_Vin_test_num = LR_Vin_test_num + 1
                                     update_report(Line_Regulation)
-
                                 Next
-
                             End If
-
-
                         Next
-
-
                         excel_close()
-
                     End If
-
-
-
-
                 Next
-
-
             Next
-
         Next
 
         excel_open()
