@@ -71,6 +71,8 @@
 
     ' Stability
     Public Beta_folder2 As String
+    Public Error_folder2 As String
+    Public error_pic_path2 As String
 
     ' Efficiency
     Public Eff_vout_meas2 As Double

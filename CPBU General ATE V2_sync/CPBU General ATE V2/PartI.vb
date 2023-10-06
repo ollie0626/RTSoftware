@@ -6307,15 +6307,17 @@ Public Class PartI
                 'temp = xlSheet.Range(ConvertToLetter(col) & row).Value()
                 If pass_result = FAIL Then
                     If Error_folder = "" Then
-                        If dut2_en Then
-                            Error_folder = folderPath & "\Error_" & add_dut2 & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
-                        Else
-                            Error_folder = folderPath & "\Error_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
-                        End If
+                        Error_folder = folderPath & "\Error_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
                         My.Computer.FileSystem.CreateDirectory(Error_folder)
                     End If
-                    Hyperlinks_txt = "#" & error_pic_num
 
+
+                    If Error_folder2 = "" And dut2_en Then
+                        Error_folder2 = folderPath & "\Error_" & DateTime.Now.ToString("MMdd") & add_dut2 & DateTime.Now.ToString("HHmmss")
+                        My.Computer.FileSystem.CreateDirectory(Error_folder2)
+                    End If
+
+                    Hyperlinks_txt = "#" & error_pic_num
                     If dut2_en Then
                         xlSheet = xlBook.Sheets(txt_error_sheet.Text & add_dut2)
                     Else
@@ -8369,6 +8371,8 @@ Public Class PartI
 
 
 
+
+
         If (System.IO.Directory.Exists(Main.txt_folder.Text)) = True Then
 
 
@@ -8474,7 +8478,7 @@ Public Class PartI
 
     End Function
 
-    Function jitter_update_pic() As Integer
+    Function jitter_update_pic(Optional ByVal dut2_en As Boolean = False) As Integer
 
         Dim pic_format As String = ".PNG"
         Dim num_temp As Integer
@@ -8483,14 +8487,27 @@ Public Class PartI
         Dim height_temp As Double
         Dim width_temp As Double
 
+        Dim folder As String
+
+        If dut2_en Then
+            folder = Jitter_folder2
+        Else
+            folder = Jitter_folder
+        End If
 
 
-        If (System.IO.Directory.Exists(Jitter_folder)) = True Then
+        If (System.IO.Directory.Exists(folder)) = True Then
 
 
             Note.lbl_title.Text = "Paste Pic to Report"
             Note.Show()
-            Dim di As New IO.DirectoryInfo(Jitter_folder)
+            Dim path As String = Jitter_folder
+            If dut2_en Then
+                path = Jitter_folder2
+            Else
+                path = Jitter_folder
+            End If
+            Dim di As New IO.DirectoryInfo(path)
             Dim diar1 As IO.FileInfo() = di.GetFiles()
             Dim dra As IO.FileInfo
 
@@ -8513,28 +8530,25 @@ Public Class PartI
             xlBook = xlApp.Workbooks.Open(PartI_file)
             xlBook.Activate()
             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
+
+            If dut2_en Then
+                xlSheet = xlBook.Sheets(txt_jitter_sheet.Text & add_dut2)
+            End If
             xlSheet.Activate()
             'update_row = pic_start_row
             'update_col = pic_start_col
             For Each dra In diar1
-
                 System.Windows.Forms.Application.DoEvents()
-
-
                 ' If dra.Extension = pic_format Or dra.Extension = UCase(pic_format) Then
                 If dra.Extension = pic_format Then
-
-
                     temp = Split(dra.Name, "_")
                     num_temp = temp(0)
                     If (check_fastAcq.Checked = True) And (temp(1) = "Fast") Then
-
                         update_col = jitter_pic_col(num_temp)
                         update_row = jitter_pic_row(num_temp) + pic_height + 1
                     Else
                         update_col = jitter_pic_col(num_temp)
                         update_row = jitter_pic_row(num_temp) + 1
-
                     End If
 
                     ' ''------------------------------------------------------------
@@ -8549,10 +8563,19 @@ Public Class PartI
                     width_temp = xlrange.Width
                     FinalReleaseComObject(xlrange)
 
-                    pic_ByteSize = FileLen(Jitter_folder & "\" & dra.Name)
+                    If dut2_en Then
+                        pic_ByteSize = FileLen(Jitter_folder2 & "\" & dra.Name)
+                    Else
+                        pic_ByteSize = FileLen(Jitter_folder & "\" & dra.Name)
+                    End If
 
                     If (pic_ByteSize > 0) Then
-                        paste_picture(Jitter_folder & "\" & dra.Name, pic_top, width_temp, height_temp)
+                        If dut2_en Then
+                            paste_picture(Jitter_folder2 & "\" & dra.Name, pic_top, width_temp, height_temp)
+                        Else
+                            paste_picture(Jitter_folder & "\" & dra.Name, pic_top, width_temp, height_temp)
+                        End If
+
                         Delay(10)
                     End If
                     xlBook.Save()
@@ -8629,6 +8652,9 @@ Public Class PartI
                 Tab_Set.Enabled = False
 
                 jitter_update_pic()
+                If DUT2_en Then
+                    jitter_update_pic(DUT2_en)
+                End If
                 GC.Collect()
                 GC.WaitForPendingFinalizers()
                 Tab_Set.Enabled = True
@@ -8644,6 +8670,16 @@ Public Class PartI
                     Main.txt_file.Text = PartI_file
                     Main.txt_sheet.Text = txt_error_sheet.Text
                     update_pic2report(1, 4)
+
+                    If DUT2_en Then
+                        Main.txt_folder.Text = Error_folder2
+                        Main.txt_file.Text = PartI_file
+                        Main.txt_sheet.Text = txt_error_sheet.Text & add_dut2
+                        update_pic2report(1, 4)
+                    End If
+
+
+
                     GC.Collect()
                     GC.WaitForPendingFinalizers()
                 End If
