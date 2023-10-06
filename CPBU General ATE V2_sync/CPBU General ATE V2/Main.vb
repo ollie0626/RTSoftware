@@ -1653,8 +1653,17 @@ Public Class Main
 
 
     Private Sub btn_RUN_Click(sender As Object, e As EventArgs) Handles btn_RUN.Click
+
+
+        If DUT2_en Then
+            Check_Eagleboard(DUT2_en)
+        Else
+            Check_Eagleboard()
+        End If
+
+
         Dim i As Integer
-  
+
         Dim start_test_time As Date
         Dim txt_test_time As String
         Dim title As String
@@ -1841,7 +1850,7 @@ Public Class Main
             TA_now = "25"
         End If
 
-     
+
         ''Report
         excel_init()
 

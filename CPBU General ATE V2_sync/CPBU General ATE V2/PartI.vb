@@ -947,11 +947,15 @@ Public Class PartI
                 End If
             End If
         End If
-        power_on_off(vin_device2, Vin_out2, "ON", DUT2_en)
-        vin_meas2 = DAQ_read(vin_daq2)
-        If (check_vin_sense2.Checked = True) And (vin_meas < (vin_now * 0.5)) Then
-            error_message("Please confirm the VIN DAQ channel setting is correct!")
+
+        If DUT2_en Then
+            power_on_off(vin_device2, Vin_out2, "ON", DUT2_en)
+            vin_meas2 = DAQ_read(vin_daq2)
+            If (check_vin_sense2.Checked = True) And (vin_meas < (vin_now * 0.5)) Then
+                error_message("Please confirm the VIN DAQ channel setting is correct!")
+            End If
         End If
+
 
         ' ''----------------------------------------------------------------------------------
         'Power Enable
@@ -1024,13 +1028,16 @@ Public Class PartI
             check_vout()
         End If
 
-        monitor_vout2 = check_shutdown2.Checked
-        If monitor_vout2 = True Then
-            'VOUT
-            vout_daq2 = Mid(cbox_vout_daq2.SelectedItem, 3)
-            DAQ_config(vout_daq2)
-            check_vout2()
+        If DUT2_en Then
+            monitor_vout2 = check_shutdown2.Checked
+            If monitor_vout2 = True Then
+                'VOUT
+                vout_daq2 = Mid(cbox_vout_daq2.SelectedItem, 3)
+                DAQ_config(vout_daq2)
+                check_vout2()
+            End If
         End If
+
 
         '---------------------------------------------------------------------------------
         'Scope Init
@@ -3230,8 +3237,6 @@ Public Class PartI
             rbtn_meter_iin.Checked = False
             rbtn_Iin_PW.Checked = False
         Else
-
-
             rbtn_board_iin.Checked = False
             rbtn_meter_iin.Checked = False
             rbtn_Iin_PW.Checked = True
@@ -3247,9 +3252,6 @@ Public Class PartI
                 Else
                     import_ok = False
                 End If
-
-
-
             End If
         Next
 
@@ -3305,9 +3307,6 @@ Public Class PartI
                 Else
                     import_ok = False
                 End If
-
-
-
             End If
         Next
 
@@ -3320,28 +3319,16 @@ Public Class PartI
         num_iout_change.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
 
         If xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value = "TRUE" Then
-
             rbtn_board_iout.Checked = True
-
-
         End If
-
-
         cbox_board_buck.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
-
-
         If rbtn_meter_iout.Checked = False And rbtn_board_iout.Checked = False Then
             rbtn_iout_load.Checked = True
         ElseIf rbtn_meter_iout.Checked = True And cbox_Iout_meter.SelectedItem = no_device Then
             rbtn_iout_load.Checked = True
         End If
         row = row + 1
-
-
-
         '------------------------------------------------------------------------------------
-
-
         'xlSheet.Cells(row, col) = "DC Load"
         'title_set()
         row = row + 1
@@ -3426,10 +3413,6 @@ Public Class PartI
         Check_fixed.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
         num_vout_DEM.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 9).Value
         num_vout_CCM.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 10).Value
-
-
-
-
         row = row + 1
 
 
@@ -5338,7 +5321,8 @@ Public Class PartI
 
         '先確認0A的時候的電流
         'DCLoad_Iout(0, False)
-        DCLoad_Iout(0, False, DUT2_en)
+        'DCLoad_Iout(0, False, DUT2_en)
+        Iout_Setting(0, False, DUT2_en)
 
         Power_Dev = vin_Dev
 
@@ -5389,13 +5373,14 @@ Public Class PartI
                     End If
 
                     'DCLoad_Iout(iin_meter_change, False)
-                    DCLoad_Iout(iin_meter_change, False, DUT2_en)
+                    'DCLoad_Iout(iin_meter_change, False, DUT2_en)
+                    Iout_Setting(iin_meter_change, False, DUT2_en)
 
                     If (DCLoad_ON = False) Then
                         DCLoad_ONOFF("ON")
-                        If DUT2_en Then
-                            DCLoad_ONOFF("ON", DUT2_en)
-                        End If
+                        'If DUT2_en Then
+                        '    DCLoad_ONOFF("ON", DUT2_en)
+                        'End If
                     End If
 
                     If rbtn_meter_iin.Checked = True Then
@@ -5473,7 +5458,10 @@ Public Class PartI
         '--------------------------------------------------
         'DCLoad_Iout(iout_now, monitor_vout)
         'DCLoad_Iout(0, monitor_vout)
-        DCLoad_Iout(0, monitor_vout, DUT2_en)
+        'DCLoad_Iout(0, monitor_vout, DUT2_en)
+
+        Iout_Setting(0, monitor_vout, DUT2_en)
+
         'DCLoad_ONOFF("OFF")
         Delay(100)
     End Function
@@ -7895,14 +7883,17 @@ Public Class PartI
                                         Iout_meter_set(check_iout2, cbox_Iout_meter2, cbox_Iout_relay2, DUT2_en)
                                     End If
                                 End If
-
                                 '-------------------------------------------------------------------------------------
 
                                 'Iout
-                                DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                                'DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                                Iout_Setting(iout_now, monitor_vout, DUT2_en)
                                 'DCLoad_Iout(iout_now, monitor_vout)
                                 If (DCLoad_ON = False) Then
                                     DCLoad_ONOFF("ON")
+                                    If DUT2_en Then
+                                        DCLoad_ONOFF("ON", DUT2_en)
+                                    End If
                                 End If
 
                                 'Ollie_note: test flow update here
@@ -7922,7 +7913,7 @@ Public Class PartI
                                     vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
                                 End If
 
-                                If check_vin_sense2.Checked Then
+                                If check_vin_sense2.Checked And DUT2_en Then
                                     vin_power_sense(cbox_vin2.SelectedItem, num_vin_sense2.Value, num_vin_max2.Value, vin_now, DUT2_en)
                                 End If
 
@@ -7999,7 +7990,7 @@ Public Class PartI
                                         If iout_now = data_lineR_iout.Rows(y).Cells(0).Value Then
                                             lineR_iout_num = y
                                             LineR_run(DUT2_en) ' alread add dut2 flow
-                                            update_report(Line_Regulation)
+                                            update_report(Line_Regulation, DUT2_en)
 
                                             Exit For
                                         End If
@@ -8133,7 +8124,8 @@ Public Class PartI
 
                                     'Iout
 
-                                    DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                                    'DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                                    Iout_Setting(iout_now, monitor_vout, DUT2_en)
                                     'DCLoad_Iout(iout_now, monitor_vout)
                                     If (DCLoad_ON = False) Then
                                         DCLoad_ONOFF("ON")
@@ -8206,7 +8198,8 @@ Public Class PartI
                             power_volt(vin_device2, Vin_out2, vin_now)
                         End If
 
-                        DCLoad_Iout(0, monitor_vout, DUT2_en)
+                        'DCLoad_Iout(0, monitor_vout, DUT2_en)
+                        Iout_Setting(0, monitor_vout, DUT2_en)
                         'DCLoad_Iout(0, monitor_vout)
                         DCLoad_ONOFF("ON")
                         DCLoad_ONOFF("ON", DUT2_en)
@@ -8284,7 +8277,8 @@ Public Class PartI
                             End If
 
                             iout_now = data_lineR_iout.Rows(x).Cells(0).Value
-                            DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                            'DCLoad_Iout(iout_now, monitor_vout, DUT2_en)
+                            Iout_Setting(iout_now, monitor_vout, DUT2_en)
                             'DCLoad_Iout(iout_now, monitor_vout)
                             lineR_iout_num = x
 
@@ -8307,7 +8301,7 @@ Public Class PartI
                                 vin_now = data_lineR_vin.Rows(v).Cells(0).Value
                                 LineR_run(DUT2_en)
                                 LR_Vin_test_num = v
-                                update_report(Line_Regulation)
+                                update_report(Line_Regulation, DUT2_en)
                             Next
 
                             If check_lineR_up.Checked = True Then
@@ -8328,7 +8322,7 @@ Public Class PartI
                                     vin_now = data_lineR_vin.Rows(v).Cells(0).Value
                                     LineR_run(DUT2_en)
                                     LR_Vin_test_num = LR_Vin_test_num + 1
-                                    update_report(Line_Regulation)
+                                    update_report(Line_Regulation, DUT2_en)
                                 Next
                             End If
                         Next
@@ -8745,6 +8739,7 @@ Public Class PartI
 
 
         cbox_data_resolution.SelectedIndex = 0
+        cbox_data_resolution2.SelectedIndex = 0
         cbox_delay_unit.SelectedIndex = 0
         cbox_meter_mini.SelectedIndex = 0
 
@@ -9130,6 +9125,11 @@ Public Class PartI
         in_middle_id = num_slave_in_M.Value
         in_low_id = num_slave_in_L.Value
         in_io_id = num_slave_in_IO.Value
+
+        in_high_id2 = num_slave_in_H2.Value
+        in_middle_id2 = num_slave_in_M2.Value
+        in_low_id2 = num_slave_in_L2.Value
+        in_io_id2 = num_slave_in_IO2.Value
 
         in_high_comp = num_comp_in_H.Value
         in_middle_comp = num_comp_in_M.Value
@@ -9919,8 +9919,8 @@ Public Class PartI
 
     Private Sub check_IOUT_ch12_CheckedChanged(sender As Object, e As EventArgs) Handles check_IOUT_ch12.CheckedChanged
         If rbtn_board_iout2.Checked = True Then
-            check_IOUT_ch22.Enabled = False
-            check_IOUT_ch42.Enabled = False
+            check_IOUT_ch22.Enabled = True
+            check_IOUT_ch42.Enabled = True
 
             If (check_IOUT_ch12.Checked = True) Then
                 check_IOUT_ch22.Checked = True

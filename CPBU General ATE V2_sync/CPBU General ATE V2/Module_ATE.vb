@@ -1324,23 +1324,18 @@ Module Module_ATE
 
     Function DCLoad_ONOFF(ByVal onoff As String, Optional ByVal dut2_en As Boolean = False) As Integer
         Dim i As Integer
-
-
         If dut2_en Then
             For i = 0 To Load_ch_set2.Length - 1
                 Load_ch2 = Load_ch_set2(i)
                 If Iout_board_EN = True Then
                     If onoff = "ON" Then
                         If Iout_Meter_Max = True Then
-
                             'Iout >80mA-> CH2,CH4
-
                             load_onoff("OFF", dut2_en)
                             Load_ch2 = Load_ch_set2(i) + 1
                             load_onoff("ON", dut2_en)
                         Else
                             'Iout <80mA-> CH2,CH4
-
                             Load_ch2 = Load_ch_set2(i) + 1
                             load_onoff("OFF", dut2_en)
 
@@ -1424,6 +1419,57 @@ Module Module_ATE
 
 
         End If
+
+    End Function
+
+
+    Function Iout_Setting(ByVal iout_now As Double, ByVal vout_check As Boolean, Optional ByVal dut2_en As Boolean = False)
+        Dim change_mode As Boolean = False
+        For i = 0 To Load_ch_set.Length - 1
+            If Load_ch_set(i) Then
+                Load_ch = Load_ch_set(i)
+            End If
+        Next
+
+        If iout_now > DCLoad_CCH And Load_range <> Load_range_H Then
+            Load_range = Load_range_H
+            change_mode = True '   load_init(Load_range)
+        ElseIf iout_now <= DCLoad_CCH And iout_now > DCLoad_CCL And Load_range <> Load_range_M Then
+            Load_range = Load_range_M
+            change_mode = True '   load_init(Load_range)
+        ElseIf iout_now <= DCLoad_CCL And Load_range <> Load_range_L Then
+            Load_range = Load_range_L
+            change_mode = True '   load_init(Load_range)
+        End If
+
+
+        If change_mode = True Then
+            load_onoff("OFF")
+            load_init(Load_range)
+        End If
+        load_set(iout_now / Load_ch_set.Length)
+        load_onoff("ON")
+
+
+
+        If dut2_en Then
+            For i = 0 To Load_ch_set2.Length - 1
+                If Load_ch_set2(i) Then
+                    Load_ch2 = Load_ch_set2(i)
+                End If
+            Next
+
+            If change_mode = True Then
+                load_onoff("OFF", dut2_en)
+                load_init(Load_range, dut2_en)
+            End If
+            load_set(iout_now / Load_ch_set.Length, dut2_en)
+            load_onoff("ON", dut2_en)
+        End If
+
+
+
+
 
     End Function
 
@@ -1557,8 +1603,6 @@ Module Module_ATE
                         End If
                     End If
                 End If
-
-
                 If change_mode = True Then
                     DCLoad_ONOFF("OFF")
                     Load_ch2 = Load_ch_set2(i)
@@ -1570,10 +1614,7 @@ Module Module_ATE
                     Delay(100)
                 End If
             End If
-
-
         Next
-
 
         If vout_check = True Then
             check_vout()

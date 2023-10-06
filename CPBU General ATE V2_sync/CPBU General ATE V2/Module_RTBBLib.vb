@@ -33,7 +33,7 @@ Module Module_RTBBLib
 
     'Dim bCheckAck As Boolean = False
 
-    Function Check_Eagleboard() As Boolean
+    Function Check_Eagleboard(Optional ByVal dut2_en As Boolean = False) As Boolean
         hEnum = RTBB_EnumBoard()
 
 
@@ -53,6 +53,12 @@ Module Module_RTBBLib
             'Connect Board
             hDevice = RTBB_ConnectToBridgeByIndex(0)
 
+
+            If dut2_en Then
+                hDevice2 = RTBB_ConnectToBridgeByIndex(1)
+            End If
+
+
             If (IsDBNull(hDevice)) Then
                 Main.status_bridgeboad.Text = no_device
                 error_message("Connect Bridge Board Fail")
@@ -60,25 +66,19 @@ Module Module_RTBBLib
                 Exit Function
             End If
             '----------------------------------------------------
-
             'I2C_Module = hDevice.GetI2CModule(0)
             '' GSMW_Module = hDevice.GetExtGSMWModule()
             'GPIO_Module = hDevice.GetGPIOModule()
-
             For i = 0 To 6
-
                 RTBB_GPIOSingleSetIODirection(hDevice, 32 + i, True)
                 RTBB_GPIOSingleWrite(hDevice, 32 + i, False) '0
+                If dut2_en Then
+                    RTBB_GPIOSingleSetIODirection(hDevice2, 32 + i, True)
+                    RTBB_GPIOSingleWrite(hDevice2, 32 + i, False) '0
+                End If
             Next
-
-
-
-
             RTBB_board = True
-
-
             I2CScan()
-
             I2CSetFrequency(1024, 1000)
         End If
 
@@ -94,7 +94,7 @@ Module Module_RTBBLib
 
 
 
-    Function I2CScan() As Integer
+    Function I2CScan(Optional ByVal dut2_en As Boolean = False) As Integer
 
 
         Dim SlaveAddr As Integer
@@ -115,15 +115,23 @@ Module Module_RTBBLib
             Meas_ID_check(i) = False
         Next
 
+        If dut2_en Then
+            Result = RTBB_I2CScanSlaveDevice(hDevice2, I2CBus, pI2CAvailableAddressVBarray(0))
+        Else
+            Result = RTBB_I2CScanSlaveDevice(hDevice, I2CBus, pI2CAvailableAddressVBarray(0))
+        End If
 
-        Result = RTBB_I2CScanSlaveDevice(hDevice, I2CBus, pI2CAvailableAddressVBarray(0))
 
 
 
         If Result = RT_BB_SUCCESS Then
             SlaveAddr = 0
             While (1)
-                SlaveAddr = RTBB_I2CGetFirstValidSlaveAddr(pI2CAvailableAddressVBarray(0), SlaveAddr)
+                If dut2_en Then
+                    SlaveAddr = RTBB_I2CGetFirstValidSlaveAddr(pI2CAvailableAddressVBarray(0), SlaveAddr)
+                Else
+                    SlaveAddr = RTBB_I2CGetFirstValidSlaveAddr(pI2CAvailableAddressVBarray(0), SlaveAddr)
+                End If
                 If SlaveAddr < 0 Then
                     Exit While
                 End If
