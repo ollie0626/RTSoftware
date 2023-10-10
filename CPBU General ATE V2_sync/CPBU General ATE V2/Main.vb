@@ -987,9 +987,7 @@ Public Class Main
 
 
             xlBook = xlApp.Workbooks.Add
-
             xlBook.SaveAs(sf_name)
-
             Delay(100)
 
 

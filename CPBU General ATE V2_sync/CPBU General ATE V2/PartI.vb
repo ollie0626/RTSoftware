@@ -2657,6 +2657,108 @@ Public Class PartI
         xlSheet.Cells(row, col + 1) = cbox_data_resolution.SelectedItem
         row = row + 1
         '------------------------------------------------------------------------------------
+
+        'Instrument
+        ' Ollie_note: add 2nd page conditions
+        xlSheet.Cells(row, col) = "VIN"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = TextBox23.Text
+        xlSheet.Cells(row, col + 1) = cbox_vin2.SelectedItem
+        xlSheet.Cells(row, col + 2) = cbox_vin_ch2.SelectedItem
+        xlSheet.Cells(row, col + 3) = num_VIN_OCP2.Value
+        xlSheet.Cells(row, col + 4) = cbox_vin_daq2.SelectedItem
+        row = row + 1
+        xlSheet.Cells(row, col) = "Sense Vin"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = check_vin_sense2.Checked
+        xlSheet.Cells(row, col + 1) = num_vin_sense2.Value
+        xlSheet.Cells(row, col + 2) = num_vin_max2.Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "IIN"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = TextBox21.Text
+        xlSheet.Cells(row, col + 1) = rbtn_meter_iin2.Checked
+        xlSheet.Cells(row, col + 2) = cbox_IIN_meter2.SelectedItem
+        xlSheet.Cells(row, col + 3) = txt_IIN_addr2.Text
+        xlSheet.Cells(row, col + 4) = check_iin2.Checked
+        xlSheet.Cells(row, col + 5) = cbox_IIN_relay2.SelectedItem
+        xlSheet.Cells(row, col + 6) = num_iin_change2.Value
+        row = row + 1
+
+
+        '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "Vout"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = TextBox16.Text
+        xlSheet.Cells(row, col + 1) = cbox_vout_daq2.SelectedItem
+        xlSheet.Cells(row, col + 2) = cbox_vout1_daq2.SelectedItem
+        row = row + 1
+        xlSheet.Cells(row, col) = "Check Vout"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = check_shutdown2.Checked
+        xlSheet.Cells(row, col + 1) = num_Vout_error2.Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "IOUT"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = TextBox19.Text
+        xlSheet.Cells(row, col + 1) = rbtn_meter_iout2.Checked
+        xlSheet.Cells(row, col + 2) = cbox_Iout_meter2.SelectedItem
+        xlSheet.Cells(row, col + 3) = txt_Iout_addr2.Text
+        xlSheet.Cells(row, col + 4) = check_iout2.Checked
+        xlSheet.Cells(row, col + 5) = cbox_Iout_relay2.SelectedItem
+        xlSheet.Cells(row, col + 6) = num_iout_change2.Value
+        xlSheet.Cells(row, col + 7) = rbtn_board_iout2.Checked
+        xlSheet.Cells(row, col + 8) = cbox_board_buck2.SelectedItem
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+
+
+        xlSheet.Cells(row, col) = "DC Load"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "Channel"
+        xlSheet.Cells(row, col + 1) = check_IOUT_ch12.Checked
+        xlSheet.Cells(row, col + 2) = check_IOUT_ch22.Checked
+        xlSheet.Cells(row, col + 3) = check_IOUT_ch32.Checked
+        xlSheet.Cells(row, col + 4) = check_IOUT_ch42.Checked
+        row = row + 1
+
+        xlSheet.Cells(row, col) = "Delay"
+        xlSheet.Cells(row, col + 1) = num_delay2.Value
+        xlSheet.Cells(row, col + 2) = cbox_delay_unit2.SelectedItem
+        xlSheet.Cells(row, col + 3) = "Iout(A)  >"
+        xlSheet.Cells(row, col + 4) = num_iout_delay2.Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "DAQ"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "Numbers of Trigger:"
+        xlSheet.Cells(row, col + 1) = num_data_count2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Resolution:"
+        xlSheet.Cells(row, col + 1) = cbox_data_resolution2.SelectedItem
+        row = row + 1
+        '------------------------------------------------------------------------------------
+
+
+
+
+
+
+
         ''------------------------------------------------------------------------------------
         'Scope
         'Step4
@@ -3190,9 +3292,7 @@ Public Class PartI
         'Instrument
         'xlSheet.Cells(row, col) = "VIN"
         'title_set()
-
         Tab_Set.SelectedIndex = 1
-
         row = row + 1
         txt_vin_name1.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
 
@@ -3254,8 +3354,6 @@ Public Class PartI
                 End If
             End If
         Next
-
-
 
         If import_ok = False Then
             cbox_IIN_meter.SelectedIndex = 0
@@ -3356,6 +3454,170 @@ Public Class PartI
         'xlSheet.Cells(row, col) = "Resolution:"
         cbox_data_resolution.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
         row = row + 1
+
+
+        ' instrument2 
+        Tab_Set.SelectedIndex = 8
+        row = row + 1
+        TextBox23.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+
+        For i = 0 To cbox_vin2.Items.Count - 1
+            If cbox_vin2.Items(i) = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value Then
+                cbox_vin2.SelectedIndex = i
+
+                import_ok = True
+                Exit For
+            End If
+        Next
+
+        If import_ok = False Then
+            cbox_vin2.SelectedIndex = 0
+        End If
+        cbox_vin_ch2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_VIN_OCP2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        cbox_vin_daq2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+
+        row = row + 1
+        'xlSheet.Cells(row, col) = "Sense Vin"
+        'title_set()
+        row = row + 1
+        check_vin_sense2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 0).Value
+        num_vin_sense2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_vin_max2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        'xlSheet.Cells(row, col) = "IIN"
+        'title_set()
+        row = row + 1
+        TextBox21.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+        If xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value = "TRUE" Then
+            rbtn_meter_iin2.Checked = True
+            rbtn_board_iin2.Checked = False
+            rbtn_Iin_PW2.Checked = False
+        ElseIf Main.data_meas.Rows.Count > 0 Then
+            rbtn_board_iin2.Checked = True
+            rbtn_meter_iin2.Checked = False
+            rbtn_Iin_PW2.Checked = False
+        Else
+            rbtn_board_iin2.Checked = False
+            rbtn_meter_iin2.Checked = False
+            rbtn_Iin_PW2.Checked = True
+        End If
+
+        For i = 0 To cbox_IIN_meter2.Items.Count - 1
+            If cbox_IIN_meter2.Items(i) = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value Then
+                cbox_IIN_meter2.SelectedIndex = i
+
+                If txt_IIN_addr2.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value Then
+                    import_ok = True
+                    Exit For
+                Else
+                    import_ok = False
+                End If
+            End If
+        Next
+
+        If import_ok = False Then
+            cbox_IIN_meter2.SelectedIndex = 0
+        End If
+
+        check_iin2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        cbox_IIN_relay2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
+        num_iin_change2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        'xlSheet.Cells(row, col) = "Vout"
+        'title_set()
+        row = row + 1
+        TextBox16.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+        cbox_vout_daq2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        cbox_vout1_daq2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+        'xlSheet.Cells(row, col) = "Check Vout"
+        'title_set()
+        row = row + 1
+        check_shutdown2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 0).Value
+        num_Vout_error2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+        '------------------------------------------------------------------------------------
+        'xlSheet.Cells(row, col) = "IOUT"
+        'title_set()
+        row = row + 1
+        TextBox19.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+
+        rbtn_meter_iout2.Checked = False
+        rbtn_board_iout2.Checked = False
+        rbtn_iout_load2.Checked = False
+
+
+        If xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value = "TRUE" Then
+            rbtn_meter_iout2.Checked = True
+        End If
+
+        For i = 0 To cbox_Iout_meter2.Items.Count - 1
+            If cbox_Iout_meter2.Items(i) = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value Then
+                cbox_Iout_meter2.SelectedIndex = i
+
+                If txt_Iout_addr2.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value Then
+                    import_ok = True
+                    Exit For
+                Else
+                    import_ok = False
+                End If
+            End If
+        Next
+
+        If import_ok = False Then
+            cbox_Iout_meter2.SelectedIndex = 0
+        End If
+
+        check_iout2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        cbox_Iout_relay2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
+        num_iout_change2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
+
+        If xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value = "TRUE" Then
+            rbtn_board_iout2.Checked = True
+        End If
+        cbox_board_buck2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
+        If rbtn_meter_iout2.Checked = False And rbtn_board_iout2.Checked = False Then
+            rbtn_iout_load2.Checked = True
+        ElseIf rbtn_meter_iout2.Checked = True And cbox_Iout_meter2.SelectedItem = no_device Then
+            rbtn_iout_load2.Checked = True
+        End If
+        row = row + 1
+        '------------------------------------------------------------------------------------
+        'xlSheet.Cells(row, col) = "DC Load"
+        'title_set()
+        row = row + 1
+        'xlSheet.Cells(row, col) = "Channel"
+        check_IOUT_ch12.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        check_IOUT_ch22.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        check_IOUT_ch32.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        check_IOUT_ch42.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        row = row + 1
+
+        'xlSheet.Cells(row, col) = "Delay"
+        num_delay2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        cbox_delay_unit2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        'xlSheet.Cells(row, col + 3) = "Iout(A)  >"
+        num_iout_delay2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        row = row + 1
+
+        '------------------------------------------------------------------------------------
+        'xlSheet.Cells(row, col) = "DAQ"
+        'title_set()
+        row = row + 1
+        ' xlSheet.Cells(row, col) = "Numbers of Trigger:"
+        num_data_count2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+        'xlSheet.Cells(row, col) = "Resolution:"
+        cbox_data_resolution2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+
+
+
         '------------------------------------------------------------------------------------
         ''------------------------------------------------------------------------------------
         'Scope
@@ -8000,7 +8262,6 @@ Public Class PartI
 
                                 '------------------------------------------------------
                                 'Update Stability and Jitter
-
                                 If ((check_stability.Checked = True) Or (check_jitter.Checked = True)) And (first_Check = True) Then
                                     '第一次要啟動
                                     Auto_Scanning_check()
@@ -8418,43 +8679,29 @@ Public Class PartI
 
                     ' ''------------------------------------------------------------
                     ' ''Update Picture Title
-
                     pic_top = ConvertToLetter(update_col) & (update_row - 1)
-
                     xlrange = xlSheet.Range(pic_top)
                     xlrange.Interior.ColorIndex = 45 'Orange
                     xlrange.Value2 = dra.Name
-
                     xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(update_col + pic_width - 1) & (update_row - 1))
                     xlrange.MergeCells = True
                     FinalReleaseComObject(xlrange)
-
-
                     ' ''------------------------------------------------------------
                     ' ''Paste Picture
-
                     pic_top = ConvertToLetter(update_col) & update_row
                     xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(update_col) & (update_row + pic_height - 1))
                     height_temp = xlrange.Height
                     FinalReleaseComObject(xlrange)
-
                     xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(update_col + pic_width - 1) & update_row)
                     width_temp = xlrange.Width
                     FinalReleaseComObject(xlrange)
-
                     pic_ByteSize = FileLen(Main.txt_folder.Text & "\" & dra.Name)
-
-
                     If (pic_ByteSize > 0) Then
                         paste_picture(Main.txt_folder.Text & "\" & dra.Name, pic_top, width_temp, height_temp)
                         Delay(10)
                     End If
-
                     xlBook.Save()
-
                 End If
-
-
             Next
 
 
