@@ -949,9 +949,7 @@
             test = Val(Mid(ValueStr, 1, temp))
         End If
         power_OCP_value = Format(Val(test), "#0.0000")
-
         Return power_OCP_value
-
     End Function
 
 
@@ -963,57 +961,28 @@
         Else
             Power_Dev = vin_Dev
         End If
-
-
         If (Mid(device, 1, 6) = "62006P") Or (Mid(device, 1, 6) = "62012P") Then
-
             ts = "CONFigure:OUTPut " & on_off
-
-
         Else
-
             Select Case device
-
                 Case "N6705"
-
                     ts = "OUTP " & on_off & ",(@" & power_out & ")"
-
-
                 Case "E36312A"
                     '2022/07/22
-
                     ts = "OUTP " & on_off & ",(@" & power_out & ")"
-
                 Case "6210-40"
-
                     ts = "OUT " & on_off
-
-
-
                 Case Else
                     ts = "OUTP " & on_off
-
-
             End Select
-
-
-
         End If
-
-
-
-
         ilwrt(Power_Dev, ts, CInt(Len(ts)))
-
         'If on_off = "ON" Then
         '    Delay(300)
         'End If
-
         ts = "*OPC?"
         ilwrt(Power_Dev, ts, CInt(Len(ts)))
         ilrd(Power_Dev, ValueStr, ARRAYSIZE)
-
-
     End Function
 
 
