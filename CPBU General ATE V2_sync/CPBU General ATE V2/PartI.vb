@@ -2753,12 +2753,85 @@ Public Class PartI
         row = row + 1
         '------------------------------------------------------------------------------------
 
+        xlSheet.Cells(row, col) = "Meter Board"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_L.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_L.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_L.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_M.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_M.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_M.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_H.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_H.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_H.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_IO.Value
 
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_L.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_L.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_L.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_M.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_M.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_M.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_H.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_H.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_H.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_IO.Value
 
+        ' 2nd board setting
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board2 Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_L2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_L2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_L2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board2 Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_M2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_M2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_M2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board2 High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_H2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_H2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_H2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board2 IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_IO2.Value
 
-
-
-
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board2 Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_L2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_L2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_L2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board2 Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_M2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_M2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_M2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board2 High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_H2.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_H2.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_H2.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board2 IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_IO2.Value
+        row = row + 1
         ''------------------------------------------------------------------------------------
         'Scope
         'Step4
@@ -3038,25 +3111,19 @@ Public Class PartI
 
 
         row = row + 1
-
         'Jitter Page
         xlSheet.Cells(row, col) = "Jitter Set"
         title_set()
         row = row + 1
-
         xlSheet.Cells(row, col) = "PERSistence"
         xlSheet.Cells(row, col + 1) = check_persistence.Checked
         xlSheet.Cells(row, col + 2) = num_counts_Jitter.Value
-
         row = row + 1
         xlSheet.Cells(row, col) = "FastAcq"
         xlSheet.Cells(row, col + 1) = check_fastAcq.Checked
         xlSheet.Cells(row, col + 2) = num_FastAcq.Value
         row = row + 1
-
-
         '------------------------------------------------------------------------------------
-
         xlSheet.Cells(row, col) = "Line Regulation"
         title_set()
         row = row + 1
@@ -3068,8 +3135,10 @@ Public Class PartI
 
         xlSheet.Cells(row, col) = "LineR Set"
         xlSheet.Cells(row, col + 1) = check_lineR_scope.Checked
-
         '------------------------------------------------------------------------------------
+
+
+
 
 
 
@@ -3077,13 +3146,7 @@ Public Class PartI
         xlSheet.Columns(1).AutoFit()
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
-
         xlBook.Save()
-
-
-
-
-
     End Function
 
     Function Test_import() As Integer
@@ -3456,6 +3519,7 @@ Public Class PartI
         row = row + 1
 
 
+        '------------------------------------------------------------------------------------
         ' instrument2 
         Tab_Set.SelectedIndex = 8
         row = row + 1
@@ -3617,6 +3681,76 @@ Public Class PartI
         row = row + 1
 
 
+        ' Meter board parameter
+        num_slave_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+        num_slave_in_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+
+        num_slave_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+
+        '' 2nd board setting
+        num_slave_in_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+        num_slave_in_IO2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+
+        num_slave_out_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_L2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_M2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_H2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_IO2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
 
         '------------------------------------------------------------------------------------
         ''------------------------------------------------------------------------------------
@@ -3945,6 +4079,11 @@ Public Class PartI
         check_lineR_scope.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
 
 
+
+
+
+
+
         '------------------------------------------------------------------------------------
 
         import_now = False
@@ -4145,15 +4284,11 @@ Public Class PartI
 
         '---------------------------------------------------------------------------------
         'for stability
-
-
         For i = 0 To data_set.Rows.Count - 1
             If data_set.Rows(i).Cells(0).Value = TA_now Then
                 stability_num = i
                 Exit For
             End If
-
-
         Next
 
         '---------------------------------------------------------------------------------
@@ -4886,16 +5021,11 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 pass_value_Max = vout_now * (1 + (num_pass_lineR.Value * 5 / 100))
                                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value * 5 / 100))
-
                                 chart_init(LineR_Chart, "VOUT=" & vout_now & "V", test_name, vin_title, vout_title, vin_max, vin_min, pass_value_Max, pass_value_Min, cbox_type_LineR.SelectedItem)
-
-
                             End If
 
                             pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
@@ -8853,8 +8983,6 @@ Public Class PartI
         If Save_set = True Then
             Tab_Set.Enabled = True
             Test_set()
-
-
         End If
 
         If (Open_set = True) And (import_now = False) Then
