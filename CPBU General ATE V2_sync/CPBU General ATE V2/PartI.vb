@@ -6559,15 +6559,31 @@ Public Class PartI
                         My.Computer.FileSystem.CreateDirectory(Error_folder2)
                     End If
 
-                    Hyperlinks_txt = "#" & error_pic_num
+                    If dut2_en Then
+                        Hyperlinks_txt = "#" & error_pic_num2
+                    Else
+                        Hyperlinks_txt = "#" & error_pic_num
+                    End If
+
                     If dut2_en Then
                         xlSheet = xlBook.Sheets(txt_error_sheet.Text & add_dut2)
                     Else
                         xlSheet = xlBook.Sheets(txt_error_sheet.Text)
                     End If
+
+
                     xlSheet.Activate()
                     xlrange = xlSheet.Range(ConvertToLetter(1) & 1)
-                    xlrange.Value = error_pic_num
+
+
+                    If dut2_en Then
+                        xlrange.Value = error_pic_num2
+                    Else
+                        xlrange.Value = error_pic_num
+                    End If
+
+
+
                     xlBook.Save()
                     '若已經有用autoscanning矯正，就直接抓圖，不再取圖!
                     If autoscanning_update = False Then
@@ -6590,20 +6606,34 @@ Public Class PartI
                     End If
                     '----------------------------------------------------------------------------------------------------------------
                     If dut2_en Then
-                        error_pic_path = Error_folder & "\" & error_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
+                        error_pic_path = Error_folder & "\" & error_pic_num2 & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
                     Else
                         error_pic_path = Error_folder & "\" & error_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     End If
                     Hardcopy("PNG", error_pic_path)
-                    hyperlink_col = error_pic_col
-                    hyperlink_row = error_pic_row
-                    If (error_pic_num Mod 10 = 0) Then
-                        error_pic_col = 1
-                        error_pic_row = error_pic_row + pic_height + 2
+
+                    If dut2_en Then
+                        hyperlink_col2 = error_pic_col2
+                        hyperlink_row2 = error_pic_row2
+                        If (error_pic_num2 Mod 10 = 0) Then
+                            error_pic_col2 = 1
+                            error_pic_row2 = error_pic_row2 + pic_height + 2
+                        Else
+                            error_pic_col2 = error_pic_col2 + pic_width + 1
+                        End If
+                        error_pic_num2 = error_pic_num2 + 1
                     Else
-                        error_pic_col = error_pic_col + pic_width + 1
+                        hyperlink_col = error_pic_col
+                        hyperlink_row = error_pic_row
+                        If (error_pic_num Mod 10 = 0) Then
+                            error_pic_col = 1
+                            error_pic_row = error_pic_row + pic_height + 2
+                        Else
+                            error_pic_col = error_pic_col + pic_width + 1
+                        End If
+                        error_pic_num = error_pic_num + 1
                     End If
-                    error_pic_num = error_pic_num + 1
+
                     ''----------------------------------------------------------------------------------------------------------------
                     If check_cursors.Checked = True Then
                         Cursor_ONOFF("OFF")
@@ -6615,7 +6645,14 @@ Public Class PartI
                     End If
                     xlSheet.Activate()
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                    xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
+
+
+                    If dut2_en Then
+                        xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & add_dut2 & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
+                    Else
+                        xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
+                    End If
+
 
                 End If
                 autoscanning_update = False
@@ -8613,14 +8650,7 @@ Public Class PartI
         Dim temp() As String
         Dim height_temp As Double
         Dim width_temp As Double
-
-
-
-
-
         If (System.IO.Directory.Exists(Main.txt_folder.Text)) = True Then
-
-
             Note.lbl_title.Text = "Paste Pic to Report"
             Note.Show()
 
@@ -8650,13 +8680,9 @@ Public Class PartI
 
                 ' If dra.Extension = pic_format Or dra.Extension = UCase(pic_format) Then
                 If dra.Extension = pic_format Then
-
-
                     temp = Split(dra.Name, "_")
                     num_temp = temp(0)
-
                     Note.ProgressBar1.Value = num_temp / diar1.Count * 100
-
                     If (num_temp Mod 10) = 0 Then
                         update_col = pic_start_col + 9 * (pic_width + 1)
                         update_row = pic_start_row + (Int((num_temp / 10)) - 1) * (pic_height + 2)
@@ -8664,9 +8690,7 @@ Public Class PartI
                         update_col = pic_start_col + ((num_temp Mod 10) - 1) * (pic_width + 1)
                         update_row = pic_start_row + Int((num_temp / 10)) * (pic_height + 2)
                     End If
-
                     'Title
-
                     ' ''------------------------------------------------------------
                     ' ''Update Picture Title
                     pic_top = ConvertToLetter(update_col) & (update_row - 1)
@@ -9574,16 +9598,16 @@ Public Class PartI
         Iout_name = txt_iout_name.Text
     End Sub
 
-    Private Sub cbox_channel_lx_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_lx.SelectedIndexChanged
-        txt_meas1_ch.Text = cbox_channel_lx.SelectedItem & "/3"
-        txt_meas2_ch.Text = cbox_channel_lx.SelectedItem & "/3"
-        txt_meas3_ch.Text = cbox_channel_lx.SelectedItem & "/3"
+    Private Sub cbox_channel_lx_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_lx.SelectedIndexChanged, cbox_channel_lx2.SelectedIndexChanged
+        txt_meas1_ch.Text = cbox_channel_lx.SelectedItem & "/" & Mid(cbox_channel_lx2.SelectedItem, 3)
+        txt_meas2_ch.Text = cbox_channel_lx.SelectedItem & "/" & Mid(cbox_channel_lx2.SelectedItem, 3)
+        txt_meas3_ch.Text = cbox_channel_lx.SelectedItem & "/" & Mid(cbox_channel_lx2.SelectedItem, 3)
     End Sub
 
-    Private Sub cbox_channel_vout_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_vout.SelectedIndexChanged
-        txt_meas4_ch.Text = cbox_channel_vout.Text & "/4"
-        txt_meas5_ch.Text = cbox_channel_vout.Text & "/4"
-        txt_meas6_ch.Text = cbox_channel_vout.Text & "/4"
+    Private Sub cbox_channel_vout_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_vout.SelectedIndexChanged, cbox_channel_vout2.SelectedIndexChanged
+        txt_meas4_ch.Text = cbox_channel_vout.Text & "/" & Mid(cbox_channel_vout2.Text, 3)
+        txt_meas5_ch.Text = cbox_channel_vout.Text & "/" & Mid(cbox_channel_vout2.Text, 3)
+        txt_meas6_ch.Text = cbox_channel_vout.Text & "/" & Mid(cbox_channel_vout2.Text, 3)
     End Sub
 
 
@@ -10276,9 +10300,6 @@ Public Class PartI
         End If
     End Sub
 
-    Private Sub cbox_channel_lx2_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_channel_lx2.SelectedIndexChanged
-
-    End Sub
 
     Private Sub num_RL_ValueChanged(sender As Object, e As EventArgs) Handles num_RL.ValueChanged
 

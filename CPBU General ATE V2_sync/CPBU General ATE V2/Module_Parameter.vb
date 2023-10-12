@@ -87,4 +87,11 @@
     Public DCload_ch2(3) As Boolean
     Public Iout_board_EN2 As Boolean = False
 
+
+
+    Public error_pic_num2 As Integer
+    Public error_pic_col2, error_pic_row2 As Integer
+    Public hyperlink_col2, hyperlink_row2 As Integer
+
+
 End Module

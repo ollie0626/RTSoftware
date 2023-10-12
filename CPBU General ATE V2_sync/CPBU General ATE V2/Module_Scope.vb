@@ -2717,11 +2717,7 @@
     Function Hardcopy(ByVal Scope_format As String, ByVal pc_path As String) As Long
         Dim ByteSize As Long
         Dim file_temp As Integer
-
         read_error = 0
-
-
-
         If RS_Scope = False Then
 
             ts = "EXP:FORM " & Scope_format
@@ -2737,9 +2733,6 @@
 
             ts = "FILESystem:READFile '" & Scope_folder & "\hardcopy." & Scope_format & "'"
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-
 
             '-------------------------------------------------
             'FILESystem:READFile Error
@@ -2758,7 +2751,6 @@
             End While
 
             '-------------------------------------------------
-
 
             'file path of PC
             read_error = 0
@@ -2781,17 +2773,12 @@
                 ibrdf32(Scope_Dev, ts)
             End While
             '-------------------------------------------------
-
-
-
             ByteSize = FileLen(pc_path)
         Else
             Scope_RUN(False)
             Delay(10)
             ts = "SYSTem:DISPlay:UPDate ON"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
 
             ts = "HCOP:DEST 'MMEM'"
             visa_write(RS_Scope_Dev, RS_vi, ts)
@@ -2806,22 +2793,14 @@
             'ts = "HCOP:DEV:LANG " & Scope_format
             'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
 
-
-
             ts = "MMEM:NAME '" & Scope_folder & "\hardcopy." & Scope_format & "'"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
 
             'ts = "HCOP:IMM;*WAI"
             ts = "HCOP:IMMediate;*OPC?"
             visa_write(RS_Scope_Dev, RS_vi, ts)
 
             visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-
-
-
-
 
             While retcount = 0
 
