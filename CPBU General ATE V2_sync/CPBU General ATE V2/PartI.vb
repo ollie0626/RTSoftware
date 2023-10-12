@@ -2593,6 +2593,8 @@ Public Class PartI
         xlSheet.Cells(row, col + 4) = check_iin.Checked
         xlSheet.Cells(row, col + 5) = cbox_IIN_relay.SelectedItem
         xlSheet.Cells(row, col + 6) = num_iin_change.Value
+        xlSheet.Cells(row, col + 7) = rbtn_Iin_PW.Checked
+        xlSheet.Cells(row, col + 8) = rbtn_iin_current_measure.Checked
         row = row + 1
 
 
@@ -2624,6 +2626,8 @@ Public Class PartI
         xlSheet.Cells(row, col + 6) = num_iout_change.Value
         xlSheet.Cells(row, col + 7) = rbtn_board_iout.Checked
         xlSheet.Cells(row, col + 8) = cbox_board_buck.SelectedItem
+        xlSheet.Cells(row, col + 9) = rbtn_iout_load.Checked
+        xlSheet.Cells(row, col + 10) = rbtn_iout_current_measure.Checked
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -2688,6 +2692,8 @@ Public Class PartI
         xlSheet.Cells(row, col + 4) = check_iin2.Checked
         xlSheet.Cells(row, col + 5) = cbox_IIN_relay2.SelectedItem
         xlSheet.Cells(row, col + 6) = num_iin_change2.Value
+        xlSheet.Cells(row, col + 7) = rbtn_Iin_PW2.Checked
+        xlSheet.Cells(row, col + 8) = rbtn_iin_current_measure2.Checked
         row = row + 1
 
 
@@ -2719,6 +2725,8 @@ Public Class PartI
         xlSheet.Cells(row, col + 6) = num_iout_change2.Value
         xlSheet.Cells(row, col + 7) = rbtn_board_iout2.Checked
         xlSheet.Cells(row, col + 8) = cbox_board_buck2.SelectedItem
+        xlSheet.Cells(row, col + 9) = rbtn_iout_load2.Checked
+        xlSheet.Cells(row, col + 10) = rbtn_iout_current_measure2.Checked
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -3136,12 +3144,12 @@ Public Class PartI
         xlSheet.Cells(row, col) = "LineR Set"
         xlSheet.Cells(row, col + 1) = check_lineR_scope.Checked
         '------------------------------------------------------------------------------------
-
-
-
-
-
-
+        row = row + 1
+        xlSheet.Cells(row, col) = "Dut2 En"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "Dut2 Check"
+        xlSheet.Cells(row, col + 1) = check_DUT2.Checked
 
         xlSheet.Columns(1).AutoFit()
         FinalReleaseComObject(xlSheet)
@@ -3425,6 +3433,8 @@ Public Class PartI
         check_iin.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
         cbox_IIN_relay.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
         num_iin_change.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
+        rbtn_Iin_PW.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value
+        rbtn_iin_current_measure.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -3488,6 +3498,11 @@ Public Class PartI
         ElseIf rbtn_meter_iout.Checked = True And cbox_Iout_meter.SelectedItem = no_device Then
             rbtn_iout_load.Checked = True
         End If
+
+        rbtn_iout_load.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 9).Value
+        rbtn_iout_current_measure.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 10).Value
+
+
         row = row + 1
         '------------------------------------------------------------------------------------
         'xlSheet.Cells(row, col) = "DC Load"
@@ -3589,6 +3604,8 @@ Public Class PartI
         check_iin2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
         cbox_IIN_relay2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
         num_iin_change2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
+        rbtn_Iin_PW2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value
+        rbtn_iin_current_measure2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -3650,6 +3667,9 @@ Public Class PartI
         ElseIf rbtn_meter_iout2.Checked = True And cbox_Iout_meter2.SelectedItem = no_device Then
             rbtn_iout_load2.Checked = True
         End If
+
+        rbtn_iout_load2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 9).Value
+        rbtn_iout_current_measure2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 10).Value
         row = row + 1
         '------------------------------------------------------------------------------------
         'xlSheet.Cells(row, col) = "DC Load"
@@ -4079,10 +4099,8 @@ Public Class PartI
         'xlSheet.Cells(row, col) = "LineR Set"
         check_lineR_scope.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
 
-
-
-
-
+        row = row + 2
+        check_DUT2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
 
 
         '------------------------------------------------------------------------------------
@@ -4157,7 +4175,7 @@ Public Class PartI
                 My.Computer.FileSystem.CreateDirectory(Jitter_folder)
 
                 If DUT2_en Then
-                    sheet_init(txt_jitter_sheet.Text & DUT2_en)
+                    sheet_init(txt_jitter_sheet.Text & add_dut2)
                     Jitter_folder2 = folderPath & "\Jitter_" & add_dut2 & "_" & DateTime.Now.ToString("MMdd") & "_" & DateTime.Now.ToString("HHmmss")
                     My.Computer.FileSystem.CreateDirectory(Jitter_folder2)
                 End If
@@ -4310,8 +4328,10 @@ Public Class PartI
         total_serial = ""
         If TA_Test_num = 0 Then
             Jitter_pic_num = 1
+            Jitter_pic_num2 = 1
         Else
             Jitter_pic_num = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
+            Jitter_pic_num2 = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
         End If
 
         'TA Loop
@@ -4562,16 +4582,9 @@ Public Class PartI
 
                                 'X
                                 For ii = stability_row_start(stability_num) To stability_row_stop(stability_num)
-
-
-
-
-
                                     'Next 'stabitity
                                     last_row = row
                                     row = row + 1
-
-
                                 Next 'iout
 
                                 If check_iout_up.Checked = True Then
@@ -4778,30 +4791,61 @@ Public Class PartI
                                 'X
                                 For ii = 0 To data_jitter_iout.Rows.Count - 1
                                     iout_now = data_jitter_iout.Rows(ii).Cells(0).Value
-                                    ReDim Preserve jitter_pic_col(Jitter_pic_num)
-                                    ReDim Preserve jitter_pic_row(Jitter_pic_num)
-                                    If ii = 0 Then
-                                        jitter_pic_col(Jitter_pic_num) = test_col + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * data_jitter_iout.Rows.Count * (pic_width + 1)
-                                        jitter_pic_row(Jitter_pic_num) = first_row
-                                    Else
-                                        jitter_pic_col(Jitter_pic_num) = jitter_pic_col(Jitter_pic_num - 1) + 1 + pic_width
-                                        jitter_pic_row(Jitter_pic_num) = jitter_pic_row(Jitter_pic_num - 1)
-                                    End If
-                                    col = start_col
-                                    For nn = 0 To jitter_col.Length - 1
-                                        col = col + 1
-                                    Next 'jitter
-                                    last_row = row
-                                    row = row + 1
-                                    '-------------------------------------------------------------------------------
-                                    'Add Picture
-                                    If (check_fastAcq.Checked = True) Then
 
-                                        pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 2)
+
+                                    If dut_sel = 1 Then
+                                        ReDim Preserve jitter_pic_col2(Jitter_pic_num2)
+                                        ReDim Preserve jitter_pic_row2(Jitter_pic_num2)
+
+                                        If ii = 0 Then
+                                            jitter_pic_col2(Jitter_pic_num2) = test_col + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * data_jitter_iout.Rows.Count * (pic_width + 1)
+                                            jitter_pic_row2(Jitter_pic_num2) = first_row
+                                        Else
+                                            jitter_pic_col2(Jitter_pic_num2) = jitter_pic_col2(Jitter_pic_num2 - 1) + 1 + pic_width
+                                            jitter_pic_row2(Jitter_pic_num2) = jitter_pic_row2(Jitter_pic_num2 - 1)
+                                        End If
+                                        col = start_col
+                                        For nn = 0 To jitter_col.Length - 1
+                                            col = col + 1
+                                        Next 'jitter
+                                        last_row = row
+                                        row = row + 1
+                                        '-------------------------------------------------------------------------------
+                                        'Add Picture
+                                        If (check_fastAcq.Checked = True) Then
+                                            pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col2(Jitter_pic_num2), jitter_pic_row2(Jitter_pic_num2), 2)
+                                        Else
+                                            pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col2(Jitter_pic_num2), jitter_pic_row2(Jitter_pic_num2), 1)
+                                        End If
+
+                                        Jitter_pic_num2 = Jitter_pic_num2 + 1
                                     Else
-                                        pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 1)
+                                        ReDim Preserve jitter_pic_col(Jitter_pic_num)
+                                        ReDim Preserve jitter_pic_row(Jitter_pic_num)
+                                        If ii = 0 Then
+                                            jitter_pic_col(Jitter_pic_num) = test_col + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * data_jitter_iout.Rows.Count * (pic_width + 1)
+                                            jitter_pic_row(Jitter_pic_num) = first_row
+                                        Else
+                                            jitter_pic_col(Jitter_pic_num) = jitter_pic_col(Jitter_pic_num - 1) + 1 + pic_width
+                                            jitter_pic_row(Jitter_pic_num) = jitter_pic_row(Jitter_pic_num - 1)
+                                        End If
+                                        col = start_col
+                                        For nn = 0 To jitter_col.Length - 1
+                                            col = col + 1
+                                        Next 'jitter
+                                        last_row = row
+                                        row = row + 1
+                                        '-------------------------------------------------------------------------------
+                                        'Add Picture
+                                        If (check_fastAcq.Checked = True) Then
+
+                                            pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 2)
+                                        Else
+                                            pic_init(total_title & ", Iout=" & iout_now & "A", jitter_pic_col(Jitter_pic_num), jitter_pic_row(Jitter_pic_num), 1)
+                                        End If
+
+                                        Jitter_pic_num = Jitter_pic_num + 1
                                     End If
-                                    Jitter_pic_num = Jitter_pic_num + 1
                                 Next 'iout
                                 '----------------------------------------------------------------------------------
                                 'Add Line
@@ -5898,9 +5942,6 @@ Public Class PartI
                 End If
             End If
 
-
-
-
             If cbox_VCC_daq.SelectedItem <> no_device Then
                 vcc_meas = DAQ_average(vcc_daq, num_data_count.Value)
             ElseIf cbox_VCC.SelectedItem <> no_device Then
@@ -5915,10 +5956,8 @@ Public Class PartI
             If txt_Icc_addr.Text <> "" Then
                 icc_meas = meter_average(cbox_Icc_meter.SelectedItem, Meter_icc_dev, num_data_count.Value, Meter_iout_range, "4e-1") ' meter_read(Meter_icc_dev)
             End If
-
             update_report(Efficiency, dut2_en)
         End If
-
         If check_loadR.Checked = True Then
             update_report(Load_Regulation, dut2_en)
         End If
@@ -5946,15 +5985,15 @@ Public Class PartI
             CHx_display(3, "OFF")
             CHx_display(4, "OFF")
 
-            If i = 0 Then
-                CHx_display(lx_ch, "ON")
-                CHx_display(vout_ch, "ON")
-                Trigger_auto_level(lx_ch, "R")
-            Else
-                CHx_display(lx2_ch, "ON")
-                CHx_display(vout2_ch, "ON")
-                Trigger_auto_level(lx2_ch, "R")
-            End If
+            'If i = 0 Then
+            '    CHx_display(lx_ch, "ON")
+            '    CHx_display(vout_ch, "ON")
+            '    Trigger_auto_level(lx_ch, "R")
+            'Else
+            '    CHx_display(lx2_ch, "ON")
+            '    CHx_display(vout2_ch, "ON")
+            '    Trigger_auto_level(lx2_ch, "R")
+            'End If
 
             Scope_RUN(False)
             Calculate_pass(TA_Test_num)
@@ -6049,12 +6088,6 @@ Public Class PartI
                     vpp(1) = Scope_measure(meas4, Meas_mean)
                     vpp(2) = Scope_measure(meas4, Meas_min)
                     vpp(3) = Scope_measure(meas4, Meas_max)
-
-                    ''Vmax
-                    'vpp(4) = Scope_measure(meas5, Meas_max)
-
-                    ''Vmin
-                    'vpp(5) = Scope_measure(meas6, Meas_min)
                 Else
                     ' freq KHz
                     fs(0) = Scope_measure(meas5, Scope_Meas)
@@ -6105,6 +6138,36 @@ Public Class PartI
                 'Vmin
                 vpp(5) = Scope_measure(meas6, Meas_min)
             End If
+
+            'If DUT2_en Then
+            '    If cbox_coupling_vout2.SelectedItem = "AC" Then
+            '        pass_value_Max = vout_now * (num_vout_ac.Value / 100)
+            '        If (vpp(3) > pass_value_Max) Then
+            '            pass_result = FAIL
+            '        End If
+            '    Else
+            '        pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
+            '        pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
+            '        If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
+            '            pass_result = FAIL
+            '        End If
+            '    End If
+            'Else
+            '    If cbox_coupling_vout.SelectedItem = "AC" Then
+            '        pass_value_Max = vout_now * (num_vout_ac.Value / 100)
+            '        If (vpp(3) > pass_value_Max) Then
+            '            pass_result = FAIL
+            '        End If
+            '    Else
+            '        pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
+            '        pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
+            '        If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
+            '            pass_result = FAIL
+            '        End If
+            '    End If
+            'End If
+
+
 
             If rbtn_auto_vout.Checked = True Then
                 '--------------------------------------------------------------------
@@ -6180,6 +6243,23 @@ Public Class PartI
         End If
 
         For i = 0 To test_cnt
+
+            CHx_display(1, "OFF")
+            CHx_display(2, "OFF")
+            CHx_display(3, "OFF")
+            CHx_display(4, "OFF")
+
+            If i = 0 Then
+                CHx_display(lx_ch, "ON")
+                'CHx_display(vout_ch, "ON")
+                Trigger_auto_level(lx_ch, "R")
+            Else
+                CHx_display(lx2_ch, "ON")
+                'CHx_display(vout2_ch, "ON")
+                Trigger_auto_level(lx2_ch, "R")
+            End If
+
+
             Scope_RUN(False)
             If check_cursors.Checked = True Then
                 Cursor_ONOFF("OFF")
@@ -6219,7 +6299,13 @@ Public Class PartI
             If (iout_now = data_jitter_iout.Rows(0).Cells(0).Value) Then
                 If rbtn_auto_vout.Checked = True Then
                     '----------------------------------------------------------------------
-                    monitor_count(num_counts_CCM.Value, True, "Part I")
+                    If i = 1 Then
+                        monitor_count(num_counts_CCM.Value, True, "Part I", meas5)
+                    Else
+                        monitor_count(num_counts_CCM.Value, True, "Part I")
+                    End If
+
+
                     If i = 0 Then
                         vpp(3) = Scope_measure(meas4, Meas_max)
                     Else
@@ -6253,17 +6339,21 @@ Public Class PartI
             End If
             Scope_RUN(True)
             Delay(100)
-            monitor_count(num_counts_Jitter.Value, True, "Part I")
+            If i = 1 Then
+                monitor_count(num_counts_Jitter.Value, True, "Part I", meas5)
+            Else
+                monitor_count(num_counts_Jitter.Value, True, "Part I")
+            End If
             If i = 0 Then
                 fs(2) = Scope_measure(meas1, Meas_min)          ' freq
                 ton(1) = Scope_measure(meas2, Meas_mean)        ' Ton (ns)
                 toff(2) = Scope_measure(meas3, Meas_min)        ' Toff
-                toff(3) = Scope_measure(meas4, Meas_max)        ' vpp
+                toff(3) = Scope_measure(meas3, Meas_max)        ' Toff
             Else
                 fs(2) = Scope_measure(meas5, Meas_min)
                 ton(1) = Scope_measure(meas6, Meas_mean)
                 toff(2) = Scope_measure(meas7, Meas_min)
-                toff(3) = Scope_measure(meas8, Meas_max)
+                toff(3) = Scope_measure(meas7, Meas_max)
             End If
 
             If i = 0 Then
@@ -6311,7 +6401,7 @@ Public Class PartI
                 If check_stability_pic.Checked = True Then
                     '將每一張scope的圖都儲存
                     If dut2_en Then
-                        beta_path = Beta_folder & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
+                        beta_path = Beta_folder2 & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
                     Else
                         beta_path = Beta_folder & "\" & beta_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     End If
@@ -6500,6 +6590,8 @@ Public Class PartI
                     FinalReleaseComObject(xlrange)
                     col = col + 1
                 Next
+
+
                 'Vmax
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vpp(4) ' Format(vpp(4), "#0.000")
@@ -6509,6 +6601,7 @@ Public Class PartI
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vpp(5) ' Format(vpp(5), "#0.000")
                 FinalReleaseComObject(xlrange)
+
                 col = col + 1
                 If pass_result = PASS Then
                     If dut2_en Then
@@ -6539,6 +6632,7 @@ Public Class PartI
                         End If
                     End If
                 End If
+
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
@@ -6571,18 +6665,13 @@ Public Class PartI
                         xlSheet = xlBook.Sheets(txt_error_sheet.Text)
                     End If
 
-
                     xlSheet.Activate()
                     xlrange = xlSheet.Range(ConvertToLetter(1) & 1)
-
-
                     If dut2_en Then
                         xlrange.Value = error_pic_num2
                     Else
                         xlrange.Value = error_pic_num
                     End If
-
-
 
                     xlBook.Save()
                     '若已經有用autoscanning矯正，就直接抓圖，不再取圖!
@@ -6606,7 +6695,7 @@ Public Class PartI
                     End If
                     '----------------------------------------------------------------------------------------------------------------
                     If dut2_en Then
-                        error_pic_path = Error_folder & "\" & error_pic_num2 & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
+                        error_pic_path = Error_folder2 & "\" & error_pic_num2 & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
                     Else
                         error_pic_path = Error_folder & "\" & error_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     End If
@@ -6652,8 +6741,6 @@ Public Class PartI
                     Else
                         xlSheet.Hyperlinks.Add(Anchor:=xlrange, Address:="", SubAddress:=txt_error_sheet.Text & "!" & ConvertToLetter(hyperlink_col) & hyperlink_row, TextToDisplay:=Hyperlinks_txt)
                     End If
-
-
                 End If
                 autoscanning_update = False
                 If run = False Then
@@ -6789,7 +6876,16 @@ Public Class PartI
                 End If
                 xlrange.Value = pass_result
                 FinalReleaseComObject(xlrange)
-                jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+
+                If dut2_en Then
+                    jitter_pic_path = Jitter_folder2 & "\" & Jitter_pic_num2 & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                Else
+                    jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                End If
+
+
+
+
                 ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
                 Hardcopy("PNG", jitter_pic_path)
                 'update_pic(jitter_pic_col, jitter_pic_row)
@@ -6799,11 +6895,24 @@ Public Class PartI
                     'Delay(100)
                     Scope_RUN(True)
                     Delay_s(num_FastAcq.Value)
-                    jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+
+                    If dut2_en Then
+                        jitter_pic_path = Jitter_folder2 & "\" & Jitter_pic_num2 & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                    Else
+                        jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
+                    End If
                     ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
                     Hardcopy("PNG", jitter_pic_path)
                 End If
-                Jitter_pic_num = Jitter_pic_num + 1
+
+                If dut2_en Then
+                    Jitter_pic_num2 = Jitter_pic_num2 + 1
+                Else
+                    Jitter_pic_num = Jitter_pic_num + 1
+                End If
+
+
+
                 ' End If
                 If run = False Then
                     Exit Function
@@ -7724,16 +7833,7 @@ Public Class PartI
                                 meas_cursor_stop = meas_cursor_value(i + 1)
                             End If
                         End If
-
-
-
-
-
                     Next
-
-
-
-
                     wave_data(0) = meas_ton_update
                     wave_data(1) = meas_toff_update
                     wave_data(2) = meas_freq_update
@@ -7741,14 +7841,8 @@ Public Class PartI
                     Dim cursor_delta_value As Double
 
                     If (check_cursors.Checked = True) And (wave_data(2) <> 0) Then
-
-
                         Cursor_move("VBArs", meas_cursor_start, meas_cursor_stop)
-
                         cursor_delta_value = Cursor_delta("VBArs")
-
-
-
                     End If
 
 
@@ -7863,8 +7957,10 @@ Public Class PartI
             If TA_Test_num = 0 Then
 
                 Jitter_pic_num = 1
+                Jitter_pic_num2 = 1
             Else
                 Jitter_pic_num = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
+                Jitter_pic_num2 = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
             End If
         End If
         'TA
@@ -7874,6 +7970,9 @@ Public Class PartI
             If TA_Test_num = 0 Then
                 error_pic_row = 3
                 error_pic_num = 1
+
+                error_pic_row2 = 3
+                error_pic_num2 = 1
                 beta_pic_num = 1
             Else
                 excel_open()
@@ -7889,10 +7988,10 @@ Public Class PartI
                 If DUT2_en Then
                     xlSheet = xlBook.Sheets(txt_error_sheet.Text & add_dut2)
                     xlSheet.Activate()
-                    error_pic_num = xlSheet.Range(ConvertToLetter(1) & 1).Value
-                    error_pic_row = (pic_height + 2) * Int(error_pic_num / 10) + 3
-                    error_pic_col = (pic_width + 1) * (error_pic_num Mod 10) + 1
-                    error_pic_num = error_pic_num + 1
+                    error_pic_num2 = xlSheet.Range(ConvertToLetter(1) & 1).Value
+                    error_pic_row2 = (pic_height + 2) * Int(error_pic_num2 / 10) + 3
+                    error_pic_col2 = (pic_width + 1) * (error_pic_num2 Mod 10) + 1
+                    error_pic_num2 = error_pic_num2 + 1
                     beta_pic_num = data_set.Rows.Count * data_test.Rows.Count * TA_Test_num + 1
                 End If
                 excel_close()
@@ -7982,7 +8081,6 @@ Public Class PartI
                         first_Check = True
                     End If
 
-                    ' Ollie_note: check test flow
                     If check_stability.Checked = True Or check_jitter.Checked = True Or check_Efficiency.Checked = True Or check_loadR.Checked = True Or ((check_LineR.Checked = True) And (rbtn_lineR_test2.Checked = True)) Then
                         For v = 0 To data_vin.Rows.Count - 1
                             System.Windows.Forms.Application.DoEvents()
@@ -8780,8 +8878,6 @@ Public Class PartI
             'xlApp.WindowState = Excel.XlWindowState.xlMaximized
 
             'xlApp.Visible = True
-
-
             xlBook = xlApp.Workbooks.Open(PartI_file)
             xlBook.Activate()
             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
@@ -8798,26 +8894,34 @@ Public Class PartI
                 If dra.Extension = pic_format Then
                     temp = Split(dra.Name, "_")
                     num_temp = temp(0)
-                    If (check_fastAcq.Checked = True) And (temp(1) = "Fast") Then
-                        update_col = jitter_pic_col(num_temp)
-                        update_row = jitter_pic_row(num_temp) + pic_height + 1
+
+                    If dut2_en Then
+                        If (check_fastAcq.Checked = True) And (temp(1) = "Fast") Then
+                            update_col = jitter_pic_col2(num_temp)
+                            update_row = jitter_pic_row2(num_temp) + pic_height + 1
+                        Else
+                            update_col = jitter_pic_col2(num_temp)
+                            update_row = jitter_pic_row2(num_temp) + 1
+                        End If
                     Else
-                        update_col = jitter_pic_col(num_temp)
-                        update_row = jitter_pic_row(num_temp) + 1
+                        If (check_fastAcq.Checked = True) And (temp(1) = "Fast") Then
+                            update_col = jitter_pic_col(num_temp)
+                            update_row = jitter_pic_row(num_temp) + pic_height + 1
+                        Else
+                            update_col = jitter_pic_col(num_temp)
+                            update_row = jitter_pic_row(num_temp) + 1
+                        End If
                     End If
 
                     ' ''------------------------------------------------------------
                     ' ''Paste Picture
-
                     pic_top = ConvertToLetter(update_col) & update_row
                     xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(update_col) & (update_row + pic_height - 1))
                     height_temp = xlrange.Height
                     FinalReleaseComObject(xlrange)
-
                     xlrange = xlSheet.Range(pic_top & ":" & ConvertToLetter(update_col + pic_width - 1) & update_row)
                     width_temp = xlrange.Width
                     FinalReleaseComObject(xlrange)
-
                     If dut2_en Then
                         pic_ByteSize = FileLen(Jitter_folder2 & "\" & dra.Name)
                     Else
@@ -8830,26 +8934,15 @@ Public Class PartI
                         Else
                             paste_picture(Jitter_folder & "\" & dra.Name, pic_top, width_temp, height_temp)
                         End If
-
                         Delay(10)
                     End If
                     xlBook.Save()
                 End If
-
             Next
-
-
             FinalReleaseComObject(xlSheet)
-
-
             excel_close()
             Note.Close()
         End If
-
-
-
-
-
 
     End Function
 
@@ -8952,7 +9045,6 @@ Public Class PartI
     End Sub
 
     Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
 
         initial()
 

@@ -72,6 +72,8 @@
 
     ' jitter 
     Public Jitter_folder2 As String
+    Public jitter_pic_col2(), jitter_pic_row2() As Integer
+    Public Jitter_pic_num2 As Integer = 0
 
     ' Stability
     Public Beta_folder2 As String
@@ -89,7 +91,7 @@
 
 
 
-    Public error_pic_num2 As Integer
+    Public error_pic_num2 As Integer = 1
     Public error_pic_col2, error_pic_row2 As Integer
     Public hyperlink_col2, hyperlink_row2 As Integer
 

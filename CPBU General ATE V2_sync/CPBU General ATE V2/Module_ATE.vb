@@ -1015,7 +1015,7 @@ Module Module_ATE
 
 
 
-    Function monitor_count(ByVal num_counts As Integer, ByVal scope_stop As Boolean, ByVal test_item As String) As Integer
+    Function monitor_count(ByVal num_counts As Integer, ByVal scope_stop As Boolean, ByVal test_item As String, Optional ByVal measx As Integer = 1) As Integer
 
         Dim count_before As Integer
         Dim count_temp As Integer
@@ -1034,7 +1034,7 @@ Module Module_ATE
         'Information.information_run("Monitor Count", note_count)
 
 
-        count_temp = Scope_measure_count(1)
+        count_temp = Scope_measure_count(measx)
 
         count_before = count_temp
 
@@ -1049,12 +1049,9 @@ Module Module_ATE
                 Exit While
             End If
 
-            count_temp = Scope_measure_count(1)
+            count_temp = Scope_measure_count(measx)
             '----------------------------------------
             note_value = count_temp
-
-
-
             '----------------------------------------
             If count_temp = count_before Then
 
@@ -1079,7 +1076,7 @@ Module Module_ATE
 
                     trigger_error = True
 
-                    count_temp = Scope_measure_count(1)
+                    count_temp = Scope_measure_count(measx)
 
                     measure_time = Now
 
@@ -1120,12 +1117,23 @@ Module Module_ATE
             Select Case test_item
 
                 Case "Part I"
-                    If PartI.rbtn_vin_trigger.Checked = True Then
-                        Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
-                    Else
-                        Trigger_auto_level(lx_ch, "R")
 
+                    If DUT2_en Then
+                        If PartI.rbtn_vin_trigger.Checked = True Then
+                            Trigger_set(lx2_ch, "R", vin_now / PartI.num_vin_trigger.Value)
+                        Else
+                            Trigger_auto_level(lx2_ch, "R")
+                        End If
+                    Else
+                        If PartI.rbtn_vin_trigger.Checked = True Then
+                            Trigger_set(lx_ch, "R", vin_now / PartI.num_vin_trigger.Value)
+                        Else
+                            Trigger_auto_level(lx_ch, "R")
+                        End If
                     End If
+
+
+
             End Select
 
 
