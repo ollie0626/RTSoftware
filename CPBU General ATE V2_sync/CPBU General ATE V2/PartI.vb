@@ -2840,6 +2840,9 @@ Public Class PartI
         xlSheet.Cells(row, col) = "Iout Meter board2 IO Config:"
         xlSheet.Cells(row, col + 1) = num_slave_out_IO2.Value
         row = row + 1
+        xlSheet.Cells(row, col) = "Meter Count" ' num_meter_count
+        xlSheet.Cells(row, col + 1) = num_meter_count.Value
+        row = row + 1
         ''------------------------------------------------------------------------------------
         'Scope
         'Step4
@@ -2889,8 +2892,25 @@ Public Class PartI
         xlSheet.Cells(row, col + 8) = Check_fixed.Checked
         xlSheet.Cells(row, col + 9) = num_vout_DEM.Value
         xlSheet.Cells(row, col + 10) = num_vout_CCM.Value
-
         row = row + 1
+
+        xlSheet.Cells(row, col) = txt_scope_lx2.Text
+        xlSheet.Cells(row, col + 1) = cbox_channel_lx2.SelectedItem
+        xlSheet.Cells(row, col + 2) = cbox_coupling_lx2.SelectedItem
+        xlSheet.Cells(row, col + 3) = num_offset_lx2.Value
+        xlSheet.Cells(row, col + 4) = num_position_lx2.Value
+        xlSheet.Cells(row, col + 5) = cbox_BW_lx2.SelectedItem
+        row = row + 1
+
+        xlSheet.Cells(row, col) = txt_scope_vout2.Text
+        xlSheet.Cells(row, col + 1) = cbox_channel_vout2.SelectedItem
+        xlSheet.Cells(row, col + 2) = cbox_coupling_vout2.SelectedItem
+        xlSheet.Cells(row, col + 3) = check_offset_vout2.Checked
+        xlSheet.Cells(row, col + 4) = num_position_vout2.Value
+        xlSheet.Cells(row, col + 5) = cbox_BW_vout2.SelectedItem
+        row = row + 1
+
+
 
 
         xlSheet.Cells(row, col) = "Time Setting"
@@ -3773,6 +3793,9 @@ Public Class PartI
 
         num_slave_out_IO2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
         row = row + 1
+
+        num_meter_count.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
         '------------------------------------------------------------------------------------
         ''------------------------------------------------------------------------------------
         'Scope
@@ -3831,6 +3854,28 @@ Public Class PartI
         num_vout_DEM.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 9).Value
         num_vout_CCM.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 10).Value
         row = row + 1
+
+
+        row = row + 1
+        txt_scope_lx2.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+        cbox_channel_lx2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        cbox_coupling_lx2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_offset_lx2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        num_position_lx2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        cbox_BW_lx2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
+
+
+        row = row + 1
+        txt_scope_vout2.Text = xlSheet.Range(ConvertToLetter(col) & row).Value
+        cbox_channel_vout2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        cbox_coupling_vout2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        check_offset_vout2.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        num_position_vout2.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
+        cbox_BW_vout2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
+
+
+
+
 
 
         '"Time Setting"   
