@@ -6294,6 +6294,12 @@ Public Class PartI
         scope_time_init()
         Display_persistence(False)
 
+        iout_temp = iout_now
+        update_report(Stability)
+        If DUT2_en Then
+            update_report(Stability, DUT2_en)
+        End If
+
 
 
         'For i = 0 To test_cnt
@@ -6684,16 +6690,16 @@ Public Class PartI
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 End If
                 xlSheet.Activate()
-                If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
-                    '--------------------------------------------------------
-                    wave_data = Auto_Scanning(lx_ch)
-                    If wave_data(0) <> 0 Then
-                        autoscanning_update = True
-                    Else
-                        autoscanning_update = False
-                    End If
-                End If
-                xlSheet.Activate()
+                'If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+                '    '--------------------------------------------------------
+                '    wave_data = Auto_Scanning(lx_ch)
+                '    If wave_data(0) <> 0 Then
+                '        autoscanning_update = True
+                '    Else
+                '        autoscanning_update = False
+                '    End If
+                'End If
+                'xlSheet.Activate()
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
