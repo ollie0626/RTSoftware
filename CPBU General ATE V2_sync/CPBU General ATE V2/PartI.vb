@@ -6208,7 +6208,6 @@ Public Class PartI
         'scope_time_init()
         Display_persistence(True)
 
-
         If Fs_CCM = True Then
             monitor_count(num_counts_CCM.Value, True, "Part I")
         Else
@@ -6294,11 +6293,6 @@ Public Class PartI
         End If
         scope_time_init()
         Display_persistence(False)
-
-
-
-
-
 
 
 
