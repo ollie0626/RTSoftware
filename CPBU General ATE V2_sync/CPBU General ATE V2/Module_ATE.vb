@@ -1108,8 +1108,6 @@ Module Module_ATE
 
         If scope_stop = True Then
             Scope_RUN(False)
-
-
         End If
 
         If trigger_error = True Then
