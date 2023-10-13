@@ -80,6 +80,23 @@
     Public Error_folder2 As String
     Public error_pic_path2 As String
 
+    Public vpp_max As Double
+    Public vpp2_max As Double
+    Public vmax As Double
+    Public vmin As Double
+    Public vmax2 As Double
+    Public vmin2 As Double
+
+    Public dut1_state As Boolean = True
+    Public dut2_state As Boolean = False
+
+    Public ton2(3) As Double
+    Public toff2(3) As Double
+    Public vpp2(5) As Double
+    Public fs2(3) As Double
+
+
+
     ' Efficiency
     Public Eff_vout_meas2 As Double
 

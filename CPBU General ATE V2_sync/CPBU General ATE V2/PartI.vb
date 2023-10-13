@@ -6022,13 +6022,17 @@ Public Class PartI
         End If
 
 
+        If DUT2_en Then
+            CHx_display(1, "ON")
+            CHx_display(2, "ON")
+            CHx_display(3, "ON")
+            CHx_display(4, "ON")
+        Else
+            CHx_display(lx_ch, "ON")
+            CHx_display(vout_ch, "ON")
+        End If
 
         For i = 0 To test_cnt
-
-            CHx_display(1, "OFF")
-            CHx_display(2, "OFF")
-            CHx_display(3, "OFF")
-            CHx_display(4, "OFF")
 
             'If i = 0 Then
             '    CHx_display(lx_ch, "ON")
@@ -6103,6 +6107,7 @@ Public Class PartI
                 End If
             End If
 
+            ' first one get data
             If Fs_CCM = True Then
                 monitor_count(num_counts_CCM.Value, True, "Part I")
             Else
@@ -6111,50 +6116,46 @@ Public Class PartI
 
 
             If DUT2_en Then
-
-                If i = 0 Then
-                    ' freq KHz
-                    fs(0) = Scope_measure(meas1, Scope_Meas)
-                    fs(1) = Scope_measure(meas1, Meas_mean)
-                    fs(2) = Scope_measure(meas1, Meas_min)
-                    fs(3) = Scope_measure(meas1, Meas_max)
-                    'Ton (ns)
-                    ton(0) = Scope_measure(meas2, Scope_Meas)
-                    ton(1) = Scope_measure(meas2, Meas_mean)
-                    ton(2) = Scope_measure(meas2, Meas_min)
-                    ton(3) = Scope_measure(meas2, Meas_max)
-                    'Toff
-                    toff(0) = Scope_measure(meas3, Scope_Meas)
-                    toff(1) = Scope_measure(meas3, Meas_mean)
-                    toff(2) = Scope_measure(meas3, Meas_min)
-                    toff(3) = Scope_measure(meas3, Meas_max)
-                    'vpp
-                    vpp(0) = Scope_measure(meas4, Scope_Meas)
-                    vpp(1) = Scope_measure(meas4, Meas_mean)
-                    vpp(2) = Scope_measure(meas4, Meas_min)
-                    vpp(3) = Scope_measure(meas4, Meas_max)
-                Else
-                    ' freq KHz
-                    fs(0) = Scope_measure(meas5, Scope_Meas)
-                    fs(1) = Scope_measure(meas5, Meas_mean)
-                    fs(2) = Scope_measure(meas5, Meas_min)
-                    fs(3) = Scope_measure(meas5, Meas_max)
-                    'Ton (ns)
-                    ton(0) = Scope_measure(meas6, Scope_Meas)
-                    ton(1) = Scope_measure(meas6, Meas_mean)
-                    ton(2) = Scope_measure(meas6, Meas_min)
-                    ton(3) = Scope_measure(meas6, Meas_max)
-                    'Toff
-                    toff(0) = Scope_measure(meas7, Scope_Meas)
-                    toff(1) = Scope_measure(meas7, Meas_mean)
-                    toff(2) = Scope_measure(meas7, Meas_min)
-                    toff(3) = Scope_measure(meas7, Meas_max)
-                    'vpp
-                    vpp(0) = Scope_measure(meas8, Scope_Meas)
-                    vpp(1) = Scope_measure(meas8, Meas_mean)
-                    vpp(2) = Scope_measure(meas8, Meas_min)
-                    vpp(3) = Scope_measure(meas8, Meas_max)
-                End If
+                ' freq KHz
+                fs2(0) = Scope_measure(meas1, Scope_Meas)
+                fs2(1) = Scope_measure(meas1, Meas_mean)
+                fs2(2) = Scope_measure(meas1, Meas_min)
+                fs2(3) = Scope_measure(meas1, Meas_max)
+                'Ton (ns)
+                ton2(0) = Scope_measure(meas2, Scope_Meas)
+                ton2(1) = Scope_measure(meas2, Meas_mean)
+                ton2(2) = Scope_measure(meas2, Meas_min)
+                ton2(3) = Scope_measure(meas2, Meas_max)
+                'Toff
+                toff2(0) = Scope_measure(meas3, Scope_Meas)
+                toff2(1) = Scope_measure(meas3, Meas_mean)
+                toff2(2) = Scope_measure(meas3, Meas_min)
+                toff2(3) = Scope_measure(meas3, Meas_max)
+                'vpp
+                vpp2(0) = Scope_measure(meas4, Scope_Meas)
+                vpp2(1) = Scope_measure(meas4, Meas_mean)
+                vpp2(2) = Scope_measure(meas4, Meas_min)
+                vpp2(3) = Scope_measure(meas4, Meas_max)
+                ' freq KHz
+                fs(0) = Scope_measure(meas5, Scope_Meas)
+                fs(1) = Scope_measure(meas5, Meas_mean)
+                fs(2) = Scope_measure(meas5, Meas_min)
+                fs(3) = Scope_measure(meas5, Meas_max)
+                'Ton (ns)
+                ton(0) = Scope_measure(meas6, Scope_Meas)
+                ton(1) = Scope_measure(meas6, Meas_mean)
+                ton(2) = Scope_measure(meas6, Meas_min)
+                ton(3) = Scope_measure(meas6, Meas_max)
+                'Toff
+                toff(0) = Scope_measure(meas7, Scope_Meas)
+                toff(1) = Scope_measure(meas7, Meas_mean)
+                toff(2) = Scope_measure(meas7, Meas_min)
+                toff(3) = Scope_measure(meas7, Meas_max)
+                'vpp
+                vpp(0) = Scope_measure(meas8, Scope_Meas)
+                vpp(1) = Scope_measure(meas8, Meas_mean)
+                vpp(2) = Scope_measure(meas8, Meas_min)
+                vpp(3) = Scope_measure(meas8, Meas_max)
             Else
                 ' freq KHz
                 fs(0) = Scope_measure(meas1, Scope_Meas)
@@ -6184,35 +6185,66 @@ Public Class PartI
                 vpp(5) = Scope_measure(meas6, Meas_min)
             End If
 
-            'If DUT2_en Then
-            '    If cbox_coupling_vout2.SelectedItem = "AC" Then
-            '        pass_value_Max = vout_now * (num_vout_ac.Value / 100)
-            '        If (vpp(3) > pass_value_Max) Then
-            '            pass_result = FAIL
-            '        End If
-            '    Else
-            '        pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
-            '        pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
-            '        If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
-            '            pass_result = FAIL
-            '        End If
-            '    End If
-            'Else
-            '    If cbox_coupling_vout.SelectedItem = "AC" Then
-            '        pass_value_Max = vout_now * (num_vout_ac.Value / 100)
-            '        If (vpp(3) > pass_value_Max) Then
-            '            pass_result = FAIL
-            '        End If
-            '    Else
-            '        pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
-            '        pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
-            '        If (vpp(5) < pass_value_Min) Or (vpp(4) > pass_value_Max) Then
-            '            pass_result = FAIL
-            '        End If
-            '    End If
-            'End If
 
 
+            If DUT2_en Then
+                vpp_max = Scope_measure(meas4, Meas_max)
+                vpp2_max = Scope_measure(meas8, Meas_max)
+                pass_value_Max = vout_now * (num_vout_ac.Value / 100)
+                If vpp_max > pass_value_Max Then
+                    dut1_state = FAIL
+                End If
+
+                If vpp2_max > pass_value_Max Then
+                    dut2_state = FAIL
+                End If
+
+                If dut1_state Then
+                    Scope_measure_set(meas7, lx_ch, "MAXimum")
+                    Scope_measure_set(meas8, lx_ch, "MINImum")
+                    If Fs_CCM = True Then
+                        monitor_count(num_counts_CCM.Value, True, "Part I")
+                    Else
+                        monitor_count(num_counts_DEM.Value, True, "Part I")
+                    End If
+
+                    vmax = Scope_measure(meas7, Meas_max)
+                    vmin = Scope_measure(meas8, Meas_min)
+                End If
+
+
+                If dut2_state Then
+                    Scope_measure_set(meas3, lx_ch, "MAXimum")
+                    Scope_measure_set(meas4, lx_ch, "MINImum")
+                    If Fs_CCM = True Then
+                        monitor_count(num_counts_CCM.Value, True, "Part I")
+                    Else
+                        monitor_count(num_counts_DEM.Value, True, "Part I")
+                    End If
+
+                    vmax2 = Scope_measure(meas3, Meas_max)
+                    vmin2 = Scope_measure(meas4, Meas_min)
+                End If
+
+                ' freq
+                Scope_measure_set(meas1, lx_ch, "FREQuency")
+                ' Pwidth
+                Scope_measure_set(meas2, lx_ch, "PWIdth")
+                ' NWidth
+                Scope_measure_set(meas3, lx_ch, "NWIdth")
+                ' PK2PK
+                Scope_measure_set(meas4, vout_ch, "PK2Pk")
+
+                ' freq
+                Scope_measure_set(meas5, lx2_ch, "FREQuency")
+                ' Pwidth
+                Scope_measure_set(meas6, lx2_ch, "PWIdth")
+                ' NWidth
+                Scope_measure_set(meas7, lx2_ch, "NWIdth")
+                ' PK2PK
+                Scope_measure_set(meas8, vout2_ch, "PK2Pk")
+
+            End If
 
             If rbtn_auto_vout.Checked = True Then
                 '--------------------------------------------------------------------
@@ -6423,6 +6455,7 @@ Public Class PartI
         Dim col_num, row_num As Integer
         Dim set_num As Integer
         Dim wave_data() As Double 'Ton(ns),Toff(ns),Freq(KHz)
+        Dim wave_data2() As Double
         Dim temp As String
         Dim beta_path As String
         Dim row_num_temp As Integer
@@ -6462,7 +6495,8 @@ Public Class PartI
                 xlSheet.Activate()
                 If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
                     '--------------------------------------------------------
-                    wave_data = Auto_Scanning()
+                    wave_data = Auto_Scanning(lx_ch)
+                    wave_data2 = Auto_Scanning(lx2_ch)
                     If wave_data(0) <> 0 Then
                         autoscanning_update = True
                     Else
@@ -6514,7 +6548,11 @@ Public Class PartI
                 'freq
                 For ii = 0 To 3
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                    xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
+                    If dut2_en Then
+                        xlrange.Value = fs2(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
+                    Else
+                        xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
+                    End If
                     FinalReleaseComObject(xlrange)
                     col = col + 1
                 Next
@@ -7420,7 +7458,7 @@ Public Class PartI
 
     End Function
 
-    Function Auto_Scanning() As Double()
+    Function Auto_Scanning(ByVal lx_sel As Integer) As Double()
 
         Dim i As Integer
 
@@ -7573,7 +7611,7 @@ Public Class PartI
 
 
 
-        CHx_Bandwidth(lx_ch, "20MHz")
+        CHx_Bandwidth(lx_sel, "20MHz")
 
         'Timing Scale
         H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
@@ -7589,7 +7627,7 @@ Public Class PartI
             error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
         End If
 
-        ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, lx_ch)
+        ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, lx_sel)
 
         If run = False Then
             Return wave_data
@@ -7598,7 +7636,7 @@ Public Class PartI
 
         If ByteSize = 0 Then
             check_file_open(wave_pc_path)
-            ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, lx_ch)
+            ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, lx_sel)
             If run = False Then
                 Return wave_data
                 Exit Function
