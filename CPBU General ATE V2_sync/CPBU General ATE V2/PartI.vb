@@ -6008,6 +6008,52 @@ Public Class PartI
         End If
     End Function
 
+    Function GetVoutMax_Min(ByVal vout_sel As Integer) As Double()
+        Dim res() As Double = {0, 0}
+        Dim vout_list As List(Of Double) = New List(Of Double)()
+        Dim ByteSize As Long
+        Dim max_data As Integer
+        Dim list() As String
+
+        ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, vout_sel)
+
+        If run = False Then
+            Return res
+            Exit Function
+        End If
+
+        If ByteSize = 0 Then
+            check_file_open(wave_pc_path)
+            ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, vout_sel)
+            If run = False Then
+                Return res
+                Exit Function
+            End If
+        End If
+        If ByteSize > 0 Then
+            Dim f As New IO.FileInfo(wave_pc_path)
+            Dim sr As IO.StreamReader = f.OpenText '產生StreamReader的sr物件
+            note_string = "Get Wave data..."
+            list = Split(sr.ReadToEnd, vbNewLine)
+
+            max_data = list.Length
+            sr.Close()
+
+            For i = 1 To max_data
+                Dim temp = Split(list(i - 1), ",") ' 0 = time, 1 = vout
+                If list(i - 1) <> "" Then
+                    vout_list.Add(Val(temp(1)))
+                End If
+            Next
+
+            res(0) = vout_list.Max()
+            res(1) = vout_list.Min()
+
+        End If
+
+        Return res ' vmax, vmin
+    End Function
+
     Function Stability_run() As Integer
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
@@ -6017,11 +6063,17 @@ Public Class PartI
         Dim lx_list() As Integer = New Integer() {lx_ch, lx2_ch}
         Dim vout_list() As Integer = New Integer() {vout_ch, vout2_ch}
         Dim test_cnt As Integer = 0
+
+        Dim lx_data() As Double
+        Dim lx2_data() As Double
+        Dim vout_data() As Double
+        Dim vout2_data() As Double
+
         If DUT2_en Then
             test_cnt = 1
         End If
 
-
+        ' all channel enable
         If DUT2_en Then
             CHx_display(1, "ON")
             CHx_display(2, "ON")
@@ -6032,32 +6084,21 @@ Public Class PartI
             CHx_display(vout_ch, "ON")
         End If
 
+        Scope_RUN(False)
+        Calculate_pass(TA_Test_num)
+        If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
+            H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        Else
+            H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        End If
+        'Timing Scale
+        H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+        If RS_Scope = True Then
+            RS_View(True)
+        End If
+
+        ' vout level scale re-size
         For i = 0 To test_cnt
-
-            'If i = 0 Then
-            '    CHx_display(lx_ch, "ON")
-            '    CHx_display(vout_ch, "ON")
-            '    Trigger_auto_level(lx_ch, "R")
-            'Else
-            '    CHx_display(lx2_ch, "ON")
-            '    CHx_display(vout2_ch, "ON")
-            '    Trigger_auto_level(lx2_ch, "R")
-            'End If
-
-            Scope_RUN(False)
-            Calculate_pass(TA_Test_num)
-            If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
-                H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
-            Else
-                H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
-            End If
-            'Timing Scale
-            H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
-            If RS_Scope = True Then
-                RS_View(True)
-            End If
-
-
             If (iout_now = data_test.Rows(0).Cells(0).Value) Then
                 If rbtn_auto_vout.Checked = True Then
                     vout_temp = Math.Floor(((vout_meas * 1000) * 0.005))
@@ -6074,14 +6115,14 @@ Public Class PartI
                         vout_scale_now = num_vout_DEM.Value
                     End If
                 End If
-                CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                CHx_scale(vout_list(i), vout_scale_now, "mV")
                 monitor_count(num_counts_CCM.Value, False, "Part I")
+
                 If rbtn_auto_vout.Checked = True Then
                     '第一次調整vout scale
-                    If i = 0 Then
-                        vpp(3) = Scope_measure(meas4, Meas_max)
-                    Else
-                        vpp(3) = Scope_measure(meas8, Meas_max)
+                    vpp(3) = Scope_measure(meas4, Meas_max)
+                    If DUT2_en Then
+                        vpp2(3) = Scope_measure(meas8, Meas_max)
                     End If
                     vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
                     'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
@@ -6106,207 +6147,322 @@ Public Class PartI
                     CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                 End If
             End If
-
-            ' first one get data
-            If Fs_CCM = True Then
-                monitor_count(num_counts_CCM.Value, True, "Part I")
-            Else
-                monitor_count(num_counts_DEM.Value, True, "Part I")
-            End If
-
-
-            If DUT2_en Then
-                ' freq KHz
-                fs2(0) = Scope_measure(meas1, Scope_Meas)
-                fs2(1) = Scope_measure(meas1, Meas_mean)
-                fs2(2) = Scope_measure(meas1, Meas_min)
-                fs2(3) = Scope_measure(meas1, Meas_max)
-                'Ton (ns)
-                ton2(0) = Scope_measure(meas2, Scope_Meas)
-                ton2(1) = Scope_measure(meas2, Meas_mean)
-                ton2(2) = Scope_measure(meas2, Meas_min)
-                ton2(3) = Scope_measure(meas2, Meas_max)
-                'Toff
-                toff2(0) = Scope_measure(meas3, Scope_Meas)
-                toff2(1) = Scope_measure(meas3, Meas_mean)
-                toff2(2) = Scope_measure(meas3, Meas_min)
-                toff2(3) = Scope_measure(meas3, Meas_max)
-                'vpp
-                vpp2(0) = Scope_measure(meas4, Scope_Meas)
-                vpp2(1) = Scope_measure(meas4, Meas_mean)
-                vpp2(2) = Scope_measure(meas4, Meas_min)
-                vpp2(3) = Scope_measure(meas4, Meas_max)
-                ' freq KHz
-                fs(0) = Scope_measure(meas5, Scope_Meas)
-                fs(1) = Scope_measure(meas5, Meas_mean)
-                fs(2) = Scope_measure(meas5, Meas_min)
-                fs(3) = Scope_measure(meas5, Meas_max)
-                'Ton (ns)
-                ton(0) = Scope_measure(meas6, Scope_Meas)
-                ton(1) = Scope_measure(meas6, Meas_mean)
-                ton(2) = Scope_measure(meas6, Meas_min)
-                ton(3) = Scope_measure(meas6, Meas_max)
-                'Toff
-                toff(0) = Scope_measure(meas7, Scope_Meas)
-                toff(1) = Scope_measure(meas7, Meas_mean)
-                toff(2) = Scope_measure(meas7, Meas_min)
-                toff(3) = Scope_measure(meas7, Meas_max)
-                'vpp
-                vpp(0) = Scope_measure(meas8, Scope_Meas)
-                vpp(1) = Scope_measure(meas8, Meas_mean)
-                vpp(2) = Scope_measure(meas8, Meas_min)
-                vpp(3) = Scope_measure(meas8, Meas_max)
-            Else
-                ' freq KHz
-                fs(0) = Scope_measure(meas1, Scope_Meas)
-                fs(1) = Scope_measure(meas1, Meas_mean)
-                fs(2) = Scope_measure(meas1, Meas_min)
-                fs(3) = Scope_measure(meas1, Meas_max)
-                'Ton (ns)
-                ton(0) = Scope_measure(meas2, Scope_Meas)
-                ton(1) = Scope_measure(meas2, Meas_mean)
-                ton(2) = Scope_measure(meas2, Meas_min)
-                ton(3) = Scope_measure(meas2, Meas_max)
-                'Toff
-                toff(0) = Scope_measure(meas3, Scope_Meas)
-                toff(1) = Scope_measure(meas3, Meas_mean)
-                toff(2) = Scope_measure(meas3, Meas_min)
-                toff(3) = Scope_measure(meas3, Meas_max)
-                'vpp
-                vpp(0) = Scope_measure(meas4, Scope_Meas)
-                vpp(1) = Scope_measure(meas4, Meas_mean)
-                vpp(2) = Scope_measure(meas4, Meas_min)
-                vpp(3) = Scope_measure(meas4, Meas_max)
-
-                'Vmax
-                vpp(4) = Scope_measure(meas5, Meas_max)
-
-                'Vmin
-                vpp(5) = Scope_measure(meas6, Meas_min)
-            End If
-
-
-
-            If DUT2_en Then
-                vpp_max = Scope_measure(meas4, Meas_max)
-                vpp2_max = Scope_measure(meas8, Meas_max)
-                pass_value_Max = vout_now * (num_vout_ac.Value / 100)
-                If vpp_max > pass_value_Max Then
-                    dut1_state = FAIL
-                End If
-
-                If vpp2_max > pass_value_Max Then
-                    dut2_state = FAIL
-                End If
-
-                If dut1_state Then
-                    Scope_measure_set(meas7, lx_ch, "MAXimum")
-                    Scope_measure_set(meas8, lx_ch, "MINImum")
-                    If Fs_CCM = True Then
-                        monitor_count(num_counts_CCM.Value, True, "Part I")
-                    Else
-                        monitor_count(num_counts_DEM.Value, True, "Part I")
-                    End If
-
-                    vmax = Scope_measure(meas7, Meas_max)
-                    vmin = Scope_measure(meas8, Meas_min)
-                End If
-
-
-                If dut2_state Then
-                    Scope_measure_set(meas3, lx_ch, "MAXimum")
-                    Scope_measure_set(meas4, lx_ch, "MINImum")
-                    If Fs_CCM = True Then
-                        monitor_count(num_counts_CCM.Value, True, "Part I")
-                    Else
-                        monitor_count(num_counts_DEM.Value, True, "Part I")
-                    End If
-
-                    vmax2 = Scope_measure(meas3, Meas_max)
-                    vmin2 = Scope_measure(meas4, Meas_min)
-                End If
-
-                ' freq
-                Scope_measure_set(meas1, lx_ch, "FREQuency")
-                ' Pwidth
-                Scope_measure_set(meas2, lx_ch, "PWIdth")
-                ' NWidth
-                Scope_measure_set(meas3, lx_ch, "NWIdth")
-                ' PK2PK
-                Scope_measure_set(meas4, vout_ch, "PK2Pk")
-
-                ' freq
-                Scope_measure_set(meas5, lx2_ch, "FREQuency")
-                ' Pwidth
-                Scope_measure_set(meas6, lx2_ch, "PWIdth")
-                ' NWidth
-                Scope_measure_set(meas7, lx2_ch, "NWIdth")
-                ' PK2PK
-                Scope_measure_set(meas8, vout2_ch, "PK2Pk")
-
-            End If
-
-            If rbtn_auto_vout.Checked = True Then
-                '--------------------------------------------------------------------
-                '計算Scale
-                vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
-                'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
-                vout_temp = Math.Floor(vout_temp)
-                If vout_temp < 5 Then
-                    vout_scale_temp = vout_temp
-                Else
-                    vout_scale_temp = Math.Floor(vout_temp / 5) * 5
-                End If
-                '--------------------------------------------------------------------
-                If Check_fixed.Checked = True Then
-                    '--------------------------------------------------------------------
-                    '不管CCM. DEM都固定調整在同一個隔數內
-                    If vout_scale_temp <> vout_scale_now Then
-                        vout_scale_now = vout_scale_temp
-                        CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                    End If
-                    '----------------------------------------------------------------------
-                Else
-                    ''只調整一次
-                    If (check_Force_CCM.Checked = False) Then
-                        If (iout_now <= IOUT_Boundary_Stop) And (iout_now >= IOUT_Boundary_Start) Then
-                            double_check = False
-                            'Iout上升
-                            If (iout_now >= iout_temp) And (VoutScalling_CCM = False) And (vout_scale_temp < vout_scale_now) Then
-                                vout_scale_now = vout_scale_temp
-                                CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                                VoutScalling_CCM = True
-                            End If
-                            'Iout下降
-                            If (iout_now < iout_temp) And (VoutScalling_CCM = True) And (vout_scale_temp > vout_scale_now) Then
-                                vout_scale_now = vout_scale_temp
-                                CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                                VoutScalling_CCM = False
-                            End If
-                        ElseIf (iout_now >= IOUT_Boundary_Stop) And (double_check = False) Then
-                            vout_scale_now = vout_scale_temp
-                            CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                            double_check = True
-                        ElseIf (iout_now <= IOUT_Boundary_Start) And (double_check = False) Then
-                            vout_scale_now = vout_scale_temp
-                            CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                            double_check = True
-                        End If
-                    End If
-                End If
-            End If
-
-            iout_temp = iout_now
-            ' ''----------------------------------------------------------------------------------
-            ''Measurement
-            ''Scope
-            If i = 0 Then
-                update_report(Stability)
-            Else
-                update_report(Stability, DUT2_en)
-            End If
-
         Next
+
+
+
+        xlSheet.Activate()
+        ' auto scalling function
+        If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+            ' 0: Ton, 1: Toff, 2: Freq
+            lx_data = Auto_Scanning(lx_ch)
+            If DUT2_en Then
+                lx2_data = Auto_Scanning(lx2_ch)
+            End If
+
+            If lx_data(0) <> 0 Then
+                autoscanning_update = True
+            Else
+                autoscanning_update = False
+            End If
+        End If
+
+        Display_persistence(True)
+
+        If Fs_CCM = True Then
+            monitor_count(num_counts_CCM.Value, True, "Part I")
+        Else
+            monitor_count(num_counts_DEM.Value, True, "Part I")
+        End If
+
+        ' get measure data
+        If DUT2_en Then
+            ' freq KHz
+            fs2(0) = Scope_measure(meas1, Scope_Meas)
+            fs2(1) = Scope_measure(meas1, Meas_mean)
+            fs2(2) = Scope_measure(meas1, Meas_min)
+            fs2(3) = Scope_measure(meas1, Meas_max)
+            'Ton (ns)
+            ton2(0) = Scope_measure(meas2, Scope_Meas)
+            ton2(1) = Scope_measure(meas2, Meas_mean)
+            ton2(2) = Scope_measure(meas2, Meas_min)
+            ton2(3) = Scope_measure(meas2, Meas_max)
+            'Toff
+            toff2(0) = Scope_measure(meas3, Scope_Meas)
+            toff2(1) = Scope_measure(meas3, Meas_mean)
+            toff2(2) = Scope_measure(meas3, Meas_min)
+            toff2(3) = Scope_measure(meas3, Meas_max)
+            'vpp
+            vpp2(0) = Scope_measure(meas4, Scope_Meas)
+            vpp2(1) = Scope_measure(meas4, Meas_mean)
+            vpp2(2) = Scope_measure(meas4, Meas_min)
+            vpp2(3) = Scope_measure(meas4, Meas_max)
+            ' freq KHz
+            fs(0) = Scope_measure(meas5, Scope_Meas)
+            fs(1) = Scope_measure(meas5, Meas_mean)
+            fs(2) = Scope_measure(meas5, Meas_min)
+            fs(3) = Scope_measure(meas5, Meas_max)
+            'Ton (ns)
+            ton(0) = Scope_measure(meas6, Scope_Meas)
+            ton(1) = Scope_measure(meas6, Meas_mean)
+            ton(2) = Scope_measure(meas6, Meas_min)
+            ton(3) = Scope_measure(meas6, Meas_max)
+            'Toff
+            toff(0) = Scope_measure(meas7, Scope_Meas)
+            toff(1) = Scope_measure(meas7, Meas_mean)
+            toff(2) = Scope_measure(meas7, Meas_min)
+            toff(3) = Scope_measure(meas7, Meas_max)
+            'vpp
+            vpp(0) = Scope_measure(meas8, Scope_Meas)
+            vpp(1) = Scope_measure(meas8, Meas_mean)
+            vpp(2) = Scope_measure(meas8, Meas_min)
+            vpp(3) = Scope_measure(meas8, Meas_max)
+        Else
+            ' freq KHz
+            fs(0) = Scope_measure(meas1, Scope_Meas)
+            fs(1) = Scope_measure(meas1, Meas_mean)
+            fs(2) = Scope_measure(meas1, Meas_min)
+            fs(3) = Scope_measure(meas1, Meas_max)
+            'Ton (ns)
+            ton(0) = Scope_measure(meas2, Scope_Meas)
+            ton(1) = Scope_measure(meas2, Meas_mean)
+            ton(2) = Scope_measure(meas2, Meas_min)
+            ton(3) = Scope_measure(meas2, Meas_max)
+            'Toff
+            toff(0) = Scope_measure(meas3, Scope_Meas)
+            toff(1) = Scope_measure(meas3, Meas_mean)
+            toff(2) = Scope_measure(meas3, Meas_min)
+            toff(3) = Scope_measure(meas3, Meas_max)
+            'vpp
+            vpp(0) = Scope_measure(meas4, Scope_Meas)
+            vpp(1) = Scope_measure(meas4, Meas_mean)
+            vpp(2) = Scope_measure(meas4, Meas_min)
+            vpp(3) = Scope_measure(meas4, Meas_max)
+
+            'Vmax
+            vpp(4) = Scope_measure(meas5, Meas_max)
+
+            'Vmin
+            vpp(5) = Scope_measure(meas6, Meas_min)
+        End If
+
+        ' 0: vmax, 1: min
+        vout_data = GetVoutMax_Min(vout_ch)
+        If DUT2_en Then
+            vout2_data = GetVoutMax_Min(vout2_ch)
+        End If
+
+
+
+
+
+
+
+
+
+
+        'For i = 0 To test_cnt
+        '    'If i = 0 Then
+        '    '    CHx_display(lx_ch, "ON")
+        '    '    CHx_display(vout_ch, "ON")
+        '    '    Trigger_auto_level(lx_ch, "R")
+        '    'Else
+        '    '    CHx_display(lx2_ch, "ON")
+        '    '    CHx_display(vout2_ch, "ON")
+        '    '    Trigger_auto_level(lx2_ch, "R")
+        '    'End If
+
+        '    Scope_RUN(False)
+        '    Calculate_pass(TA_Test_num)
+        '    If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
+        '        H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        '    Else
+        '        H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        '    End If
+        '    'Timing Scale
+        '    H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+        '    If RS_Scope = True Then
+        '        RS_View(True)
+        '    End If
+
+
+        '    If (iout_now = data_test.Rows(0).Cells(0).Value) Then
+        '        If rbtn_auto_vout.Checked = True Then
+        '            vout_temp = Math.Floor(((vout_meas * 1000) * 0.005))
+        '            vout_temp = Math.Floor(vout_temp / 5) * 5
+        '            If vout_temp > 10 Then
+        '                vout_scale_now = vout_temp
+        '            Else
+        '                vout_scale_now = 10
+        '            End If
+        '        Else
+        '            If (check_Force_CCM.Checked = True) Then
+        '                vout_scale_now = num_vout_CCM.Value
+        '            Else
+        '                vout_scale_now = num_vout_DEM.Value
+        '            End If
+        '        End If
+        '        CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '        monitor_count(num_counts_CCM.Value, False, "Part I")
+        '        If rbtn_auto_vout.Checked = True Then
+        '            '第一次調整vout scale
+        '            If i = 0 Then
+        '                vpp(3) = Scope_measure(meas4, Meas_max)
+        '            Else
+        '                vpp(3) = Scope_measure(meas8, Meas_max)
+        '            End If
+        '            vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+        '            'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
+        '            vout_temp = Math.Floor(vout_temp)
+        '            If vout_temp < 5 Then
+        '                vout_scale_temp = vout_temp
+        '            Else
+        '                vout_scale_temp = Math.Floor(vout_temp / 5) * 5
+        '            End If
+        '            VoutScalling_CCM = False
+        '        Else
+        '            If (Fs_CCM = True) Then
+        '                vout_scale_temp = num_vout_CCM.Value
+        '                VoutScalling_CCM = True
+        '            Else
+        '                vout_scale_temp = num_vout_DEM.Value
+        '                VoutScalling_CCM = False
+        '            End If
+        '        End If
+        '        If vout_scale_temp <> vout_scale_now Then
+        '            vout_scale_now = vout_scale_temp
+        '            CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '        End If
+        '    End If
+
+        '    ' first one get data
+        '    If Fs_CCM = True Then
+        '        monitor_count(num_counts_CCM.Value, True, "Part I")
+        '    Else
+        '        monitor_count(num_counts_DEM.Value, True, "Part I")
+        '    End If
+
+
+        '    If DUT2_en Then
+        '        vpp_max = Scope_measure(meas4, Meas_max)
+        '        vpp2_max = Scope_measure(meas8, Meas_max)
+        '        pass_value_Max = vout_now * (num_vout_ac.Value / 100)
+        '        If vpp_max > pass_value_Max Then
+        '            dut1_state = FAIL
+        '        End If
+
+        '        If vpp2_max > pass_value_Max Then
+        '            dut2_state = FAIL
+        '        End If
+
+        '        If dut1_state Then
+        '            Scope_measure_set(meas7, lx_ch, "MAXimum")
+        '            Scope_measure_set(meas8, lx_ch, "MINImum")
+        '            If Fs_CCM = True Then
+        '                monitor_count(num_counts_CCM.Value, True, "Part I")
+        '            Else
+        '                monitor_count(num_counts_DEM.Value, True, "Part I")
+        '            End If
+
+        '            vmax = Scope_measure(meas7, Meas_max)
+        '            vmin = Scope_measure(meas8, Meas_min)
+        '        End If
+
+
+        '        If dut2_state Then
+        '            Scope_measure_set(meas3, lx_ch, "MAXimum")
+        '            Scope_measure_set(meas4, lx_ch, "MINImum")
+        '            If Fs_CCM = True Then
+        '                monitor_count(num_counts_CCM.Value, True, "Part I")
+        '            Else
+        '                monitor_count(num_counts_DEM.Value, True, "Part I")
+        '            End If
+
+        '            vmax2 = Scope_measure(meas3, Meas_max)
+        '            vmin2 = Scope_measure(meas4, Meas_min)
+        '        End If
+
+        '        ' freq
+        '        Scope_measure_set(meas1, lx_ch, "FREQuency")
+        '        ' Pwidth
+        '        Scope_measure_set(meas2, lx_ch, "PWIdth")
+        '        ' NWidth
+        '        Scope_measure_set(meas3, lx_ch, "NWIdth")
+        '        ' PK2PK
+        '        Scope_measure_set(meas4, vout_ch, "PK2Pk")
+
+        '        ' freq
+        '        Scope_measure_set(meas5, lx2_ch, "FREQuency")
+        '        ' Pwidth
+        '        Scope_measure_set(meas6, lx2_ch, "PWIdth")
+        '        ' NWidth
+        '        Scope_measure_set(meas7, lx2_ch, "NWIdth")
+        '        ' PK2PK
+        '        Scope_measure_set(meas8, vout2_ch, "PK2Pk")
+
+        '    End If
+
+        '    If rbtn_auto_vout.Checked = True Then
+        '        '--------------------------------------------------------------------
+        '        '計算Scale
+        '        vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+        '        'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
+        '        vout_temp = Math.Floor(vout_temp)
+        '        If vout_temp < 5 Then
+        '            vout_scale_temp = vout_temp
+        '        Else
+        '            vout_scale_temp = Math.Floor(vout_temp / 5) * 5
+        '        End If
+        '        '--------------------------------------------------------------------
+        '        If Check_fixed.Checked = True Then
+        '            '--------------------------------------------------------------------
+        '            '不管CCM. DEM都固定調整在同一個隔數內
+        '            If vout_scale_temp <> vout_scale_now Then
+        '                vout_scale_now = vout_scale_temp
+        '                CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '            End If
+        '            '----------------------------------------------------------------------
+        '        Else
+        '            ''只調整一次
+        '            If (check_Force_CCM.Checked = False) Then
+        '                If (iout_now <= IOUT_Boundary_Stop) And (iout_now >= IOUT_Boundary_Start) Then
+        '                    double_check = False
+        '                    'Iout上升
+        '                    If (iout_now >= iout_temp) And (VoutScalling_CCM = False) And (vout_scale_temp < vout_scale_now) Then
+        '                        vout_scale_now = vout_scale_temp
+        '                        CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '                        VoutScalling_CCM = True
+        '                    End If
+        '                    'Iout下降
+        '                    If (iout_now < iout_temp) And (VoutScalling_CCM = True) And (vout_scale_temp > vout_scale_now) Then
+        '                        vout_scale_now = vout_scale_temp
+        '                        CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '                        VoutScalling_CCM = False
+        '                    End If
+        '                ElseIf (iout_now >= IOUT_Boundary_Stop) And (double_check = False) Then
+        '                    vout_scale_now = vout_scale_temp
+        '                    CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '                    double_check = True
+        '                ElseIf (iout_now <= IOUT_Boundary_Start) And (double_check = False) Then
+        '                    vout_scale_now = vout_scale_temp
+        '                    CHx_scale(vout_list(i), vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+        '                    double_check = True
+        '                End If
+        '            End If
+        '        End If
+        '    End If
+
+        '    iout_temp = iout_now
+        '    ' ''----------------------------------------------------------------------------------
+        '    ''Measurement
+        '    ''Scope
+        '    If i = 0 Then
+        '        update_report(Stability)
+        '    Else
+        '        update_report(Stability, DUT2_en)
+        '    End If
+
+        'Next
     End Function
 
     Function Jitter_run() As Integer
@@ -6496,7 +6652,6 @@ Public Class PartI
                 If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
                     '--------------------------------------------------------
                     wave_data = Auto_Scanning(lx_ch)
-                    wave_data2 = Auto_Scanning(lx2_ch)
                     If wave_data(0) <> 0 Then
                         autoscanning_update = True
                     Else
@@ -7412,9 +7567,6 @@ Public Class PartI
             Waveform_data_init(RL_value * 2)
         End If
 
-
-
-
         If rbtn_auto_all.Checked = True Then
             AutoScalling_EN = True
         Else
@@ -7432,8 +7584,6 @@ Public Class PartI
         'Ton_min = VOUT / VIN *(1/fs)* 0.7 判定。
         'Toff_min = (1-VOUT/VIN) *(1/fs) *0.7。
 
-
-
         If rbtn_ton_cal.Checked = True Then
             ton_pass = (vout_now / vin_now) * (1 / fs_now) * num_ton_cal.Value
         Else
@@ -7446,23 +7596,15 @@ Public Class PartI
             toff_pass = num_toff_val.Value * ns
         End If
 
-
-
-
-
         AutoScalling_EN = True
 
-
-
-
-
     End Function
+
+
 
     Function Auto_Scanning(ByVal lx_sel As Integer) As Double()
 
         Dim i As Integer
-
-
         Dim ton_test As Boolean
         Dim ton_start_time() As Double
         Dim ton_stop_time As Double
@@ -7481,22 +7623,11 @@ Public Class PartI
         Dim meas_num As Integer = 0
         Dim meas_volt_value As Double
         Dim meas_time_value As Double
-
-
-
         Dim max_data As Integer
-
-
-
         Dim meas_ton_update As Double
         Dim meas_toff_update As Double
         Dim meas_freq_update As Double
-
-
-
-
-
-        Dim wave_data() As Double = {0, 0, 0} 'Ton(ns),Toff(ns),Freq(KHz)
+        Dim wave_data() As Double = {0, 0, 0} 'Ton(ns), Toff(ns), Freq(KHz)
 
 
         Dim scale_value As Double
@@ -7538,10 +7669,7 @@ Public Class PartI
         'Cursors
 
         If check_cursors.Checked = True Then
-
             Cursor_ONOFF("ON")
-
-
         End If
 
         'check RL
@@ -7606,11 +7734,6 @@ Public Class PartI
         End If
 
 
-
-
-
-
-
         CHx_Bandwidth(lx_sel, "20MHz")
 
         'Timing Scale
@@ -7621,11 +7744,12 @@ Public Class PartI
         ' error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
 
 
-        If (cbox_coupling_vout.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
-            error_capture(vout_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
-        Else
-            error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
-        End If
+        ' trigger function
+        'If (cbox_coupling_vout.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
+        '    error_capture(vout_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
+        'Else
+        '    error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
+        'End If
 
         ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, lx_sel)
 
@@ -7644,43 +7768,23 @@ Public Class PartI
         End If
 
         If ByteSize > 0 Then
-
-
-
             If RS_Scope = False Then
 
                 'xlApp.DisplayAlerts = False
                 'xlApp.Visible = False
-
-
-
                 xlBook_wave = xlApp.Workbooks.Open(wave_pc_path)
                 '-----------------------------------------------------------------
-
                 xlSheet_wave = xlBook_wave.Sheets("wave")
                 xlSheet_wave.Activate()
 
                 max_data = xlSheet_wave.Range("B1").Value
-
-
-
-
-
                 time_volt = xlSheet_wave.Range(xlApp.Cells(1, 4), xlApp.Cells(max_data, 5)).Value()
-
-
                 xlBook_wave.Close(True) '關閉工作簿
                 ' xlApp.Quit() '結束EXCEL對象
                 xlSheet_wave = Nothing
                 xlBook_wave = Nothing
-
                 GC.Collect()
-
-
-
-
             Else
-
                 Dim f As New IO.FileInfo(wave_pc_path)
                 Dim sr As IO.StreamReader = f.OpenText '產生StreamReader的sr物件
                 note_string = "Get Wave data..."
@@ -7690,46 +7794,20 @@ Public Class PartI
 
                 sr.Close()   '???桀????
             End If
-
-
-
-
-
-
-
-
-
-
-
-
-
             ReDim ton_start_time(max_data)
             'time_volt(n, 1) =Time  (n=1~max_data)
             'time_volt(n, 2) =Volt  (n=1~max_data)
-
-
-
             note_string = "Analysis Wave data..."
-
             If max_data = 0 Then
-
                 error_message("Wave Format Error!!!")
-
-
             Else
-
-
                 ReDim wave_time(max_data - 1)
                 ReDim wave_volt(max_data - 1)
-
                 For i = 1 To max_data
-
                     System.Windows.Forms.Application.DoEvents()
-
                     If run = False Then
                         Exit For
                     End If
-
                     If RS_Scope = False Then
                         wave_time(i - 1) = time_volt(i, 1)
                         wave_volt(i - 1) = time_volt(i, 2)
