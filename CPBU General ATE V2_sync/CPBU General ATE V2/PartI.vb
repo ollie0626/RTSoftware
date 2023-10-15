@@ -6090,19 +6090,6 @@ Public Class PartI
         Dim iout_temp As Double
         Dim double_check As Boolean = False
 
-        Dim lx_list() As Integer = New Integer() {lx_ch, lx2_ch}
-        Dim vout_list() As Integer = New Integer() {vout_ch, vout2_ch}
-        Dim test_cnt As Integer = 0
-
-        Dim lx_data() As Double
-        Dim lx2_data() As Double
-        Dim vout_data() As Double
-        Dim vout2_data() As Double
-
-        If DUT2_en Then
-            test_cnt = 1
-        End If
-
         ' all channel enable
         If DUT2_en Then
             CHx_display(1, "ON")
@@ -6122,7 +6109,7 @@ Public Class PartI
             H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
         End If
         'Timing Scale
-        H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+        H_scale(H_scale_value, "ns") ' 1 / Fs_Min(Hz) * n / 10 
         If RS_Scope = True Then
             RS_View(True)
         End If
@@ -6150,8 +6137,6 @@ Public Class PartI
             End If
             scope_time_init()
             monitor_count(10, False, "Part I", meas1)
-
-
 
             If rbtn_auto_vout.Checked = True Then
                 '第一次調整vout scale
@@ -6194,12 +6179,12 @@ Public Class PartI
         ' auto scalling function
         If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
             ' 0: Ton, 1: Toff, 2: Freq
-            lx_data = Auto_Scanning(lx_ch)
+            wave_data = Auto_Scanning(lx_ch)
             If DUT2_en Then
-                lx2_data = Auto_Scanning(lx2_ch)
+                wave2_data = Auto_Scanning(lx2_ch)
             End If
 
-            If lx_data(0) <> 0 Then
+            If wave_data(0) <> 0 Then
                 autoscanning_update = True
             Else
                 autoscanning_update = False
@@ -6213,7 +6198,6 @@ Public Class PartI
         Else
             monitor_count(num_counts_DEM.Value, True, "Part I")
         End If
-
 
         ' get measure data
         If DUT2_en Then
@@ -6286,19 +6270,32 @@ Public Class PartI
             vpp(5) = Scope_measure(meas6, Meas_min)
         End If
 
-        ' 0: vmax, 1: min
-        vout_data = GetVoutMax_Min(vout_ch)
-        If DUT2_en Then
-            vout2_data = GetVoutMax_Min(vout2_ch)
-        End If
-        scope_time_init()
-        Display_persistence(False)
 
         iout_temp = iout_now
-        update_report(Stability)
         If DUT2_en Then
+            ' 0: vmax, 1: min
+            vout = GetVoutMax_Min(vout_ch)
+            vout2 = GetVoutMax_Min(vout2_ch)
+            scope_time_init()
+            Display_persistence(False)
+            ' dut data to excel
+            vpp(4) = vout(0)
+            vpp(5) = vout(1)
+            update_report(Stability)
+            ' dut2 data to excel
+            Array.Copy(wave2_data, wave_data, wave2_data.Length)
+            Array.Copy(fs2, fs, fs2.Length)
+            Array.Copy(toff2, toff, toff2.Length)
+            Array.Copy(ton2, ton, ton2.Length)
+            Array.Copy(vpp2, vpp, vpp2.Length)
+            vpp(4) = vout2(0)
+            vpp(5) = vout2(1)
             update_report(Stability, DUT2_en)
+        Else
+            update_report(Stability)
         End If
+
+
 
 
 
@@ -6651,8 +6648,8 @@ Public Class PartI
         Dim start_col As Integer
         Dim col_num, row_num As Integer
         Dim set_num As Integer
-        Dim wave_data() As Double 'Ton(ns),Toff(ns),Freq(KHz)
-        Dim wave_data2() As Double
+        'Dim wave_data() As Double 'Ton(ns),Toff(ns),Freq(KHz)
+        'Dim wave_data2() As Double
         Dim temp As String
         Dim beta_path As String
         Dim row_num_temp As Integer

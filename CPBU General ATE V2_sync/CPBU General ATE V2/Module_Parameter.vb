@@ -80,13 +80,6 @@
     Public Error_folder2 As String
     Public error_pic_path2 As String
 
-    Public vpp_max As Double
-    Public vpp2_max As Double
-    Public vmax As Double
-    Public vmin As Double
-    Public vmax2 As Double
-    Public vmin2 As Double
-
     Public dut1_state As Boolean = True
     Public dut2_state As Boolean = False
 
@@ -95,6 +88,13 @@
     Public vpp2(5) As Double
     Public fs2(3) As Double
 
+
+    ' waveform data
+    Public vout() As Double ' vmax, vmin
+    Public vout2() As Double
+
+    Public wave_data() As Double ' 'Ton(ns), Toff(ns), Freq(KHz)
+    Public wave2_data() As Double
 
 
     ' Efficiency
