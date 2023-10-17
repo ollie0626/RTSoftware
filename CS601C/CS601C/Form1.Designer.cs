@@ -1709,14 +1709,14 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
             this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
             this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
@@ -7868,7 +7868,7 @@
             this.CBLine2.Items.AddRange(new object[] {
             "0h : 1 Line",
             "1h : 2 Line",
-            "2h : 3 Line",
+            "2h : 4 Line",
             "3h : 4 Line"});
             this.CBLine2.Location = new System.Drawing.Point(13, 110);
             this.CBLine2.Name = "CBLine2";

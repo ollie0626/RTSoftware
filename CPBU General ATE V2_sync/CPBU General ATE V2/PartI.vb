@@ -6044,8 +6044,9 @@ Public Class PartI
         'Else
         '    H_reclength(20000)
         'End If
-
         ByteSize = Waveform_data(Main.txt_scope_folder.Text & "\wave.csv", wave_pc_path, vout_sel)
+
+
 
         If run = False Then
             Return res
@@ -6090,6 +6091,7 @@ Public Class PartI
         Dim iout_temp As Double
         Dim double_check As Boolean = False
 
+        'System.Threading.Thread.Sleep(1000)
         ' all channel enable
         If DUT2_en Then
             CHx_display(1, "ON")
@@ -6170,6 +6172,7 @@ Public Class PartI
             If vout_scale_temp <> vout_scale_now Then
                 vout_scale_now = vout_scale_temp
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                System.Threading.Thread.Sleep(500)
                 If DUT2_en Then
                     CHx_scale(vout2_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                 End If
@@ -6183,7 +6186,7 @@ Public Class PartI
             If DUT2_en Then
                 wave2_data = Auto_Scanning(lx2_ch)
             End If
-
+            'System.Threading.Thread.Sleep(1000)
             If wave_data(0) <> 0 Then
                 autoscanning_update = True
             Else
@@ -6192,6 +6195,7 @@ Public Class PartI
         End If
         'scope_time_init()
         Display_persistence(True)
+        System.Threading.Thread.Sleep(2000)
 
         If Fs_CCM = True Then
             monitor_count(num_counts_CCM.Value, True, "Part I")
@@ -6270,14 +6274,13 @@ Public Class PartI
             vpp(5) = Scope_measure(meas6, Meas_min)
         End If
 
-
         iout_temp = iout_now
         If DUT2_en Then
             ' 0: vmax, 1: min
             vout = GetVoutMax_Min(vout_ch)
             vout2 = GetVoutMax_Min(vout2_ch)
-            scope_time_init()
-            Display_persistence(False)
+
+
             ' dut data to excel
             vpp(4) = vout(0)
             vpp(5) = vout(1)
@@ -6294,10 +6297,19 @@ Public Class PartI
         Else
             update_report(Stability)
         End If
+        scope_time_init()
+        Scope_measure_reset()
+
+        Display_persistence(False)
 
 
+        'Scope_RUN(True)
 
-
+        'Scope_measure_reset()
+        'Dim cnt = 0
+        'While (cnt <= 0)
+        '    cnt = Scope_measure_count(1)
+        'End While
 
         'For i = 0 To test_cnt
         '    'If i = 0 Then
@@ -7749,29 +7761,30 @@ Public Class PartI
 
 
 
-        If RL > 500000 Then
-            Return wave_data
+        'If RL > 500000 Then
+        '    Return wave_data
 
-            Exit Function
-        ElseIf (RL > 250000) Then
+        '    Exit Function
+        'ElseIf (RL > 250000) Then
 
-            H_reclength(500000)
+        '    H_reclength(500000)
 
-        ElseIf (RL > 100000) Then
+        'ElseIf (RL > 100000) Then
 
-            H_reclength(250000)
+        '    H_reclength(250000)
 
-        ElseIf (RL > 50000) Then
+        'ElseIf (RL > 50000) Then
 
-            H_reclength(100000)
+        '    H_reclength(100000)
 
-        ElseIf (RL > 20000) Then
+        'ElseIf (RL > 20000) Then
 
-            H_reclength(50000)
-        Else
-            H_reclength(20000)
-        End If
-
+        '    H_reclength(50000)
+        'Else
+        '    H_reclength(50000)
+        'End If
+        H_reclength(50000)
+        System.Threading.Thread.Sleep(1000)
 
         CHx_Bandwidth(lx_sel, "20MHz")
 
@@ -8625,6 +8638,7 @@ Public Class PartI
                                         If iout_now = stability_iout(y) Then
                                             stability_iout_num = y
                                             Stability_run()
+
                                             Exit For
                                         End If
                                     Next

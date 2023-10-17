@@ -1591,6 +1591,11 @@
 
     'End Function
 
+    Function RS_RUN() As Boolean
+        Dim ts As String = "RUN"
+        visa_write(RS_Scope_Dev, RS_vi, ts)
+    End Function
+
     Function Scope_RUN(ByVal ONOFF As Boolean) As Integer
         Dim temp As String
         If RS_Scope = False Then

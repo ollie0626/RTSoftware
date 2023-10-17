@@ -18,7 +18,7 @@ namespace CS601C
     public partial class Form1 : Form
     {
         string win_name = "PMIC CS601C";
-        string win_ver = "1.01";
+        string win_ver = "1.02";
 
         public static NumericUpDown[] WriteTable;
         public static NumericUpDown[] ReadTable;
@@ -59,6 +59,9 @@ namespace CS601C
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            tabControl1.TabPages.RemoveAt(3);
+
             this.Text = win_name;
             WriteTable = new NumericUpDown[] {
                 W00, W01, W02, W03, W04, W05, W06, W07, W08, W09, W0A, W0B, W0C, W0D, W0E, W0F,
