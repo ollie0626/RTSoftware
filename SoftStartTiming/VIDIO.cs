@@ -214,6 +214,13 @@ namespace SoftStartTiming
                 else
                     criteria_container.lpm_en = false;
 
+                if ((string)dataGridView1[2, i].Value == "NA")
+                    criteria_container.time_jd = true;
+                else
+                    criteria_container.time_jd = false;
+
+
+
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
 
@@ -808,6 +815,7 @@ namespace SoftStartTiming
         public double lo;
 
         public bool sr_time_jd;
+        public bool time_jd;
         public bool lpm_en;
     }
 

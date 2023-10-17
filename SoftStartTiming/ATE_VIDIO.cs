@@ -796,70 +796,105 @@ namespace SoftStartTiming
                         double vmax_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.R].Value);
                         double vmin_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.T].Value);
                         bool judge_vol = vmax_res > vmax | vmin_res < vmin_res ? false : true;
-                        // rise time min is good
-                        // fall time min is good
+                        bool judge_sr = true;
+                        bool judge_time = true;
+                        bool judge_res = true;
+                        bool judge_lpm = true;
 
-                        // slew rate max is good
-
+                        // slew rate judge
+                        double rise_sr, fall_sr, rise_res, fall_res;
+                        double rise_time, fall_time, rise_time_res, fall_time_res;
+                        rise_sr = fall_sr = rise_res = fall_res = 0;
+                        rise_time = fall_time = rise_time_res = fall_time_res = 0;
 
                         if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
                         {
-                            // slew rate judege
-                            double rise_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
-                            double fall_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
-                            double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
-                            double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
-                            bool judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? true : false;
-                            
-                            bool judge = judge_sr & judge_vol;
-
-
-                            if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                            {
-                                double delay = Convert.ToDouble(_sheet.Cells[row, XLS_Table.W].Value);
-                                double delay100 = Convert.ToDouble(_sheet.Cells[row, XLS_Table.X].Value);
-
-                                judge = judge_sr & (delay100 < 120) & (delay < 20);
-                                _range = _sheet.Cells[row, XLS_Table.Y];
-                                _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
-                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                            }
-                            else
-                            {
-                                _range = _sheet.Cells[row, XLS_Table.W];
-                                _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                            }
-
+                            rise_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_rise);
+                            fall_sr = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].sr_fall);
+                            rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
+                            fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
+                            // slew rate big is good.
+                            judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? true : false;
                         }
-                        else
+
+
+                        if (test_parameter.vidio.criteria[case_idx].time_jd) 
                         {
-                            // rise / fall judege
-                            double rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
-                            double fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
-                            double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
-                            double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
-                            bool judge_time = (rise_res > rise_time | fall_res > fall_time) ? false : true;
+                            rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
+                            fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
 
-                            bool judge = judge_time & judge_vol;
-
-                            if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                            {
-                                double delay = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.W].Value);
-                                double delay100 = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.X].Value);
-
-                                judge = judge_time & (delay100 < 120) & (delay < 20);
-                                _range = _sheet.Cells[row, XLS_Table.Y];
-                                _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
-                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                            }
-                            else
-                            {
-                                _range = _sheet.Cells[row, XLS_Table.W];
-                                _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                                _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                            }
+                            rise_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
+                            fall_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.M].Value);
+                            // rise and fall time small is good.
+                            judge_time = (rise_time_res > rise_time | fall_time_res > fall_time) ? false : true;
                         }
+                        judge_res = judge_vol & judge_sr & judge_time;
+
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        {
+                            double delay = Convert.ToDouble(_sheet.Cells[row, XLS_Table.W].Value);
+                            double delay100 = Convert.ToDouble(_sheet.Cells[row, XLS_Table.X].Value);
+
+                            judge_lpm = (delay100 < 120) & (delay < 20);
+                            judge_res = judge_res & judge_lpm;
+                        }
+
+                        _sheet.Cells[row, XLS_Table.W] = judge_res ? "Pass" : "Fail";
+                        _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
+
+
+                        //if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
+                        //{
+                        //    // slew rate judege
+                        //    //_sheet.Cells[row, XLS_Table.I] = (string)test_parameter.vidio.criteria[case_idx].rise_time;
+                        //    //_sheet.Cells[row, XLS_Table.J] = (string)test_parameter.vidio.criteria[case_idx].sr_rise;
+                        //    //_sheet.Cells[row, XLS_Table.M] = (string)test_parameter.vidio.criteria[case_idx].fall_time;
+                        //    //_sheet.Cells[row, XLS_Table.N] = (string)test_parameter.vidio.criteria[case_idx].sr_fall;
+                        //    bool judge = judge_sr & judge_vol;
+                        //    if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        //    {
+                        //        double delay = Convert.ToDouble(_sheet.Cells[row, XLS_Table.W].Value);
+                        //        double delay100 = Convert.ToDouble(_sheet.Cells[row, XLS_Table.X].Value);
+                        //        judge = judge_sr & (delay100 < 120) & (delay < 20);
+                        //        _range = _sheet.Cells[row, XLS_Table.Y];
+                        //        _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
+                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        //    }
+                        //    else
+                        //    {
+                        //        _range = _sheet.Cells[row, XLS_Table.W];
+                        //        _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        //    }
+                        //}
+                        //else
+                        //{
+                        //    // rise / fall judege
+                        //    double rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
+                        //    double fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
+                        //    double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
+                        //    double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
+                        //    bool judge_time = (rise_res > rise_time | fall_res > fall_time) ? false : true;
+
+                        //    bool judge = judge_time & judge_vol;
+
+                        //    if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        //    {
+                        //        double delay = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.W].Value);
+                        //        double delay100 = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.X].Value);
+
+                        //        judge = judge_time & (delay100 < 120) & (delay < 20);
+                        //        _range = _sheet.Cells[row, XLS_Table.Y];
+                        //        _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
+                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        //    }
+                        //    else
+                        //    {
+                        //        _range = _sheet.Cells[row, XLS_Table.W];
+                        //        _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
+                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
+                        //    }
+                        //}
                         //    _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
                         //    _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
 

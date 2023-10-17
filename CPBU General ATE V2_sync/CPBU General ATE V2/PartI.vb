@@ -6278,7 +6278,7 @@ Public Class PartI
             vout2 = GetVoutMax_Min(vout2_ch)
             scope_time_init()
             Display_persistence(False)
-            ' dut data to excel
+            ' dut1 data to excel
             vpp(4) = vout(0)
             vpp(5) = vout(1)
             update_report(Stability)
@@ -6687,16 +6687,18 @@ Public Class PartI
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 End If
                 xlSheet.Activate()
-                'If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
-                '    '--------------------------------------------------------
-                '    wave_data = Auto_Scanning(lx_ch)
-                '    If wave_data(0) <> 0 Then
-                '        autoscanning_update = True
-                '    Else
-                '        autoscanning_update = False
-                '    End If
-                'End If
-                'xlSheet.Activate()
+                If Not (dut2_en) Then
+                    If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+                        '--------------------------------------------------------
+                        wave_data = Auto_Scanning(lx_ch)
+                        If wave_data(0) <> 0 Then
+                            autoscanning_update = True
+                        Else
+                            autoscanning_update = False
+                        End If
+                    End If
+                End If
+                xlSheet.Activate()
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
