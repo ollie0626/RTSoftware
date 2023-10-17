@@ -2616,9 +2616,9 @@ Public Class PartI
         '------------------------------------------------------------------------------------
         xlSheet.Cells(row, col) = "IOUT"
         title_set()
-        row = row + 1
-        xlSheet.Cells(row, col) = txt_iout_name1.Text
-        xlSheet.Cells(row, col + 1) = rbtn_meter_iout.Checked
+        scope_time_init()
+        Display_persistence(False)
+        ' dut1 data to excel
         xlSheet.Cells(row, col + 2) = cbox_Iout_meter.SelectedItem
         xlSheet.Cells(row, col + 3) = txt_Iout_addr.Text
         xlSheet.Cells(row, col + 4) = check_iout.Checked
@@ -6279,8 +6279,8 @@ Public Class PartI
             ' 0: vmax, 1: min
             vout = GetVoutMax_Min(vout_ch)
             vout2 = GetVoutMax_Min(vout2_ch)
-
-
+            scope_time_init()
+            Display_persistence(False)
             ' dut data to excel
             vpp(4) = vout(0)
             vpp(5) = vout(1)
@@ -6699,16 +6699,18 @@ Public Class PartI
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 End If
                 xlSheet.Activate()
-                'If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
-                '    '--------------------------------------------------------
-                '    wave_data = Auto_Scanning(lx_ch)
-                '    If wave_data(0) <> 0 Then
-                '        autoscanning_update = True
-                '    Else
-                '        autoscanning_update = False
-                '    End If
-                'End If
-                'xlSheet.Activate()
+                If Not (dut2_en) Then
+                    If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+                        '--------------------------------------------------------
+                        wave_data = Auto_Scanning(lx_ch)
+                        If wave_data(0) <> 0 Then
+                            autoscanning_update = True
+                        Else
+                            autoscanning_update = False
+                        End If
+                    End If
+                End If
+                xlSheet.Activate()
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
