@@ -6085,6 +6085,85 @@ Public Class PartI
         Return res ' vmax, vmin
     End Function
 
+    Sub Stability_Measure_Set(ByVal dut_sel As Integer)
+
+        Select Case dut_sel
+            Case 0
+                ' dut1 measure set
+                ' lx info
+                Scope_measure_set(meas1, vout_ch, "FREQuency")
+                Scope_measure_set(meas2, vout_ch, "PWIdth")
+                Scope_measure_set(meas3, vout_ch, "NWIdth")
+                Scope_measure_set(meas4, lx_ch, "PK2Pk")
+                Scope_measure_set(meas5, lx_ch, "MAXimum")
+                Scope_measure_set(meas6, lx_ch, "MINImum")
+            Case 1
+                Scope_measure_set(meas1, vout2_ch, "FREQuency")
+                Scope_measure_set(meas2, vout2_ch, "PWIdth")
+                Scope_measure_set(meas3, vout2_ch, "NWIdth")
+                Scope_measure_set(meas4, lx2_ch, "PK2Pk")
+                Scope_measure_set(meas5, lx2_ch, "MAXimum")
+                Scope_measure_set(meas6, lx2_ch, "MINImum")
+        End Select
+
+    End Sub
+
+    Sub Stability_Measure_Get(ByVal dut_sel As Integer)
+        Select Case dut_sel
+            Case 0
+                fs(0) = Scope_measure(meas1, Scope_Meas)
+                fs(1) = Scope_measure(meas1, Meas_mean)
+                fs(2) = Scope_measure(meas1, Meas_min)
+                fs(3) = Scope_measure(meas1, Meas_max)
+                'Ton (ns)
+                ton(0) = Scope_measure(meas2, Scope_Meas)
+                ton(1) = Scope_measure(meas2, Meas_mean)
+                ton(2) = Scope_measure(meas2, Meas_min)
+                ton(3) = Scope_measure(meas2, Meas_max)
+                'Toff
+                toff(0) = Scope_measure(meas3, Scope_Meas)
+                toff(1) = Scope_measure(meas3, Meas_mean)
+                toff(2) = Scope_measure(meas3, Meas_min)
+                toff(3) = Scope_measure(meas3, Meas_max)
+                'vpp
+                vpp(0) = Scope_measure(meas4, Scope_Meas)
+                vpp(1) = Scope_measure(meas4, Meas_mean)
+                vpp(2) = Scope_measure(meas4, Meas_min)
+                vpp(3) = Scope_measure(meas4, Meas_max)
+                'Vmax
+                vpp(4) = Scope_measure(meas5, Meas_max)
+                'Vmin
+                vpp(5) = Scope_measure(meas6, Meas_min)
+            Case 1
+                fs(0) = Scope_measure(meas1, Scope_Meas)
+                fs(1) = Scope_measure(meas1, Meas_mean)
+                fs(2) = Scope_measure(meas1, Meas_min)
+                fs(3) = Scope_measure(meas1, Meas_max)
+                'Ton (ns)
+                ton(0) = Scope_measure(meas2, Scope_Meas)
+                ton(1) = Scope_measure(meas2, Meas_mean)
+                ton(2) = Scope_measure(meas2, Meas_min)
+                ton(3) = Scope_measure(meas2, Meas_max)
+                'Toff
+                toff(0) = Scope_measure(meas3, Scope_Meas)
+                toff(1) = Scope_measure(meas3, Meas_mean)
+                toff(2) = Scope_measure(meas3, Meas_min)
+                toff(3) = Scope_measure(meas3, Meas_max)
+                'vpp
+                vpp(0) = Scope_measure(meas4, Scope_Meas)
+                vpp(1) = Scope_measure(meas4, Meas_mean)
+                vpp(2) = Scope_measure(meas4, Meas_min)
+                vpp(3) = Scope_measure(meas4, Meas_max)
+                'Vmax
+                vpp(4) = Scope_measure(meas5, Meas_max)
+                'Vmin
+                vpp(5) = Scope_measure(meas6, Meas_min)
+        End Select
+    End Sub
+
+
+
+
     Function Stability_run() As Integer
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
@@ -6137,7 +6216,7 @@ Public Class PartI
             If DUT2_en Then
                 CHx_scale(vout2_ch, vout_scale_now, "mV")
             End If
-            scope_time_init()
+
             monitor_count(10, False, "Part I", meas1)
 
             If rbtn_auto_vout.Checked = True Then
@@ -6194,112 +6273,125 @@ Public Class PartI
             End If
         End If
 
-        'scope_time_init()
-        'Display_persistence(True)
-        System.Threading.Thread.Sleep(2000)
-
+        Stability_Measure_Set(0)
         If Fs_CCM = True Then
             monitor_count(num_counts_CCM.Value, True, "Part I")
         Else
             monitor_count(num_counts_DEM.Value, True, "Part I")
         End If
+        Stability_Measure_Get(0)
+        update_report(Stability)
 
-        ' get measure data
         If DUT2_en Then
-            ' freq KHz
-            fs2(0) = Scope_measure(meas1, Scope_Meas)
-            fs2(1) = Scope_measure(meas1, Meas_mean)
-            fs2(2) = Scope_measure(meas1, Meas_min)
-            fs2(3) = Scope_measure(meas1, Meas_max)
-            'Ton (ns)
-            ton2(0) = Scope_measure(meas2, Scope_Meas)
-            ton2(1) = Scope_measure(meas2, Meas_mean)
-            ton2(2) = Scope_measure(meas2, Meas_min)
-            ton2(3) = Scope_measure(meas2, Meas_max)
-            'Toff
-            toff2(0) = Scope_measure(meas3, Scope_Meas)
-            toff2(1) = Scope_measure(meas3, Meas_mean)
-            toff2(2) = Scope_measure(meas3, Meas_min)
-            toff2(3) = Scope_measure(meas3, Meas_max)
-            'vpp
-            vpp2(0) = Scope_measure(meas4, Scope_Meas)
-            vpp2(1) = Scope_measure(meas4, Meas_mean)
-            vpp2(2) = Scope_measure(meas4, Meas_min)
-            vpp2(3) = Scope_measure(meas4, Meas_max)
-            ' freq KHz
-            fs(0) = Scope_measure(meas5, Scope_Meas)
-            fs(1) = Scope_measure(meas5, Meas_mean)
-            fs(2) = Scope_measure(meas5, Meas_min)
-            fs(3) = Scope_measure(meas5, Meas_max)
-            'Ton (ns)
-            ton(0) = Scope_measure(meas6, Scope_Meas)
-            ton(1) = Scope_measure(meas6, Meas_mean)
-            ton(2) = Scope_measure(meas6, Meas_min)
-            ton(3) = Scope_measure(meas6, Meas_max)
-            'Toff
-            toff(0) = Scope_measure(meas7, Scope_Meas)
-            toff(1) = Scope_measure(meas7, Meas_mean)
-            toff(2) = Scope_measure(meas7, Meas_min)
-            toff(3) = Scope_measure(meas7, Meas_max)
-            'vpp
-            vpp(0) = Scope_measure(meas8, Scope_Meas)
-            vpp(1) = Scope_measure(meas8, Meas_mean)
-            vpp(2) = Scope_measure(meas8, Meas_min)
-            vpp(3) = Scope_measure(meas8, Meas_max)
-        Else
-            ' freq KHz
-            fs(0) = Scope_measure(meas1, Scope_Meas)
-            fs(1) = Scope_measure(meas1, Meas_mean)
-            fs(2) = Scope_measure(meas1, Meas_min)
-            fs(3) = Scope_measure(meas1, Meas_max)
-            'Ton (ns)
-            ton(0) = Scope_measure(meas2, Scope_Meas)
-            ton(1) = Scope_measure(meas2, Meas_mean)
-            ton(2) = Scope_measure(meas2, Meas_min)
-            ton(3) = Scope_measure(meas2, Meas_max)
-            'Toff
-            toff(0) = Scope_measure(meas3, Scope_Meas)
-            toff(1) = Scope_measure(meas3, Meas_mean)
-            toff(2) = Scope_measure(meas3, Meas_min)
-            toff(3) = Scope_measure(meas3, Meas_max)
-            'vpp
-            vpp(0) = Scope_measure(meas4, Scope_Meas)
-            vpp(1) = Scope_measure(meas4, Meas_mean)
-            vpp(2) = Scope_measure(meas4, Meas_min)
-            vpp(3) = Scope_measure(meas4, Meas_max)
-
-            'Vmax
-            vpp(4) = Scope_measure(meas5, Meas_max)
-
-            'Vmin
-            vpp(5) = Scope_measure(meas6, Meas_min)
-        End If
-
-        iout_temp = iout_now
-        If DUT2_en Then
-            ' 0: vmax, 1: min
-            'vout = GetVoutMax_Min(vout_ch)
-            'vout2 = GetVoutMax_Min(vout2_ch)
-            'scope_time_init()
-            'Display_persistence(False)
-            ' dut data to excel
-            vpp(4) = vout(0)
-            vpp(5) = vout(1)
-            update_report(Stability)
-            ' dut2 data to excel
-            Array.Copy(wave2_data, wave_data, wave2_data.Length)
-            Array.Copy(fs2, fs, fs2.Length)
-            Array.Copy(toff2, toff, toff2.Length)
-            Array.Copy(ton2, ton, ton2.Length)
-            Array.Copy(vpp2, vpp, vpp2.Length)
-            vpp(4) = vout2(0)
-            vpp(5) = vout2(1)
+            Stability_Measure_Set(1)
+            If Fs_CCM = True Then
+                monitor_count(num_counts_CCM.Value, True, "Part I")
+            Else
+                monitor_count(num_counts_DEM.Value, True, "Part I")
+            End If
+            Stability_Measure_Get(1)
             update_report(Stability, DUT2_en)
-        Else
-            update_report(Stability)
         End If
+        iout_temp = iout_now
         scope_time_init()
         Scope_measure_reset()
+
+        ' get measure data
+        'If DUT2_en Then
+        '    ' freq KHz
+        '    fs2(0) = Scope_measure(meas1, Scope_Meas)
+        '    fs2(1) = Scope_measure(meas1, Meas_mean)
+        '    fs2(2) = Scope_measure(meas1, Meas_min)
+        '    fs2(3) = Scope_measure(meas1, Meas_max)
+        '    'Ton (ns)
+        '    ton2(0) = Scope_measure(meas2, Scope_Meas)
+        '    ton2(1) = Scope_measure(meas2, Meas_mean)
+        '    ton2(2) = Scope_measure(meas2, Meas_min)
+        '    ton2(3) = Scope_measure(meas2, Meas_max)
+        '    'Toff
+        '    toff2(0) = Scope_measure(meas3, Scope_Meas)
+        '    toff2(1) = Scope_measure(meas3, Meas_mean)
+        '    toff2(2) = Scope_measure(meas3, Meas_min)
+        '    toff2(3) = Scope_measure(meas3, Meas_max)
+        '    'vpp
+        '    vpp2(0) = Scope_measure(meas4, Scope_Meas)
+        '    vpp2(1) = Scope_measure(meas4, Meas_mean)
+        '    vpp2(2) = Scope_measure(meas4, Meas_min)
+        '    vpp2(3) = Scope_measure(meas4, Meas_max)
+        '    ' freq KHz
+        '    fs(0) = Scope_measure(meas5, Scope_Meas)
+        '    fs(1) = Scope_measure(meas5, Meas_mean)
+        '    fs(2) = Scope_measure(meas5, Meas_min)
+        '    fs(3) = Scope_measure(meas5, Meas_max)
+        '    'Ton (ns)
+        '    ton(0) = Scope_measure(meas6, Scope_Meas)
+        '    ton(1) = Scope_measure(meas6, Meas_mean)
+        '    ton(2) = Scope_measure(meas6, Meas_min)
+        '    ton(3) = Scope_measure(meas6, Meas_max)
+        '    'Toff
+        '    toff(0) = Scope_measure(meas7, Scope_Meas)
+        '    toff(1) = Scope_measure(meas7, Meas_mean)
+        '    toff(2) = Scope_measure(meas7, Meas_min)
+        '    toff(3) = Scope_measure(meas7, Meas_max)
+        '    'vpp
+        '    vpp(0) = Scope_measure(meas8, Scope_Meas)
+        '    vpp(1) = Scope_measure(meas8, Meas_mean)
+        '    vpp(2) = Scope_measure(meas8, Meas_min)
+        '    vpp(3) = Scope_measure(meas8, Meas_max)
+        'Else
+        '    ' freq KHz
+        '    fs(0) = Scope_measure(meas1, Scope_Meas)
+        '    fs(1) = Scope_measure(meas1, Meas_mean)
+        '    fs(2) = Scope_measure(meas1, Meas_min)
+        '    fs(3) = Scope_measure(meas1, Meas_max)
+        '    'Ton (ns)
+        '    ton(0) = Scope_measure(meas2, Scope_Meas)
+        '    ton(1) = Scope_measure(meas2, Meas_mean)
+        '    ton(2) = Scope_measure(meas2, Meas_min)
+        '    ton(3) = Scope_measure(meas2, Meas_max)
+        '    'Toff
+        '    toff(0) = Scope_measure(meas3, Scope_Meas)
+        '    toff(1) = Scope_measure(meas3, Meas_mean)
+        '    toff(2) = Scope_measure(meas3, Meas_min)
+        '    toff(3) = Scope_measure(meas3, Meas_max)
+        '    'vpp
+        '    vpp(0) = Scope_measure(meas4, Scope_Meas)
+        '    vpp(1) = Scope_measure(meas4, Meas_mean)
+        '    vpp(2) = Scope_measure(meas4, Meas_min)
+        '    vpp(3) = Scope_measure(meas4, Meas_max)
+
+        '    'Vmax
+        '    vpp(4) = Scope_measure(meas5, Meas_max)
+
+        '    'Vmin
+        '    vpp(5) = Scope_measure(meas6, Meas_min)
+        'End If
+
+
+        'If DUT2_en Then
+        '    ' 0: vmax, 1: min
+        '    'vout = GetVoutMax_Min(vout_ch)
+        '    'vout2 = GetVoutMax_Min(vout2_ch)
+        '    'scope_time_init()
+        '    'Display_persistence(False)
+        '    ' dut data to excel
+        '    vpp(4) = vout(0)
+        '    vpp(5) = vout(1)
+        '    update_report(Stability)
+        '    ' dut2 data to excel
+        '    Array.Copy(wave2_data, wave_data, wave2_data.Length)
+        '    Array.Copy(fs2, fs, fs2.Length)
+        '    Array.Copy(toff2, toff, toff2.Length)
+        '    Array.Copy(ton2, ton, ton2.Length)
+        '    Array.Copy(vpp2, vpp, vpp2.Length)
+        '    vpp(4) = vout2(0)
+        '    vpp(5) = vout2(1)
+        '    update_report(Stability, DUT2_en)
+        'Else
+        '    update_report(Stability)
+        'End If
+        'scope_time_init()
+        'Scope_measure_reset()
 
         'Display_persistence(False)
 
