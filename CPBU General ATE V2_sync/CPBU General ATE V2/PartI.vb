@@ -6193,8 +6193,9 @@ Public Class PartI
                 autoscanning_update = False
             End If
         End If
+
         'scope_time_init()
-        Display_persistence(True)
+        'Display_persistence(True)
         System.Threading.Thread.Sleep(2000)
 
         If Fs_CCM = True Then
@@ -6277,10 +6278,10 @@ Public Class PartI
         iout_temp = iout_now
         If DUT2_en Then
             ' 0: vmax, 1: min
-            vout = GetVoutMax_Min(vout_ch)
-            vout2 = GetVoutMax_Min(vout2_ch)
-            scope_time_init()
-            Display_persistence(False)
+            'vout = GetVoutMax_Min(vout_ch)
+            'vout2 = GetVoutMax_Min(vout2_ch)
+            'scope_time_init()
+            'Display_persistence(False)
             ' dut data to excel
             vpp(4) = vout(0)
             vpp(5) = vout(1)
@@ -6300,7 +6301,7 @@ Public Class PartI
         scope_time_init()
         Scope_measure_reset()
 
-        Display_persistence(False)
+        'Display_persistence(False)
 
 
         'Scope_RUN(True)
