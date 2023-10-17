@@ -1,5 +1,6 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.Runtime.InteropServices.Marshal
+Imports System.Diagnostics
 Public Class PartI
 
     ' Dim vcc_enable As Boolean = False
@@ -6162,8 +6163,6 @@ Public Class PartI
     End Sub
 
 
-
-
     Function Stability_run() As Integer
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
@@ -8730,7 +8729,22 @@ Public Class PartI
                                     For y = 0 To stability_iout.Length - 1
                                         If iout_now = stability_iout(y) Then
                                             stability_iout_num = y
+
+
+                                            ' Runtime test
+                                            Dim sw As Stopwatch = New Stopwatch()
+                                            sw.Reset()
+                                            sw.Start()
                                             Stability_run()
+                                            sw.Stop()
+
+                                            Dim res_ms As Long = sw.ElapsedMilliseconds
+                                            Dim res_s As Long = res_ms / 1000
+                                            Dim res_min As Long = Int(res_s / 60)
+                                            res_s = res_s Mod 60
+                                            Console.WriteLine("Spend Time: {0}min_{1}s", res_min, res_s)
+
+
 
                                             Exit For
                                         End If
