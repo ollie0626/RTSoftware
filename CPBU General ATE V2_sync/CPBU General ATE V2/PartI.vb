@@ -6091,19 +6091,19 @@ Public Class PartI
             Case 0
                 ' dut1 measure set
                 ' lx info
-                Scope_measure_set(meas1, vout_ch, "FREQuency")
-                Scope_measure_set(meas2, vout_ch, "PWIdth")
-                Scope_measure_set(meas3, vout_ch, "NWIdth")
-                Scope_measure_set(meas4, lx_ch, "PK2Pk")
-                Scope_measure_set(meas5, lx_ch, "MAXimum")
-                Scope_measure_set(meas6, lx_ch, "MINImum")
+                Scope_measure_set(meas1, lx_ch, "FREQuency")
+                Scope_measure_set(meas2, lx_ch, "PWIdth")
+                Scope_measure_set(meas3, lx_ch, "NWIdth")
+                Scope_measure_set(meas4, vout_ch, "PK2Pk")
+                Scope_measure_set(meas5, vout_ch, "MAXimum")
+                Scope_measure_set(meas6, vout_ch, "MINImum")
             Case 1
-                Scope_measure_set(meas1, vout2_ch, "FREQuency")
-                Scope_measure_set(meas2, vout2_ch, "PWIdth")
-                Scope_measure_set(meas3, vout2_ch, "NWIdth")
-                Scope_measure_set(meas4, lx2_ch, "PK2Pk")
-                Scope_measure_set(meas5, lx2_ch, "MAXimum")
-                Scope_measure_set(meas6, lx2_ch, "MINImum")
+                Scope_measure_set(meas1, lx2_ch, "FREQuency")
+                Scope_measure_set(meas2, lx2_ch, "PWIdth")
+                Scope_measure_set(meas3, lx2_ch, "NWIdth")
+                Scope_measure_set(meas4, vout2_ch, "PK2Pk")
+                Scope_measure_set(meas5, vout2_ch, "MAXimum")
+                Scope_measure_set(meas6, vout2_ch, "MINImum")
         End Select
 
     End Sub
@@ -6281,6 +6281,8 @@ Public Class PartI
         End If
         Stability_Measure_Get(0)
         update_report(Stability)
+
+        H_reclength(50000)
 
         If DUT2_en Then
             Stability_Measure_Set(1)
@@ -6792,18 +6794,18 @@ Public Class PartI
                     xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
                 End If
                 xlSheet.Activate()
-                If Not (dut2_en) Then
-                    If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
-                        '--------------------------------------------------------
-                        wave_data = Auto_Scanning(lx_ch)
-                        If wave_data(0) <> 0 Then
-                            autoscanning_update = True
-                        Else
-                            autoscanning_update = False
-                        End If
-                    End If
-                End If
-                xlSheet.Activate()
+                'If Not (dut2_en) Then
+                '    If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+                '        '--------------------------------------------------------
+                '        wave_data = Auto_Scanning(lx_ch)
+                '        If wave_data(0) <> 0 Then
+                '            autoscanning_update = True
+                '        Else
+                '            autoscanning_update = False
+                '        End If
+                '    End If
+                'End If
+                'xlSheet.Activate()
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
@@ -6848,11 +6850,7 @@ Public Class PartI
                 'freq
                 For ii = 0 To 3
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-                    If dut2_en Then
-                        xlrange.Value = fs2(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
-                    Else
-                        xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
-                    End If
+                    xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
                     FinalReleaseComObject(xlrange)
                     col = col + 1
                 Next
@@ -7135,9 +7133,9 @@ Public Class PartI
                 Else
                     CHx_Bandwidth(lx_ch, cbox_BW_lx.SelectedItem)
                 End If
-                H_reclength(RL_value)
-                'Timing Scale
-                H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+                'H_reclength(RL_value)
+                ''Timing Scale
+                'H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
 
                 If dut2_en Then
                     If rbtn_vin_trigger.Checked = True Then
@@ -7879,7 +7877,7 @@ Public Class PartI
         '    H_reclength(50000)
         'End If
         H_reclength(50000)
-        System.Threading.Thread.Sleep(1000)
+        'System.Threading.Thread.Sleep(1000)
 
         CHx_Bandwidth(lx_sel, "20MHz")
 
