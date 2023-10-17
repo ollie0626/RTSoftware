@@ -6163,6 +6163,143 @@ Public Class PartI
     End Sub
 
 
+    Sub Stability_run1(ByVal cnt As Integer)
+        Dim vout_temp As Double
+        Dim vout_scale_temp As Integer
+        Dim iout_temp As Double
+        Dim double_check As Boolean = False
+
+        'System.Threading.Thread.Sleep(1000)
+        ' all channel enable
+        If DUT2_en Then
+            CHx_display(1, "ON")
+            CHx_display(2, "ON")
+            CHx_display(3, "ON")
+            CHx_display(4, "ON")
+        Else
+            CHx_display(lx_ch, "ON")
+            CHx_display(vout_ch, "ON")
+        End If
+        scope_time_init()
+        Scope_RUN(False)
+        Calculate_pass(TA_Test_num)
+        If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
+            H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        Else
+            H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
+        End If
+        'Timing Scale
+        H_scale(H_scale_value, "ns") ' 1 / Fs_Min(Hz) * n / 10 
+        If RS_Scope = True Then
+            RS_View(True)
+        End If
+
+        ' vout level scale re-size
+        If (iout_now = data_test.Rows(0).Cells(0).Value) Then
+            If rbtn_auto_vout.Checked = True Then
+                vout_temp = Math.Floor(((vout_meas * 1000) * 0.005))
+                vout_temp = Math.Floor(vout_temp / 5) * 5
+                If vout_temp > 10 Then
+                    vout_scale_now = vout_temp
+                Else
+                    vout_scale_now = 10
+                End If
+            Else
+                If (check_Force_CCM.Checked = True) Then
+                    vout_scale_now = num_vout_CCM.Value
+                Else
+                    vout_scale_now = num_vout_DEM.Value
+                End If
+            End If
+            CHx_scale(vout_ch, vout_scale_now, "mV")
+            If DUT2_en Then
+                CHx_scale(vout2_ch, vout_scale_now, "mV")
+            End If
+
+            monitor_count(10, False, "Part I", meas1)
+
+            If rbtn_auto_vout.Checked = True Then
+                '第一次調整vout scale
+
+                vpp(3) = Scope_measure(meas4, Meas_max)
+                If DUT2_en Then
+                    vpp2(3) = Scope_measure(meas8, Meas_max)
+                End If
+
+                vout_temp = vpp(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+                If DUT2_en Then
+                    vout_temp = vpp2(3) * (10 ^ 3) / num_vout_auto.Value   'mV
+                End If
+                'Math.Ceiling() 無條件進位, Math.Floor() 捨去小數
+                vout_temp = Math.Floor(vout_temp)
+                If vout_temp < 5 Then
+                    vout_scale_temp = vout_temp
+                Else
+                    vout_scale_temp = Math.Floor(vout_temp / 5) * 5
+                End If
+                VoutScalling_CCM = False
+            Else
+                If (Fs_CCM = True) Then
+                    vout_scale_temp = num_vout_CCM.Value
+                    VoutScalling_CCM = True
+                Else
+                    vout_scale_temp = num_vout_DEM.Value
+                    VoutScalling_CCM = False
+                End If
+            End If
+            If vout_scale_temp <> vout_scale_now Then
+                vout_scale_now = vout_scale_temp
+                CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                System.Threading.Thread.Sleep(500)
+                If DUT2_en Then
+                    CHx_scale(vout2_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
+                End If
+            End If
+        End If
+
+        ' auto scalling function
+        If ((iout_now > 0) And (AutoScalling_EN = True) And (Fs_CCM = False)) Or (rbtn_auto_all.Checked = True) Then
+            ' 0: Ton, 1: Toff, 2: Freq
+            wave_data = Auto_Scanning(lx_ch)
+            If DUT2_en Then
+                wave2_data = Auto_Scanning(lx2_ch)
+            End If
+            'System.Threading.Thread.Sleep(1000)
+            If wave_data(0) <> 0 Then
+                autoscanning_update = True
+            Else
+                autoscanning_update = False
+            End If
+        End If
+
+        Stability_Measure_Set(0)
+        If Fs_CCM = True Then
+            monitor_count(cnt, True, "Part I")
+        Else
+            monitor_count(cnt, True, "Part I")
+        End If
+        Stability_Measure_Get(0)
+        update_report(Stability)
+        Console.WriteLine("DUT1 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
+
+        H_reclength(50000)
+
+        If DUT2_en Then
+            Stability_Measure_Set(1)
+            If Fs_CCM = True Then
+                monitor_count(num_counts_CCM.Value, True, "Part I")
+            Else
+                monitor_count(num_counts_DEM.Value, True, "Part I")
+            End If
+            Stability_Measure_Get(1)
+            update_report(Stability, DUT2_en)
+            Console.WriteLine("DUT2 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
+        End If
+        iout_temp = iout_now
+        Scope_measure_reset()
+    End Sub
+
+
     Function Stability_run() As Integer
         Dim vout_temp As Double
         Dim vout_scale_temp As Integer
@@ -6281,6 +6418,10 @@ Public Class PartI
         Stability_Measure_Get(0)
         update_report(Stability)
 
+
+        Console.WriteLine("DUT1 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
+
+
         H_reclength(50000)
 
         If DUT2_en Then
@@ -6292,9 +6433,10 @@ Public Class PartI
             End If
             Stability_Measure_Get(1)
             update_report(Stability, DUT2_en)
+
+            Console.WriteLine("DUT2 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
         End If
         iout_temp = iout_now
-        scope_time_init()
         Scope_measure_reset()
 
         ' get measure data
@@ -8742,9 +8884,21 @@ Public Class PartI
                                             Dim res_s As Long = res_ms / 1000
                                             Dim res_min As Long = Int(res_s / 60)
                                             res_s = res_s Mod 60
-                                            Console.WriteLine("Spend Time: {0}min_{1}s", res_min, res_s)
+                                            Console.WriteLine("count 100 case Spend Time: {0}min_{1}s", res_min, res_s)
+                                            Console.WriteLine("-------------------------------------------------------")
+                                            '--------------------------------------------------------------------------------
 
+                                            sw.Reset()
+                                            sw.Start()
+                                            Stability_run1(50)
 
+                                            sw.Stop()
+                                            res_ms = sw.ElapsedMilliseconds
+                                            res_s = res_ms / 1000
+                                            res_min = Int(res_s / 60)
+                                            res_s = res_s Mod 60
+                                            Console.WriteLine("count 50 case Spend Time: {0}min_{1}s", res_min, res_s)
+                                            Console.WriteLine("-------------------------------------------------------")
 
                                             Exit For
                                         End If
