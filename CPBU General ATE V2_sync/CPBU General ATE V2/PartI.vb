@@ -6180,7 +6180,6 @@ Public Class PartI
             CHx_display(lx_ch, "ON")
             CHx_display(vout_ch, "ON")
         End If
-        scope_time_init()
         Scope_RUN(False)
         Calculate_pass(TA_Test_num)
         If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
@@ -6250,7 +6249,7 @@ Public Class PartI
             If vout_scale_temp <> vout_scale_now Then
                 vout_scale_now = vout_scale_temp
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                System.Threading.Thread.Sleep(500)
+                'System.Threading.Thread.Sleep(500)
                 If DUT2_en Then
                     CHx_scale(vout2_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                 End If
@@ -6282,7 +6281,7 @@ Public Class PartI
         update_report(Stability)
         Console.WriteLine("DUT1 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
 
-        H_reclength(50000)
+        'H_reclength(50000)
 
         If DUT2_en Then
             Stability_Measure_Set(1)
@@ -6317,7 +6316,6 @@ Public Class PartI
             CHx_display(lx_ch, "ON")
             CHx_display(vout_ch, "ON")
         End If
-        scope_time_init()
         Scope_RUN(False)
         Calculate_pass(TA_Test_num)
         If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
@@ -6387,7 +6385,7 @@ Public Class PartI
             If vout_scale_temp <> vout_scale_now Then
                 vout_scale_now = vout_scale_temp
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
-                System.Threading.Thread.Sleep(500)
+                'System.Threading.Thread.Sleep(500)
                 If DUT2_en Then
                     CHx_scale(vout2_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                 End If
@@ -6417,15 +6415,16 @@ Public Class PartI
         End If
         Stability_Measure_Get(0)
         update_report(Stability)
-
+        Scope_RUN(True)
 
         Console.WriteLine("DUT1 Vout Max = {0}, Vout Min = {1}", vpp(4), vpp(5))
 
 
-        H_reclength(50000)
+        'H_reclength(50000)
 
         If DUT2_en Then
             Stability_Measure_Set(1)
+            Scope_RUN(False)
             If Fs_CCM = True Then
                 monitor_count(num_counts_CCM.Value, True, "Part I")
             Else
@@ -7197,24 +7196,24 @@ Public Class PartI
 
                     xlBook.Save()
                     '若已經有用autoscanning矯正，就直接抓圖，不再取圖!
-                    If autoscanning_update = False Then
-                        'vpp(4)=Vmax (max)
-                        'vpp(3)=Vpp (max)
-                        '改由vout_ch以Vmax (max) - Vpp(max) * (1/10)來trigger，如果沒有偵測到在往下移
-                        If dut2_en Then
-                            If (cbox_coupling_vout2.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
-                                error_capture(vout2_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
-                            Else
-                                error_capture(vout2_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
-                            End If
-                        Else
-                            If (cbox_coupling_vout.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
-                                error_capture(vout_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
-                            Else
-                                error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
-                            End If
-                        End If
-                    End If
+                    'If autoscanning_update = False Then
+                    '    'vpp(4)=Vmax (max)
+                    '    'vpp(3)=Vpp (max)
+                    '    '改由vout_ch以Vmax (max) - Vpp(max) * (1/10)來trigger，如果沒有偵測到在往下移
+                    '    If dut2_en Then
+                    '        If (cbox_coupling_vout2.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
+                    '            error_capture(vout2_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
+                    '        Else
+                    '            error_capture(vout2_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
+                    '        End If
+                    '    Else
+                    '        If (cbox_coupling_vout.SelectedItem <> "AC") And (vpp(5) < (vout_now * (1 - num_vout_neg.Value / 100))) Then
+                    '            error_capture(vout_ch, "R", vpp(5), True, vpp(2), num_delay_error.Value)
+                    '        Else
+                    '            error_capture(vout_ch, "R", vpp(4), False, vpp(3), num_delay_error.Value)
+                    '        End If
+                    '    End If
+                    'End If
                     '----------------------------------------------------------------------------------------------------------------
                     If dut2_en Then
                         error_pic_path = Error_folder2 & "\" & error_pic_num2 & "_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & add_dut2 & ".PNG"
@@ -7278,19 +7277,19 @@ Public Class PartI
                 ''Timing Scale
                 'H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
 
-                If dut2_en Then
-                    If rbtn_vin_trigger.Checked = True Then
-                        Trigger_set(lx2_ch, "R", vin_now / num_vin_trigger.Value)
-                    Else
-                        Trigger_auto_level(lx2_ch, "R")
-                    End If
-                Else
-                    If rbtn_vin_trigger.Checked = True Then
-                        Trigger_set(lx_ch, "R", vin_now / num_vin_trigger.Value)
-                    Else
-                        Trigger_auto_level(lx_ch, "R")
-                    End If
-                End If
+                'If dut2_en Then
+                '    If rbtn_vin_trigger.Checked = True Then
+                '        Trigger_set(lx2_ch, "R", vin_now / num_vin_trigger.Value)
+                '    Else
+                '        Trigger_auto_level(lx2_ch, "R")
+                '    End If
+                'Else
+                '    If rbtn_vin_trigger.Checked = True Then
+                '        Trigger_set(lx_ch, "R", vin_now / num_vin_trigger.Value)
+                '    Else
+                '        Trigger_auto_level(lx_ch, "R")
+                '    End If
+                'End If
                 RUN_set("RUNSTop")
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
@@ -8015,21 +8014,21 @@ Public Class PartI
 
         '    H_reclength(50000)
         'Else
-        '    H_reclength(50000)
+        '    H_reclength(20000)
         'End If
-        H_reclength(50000)
+        'H_reclength(50000)
         'System.Threading.Thread.Sleep(1000)
 
         CHx_Bandwidth(lx_sel, "20MHz")
 
         'Timing Scale
-        H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
+        'H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
 
-        Scope_measure_reset()
-        Dim cnt = 0
-        While (cnt <= 0)
-            cnt = Scope_measure_count(1)
-        End While
+        'Scope_measure_reset()
+        'Dim cnt = 0
+        'While (cnt <= 0)
+        '    cnt = Scope_measure_count(1)
+        'End While
 
 
         note_string = "Capture Wave ..."
@@ -8872,7 +8871,7 @@ Public Class PartI
                                         If iout_now = stability_iout(y) Then
                                             stability_iout_num = y
 
-
+                                            H_reclength(500000)
                                             ' Runtime test
                                             Dim sw As Stopwatch = New Stopwatch()
                                             sw.Reset()

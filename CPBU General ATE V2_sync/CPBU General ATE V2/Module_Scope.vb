@@ -606,6 +606,25 @@
 
     'End Function
 
+
+    Function ResolutionSetting_1M()
+
+
+        Dim TimeScale As Double = H_scale_now()
+        Dim Resolution As Double
+
+
+        'visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        'Resolution = Val(Mid(visa_response, 1, retcount - 1))
+
+        Resolution = TimeScale / Math.Pow(10, 6)
+
+        ts = "ACQuire:RESolution " & Resolution
+        visa_write(RS_Scope_Dev, RS_vi, ts)
+
+
+    End Function
+
     Function H_reclength(ByVal value As Integer) As Integer
         If RS_Scope = False Then
 
@@ -1391,7 +1410,7 @@
             'Sets the trigger level automatically  (50%)
             ts = "TRIGger1:FINDlevel"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-            Delay(200)
+            Delay(500)
 
         End If
 
