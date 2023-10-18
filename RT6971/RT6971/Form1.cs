@@ -1579,6 +1579,5 @@ namespace RT6971
             int code = (int)W27.Value;
             cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
         }
-
     }
 }

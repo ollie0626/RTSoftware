@@ -3471,6 +3471,7 @@
             this.cb_vcom_tc.Name = "cb_vcom_tc";
             this.cb_vcom_tc.Size = new System.Drawing.Size(121, 20);
             this.cb_vcom_tc.TabIndex = 5;
+            this.cb_vcom_tc.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_tc_mode_SelectedIndexChanged);
             this.cb_vcom_tc.MouseEnter += new System.EventHandler(this.cb_vcom_tc_MouseEnter);
             this.cb_vcom_tc.MouseLeave += new System.EventHandler(this.cb_vcom_tc_MouseLeave);
             // 
@@ -3493,6 +3494,7 @@
             this.cb_vgx_prt_off.Name = "cb_vgx_prt_off";
             this.cb_vgx_prt_off.Size = new System.Drawing.Size(121, 20);
             this.cb_vgx_prt_off.TabIndex = 3;
+            this.cb_vgx_prt_off.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_tc_mode_SelectedIndexChanged);
             this.cb_vgx_prt_off.MouseEnter += new System.EventHandler(this.cb_vgx_prt_off_MouseEnter);
             this.cb_vgx_prt_off.MouseLeave += new System.EventHandler(this.cb_vgx_prt_off_MouseLeave);
             // 
@@ -4619,6 +4621,7 @@
             this.cb_pmic_en.Name = "cb_pmic_en";
             this.cb_pmic_en.Size = new System.Drawing.Size(121, 20);
             this.cb_pmic_en.TabIndex = 15;
+            this.cb_pmic_en.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label130
             // 
@@ -4639,6 +4642,7 @@
             this.cb_fre_vgl.Name = "cb_fre_vgl";
             this.cb_fre_vgl.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_vgl.TabIndex = 13;
+            this.cb_fre_vgl.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label124
             // 
@@ -4659,6 +4663,7 @@
             this.cb_fre_vgh.Name = "cb_fre_vgh";
             this.cb_fre_vgh.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_vgh.TabIndex = 11;
+            this.cb_fre_vgh.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label125
             // 
@@ -4679,6 +4684,7 @@
             this.cb_fre_havdd.Name = "cb_fre_havdd";
             this.cb_fre_havdd.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_havdd.TabIndex = 9;
+            this.cb_fre_havdd.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label126
             // 
@@ -4699,6 +4705,7 @@
             this.cb_fre_avdd.Name = "cb_fre_avdd";
             this.cb_fre_avdd.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_avdd.TabIndex = 7;
+            this.cb_fre_avdd.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label127
             // 
@@ -4721,6 +4728,7 @@
             this.cb_avdd_ss.Name = "cb_avdd_ss";
             this.cb_avdd_ss.Size = new System.Drawing.Size(121, 20);
             this.cb_avdd_ss.TabIndex = 5;
+            this.cb_avdd_ss.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_sst_SelectedIndexChanged);
             // 
             // label128
             // 
@@ -5154,6 +5162,7 @@
             this.cb_gocp_level.Name = "cb_gocp_level";
             this.cb_gocp_level.Size = new System.Drawing.Size(121, 20);
             this.cb_gocp_level.TabIndex = 3;
+            this.cb_gocp_level.SelectedIndexChanged += new System.EventHandler(this.cb_eocp_level_SelectedIndexChanged);
             // 
             // label90
             // 

@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console_test", "Console_tes
 EndProject
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CPBU General ATE V2_sync", "CPBU General ATE V2_sync\CPBU General ATE V2\CPBU General ATE V2_sync.vbproj", "{AFE3268E-C8B0-4547-8641-431C1469F644}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CPBU General ATE V3", "CPBU General ATE V3\CPBU General ATE V2\CPBU General ATE V3.vbproj", "{0C4E74A2-B733-40E6-A70B-675030427FF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -171,6 +173,14 @@ Global
 		{AFE3268E-C8B0-4547-8641-431C1469F644}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFE3268E-C8B0-4547-8641-431C1469F644}.Release|x86.ActiveCfg = Release|Any CPU
 		{AFE3268E-C8B0-4547-8641-431C1469F644}.Release|x86.Build.0 = Release|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Debug|x86.Build.0 = Debug|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Release|x86.ActiveCfg = Release|Any CPU
+		{0C4E74A2-B733-40E6-A70B-675030427FF0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

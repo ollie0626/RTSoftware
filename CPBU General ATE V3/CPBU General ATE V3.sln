@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CPBU General ATE V3", "CPBU General ATE V2\CPBU General ATE V3.vbproj", "{847D6380-A4EA-46BE-8568-196DAB958FAD}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CPBU ATE_Setup", "CPBU ATE_Setup\CPBU ATE_Setup.vdproj", "{48052D33-01BB-4D85-B096-DCFA5B6E11D8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{847D6380-A4EA-46BE-8568-196DAB958FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{847D6380-A4EA-46BE-8568-196DAB958FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{847D6380-A4EA-46BE-8568-196DAB958FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{847D6380-A4EA-46BE-8568-196DAB958FAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48052D33-01BB-4D85-B096-DCFA5B6E11D8}.Debug|Any CPU.ActiveCfg = Debug
+		{48052D33-01BB-4D85-B096-DCFA5B6E11D8}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
