@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.01";
+        string win_ver = "1.03";
 
 
         public Form1()
@@ -32,7 +32,7 @@ namespace RT6971
             {
                 GAM1H_ValueChanged, GAM2H_ValueChanged, GAM3H_ValueChanged, GAM4H_ValueChanged, GAM5H_ValueChanged, GAM6H_ValueChanged,
                 GAM7H_ValueChanged, GAM8H_ValueChanged, GAM9H_ValueChanged, GAM10H_ValueChanged, GAM11H_ValueChanged, GAM12H_ValueChanged,
-                GAM13H_ValueChanged, GAM14H_ValueChanged, VCOM1H_ValueChanged, VCOM2H_ValueChanged, VCOM3H_ValueChanged
+                GAM13H_ValueChanged, GAM14H_ValueChanged, VCOM1H_ValueChanged, VCOM2H_ValueChanged, VCOM3H_ValueChanged, HAVDDH_ValueChanged
             };
 
             WriteTable = new NumericUpDown[]
@@ -236,7 +236,7 @@ namespace RT6971
         private void VGL1H_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VGL1H.Value;
-            double vol = ((double)code * 1 + 18) / -10;
+            double vol = ((double)code * 2 + 18) / -10;
             if (vol < -15) vol = -15;
 
             VGL1V.Value = (decimal)vol;
@@ -710,12 +710,12 @@ namespace RT6971
             if (cb_dummy_clk.SelectedIndex == -1) return;
             if (cb_reverse.SelectedIndex == -1) return;
             if (cb_double.SelectedIndex == -1) return;
-            if (cb_en120hz.SelectedIndex == -1) return;
+            if (comboBox1.SelectedIndex == -1) return;
 
             W23.Value = cb_dummy_clk.SelectedIndex << 5 | (int)W23.Value & 0xDF;
             W23.Value = cb_reverse.SelectedIndex << 3 | (int)W23.Value & 0xF7;
             W23.Value = cb_double.SelectedIndex << 2 | (int)W23.Value & 0xFB;
-            W23.Value = cb_en120hz.SelectedIndex << 4 | (int)W23.Value & 0xEF;
+            W23.Value = comboBox1.SelectedIndex << 4 | (int)W23.Value & 0xEF;
         }
 
         private void cb_vcc2_dis_SelectedIndexChanged(object sender, EventArgs e)
@@ -744,7 +744,7 @@ namespace RT6971
             W27.Value = cb_vcc2_sync.SelectedIndex << 5 | (int)W27.Value & 0xDF;
             W27.Value = cb_vcc2_en.SelectedIndex << 4 | (int)W27.Value & 0xEF;
             W27.Value = cb_fre_vcc1.SelectedIndex << 3 | (int)W27.Value & 0xF7;
-            W27.Value = cb_ft_vcc2.SelectedIndex << 2 | (int)W27.Value & 0xFB;
+            //W27.Value = cb_ft_vcc2.SelectedIndex << 2 | (int)W27.Value & 0xFB;
         }
 
         private void cb_vgh_sst_SelectedIndexChanged(object sender, EventArgs e)
@@ -765,7 +765,16 @@ namespace RT6971
                 };
 
                 int data = 0x00;
-                for (int i = 0; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
+                //for (int i = 0; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
+                data |= cb_vgh_sst.SelectedIndex << 7;
+                data |= cb_avdd_ss.SelectedIndex << 5;
+                data |= cb_fre_avdd.SelectedIndex << 4;
+                data |= cb_fre_havdd.SelectedIndex << 3;
+                data |= cb_fre_vgh.SelectedIndex << 2;
+                data |= cb_fre_vgl.SelectedIndex << 1;
+                data |= cb_pmic_en.SelectedIndex << 0;
+
+
                 W2A.Value = data;
             }
             catch
@@ -1107,7 +1116,7 @@ namespace RT6971
             cb_dummy_clk.SelectedIndex = GetValue(code, 5, 5);
             cb_reverse.SelectedIndex = GetValue(code, 3, 3);
             cb_double.SelectedIndex = GetValue(code, 2, 2);
-            cb_en120hz.SelectedIndex = GetValue(code, 4, 4);
+            comboBox1.SelectedIndex = GetValue(code, 4, 4);
         }
 
         private void W24_ValueChanged(object sender, EventArgs e)
@@ -1147,7 +1156,7 @@ namespace RT6971
             cb_vcc2_sync.SelectedIndex = GetValue(code, 5, 5);
             cb_vcc2_en.SelectedIndex = GetValue(code, 4, 4);
             cb_fre_vcc1.SelectedIndex = GetValue(code, 3, 3);
-            cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
+            //cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
         }
 
         private void W29_ValueChanged(object sender, EventArgs e)
@@ -1564,5 +1573,12 @@ namespace RT6971
             GAM10H.Value = MSB << 8 | LSB;
 
         }
+
+        private void R27_ValueChanged(object sender, EventArgs e)
+        {
+            int code = (int)W27.Value;
+            cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
+        }
+
     }
 }

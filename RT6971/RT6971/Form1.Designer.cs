@@ -46,6 +46,14 @@
             this.AVDDH = new System.Windows.Forms.NumericUpDown();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox53 = new System.Windows.Forms.GroupBox();
+            this.label101 = new System.Windows.Forms.Label();
+            this.cb_vcc2_en = new System.Windows.Forms.ComboBox();
+            this.groupBox52 = new System.Windows.Forms.GroupBox();
+            this.label108 = new System.Windows.Forms.Label();
+            this.cb_vcc2_dis = new System.Windows.Forms.ComboBox();
+            this.cb_vgl2_dis = new System.Windows.Forms.ComboBox();
+            this.label107 = new System.Windows.Forms.Label();
             this.groupBox38 = new System.Windows.Forms.GroupBox();
             this.label102 = new System.Windows.Forms.Label();
             this.cb_vcom3_en = new System.Windows.Forms.ComboBox();
@@ -328,6 +336,8 @@
             this.label128 = new System.Windows.Forms.Label();
             this.cb_vgh_sst = new System.Windows.Forms.ComboBox();
             this.groupBox41 = new System.Windows.Forms.GroupBox();
+            this.label212 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label123 = new System.Windows.Forms.Label();
             this.cb_double = new System.Windows.Forms.ComboBox();
             this.label121 = new System.Windows.Forms.Label();
@@ -339,8 +349,6 @@
             this.cb_ft_vcc2 = new System.Windows.Forms.ComboBox();
             this.label112 = new System.Windows.Forms.Label();
             this.cb_fre_vcc1 = new System.Windows.Forms.ComboBox();
-            this.label101 = new System.Windows.Forms.Label();
-            this.cb_vcc2_en = new System.Windows.Forms.ComboBox();
             this.label109 = new System.Windows.Forms.Label();
             this.cb_vcc2_sync = new System.Windows.Forms.ComboBox();
             this.label110 = new System.Windows.Forms.Label();
@@ -350,10 +358,6 @@
             this.cb_ext_int = new System.Windows.Forms.ComboBox();
             this.label106 = new System.Windows.Forms.Label();
             this.cb_avdd_ext_drv = new System.Windows.Forms.ComboBox();
-            this.label107 = new System.Windows.Forms.Label();
-            this.cb_vgl2_dis = new System.Windows.Forms.ComboBox();
-            this.label108 = new System.Windows.Forms.Label();
-            this.cb_vcc2_dis = new System.Windows.Forms.ComboBox();
             this.groupBox35 = new System.Windows.Forms.GroupBox();
             this.cb_sclk_psk_rst = new System.Windows.Forms.ComboBox();
             this.groupBox34 = new System.Windows.Forms.GroupBox();
@@ -657,10 +661,6 @@
             this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.groupBox52 = new System.Windows.Forms.GroupBox();
-            this.groupBox53 = new System.Windows.Forms.GroupBox();
-            this.label212 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuSlave)).BeginInit();
             this.groupBox3.SuspendLayout();
@@ -668,6 +668,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.AVDDH)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox53.SuspendLayout();
+            this.groupBox52.SuspendLayout();
             this.groupBox38.SuspendLayout();
             this.groupBox40.SuspendLayout();
             this.groupBox36.SuspendLayout();
@@ -935,8 +937,6 @@
             this.statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            this.groupBox52.SuspendLayout();
-            this.groupBox53.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -1170,6 +1170,94 @@
             this.tabPage1.Size = new System.Drawing.Size(1237, 685);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vout Setting";
+            // 
+            // groupBox53
+            // 
+            this.groupBox53.Controls.Add(this.label101);
+            this.groupBox53.Controls.Add(this.cb_vcc2_en);
+            this.groupBox53.Location = new System.Drawing.Point(963, 256);
+            this.groupBox53.Name = "groupBox53";
+            this.groupBox53.Size = new System.Drawing.Size(150, 66);
+            this.groupBox53.TabIndex = 186;
+            this.groupBox53.TabStop = false;
+            this.groupBox53.Text = "27h";
+            // 
+            // label101
+            // 
+            this.label101.AutoSize = true;
+            this.label101.Location = new System.Drawing.Point(17, 18);
+            this.label101.Name = "label101";
+            this.label101.Size = new System.Drawing.Size(65, 12);
+            this.label101.TabIndex = 8;
+            this.label101.Text = "VCC2 En[4]";
+            // 
+            // cb_vcc2_en
+            // 
+            this.cb_vcc2_en.FormattingEnabled = true;
+            this.cb_vcc2_en.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vcc2_en.Location = new System.Drawing.Point(19, 36);
+            this.cb_vcc2_en.Name = "cb_vcc2_en";
+            this.cb_vcc2_en.Size = new System.Drawing.Size(121, 20);
+            this.cb_vcc2_en.TabIndex = 7;
+            this.cb_vcc2_en.SelectedIndexChanged += new System.EventHandler(this.cb_vcc1_sync_SelectedIndexChanged);
+            // 
+            // groupBox52
+            // 
+            this.groupBox52.Controls.Add(this.label108);
+            this.groupBox52.Controls.Add(this.cb_vcc2_dis);
+            this.groupBox52.Controls.Add(this.cb_vgl2_dis);
+            this.groupBox52.Controls.Add(this.label107);
+            this.groupBox52.Location = new System.Drawing.Point(963, 189);
+            this.groupBox52.Name = "groupBox52";
+            this.groupBox52.Size = new System.Drawing.Size(150, 61);
+            this.groupBox52.TabIndex = 185;
+            this.groupBox52.TabStop = false;
+            this.groupBox52.Text = "25h";
+            // 
+            // label108
+            // 
+            this.label108.AutoSize = true;
+            this.label108.Location = new System.Drawing.Point(9, 18);
+            this.label108.Name = "label108";
+            this.label108.Size = new System.Drawing.Size(73, 12);
+            this.label108.TabIndex = 4;
+            this.label108.Text = "VCC2_DIS[5]";
+            // 
+            // cb_vcc2_dis
+            // 
+            this.cb_vcc2_dis.FormattingEnabled = true;
+            this.cb_vcc2_dis.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vcc2_dis.Location = new System.Drawing.Point(11, 36);
+            this.cb_vcc2_dis.Name = "cb_vcc2_dis";
+            this.cb_vcc2_dis.Size = new System.Drawing.Size(121, 20);
+            this.cb_vcc2_dis.TabIndex = 1;
+            this.cb_vcc2_dis.SelectedIndexChanged += new System.EventHandler(this.cb_vcc2_dis_SelectedIndexChanged);
+            // 
+            // cb_vgl2_dis
+            // 
+            this.cb_vgl2_dis.FormattingEnabled = true;
+            this.cb_vgl2_dis.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.cb_vgl2_dis.Location = new System.Drawing.Point(11, 80);
+            this.cb_vgl2_dis.Name = "cb_vgl2_dis";
+            this.cb_vgl2_dis.Size = new System.Drawing.Size(121, 20);
+            this.cb_vgl2_dis.TabIndex = 5;
+            this.cb_vgl2_dis.Visible = false;
+            // 
+            // label107
+            // 
+            this.label107.AutoSize = true;
+            this.label107.Location = new System.Drawing.Point(9, 62);
+            this.label107.Name = "label107";
+            this.label107.Size = new System.Drawing.Size(72, 12);
+            this.label107.TabIndex = 6;
+            this.label107.Text = "VGL2_DIS[4]";
+            this.label107.Visible = false;
             // 
             // groupBox38
             // 
@@ -2655,7 +2743,7 @@
             // 
             // HAVDDV
             // 
-            this.HAVDDV.DecimalPlaces = 1;
+            this.HAVDDV.DecimalPlaces = 2;
             this.HAVDDV.Increment = new decimal(new int[] {
             1,
             0,
@@ -4672,6 +4760,27 @@
             this.groupBox41.TabStop = false;
             this.groupBox41.Text = "23h";
             // 
+            // label212
+            // 
+            this.label212.AutoSize = true;
+            this.label212.Location = new System.Drawing.Point(14, 57);
+            this.label212.Name = "label212";
+            this.label212.Size = new System.Drawing.Size(71, 12);
+            this.label212.TabIndex = 6;
+            this.label212.Text = "EN_120Hz[4]";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "0h : Disable",
+            "1h : Enable"});
+            this.comboBox1.Location = new System.Drawing.Point(16, 72);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 20);
+            this.comboBox1.TabIndex = 7;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.cb_dummy_clk_SelectedIndexChanged);
+            // 
             // label123
             // 
             this.label123.AutoSize = true;
@@ -4763,6 +4872,7 @@
             // 
             // cb_ft_vcc2
             // 
+            this.cb_ft_vcc2.Enabled = false;
             this.cb_ft_vcc2.FormattingEnabled = true;
             this.cb_ft_vcc2.Items.AddRange(new object[] {
             "FT_VCC2: the UVP, SCP flag = 0",
@@ -4793,27 +4903,6 @@
             this.cb_fre_vcc1.Size = new System.Drawing.Size(121, 20);
             this.cb_fre_vcc1.TabIndex = 9;
             this.cb_fre_vcc1.SelectedIndexChanged += new System.EventHandler(this.cb_vcc1_sync_SelectedIndexChanged);
-            // 
-            // label101
-            // 
-            this.label101.AutoSize = true;
-            this.label101.Location = new System.Drawing.Point(17, 18);
-            this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(65, 12);
-            this.label101.TabIndex = 8;
-            this.label101.Text = "VCC2 En[4]";
-            // 
-            // cb_vcc2_en
-            // 
-            this.cb_vcc2_en.FormattingEnabled = true;
-            this.cb_vcc2_en.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
-            this.cb_vcc2_en.Location = new System.Drawing.Point(19, 36);
-            this.cb_vcc2_en.Name = "cb_vcc2_en";
-            this.cb_vcc2_en.Size = new System.Drawing.Size(121, 20);
-            this.cb_vcc2_en.TabIndex = 7;
-            this.cb_vcc2_en.SelectedIndexChanged += new System.EventHandler(this.cb_vcc1_sync_SelectedIndexChanged);
             // 
             // label109
             // 
@@ -4889,6 +4978,7 @@
             this.cb_ext_int.Name = "cb_ext_int";
             this.cb_ext_int.Size = new System.Drawing.Size(121, 20);
             this.cb_ext_int.TabIndex = 9;
+            this.cb_ext_int.SelectedIndexChanged += new System.EventHandler(this.cb_vcc2_dis_SelectedIndexChanged);
             // 
             // label106
             // 
@@ -4911,47 +5001,7 @@
             this.cb_avdd_ext_drv.Name = "cb_avdd_ext_drv";
             this.cb_avdd_ext_drv.Size = new System.Drawing.Size(121, 20);
             this.cb_avdd_ext_drv.TabIndex = 7;
-            // 
-            // label107
-            // 
-            this.label107.AutoSize = true;
-            this.label107.Location = new System.Drawing.Point(9, 62);
-            this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(72, 12);
-            this.label107.TabIndex = 6;
-            this.label107.Text = "VGL2_DIS[4]";
-            // 
-            // cb_vgl2_dis
-            // 
-            this.cb_vgl2_dis.FormattingEnabled = true;
-            this.cb_vgl2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
-            this.cb_vgl2_dis.Location = new System.Drawing.Point(11, 80);
-            this.cb_vgl2_dis.Name = "cb_vgl2_dis";
-            this.cb_vgl2_dis.Size = new System.Drawing.Size(121, 20);
-            this.cb_vgl2_dis.TabIndex = 5;
-            // 
-            // label108
-            // 
-            this.label108.AutoSize = true;
-            this.label108.Location = new System.Drawing.Point(9, 18);
-            this.label108.Name = "label108";
-            this.label108.Size = new System.Drawing.Size(73, 12);
-            this.label108.TabIndex = 4;
-            this.label108.Text = "VCC2_DIS[5]";
-            // 
-            // cb_vcc2_dis
-            // 
-            this.cb_vcc2_dis.FormattingEnabled = true;
-            this.cb_vcc2_dis.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
-            this.cb_vcc2_dis.Location = new System.Drawing.Point(11, 36);
-            this.cb_vcc2_dis.Name = "cb_vcc2_dis";
-            this.cb_vcc2_dis.Size = new System.Drawing.Size(121, 20);
-            this.cb_vcc2_dis.TabIndex = 1;
-            this.cb_vcc2_dis.SelectedIndexChanged += new System.EventHandler(this.cb_vcc2_dis_SelectedIndexChanged);
+            this.cb_avdd_ext_drv.SelectedIndexChanged += new System.EventHandler(this.cb_vcc2_dis_SelectedIndexChanged);
             // 
             // groupBox35
             // 
@@ -8611,6 +8661,7 @@
             this.R27.Size = new System.Drawing.Size(46, 22);
             this.R27.TabIndex = 328;
             this.R27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.R27.ValueChanged += new System.EventHandler(this.R27_ValueChanged);
             // 
             // label40
             // 
@@ -9003,51 +9054,6 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Visible = false;
             // 
-            // groupBox52
-            // 
-            this.groupBox52.Controls.Add(this.label108);
-            this.groupBox52.Controls.Add(this.cb_vcc2_dis);
-            this.groupBox52.Controls.Add(this.cb_vgl2_dis);
-            this.groupBox52.Controls.Add(this.label107);
-            this.groupBox52.Location = new System.Drawing.Point(963, 189);
-            this.groupBox52.Name = "groupBox52";
-            this.groupBox52.Size = new System.Drawing.Size(150, 113);
-            this.groupBox52.TabIndex = 185;
-            this.groupBox52.TabStop = false;
-            this.groupBox52.Text = "25h";
-            // 
-            // groupBox53
-            // 
-            this.groupBox53.Controls.Add(this.label101);
-            this.groupBox53.Controls.Add(this.cb_vcc2_en);
-            this.groupBox53.Location = new System.Drawing.Point(963, 310);
-            this.groupBox53.Name = "groupBox53";
-            this.groupBox53.Size = new System.Drawing.Size(150, 66);
-            this.groupBox53.TabIndex = 186;
-            this.groupBox53.TabStop = false;
-            this.groupBox53.Text = "24h";
-            // 
-            // label212
-            // 
-            this.label212.AutoSize = true;
-            this.label212.Location = new System.Drawing.Point(14, 57);
-            this.label212.Name = "label212";
-            this.label212.Size = new System.Drawing.Size(71, 12);
-            this.label212.TabIndex = 6;
-            this.label212.Text = "EN_120Hz[4]";
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "0h : Disable",
-            "1h : Enable"});
-            this.comboBox1.Location = new System.Drawing.Point(16, 72);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 20);
-            this.comboBox1.TabIndex = 7;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.cb_dummy_clk_SelectedIndexChanged);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -9082,6 +9088,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.AVDDH)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox53.ResumeLayout(false);
+            this.groupBox53.PerformLayout();
+            this.groupBox52.ResumeLayout(false);
+            this.groupBox52.PerformLayout();
             this.groupBox38.ResumeLayout(false);
             this.groupBox38.PerformLayout();
             this.groupBox40.ResumeLayout(false);
@@ -9400,10 +9410,6 @@
             this.statusStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            this.groupBox52.ResumeLayout(false);
-            this.groupBox52.PerformLayout();
-            this.groupBox53.ResumeLayout(false);
-            this.groupBox53.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -73,6 +73,7 @@ namespace SoftStartTiming
         {
             //int value = (lpm << 0 | g1 << 1 | g2 << 2);
             int mask = 1 << LPM | 1 << G1 | 1 << G2;
+            
             RTDev.GPIOnState((uint)mask, (uint)state);
         }
 
@@ -157,7 +158,7 @@ namespace SoftStartTiming
             if (rising_en)
             {
                 // normal mode
-                if ((string)test_parameter.vidio.criteria[case_idx].rise_time != "NA")
+                if ((string)test_parameter.vidio.criteria[case_idx].rise_time != "NA" && !test_parameter.vidio.criteria[case_idx].lpm_en)
                 {
                     time_scale = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time) * Math.Pow(10, -6);
                 }
@@ -414,6 +415,8 @@ namespace SoftStartTiming
                     // measure overshoot
                     double res = (vmax - vout_af) / vout_af;
                     overshoot_list.Add(res);
+                    //overshoot_list.Add(vmax);
+
                 }
             }
 
@@ -538,8 +541,6 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetCursorSource(2, 1);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                 }
-
-
                 vmin = InsControl._oscilloscope.MeasureMean(meas_vmin);
                 vmin_list.Add(vmin);
 
@@ -549,12 +550,7 @@ namespace SoftStartTiming
                     fall_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
                     slew_rate = Math.Abs(InsControl._oscilloscope.GetCursorHBarDelta() / fall_time);
-
-
                     Console.WriteLine("Fall time = {0}, Fall SR = {1}", fall_time, slew_rate);
-
-
-
                     slewrate_list.Add(slew_rate);
                     fall_time_list.Add(fall_time);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_falling");
@@ -564,6 +560,7 @@ namespace SoftStartTiming
                 {
                     // measure undershoot
                     double res = (vmin - vout) / vout;
+                    //undershoot_list.Add(vmin);
                     undershoot_list.Add(res);
                 }
             }
@@ -749,7 +746,6 @@ namespace SoftStartTiming
 
                         _sheet.Cells[row, XLS_Table.K] = slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.L] = rise_time_list.Max() * Math.Pow(10, 6);
-                        _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
                             _sheet.Cells[row, XLS_Table.W] = delay_list.Max() * Math.Pow(10, 6);
@@ -758,6 +754,7 @@ namespace SoftStartTiming
 
 
                         SlewRate_Rise_Task(case_idx, true);         // overshoot
+                        _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         string shoot_max = test_parameter.waveform_name + "_overshoot";
                         _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
@@ -773,9 +770,9 @@ namespace SoftStartTiming
 
                         _sheet.Cells[row, XLS_Table.O] = test_parameter.vidio.criteria[case_idx].lpm_en ? slewrate_list.Min() : slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.P] = test_parameter.vidio.criteria[case_idx].lpm_en ? fall_time_list.Max() * Math.Pow(10, 3) : fall_time_list.Max() * Math.Pow(10, 6);
-                        _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
 
                         SlewRate_Fall_Task(case_idx, true);
+                        _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
                         shoot_max = test_parameter.waveform_name + "_undershoot";
                         // past over/under-shoot max case
                         _range = _sheet.Range["BE" + (wave_row + 2), "BM" + (wave_row + 25)];
@@ -823,8 +820,8 @@ namespace SoftStartTiming
                             rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
                             fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
 
-                            rise_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.I].Value);
-                            fall_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.M].Value);
+                            rise_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
+                            fall_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
                             // rise and fall time small is good.
                             judge_time = (rise_time_res > rise_time | fall_time_res > fall_time) ? false : true;
                         }
