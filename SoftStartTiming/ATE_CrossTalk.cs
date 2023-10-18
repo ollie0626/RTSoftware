@@ -1,8 +1,8 @@
 ﻿
 #define Report_en
-#define Power_en
-#define Eload_en
-#define Scope_en
+//#define Power_en
+//#define Eload_en
+//#define Scope_en
 
 
 using System;
@@ -73,11 +73,11 @@ namespace SoftStartTiming
 #if Eload_en
                             InsControl._eload.Loading(parameter.sw_en[parameter.idx] + 1, parameter.iout[parameter.idx]);
                             temp = InsControl._eload.GetIout();
+                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
 #endif
 
 #if Report_en
-
-                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
+                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
 #endif
                         }
                         else
@@ -450,7 +450,7 @@ namespace SoftStartTiming
 
                 //rail_info += ",full load=" + test_parameter.full_load[i] + "\r\n";
 
-
+                rail_info += ",full load:";
                 for (int j = 0; j < test_parameter.full_load[i].Count; j++)
                 {
                     rail_info += test_parameter.full_load[i][j] + ((j == test_parameter.full_load[i].Count - 1) ? "A" : "A, ");
