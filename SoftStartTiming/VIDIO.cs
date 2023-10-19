@@ -17,12 +17,13 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Text.RegularExpressions;
 using System.Runtime.CompilerServices;
 using Microsoft.Win32;
+using Microsoft.Office.Interop.Excel;
 
 namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.07";
+        string win_name = "VIDIO v1.09";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -35,6 +36,8 @@ namespace SoftStartTiming
         ATE_VIDIO _ate_vid_io;
         ToolStripMenuItem[] _item = new ToolStripMenuItem[2];
         DataGridView DV = new DataGridView();
+
+        RTBBControl RTDev = new RTBBControl();
 
 
         private void InitDG()
@@ -369,7 +372,7 @@ namespace SoftStartTiming
         {
             BTScan_Click(null, null);
 
-            Button bt = (Button)sender;
+            System.Windows.Forms.Button bt = (System.Windows.Forms.Button)sender;
             int idx = bt.TabIndex;
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             // scope idn name keysight DSOS054A DSO9064A  Tek DPO7054C DSO9064A
@@ -616,10 +619,10 @@ namespace SoftStartTiming
                     switch (obj_arr[i].GetType().Name)
                     {
                         case "TextBox":
-                            ((TextBox)obj_arr[i]).Text = info[i];
+                            ((System.Windows.Forms.TextBox)obj_arr[i]).Text = info[i];
                             break;
                         case "CheckBox":
-                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
+                            ((System.Windows.Forms.CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
                             break;
                         case "NumericUpDown":
                             ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
@@ -776,6 +779,51 @@ namespace SoftStartTiming
             nu_vmin.Value = (decimal)(vbase * 0.95);
             numericUpDown1.Value = (decimal)(vtop - ((double)nu_diff.Value * 0.2));
             numericUpDown2.Value = (decimal)(vbase + ((double)nu_diff.Value * 0.2));
+        }
+
+        private void btn_lpm_on_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
+
+            switch (btn.TabIndex)
+            {
+                case 0:
+                    RTDev.Gp1En_Enable();
+                    break;
+                case 1:
+                    RTDev.Gp1En_Disable();
+                    break;
+            }
+        }
+
+        private void btn_g0_on_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
+
+            switch (btn.TabIndex)
+            {
+                case 0:
+                    RTDev.Gp2En_Enable();
+                    break;
+                case 1:
+                    RTDev.Gp2En_Disable();
+                    break;
+            }
+        }
+
+        private void btn_g1_on_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.Button btn = (System.Windows.Forms.Button)sender;
+
+            switch (btn.TabIndex)
+            {
+                case 0:
+                    RTDev.Gp3En_Enable();
+                    break;
+                case 1:
+                    RTDev.Gp3En_Disable();
+                    break;
+            }
         }
     }
 

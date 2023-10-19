@@ -74,6 +74,23 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btn_g1_off = new System.Windows.Forms.Button();
+            this.btn_g1_on = new System.Windows.Forms.Button();
+            this.panel6 = new System.Windows.Forms.Panel();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.btn_g0_off = new System.Windows.Forms.Button();
+            this.btn_g0_on = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.btn_lpm_off = new System.Windows.Forms.Button();
+            this.btn_lpm_on = new System.Windows.Forms.Button();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
             this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
@@ -112,8 +129,6 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -121,6 +136,12 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.panel5.SuspendLayout();
+            this.panel6.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).BeginInit();
@@ -565,6 +586,12 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.panel5);
+            this.tabPage2.Controls.Add(this.panel6);
+            this.tabPage2.Controls.Add(this.panel3);
+            this.tabPage2.Controls.Add(this.panel2);
+            this.tabPage2.Controls.Add(this.panel4);
+            this.tabPage2.Controls.Add(this.panel1);
             this.tabPage2.Controls.Add(this.label17);
             this.tabPage2.Controls.Add(this.label16);
             this.tabPage2.Controls.Add(this.numericUpDown2);
@@ -601,11 +628,182 @@ namespace SoftStartTiming
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
             // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Silver;
+            this.panel5.Controls.Add(this.btn_g1_off);
+            this.panel5.Controls.Add(this.btn_g1_on);
+            this.panel5.Location = new System.Drawing.Point(696, 229);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(107, 34);
+            this.panel5.TabIndex = 164;
+            // 
+            // btn_g1_off
+            // 
+            this.btn_g1_off.Location = new System.Drawing.Point(55, 7);
+            this.btn_g1_off.Name = "btn_g1_off";
+            this.btn_g1_off.Size = new System.Drawing.Size(43, 23);
+            this.btn_g1_off.TabIndex = 1;
+            this.btn_g1_off.Text = "OFF";
+            this.btn_g1_off.UseVisualStyleBackColor = true;
+            this.btn_g1_off.Click += new System.EventHandler(this.btn_g1_on_Click);
+            // 
+            // btn_g1_on
+            // 
+            this.btn_g1_on.Location = new System.Drawing.Point(9, 7);
+            this.btn_g1_on.Name = "btn_g1_on";
+            this.btn_g1_on.Size = new System.Drawing.Size(43, 23);
+            this.btn_g1_on.TabIndex = 0;
+            this.btn_g1_on.Text = "ON";
+            this.btn_g1_on.UseVisualStyleBackColor = true;
+            this.btn_g1_on.Click += new System.EventHandler(this.btn_g1_on_Click);
+            // 
+            // panel6
+            // 
+            this.panel6.BackColor = System.Drawing.Color.Silver;
+            this.panel6.Controls.Add(this.textBox3);
+            this.panel6.Location = new System.Drawing.Point(617, 229);
+            this.panel6.Name = "panel6";
+            this.panel6.Size = new System.Drawing.Size(76, 34);
+            this.panel6.TabIndex = 163;
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.White;
+            this.textBox3.Enabled = false;
+            this.textBox3.Location = new System.Drawing.Point(8, 7);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ReadOnly = true;
+            this.textBox3.Size = new System.Drawing.Size(56, 22);
+            this.textBox3.TabIndex = 0;
+            this.textBox3.Text = "G1";
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Silver;
+            this.panel3.Controls.Add(this.btn_g0_off);
+            this.panel3.Controls.Add(this.btn_g0_on);
+            this.panel3.Location = new System.Drawing.Point(696, 189);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(107, 34);
+            this.panel3.TabIndex = 162;
+            // 
+            // btn_g0_off
+            // 
+            this.btn_g0_off.Location = new System.Drawing.Point(55, 7);
+            this.btn_g0_off.Name = "btn_g0_off";
+            this.btn_g0_off.Size = new System.Drawing.Size(43, 23);
+            this.btn_g0_off.TabIndex = 1;
+            this.btn_g0_off.Text = "OFF";
+            this.btn_g0_off.UseVisualStyleBackColor = true;
+            this.btn_g0_off.Click += new System.EventHandler(this.btn_g0_on_Click);
+            // 
+            // btn_g0_on
+            // 
+            this.btn_g0_on.Location = new System.Drawing.Point(9, 7);
+            this.btn_g0_on.Name = "btn_g0_on";
+            this.btn_g0_on.Size = new System.Drawing.Size(43, 23);
+            this.btn_g0_on.TabIndex = 0;
+            this.btn_g0_on.Text = "ON";
+            this.btn_g0_on.UseVisualStyleBackColor = true;
+            this.btn_g0_on.Click += new System.EventHandler(this.btn_g0_on_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Silver;
+            this.panel2.Controls.Add(this.btn_lpm_off);
+            this.panel2.Controls.Add(this.btn_lpm_on);
+            this.panel2.Location = new System.Drawing.Point(696, 149);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(107, 34);
+            this.panel2.TabIndex = 158;
+            // 
+            // btn_lpm_off
+            // 
+            this.btn_lpm_off.Location = new System.Drawing.Point(55, 7);
+            this.btn_lpm_off.Name = "btn_lpm_off";
+            this.btn_lpm_off.Size = new System.Drawing.Size(43, 23);
+            this.btn_lpm_off.TabIndex = 1;
+            this.btn_lpm_off.Text = "OFF";
+            this.btn_lpm_off.UseVisualStyleBackColor = true;
+            this.btn_lpm_off.Click += new System.EventHandler(this.btn_lpm_on_Click);
+            // 
+            // btn_lpm_on
+            // 
+            this.btn_lpm_on.Location = new System.Drawing.Point(9, 7);
+            this.btn_lpm_on.Name = "btn_lpm_on";
+            this.btn_lpm_on.Size = new System.Drawing.Size(43, 23);
+            this.btn_lpm_on.TabIndex = 0;
+            this.btn_lpm_on.Text = "ON";
+            this.btn_lpm_on.UseVisualStyleBackColor = true;
+            this.btn_lpm_on.Click += new System.EventHandler(this.btn_lpm_on_Click);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.Silver;
+            this.panel4.Controls.Add(this.textBox2);
+            this.panel4.Location = new System.Drawing.Point(617, 189);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(76, 34);
+            this.panel4.TabIndex = 161;
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.White;
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(8, 7);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(56, 22);
+            this.textBox2.TabIndex = 0;
+            this.textBox2.Text = "G0";
+            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.Silver;
+            this.panel1.Controls.Add(this.textBox1);
+            this.panel1.Location = new System.Drawing.Point(617, 149);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(76, 34);
+            this.panel1.TabIndex = 157;
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.White;
+            this.textBox1.Enabled = false;
+            this.textBox1.Location = new System.Drawing.Point(8, 7);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(56, 22);
+            this.textBox1.TabIndex = 0;
+            this.textBox1.Text = "LPM";
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(703, 94);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(86, 12);
+            this.label17.TabIndex = 156;
+            this.label17.Text = "base+diff*0.2 ";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(615, 94);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(78, 12);
+            this.label16.TabIndex = 155;
+            this.label16.Text = "top-diff*0.2 ";
+            // 
             // numericUpDown2
             // 
             this.numericUpDown2.DecimalPlaces = 3;
             this.numericUpDown2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown2.Location = new System.Drawing.Point(696, 108);
+            this.numericUpDown2.Location = new System.Drawing.Point(704, 108);
             this.numericUpDown2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown2.Maximum = new decimal(new int[] {
             6000,
@@ -625,7 +823,7 @@ namespace SoftStartTiming
             // 
             this.numericUpDown1.DecimalPlaces = 3;
             this.numericUpDown1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.numericUpDown1.Location = new System.Drawing.Point(609, 108);
+            this.numericUpDown1.Location = new System.Drawing.Point(617, 108);
             this.numericUpDown1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.numericUpDown1.Maximum = new decimal(new int[] {
             6000,
@@ -644,7 +842,7 @@ namespace SoftStartTiming
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(777, 56);
+            this.label13.Location = new System.Drawing.Point(785, 56);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(66, 12);
             this.label13.TabIndex = 152;
@@ -654,7 +852,7 @@ namespace SoftStartTiming
             // 
             this.nu_vmin.DecimalPlaces = 3;
             this.nu_vmin.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vmin.Location = new System.Drawing.Point(779, 70);
+            this.nu_vmin.Location = new System.Drawing.Point(787, 70);
             this.nu_vmin.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vmin.Maximum = new decimal(new int[] {
             6000,
@@ -673,7 +871,7 @@ namespace SoftStartTiming
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(694, 55);
+            this.label12.Location = new System.Drawing.Point(702, 55);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(68, 12);
             this.label12.TabIndex = 150;
@@ -683,7 +881,7 @@ namespace SoftStartTiming
             // 
             this.nu_vmax.DecimalPlaces = 3;
             this.nu_vmax.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vmax.Location = new System.Drawing.Point(696, 69);
+            this.nu_vmax.Location = new System.Drawing.Point(704, 69);
             this.nu_vmax.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vmax.Maximum = new decimal(new int[] {
             6000,
@@ -702,7 +900,7 @@ namespace SoftStartTiming
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(607, 55);
+            this.label11.Location = new System.Drawing.Point(615, 55);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 12);
             this.label11.TabIndex = 148;
@@ -712,7 +910,7 @@ namespace SoftStartTiming
             // 
             this.nu_diff.DecimalPlaces = 3;
             this.nu_diff.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_diff.Location = new System.Drawing.Point(609, 69);
+            this.nu_diff.Location = new System.Drawing.Point(617, 69);
             this.nu_diff.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_diff.Maximum = new decimal(new int[] {
             6000,
@@ -732,7 +930,7 @@ namespace SoftStartTiming
             // 
             this.nu_vtop.DecimalPlaces = 3;
             this.nu_vtop.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vtop.Location = new System.Drawing.Point(696, 29);
+            this.nu_vtop.Location = new System.Drawing.Point(704, 29);
             this.nu_vtop.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vtop.Maximum = new decimal(new int[] {
             6000,
@@ -752,7 +950,7 @@ namespace SoftStartTiming
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(694, 15);
+            this.label8.Location = new System.Drawing.Point(702, 15);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(32, 12);
             this.label8.TabIndex = 145;
@@ -762,7 +960,7 @@ namespace SoftStartTiming
             // 
             this.nu_vbase.DecimalPlaces = 3;
             this.nu_vbase.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_vbase.Location = new System.Drawing.Point(609, 29);
+            this.nu_vbase.Location = new System.Drawing.Point(617, 29);
             this.nu_vbase.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nu_vbase.Maximum = new decimal(new int[] {
             6000,
@@ -782,7 +980,7 @@ namespace SoftStartTiming
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(607, 15);
+            this.label7.Location = new System.Drawing.Point(615, 15);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(38, 12);
             this.label7.TabIndex = 143;
@@ -1071,24 +1269,6 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(607, 94);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(78, 12);
-            this.label16.TabIndex = 155;
-            this.label16.Text = "top-diff*0.2 ";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(695, 94);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(86, 12);
-            this.label17.TabIndex = 156;
-            this.label17.Text = "base+diff*0.2 ";
-            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1115,6 +1295,15 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.panel5.ResumeLayout(false);
+            this.panel6.ResumeLayout(false);
+            this.panel6.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_vmin)).EndInit();
@@ -1222,5 +1411,20 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown numericUpDown1;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Button btn_lpm_on;
+        private System.Windows.Forms.Button btn_lpm_off;
+        private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btn_g1_off;
+        private System.Windows.Forms.Button btn_g1_on;
+        private System.Windows.Forms.Panel panel6;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button btn_g0_off;
+        private System.Windows.Forms.Button btn_g0_on;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

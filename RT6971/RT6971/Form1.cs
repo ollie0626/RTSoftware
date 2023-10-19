@@ -402,7 +402,7 @@ namespace RT6971
             int MSB = (code & 0x300) >> 8;
             int LSB = (code & 0xFF);
 
-            W30.Value = MSB | (int)W30.Value & 0xFC;
+            W30.Value = MSB;
             W31.Value = LSB;
         }
 
@@ -587,7 +587,8 @@ namespace RT6971
                 };
                 int data = 0x00;
                 for (int i = 5; i < 8; i++) data |= cb_arr[i - 5].SelectedIndex << i;
-                W26.Value = data | (int)W26.Value & 0x1F;
+                W26.Value = data;
+                //W26.Value = data | (int)W26.Value & 0x1F;
             }
             catch
             {
@@ -623,7 +624,7 @@ namespace RT6971
             if (cb_vcom_tc_en.SelectedIndex == -1) return;
             if (cb_tc_type.SelectedIndex == -1) return;
 
-            W1D.Value = cb_vgh_tc_en.SelectedIndex << 7 | cb_vcom_tc_en.SelectedIndex << 6 | cb_tc_type.SelectedIndex << 5 | (int)W1D.Value & 0x1F;
+            W1D.Value = cb_vgh_tc_en.SelectedIndex << 7 | cb_vcom_tc_en.SelectedIndex << 6 | cb_tc_type.SelectedIndex << 5; // | (int)W1D.Value & 0x1F;
 
 
             string[] TC_Mode1 = new string[]
@@ -662,10 +663,11 @@ namespace RT6971
             if (cb_vgx_prt_off.SelectedIndex == -1) return;
             if (cb_vcom_tc.SelectedIndex == -1) return;
 
-            W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | (int)W1E.Value & 0x3F;
-            W1E.Value = cb_vgx_prt_off.SelectedIndex << 5 | (int)W1E.Value & 0xDF;
-            W1E.Value = cb_vcom_tc.SelectedIndex | (int)W1E.Value & 0xF0;
+            //W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | (int)W1E.Value & 0x3F;
+            //W1E.Value = cb_vgx_prt_off.SelectedIndex << 5 | (int)W1E.Value & 0xDF;
+            //W1E.Value = cb_vcom_tc.SelectedIndex | (int)W1E.Value & 0xF0;
 
+            W1E.Value = cb_vgh_tc_mode.SelectedIndex << 6 | cb_vgx_prt_off.SelectedIndex << 5 | cb_vcom_tc.SelectedIndex;
 
             cb_vgh_tc_mode.Width = 121;
             groupBox31.Width = 165;
@@ -676,8 +678,8 @@ namespace RT6971
             if (cb_eocp_time.SelectedIndex == -1) return;
             if (cb_gocp_time.SelectedIndex == -1) return;
 
-            W1F.Value = cb_eocp_time.SelectedIndex << 4 | (int)W1F.Value & 0x0F;
-            W1F.Value = cb_gocp_time.SelectedIndex | (int)W1F.Value & 0xF0;
+            W1F.Value = cb_eocp_time.SelectedIndex << 4 | cb_gocp_time.SelectedIndex;
+            //W1F.Value = cb_gocp_time.SelectedIndex | (int)W1F.Value & 0xF0;
 
         }
 
@@ -686,8 +688,8 @@ namespace RT6971
             if (cb_eocp_level.SelectedIndex == -1) return;
             if (cb_gocp_level.SelectedIndex == -1) return;
 
-            W20.Value = cb_eocp_level.SelectedIndex << 4 | (int)W20.Value & 0x8F;
-            W20.Value = cb_gocp_level.SelectedIndex << 0 | (int)W20.Value & 0xF0;
+            W20.Value = cb_eocp_level.SelectedIndex << 4 | cb_gocp_level.SelectedIndex << 0;
+            //W20.Value = cb_gocp_level.SelectedIndex << 0 | (int)W20.Value & 0xF0;
         }
 
         private void cb_socp_time_SelectedIndexChanged(object sender, EventArgs e)
@@ -695,14 +697,14 @@ namespace RT6971
             if (cb_socp_time.SelectedIndex == -1) return;
             if (cb_socp_level.SelectedIndex == -1) return;
 
-            W21.Value = cb_socp_time.SelectedIndex << 4 | (int)W21.Value & 0x0F;
-            W21.Value = cb_socp_level.SelectedIndex << 0 | (int)W21.Value & 0xF0;
+            W21.Value = cb_socp_time.SelectedIndex << 4 | cb_socp_level.SelectedIndex << 0;
+            //W21.Value = cb_socp_level.SelectedIndex << 0 | (int)W21.Value & 0xF0;
         }
 
         private void cb_sclk_psk_rst_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cb_sclk_psk_rst.SelectedIndex == -1) return;
-            W22.Value = cb_sclk_psk_rst.SelectedIndex << 5 | (int)W22.Value & 0xDF;
+            W22.Value = cb_sclk_psk_rst.SelectedIndex << 5;// | (int)W22.Value & 0xDF;
         }
 
         private void cb_dummy_clk_SelectedIndexChanged(object sender, EventArgs e)
@@ -712,10 +714,15 @@ namespace RT6971
             if (cb_double.SelectedIndex == -1) return;
             if (comboBox1.SelectedIndex == -1) return;
 
-            W23.Value = cb_dummy_clk.SelectedIndex << 5 | (int)W23.Value & 0xDF;
-            W23.Value = cb_reverse.SelectedIndex << 3 | (int)W23.Value & 0xF7;
-            W23.Value = cb_double.SelectedIndex << 2 | (int)W23.Value & 0xFB;
-            W23.Value = comboBox1.SelectedIndex << 4 | (int)W23.Value & 0xEF;
+            //W23.Value = cb_dummy_clk.SelectedIndex << 5 | (int)W23.Value & 0xDF;
+            //W23.Value = cb_reverse.SelectedIndex << 3 | (int)W23.Value & 0xF7;
+            //W23.Value = cb_double.SelectedIndex << 2 | (int)W23.Value & 0xFB;
+            //W23.Value = comboBox1.SelectedIndex << 4 | (int)W23.Value & 0xEF;
+
+            W23.Value = cb_dummy_clk.SelectedIndex << 5 |
+                        cb_reverse.SelectedIndex << 3 |
+                        cb_double.SelectedIndex << 2 |
+                        comboBox1.SelectedIndex << 4;
         }
 
         private void cb_vcc2_dis_SelectedIndexChanged(object sender, EventArgs e)
@@ -726,10 +733,12 @@ namespace RT6971
             if (cb_ext_int.SelectedIndex == -1) return;
 
 
-            W25.Value = cb_vcc2_dis.SelectedIndex << 5 | (int)W25.Value & 0xDF;
-            W25.Value = cb_vgl2_dis.SelectedIndex << 4 | (int)W25.Value & 0xEF;
-            W25.Value = cb_avdd_ext_drv.SelectedIndex << 1 | (int)W25.Value & 0xF9;
-            W25.Value = cb_ext_int.SelectedIndex << 0 | (int)W25.Value & 0xFE;
+            //W25.Value = cb_vcc2_dis.SelectedIndex << 5 | (int)W25.Value & 0xDF;
+            //W25.Value = cb_vgl2_dis.SelectedIndex << 4 | (int)W25.Value & 0xEF;
+            //W25.Value = cb_avdd_ext_drv.SelectedIndex << 1 | (int)W25.Value & 0xF9;
+            //W25.Value = cb_ext_int.SelectedIndex << 0 | (int)W25.Value & 0xFE;
+
+            W25.Value = cb_vcc2_dis.SelectedIndex << 5 | cb_vgl2_dis.SelectedIndex << 4 | cb_avdd_ext_drv.SelectedIndex << 1 | cb_ext_int.SelectedIndex << 0;
         }
 
         private void cb_vcc1_sync_SelectedIndexChanged(object sender, EventArgs e)
@@ -740,11 +749,18 @@ namespace RT6971
             if (cb_fre_vcc1.SelectedIndex == -1) return;
             //if (cb_ft_vcc2.SelectedIndex == -1) return;
 
-            W27.Value = cb_vcc1_sync.SelectedIndex << 6 | (int)W27.Value & 0xBF;
-            W27.Value = cb_vcc2_sync.SelectedIndex << 5 | (int)W27.Value & 0xDF;
-            W27.Value = cb_vcc2_en.SelectedIndex << 4 | (int)W27.Value & 0xEF;
-            W27.Value = cb_fre_vcc1.SelectedIndex << 3 | (int)W27.Value & 0xF7;
+            //W27.Value = cb_vcc1_sync.SelectedIndex << 6 | (int)W27.Value & 0xBF;
+            //W27.Value = cb_vcc2_sync.SelectedIndex << 5 | (int)W27.Value & 0xDF;
+            //W27.Value = cb_vcc2_en.SelectedIndex << 4 | (int)W27.Value & 0xEF;
+            //W27.Value = cb_fre_vcc1.SelectedIndex << 3 | (int)W27.Value & 0xF7;
+
             //W27.Value = cb_ft_vcc2.SelectedIndex << 2 | (int)W27.Value & 0xFB;
+
+
+            W27.Value = cb_vcc1_sync.SelectedIndex << 6 |
+                cb_vcc2_sync.SelectedIndex << 5 |
+                cb_vcc2_en.SelectedIndex << 4 |
+                cb_fre_vcc1.SelectedIndex << 3;
         }
 
         private void cb_vgh_sst_SelectedIndexChanged(object sender, EventArgs e)
@@ -788,8 +804,11 @@ namespace RT6971
             if (cb_ocp_level.SelectedIndex == -1) return;
             if (cb_ocp_time.SelectedIndex == -1) return;
 
-            W2B.Value = cb_ocp_level.SelectedIndex << 5 | (int)W2B.Value & 0x1F;
-            W2B.Value = cb_ocp_time.SelectedIndex << 0 | (int)W2B.Value & 0xF8;
+            //W2B.Value = cb_ocp_level.SelectedIndex << 5 | (int)W2B.Value & 0x1F;
+            //W2B.Value = cb_ocp_time.SelectedIndex << 0 | (int)W2B.Value & 0xF8;
+
+
+           W2B.Value = cb_ocp_level.SelectedIndex << 5 | cb_ocp_time.SelectedIndex << 0;
         }
 
         private void cb_avdd_protect_SelectedIndexChanged(object sender, EventArgs e)
