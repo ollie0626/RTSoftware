@@ -494,19 +494,12 @@
 
             If Meter_change_range = True Then
                 'Select Case sense_vin_test
-
                 '    Case "Test1"
-
                 '        PartI.Sense_vin()
-
-
                 'End Select
-
                 i = 1
                 temp = meter_meas(meter_name, Meter_Dev, Meter_range_now, mini_range)
-
             End If
-
 
             While temp = 0
 
@@ -527,29 +520,160 @@
                 End If
             End While
 
-
-
-
             If i = 1 Then
                 total = temp
             Else
                 total = total + temp
             End If
-
         Next
-
-
-
-
-
-
-
         If average > 0 Then
             total = total / average
         Else
             total = 0
         End If
+        Return total
+    End Function
 
+    Function realy_out_meter_initial() As Integer
+        reg_write_word(out_io_id, &H3, &H0, "H", device_sel)
+        reg_write_word(out_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
+
+        ' write comp value to ic 
+        reg_write_word(out_high_id, &H5, out_high_comp, "H", device_sel)
+        reg_write_word(out_middle_id, &H5, out_middle_comp, "H", device_sel)
+        reg_write_word(out_low_id, &H5, out_low_comp, "H", device_sel)
+        Return 0
+    End Function
+
+    Function relay_in_meter_intial() As Integer
+        reg_write_word(in_io_id, &H3, &H0, "H", device_sel)
+        reg_write_word(in_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
+
+        ' write comp value to ic 
+        reg_write_word(in_high_id, &H5, in_high_comp, "H", device_sel)
+        reg_write_word(in_middle_id, &H5, in_middle_comp, "H", device_sel)
+        reg_write_word(in_low_id, &H5, in_low_comp, "H", device_sel)
+        Return 0
+    End Function
+
+    Function meter_auto(ByVal in_out_sel As Integer, ByVal average As Integer) As Double
+
+        Dim total As Double = 0
+        Dim curr_data As Double
+        Dim Meas_ID As Integer
+        Dim IO_ID As Integer
+        Dim data_input As Byte
+        Dim read_error As Integer
+        Dim resolution As Double
+
+        Select Case in_out_sel
+            Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR")
+            Case 1 : curr_data = load_read("CURR")
+        End Select
+
+
+
+        If DUT2_en Then
+            If curr_data >= Meter_H Then
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_high_id2 : resolution = in_high_resolution
+                    Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
+                End Select
+
+                data_input = &H0
+            End If
+
+            If curr_data < Meter_H And curr_data >= Meter_L Then
+
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_middle_id2 : resolution = in_middle_resolution
+                    Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
+                End Select
+
+                data_input = &H2
+            End If
+
+            If curr_data < Meter_L Then
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_low_id2 : resolution = in_low_resolution
+                    Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
+                End Select
+                data_input = &H1
+            End If
+
+            Select Case in_out_sel
+                Case 0 : IO_ID = in_io_id2
+                Case 1 : IO_ID = out_io_id
+            End Select
+        Else
+            If curr_data >= Meter_H Then
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
+                    Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
+                End Select
+
+                data_input = &H0
+            End If
+
+            If curr_data < Meter_H And curr_data >= Meter_L Then
+
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
+                    Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
+                End Select
+
+                data_input = &H2
+            End If
+
+            If curr_data < Meter_L Then
+                Select Case in_out_sel
+                    Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
+                    Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
+                End Select
+                data_input = &H1
+            End If
+
+            Select Case in_out_sel
+                Case 0 : IO_ID = in_io_id
+                Case 1 : IO_ID = out_io_id
+            End Select
+        End If
+
+        ' H: write Hi byte first then low byte
+        reg_write_word(IO_ID, &H1, data_input, "H", device_sel)
+        Delay(1000)
+
+        Dim array As List(Of Double) = New List(Of Double)()
+        Dim remove_data As Integer
+        Dim temp() As Integer
+        Dim iout_temp As Double
+        total = 0
+        read_error = 0
+
+        For i = 0 To (average - 1)
+            System.Windows.Forms.Application.DoEvents()
+            If run = False Then
+                Exit For
+            End If
+            temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
+            While temp(0) <> 0 Or temp(1) = 65535
+                System.Windows.Forms.Application.DoEvents()
+                read_error = read_error + 1
+                If (read_error = 5) Or (run = False) Then
+                    Return 0
+                    Exit Function
+                End If
+                Delay(10)
+                temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
+            End While
+            Delay(10)
+            iout_temp = temp(1) * resolution * 10 ^ -3
+
+            If i >= remove_data Then
+                array.Add(iout_temp)
+            End If
+        Next
+        total = array.Sum() / array.Count
         Return total
     End Function
 

@@ -5635,14 +5635,12 @@ Public Class PartI
             ElseIf rbtn_board_iin.Checked = True Then
                 'relay read
                 iin_meas = INA226_IIN_meas(num_data_count.Value)
-
+            ElseIf rbtn_iin_current_measure.Checked Then
+                iin_meas = meter_auto(0, num_meter_count.Value)
             Else
 
                 iin_meas = power_read(cbox_vin.SelectedItem, Vin_out, "CURR") ' Format(power_read(cbox_vin.SelectedItem, Vin_out, "CURR"), "#0.000000000")
             End If
-
-
-
 
             If cbox_VCC_daq.SelectedItem <> no_device Then
                 vcc_meas = DAQ_average(vcc_daq, num_data_count.Value)
@@ -5650,11 +5648,8 @@ Public Class PartI
 
                 Power_Dev = VCC_Dev
                 If cbox_VCC.SelectedItem = " 2230-30-1" Then
-
-
                     vcc_meas = Power2230_read(VCC_out, "VOLT")
                 Else
-
                     vcc_meas = power_read(cbox_VCC.SelectedItem, VCC_out, "VOLT")
                 End If
 
@@ -5662,9 +5657,7 @@ Public Class PartI
             End If
 
             If txt_Icc_addr.Text <> "" Then
-
                 icc_meas = meter_average(cbox_Icc_meter.SelectedItem, Meter_icc_dev, num_data_count.Value, Meter_iout_range, "4e-1") ' meter_read(Meter_icc_dev)
-
             End If
 
             update_report(Efficiency)
@@ -8176,8 +8169,16 @@ Public Class PartI
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
+                            ElseIf rbtn_iin_current_measure.Checked Or
+                                   rbtn_iout_current_measure.Checked Then
 
+                                If rbtn_iin_current_measure.Checked Then
+                                    relay_in_meter_intial()
+                                End If
 
+                                If rbtn_iout_current_measure.Checked Then
+                                    realy_out_meter_initial()
+                                End If
 
                             End If
                             '-----------------------------------------------------------------------------------------------------------
@@ -8209,9 +8210,6 @@ Public Class PartI
 
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
-
-
-
                                 iout_now = total_iout(x)
 
                                 '-------------------------------------------------------------------------------------
@@ -8221,7 +8219,6 @@ Public Class PartI
                                     If (Iin_change = True) Then
                                         If rbtn_meter_iin.Checked = True Then
                                             Iin_meter_set(check_iin, cbox_IIN_meter, cbox_IIN_relay)
-
                                         Else
                                             INA226_IIN_set()
                                         End If
@@ -8295,6 +8292,10 @@ Public Class PartI
                                 If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
                                     iout_meas = meter_average(cbox_Iout_meter.SelectedItem, Meter_iout_dev, num_data_count.Value, Meter_iout_range, Meter_iout_low)
                                     Meter_iout_range = Meter_range_now
+                                ElseIf rbtn_iout_current_measure.Checked Then
+                                    ' in_out_sel = 0: input current
+                                    ' in_out_sel = 1: output current
+                                    iout_meas = meter_auto(1, num_meter_count.Value)
                                 ElseIf rbtn_board_iout.Checked = True Then
                                     'relay read
                                     iout_meas = INA226_IOUT_meas(cbox_board_buck.SelectedIndex + 1, num_data_count.Value)
@@ -8986,8 +8987,6 @@ Public Class PartI
         If Save_set = True Then
             Tab_Set.Enabled = True
             Test_set()
-
-
         End If
 
         If (Open_set = True) And (import_now = False) Then
@@ -9012,6 +9011,11 @@ Public Class PartI
             Tab_Set.Enabled = False
             'data_set_list()
             data_list()
+
+            If cbox_bridge_sel.SelectedIndex <> 0 Then
+                device_sel = cbox_bridge_sel.SelectedIndex - 1
+            End If
+
             TestITem_run()
 
 
@@ -9063,8 +9067,6 @@ Public Class PartI
 
 
         initial()
-
-
         scope_init_set()
 
 
@@ -9489,6 +9491,38 @@ Public Class PartI
 
         End If
 
+
+        in_high_id = num_slave_in_H.Value
+        in_middle_id = num_slave_in_M.Value
+        in_low_id = num_slave_in_L.Value
+        in_io_id = num_slave_in_IO.Value
+
+        in_high_comp = num_comp_in_H.Value
+        in_middle_comp = num_comp_in_M.Value
+        in_low_comp = num_comp_in_L.Value
+
+        in_high_resolution = num_resolution_in_H.Value
+        in_middle_resolution = num_resolution_in_M.Value
+        in_low_resolution = num_resolution_in_L.Value
+
+
+        out_high_id = num_slave_out_H.Value
+        out_middle_id = num_slave_out_M.Value
+        out_low_id = num_slave_out_L.Value
+        out_io_id = num_slave_out_IO.Value
+
+        out_high_comp = num_comp_out_H.Value
+        out_middle_comp = num_comp_out_M.Value
+        out_low_comp = num_comp_out_L.Value
+
+        out_high_resolution = num_resolution_out_H.Value
+        out_middle_resolution = num_resolution_out_M.Value
+        out_low_resolution = num_resolution_out_L.Value
+
+
+        If cbox_bridge_sel.SelectedIndex <> 0 Then
+            device_sel = cbox_bridge_sel.SelectedIndex - 1
+        End If
 
 
 
