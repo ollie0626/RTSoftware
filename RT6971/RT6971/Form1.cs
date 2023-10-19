@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.03";
+        string win_ver = "1.04";
 
 
         public Form1()
@@ -738,7 +738,7 @@ namespace RT6971
             if (cb_vcc2_sync.SelectedIndex == -1) return;
             if (cb_vcc2_en.SelectedIndex == -1) return;
             if (cb_fre_vcc1.SelectedIndex == -1) return;
-            if (cb_ft_vcc2.SelectedIndex == -1) return;
+            //if (cb_ft_vcc2.SelectedIndex == -1) return;
 
             W27.Value = cb_vcc1_sync.SelectedIndex << 6 | (int)W27.Value & 0xBF;
             W27.Value = cb_vcc2_sync.SelectedIndex << 5 | (int)W27.Value & 0xDF;
