@@ -95,9 +95,6 @@
 
     Public INA226_config_data As Integer = &H4127
 
-
-  
-
     Function INA226_IIN_set() As Double
         If (iout_now < iin_meter_change) And (Iin_Meter_Max = True) Then
 
@@ -124,8 +121,6 @@
         End If
     End Function
 
-  
-
     Function INA226_Iin_initial(ByVal H_range As Boolean) As Integer
 
 
@@ -147,7 +142,7 @@
         Dim total As Double
         Dim temp() As Integer
         Dim error_num As Integer = 5
-        Dim Meas_ID As Integer
+        Dim Meas_ID As Byte
         Dim resolution As Double
         Dim iout_temp(1) As Double
 
@@ -308,7 +303,7 @@
         Dim total As Double
         Dim temp() As Integer
         Dim error_num As Integer = 5
-        Dim Meas_ID As Integer
+        Dim Meas_ID As Byte
         Dim resolution As Double
 
         If Iin_Meter_Max = True Then

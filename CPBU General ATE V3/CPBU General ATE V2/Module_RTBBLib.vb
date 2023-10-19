@@ -350,18 +350,12 @@ Module Module_RTBBLib
                 Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, num, W_DataBuffer(0))
             End If
         End If
-
-
-
         Main.status_error.Text = i2c_status(Result)
-
         Return Result
-
     End Function
 
     Function i2c_status(ByVal num As Integer) As String
         Dim status As String = ""
-
         Select Case num
             Case 0
                 status = "RT_BB_SUCCESS"
@@ -399,16 +393,11 @@ Module Module_RTBBLib
                 status = "RT_BB_NO_DATA"
             Case -17
                 status = "RT_BB_BUFFER_OVERFLOW"
-
         End Select
-
         Return status
-
     End Function
 
-
     Function reg_write_word(ByVal ID As Byte, ByVal addr As Byte, ByVal data() As Byte, Optional ByVal sel As Integer = 0) As String
-
         W_DataBuffer(0) = data(0)
         W_DataBuffer(1) = data(1)
         If BoardCount >= 2 Then
@@ -418,72 +407,99 @@ Module Module_RTBBLib
         End If
         Return Result
     End Function
-    Function reg_write(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Byte, Optional ByVal sel As Integer = 0) As String
 
+    Function reg_write(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Byte, Optional ByVal sel As Integer = 0) As String
         W_DataBuffer(0) = data
         If BoardCount >= 2 Then
             Result = RTBB_I2CWrite(Device_List(sel), I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
         Else
             Result = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 1, W_DataBuffer(0))
         End If
-
-
         Return Result
+    End Function
 
+    Function reg_write_word(ByVal ID As Byte, ByVal addr As Byte, ByVal data As Integer, ByVal H_L As String, Optional ByVal sel As Integer = 0) As Integer
+        Dim i2c_error As Integer
+        Dim w_data(1) As Byte
+        Dim DataBuffer(2) As Byte
+
+        Main.status_error.Text = ""
+        w_data = word2byte_data(H_L, data)
+        DataBuffer(0) = w_data(0)
+        DataBuffer(1) = w_data(1)
+
+        If BoardCount > 1 Then
+            i2c_error = RTBB_I2CWrite(Device_List(device_sel), I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        Else
+            i2c_error = RTBB_I2CWrite(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        End If
+
+        '設定 register data 為"data", I2C data to be written to device
+        If i2c_error = 0 Then
+            Main.status_error.Text = "I2C Write Success!"
+        Else
+            MsgBox("I2C Write Error:" & i2c_status(i2c_error), MsgBoxStyle.Exclamation, "Error Message")
+            Main.status_error.Text = "I2C Write Error:" & i2c_status(i2c_error)
+            run = False
+        End If
+        Return i2c_error
     End Function
 
     Function reg_read_word(ByVal ID As Byte, ByVal addr As Byte, Optional ByVal sel As Integer = 0) As Integer()
-
-
         Dim return_data(1) As Integer
-
-
         If BoardCount >= 2 Then
-
             Result = RTBB_I2CRead(Device_List(sel), I2CBus, ID, 1, addr, 2, R_DataBuffer(0))
         Else
-
             Result = RTBB_I2CRead(hDevice, I2CBus, ID, 1, addr, 2, R_DataBuffer(0))
         End If
-
         return_data(0) = Result
-
-
         If Result = RT_BB_SUCCESS Then
-
             return_data(1) = R_DataBuffer(0) * 2 ^ 8 + R_DataBuffer(1)
-
         End If
-
-
         Return return_data
-
-
     End Function
 
-
     Function reg_read(ByVal ID As Byte, ByVal addr As Byte) As Integer()
-
-
         Dim return_data(1) As Integer
-
-
-
         Result = RTBB_I2CRead(hDevice, I2CBus, ID, 1, addr, 1, R_DataBuffer(0))
-
         return_data(0) = Result
-
-
         If Result = RT_BB_SUCCESS Then
-
             return_data(1) = R_DataBuffer(0)
+        End If
+        Return return_data
+    End Function
 
+    Function reg_read_word(ByVal ID As Byte, ByVal addr As Byte, ByVal H_L As String, Optional ByVal sel As Integer = 0) As Integer()
+
+        Dim i2c_error As Integer
+        Dim return_data(1) As Integer
+        Dim DataBuffer(2) As Byte
+        Main.status_error.Text = ""
+
+
+        If BoardCount > 1 Then
+            i2c_error = RTBB_I2CRead(Device_List(sel), I2CBus, ID, 1, addr, 2, DataBuffer(0))
+        Else
+            i2c_error = RTBB_I2CRead(hDevice, I2CBus, ID, 1, addr, 2, DataBuffer(0))
         End If
 
+        return_data(0) = i2c_error
+        If i2c_error = 0 Then
 
+            If H_L = "H" Then
+                'DataBuffer(0):LOW DATA BYTE
+                'DataBuffer(1):HIGH DATA BYTE
+                return_data(1) = DataBuffer(0) * (2 ^ 8) + DataBuffer(1)
+            Else
+                return_data(1) = DataBuffer(1) * (2 ^ 8) + DataBuffer(0)
+            End If
+            Main.status_error.Text = "I2C Read Success!"
+        Else
+            MsgBox("I2C Read Error:" & i2c_status(i2c_error), MsgBoxStyle.Exclamation, "Error Message")
+            Main.status_error.Text = "I2C Read Error:" & i2c_status(i2c_error)
+            run = False
+        End If
         Return return_data
-
-
     End Function
 
 End Module

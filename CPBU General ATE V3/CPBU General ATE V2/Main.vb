@@ -1135,7 +1135,6 @@ Public Class Main
                                 cbox_test.SelectedIndex = 0
 
                                 Open_set = True
-
                                 data_test_now = data_Test.Rows.Count
 
                                 If PartI_num > 0 Then
@@ -1402,23 +1401,14 @@ Public Class Main
 
 
     Private Sub Main_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
         status_Version.Text = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & My.Application.Info.Version.Build
         Scan_Instrument()
         Check_Eagleboard()
-
-
-
-
-
         If data_meas.Rows.Count > 0 Then
-
             cbox_INA226_b11_9.SelectedIndex = cbox_INA226_b11_9.Items.Count - 1
         Else
-
             cbox_INA226_b11_9.SelectedIndex = 0
         End If
-
         cbox_test.SelectedIndex = 0
         cbox_vout_ctr.SelectedIndex = 0
         cbox_fs_ctr.SelectedIndex = 0
@@ -1426,40 +1416,20 @@ Public Class Main
         cbox_ven.SelectedIndex = 0
         cbox_ven_ch.SelectedIndex = 0
         cbox_en_mode.SelectedIndex = 0
-
         First = False
-
-
-
     End Sub
 
     Private Sub btn_temp_add_Click(sender As Object, e As EventArgs) Handles btn_temp_add.Click
         Dim check_ok As Boolean = True
-
         If data_Temp.Rows.Count > 0 Then
-
             For i = 0 To data_Temp.Rows.Count - 1
-
-
-
                 If num_Temp.Value = data_Temp.Rows(i).Cells(0).Value Then
                     check_ok = False
                     critical_message("Repeated temperature setting!")
                     Exit For
-
                 End If
-
-
-
-
             Next
-
-
         End If
-
-
-
-
         If check_ok = True Then
             data_value_add(data_Temp, num_Temp, 0)
             TA_set()
