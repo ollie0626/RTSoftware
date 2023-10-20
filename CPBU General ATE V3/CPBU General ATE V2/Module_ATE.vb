@@ -1937,22 +1937,10 @@ Module Module_ATE
             End If
             Exit Function
         End If
-
         vout_meas = DAQ_read(vout_daq)
-
-
-
         If vout_meas < (vout_now * vout_err / 100) Then
-
-
             critical_message("Please confirm the output voltage!")
-
-
-
-
         End If
-
-
     End Function
 
     Function Power_OFF_set() As Integer
@@ -1966,60 +1954,46 @@ Module Module_ATE
 
 
     End Function
+
     Function Power_ON_set() As Integer
-
-
 
         ' ''----------------------------------------------------------------------------------
         'Vin
-
         Power_Dev = vin_Dev
         power_on_off(vin_device, Vin_out, "ON")
-
         Delay(100)
         ' ''----------------------------------------------------------------------------------
-
         'Power Enable
-
         'Enable
         Power_EN(True)
         Delay(100)
         ''---------------------------------------------------------------------------------
         'I2C Init
-        If Main.data_i2c.Rows.Count > 0 Then
-
-
+        If data_i2c_p.Rows.Count > 0 Then
             For i = 0 To Main.data_i2c.Rows.Count - 1
                 System.Windows.Forms.Application.DoEvents()
                 If run = False Then
                     Exit For
                 End If
-
-                reg_write(Val("&H" & Main.data_i2c.Rows(i).Cells(0).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(1).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(2).Value))
-
+                reg_write(Val("&H" & data_i2c_p.Rows(i).Cells(0).Value),
+                          Val("&H" & data_i2c_p.Rows(i).Cells(1).Value),
+                          Val("&H" & data_i2c_p.Rows(i).Cells(2).Value))
             Next
-
-
         End If
-
-
 
         ''---------------------------------------------------------------------------------
-
-
         'Fs Set
-
-
-        If Main.cbox_fs_ctr.SelectedItem <> no_device Then
-            Grobal_Control(Fs_control, fs_now)
+        If cbox_fs_ctr_p.SelectedItem <> no_device Then
+            Grobal_Control(Fs_control, fs_now,
+                           data_fs_p, data_vout_p,
+                           cbox_fs_ctr_p, cbox_vout_ctr_p)
         End If
 
-
-
         'Vout Set
-
-        If Main.cbox_vout_ctr.SelectedItem <> no_device Then
-            Grobal_Control(Vout_control, vout_now)
+        If cbox_vout_ctr_p.SelectedItem <> no_device Then
+            Grobal_Control(Vout_control, vout_now,
+                           data_fs_p, data_vout_p,
+                           cbox_fs_ctr_p, cbox_vout_ctr_p)
         End If
 
         If Main.check_EN_off.Checked = True Then
@@ -2027,9 +2001,7 @@ Module Module_ATE
             Power_EN(True)
         End If
 
-
         DCLoad_ONOFF("ON")
-
     End Function
 
     Function error_message(ByVal msg As String) As String
@@ -2256,7 +2228,14 @@ Module Module_ATE
     'End Function
 
 
-    Function Grobal_Control(ByVal type As String, ByVal test_value As Double) As Double
+    Function Grobal_Control(ByVal type As String, ByVal test_value As Double,
+                            ByVal data_fs As DataGridView,
+                            ByVal data_vout As DataGridView,
+                            ByVal cbox_fs_ctr As ComboBox,
+                            ByVal cbox_vout_ctr As ComboBox
+                            ) As Double
+
+
         Dim temp() As String
         Dim test() As String
         Dim i, ii, n As Integer
@@ -2271,15 +2250,13 @@ Module Module_ATE
         Dim data_set As Object
         Dim cbox_ctr As Object
 
-
-
         If type = Fs_control Then
-            data_set = Main.data_fs
-            cbox_ctr = Main.cbox_fs_ctr
+            data_set = data_fs
+            cbox_ctr = cbox_fs_ctr
         Else
 
-            data_set = Main.data_vout
-            cbox_ctr = Main.cbox_vout_ctr
+            data_set = data_vout
+            cbox_ctr = cbox_vout_ctr
 
         End If
 
@@ -2309,7 +2286,6 @@ Module Module_ATE
                             For n = 0 To test.Length - 1
                                 data(n) = Val("&H" & test(n))
                             Next
-
 
                             reg_write_multi(ID, addr, data, device_sel)
 

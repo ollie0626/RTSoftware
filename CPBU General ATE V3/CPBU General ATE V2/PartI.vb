@@ -203,7 +203,7 @@ Public Class PartI
 
         '-----------------------------------------------------
         'I2C INIT
-        If Main.data_i2c.Rows.Count = 0 Then
+        If data_i2c.Rows.Count = 0 Then
             pic_i2C_init.Visible = True
             txt_I2C_init.Visible = False
         Else
@@ -215,7 +215,8 @@ Public Class PartI
 
 
 
-        Main.fs_vout_set()
+        'Main.fs_vout_set()
+        fs_vout_set()
 
 
         If (Main.check_en.Checked = True) Then
@@ -437,6 +438,60 @@ Public Class PartI
 
     End Function
 
+    Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        initial()
+        scope_init_set()
+        Check_Eagleboard()
+        ' i2c initial setting
+        txt_ID.Text = Main.txt_ID.Text
+        num_ID.Value = Main.num_ID.Value
+
+        cbox_type_stability.SelectedIndex = 0
+
+        cbox_type_Eff.SelectedIndex = 0
+
+        cbox_type_LoadR.SelectedIndex = 0
+
+        cbox_type_LineR.SelectedIndex = 0
+
+        cbox_icc_range.SelectedIndex = 0
+
+        If vin_daq = "" Then
+            cbox_vin_daq.SelectedIndex = 0
+        Else
+            cbox_vin_daq.SelectedItem = vin_daq
+        End If
+
+        If vout_daq = "" Then
+            cbox_vout_daq.SelectedIndex = 1
+        Else
+            cbox_vout_daq.SelectedItem = vout_daq
+        End If
+
+        If Eff_vout_daq = "" Then
+            cbox_vout1_daq.SelectedIndex = 1
+        Else
+            cbox_vout1_daq.SelectedItem = Eff_vout_daq
+        End If
+
+        If vcc_daq = "" Then
+            cbox_VCC_daq.SelectedItem = no_device
+        Else
+            cbox_VCC_daq.SelectedItem = vcc_daq
+        End If
+
+        cbox_data_resolution.SelectedIndex = 0
+        cbox_delay_unit.SelectedIndex = 0
+        cbox_meter_mini.SelectedIndex = 0
+
+        cbox_board_buck.SelectedIndex = 0
+        cbox_vout_ctr.SelectedIndex = 0
+        cbox_fs_ctr.SelectedIndex = 0
+
+        PartI_first = False
+    End Sub
+
     Function reflesh() As Integer
 
         Dim fs_change As Boolean = False
@@ -457,7 +512,7 @@ Public Class PartI
 
         '-----------------------------------------------------
         'I2C INIT
-        If Main.data_i2c.Rows.Count = 0 Then
+        If data_i2c.Rows.Count = 0 Then
             pic_i2C_init.Visible = True
             txt_I2C_init.Visible = False
         Else
@@ -479,15 +534,19 @@ Public Class PartI
 
 
 
-        Main.fs_vout_set()
+        'Main.fs_vout_set()
+        fs_vout_set()
+        If clist_fs.Items.Count <> fs_value.Length Then
+            fs_change = True
+        Else
+            For i = 0 To clist_fs.Items.Count - 1
+                If clist_fs.Items(i) <> fs_value(i) Then
+                    fs_change = True
+                    Exit For
+                End If
+            Next
+        End If
 
-        For i = 0 To clist_fs.Items.Count - 1
-            If clist_fs.Items(i) <> fs_value(i) Then
-                fs_change = True
-                Exit For
-            End If
-
-        Next
 
         If fs_change = True Then
             clist_fs.Items.Clear()
@@ -499,7 +558,7 @@ Public Class PartI
             Else
                 clist_fs.Enabled = True
             End If
-            If Main.cbox_fs_ctr.SelectedItem = no_device Then
+            If cbox_fs_ctr.SelectedItem = no_device Then
                 pic_Fs_set.Visible = True
                 txt_Fs_set.Visible = False
             Else
@@ -509,13 +568,17 @@ Public Class PartI
         End If
 
 
-        For i = 0 To clist_vout.Items.Count - 1
-            If clist_vout.Items(i) <> vout_value(i) Then
-                vout_change = True
-                Exit For
-            End If
+        If clist_vout.Items.Count <> vout_value.Length Then
+            vout_change = True
+        Else
+            For i = 0 To clist_vout.Items.Count - 1
+                If clist_vout.Items(i) <> vout_value(i) Then
+                    vout_change = True
+                    Exit For
+                End If
+            Next
+        End If
 
-        Next
 
         If vout_change = True Then
             clist_vout.Items.Clear()
@@ -530,7 +593,7 @@ Public Class PartI
             End If
 
 
-            If Main.cbox_vout_ctr.SelectedItem = no_device Then
+            If cbox_vout_ctr.SelectedItem = no_device Then
 
                 pic_vout_set.Visible = True
                 txt_vout_set.Visible = False
@@ -721,7 +784,6 @@ Public Class PartI
         If cbox_VCC_daq.SelectedItem <> no_device Then
             vcc_daq = Mid(cbox_VCC_daq.SelectedItem, 3)
             DAQ_config(vcc_daq)
-
         End If
         ''----------------------------------------------------------------------------------
         'DC Load 
@@ -741,12 +803,7 @@ Public Class PartI
 
                 'Load_ch = i + 1
                 Load_ch_set(load_num) = i + 1
-
-
-
-
                 Load_ch = Load_ch_set(load_num)
-
                 Load_range = Load_range_L
                 load_init(Load_range)
                 load_set(0)
@@ -763,38 +820,29 @@ Public Class PartI
         'Meter
         If check_Efficiency.Checked = True Then
             If rbtn_meter_iin.Checked = True Then
-
-
                 Meter_iin_addr = Val(txt_IIN_addr.Text)
                 Meter_iin_dev = ildev(BDINDEX, Meter_iin_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
                 If check_iin.Checked = True Then
                     Iin_Meter_initial(check_iin, cbox_IIN_meter, cbox_IIN_relay)
                 End If
-
-
             Else
                 INA226_Iin_initial(True) 'High Range
-
             End If
             'Check Iin Max
         End If
         'Meter set High
         If (rbtn_meter_iout.Checked = True) And (cbox_Iout_meter.SelectedItem <> no_device) Then
-
             Meter_iout_addr = Val(txt_Iout_addr.Text)
             Meter_iout_dev = ildev(BDINDEX, Meter_iout_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
             If check_iout.Checked = True Then
                 Iout_Meter_initial(check_iout, cbox_Iout_meter, cbox_Iout_relay)
             End If
         ElseIf rbtn_board_iout.Checked = True Then
-
             If iout_now > INA226_Iout_max_L Then
                 Iout_Meter_Max = True
             Else
                 Iout_Meter_Max = False
             End If
-
-
         End If
 
         If cbox_Icc_meter.SelectedItem <> no_device Then
@@ -807,7 +855,6 @@ Public Class PartI
         'Vcc
         temp = data_result.Rows(0).Cells("col_test_vcc1").Value
         If (cbox_VCC.SelectedItem <> no_device) And (temp <> "") Then
-
             vcc_addr = Val(txt_vcc_Addr.Text)
             VCC_Dev = ildev(BDINDEX, vcc_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
             VCC_device = cbox_VCC.SelectedItem
@@ -818,42 +865,29 @@ Public Class PartI
             power_on_off(VCC_device, VCC_out, "ON")
         End If
 
-
-
         ' ''----------------------------------------------------------------------------------
         'Vin
         temp = data_result.Rows(0).Cells("col_test_vin1").Value
         vin_now = temp
-
         vin_addr = Val(txt_vin_addr.Text)
         vin_Dev = ildev(BDINDEX, vin_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         Power_Dev = vin_Dev
         vin_device = cbox_vin.SelectedItem
         Vin_out = Power_channel(vin_device, cbox_vin_ch.SelectedIndex)
 
-
-
         power_volt(vin_device, Vin_out, vin_now)
-
         If num_VIN_OCP.Value <> 0 Then
             power_OCP_init(vin_device, Vin_out, num_VIN_OCP.Value)
-
             If vin_device = "E3632A" Then
                 E3632_OCP = num_VIN_OCP.Value
-
             End If
         Else
             If vin_device = "E3632A" Then
                 E3632_OCP = 7
-
             End If
-
         End If
-
         power_on_off(vin_device, Vin_out, "ON")
-
         vin_meas = DAQ_read(vin_daq)
-
         If (check_vin_sense.Checked = True) And (vin_meas < (vin_now * 0.5)) Then
             error_message("Please confirm the VIN DAQ channel setting is correct!")
         End If
@@ -866,33 +900,24 @@ Public Class PartI
         Power_EN(True)
         ''---------------------------------------------------------------------------------
         'I2C Init
-        If Main.data_i2c.Rows.Count > 0 Then
-
-
-            For i = 0 To Main.data_i2c.Rows.Count - 1
+        If data_i2c.Rows.Count > 0 Then
+            For i = 0 To data_i2c.Rows.Count - 1
                 System.Windows.Forms.Application.DoEvents()
                 If run = False Then
                     Exit For
                 End If
-
-                reg_write(Val("&H" & Main.data_i2c.Rows(i).Cells(0).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(1).Value), Val("&H" & Main.data_i2c.Rows(i).Cells(2).Value), device_sel)
-
+                reg_write(Val("&H" & data_i2c.Rows(i).Cells(0).Value), Val("&H" & data_i2c.Rows(i).Cells(1).Value), Val("&H" & data_i2c.Rows(i).Cells(2).Value), device_sel)
             Next
-
-
         End If
 
-
-
         ''---------------------------------------------------------------------------------
-
-
         'Fs Set
-
         temp = data_result.Rows(0).Cells("col_test_fsw1").Value
         fs_now = temp * 1000
-        If Main.cbox_fs_ctr.SelectedItem <> no_device Then
-            Grobal_Control(Fs_control, fs_now)
+        If cbox_fs_ctr.SelectedItem <> no_device Then
+            Grobal_Control(Fs_control, fs_now,
+                           data_fs, data_vout,
+                           cbox_fs_ctr, cbox_vout_ctr)
         End If
 
 
@@ -900,8 +925,10 @@ Public Class PartI
         'Vout Set
         temp = data_result.Rows(0).Cells("col_test_vout1").Value
         vout_now = temp
-        If Main.cbox_vout_ctr.SelectedItem <> no_device Then
-            Grobal_Control(Vout_control, vout_now)
+        If cbox_vout_ctr.SelectedItem <> no_device Then
+            Grobal_Control(Vout_control, vout_now,
+                           data_fs, data_vout,
+                           cbox_fs_ctr, cbox_vout_ctr)
         End If
 
         If Main.check_EN_off.Checked = True Then
@@ -912,7 +939,6 @@ Public Class PartI
         ''---------------------------------------------------------------------------------
 
         'Check Vout
-
         monitor_vout = check_shutdown.Checked
         If monitor_vout = True Then
             'VOUT
@@ -2336,6 +2362,50 @@ Public Class PartI
         row = 1
         col = 1
 
+
+        xlSheet.Cells(row, col) = "I2C Config"
+        title_set()
+        row = row + 1
+        data_test_set(data_i2c)
+        xlSheet.Cells(row, col) = "Fs Requirement Table"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = cbox_fs_ctr.SelectedItem
+        row = row + 1
+        xlSheet.Cells(row, col) = data_fs.Columns(0).HeaderText
+        xlSheet.Cells(row + 1, col) = data_fs.Columns(1).HeaderText
+        If data_fs.Rows.Count = 0 Then
+            xlSheet.Cells(row, col + 1) = num_fs_set.Value * 1000
+            xlSheet.Cells(row + 1, col + 1) = ""
+        Else
+            For i = 0 To data_fs.Rows.Count - 1
+                xlSheet.Cells(row, col + 1 + i) = data_fs.Rows(i).Cells(0).Value
+                xlSheet.Cells(row + 1, col + 1 + i) = data_fs.Rows(i).Cells(1).Value
+            Next
+        End If
+        row = row + 2
+
+
+        xlSheet.Cells(row, col) = "VOUT Requirement Table"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = cbox_vout_ctr.SelectedItem
+        row = row + 1
+        xlSheet.Cells(row, col) = data_vout.Columns(0).HeaderText
+        xlSheet.Cells(row + 1, col) = data_vout.Columns(1).HeaderText
+        If data_vout.Rows.Count = 0 Then
+            xlSheet.Cells(row, col + 1) = num_vout_set.Value
+            xlSheet.Cells(row + 1, col + 1) = ""
+        Else
+            For i = 0 To data_vout.Rows.Count - 1
+                xlSheet.Cells(row, col + 1 + i) = data_vout.Rows(i).Cells(0).Value
+                xlSheet.Cells(row + 1, col + 1 + i) = data_vout.Rows(i).Cells(1).Value
+            Next
+        End If
+        row = row + 2
+
+
+
         '------------------------------------------------------------------------------------
         'Initial Page
         'Main
@@ -2944,19 +3014,14 @@ Public Class PartI
         row = row + 1
         xlSheet.Cells(row, col) = "Iout Meter board IO Config:"
         xlSheet.Cells(row, col + 1) = num_slave_out_IO.Value
-
-
+        row = row + 1
+        '------------------------------------------------------------------------------------
 
 
         xlSheet.Columns(1).AutoFit()
         FinalReleaseComObject(xlSheet)
         xlSheet = Nothing
-
         xlBook.Save()
-
-
-
-
 
     End Function
 
@@ -2971,6 +3036,51 @@ Public Class PartI
 
         row = 1
         col = 1
+
+
+        '------------------------------------------------------------------------------------------
+        ' I2C
+        row = row + 1
+        data_test_import(data_i2c, last_col)
+        row = row + 1
+        cbox_fs_ctr.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Value
+        row = row + 1
+        data_fs.Rows.Clear()
+        If xlSheet.Range(ConvertToLetter(col) & row).Offset(1, 1).Value = Nothing Then
+            num_fs_set.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value / 1000
+            txt_Fs_set.Text = ""
+        Else
+            For i = 0 To last_col
+                temp = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1 + i).Value
+                If temp <> Nothing Then
+                    data_fs.Rows.Add(xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1 + i).Value, xlSheet.Range(ConvertToLetter(col) & row).Offset(1, 1 + i).Value)
+                End If
+            Next
+        End If
+        row = row + 3
+
+
+        cbox_vout_ctr.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Value
+        row = row + 1
+        data_vout.Rows.Clear()
+        If xlSheet.Range(ConvertToLetter(col) & row).Offset(1, 1).Value = Nothing Then
+            num_vout_set.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+            txt_vout_set.Text = ""
+        Else
+
+            For i = 0 To last_col
+                temp = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1 + i).Value
+                If temp <> Nothing Then
+                    data_vout.Rows.Add(xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1 + i).Value, xlSheet.Range(ConvertToLetter(col) & row).Offset(1, 1 + i).Value)
+                End If
+            Next
+        End If
+        row = row + 2
+
+        reflesh()
+
+
+
         Tab_Set.SelectedIndex = 0
         last_col = xlSheet.Range(ConvertToLetter(col) & row).CurrentRegion.Columns.Count
         'xlSheet.Cells(row, col) = Stability
@@ -3722,6 +3832,8 @@ Public Class PartI
         row = row + 1
 
         num_slave_out_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+
+
 
 
         import_now = False
@@ -7890,8 +8002,13 @@ Public Class PartI
 
 
         ''Init Parameter
-
+        ' i2c initial code in instrument_init funcfion
         instrument_init()
+        data_i2c_p = data_i2c
+        data_fs_p = data_fs
+        data_vout_p = data_vout
+        cbox_fs_ctr_p = cbox_fs_ctr
+        cbox_vout_ctr_p = cbox_vout_ctr
 
 
         If run = False Then
@@ -7919,13 +8036,9 @@ Public Class PartI
 
         'End If
 
-
         iin_meter_change = num_iin_change.Value / 1000
-
         iout_meter_change = num_iout_change.Value / 1000
         '--------------------------------------------------------------------------------
-
-
 
         If (check_stability.Checked = True) Or (check_jitter.Checked = True) Then
             '--------------------------------------------------------------------------------
@@ -7996,99 +8109,67 @@ Public Class PartI
                 error_pic_row = 3
                 error_pic_num = 1
                 beta_pic_num = 1
-
-
             Else
-
                 excel_open()
-
                 xlSheet = xlBook.Sheets(txt_error_sheet.Text)
                 xlSheet.Activate()
-
-
-
                 error_pic_num = xlSheet.Range(ConvertToLetter(1) & 1).Value
                 error_pic_row = (pic_height + 2) * Int(error_pic_num / 10) + 3
                 error_pic_col = (pic_width + 1) * (error_pic_num Mod 10) + 1
-
                 error_pic_num = error_pic_num + 1
                 beta_pic_num = data_set.Rows.Count * data_test.Rows.Count * TA_Test_num + 1
-
                 excel_close()
-
             End If
         End If
-
-
         PartI_file = sf_name
-
-
         If TA_Test_num = 0 Then
-
             test_point_num = 0
             txt_test_now.Text = 0
-
         End If
-
         test_point_temp = test_point_num
-
-
-
         'Start Test
         start_test_time = Now
 
         For n = 0 To total_vcc.Length - 1
             System.Windows.Forms.Application.DoEvents()
-
             While pause = True
                 System.Windows.Forms.Application.DoEvents()
-
-
                 If run = False Then
                     Exit While
                 End If
             End While
-
             If run = False Then
                 Exit For
             End If
-
             VCC_test_num = n
-
-
             If data_VCC.Rows.Count > 0 Then
                 vcc_now = total_vcc(n)
                 DCLoad_ONOFF("OFF")
                 Power_Dev = VCC_Dev
                 power_volt(VCC_device, VCC_out, vcc_now)
             End If
-
-
             For i = 0 To total_fs.Length - 1
                 System.Windows.Forms.Application.DoEvents()
-
                 While pause = True
                     System.Windows.Forms.Application.DoEvents()
-
-
                     If run = False Then
                         Exit While
                     End If
                 End While
-
                 If run = False Then
                     Exit For
                 End If
-
                 fs_now = total_fs(i)
                 fs_test_num = i
 
 
-                If Main.cbox_fs_ctr.SelectedItem <> no_device Then
+                If cbox_fs_ctr.SelectedItem <> no_device Then
 
 
                     DCLoad_ONOFF("OFF")
-                    Grobal_Control(Fs_control, fs_now)
+                    Grobal_Control(Fs_control, fs_now,
+                                   data_fs, data_vout,
+                                   cbox_fs_ctr, cbox_vout_ctr)
                     If Main.check_EN_off.Checked = True Then
                         Power_EN(False)
                         Power_EN(True)
@@ -8118,15 +8199,13 @@ Public Class PartI
 
                     DCLoad_check_range()
 
-                    If Main.cbox_vout_ctr.SelectedItem <> no_device Then
-
-
+                    If cbox_vout_ctr.SelectedItem <> no_device Then
 
                         DCLoad_ONOFF("OFF")
-                        Grobal_Control(Vout_control, vout_now)
-
+                        Grobal_Control(Vout_control, vout_now,
+                                       data_fs, data_vout,
+                                       cbox_fs_ctr, cbox_vout_ctr)
                         If Main.check_EN_off.Checked = True Then
-
                             Power_EN(False)
                             Power_EN(True)
                         End If
@@ -8467,17 +8546,17 @@ Public Class PartI
 
                                             stability_iout_num = y
                                             H_reclength(num_points.Value * Math.Pow(10, 6))
-                                            'Dim sw As Stopwatch = New Stopwatch()
-                                            'sw.Reset()
-                                            'sw.Start()
+                                            Dim sw As Stopwatch = New Stopwatch()
+                                            sw.Reset()
+                                            sw.Start()
                                             Stability_run()
-                                            'sw.Stop()
-                                            'Dim res_ms As Long = sw.ElapsedMilliseconds
-                                            'Dim res_s As Long = res_ms / 1000
-                                            'Dim res_min As Long = Int(res_s / 60)
-                                            'res_s = res_s Mod 60
-                                            'Console.WriteLine("count 100 case Spend Time: {0}min_{1}s", res_min, res_s)
-                                            'Console.WriteLine("-------------------------------------------------------")
+                                            sw.Stop()
+                                            Dim res_ms As Long = sw.ElapsedMilliseconds
+                                            Dim res_s As Long = res_ms / 1000
+                                            Dim res_min As Long = Int(res_s / 60)
+                                            res_s = res_s Mod 60
+                                            Console.WriteLine("count 100 case Spend Time: {0}min_{1}s", res_min, res_s)
+                                            Console.WriteLine("-------------------------------------------------------")
                                             Exit For
                                         End If
                                     Next
@@ -9037,11 +9116,7 @@ Public Class PartI
                 End If
 
             Next
-
-
             FinalReleaseComObject(xlSheet)
-
-
             excel_close()
             Note.Close()
         End If
@@ -9143,58 +9218,7 @@ Public Class PartI
 
     End Sub
 
-    Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-
-        initial()
-        scope_init_set()
-
-
-        cbox_type_stability.SelectedIndex = 0
-
-        cbox_type_Eff.SelectedIndex = 0
-
-        cbox_type_LoadR.SelectedIndex = 0
-
-        cbox_type_LineR.SelectedIndex = 0
-
-        cbox_icc_range.SelectedIndex = 0
-
-        If vin_daq = "" Then
-            cbox_vin_daq.SelectedIndex = 0
-        Else
-            cbox_vin_daq.SelectedItem = vin_daq
-        End If
-
-        If vout_daq = "" Then
-            cbox_vout_daq.SelectedIndex = 1
-        Else
-            cbox_vout_daq.SelectedItem = vout_daq
-        End If
-
-        If Eff_vout_daq = "" Then
-            cbox_vout1_daq.SelectedIndex = 1
-        Else
-            cbox_vout1_daq.SelectedItem = Eff_vout_daq
-        End If
-
-        If vcc_daq = "" Then
-
-            cbox_VCC_daq.SelectedItem = no_device
-        Else
-            cbox_VCC_daq.SelectedItem = vcc_daq
-        End If
-
-
-
-        cbox_data_resolution.SelectedIndex = 0
-        cbox_delay_unit.SelectedIndex = 0
-        cbox_meter_mini.SelectedIndex = 0
-
-        cbox_board_buck.SelectedIndex = 0
-
-        PartI_first = False
-    End Sub
 
     Private Sub Tab_Set_SelectedIndexChanged(sender As Object, e As EventArgs) Handles Tab_Set.SelectedIndexChanged
         Dim tpg As TabPage
@@ -9215,7 +9239,7 @@ Public Class PartI
 
 
             Case "TabPage_Test1"
-
+                reflesh()
                 data_set_list()
 
 
@@ -9237,6 +9261,42 @@ Public Class PartI
 
     End Sub
 
+
+    Private Sub fs_vout_refresh()
+        clist_fs.Items.AddRange(fs_value)
+        clist_fs.SetItemChecked(0, True)
+        If clist_fs.Items.Count = 1 Then
+
+            clist_fs.Enabled = False
+        Else
+            clist_fs.Enabled = True
+        End If
+        If cbox_fs_ctr.SelectedItem = no_device Then
+
+            pic_Fs_set.Visible = True
+            txt_Fs_set.Visible = False
+        Else
+            pic_Fs_set.Visible = False
+            txt_Fs_set.Visible = True
+        End If
+
+
+        clist_vout.Items.AddRange(vout_value)
+        clist_vout.SetItemChecked(0, True)
+        If clist_vout.Items.Count = 1 Then
+            clist_vout.Enabled = False
+        Else
+            clist_vout.Enabled = True
+        End If
+        If cbox_vout_ctr.SelectedItem = no_device Then
+            pic_vout_set.Visible = True
+            txt_vout_set.Visible = False
+        Else
+            pic_vout_set.Visible = False
+            txt_vout_set.Visible = True
+        End If
+    End Sub
+
     Private Sub btn_refresh_Click(sender As Object, e As EventArgs) Handles btn_refresh.Click
 
 
@@ -9246,6 +9306,9 @@ Public Class PartI
         stability_parameter(0)
         'eff_parameter()
         result_parameter()
+
+        ' -----------------------------
+        'fs_vout_refresh()
 
 
     End Sub
@@ -10351,6 +10414,8 @@ Public Class PartI
         End If
     End Sub
 
+
+
     Private Sub num_vin_step_ValueChanged(sender As Object, e As EventArgs) Handles num_vin_step.ValueChanged
         If (check_vin_sense.Checked = True) And ((num_vin_start.Value + num_vin_step.Value) > num_vin_max.Value) Then
             btn_lineR_vin.Enabled = False
@@ -10359,4 +10424,76 @@ Public Class PartI
             btn_lineR_vin.Enabled = True
         End If
     End Sub
+
+    ' I2c Config PartI page
+    Function fs_vout_set() As Integer
+        Dim i As Integer
+
+
+        If (data_fs.Rows.Count = 0) Or (cbox_fs_ctr.SelectedItem = no_device) Then
+            ReDim fs_value(0)
+            ReDim fs_set(0)
+
+            fs_value(0) = num_fs_set.Value * 10 ^ 3
+            fs_set(0) = ""
+        Else
+            ReDim fs_value(data_fs.Rows.Count - 1)
+            ReDim fs_set(data_fs.Rows.Count - 1)
+
+            For i = 0 To data_fs.Rows.Count - 1
+                fs_value(i) = data_fs.Rows(i).Cells(0).Value
+                fs_set(i) = data_fs.Rows(i).Cells(1).Value
+            Next
+        End If
+
+        If (data_vout.Rows.Count = 0) Or (cbox_vout_ctr.SelectedItem = no_device) Then
+            ReDim vout_value(0)
+            ReDim vout_set(0)
+
+            vout_value(0) = num_vout_set.Value
+            vout_set(0) = ""
+        Else
+            ReDim vout_value(data_vout.Rows.Count - 1)
+            ReDim vout_set(data_vout.Rows.Count - 1)
+
+            For i = 0 To data_vout.Rows.Count - 1
+                vout_value(i) = data_vout.Rows(i).Cells(0).Value
+                vout_set(i) = data_vout.Rows(i).Cells(1).Value
+            Next
+        End If
+    End Function
+
+
+    Private Sub btn_fs_add_Click(sender As Object, e As EventArgs) Handles btn_fs_add.Click
+        data_fs.Rows.Add(num_fs_set.Value * (10 ^ 3), TextBox19.Text)
+        data_fs.CurrentCell = data_fs.Rows(data_fs.Rows.Count - 1).Cells(0)
+        fs_vout_set()
+    End Sub
+
+    Private Sub btn_vout_add_Click(sender As Object, e As EventArgs) Handles btn_vout_add.Click
+        data_vout.Rows.Add(Format(num_vout_set.Value, "#0.000"), TextBox21.Text)
+        data_vout.CurrentCell = data_vout.Rows(data_vout.Rows.Count - 1).Cells(0)
+        fs_vout_set()
+    End Sub
+
+    Private Sub btn_i2c_add_Click(sender As Object, e As EventArgs) Handles btn_i2c_add.Click
+        data_i2c.Rows.Add(hex_data(num_ID.Value, 2), hex_data(num_addr.Value, 2), hex_data(num_data.Value, 2))
+        data_i2c.CurrentCell = data_i2c.Rows(data_i2c.Rows.Count - 1).Cells(0)
+    End Sub
+
+    Private Sub num_fs_set_ValueChanged(sender As Object, e As EventArgs) Handles num_fs_set.ValueChanged
+        fs_vout_set()
+    End Sub
+
+    Private Sub num_vout_set_ValueChanged(sender As Object, e As EventArgs) Handles num_vout_set.ValueChanged
+        fs_vout_set()
+    End Sub
+    Private Sub data_fs_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles data_fs.RowsRemoved
+        fs_vout_set()
+    End Sub
+
+    Private Sub data_vout_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles data_vout.RowsRemoved
+        fs_vout_set()
+    End Sub
+
 End Class

@@ -572,8 +572,6 @@ Public Class Main
         xlSheet.Cells(row, col) = cbox_fs_ctr.SelectedItem
         row = row + 1
 
-
-
         xlSheet.Cells(row, col) = data_fs.Columns(0).HeaderText
         xlSheet.Cells(row + 1, col) = data_fs.Columns(1).HeaderText
 
@@ -587,8 +585,6 @@ Public Class Main
                 xlSheet.Cells(row, col + 1 + i) = data_fs.Rows(i).Cells(0).Value
                 xlSheet.Cells(row + 1, col + 1 + i) = data_fs.Rows(i).Cells(1).Value
             Next
-
-
         End If
         row = row + 1
         row = row + 1

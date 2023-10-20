@@ -8,6 +8,14 @@
     'Public resolution_input As Double
     'Public resolution_output As Double
 
+    Public data_i2c_p As DataGridView
+    Public data_fs_p As DataGridView
+    Public data_vout_p As DataGridView
+
+    Public cbox_fs_ctr_p As ComboBox
+    Public cbox_vout_ctr_p As ComboBox
+
+
     Public in_high_comp, in_low_comp, in_middle_comp As Integer
     Public out_high_comp, out_low_comp, out_middle_comp As Integer
 

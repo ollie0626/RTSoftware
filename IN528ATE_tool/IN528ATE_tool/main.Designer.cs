@@ -136,6 +136,8 @@ namespace IN528ATE_tool
             this.bt_SwireLoad = new System.Windows.Forms.Button();
             this.bt_SwireSave = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.ck_sst_define = new System.Windows.Forms.CheckBox();
+            this.ck_negvol = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
             this.nu_hiVout = new System.Windows.Forms.NumericUpDown();
@@ -159,8 +161,7 @@ namespace IN528ATE_tool
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ck_negvol = new System.Windows.Forms.CheckBox();
-            this.ck_sst_define = new System.Windows.Forms.CheckBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -1645,13 +1646,33 @@ namespace IN528ATE_tool
             this.tabPage2.Controls.Add(this.ck_negvol);
             this.tabPage2.Controls.Add(this.groupBox10);
             this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 24);
+            this.tabPage2.Location = new System.Drawing.Point(4, 30);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(320, 328);
+            this.tabPage2.Size = new System.Drawing.Size(320, 322);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "SST Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // ck_sst_define
+            // 
+            this.ck_sst_define.AutoSize = true;
+            this.ck_sst_define.Location = new System.Drawing.Point(170, 198);
+            this.ck_sst_define.Name = "ck_sst_define";
+            this.ck_sst_define.Size = new System.Drawing.Size(123, 19);
+            this.ck_sst_define.TabIndex = 86;
+            this.ck_sst_define.Text = "SST define by user";
+            this.ck_sst_define.UseVisualStyleBackColor = true;
+            // 
+            // ck_negvol
+            // 
+            this.ck_negvol.AutoSize = true;
+            this.ck_negvol.Location = new System.Drawing.Point(170, 173);
+            this.ck_negvol.Name = "ck_negvol";
+            this.ck_negvol.Size = new System.Drawing.Size(106, 19);
+            this.ck_negvol.TabIndex = 83;
+            this.ck_negvol.Text = "Neg Vol Enable";
+            this.ck_negvol.UseVisualStyleBackColor = true;
             // 
             // groupBox10
             // 
@@ -1910,31 +1931,22 @@ namespace IN528ATE_tool
             this.loadSettingToolStripMenuItem.Text = "Load setting";
             this.loadSettingToolStripMenuItem.Click += new System.EventHandler(this.loadSettingToolStripMenuItem_Click);
             // 
-            // ck_negvol
+            // checkBox1
             // 
-            this.ck_negvol.AutoSize = true;
-            this.ck_negvol.Location = new System.Drawing.Point(170, 173);
-            this.ck_negvol.Name = "ck_negvol";
-            this.ck_negvol.Size = new System.Drawing.Size(106, 19);
-            this.ck_negvol.TabIndex = 83;
-            this.ck_negvol.Text = "Neg Vol Enable";
-            this.ck_negvol.UseVisualStyleBackColor = true;
-            // 
-            // ck_sst_define
-            // 
-            this.ck_sst_define.AutoSize = true;
-            this.ck_sst_define.Location = new System.Drawing.Point(170, 198);
-            this.ck_sst_define.Name = "ck_sst_define";
-            this.ck_sst_define.Size = new System.Drawing.Size(123, 19);
-            this.ck_sst_define.TabIndex = 86;
-            this.ck_sst_define.Text = "SST define by user";
-            this.ck_sst_define.UseVisualStyleBackColor = true;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(540, 150);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(93, 19);
+            this.checkBox1.TabIndex = 83;
+            this.checkBox1.Text = "Ripple Fixed";
+            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1027, 729);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
+            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.CK_Bwen);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.tabControl1);
@@ -2200,6 +2212,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.CheckBox ck_negvol;
         private System.Windows.Forms.CheckBox ck_sst_define;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 
