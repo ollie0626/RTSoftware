@@ -699,7 +699,10 @@ Public Class PartI
         Dim temp As String
         Dim i As Integer
 
-        device_sel = cbox_bridge_sel.SelectedIndex
+        If cbox_bridge_sel.SelectedIndex <> 0 Then
+
+            device_sel = cbox_bridge_sel.SelectedIndex - 1
+        End If
         Power_EN(False)
         ''----------------------------------------------------------------------------------
         DAQ_resolution = cbox_data_resolution.SelectedItem
