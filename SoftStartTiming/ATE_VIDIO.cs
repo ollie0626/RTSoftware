@@ -51,6 +51,7 @@ namespace SoftStartTiming
         int meas_vmin = 4;
         int meas_delay = 5;
         int meas_delay100 = 6;
+        const int cnt_rest = 20;
 
 
         public delegate void FinishNotification();
@@ -200,7 +201,7 @@ namespace SoftStartTiming
             while (InsControl._oscilloscope.GetCount() == 0)
             {
                 cnt++;
-                MyLib.Delay1ms(100);
+                MyLib.Delay1ms(50);
                 if (cnt > 100) return false;
             }
             return true;
@@ -247,7 +248,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
-        private void SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
+        private bool SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
             vmax_list.Clear();
             slewrate_list.Clear();
@@ -333,6 +334,7 @@ namespace SoftStartTiming
                 double vmax = 0;
                 double delay = 0;
                 double delay100 = 0;
+                int cnt = 0;
 
             Trigger_Fail_retry:
                 IOStateSetting(initial_state);
@@ -342,7 +344,18 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(100);
 
                 IOStateSetting(next_state);
-                if (!TriggerStatus()) goto Trigger_Fail_retry;
+                cnt++;
+
+                if (cnt == cnt_rest) return false;
+                if (!TriggerStatus())
+                {
+                    //InsControl._oscilloscope.SetClear();
+                    InsControl._oscilloscope.SetStop();
+                    MyLib.Delay1ms(200);
+                    Console.WriteLine("rise cnt = {0}", cnt);
+                    goto Trigger_Fail_retry;
+                }
+
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
                 double x1 = 0;
@@ -355,7 +368,13 @@ namespace SoftStartTiming
                 DelayGetX:
                     x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
-                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) goto DelayGetX;
+                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
+                    {
+                        if (cnt == cnt_rest) return false;
+                        cnt++;
+                        Console.WriteLine("Get cursor fail");
+                        goto DelayGetX;
+                    } 
                     InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
@@ -363,8 +382,12 @@ namespace SoftStartTiming
                 }
 
                 // set cursor position
-                InsControl._oscilloscope.SetAnnotation(meas_rising);
-                InsControl._oscilloscope.SetAnnotation(meas_rising);
+                if (!overshoot_en)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                }
+
                 if (overshoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
                 if (repeat_idx == 0) MyLib.Delay1ms(500);
                 else MyLib.Delay1ms(50);
@@ -375,7 +398,14 @@ namespace SoftStartTiming
                     x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
 
-                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) goto GetX;
+                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9))
+                    {
+                        if (cnt == cnt_rest) return false;
+                        cnt++;
+                        Console.WriteLine("Get cursor fail");
+                        goto GetX;
+                    }
+                        
                     InsControl._oscilloscope.SetCursorSource(1, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(1, 1); MyLib.Delay1ms(100);
@@ -384,7 +414,7 @@ namespace SoftStartTiming
                 }
 
 
-                vmax = InsControl._oscilloscope.MeasureMean(meas_vmax);
+                vmax = InsControl._oscilloscope.MeasureMax(meas_vmax);
                 vmax_list.Add(vmax);
 
                 // get delta T
@@ -428,9 +458,11 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_overshoot");
             }
 
+            return true;
+
         }
 
-        private void SlewRate_Fall_Task(int case_idx, bool undershoot_en = false)
+        private bool SlewRate_Fall_Task(int case_idx, bool undershoot_en = false)
         {
             vmin_list.Clear();
             slewrate_list.Clear();
@@ -504,6 +536,7 @@ namespace SoftStartTiming
                 double slew_rate = 0;
                 double fall_time = 0;
                 double vmin = 0;
+                int cnt = 0;
 
             Trigger_Fail_retry:
                 IOStateSetting(next_state);
@@ -511,20 +544,28 @@ namespace SoftStartTiming
                 MyLib.Delay1ms(500);
                 InsControl._oscilloscope.SetNormalTrigger();
                 MyLib.Delay1ms(100);
-
+                cnt++;
                 IOStateSetting(initial_state);
                 if (!TriggerStatus())
                 {
                     IOStateSetting(next_state);
-                    InsControl._oscilloscope.SetClear();
+                    //InsControl._oscilloscope.SetClear();
+                    InsControl._oscilloscope.SetStop();
+                    MyLib.Delay1ms(200);
+                    Console.WriteLine("fall cnt = {0}", cnt);
+                    if (cnt == cnt_rest) return false;
                     goto Trigger_Fail_retry;
                 }
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
 
                 // set cursor position
-                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
-                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                if (!undershoot_en)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                    InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                }
+
 
                 if (undershoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
 
@@ -536,12 +577,18 @@ namespace SoftStartTiming
                     //InsControl._oscilloscope.SetCursorMode();
                     //InsControl._oscilloscope.SetCursorOn();
 
-                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) goto GetX;
+                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
+                    {
+                        if (cnt == cnt_rest) return false;
+                        cnt++;
+                        Console.WriteLine("Get cursor fail");
+                        goto GetX;
+                    }
                     InsControl._oscilloscope.SetCursorSource(1, 1);
                     InsControl._oscilloscope.SetCursorSource(2, 1);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                 }
-                vmin = InsControl._oscilloscope.MeasureMean(meas_vmin);
+                vmin = InsControl._oscilloscope.MeasureMin(meas_vmin);
                 vmin_list.Add(vmin);
 
                 // get delta T
@@ -572,7 +619,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_undershoot");
             }
-
+            return true;
         }
 
         public override void ATETask()
@@ -738,7 +785,13 @@ namespace SoftStartTiming
 
 #if Report_en
                         // waveform 9:24
-                        SlewRate_Rise_Task(case_idx);               // Rise time and slew
+                        if (!SlewRate_Rise_Task(case_idx)) // Rise time and slew
+                        {
+                            _sheet.Cells[row, XLS_Table.C] = "Rise Trigger Fail";
+                            _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
+                            row++;
+                            continue;
+                        }
                         string slewrate_min = phase1_name[slewrate_list.IndexOf(slewrate_list.Min())];
                         _range = _sheet.Range["AA" + (wave_row + 2), "AI" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
@@ -753,7 +806,13 @@ namespace SoftStartTiming
                         }
 
 
-                        SlewRate_Rise_Task(case_idx, true);         // overshoot
+                        if(!SlewRate_Rise_Task(case_idx, true))         // overshoot
+                        {
+                            _sheet.Cells[row, XLS_Table.C] = "Rise Persistent Trigger Fail";
+                            _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
+                            row++;
+                            continue;
+                        }
                         _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                         string shoot_max = test_parameter.waveform_name + "_overshoot";
                         _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
@@ -762,7 +821,13 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max() * 100;
                         // --------------------------------------------------------------------------------------------------------
 
-                        SlewRate_Fall_Task(case_idx);
+                        if(!SlewRate_Fall_Task(case_idx))
+                        {
+                            _sheet.Cells[row, XLS_Table.C] = "Fall Trigger Fail";
+                            _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
+                            row++;
+                            continue;
+                        }
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
                         _range = _sheet.Range["AU" + (wave_row + 2), "BC" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
@@ -771,8 +836,14 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.O] = test_parameter.vidio.criteria[case_idx].lpm_en ? slewrate_list.Min() : slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.P] = test_parameter.vidio.criteria[case_idx].lpm_en ? fall_time_list.Max() * Math.Pow(10, 3) : fall_time_list.Max() * Math.Pow(10, 6);
 
-                        SlewRate_Fall_Task(case_idx, true);
-                        _sheet.Cells[row, XLS_Table.T] = vmin_list.Max();
+                        if(!SlewRate_Fall_Task(case_idx, true))
+                        {
+                            _sheet.Cells[row, XLS_Table.C] = "Fall Persistent Trigger Fail";
+                            _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
+                            row++;
+                            continue;
+                        }
+                        _sheet.Cells[row, XLS_Table.T] = vmin_list.Min();
                         shoot_max = test_parameter.waveform_name + "_undershoot";
                         // past over/under-shoot max case
                         _range = _sheet.Range["BE" + (wave_row + 2), "BM" + (wave_row + 25)];
@@ -832,12 +903,19 @@ namespace SoftStartTiming
                             double delay = Convert.ToDouble(_sheet.Cells[row, XLS_Table.W].Value);
                             double delay100 = Convert.ToDouble(_sheet.Cells[row, XLS_Table.X].Value);
 
-                            judge_lpm = (delay100 < 120) & (delay < 20);
+                            judge_lpm = ((delay100 + delay) < 120) & (delay < 20);
                             judge_res = judge_res & judge_lpm;
+
+                            _sheet.Cells[row, XLS_Table.Y] = judge_res ? "Pass" : "Fail";
+                            _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
+
+                        }
+                        else
+                        {
+                            _sheet.Cells[row, XLS_Table.W] = judge_res ? "Pass" : "Fail";
+                            _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
                         }
 
-                        _sheet.Cells[row, XLS_Table.W] = judge_res ? "Pass" : "Fail";
-                        _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
 
 
                         //if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
@@ -898,7 +976,7 @@ namespace SoftStartTiming
                         Excel.Range main_range = _sheet.Range["D" + row];
                         Excel.Range hyper = _sheet.Range["AA" + (wave_row + 1)];
                         // A to B
-                        _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!Q" + (wave_row + 1));
+                        _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!AA" + (wave_row + 1));
                         _sheet.Hyperlinks.Add(hyper, "#'" + _sheet.Name + "'!D" + row);
 
                         _sheet.Cells[wave_row, XLS_Table.AA] = "超連結";

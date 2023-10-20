@@ -4538,14 +4538,14 @@
             // 
             this.cb_ocp_time.FormattingEnabled = true;
             this.cb_ocp_time.Items.AddRange(new object[] {
-            "0h : 40mA",
-            "1h : 50mA",
-            "2h : 60mA",
-            "3h : 70mA",
-            "4h : 80mA",
-            "5h : 120mA",
-            "6h : 135mA",
-            "7h : Disable"});
+            "0h : 10us",
+            "1h : 20us",
+            "2h : 30us",
+            "3h : 50us",
+            "4h : 80us",
+            "5h : 100us",
+            "6h : 120us",
+            "7h : 160us"});
             this.cb_ocp_time.Location = new System.Drawing.Point(16, 72);
             this.cb_ocp_time.Name = "cb_ocp_time";
             this.cb_ocp_time.Size = new System.Drawing.Size(121, 20);
@@ -4565,14 +4565,14 @@
             // 
             this.cb_ocp_level.FormattingEnabled = true;
             this.cb_ocp_level.Items.AddRange(new object[] {
-            "0h : 10us",
-            "1h : 20us",
-            "2h : 30us",
-            "3h : 50us",
-            "4h : 80us",
-            "5h : 100us",
-            "6h : 120us",
-            "7h : 160us"});
+            "0h : 40mA",
+            "1h : 50mA",
+            "2h : 60mA",
+            "3h : 70mA",
+            "4h : 80mA",
+            "5h : 120mA",
+            "6h : 135mA",
+            "7h : Disable"});
             this.cb_ocp_level.Location = new System.Drawing.Point(16, 34);
             this.cb_ocp_level.Name = "cb_ocp_level";
             this.cb_ocp_level.Size = new System.Drawing.Size(121, 20);
