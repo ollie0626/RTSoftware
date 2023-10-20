@@ -23,7 +23,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.09";
+        string win_name = "VIDIO v1.10";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -119,6 +119,7 @@ namespace SoftStartTiming
 
             _item[0] = new ToolStripMenuItem("Delete Row", null, new EventHandler(ToolStripDelete_Click));
             _item[1] = new ToolStripMenuItem("Add Row", null, new EventHandler(ToolStripAdd_Click));
+            RTDev.BoadInit();
         }
 
         private void ToolStripDelete_Click(object sender, EventArgs e)
