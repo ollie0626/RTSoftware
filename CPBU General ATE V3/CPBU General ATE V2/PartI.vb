@@ -2904,7 +2904,51 @@ Public Class PartI
         xlSheet.Cells(row, col) = "RTBB Select"
         title_set()
         row = row + 1
+        xlSheet.Cells(row, col) = "Bridge Board"
         xlSheet.Cells(row, col + 1) = cbox_bridge_sel.SelectedItem
+        row = row + 1
+        '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "Meter Setting"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_L.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_L.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_L.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_M.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_M.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_M.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_H.Value
+        xlSheet.Cells(row, col + 2) = num_comp_in_H.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_in_H.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iin Meter board IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_in_IO.Value
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board Low Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_L.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_L.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_L.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board Mid Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_M.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_M.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_M.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board High Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_H.Value
+        xlSheet.Cells(row, col + 2) = num_comp_out_H.Value
+        xlSheet.Cells(row, col + 3) = num_resolution_out_H.Value
+        row = row + 1
+        xlSheet.Cells(row, col) = "Iout Meter board IO Config:"
+        xlSheet.Cells(row, col + 1) = num_slave_out_IO.Value
+
+
 
 
         xlSheet.Columns(1).AutoFit()
@@ -3645,6 +3689,42 @@ Public Class PartI
         '------------------------------------------------------------------------------------
         row = row + 1
         cbox_bridge_sel.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+        '------------------------------------------------------------------------------------
+        row = row + 1
+        num_slave_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_in_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+        num_slave_in_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+
+        num_slave_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_L.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_M.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        num_comp_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        num_resolution_out_H.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 3).Value
+        row = row + 1
+
+        num_slave_out_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
 
 
         import_now = False
