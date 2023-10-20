@@ -51,6 +51,7 @@ namespace SoftStartTiming
         int meas_vmin = 4;
         int meas_delay = 5;
         int meas_delay100 = 6;
+        const int cnt_rest = 20;
 
 
         public delegate void FinishNotification();
@@ -345,10 +346,10 @@ namespace SoftStartTiming
                 IOStateSetting(next_state);
                 cnt++;
 
-                if (cnt == 5) return false;
+                if (cnt == cnt_rest) return false;
                 if (!TriggerStatus())
                 {
-                    InsControl._oscilloscope.SetClear();
+                    //InsControl._oscilloscope.SetClear();
                     InsControl._oscilloscope.SetStop();
                     MyLib.Delay1ms(200);
                     Console.WriteLine("rise cnt = {0}", cnt);
@@ -369,7 +370,7 @@ namespace SoftStartTiming
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
                     if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
                     {
-                        if (cnt == 5) return false;
+                        if (cnt == cnt_rest) return false;
                         cnt++;
                         Console.WriteLine("Get cursor fail");
                         goto DelayGetX;
@@ -381,8 +382,12 @@ namespace SoftStartTiming
                 }
 
                 // set cursor position
-                InsControl._oscilloscope.SetAnnotation(meas_rising);
-                InsControl._oscilloscope.SetAnnotation(meas_rising);
+                if (!overshoot_en)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                }
+
                 if (overshoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
                 if (repeat_idx == 0) MyLib.Delay1ms(500);
                 else MyLib.Delay1ms(50);
@@ -395,7 +400,7 @@ namespace SoftStartTiming
 
                     if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9))
                     {
-                        if (cnt == 5) return false;
+                        if (cnt == cnt_rest) return false;
                         cnt++;
                         Console.WriteLine("Get cursor fail");
                         goto GetX;
@@ -409,7 +414,7 @@ namespace SoftStartTiming
                 }
 
 
-                vmax = InsControl._oscilloscope.MeasureMean(meas_vmax);
+                vmax = InsControl._oscilloscope.MeasureMax(meas_vmax);
                 vmax_list.Add(vmax);
 
                 // get delta T
@@ -544,19 +549,23 @@ namespace SoftStartTiming
                 if (!TriggerStatus())
                 {
                     IOStateSetting(next_state);
-                    InsControl._oscilloscope.SetClear();
+                    //InsControl._oscilloscope.SetClear();
                     InsControl._oscilloscope.SetStop();
                     MyLib.Delay1ms(200);
                     Console.WriteLine("fall cnt = {0}", cnt);
-                    if (cnt == 5) return false;
+                    if (cnt == cnt_rest) return false;
                     goto Trigger_Fail_retry;
                 }
                 InsControl._oscilloscope.SetStop();
                 if (repeat_idx == 0) MyLib.Delay1ms(200);
 
                 // set cursor position
-                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
-                InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                if (!undershoot_en)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                    InsControl._oscilloscope.SetAnnotation(meas_falling); MyLib.Delay1ms(50);
+                }
+
 
                 if (undershoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
 
@@ -570,7 +579,7 @@ namespace SoftStartTiming
 
                     if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
                     {
-                        if (cnt == 5) return false;
+                        if (cnt == cnt_rest) return false;
                         cnt++;
                         Console.WriteLine("Get cursor fail");
                         goto GetX;
@@ -579,7 +588,7 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetCursorSource(2, 1);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                 }
-                vmin = InsControl._oscilloscope.MeasureMean(meas_vmin);
+                vmin = InsControl._oscilloscope.MeasureMin(meas_vmin);
                 vmin_list.Add(vmin);
 
                 // get delta T
@@ -967,7 +976,7 @@ namespace SoftStartTiming
                         Excel.Range main_range = _sheet.Range["D" + row];
                         Excel.Range hyper = _sheet.Range["AA" + (wave_row + 1)];
                         // A to B
-                        _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!Q" + (wave_row + 1));
+                        _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!AA" + (wave_row + 1));
                         _sheet.Hyperlinks.Add(hyper, "#'" + _sheet.Name + "'!D" + row);
 
                         _sheet.Cells[wave_row, XLS_Table.AA] = "超連結";
