@@ -284,6 +284,7 @@ namespace SoftStartTiming
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
+            double deltaV = hi - lo;
 
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
@@ -306,7 +307,6 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
             }
-
 
             InsControl._oscilloscope.SetCursorWaveform();
             InsControl._oscilloscope.SetCursorOn();
@@ -420,9 +420,12 @@ namespace SoftStartTiming
                 // get delta T
                 if (!overshoot_en)
                 {
-                    rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
-                    // slew rate delta V / delta T
-                    slew_rate = InsControl._oscilloscope.GetCursorHBarDelta() / rise_time;
+                    //rise_time = InsControl._oscilloscope.GetCursorVBarDelta();
+                    //// slew rate delta V / delta T
+                    //slew_rate = InsControl._oscilloscope.GetCursorHBarDelta() / rise_time;
+
+                    rise_time = InsControl._oscilloscope.MeasureMin(meas_rising);
+                    slew_rate = deltaV / rise_time;
 
                     Console.WriteLine("Rise time = {0}, Rise SR = {1}", rise_time, slew_rate);
 
@@ -497,6 +500,7 @@ namespace SoftStartTiming
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
+            double deltaV = hi - lo;
 
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
@@ -597,6 +601,10 @@ namespace SoftStartTiming
                     fall_time = InsControl._oscilloscope.GetCursorVBarDelta();
                     // slew rate delta V / delta T
                     slew_rate = Math.Abs(InsControl._oscilloscope.GetCursorHBarDelta() / fall_time);
+
+                    fall_time = InsControl._oscilloscope.MeasureMin(meas_falling);
+                    slew_rate = deltaV / fall_time;
+
                     Console.WriteLine("Fall time = {0}, Fall SR = {1}", fall_time, slew_rate);
                     slewrate_list.Add(slew_rate);
                     fall_time_list.Add(fall_time);
@@ -863,7 +871,7 @@ namespace SoftStartTiming
 
                         double vmax_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.R].Value);
                         double vmin_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.T].Value);
-                        bool judge_vol = vmax_res > vmax | vmin_res < vmin_res ? false : true;
+                        bool judge_vol = vmax_res > vmax && vmin_res < vmin ? false : true;
                         bool judge_sr = true;
                         bool judge_time = true;
                         bool judge_res = true;
@@ -882,7 +890,7 @@ namespace SoftStartTiming
                             rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
                             fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
                             // slew rate big is good.
-                            judge_sr = (rise_res > rise_sr | fall_res > fall_sr) ? true : false;
+                            judge_sr = (rise_res > rise_sr && fall_res > fall_sr) ? true : false;
                         }
 
 
@@ -894,7 +902,7 @@ namespace SoftStartTiming
                             rise_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
                             fall_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
                             // rise and fall time small is good.
-                            judge_time = (rise_time_res > rise_time | fall_time_res > fall_time) ? false : true;
+                            judge_time = (rise_time_res < rise_time && fall_time_res < fall_time) ? true : false;
                         }
                         judge_res = judge_vol & judge_sr & judge_time;
 
