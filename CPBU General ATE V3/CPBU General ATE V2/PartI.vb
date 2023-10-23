@@ -357,7 +357,6 @@ Public Class PartI
             cbox_Icc_meter.SelectedIndex = 2
         Else
             cbox_Icc_meter.SelectedIndex = cbox_Icc_meter.Items.Count - 1
-
         End If
 
 
@@ -1182,16 +1181,9 @@ Public Class PartI
             End If
             'R&S Scope需要先偵測到才能在設定Auto 
             ' Trigger_auto_level(lx_ch, "R")
-
-
-
             Trigger_run("N")
             RUN_set("RUNSTop")
             'Scope_RUN(True)
-
-
-
-
         End If
 
 
@@ -1298,8 +1290,6 @@ Public Class PartI
         End If
 
         If (RS_Scope = True) And (RS_Scope_EN = True) Then
-
-
             RS_Local()
             RS_visa(False)
             RS_Scope_EN = False
@@ -1406,24 +1396,14 @@ Public Class PartI
                                 iout_temp = iout_set_temp(x)
                                 Exit For
                             End If
-
-
                         Next
-
                     End If
-
                     data_eff.Rows(data_eff.Rows.Count - 1).Cells(2).Value = iout_temp
-
                     If data_eff.Rows.Count > 0 Then
                         data_eff.CurrentCell = data_eff.Rows(data_eff.Rows.Count - 1).Cells(0)
                     End If
-
                 Next
-
-
             End If
-
-
         Next
 
 
@@ -5977,12 +5957,9 @@ Public Class PartI
             End If
 
             If vout_scale_temp <> vout_scale_now Then
-
                 vout_scale_now = vout_scale_temp
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
             End If
-
-
         End If
 
 
@@ -6586,8 +6563,6 @@ Public Class PartI
                         End If
                         xlrange.Value = toff(1) * (10 ^ 9) ' Format(wave_data(1) * (10 ^ 9), "#0.000")
                     End If
-
-
                 End If
                 FinalReleaseComObject(xlrange)
                 col = col + 1
@@ -8000,10 +7975,6 @@ Public Class PartI
 
         TestITem_run_now = True
 
-
-
-
-
         ''Init Parameter
         ' i2c initial code in instrument_init funcfion
         instrument_init()
@@ -8019,9 +7990,6 @@ Public Class PartI
         End If
 
         vout_err = num_Vout_error.Value
-
-
-
 
         Meter_iin_low = Mid(cbox_meter_mini.SelectedItem, 1, 4)
         'initial
@@ -8212,9 +8180,6 @@ Public Class PartI
                             Power_EN(False)
                             Power_EN(True)
                         End If
-
-
-
                         '確認是否要Auto_Scanning
                         first_Check = True
                     End If
@@ -8806,23 +8771,13 @@ Public Class PartI
                             If run = False Then
                                 Exit For
                             End If
-
-
-
                             iout_now = data_lineR_iout.Rows(x).Cells(0).Value
                             DCLoad_Iout(iout_now, monitor_vout)
-
-
                             lineR_iout_num = x
-
                             For v = 0 To data_lineR_vin.Rows.Count - 1
-
                                 System.Windows.Forms.Application.DoEvents()
-
                                 While pause = True
                                     System.Windows.Forms.Application.DoEvents()
-
-
                                     If run = False Then
                                         Exit While
                                     End If
@@ -8831,18 +8786,12 @@ Public Class PartI
                                 If run = False Then
                                     Exit For
                                 End If
-
                                 test_point_num = test_point_num + 1
                                 txt_test_now.Text = test_point_num
-
-
                                 vin_now = data_lineR_vin.Rows(v).Cells(0).Value
                                 LineR_run()
-
                                 LR_Vin_test_num = v
                                 update_report(Line_Regulation)
-
-
                             Next
 
 

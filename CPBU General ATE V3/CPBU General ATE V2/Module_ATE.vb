@@ -821,7 +821,7 @@ Module Module_ATE
                                 addr = Val("&H" & Mid(test(1), 1, 2))
                                 data = Val("&H" & Mid(test(1), 4, 2))
 
-                                reg_write(ID, addr, data)
+                                reg_write(ID, addr, data, device_sel)
                             Next
 
                         Case "GPIO"
@@ -831,7 +831,7 @@ Module Module_ATE
                                 gpio_b3_0(ii) = temp(ii)
                             Next
 
-                            GPIO_out(control_bits, gpio_b3_0)
+                            GPIO_out(control_bits, gpio_b3_0, device_sel)
 
                     End Select
 
@@ -1011,9 +1011,6 @@ Module Module_ATE
             Next
 
         Next
-
-
-
         xlrange = xlSheet.Range(ConvertToLetter(report_col) & report_row)
         xlrange.Offset(1, 0).Value = "Temp. (℃):"
         xlrange.Offset(2, 0).Value = "Start time:"
@@ -1021,7 +1018,6 @@ Module Module_ATE
         xlrange.Offset(4, 0).Value = "Total times(s):"
         xlrange.Offset(5, 0).Value = "Total points:"
         FinalReleaseComObject(xlrange)
-
         report_Group(report_col, 1, 2 * (TA_num + 2), 6)
 
     End Function
