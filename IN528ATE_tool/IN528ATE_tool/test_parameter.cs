@@ -68,6 +68,8 @@ namespace IN528ATE_tool
         public static bool bw_en;
         public static int sst_sel;
         public static bool dt_rising_en;
+
+        public static bool ripple_time_manual;
     }
 
 

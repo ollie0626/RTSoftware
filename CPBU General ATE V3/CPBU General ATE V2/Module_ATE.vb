@@ -18,6 +18,7 @@ Module Module_ATE
     Public data_test_now As Integer = 0
     Public Fs_control As String = "Fs"
     Public Vout_control As String = "Vout"
+    Public Inst_check As Boolean = False
 
     Public report_sheet_first As Boolean = True
     Public sheet_main As String = "Main"
@@ -206,7 +207,7 @@ Module Module_ATE
     Public fs_now As Double
     Public vout_now As Double
 
-  
+
 
     Public total_vcc() As Double
     Public total_fs() As Double
@@ -1592,7 +1593,7 @@ Module Module_ATE
             End If
         Next
 
-       
+
 
         If vout_check = True Then
             check_vout()

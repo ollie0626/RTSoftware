@@ -1943,6 +1943,7 @@ Public Class PartI
         End If
 
         Load_check(data_test_now) = True
+        Inst_check = True
     End Function
 
     Function Calculate_pass(ByVal t As Integer) As Integer
@@ -6197,18 +6198,12 @@ Public Class PartI
 
 
                     If vout_scale_temp <> vout_scale_now Then
-
                         vout_scale_now = vout_scale_temp
                         CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
                     End If
-
                 End If
-
-
-
                 '----------------------------------------------------------------------
             Else
-
                 vout_scale_now = num_vout_CCM.Value
                 CHx_scale(vout_ch, vout_scale_now, "mV") 'Voltage Scale > VID * 10% / 4
             End If
@@ -9621,7 +9616,16 @@ Public Class PartI
 
 
 
-        Inst_check_list()
+        If Inst_check = False Then
+            Inst_check_list()
+        Else
+            If data_test_now >= Load_check.Length Then
+                Inst_check_list()
+            End If
+        End If
+
+
+        'Inst_check_list()
 
 
         Me.Hide()

@@ -41,7 +41,7 @@ namespace IN528ATE_tool
             System.Threading.Thread.Sleep(2000);
             InsControl._scope.CH1_On();
             InsControl._scope.CH1_Level(0.3);
-            InsControl._scope.TimeScaleMs(5);
+            if(!test_parameter.ripple_time_manual) InsControl._scope.TimeScaleMs(5);
             InsControl._scope.CH1_ACoupling();
 
             if(test_parameter.bw_en)

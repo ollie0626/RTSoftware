@@ -161,7 +161,7 @@ namespace IN528ATE_tool
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.check_ripple_time = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -296,7 +296,7 @@ namespace IN528ATE_tool
             this.uibt_run.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_run.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_run.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_run.Location = new System.Drawing.Point(680, 69);
+            this.uibt_run.Location = new System.Drawing.Point(704, 68);
             this.uibt_run.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_run.Name = "uibt_run";
             this.uibt_run.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -321,7 +321,7 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton1.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uiSymbolButton1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiSymbolButton1.Location = new System.Drawing.Point(680, 150);
+            this.uiSymbolButton1.Location = new System.Drawing.Point(704, 149);
             this.uiSymbolButton1.MinimumSize = new System.Drawing.Size(1, 1);
             this.uiSymbolButton1.Name = "uiSymbolButton1";
             this.uiSymbolButton1.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -919,7 +919,7 @@ namespace IN528ATE_tool
             this.uibt_kill.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_kill.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(112)))), ((int)(((byte)(112)))), ((int)(((byte)(112)))));
             this.uibt_kill.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_kill.Location = new System.Drawing.Point(680, 191);
+            this.uibt_kill.Location = new System.Drawing.Point(704, 190);
             this.uibt_kill.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_kill.Name = "uibt_kill";
             this.uibt_kill.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -1017,7 +1017,7 @@ namespace IN528ATE_tool
             // ck_all_test
             // 
             this.ck_all_test.AutoSize = true;
-            this.ck_all_test.Location = new System.Drawing.Point(437, 240);
+            this.ck_all_test.Location = new System.Drawing.Point(540, 172);
             this.ck_all_test.Name = "ck_all_test";
             this.ck_all_test.Size = new System.Drawing.Size(105, 19);
             this.ck_all_test.TabIndex = 51;
@@ -1097,7 +1097,7 @@ namespace IN528ATE_tool
             this.uibt_pause.FillPressColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_pause.FillSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(123)))), ((int)(((byte)(129)))));
             this.uibt_pause.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uibt_pause.Location = new System.Drawing.Point(680, 110);
+            this.uibt_pause.Location = new System.Drawing.Point(704, 109);
             this.uibt_pause.MinimumSize = new System.Drawing.Size(1, 1);
             this.uibt_pause.Name = "uibt_pause";
             this.uibt_pause.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(140)))), ((int)(((byte)(140)))));
@@ -1931,22 +1931,21 @@ namespace IN528ATE_tool
             this.loadSettingToolStripMenuItem.Text = "Load setting";
             this.loadSettingToolStripMenuItem.Click += new System.EventHandler(this.loadSettingToolStripMenuItem_Click);
             // 
-            // checkBox1
+            // check_ripple_time
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(540, 150);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(93, 19);
-            this.checkBox1.TabIndex = 83;
-            this.checkBox1.Text = "Ripple Fixed";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.check_ripple_time.AutoSize = true;
+            this.check_ripple_time.Location = new System.Drawing.Point(540, 150);
+            this.check_ripple_time.Name = "check_ripple_time";
+            this.check_ripple_time.Size = new System.Drawing.Size(200, 19);
+            this.check_ripple_time.TabIndex = 83;
+            this.check_ripple_time.Text = "Ripple Time Scale Manual Fixed";
+            this.check_ripple_time.UseVisualStyleBackColor = true;
             // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(1027, 729);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(160)))), ((int)(((byte)(165)))));
-            this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.CK_Bwen);
             this.Controls.Add(this.groupBox9);
             this.Controls.Add(this.tabControl1);
@@ -1999,6 +1998,7 @@ namespace IN528ATE_tool
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.check_ripple_time);
             this.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ImeMode = System.Windows.Forms.ImeMode.Off;
             this.MainMenuStrip = this.menuStrip1;
@@ -2212,7 +2212,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.CheckBox ck_negvol;
         private System.Windows.Forms.CheckBox ck_sst_define;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox check_ripple_time;
     }
 }
 
