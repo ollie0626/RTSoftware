@@ -105,7 +105,7 @@ Module Module_RTBBLib
                 Next
                 RTBB_board = True
                 I2CScan()
-                I2CSetFrequency(1024, 1000)
+                I2CSetFrequency(1024, 1000, device_sel)
             End If
         End If
 
@@ -121,13 +121,7 @@ Module Module_RTBBLib
         End If
     End Function
 
-
-
-
-
     Function I2CScan() As Integer
-
-
         Dim SlaveAddr As Integer
         Dim i As Integer
         Dim check As Boolean
@@ -152,8 +146,6 @@ Module Module_RTBBLib
             Result = RTBB_I2CScanSlaveDevice(hDevice, I2CBus, pI2CAvailableAddressVBarray(0))
         End If
 
-
-
         If Result = RT_BB_SUCCESS Then
             SlaveAddr = 0
             While (1)
@@ -167,10 +159,7 @@ Module Module_RTBBLib
                 Else
                     Main.txt_ID.Text = Main.txt_ID.Text & ", 0x" & SlaveAddr.ToString("X2")
                 End If
-
-
                 check = False
-
                 'Check Relay ID
                 For i = 0 To Relay_ID.Length - 1
                     If Relay_ID(i) = SlaveAddr Then
@@ -179,33 +168,22 @@ Module Module_RTBBLib
                         check = True
                         Exit For
                     End If
-
                 Next
-
-
                 'Check Meas ID
                 For i = 0 To Meas_ID.Length - 1
                     If Meas_ID(i) = SlaveAddr Then
                         Meas_ID_check(i) = True
                         Main.data_meas.Rows.Add(SlaveAddr.ToString("X2"), Meas_signal(i))
-
                         check = True
                         Exit For
                     End If
-
                 Next
-
                 If check = False Then
                     Main.num_ID.Value = SlaveAddr
                 End If
-
-
                 SlaveAddr += 1
             End While
-
             'Device_OK = True
-
-
         End If
 
         If Main.txt_ID.Text = no_slave Then

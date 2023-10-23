@@ -572,72 +572,37 @@
         End Select
 
 
-
-        If DUT2_en Then
-            If curr_data >= Meter_H Then
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_high_id2 : resolution = in_high_resolution
-                    Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
-                End Select
-
-                data_input = &H0
-            End If
-
-            If curr_data < Meter_H And curr_data >= Meter_L Then
-
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_middle_id2 : resolution = in_middle_resolution
-                    Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
-                End Select
-
-                data_input = &H2
-            End If
-
-            If curr_data < Meter_L Then
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_low_id2 : resolution = in_low_resolution
-                    Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
-                End Select
-                data_input = &H1
-            End If
-
+        If curr_data >= Meter_H Then
             Select Case in_out_sel
-                Case 0 : IO_ID = in_io_id2
-                Case 1 : IO_ID = out_io_id
+                Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
+                Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
             End Select
-        Else
-            If curr_data >= Meter_H Then
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_high_id : resolution = in_high_resolution
-                    Case 1 : Meas_ID = out_high_id : resolution = out_high_resolution
-                End Select
 
-                data_input = &H0
-            End If
-
-            If curr_data < Meter_H And curr_data >= Meter_L Then
-
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
-                    Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
-                End Select
-
-                data_input = &H2
-            End If
-
-            If curr_data < Meter_L Then
-                Select Case in_out_sel
-                    Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
-                    Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
-                End Select
-                data_input = &H1
-            End If
-
-            Select Case in_out_sel
-                Case 0 : IO_ID = in_io_id
-                Case 1 : IO_ID = out_io_id
-            End Select
+            data_input = &H0
         End If
+
+        If curr_data < Meter_H And curr_data >= Meter_L Then
+
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_middle_id : resolution = in_middle_resolution
+                Case 1 : Meas_ID = out_middle_id : resolution = out_middle_resolution
+            End Select
+
+            data_input = &H2
+        End If
+
+        If curr_data < Meter_L Then
+            Select Case in_out_sel
+                Case 0 : Meas_ID = in_low_id : resolution = in_low_resolution
+                Case 1 : Meas_ID = out_low_id : resolution = out_low_resolution
+            End Select
+            data_input = &H1
+        End If
+
+        Select Case in_out_sel
+            Case 0 : IO_ID = in_io_id
+            Case 1 : IO_ID = out_io_id
+        End Select
 
         ' H: write Hi byte first then low byte
         reg_write_word(IO_ID, &H1, data_input, "H", device_sel)

@@ -181,7 +181,6 @@ Public Class PartI
     '------------------------------------------------------------------------------------------------
     'Test
     Function initial() As Integer
-
         If BoardCount > 0 Then
             For i = 0 To BoardCount - 1
                 hEnum = RTBB_EnumBoard()
@@ -191,8 +190,6 @@ Public Class PartI
             Next
             cbox_bridge_sel.SelectedIndex = 0
         End If
-
-
 
         'Chamber
         If Main.check_TA_en.Checked = True Then
@@ -212,8 +209,6 @@ Public Class PartI
         End If
         '-----------------------------------------------------
         'EN SET
-
-
 
         'Main.fs_vout_set()
         fs_vout_set()
@@ -409,32 +404,17 @@ Public Class PartI
         cbox_coupling_vout.SelectedIndex = 0 'DC 1M
         cbox_BW_vout.SelectedItem = "20MHz"
 
-
         'VIN
-
         cbox_channel_vin.SelectedIndex = 2
         cbox_coupling_vin.SelectedIndex = 1  'AC
         cbox_BW_vin.SelectedItem = "20MHz"
 
-
-
         'IOUT
-
         cbox_channel_iout.SelectedIndex = 3
         cbox_coupling_iout.SelectedIndex = 2 'DC 50Ohm
         cbox_BW_iout.SelectedItem = "20MHz"
-
-
-
         '-------------------------------------------------------------------
         'Test setup
-
-
-
-
-
-
-
     End Function
 
     Private Sub PartI_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -442,6 +422,7 @@ Public Class PartI
         initial()
         scope_init_set()
         Check_Eagleboard()
+
         ' i2c initial setting
         txt_ID.Text = Main.txt_ID.Text
         num_ID.Value = Main.num_ID.Value
@@ -497,11 +478,6 @@ Public Class PartI
         Dim vout_change As Boolean = False
         Dim i As Integer
 
-
-
-
-
-
         'Chamber
         If Main.check_TA_en.Checked = True Then
             txt_TA.Text = "TA"
@@ -522,16 +498,12 @@ Public Class PartI
         'EN SET
 
         If (Main.check_en.Checked = True) Then
-
             pic_EN.Visible = False
             txt_EN.Visible = True
         Else
-
             pic_EN.Visible = True
             txt_EN.Visible = False
         End If
-
-
 
         'Main.fs_vout_set()
         fs_vout_set()
@@ -577,7 +549,6 @@ Public Class PartI
                 End If
             Next
         End If
-
 
         If vout_change = True Then
             clist_vout.Items.Clear()
@@ -627,7 +598,6 @@ Public Class PartI
 
         ''-----------------------------------------------------
         ''Vin
-
         If device_select_same(cbox_vin, txt_vin_addr, Power, False) = False Then
             vin_dev_ch = 0
 
@@ -637,17 +607,9 @@ Public Class PartI
 
         If device_select_same(cbox_VCC, txt_vcc_Addr, Power, True) = False Then
             vcc_dev_ch = 0
-
         End If
 
-
         cbox_VCC_ch.SelectedIndex = vcc_dev_ch
-
-
-
-
-
-
 
         If Meter_num = 0 Then
             If Main.data_meas.Rows.Count > 0 Then
@@ -7972,12 +7934,13 @@ Public Class PartI
 
         ''Init Parameter
         ' i2c initial code in instrument_init funcfion
-        instrument_init()
         data_i2c_p = data_i2c
         data_fs_p = data_fs
         data_vout_p = data_vout
         cbox_fs_ctr_p = cbox_fs_ctr
         cbox_vout_ctr_p = cbox_vout_ctr
+        instrument_init()
+
 
 
         If run = False Then
@@ -8127,11 +8090,7 @@ Public Class PartI
                 End If
                 fs_now = total_fs(i)
                 fs_test_num = i
-
-
                 If cbox_fs_ctr.SelectedItem <> no_device Then
-
-
                     DCLoad_ONOFF("OFF")
                     Grobal_Control(Fs_control, fs_now,
                                    data_fs, data_vout,
@@ -8279,9 +8238,7 @@ Public Class PartI
 
 
                             Array.Sort(total_iout)
-
                             total_iout = total_iout.Distinct.ToArray()
-
                             '-----------------------------------------------------------------------------------------------------------
                             'check Iin Meter
                             If (check_Efficiency.Checked = True) And ((check_iin.Checked = True) Or (rbtn_board_iin.Checked = True)) Then
