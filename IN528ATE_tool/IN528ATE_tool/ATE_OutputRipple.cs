@@ -37,7 +37,7 @@ namespace IN528ATE_tool
 
         private void OSCInit()
         {
-            InsControl._scope.AgilentOSC_RST();
+            if (!test_parameter.ripple_time_manual) InsControl._scope.AgilentOSC_RST();
             System.Threading.Thread.Sleep(2000);
             InsControl._scope.CH1_On();
             InsControl._scope.CH1_Level(0.3);
