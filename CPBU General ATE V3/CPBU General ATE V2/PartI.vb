@@ -724,7 +724,6 @@ Public Class PartI
         Dim i As Integer
 
         If cbox_bridge_sel.SelectedIndex <> 0 Then
-
             device_sel = cbox_bridge_sel.SelectedIndex - 1
         End If
         Power_EN(False)
@@ -776,9 +775,6 @@ Public Class PartI
                 load_num = load_num + 1
             End If
         Next
-
-
-
 
         ''----------------------------------------------------------------------------------
         'Meter
@@ -1483,45 +1479,26 @@ Public Class PartI
 
 
             For i = 0 To iout_temp.Length - 1
-
                 If (i > 0) And (IOB_check = True) Then
                     For ii = 0 To IOUT_Boundary_Array.Length - 1
-
                         If IOUT_Boundary_Array(ii) > iout_temp(i - 1) And IOUT_Boundary_Array(ii) < iout_temp(i) Then
-
                             data_test.Rows.Add(IOUT_Boundary_Array(ii))
-
-
                         End If
-
-
                     Next
-
                 End If
-
                 data_test.Rows.Add(iout_temp(i))
-
             Next
 
             ReDim iout_temp(data_test.Rows.Count - 1)
-
             For i = 0 To data_test.Rows.Count - 1
-
                 iout_temp(i) = data_test.Rows(i).Cells(0).Value
-
             Next
-
         End If
-
-
 
         If check_iout_up.Checked = True Then
             For i = iout_temp.Length - 2 To 0 Step -1
-
                 data_test.Rows.Add(iout_temp(i))
-
             Next
-
         End If
         Return iout_temp
 
@@ -1586,6 +1563,9 @@ Public Class PartI
             End If
 
         Next
+
+
+
 
     End Function
 
