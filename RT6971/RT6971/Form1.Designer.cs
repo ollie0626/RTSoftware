@@ -1066,7 +1066,7 @@
             // label54
             // 
             this.label54.AutoSize = true;
-            this.label54.Location = new System.Drawing.Point(285, 26);
+            this.label54.Location = new System.Drawing.Point(297, 26);
             this.label54.Name = "label54";
             this.label54.Size = new System.Drawing.Size(13, 12);
             this.label54.TabIndex = 156;
@@ -1093,7 +1093,7 @@
             65536});
             this.AVDDV.Name = "AVDDV";
             this.AVDDV.ReadOnly = true;
-            this.AVDDV.Size = new System.Drawing.Size(46, 22);
+            this.AVDDV.Size = new System.Drawing.Size(63, 22);
             this.AVDDV.TabIndex = 157;
             this.AVDDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.AVDDV.Value = new decimal(new int[] {
@@ -1729,7 +1729,7 @@
             this.groupBox25.Controls.Add(this.label23);
             this.groupBox25.Controls.Add(this.VCOM3V);
             this.groupBox25.Controls.Add(this.VCOM3H);
-            this.groupBox25.Location = new System.Drawing.Point(644, 252);
+            this.groupBox25.Location = new System.Drawing.Point(644, 253);
             this.groupBox25.Name = "groupBox25";
             this.groupBox25.Size = new System.Drawing.Size(313, 54);
             this.groupBox25.TabIndex = 184;
@@ -1749,7 +1749,7 @@
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(285, 22);
+            this.label23.Location = new System.Drawing.Point(299, 22);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(13, 12);
             this.label23.TabIndex = 156;
@@ -1762,7 +1762,7 @@
             this.VCOM3V.Location = new System.Drawing.Point(233, 16);
             this.VCOM3V.Name = "VCOM3V";
             this.VCOM3V.ReadOnly = true;
-            this.VCOM3V.Size = new System.Drawing.Size(46, 22);
+            this.VCOM3V.Size = new System.Drawing.Size(67, 22);
             this.VCOM3V.TabIndex = 157;
             this.VCOM3V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1807,7 +1807,7 @@
             // label21
             // 
             this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(285, 22);
+            this.label21.Location = new System.Drawing.Point(299, 22);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(13, 12);
             this.label21.TabIndex = 156;
@@ -1820,7 +1820,7 @@
             this.GAM14V.Location = new System.Drawing.Point(233, 16);
             this.GAM14V.Name = "GAM14V";
             this.GAM14V.ReadOnly = true;
-            this.GAM14V.Size = new System.Drawing.Size(46, 22);
+            this.GAM14V.Size = new System.Drawing.Size(67, 22);
             this.GAM14V.TabIndex = 157;
             this.GAM14V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1865,7 +1865,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(285, 22);
+            this.label24.Location = new System.Drawing.Point(299, 22);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(13, 12);
             this.label24.TabIndex = 156;
@@ -1878,7 +1878,7 @@
             this.VCOM2V.Location = new System.Drawing.Point(233, 16);
             this.VCOM2V.Name = "VCOM2V";
             this.VCOM2V.ReadOnly = true;
-            this.VCOM2V.Size = new System.Drawing.Size(46, 22);
+            this.VCOM2V.Size = new System.Drawing.Size(67, 22);
             this.VCOM2V.TabIndex = 157;
             this.VCOM2V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1923,7 +1923,7 @@
             // label20
             // 
             this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(285, 22);
+            this.label20.Location = new System.Drawing.Point(294, 22);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(13, 12);
             this.label20.TabIndex = 156;
@@ -1936,7 +1936,7 @@
             this.GAM12V.Location = new System.Drawing.Point(233, 16);
             this.GAM12V.Name = "GAM12V";
             this.GAM12V.ReadOnly = true;
-            this.GAM12V.Size = new System.Drawing.Size(46, 22);
+            this.GAM12V.Size = new System.Drawing.Size(61, 22);
             this.GAM12V.TabIndex = 157;
             this.GAM12V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1981,7 +1981,7 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(285, 22);
+            this.label25.Location = new System.Drawing.Point(299, 22);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(13, 12);
             this.label25.TabIndex = 156;
@@ -1994,7 +1994,7 @@
             this.VCOM1V.Location = new System.Drawing.Point(233, 16);
             this.VCOM1V.Name = "VCOM1V";
             this.VCOM1V.ReadOnly = true;
-            this.VCOM1V.Size = new System.Drawing.Size(46, 22);
+            this.VCOM1V.Size = new System.Drawing.Size(67, 22);
             this.VCOM1V.TabIndex = 157;
             this.VCOM1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2039,7 +2039,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(285, 22);
+            this.label22.Location = new System.Drawing.Point(299, 22);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(13, 12);
             this.label22.TabIndex = 156;
@@ -2052,7 +2052,7 @@
             this.GAM13V.Location = new System.Drawing.Point(233, 16);
             this.GAM13V.Name = "GAM13V";
             this.GAM13V.ReadOnly = true;
-            this.GAM13V.Size = new System.Drawing.Size(46, 22);
+            this.GAM13V.Size = new System.Drawing.Size(67, 22);
             this.GAM13V.TabIndex = 157;
             this.GAM13V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2097,7 +2097,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(285, 22);
+            this.label19.Location = new System.Drawing.Point(294, 22);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(13, 12);
             this.label19.TabIndex = 156;
@@ -2110,7 +2110,7 @@
             this.GAM11V.Location = new System.Drawing.Point(233, 16);
             this.GAM11V.Name = "GAM11V";
             this.GAM11V.ReadOnly = true;
-            this.GAM11V.Size = new System.Drawing.Size(46, 22);
+            this.GAM11V.Size = new System.Drawing.Size(61, 22);
             this.GAM11V.TabIndex = 157;
             this.GAM11V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2155,7 +2155,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(285, 22);
+            this.label18.Location = new System.Drawing.Point(294, 22);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(13, 12);
             this.label18.TabIndex = 156;
@@ -2168,7 +2168,7 @@
             this.GAM10V.Location = new System.Drawing.Point(233, 16);
             this.GAM10V.Name = "GAM10V";
             this.GAM10V.ReadOnly = true;
-            this.GAM10V.Size = new System.Drawing.Size(46, 22);
+            this.GAM10V.Size = new System.Drawing.Size(61, 22);
             this.GAM10V.TabIndex = 157;
             this.GAM10V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2213,7 +2213,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(285, 22);
+            this.label17.Location = new System.Drawing.Point(294, 22);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(13, 12);
             this.label17.TabIndex = 156;
@@ -2226,7 +2226,7 @@
             this.GAM9V.Location = new System.Drawing.Point(233, 16);
             this.GAM9V.Name = "GAM9V";
             this.GAM9V.ReadOnly = true;
-            this.GAM9V.Size = new System.Drawing.Size(46, 22);
+            this.GAM9V.Size = new System.Drawing.Size(61, 22);
             this.GAM9V.TabIndex = 157;
             this.GAM9V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2271,7 +2271,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(285, 22);
+            this.label16.Location = new System.Drawing.Point(294, 22);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(13, 12);
             this.label16.TabIndex = 156;
@@ -2284,7 +2284,7 @@
             this.GAM8V.Location = new System.Drawing.Point(233, 16);
             this.GAM8V.Name = "GAM8V";
             this.GAM8V.ReadOnly = true;
-            this.GAM8V.Size = new System.Drawing.Size(46, 22);
+            this.GAM8V.Size = new System.Drawing.Size(61, 22);
             this.GAM8V.TabIndex = 157;
             this.GAM8V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2329,7 +2329,7 @@
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(285, 22);
+            this.label15.Location = new System.Drawing.Point(294, 22);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(13, 12);
             this.label15.TabIndex = 156;
@@ -2342,7 +2342,7 @@
             this.GAM7V.Location = new System.Drawing.Point(233, 16);
             this.GAM7V.Name = "GAM7V";
             this.GAM7V.ReadOnly = true;
-            this.GAM7V.Size = new System.Drawing.Size(46, 22);
+            this.GAM7V.Size = new System.Drawing.Size(61, 22);
             this.GAM7V.TabIndex = 157;
             this.GAM7V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2387,7 +2387,7 @@
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(285, 22);
+            this.label14.Location = new System.Drawing.Point(294, 22);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(13, 12);
             this.label14.TabIndex = 156;
@@ -2400,7 +2400,7 @@
             this.GAM6V.Location = new System.Drawing.Point(233, 16);
             this.GAM6V.Name = "GAM6V";
             this.GAM6V.ReadOnly = true;
-            this.GAM6V.Size = new System.Drawing.Size(46, 22);
+            this.GAM6V.Size = new System.Drawing.Size(61, 22);
             this.GAM6V.TabIndex = 157;
             this.GAM6V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2445,7 +2445,7 @@
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(285, 22);
+            this.label13.Location = new System.Drawing.Point(294, 22);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(13, 12);
             this.label13.TabIndex = 156;
@@ -2458,7 +2458,7 @@
             this.GAM5V.Location = new System.Drawing.Point(233, 16);
             this.GAM5V.Name = "GAM5V";
             this.GAM5V.ReadOnly = true;
-            this.GAM5V.Size = new System.Drawing.Size(46, 22);
+            this.GAM5V.Size = new System.Drawing.Size(61, 22);
             this.GAM5V.TabIndex = 157;
             this.GAM5V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2503,7 +2503,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(285, 22);
+            this.label12.Location = new System.Drawing.Point(294, 22);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(13, 12);
             this.label12.TabIndex = 156;
@@ -2516,7 +2516,7 @@
             this.GAM4V.Location = new System.Drawing.Point(233, 16);
             this.GAM4V.Name = "GAM4V";
             this.GAM4V.ReadOnly = true;
-            this.GAM4V.Size = new System.Drawing.Size(46, 22);
+            this.GAM4V.Size = new System.Drawing.Size(61, 22);
             this.GAM4V.TabIndex = 157;
             this.GAM4V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2561,7 +2561,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(285, 22);
+            this.label11.Location = new System.Drawing.Point(294, 22);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(13, 12);
             this.label11.TabIndex = 156;
@@ -2574,7 +2574,7 @@
             this.GAM3V.Location = new System.Drawing.Point(233, 16);
             this.GAM3V.Name = "GAM3V";
             this.GAM3V.ReadOnly = true;
-            this.GAM3V.Size = new System.Drawing.Size(46, 22);
+            this.GAM3V.Size = new System.Drawing.Size(61, 22);
             this.GAM3V.TabIndex = 157;
             this.GAM3V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2619,7 +2619,7 @@
             // label74
             // 
             this.label74.AutoSize = true;
-            this.label74.Location = new System.Drawing.Point(285, 22);
+            this.label74.Location = new System.Drawing.Point(294, 22);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(13, 12);
             this.label74.TabIndex = 156;
@@ -2632,7 +2632,7 @@
             this.GAM2V.Location = new System.Drawing.Point(233, 16);
             this.GAM2V.Name = "GAM2V";
             this.GAM2V.ReadOnly = true;
-            this.GAM2V.Size = new System.Drawing.Size(46, 22);
+            this.GAM2V.Size = new System.Drawing.Size(61, 22);
             this.GAM2V.TabIndex = 157;
             this.GAM2V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2677,7 +2677,7 @@
             // label73
             // 
             this.label73.AutoSize = true;
-            this.label73.Location = new System.Drawing.Point(285, 22);
+            this.label73.Location = new System.Drawing.Point(297, 22);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(13, 12);
             this.label73.TabIndex = 156;
@@ -2690,7 +2690,7 @@
             this.GAM1V.Location = new System.Drawing.Point(233, 16);
             this.GAM1V.Name = "GAM1V";
             this.GAM1V.ReadOnly = true;
-            this.GAM1V.Size = new System.Drawing.Size(46, 22);
+            this.GAM1V.Size = new System.Drawing.Size(63, 22);
             this.GAM1V.TabIndex = 157;
             this.GAM1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2735,7 +2735,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(285, 26);
+            this.label10.Location = new System.Drawing.Point(297, 26);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(13, 12);
             this.label10.TabIndex = 156;
@@ -2752,7 +2752,7 @@
             this.HAVDDV.Location = new System.Drawing.Point(233, 21);
             this.HAVDDV.Name = "HAVDDV";
             this.HAVDDV.ReadOnly = true;
-            this.HAVDDV.Size = new System.Drawing.Size(46, 22);
+            this.HAVDDV.Size = new System.Drawing.Size(63, 22);
             this.HAVDDV.TabIndex = 157;
             this.HAVDDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.HAVDDV.Value = new decimal(new int[] {
@@ -2802,7 +2802,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(285, 26);
+            this.label9.Location = new System.Drawing.Point(297, 26);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(13, 12);
             this.label9.TabIndex = 156;
@@ -2829,7 +2829,7 @@
             0});
             this.GLDOV.Name = "GLDOV";
             this.GLDOV.ReadOnly = true;
-            this.GLDOV.Size = new System.Drawing.Size(46, 22);
+            this.GLDOV.Size = new System.Drawing.Size(63, 22);
             this.GLDOV.TabIndex = 157;
             this.GLDOV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.GLDOV.Value = new decimal(new int[] {
@@ -2879,7 +2879,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(285, 26);
+            this.label8.Location = new System.Drawing.Point(297, 26);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(13, 12);
             this.label8.TabIndex = 156;
@@ -2906,7 +2906,7 @@
             -2147483648});
             this.VGL2HTV.Name = "VGL2HTV";
             this.VGL2HTV.ReadOnly = true;
-            this.VGL2HTV.Size = new System.Drawing.Size(46, 22);
+            this.VGL2HTV.Size = new System.Drawing.Size(63, 22);
             this.VGL2HTV.TabIndex = 157;
             this.VGL2HTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGL2HTV.Value = new decimal(new int[] {
@@ -2956,7 +2956,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(285, 26);
+            this.label7.Location = new System.Drawing.Point(297, 26);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(13, 12);
             this.label7.TabIndex = 156;
@@ -2983,7 +2983,7 @@
             -2147483648});
             this.VGL2LTV.Name = "VGL2LTV";
             this.VGL2LTV.ReadOnly = true;
-            this.VGL2LTV.Size = new System.Drawing.Size(46, 22);
+            this.VGL2LTV.Size = new System.Drawing.Size(63, 22);
             this.VGL2LTV.TabIndex = 157;
             this.VGL2LTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGL2LTV.Value = new decimal(new int[] {
@@ -3033,7 +3033,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(285, 26);
+            this.label6.Location = new System.Drawing.Point(297, 26);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(13, 12);
             this.label6.TabIndex = 156;
@@ -3060,7 +3060,7 @@
             -2147483648});
             this.VGL1V.Name = "VGL1V";
             this.VGL1V.ReadOnly = true;
-            this.VGL1V.Size = new System.Drawing.Size(46, 22);
+            this.VGL1V.Size = new System.Drawing.Size(63, 22);
             this.VGL1V.TabIndex = 157;
             this.VGL1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGL1V.Value = new decimal(new int[] {
@@ -3110,7 +3110,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(285, 26);
+            this.label5.Location = new System.Drawing.Point(297, 26);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(13, 12);
             this.label5.TabIndex = 156;
@@ -3137,7 +3137,7 @@
             0});
             this.VGHHTV.Name = "VGHHTV";
             this.VGHHTV.ReadOnly = true;
-            this.VGHHTV.Size = new System.Drawing.Size(46, 22);
+            this.VGHHTV.Size = new System.Drawing.Size(63, 22);
             this.VGHHTV.TabIndex = 157;
             this.VGHHTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGHHTV.Value = new decimal(new int[] {
@@ -3187,7 +3187,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(285, 26);
+            this.label4.Location = new System.Drawing.Point(297, 26);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(13, 12);
             this.label4.TabIndex = 156;
@@ -3214,7 +3214,7 @@
             0});
             this.VGHLTV.Name = "VGHLTV";
             this.VGHLTV.ReadOnly = true;
-            this.VGHLTV.Size = new System.Drawing.Size(46, 22);
+            this.VGHLTV.Size = new System.Drawing.Size(63, 22);
             this.VGHLTV.TabIndex = 157;
             this.VGHLTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VGHLTV.Value = new decimal(new int[] {
@@ -3264,7 +3264,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(285, 26);
+            this.label3.Location = new System.Drawing.Point(297, 26);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(13, 12);
             this.label3.TabIndex = 156;
@@ -3291,7 +3291,7 @@
             65536});
             this.VCC2V.Name = "VCC2V";
             this.VCC2V.ReadOnly = true;
-            this.VCC2V.Size = new System.Drawing.Size(46, 22);
+            this.VCC2V.Size = new System.Drawing.Size(63, 22);
             this.VCC2V.TabIndex = 157;
             this.VCC2V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VCC2V.Value = new decimal(new int[] {
@@ -3341,7 +3341,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(285, 26);
+            this.label2.Location = new System.Drawing.Point(297, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(13, 12);
             this.label2.TabIndex = 156;
@@ -3368,7 +3368,7 @@
             65536});
             this.VCC1V.Name = "VCC1V";
             this.VCC1V.ReadOnly = true;
-            this.VCC1V.Size = new System.Drawing.Size(46, 22);
+            this.VCC1V.Size = new System.Drawing.Size(63, 22);
             this.VCC1V.TabIndex = 157;
             this.VCC1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.VCC1V.Value = new decimal(new int[] {

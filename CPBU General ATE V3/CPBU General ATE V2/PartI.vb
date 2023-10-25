@@ -324,7 +324,7 @@ Public Class PartI
             rbtn_board_iin.Checked = True
             rbtn_board_iout.Checked = True
         Else
-            rbtn_Iin_PW.Checked = True
+            'rbtn_Iin_PW.Checked = True
             rbtn_iout_load.Checked = True
         End If
 
@@ -616,7 +616,7 @@ Public Class PartI
                 rbtn_board_iin.Checked = True
                 rbtn_board_iout.Checked = True
             Else
-                rbtn_Iin_PW.Checked = True
+                'rbtn_Iin_PW.Checked = True
                 rbtn_iout_load.Checked = True
             End If
 
@@ -2539,6 +2539,9 @@ Public Class PartI
         xlSheet.Cells(row, col + 4) = check_iin.Checked
         xlSheet.Cells(row, col + 5) = cbox_IIN_relay.SelectedItem
         xlSheet.Cells(row, col + 6) = num_iin_change.Value
+        xlSheet.Cells(row, col + 7) = rbtn_Iin_PW.Checked
+        xlSheet.Cells(row, col + 8) = rbtn_iin_current_measure.Checked
+
         row = row + 1
 
 
@@ -2570,6 +2573,7 @@ Public Class PartI
         xlSheet.Cells(row, col + 6) = num_iout_change.Value
         xlSheet.Cells(row, col + 7) = rbtn_board_iout.Checked
         xlSheet.Cells(row, col + 8) = cbox_board_buck.SelectedItem
+        xlSheet.Cells(row, col + 9) = rbtn_iout_current_measure.Checked
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -2979,7 +2983,7 @@ Public Class PartI
         Dim ton_temp As Double
         Dim num As Integer = 0
 
-
+        last_col = xlSheet.Range(ConvertToLetter(col) & row).CurrentRegion.Columns.Count
         row = 1
         col = 1
 
@@ -3028,7 +3032,7 @@ Public Class PartI
 
 
         Tab_Set.SelectedIndex = 0
-        last_col = xlSheet.Range(ConvertToLetter(col) & row).CurrentRegion.Columns.Count
+
         'xlSheet.Cells(row, col) = Stability
         'title_set()
         row = row + 1
@@ -3301,6 +3305,9 @@ Public Class PartI
         check_iin.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 4).Value
         cbox_IIN_relay.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 5).Value
         num_iin_change.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 6).Value
+
+        rbtn_Iin_PW.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 7).Value
+        rbtn_iin_current_measure.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 8).Value
         row = row + 1
 
         '------------------------------------------------------------------------------------
@@ -3374,6 +3381,8 @@ Public Class PartI
         ElseIf rbtn_meter_iout.Checked = True And cbox_Iout_meter.SelectedItem = no_device Then
             rbtn_iout_load.Checked = True
         End If
+
+        rbtn_iout_current_measure.Checked = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 9).Value
         row = row + 1
 
 
@@ -9056,6 +9065,7 @@ Public Class PartI
             Test_import()
             Inst_check_list()
 
+
             'GC.Collect()
             result_parameter()
             Tab_Set.SelectedIndex = 6
@@ -9074,7 +9084,7 @@ Public Class PartI
             If cbox_bridge_sel.SelectedIndex <> 0 Then
                 device_sel = cbox_bridge_sel.SelectedIndex - 1
             End If
-
+            Get_CurrnetBoard_Setting()
             TestITem_run()
 
 
@@ -10407,6 +10417,35 @@ Public Class PartI
 
     Private Sub data_vout_RowsRemoved(sender As Object, e As DataGridViewRowsRemovedEventArgs) Handles data_vout.RowsRemoved
         fs_vout_set()
+    End Sub
+
+    Private Sub Get_CurrnetBoard_Setting()
+        in_high_id = num_slave_in_H.Value
+        in_middle_id = num_slave_in_M.Value
+        in_low_id = num_slave_in_L.Value
+        in_io_id = num_slave_in_IO.Value
+
+        in_high_comp = num_comp_in_H.Value
+        in_middle_comp = num_comp_in_M.Value
+        in_low_comp = num_comp_in_L.Value
+
+        in_high_resolution = num_resolution_in_H.Value
+        in_middle_resolution = num_resolution_in_M.Value
+        in_low_resolution = num_resolution_in_L.Value
+
+
+        out_high_id = num_slave_out_H.Value
+        out_middle_id = num_slave_out_M.Value
+        out_low_id = num_slave_out_L.Value
+        out_io_id = num_slave_out_IO.Value
+
+        out_high_comp = num_comp_out_H.Value
+        out_middle_comp = num_comp_out_M.Value
+        out_low_comp = num_comp_out_L.Value
+
+        out_high_resolution = num_resolution_out_H.Value
+        out_middle_resolution = num_resolution_out_M.Value
+        out_low_resolution = num_resolution_out_L.Value
     End Sub
 
 End Class
