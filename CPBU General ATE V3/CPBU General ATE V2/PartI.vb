@@ -724,9 +724,9 @@ Public Class PartI
         Dim i As Integer
 
         If cbox_bridge_sel.SelectedIndex <> 0 Then
-
             device_sel = cbox_bridge_sel.SelectedIndex - 1
         End If
+
         Power_EN(False)
         ''----------------------------------------------------------------------------------
         DAQ_resolution = cbox_data_resolution.SelectedItem
@@ -1351,9 +1351,7 @@ Public Class PartI
 
 
                     If update_ok = True Then
-
                         For x = 0 To vin_temp.Length - 1
-
                             If (vout_now.ToString = vout_temp(x)) And (vin_now.ToString = vin_temp(x)) Then
                                 iout_temp = iout_set_temp(x)
                                 Exit For
@@ -8036,13 +8034,8 @@ Public Class PartI
         'TA
         Delay(100)
         ''----------------------------------------------------------------------------------
-
-
-
         If check_stability.Checked = True Then
             error_pic_col = 1
-
-
             If TA_Test_num = 0 Then
                 error_pic_row = 3
                 error_pic_num = 1
@@ -8067,7 +8060,6 @@ Public Class PartI
         test_point_temp = test_point_num
         'Start Test
         start_test_time = Now
-
         For n = 0 To total_vcc.Length - 1
             System.Windows.Forms.Application.DoEvents()
             While pause = True
@@ -8114,27 +8106,19 @@ Public Class PartI
 
                 For ii = 0 To total_vout.Length - 1
                     System.Windows.Forms.Application.DoEvents()
-
                     While pause = True
                         System.Windows.Forms.Application.DoEvents()
-
-
                         If run = False Then
                             Exit While
                         End If
                     End While
-
                     If run = False Then
                         Exit For
                     End If
-
                     vout_now = total_vout(ii)
                     Vout_test_num = ii
-
                     DCLoad_check_range()
-
                     If cbox_vout_ctr.SelectedItem <> no_device Then
-
                         DCLoad_ONOFF("OFF")
                         Grobal_Control(Vout_control, vout_now,
                                        data_fs, data_vout,
@@ -8147,20 +8131,13 @@ Public Class PartI
                         first_Check = True
                     End If
 
-
-
-
                     'PartI Test
-
                     If check_stability.Checked = True Or check_jitter.Checked = True Or check_Efficiency.Checked = True Or check_loadR.Checked = True Or ((check_LineR.Checked = True) And (rbtn_lineR_test2.Checked = True)) Then
 
                         For v = 0 To data_vin.Rows.Count - 1
                             System.Windows.Forms.Application.DoEvents()
-
                             While pause = True
                                 System.Windows.Forms.Application.DoEvents()
-
-
                                 If run = False Then
                                     Exit While
                                 End If
@@ -8169,9 +8146,6 @@ Public Class PartI
                             If run = False Then
                                 Exit For
                             End If
-
-
-
                             excel_open()
 
                             vin_now = data_vin.Rows(v).Cells(0).Value
@@ -8245,7 +8219,6 @@ Public Class PartI
                                 Exit For
                             End If
 
-
                             Array.Sort(total_iout)
                             total_iout = total_iout.Distinct.ToArray()
                             '-----------------------------------------------------------------------------------------------------------
@@ -8257,9 +8230,10 @@ Public Class PartI
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
-                            ElseIf rbtn_iin_current_measure.Checked Or
-                                   rbtn_iout_current_measure.Checked Then
+                            End If
 
+
+                            If check_Efficiency.Checked Then
                                 If rbtn_iin_current_measure.Checked Then
                                     relay_in_meter_intial()
                                 End If
@@ -8267,8 +8241,11 @@ Public Class PartI
                                 If rbtn_iout_current_measure.Checked Then
                                     realy_out_meter_initial()
                                 End If
-
                             End If
+
+
+
+
                             '-----------------------------------------------------------------------------------------------------------
                             'Iout Setting
                             eff_iout_num = 0
@@ -9540,9 +9517,6 @@ Public Class PartI
                 txt_jitter_sheet.Text = "Jitter_" & PartI_num
             End If
 
-
-
-
             data_test_now = Main.data_Test.Rows.Count - 1
             Add_test = False
 
@@ -10293,16 +10267,24 @@ Public Class PartI
 
     Private Sub cbox_bridge_sel_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_bridge_sel.SelectedIndexChanged
 
-        If cbox_bridge_sel.SelectedIndex = 0 Then
-            Return
+
+        If BoardCount > 1 Then
+            If cbox_bridge_sel.SelectedIndex = 0 Or cbox_bridge_sel.SelectedIndex = -1 Then
+                Return
+            End If
+
+
+
+            device_sel = cbox_bridge_sel.SelectedIndex - 1
+            For a = 0 To 3
+                RTBB_GPIOSingleSetIODirection(Device_List(device_sel), 32 + a, True)
+                System.Threading.Thread.Sleep(100)
+                RTBB_GPIOSingleWrite(Device_List(device_sel), 32 + a, False) '0
+                System.Threading.Thread.Sleep(100)
+            Next
         End If
-        device_sel = cbox_bridge_sel.SelectedIndex - 1
-        For a = 0 To 3
-            RTBB_GPIOSingleSetIODirection(Device_List(device_sel), 32 + a, True)
-            System.Threading.Thread.Sleep(100)
-            RTBB_GPIOSingleWrite(Device_List(device_sel), 32 + a, False) '0
-            System.Threading.Thread.Sleep(100)
-        Next
+
+
     End Sub
 
     Private Sub num_RL_ValueChanged(sender As Object, e As EventArgs) Handles num_RL.ValueChanged

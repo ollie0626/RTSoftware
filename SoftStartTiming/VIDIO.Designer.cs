@@ -129,6 +129,8 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.nu_test_fail_cnt = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -155,6 +157,7 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -586,6 +589,8 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.nu_test_fail_cnt);
+            this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.panel5);
             this.tabPage2.Controls.Add(this.panel6);
             this.tabPage2.Controls.Add(this.panel3);
@@ -1269,6 +1274,34 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
+            // nu_test_fail_cnt
+            // 
+            this.nu_test_fail_cnt.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_test_fail_cnt.Location = new System.Drawing.Point(510, 242);
+            this.nu_test_fail_cnt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_test_fail_cnt.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_test_fail_cnt.Name = "nu_test_fail_cnt";
+            this.nu_test_fail_cnt.Size = new System.Drawing.Size(77, 23);
+            this.nu_test_fail_cnt.TabIndex = 166;
+            this.nu_test_fail_cnt.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(322, 248);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(91, 12);
+            this.label18.TabIndex = 165;
+            this.label18.Text = "Test Fail Count";
+            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1319,6 +1352,7 @@ namespace SoftStartTiming
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1426,5 +1460,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.Button btn_g0_on;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.NumericUpDown nu_test_fail_cnt;
+        private System.Windows.Forms.Label label18;
     }
 }

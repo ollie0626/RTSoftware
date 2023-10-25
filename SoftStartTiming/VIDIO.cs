@@ -23,7 +23,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.14";
+        string win_name = "VIDIO v1.15";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -236,6 +236,7 @@ namespace SoftStartTiming
             test_parameter.vidio.discharge_time = (double)(nuDischarge.Value);
             test_parameter.vidio.discharge_load = (double)nuDisLoad.Value;
             test_parameter.vidio.test_cnt = (int)nu_test_cnt.Value;
+            test_parameter.vidio.test_fail_cnt = (int)nu_test_fail_cnt.Value;
         }
 
         public void UpdateProgressBar(int val)
@@ -840,6 +841,7 @@ namespace SoftStartTiming
         public double discharge_time;
         public double discharge_load;
         public int test_cnt;
+        public int test_fail_cnt;
 
         public List<VIDIO_Criteria_parameter> criteria = new List<VIDIO_Criteria_parameter>();
     }

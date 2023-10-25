@@ -397,7 +397,7 @@ Public Class Main
         'Power Supply
 
 
-      
+
         If cbox_ven.SelectedIndex = -1 Then
             'init
             cbox_ven.Items.Clear()
@@ -413,31 +413,17 @@ Public Class Main
 
             cbox_ven.SelectedIndex = cbox_ven.Items.Count - 1
         Else
-
-
             If device_select_same(cbox_ven, txt_ven_Addr, Power, False) = False Then
                 ven_dev_ch = 0
-
             End If
-
             cbox_ven_ch.SelectedIndex = ven_dev_ch
         End If
-
-
-    
-
-        '--------------------------------------------
-
 
         '--------------------------------------------
         If RS_Scope = True Then
             RS_visa(True)
             'RS_View()
-
         End If
-
-
-
 
         Me.Enabled = True
 
