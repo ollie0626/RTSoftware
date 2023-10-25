@@ -51,7 +51,8 @@ namespace SoftStartTiming
         int meas_vmin = 4;
         int meas_delay = 5;
         int meas_delay100 = 6;
-        const int cnt_rest = 20;
+        const int cnt_rest = 10000;
+        const int cursor_fail_cnt = 10;
 
 
         public delegate void FinishNotification();
@@ -74,7 +75,7 @@ namespace SoftStartTiming
         {
             //int value = (lpm << 0 | g1 << 1 | g2 << 2);
             int mask = 1 << LPM | 1 << G1 | 1 << G2;
-            
+
             RTDev.GPIOnState((uint)mask, (uint)state);
         }
 
@@ -284,8 +285,7 @@ namespace SoftStartTiming
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
-            double deltaV = hi - lo;
-
+            double deltaV = (hi - lo) * 1000;
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
             InsControl._oscilloscope.SetREFLevelMethod(meas_rising, false);
@@ -335,6 +335,7 @@ namespace SoftStartTiming
                 double delay = 0;
                 double delay100 = 0;
                 int cnt = 0;
+                bool keep_test_en = false;
 
             Trigger_Fail_retry:
                 IOStateSetting(initial_state);
@@ -363,23 +364,25 @@ namespace SoftStartTiming
 
                 if (test_parameter.vidio.criteria[case_idx].lpm_en && repeat_idx == 0 && !overshoot_en)
                 {
+                    cnt = 0;
                     InsControl._oscilloscope.SetAnnotation(meas_delay);
                     MyLib.Delay1ms(500);
                 DelayGetX:
                     x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
-                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
+                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9))
                     {
-                        if (cnt == cnt_rest) return false;
+                        if (cnt == cursor_fail_cnt) return false;
                         cnt++;
-                        Console.WriteLine("Get cursor fail");
+                        //Console.WriteLine("Get cursor fail");
                         goto DelayGetX;
-                    } 
+                    }
                     InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_delay");
                 }
+
 
                 // set cursor position
                 if (!overshoot_en)
@@ -394,25 +397,25 @@ namespace SoftStartTiming
 
                 if (!overshoot_en)
                 {
+                    cnt = 0;
                 GetX:
                     x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
 
                     if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9))
                     {
-                        if (cnt == cnt_rest) return false;
+                        if (cnt == cursor_fail_cnt) return false;
                         cnt++;
-                        Console.WriteLine("Get cursor fail");
+                        //Console.WriteLine("Get cursor fail");
                         goto GetX;
                     }
-                        
+
                     InsControl._oscilloscope.SetCursorSource(1, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(1, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                 }
-
 
                 vmax = InsControl._oscilloscope.MeasureMax(meas_vmax);
                 vmax_list.Add(vmax);
@@ -425,9 +428,10 @@ namespace SoftStartTiming
                     //slew_rate = InsControl._oscilloscope.GetCursorHBarDelta() / rise_time;
 
                     rise_time = InsControl._oscilloscope.MeasureMin(meas_rising);
-                    slew_rate = deltaV / rise_time;
+                    slew_rate = (deltaV / rise_time) * Math.Pow(10, -3);
 
                     Console.WriteLine("Rise time = {0}, Rise SR = {1}", rise_time, slew_rate);
+
 
                     if (test_parameter.vidio.criteria[case_idx].lpm_en)
                     {
@@ -438,8 +442,10 @@ namespace SoftStartTiming
                         delay100_list.Add(delay100);
                     }
 
+
                     slewrate_list.Add(slew_rate);
                     rise_time_list.Add(rise_time);
+
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, (repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                     phase1_name.Add((repeat_idx).ToString() + "_" + test_parameter.waveform_name + "_rising");
                 }
@@ -455,7 +461,6 @@ namespace SoftStartTiming
 
             if (overshoot_en)
             {
-
                 MyLib.Delay1ms(200);
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_overshoot");
@@ -500,7 +505,7 @@ namespace SoftStartTiming
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
-            double deltaV = hi - lo;
+            double deltaV = (hi - lo) * 1000;
 
             // setting measure level threshold
             // example : (0.9 - 0.5) / 2 + 0.5 = 0.7
@@ -575,18 +580,20 @@ namespace SoftStartTiming
 
                 if (!undershoot_en)
                 {
+                    cnt = 0;
                 GetX:
                     double x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                     double x2 = InsControl._oscilloscope.GetAnnotationXn(2); MyLib.Delay1ms(100);
                     //InsControl._oscilloscope.SetCursorMode();
                     //InsControl._oscilloscope.SetCursorOn();
 
-                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9)) 
+                    if (x1 < 0 || x1 > 10 * Math.Pow(10, 9) || x2 < 0 || x2 > 10 * Math.Pow(10, 9))
                     {
-                        if (cnt == cnt_rest) return false;
+                        if (cnt == cursor_fail_cnt) return false;
                         cnt++;
-                        Console.WriteLine("Get cursor fail");
+                        //Console.WriteLine("Get cursor fail");
                         goto GetX;
+
                     }
                     InsControl._oscilloscope.SetCursorSource(1, 1);
                     InsControl._oscilloscope.SetCursorSource(2, 1);
@@ -603,7 +610,7 @@ namespace SoftStartTiming
                     slew_rate = Math.Abs(InsControl._oscilloscope.GetCursorHBarDelta() / fall_time);
 
                     fall_time = InsControl._oscilloscope.MeasureMin(meas_falling);
-                    slew_rate = deltaV / fall_time;
+                    slew_rate = (deltaV / fall_time) * Math.Pow(10, -3);
 
                     Console.WriteLine("Fall time = {0}, Fall SR = {1}", fall_time, slew_rate);
                     slewrate_list.Add(slew_rate);
@@ -627,6 +634,7 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetPERSistenceOff();
                 InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_undershoot");
             }
+
             return true;
         }
 
@@ -638,6 +646,7 @@ namespace SoftStartTiming
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             RTDev.BoadInit();
+            RTDev.GpioInit();
             OSCInit();
             int row = 10;
             int wave_row = 10;
@@ -680,12 +689,12 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.F] = "Vout Change (V)";
             _sheet.Cells[row, XLS_Table.G] = "VID spec (V)";
             _sheet.Cells[row, XLS_Table.H] = "Iout (A)";
-            _sheet.Cells[row, XLS_Table.I] = "Rise SR spec (V/us)";
-            _sheet.Cells[row, XLS_Table.J] = "Rise Time spec (us)";
+            _sheet.Cells[row, XLS_Table.I] = "Rise Time spec (us)";
+            _sheet.Cells[row, XLS_Table.J] = "Rise SR spec (V/us)";
             _sheet.Cells[row, XLS_Table.K] = "Rise SR (V/us)";
             _sheet.Cells[row, XLS_Table.L] = "Rise Time (us)";
-            _sheet.Cells[row, XLS_Table.M] = "Fall SR spec (V/us)";
-            _sheet.Cells[row, XLS_Table.N] = "Fall Time spec (us)";
+            _sheet.Cells[row, XLS_Table.M] = "Fall Time spec (us)";
+            _sheet.Cells[row, XLS_Table.N] = "Fall SR spec (V/us)";
             _sheet.Cells[row, XLS_Table.O] = "Fall SR (V/us)";
             _sheet.Cells[row, XLS_Table.P] = "Fall Time (us)";
             _sheet.Cells[row, XLS_Table.Q] = "Vmax spec (V)"; // overshoot vol (1.05)
@@ -814,7 +823,7 @@ namespace SoftStartTiming
                         }
 
 
-                        if(!SlewRate_Rise_Task(case_idx, true))         // overshoot
+                        if (!SlewRate_Rise_Task(case_idx, true))         // overshoot
                         {
                             _sheet.Cells[row, XLS_Table.C] = "Rise Persistent Trigger Fail";
                             _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
@@ -829,7 +838,7 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max() * 100;
                         // --------------------------------------------------------------------------------------------------------
 
-                        if(!SlewRate_Fall_Task(case_idx))
+                        if (!SlewRate_Fall_Task(case_idx))
                         {
                             _sheet.Cells[row, XLS_Table.C] = "Fall Trigger Fail";
                             _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
@@ -844,7 +853,7 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.O] = test_parameter.vidio.criteria[case_idx].lpm_en ? slewrate_list.Min() : slewrate_list.Min() * Math.Pow(10, -3);
                         _sheet.Cells[row, XLS_Table.P] = test_parameter.vidio.criteria[case_idx].lpm_en ? fall_time_list.Max() * Math.Pow(10, 3) : fall_time_list.Max() * Math.Pow(10, 6);
 
-                        if(!SlewRate_Fall_Task(case_idx, true))
+                        if (!SlewRate_Fall_Task(case_idx, true))
                         {
                             _sheet.Cells[row, XLS_Table.C] = "Fall Persistent Trigger Fail";
                             _sheet.Cells[row, XLS_Table.C].font.color = Color.Red;
@@ -871,7 +880,7 @@ namespace SoftStartTiming
 
                         double vmax_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.R].Value);
                         double vmin_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.T].Value);
-                        bool judge_vol = vmax_res > vmax && vmin_res < vmin ? false : true;
+                        bool judge_vol = (vmax_res < vmax & vmin_res > vmin) ? true : false;
                         bool judge_sr = true;
                         bool judge_time = true;
                         bool judge_res = true;
@@ -890,11 +899,11 @@ namespace SoftStartTiming
                             rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.K].Value);
                             fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.O].Value);
                             // slew rate big is good.
-                            judge_sr = (rise_res > rise_sr && fall_res > fall_sr) ? true : false;
+                            judge_sr = (rise_res > rise_sr & fall_res > fall_sr) ? true : false;
                         }
 
 
-                        if (test_parameter.vidio.criteria[case_idx].time_jd) 
+                        if (test_parameter.vidio.criteria[case_idx].time_jd)
                         {
                             rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
                             fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
@@ -902,7 +911,7 @@ namespace SoftStartTiming
                             rise_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
                             fall_time_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
                             // rise and fall time small is good.
-                            judge_time = (rise_time_res < rise_time && fall_time_res < fall_time) ? true : false;
+                            judge_time = (rise_time_res < rise_time & fall_time_res < fall_time) ? true : false;
                         }
                         judge_res = judge_vol & judge_sr & judge_time;
 
@@ -915,13 +924,14 @@ namespace SoftStartTiming
                             judge_res = judge_res & judge_lpm;
 
                             _sheet.Cells[row, XLS_Table.Y] = judge_res ? "Pass" : "Fail";
-                            _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
+                            //_range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
 
                         }
                         else
                         {
                             _sheet.Cells[row, XLS_Table.W] = judge_res ? "Pass" : "Fail";
-                            _range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
+                            //_range = _sheet.Cells[row, XLS_Table.W];
+                            //_range.Interior.Color = judge_res ? Color.White : Color.LightPink;
                         }
 
 
@@ -995,8 +1005,8 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row, XLS_Table.AF] = "Rise SR (us/V)";
                         _sheet.Cells[wave_row, XLS_Table.AG] = "Fall (us)";
                         _sheet.Cells[wave_row, XLS_Table.AH] = "Fall SR (us/V)";
-                        _sheet.Cells[wave_row, XLS_Table.AI] = "Overshoot(%)";
-                        _sheet.Cells[wave_row, XLS_Table.AJ] = "Undershoot(%)";
+                        _sheet.Cells[wave_row, XLS_Table.AI] = "VMax (V)";
+                        _sheet.Cells[wave_row, XLS_Table.AJ] = "VMin (V)";
                         _range = _sheet.Range["AA" + wave_row, "AJ" + wave_row];
                         _range.Interior.Color = Color.FromArgb(124, 252, 0);
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -1009,8 +1019,8 @@ namespace SoftStartTiming
                         _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=K" + row; // rise slew rate
                         _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=P" + row;
                         _sheet.Cells[wave_row + 1, XLS_Table.AH] = "=O" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=U" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=V" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=R" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=T" + row;
 #endif
                         InsControl._oscilloscope.SetAutoTrigger();
                         wave_row += 31;

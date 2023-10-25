@@ -1761,17 +1761,17 @@ Public Class Main
 
 
 
-                If (Relay_iin_check(i) = True) Or (Relay_iout_check(i) = True) Then
+                'If (Relay_iin_check(i) = True) Or (Relay_iout_check(i) = True) Then
 
 
 
-                    If data_meas.Rows.Count = 0 Then
-                        error_message("Current Monitor of relay Board is not detected!!")
-                        RUN_stop()
-                        Exit Sub
-                    End If
+                '    If data_meas.Rows.Count = 0 Then
+                '        error_message("Current Monitor of relay Board is not detected!!")
+                '        RUN_stop()
+                '        Exit Sub
+                '    End If
 
-                End If
+                'End If
 
             End If
         Next
