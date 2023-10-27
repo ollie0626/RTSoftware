@@ -20,7 +20,7 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.08";
+        private string win_name = "Cross talk v1.09";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk;
         Thread ATETask;
@@ -52,40 +52,40 @@ namespace SoftStartTiming
             EloadDG_CCM[0, 3].Value = "Buck4";
 
             // address
-            EloadDG_CCM[1, 0].Value = "01";
-            EloadDG_CCM[1, 1].Value = "01";
-            EloadDG_CCM[1, 2].Value = "01";
-            EloadDG_CCM[1, 3].Value = "01";
+            EloadDG_CCM[1, 0].Value = "01[0]";
+            EloadDG_CCM[1, 1].Value = "01[1]";
+            EloadDG_CCM[1, 2].Value = "01[2]";
+            EloadDG_CCM[1, 3].Value = "01[3]";
 
-            // channel enable
-            EloadDG_CCM[2, 0].Value = "01";
-            EloadDG_CCM[2, 1].Value = "02";
-            EloadDG_CCM[2, 2].Value = "03";
-            EloadDG_CCM[2, 3].Value = "04";
+            //// channel enable
+            //EloadDG_CCM[2, 0].Value = "01[0]";
+            //EloadDG_CCM[2, 1].Value = "01[1]";
+            //EloadDG_CCM[2, 2].Value = "01[2]";
+            //EloadDG_CCM[2, 3].Value = "01[3]";
 
-            // channel disable
-            EloadDG_CCM[3, 0].Value = "00";
-            EloadDG_CCM[3, 1].Value = "00";
-            EloadDG_CCM[3, 2].Value = "00";
-            EloadDG_CCM[3, 3].Value = "00";
+            //// channel disable
+            //EloadDG_CCM[3, 0].Value = "00";
+            //EloadDG_CCM[3, 1].Value = "00";
+            //EloadDG_CCM[3, 2].Value = "00";
+            //EloadDG_CCM[3, 3].Value = "00";
 
             // victim loading
-            EloadDG_CCM[4, 0].Value = "0.1,0.6,0.7";
-            EloadDG_CCM[4, 1].Value = "0.8,1,2";
-            EloadDG_CCM[4, 2].Value = "0.35,0.5,0.7";
-            EloadDG_CCM[4, 3].Value = "0.9,1,1.2";
+            EloadDG_CCM[2, 0].Value = "0.03";
+            EloadDG_CCM[2, 1].Value = "0.04";
+            EloadDG_CCM[2, 2].Value = "0.05";
+            EloadDG_CCM[2, 3].Value = "0.06";
 
             // aggresor loading
-            EloadDG_CCM[4, 0].Value = "0.01";
-            EloadDG_CCM[4, 1].Value = "0.02";
-            EloadDG_CCM[4, 2].Value = "0.03";
-            EloadDG_CCM[4, 3].Value = "0.04";
+            EloadDG_CCM[3, 0].Value = "0.01";
+            EloadDG_CCM[3, 1].Value = "0.02";
+            EloadDG_CCM[3, 2].Value = "0.03";
+            EloadDG_CCM[3, 3].Value = "0.04";
 
             // full load setting
-            EloadDG_CCM[5, 0].Value = "0.03";
-            EloadDG_CCM[5, 1].Value = "0.04";
-            EloadDG_CCM[5, 2].Value = "0.05";
-            EloadDG_CCM[5, 3].Value = "0.06";
+            //EloadDG_CCM[5, 0].Value = "0.03";
+            //EloadDG_CCM[5, 1].Value = "0.04";
+            //EloadDG_CCM[5, 2].Value = "0.05";
+            //EloadDG_CCM[5, 3].Value = "0.06";
 
             FreqDG[1, 0].Value = "10";
             FreqDG[1, 1].Value = "20";
@@ -163,8 +163,6 @@ namespace SoftStartTiming
                 if (list.Count > 0)
                     nuslave.Value = list[0];
             }
-
-
         }
 
         private void BTScan_Click(object sender, EventArgs e)
@@ -343,11 +341,15 @@ namespace SoftStartTiming
             for (int i = 0; i < test_parameter.cross_en.Length; i++)
             {
                 // Eload CCM data grid
-                test_parameter.en_addr[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[1, i].Value), 16);
-                test_parameter.en_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[2, i].Value), 16);
-                test_parameter.disen_data[i] = Convert.ToByte(Convert.ToString(EloadDG_CCM[3, i].Value), 16);
-                test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[4, i].Value).Split(',').Select(double.Parse).ToList());
-                test_parameter.full_load.Add(i, ((string)EloadDG_CCM[5, i].Value).Split(',').Select(double.Parse).ToList());
+
+                string[] temp = Convert.ToString(EloadDG_CCM[1, i].Value).Split('[');
+
+                test_parameter.en_addr[i] = Convert.ToByte(temp[0], 16);
+                test_parameter.en_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
+                test_parameter.disen_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
+
+                test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
+                test_parameter.full_load.Add(i, ((string)EloadDG_CCM[3, i].Value).Split(',').Select(double.Parse).ToList());
                 //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
 
                 // get scope channel number (data type string -> "CHn")

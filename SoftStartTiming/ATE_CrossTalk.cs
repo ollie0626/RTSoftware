@@ -54,14 +54,13 @@ namespace SoftStartTiming
         Thread dont_stop;
         ParameterizedThreadStart p_dont_stop;
         static volatile int dont_stop_cnt = 0;
-
+        int bit0, bit1, bit2, bit3, bit4, bit5, bit6, bit7;
 
         public void Channel_Switch_event(object obj)
         {
             int aggressor_col = (int)XLS_Table.C;
-
+            dont_stop_cnt = 0;
             CrossTalkParameter parameter = (CrossTalkParameter)obj;
-
             while (true)
             {
                 switch (test_parameter.cross_mode)
@@ -83,7 +82,8 @@ namespace SoftStartTiming
                         else
                         {
 #if Eload_en
-                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
 #endif
 
 #if Report_en
@@ -103,11 +103,59 @@ namespace SoftStartTiming
                         en_data = test_parameter.en_data.ToList();
                         disen_data = test_parameter.disen_data.ToList();
 
-                        en_addr.Remove(test_parameter.en_addr[parameter.select_idx]);
-                        en_data.Remove(test_parameter.en_data[parameter.select_idx]);
-                        disen_data.Remove(test_parameter.disen_data[parameter.select_idx]);
+                        Dictionary<int, int> addr_map = new Dictionary<int, int>();
+                        Dictionary<int, int> addr_map_off = new Dictionary<int, int>();
+                        
+                        //int val = 0x00;
+                        //for (int j = 0; j < parameter.data.Count; j++)
+                        //{
+                        //    if (parameter.data[j] != 0)
+                        //    {
+                        //        val |= (0x01 << j);
+                        //    }
+                        //}
 
-                        WriteEn(parameter.data, en_addr.ToArray(), en_data.ToArray(), disen_data.ToArray(), parameter.select_idx);
+
+                        for (int j = 0; j < en_addr.Count; j++)
+                        {
+                            byte addr_temp = en_addr[j];
+                            if (addr_map.ContainsKey(addr_temp))
+                            {
+                                addr_map[addr_temp] |= (0x01 << en_data[j]);
+                            }
+                            else
+                            {
+                                addr_map.Add(addr_temp, (0x01 << en_data[j]));
+                                addr_map_off.Add(addr_temp, 0x00);
+                            }
+                        }
+
+                        int idx = 0;
+                        for (int j = 0; j < en_addr.Count; j++)
+                        {
+                            if (j != parameter.select_idx)
+                            {
+                                byte addr_temp = en_addr[j];
+                                bool on_off = true;
+                                byte truth_val = (byte)parameter.data[idx++];
+                                on_off = ((truth_val & 0x01) != 0);
+                                addr_map[addr_temp] = on_off ?
+                                                        (addr_map[addr_temp] | (0x01 << en_data[j])) :
+                                                        (addr_map[addr_temp] & ~(0x01 << disen_data[j]));
+                            }
+                        }
+
+                        addr_map[en_addr[parameter.select_idx]] |= (0x01 << en_data[parameter.select_idx]);
+                        addr_map_off[en_addr[parameter.select_idx]] |= (0x01 << en_data[parameter.select_idx]);
+
+                        for (int j = 0; j < addr_map.Count; j++)
+                        {
+                            byte addr_temp = en_addr[j];
+                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map[addr_temp] });
+                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map_off[addr_temp] });
+                            //Console.WriteLine("Val {2:X}, Write Enable {0:X}, Write Disable {1:X}", (byte)addr_map[addr_temp], addr_map_off[addr_temp], val);
+                        }
+
                         break;
                     case 2: // i2c VID
 
@@ -141,10 +189,15 @@ namespace SoftStartTiming
                         _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
                         // eload over 4CH need to select channel
 #if Eload_en
+                        //if (parameter.data[parameter.idx] != 0)
+                        //    InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx] + 1, parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
+                        //else
+                        //    InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+
                         if (parameter.data[parameter.idx] != 0)
-                            InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx] + 1, parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
+                            InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx], parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
                         else
-                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
 #endif
                         break;
                 }
@@ -235,127 +288,6 @@ namespace SoftStartTiming
             }
         }
 
-        public void WriteEn(List<double> data, byte[] addr, byte[] en_on, byte[] dis_off, int select_idx)
-        {
-            int len = test_parameter.en_addr.Length;
-            //List<byte> wr_en = new List<byte>();
-            List<byte> en_addr = new List<byte>();
-
-            Dictionary<int, byte> wr_en = new Dictionary<int, byte>();
-            Dictionary<int, byte> wr_dis = new Dictionary<int, byte>();
-
-            // find same enable address
-            for (int i = 0; i < data.Count; i++)
-            {
-                for (int j = i + 1; j < data.Count; j++)
-                {
-                    if (addr[i] == addr[j])
-                    {
-                        en_addr.Add(addr[i]);
-
-                        // truth tabel state
-                        if (data[i] == 1 && data[j] == 1)
-                        {
-                            // i, j =  1
-                            if (wr_en.ContainsKey(addr[i]))
-                            {
-                                wr_en[addr[i]] |= en_on[j];
-                            }
-                            else
-                            {
-                                wr_en.Add(addr[i], (byte)(en_on[i] | en_on[j]));
-                            }
-                        }
-                        else if (data[i] == 1)
-                        {
-                            // i = 1
-                            if (wr_en.ContainsKey(addr[i]))
-                            {
-                                wr_en[addr[i]] |= (byte)(en_on[i]);
-                            }
-                            else
-                            {
-                                wr_en.Add(addr[i], (byte)(en_on[i]));
-                            }
-                        }
-                        else if (data[j] == 1)
-                        {
-                            // j = 1
-                            if (wr_en.ContainsKey(addr[i]))
-                            {
-                                wr_en[addr[i]] |= (byte)(en_on[j]);
-                            }
-                            else
-                            {
-                                wr_en.Add(addr[i], (byte)en_on[j]);
-                            }
-
-                        }
-                        else
-                        {
-                            // i, j == 0
-                            if (wr_en.ContainsKey(addr[i]))
-                            {
-                                wr_en[addr[i]] |= (byte)(dis_off[i] | dis_off[j]);
-                            }
-                            else
-                            {
-                                wr_en.Add(addr[i], (byte)(dis_off[i] | dis_off[j]));
-                            }
-                        }
-
-                        break;
-                    }
-                    else
-                    {
-                        if (en_addr.IndexOf(addr[i]) == -1)
-                        {
-                            en_addr.Add(addr[i]);
-                            wr_en.Add(addr[i], (byte)(en_on[i]));
-                        }
-                    }
-                }
-
-                if (i == data.Count - 1 && en_addr.IndexOf(addr[i]) == -1)
-                {
-                    en_addr.Add(addr[i]);
-                    wr_en.Add(addr[i], (byte)(en_on[i]));
-                }
-            }
-
-            en_addr = en_addr.Distinct().ToList();
-
-            byte must_en_addr = test_parameter.en_addr[select_idx];
-            byte must_en_data = test_parameter.en_data[select_idx];
-
-            if (en_addr.IndexOf(must_en_addr) == -1)
-            {
-                en_addr.Add(must_en_addr);
-                wr_en.Add(must_en_addr, must_en_data);
-            }
-            else
-            {
-                wr_en[must_en_addr] |= must_en_data;
-            }
-
-            // channel on off 100 times
-            for (int idx = 0; idx < 100; idx++)
-            {
-                for (int i = 0; i < en_addr.Count; i++)
-                {
-                    //// turn off all rails
-                    for (int j = 0; j < addr.Length; j++)
-                    {
-                        if (must_en_addr == addr[j])
-                            RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { (byte)(dis_off[i] | must_en_data) });
-                        else
-                            RTDev.I2C_Write((byte)(test_parameter.slave), addr[j], new byte[] { dis_off[i] });
-                    }
-                    // turn on rails
-                    RTDev.I2C_Write((byte)(test_parameter.slave), en_addr[i], new byte[] { wr_en[en_addr[i]] });
-                }
-            }
-        }
 
         public override void ATETask()
         {
@@ -1190,13 +1122,16 @@ namespace SoftStartTiming
                 case "CH4": InsControl._oscilloscope.CHx_On(4); break;
             }
 #endif
-            int load_idx = 0;
+            //int load_idx = 0;
+            int aggressor_ch = test_parameter.eload_chx[measNParameter.select_idx];
+
             for (int aggressor = 0; aggressor < test_parameter.scope_chx.Count; aggressor++)
             {
-                if (test_parameter.eload_chx[aggressor] != test_parameter.eload_chx[measNParameter.select_idx])
+                if (aggressor_ch != test_parameter.eload_chx[aggressor])
                 {
-                    sw_en[idx++] = test_parameter.eload_chx[aggressor] - 1;
-                    ch_map.Add(test_parameter.eload_chx[aggressor] - 1, load_idx++);
+                    sw_en[idx++] = test_parameter.eload_chx[aggressor];
+                    //ch_map.Add(test_parameter.eload_chx[aggressor], load_idx++);
+                    //ch_map.Add(sw_en[idx], sw_en[idx++]);
                 }
             }
 #if Scope_en
@@ -1210,21 +1145,19 @@ namespace SoftStartTiming
             {
                 if (measNParameter.lt_mode)
                 {
-                    l1[i] = measNParameter.group < test_parameter.lt_l1[sw_en[i]].Count ?
-                        test_parameter.lt_l1[sw_en[i]][measNParameter.group] : test_parameter.lt_l1[sw_en[i]].Max();
+                    l1[i] = measNParameter.group < test_parameter.lt_l1[sw_en[i] - 1].Count ?
+                        test_parameter.lt_l1[sw_en[i] - 1][measNParameter.group] : test_parameter.lt_l1[sw_en[i] - 1].Max();
 
-                    l2[i] = measNParameter.group < test_parameter.lt_l2[sw_en[i]].Count ?
-                        test_parameter.lt_l2[sw_en[i]][measNParameter.group] : test_parameter.lt_l2[sw_en[i]].Max();
+                    l2[i] = measNParameter.group < test_parameter.lt_l2[sw_en[i] - 1].Count ?
+                        test_parameter.lt_l2[sw_en[i] - 1][measNParameter.group] : test_parameter.lt_l2[sw_en[i] - 1].Max();
                 }
                 else
                 {
                     //iout[i] = measNParameter.group < test_parameter.ccm_eload[sw_en[i]].Count ?
                     //    test_parameter.ccm_eload[sw_en[i]][measNParameter.group] : test_parameter.ccm_eload[sw_en[i]].Max();
 
-                    iout[i] = measNParameter.group < test_parameter.ccm_eload[ch_map[sw_en[i]]].Count ?
-                            test_parameter.ccm_eload[ch_map[sw_en[i]]][measNParameter.group] : test_parameter.ccm_eload[ch_map[sw_en[i]]].Max();
-
-
+                    iout[i] = measNParameter.group < test_parameter.ccm_eload[sw_en[i] - 1].Count ?
+                            test_parameter.ccm_eload[sw_en[i] - 1][measNParameter.group] : test_parameter.ccm_eload[sw_en[i] - 1].Max();
                 }
             }
 
@@ -1246,9 +1179,8 @@ namespace SoftStartTiming
                 else
                     InsControl._eload.LoadOFF(test_parameter.eload_chx[measNParameter.select_idx]);
                 InsControl._oscilloscope.SetClear();
-#endif
-
                 MyLib.Delay1s(1);
+#endif
 
                 List<double> data = new List<double>();
                 List<double> data_l1 = new List<double>();
@@ -1268,14 +1200,14 @@ namespace SoftStartTiming
                 {
                     switch (test_parameter.cross_mode)
                     {
-                        case 0:
+                        case 0: // CCM mode
                             data.Add(bit_list[j] == 0 ? 0 : iout[j]);
                             break;
-                        case 1:
-                        case 2:
+                        case 1: // EN on/off
+                        case 2: // VID
                             data.Add(bit_list[j] == 0 ? 0 : 1);
                             break;
-                        case 3:
+                        case 3: // LT
                             data.Add(bit_list[j] == 0 ? 0 : 1);
                             data_l1.Add(bit_list[j] == 0 ? 0 : l1[j]);
                             data_l2.Add(bit_list[j] == 0 ? 0 : l2[j]);
@@ -1291,7 +1223,7 @@ namespace SoftStartTiming
                         CrossTalkParameter input = new CrossTalkParameter();
                         input.idx = j;
                         input.select_idx = measNParameter.select_idx;
-                        input.data = data;
+                        input.data = data; // data is truth table
                         input.sw_en = sw_en;
                         input.iout = iout;
                         input.data_l1 = data_l1;
@@ -1304,14 +1236,11 @@ namespace SoftStartTiming
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
-
                         //while (dont_stop_cnt <= 100) ;
-
                         dont_stop.Abort();
                         dont_stop = null;
                     }
                 }
-
 
                 string temp = test_parameter.waveform_name;
                 test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
@@ -1343,7 +1272,7 @@ namespace SoftStartTiming
 #endif
         }
 
-#endregion
+        #endregion
     }
 
     public class CrossTalkParameter
