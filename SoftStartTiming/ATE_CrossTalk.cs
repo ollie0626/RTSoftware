@@ -115,7 +115,6 @@ namespace SoftStartTiming
                         //    }
                         //}
 
-
                         for (int j = 0; j < en_addr.Count; j++)
                         {
                             byte addr_temp = en_addr[j];
@@ -158,7 +157,7 @@ namespace SoftStartTiming
 
                         break;
                     case 2: // i2c VID
-
+                        // idx = loop truth table case
                         List<byte> vid_addr = new List<byte>();
                         List<byte> vid_low = new List<byte>();
                         List<byte> vid_high = new List<byte>();
@@ -176,13 +175,14 @@ namespace SoftStartTiming
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
                         _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? vid_low[parameter.idx].ToString("X") + "<->" + vid_high[parameter.idx].ToString("X") : "0";
                         //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
-                        for (int repeat_idx = 0; repeat_idx < 100; repeat_idx++)
+
+                        for (int j = 0; j < vid_addr.Count; j++)
                         {
                             if (parameter.data[parameter.idx] == 0) break;
-
-                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[parameter.idx], new byte[] { vid_low[parameter.idx] });
-                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[parameter.idx], new byte[] { vid_high[parameter.idx] });
+                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
+                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
                         }
+
                         break;
                     case 3: // LT
                         _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
@@ -464,7 +464,6 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureOff(3);
             InsControl._oscilloscope.SetMeasureOff(4);
 #endif
-
 
 #if Report_en
             // for measure victim channel
@@ -1215,13 +1214,14 @@ namespace SoftStartTiming
                     }
                 }
 
+                // after test
                 if (!measNParameter.before)
                 {
                     for (int j = 0; j < measNParameter.N; j++) // run each channel
                     {
                         dont_stop_cnt = 0;
                         CrossTalkParameter input = new CrossTalkParameter();
-                        input.idx = j;
+                        input.idx = j; // truth table number
                         input.select_idx = measNParameter.select_idx;
                         input.data = data; // data is truth table
                         input.sw_en = sw_en;
@@ -1236,7 +1236,7 @@ namespace SoftStartTiming
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
-                        //while (dont_stop_cnt <= 100) ;
+                        while (dont_stop_cnt <= 100) ;
                         dont_stop.Abort();
                         dont_stop = null;
                     }

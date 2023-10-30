@@ -20,7 +20,7 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.09";
+        private string win_name = "Cross talk v1.10";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk;
         Thread ATETask;
@@ -44,6 +44,8 @@ namespace SoftStartTiming
             LTDG.RowCount = 4;
             nuCH_number.Value = 4;
             MeasDG.RowCount = 4;
+            data_rail_en.RowCount = 4;
+            data_rail_vid.RowCount = 4;
 
 
             EloadDG_CCM[0, 0].Value = "Buck1";
@@ -51,41 +53,27 @@ namespace SoftStartTiming
             EloadDG_CCM[0, 2].Value = "Buck3";
             EloadDG_CCM[0, 3].Value = "Buck4";
 
-            // address
-            EloadDG_CCM[1, 0].Value = "01[0]";
-            EloadDG_CCM[1, 1].Value = "01[1]";
-            EloadDG_CCM[1, 2].Value = "01[2]";
-            EloadDG_CCM[1, 3].Value = "01[3]";
+            data_rail_en[1, 0].Value = "01[0]";
+            data_rail_en[1, 1].Value = "01[1]";
+            data_rail_en[1, 2].Value = "01[2]";
+            data_rail_en[1, 3].Value = "01[3]";
 
-            //// channel enable
-            //EloadDG_CCM[2, 0].Value = "01[0]";
-            //EloadDG_CCM[2, 1].Value = "01[1]";
-            //EloadDG_CCM[2, 2].Value = "01[2]";
-            //EloadDG_CCM[2, 3].Value = "01[3]";
-
-            //// channel disable
-            //EloadDG_CCM[3, 0].Value = "00";
-            //EloadDG_CCM[3, 1].Value = "00";
-            //EloadDG_CCM[3, 2].Value = "00";
-            //EloadDG_CCM[3, 3].Value = "00";
+            data_rail_vid[1, 0].Value = "32_77_28";
+            data_rail_vid[1, 1].Value = "33_77_28";
+            data_rail_vid[1, 2].Value = "34_77_28";
+            data_rail_vid[1, 3].Value = "35_77_28";
 
             // victim loading
-            EloadDG_CCM[2, 0].Value = "0.03";
-            EloadDG_CCM[2, 1].Value = "0.04";
-            EloadDG_CCM[2, 2].Value = "0.05";
-            EloadDG_CCM[2, 3].Value = "0.06";
+            EloadDG_CCM[1, 0].Value = "0.03";
+            EloadDG_CCM[1, 1].Value = "0.04";
+            EloadDG_CCM[1, 2].Value = "0.05";
+            EloadDG_CCM[1, 3].Value = "0.06";
 
             // aggresor loading
-            EloadDG_CCM[3, 0].Value = "0.01";
-            EloadDG_CCM[3, 1].Value = "0.02";
-            EloadDG_CCM[3, 2].Value = "0.03";
-            EloadDG_CCM[3, 3].Value = "0.04";
-
-            // full load setting
-            //EloadDG_CCM[5, 0].Value = "0.03";
-            //EloadDG_CCM[5, 1].Value = "0.04";
-            //EloadDG_CCM[5, 2].Value = "0.05";
-            //EloadDG_CCM[5, 3].Value = "0.06";
+            EloadDG_CCM[2, 0].Value = "0.01";
+            EloadDG_CCM[2, 1].Value = "0.02";
+            EloadDG_CCM[2, 2].Value = "0.03";
+            EloadDG_CCM[2, 3].Value = "0.04";
 
             FreqDG[1, 0].Value = "10";
             FreqDG[1, 1].Value = "20";
@@ -340,17 +328,63 @@ namespace SoftStartTiming
             // perpare test parameter.
             for (int i = 0; i < test_parameter.cross_en.Length; i++)
             {
+                string[] temp;
+
                 // Eload CCM data grid
+                test_parameter.full_load.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
+                // freq and vout parameter
+                test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
+                test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, i].Value), 16);
 
-                string[] temp = Convert.ToString(EloadDG_CCM[1, i].Value).Split('[');
+                // fre data
+                string[] tmp = ((string)FreqDG[2, i].Value).Split(',');
+                byte[] byt_tmp = new byte[tmp.Length];
+                for (int idx = 0; idx < tmp.Length; idx++)
+                {
+                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                }
+                test_parameter.freq_data.Add(i, byt_tmp.ToList());
 
-                test_parameter.en_addr[i] = Convert.ToByte(temp[0], 16);
-                test_parameter.en_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
-                test_parameter.disen_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
+                // vout data
+                tmp = ((string)VoutDG[2, i].Value).Split(',');
+                byt_tmp = new byte[tmp.Length];
+                for (int idx = 0; idx < tmp.Length; idx++)
+                {
+                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                }
+                test_parameter.vout_data.Add(i, byt_tmp.ToList());
 
-                test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
-                test_parameter.full_load.Add(i, ((string)EloadDG_CCM[3, i].Value).Split(',').Select(double.Parse).ToList());
-                //test_parameter.lt_full[i] = Convert.ToDouble(LTDG[3, i].Value);
+                // vout and freq desc
+                test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
+                test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
+
+                switch (CBItem.SelectedIndex)
+                {
+                    case 0:
+                        // CCM Setting
+                        test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
+                        break;
+                    case 1:
+                        // EN Addr[bit]
+                        temp = Convert.ToString(EloadDG_CCM[1, i].Value).Split('[');
+                        test_parameter.en_addr[i] = Convert.ToByte(temp[0], 16);
+                        test_parameter.en_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
+                        test_parameter.disen_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
+                        break;
+                    case 2:
+                        // VID Addr_Hi_Lo
+                        // Addr_Hi_Lo
+                        temp = data_rail_vid[1, i].Value.ToString().Split('_');
+                        test_parameter.vid_addr[i] = Convert.ToByte(temp[0], 16);
+                        test_parameter.hi_code[i] = Convert.ToByte(temp[1], 16);
+                        test_parameter.lo_code[i] = Convert.ToByte(temp[2], 16);
+                        break;
+                    case 3:
+                        // LT
+                        test_parameter.lt_l1.Add(i, ((string)LTDG[1, i].Value).Split(',').Select(double.Parse).ToList());
+                        test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
+                        break;
+                }
 
                 // get scope channel number (data type string -> "CHn")
                 DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)MeasDG[1, i];
@@ -366,42 +400,6 @@ namespace SoftStartTiming
                 comboBoxCell = (DataGridViewComboBoxCell)MeasDG[3, i];
                 txt = (string)comboBoxCell.Value;
                 test_parameter.scope_lx.Add(txt);
-
-                // freq and vout parameter
-                test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
-                test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, i].Value), 16);
-
-                string[] tmp = ((string)FreqDG[2, i].Value).Split(',');
-                byte[] byt_tmp = new byte[tmp.Length];
-                for(int idx = 0; idx < tmp.Length; idx++)
-                {
-                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
-                }
-                test_parameter.freq_data.Add(i, byt_tmp.ToList());
-
-                tmp = ((string)VoutDG[2, i].Value).Split(',');
-                byt_tmp = new byte[tmp.Length];
-                for (int idx = 0; idx < tmp.Length; idx++)
-                {
-                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
-                }
-                test_parameter.vout_data.Add(i, byt_tmp.ToList());
-
-                test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
-                test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
-
-                switch (CBItem.SelectedIndex)
-                {
-                    case 2:
-                        test_parameter.vid_addr[i] = Convert.ToByte(Convert.ToString(LTDG[1, i].Value), 16);
-                        test_parameter.hi_code[i] = Convert.ToByte(Convert.ToString(LTDG[2, i].Value), 16);
-                        test_parameter.lo_code[i] = Convert.ToByte(Convert.ToString(LTDG[3, i].Value), 16);
-                        break;
-                    case 3:
-                        test_parameter.lt_l1.Add(i, ((string)LTDG[1, i].Value).Split(',').Select(double.Parse).ToList());
-                        test_parameter.lt_l2.Add(i, ((string)LTDG[2, i].Value).Split(',').Select(double.Parse).ToList());
-                        break;
-                }
 
                 test_parameter.cross_en[i] = true;
             }
@@ -449,7 +447,6 @@ namespace SoftStartTiming
 
         private void BTRun_Click(object sender, EventArgs e)
         {
-
             BTRun.Enabled = false;
             try
             {
@@ -461,7 +458,6 @@ namespace SoftStartTiming
                     if (list.Count > 0)
                         nuslave.Value = list[0];
                 }
-
 
                 test_parameter_copy();
                 if (ck_chamber_en.Checked)
@@ -485,7 +481,6 @@ namespace SoftStartTiming
                 MessageBox.Show(ex.StackTrace);
                 BTRun.Enabled = true;
             }
-
         }
 
         private bool RecountTime()
@@ -505,18 +500,10 @@ namespace SoftStartTiming
             {
                 for (int i = 0; i < tempList.Length; i++)
                 {
-                    //if (!Directory.Exists(tbWave.Text + tempList[i] + "C"))
-                    //{
-                    //    Directory.CreateDirectory(tbWave.Text + tempList[i] + "C");
-                    //}
-                    //test_parameter.waveform_path = tbWave.Text + tempList[i] + "C";
-
                     SteadyTime = (int)nu_steady.Value;
-                    //InsControl._chamber = new ChamberModule(tb_chamber.Text);
-                    //InsControl._chamber.ConnectChamber(tb_chamber.Text);
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
                     InsControl._chamber.ChamberOn(Convert.ToDouble(tempList[i]));
-                    //await InsControl._chamber.ChamberStable(Convert.ToDouble(tempList[i]));
+
                     for (; SteadyTime > 0;)
                     {
                         await TaskRecount();
@@ -589,6 +576,8 @@ namespace SoftStartTiming
             VoutDG.RowCount = (int)nuCH_number.Value;
             LTDG.RowCount = (int)nuCH_number.Value;
             MeasDG.RowCount = (int)nuCH_number.Value;
+            data_rail_en.RowCount = (int)nuCH_number.Value;
+            data_rail_vid.RowCount = (int)nuCH_number.Value;
 
             // others conditions
             test_parameter.freq_addr = new byte[(int)nuCH_number.Value];
@@ -623,6 +612,8 @@ namespace SoftStartTiming
                 VoutDG[0, i].Value = test_parameter.rail_name[i];
                 LTDG[0, i].Value = test_parameter.rail_name[i];
                 MeasDG[0, i].Value = test_parameter.rail_name[i];
+                data_rail_en[0, i].Value = test_parameter.rail_name[i];
+                data_rail_vid[0, i].Value = test_parameter.rail_name[i];
 
                 MeasDG[1, i].Value = "CH" + (i + 1);
                 MeasDG[2, i].Value = "CH" + (i + 1);
@@ -684,23 +675,23 @@ namespace SoftStartTiming
                 Item 4 LT
              */
 
-            if (CBItem.SelectedIndex >= 2) groupBox2.Visible = true;
-            else groupBox2.Visible = false;
+            //if (CBItem.SelectedIndex >= 2) groupBox2.Visible = true;
+            //else groupBox2.Visible = false;
 
 
             switch (CBItem.SelectedIndex)
             {
                 case 2:
-                    groupBox2.Text = "VID Group Setting";
-                    LTDG.Columns[1].HeaderText = "Addr (Hex)";
-                    LTDG.Columns[2].HeaderText = "Hi (Hex)";
-                    LTDG.Columns[3].HeaderText = "Low (Hex)";
+                    //groupBox2.Text = "VID Group Setting";
+                    //LTDG.Columns[1].HeaderText = "Addr (Hex)";
+                    //LTDG.Columns[2].HeaderText = "Hi (Hex)";
+                    //LTDG.Columns[3].HeaderText = "Low (Hex)";
                     break;
                 case 3:
-                    groupBox2.Text = "Eload LT Setting";
-                    LTDG.Columns[1].HeaderText = "L1(A)";
-                    LTDG.Columns[2].HeaderText = "L2(A)";
-                    LTDG.Columns[3].HeaderText = "None Use";
+                    //groupBox2.Text = "Eload LT Setting";
+                    //LTDG.Columns[1].HeaderText = "L1(A)";
+                    //LTDG.Columns[2].HeaderText = "L2(A)";
+                    //LTDG.Columns[3].HeaderText = "None Use";
                     break;
 
             }
@@ -746,55 +737,66 @@ namespace SoftStartTiming
             settings += "9.SteadyTime=$" + nu_steady.Value + "$\r\n";
             settings += "10.ScaleTime=$" + nu_ontime_scale.Value + "$\r\n";
             settings += "CH_num=$" + nuCH_number.Value + "$\r\n";
-            settings += "11.CCM_Rows=$" + EloadDG_CCM.RowCount + "$\r\n";
-            settings += "12.Freq_Rows=$" + FreqDG.RowCount + "$\r\n";
-            settings += "13.Vout_Rows=$" + VoutDG.RowCount + "$\r\n";
-            settings += "14.Item_Rows=$" + LTDG.RowCount + "$\r\n";
-            settings += "15.Meas_Rows=$" + MeasDG.RowCount + "$\r\n";
 
-            for (int i = 0; i < EloadDG_CCM.RowCount; i++)
-            {
-                settings += (i + 16).ToString() + ".Rail=$" + EloadDG_CCM[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 17).ToString() + ".En_Addr=$" + EloadDG_CCM[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 18).ToString() + ".EN_On=$" + EloadDG_CCM[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 19).ToString() + ".EN_Off=$" + EloadDG_CCM[3, i].Value.ToString() + "$\r\n";
-                settings += (i + 20).ToString() + ".CCM_Loading=$" + EloadDG_CCM[4, i].Value.ToString() + "$\r\n";
-                settings += (i + 21).ToString() + ".Full_Loading=$" + EloadDG_CCM[5, i].Value.ToString() + "$\r\n";
-            }
+
+            settings += "Freq_Row=$" + FreqDG.RowCount + "$\r\n";
+            settings += "Vout_Rows=$" + VoutDG.RowCount + "$\r\n";
+            settings += "CCM_Rows=$" + EloadDG_CCM.RowCount + "$\r\n";
+            settings += "LTDG_Rows=$" + LTDG.RowCount + "$\r\n";
+            settings += "Rail_En_Rows=$" + data_rail_en.RowCount + "\r\n";
+            settings += "Rail_VID_Rows=$" + data_rail_vid.RowCount + "\r\n";
+            settings += "Meas_Rows=$" + MeasDG.RowCount + "\r\n";
 
             for (int i = 0; i < FreqDG.RowCount; i++)
             {
-                settings += (i + 22).ToString() + ".Rail=$" + FreqDG[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 23).ToString() + ".Freq_Addr=$" + FreqDG[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 24).ToString() + ".Freq_Data=$" + FreqDG[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 25).ToString() + ".Freq_Des=$" + FreqDG[3, i].Value.ToString() + "$\r\n";
+                settings += "Rail=$" + FreqDG[0, i].Value.ToString() + "$\r\n";
+                settings += "Freq_Addr=$" + FreqDG[1, i].Value.ToString() + "$\r\n";
+                settings += "Freq_Data=$" + FreqDG[2, i].Value.ToString() + "$\r\n";
+                settings += "Freq_Des=$" + FreqDG[3, i].Value.ToString() + "$\r\n";
             }
 
             for (int i = 0; i < VoutDG.RowCount; i++)
             {
-                settings += (i + 26).ToString() + ".Rail=$" + VoutDG[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 27).ToString() + ".Vout_Addr=$" + VoutDG[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 28).ToString() + ".Vout_Data=$" + VoutDG[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 29).ToString() + ".Vout_Des=$" + VoutDG[3, i].Value.ToString() + "$\r\n";
+                settings += "Rail=$" + VoutDG[0, i].Value.ToString() + "$\r\n";
+                settings += "Vout_Addr=$" + VoutDG[1, i].Value.ToString() + "$\r\n";
+                settings += "Vout_Data=$" + VoutDG[2, i].Value.ToString() + "$\r\n";
+                settings += "Vout_Des=$" + VoutDG[3, i].Value.ToString() + "$\r\n";
+            }
+
+
+            for (int i = 0; i < EloadDG_CCM.RowCount; i++)
+            {
+                settings += "Rail=$" + EloadDG_CCM[0, i].Value.ToString() + "$\r\n";
+                settings += "CCM_Loading=$" + EloadDG_CCM[1, i].Value.ToString() + "$\r\n";
+                settings += "Full_Loading=$" + EloadDG_CCM[2, i].Value.ToString() + "$\r\n";
             }
 
             for (int i = 0; i < LTDG.RowCount; i++)
             {
-                settings += (i + 30).ToString() + ".Rail=$" + LTDG[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 31).ToString() + ".Item_setting1=$" + LTDG[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 32).ToString() + ".Item_setting2=$" + LTDG[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 33).ToString() + ".Item_setting2=$" + LTDG[3, i].Value.ToString() + "$\r\n";
+                settings += "Rail=$" + LTDG[0, i].Value.ToString() + "$\r\n";
+                settings += "L1=$" + LTDG[1, i].Value.ToString() + "$\r\n";
+                settings += "L2=$" + LTDG[2, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < data_rail_en.RowCount; i++)
+            {
+                settings += "Rail=$" + data_rail_en[0, i].Value.ToString() + "$\r\n";
+                settings += "bit_setting=$" + data_rail_en[1, i].Value.ToString() + "$\r\n";
+            }
+
+            for(int i = 0; i < data_rail_vid.RowCount; i++)
+            {
+                settings += "Rail=$" + data_rail_vid[0, i].Value.ToString() + "$\r\n";
+                settings += "data_setting=$" + data_rail_vid[1, i].Value.ToString() + "$\r\n";
             }
 
             for (int i = 0; i < MeasDG.RowCount; i++)
             {
-                settings += (i + 34).ToString() + ".Rail=$" + MeasDG[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 35).ToString() + ".Meas1=$" + MeasDG[1, i].Value.ToString() + "$\r\n";
-                settings += (i + 36).ToString() + ".Meas2=$" + MeasDG[2, i].Value.ToString() + "$\r\n";
-                settings += (i + 37).ToString() + ".Meas3=$" + MeasDG[3, i].Value.ToString() + "$\r\n";
+                settings += "Rail=$" + MeasDG[0, i].Value.ToString() + "$\r\n";
+                settings += "Meas1=$" + MeasDG[1, i].Value.ToString() + "$\r\n";
+                settings += "Meas2=$" + MeasDG[2, i].Value.ToString() + "$\r\n";
+                settings += "Meas3=$" + MeasDG[3, i].Value.ToString() + "$\r\n";
             }
-
-
 
             using (StreamWriter sw = new StreamWriter(file))
             {
@@ -817,8 +819,9 @@ namespace SoftStartTiming
             object[] obj_arr = new object[]
             {
                 nuslave, tbWave, tb_vinList, CBItem, nuToerance, ck_chamber_en, tb_templist, nu_steady, nu_ontime_scale, nuCH_number,
-                EloadDG_CCM, FreqDG, VoutDG, LTDG, MeasDG
+                FreqDG, VoutDG, EloadDG_CCM, LTDG, data_rail_en, data_rail_vid, MeasDG
             };
+
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
             {
@@ -865,20 +868,10 @@ namespace SoftStartTiming
                 }
 
             fullDG:
-                for (int i = 0; i < EloadDG_CCM.RowCount; i++)
-                {
-                    EloadDG_CCM[0, i].Value = Convert.ToString(info[idx + 1]); // start
-                    EloadDG_CCM[1, i].Value = Convert.ToString(info[idx + 2]); // step
-                    EloadDG_CCM[2, i].Value = Convert.ToString(info[idx + 3]); // stop
-                    EloadDG_CCM[3, i].Value = Convert.ToString(info[idx + 4]); // start
-                    EloadDG_CCM[4, i].Value = Convert.ToString(info[idx + 5]); // step
-                    EloadDG_CCM[5, i].Value = Convert.ToString(info[idx + 6]); // stop
-                    idx += 6;
-                }
 
                 for (int i = 0; i < FreqDG.RowCount; i++)
                 {
-                    FreqDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    FreqDG[0, i].Value = Convert.ToString(info[idx + 1]); // rail
                     FreqDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
                     FreqDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
                     FreqDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
@@ -887,20 +880,42 @@ namespace SoftStartTiming
 
                 for (int i = 0; i < VoutDG.RowCount; i++)
                 {
-                    VoutDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    VoutDG[0, i].Value = Convert.ToString(info[idx + 1]); // rail
                     VoutDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
                     VoutDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
                     VoutDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
                     idx += 4;
                 }
 
+                for (int i = 0; i < EloadDG_CCM.RowCount; i++)
+                {
+                    EloadDG_CCM[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    EloadDG_CCM[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    EloadDG_CCM[2, i].Value = Convert.ToString(info[idx + 3]); // stop
+                    idx += 3;
+                }
+
                 for (int i = 0; i < LTDG.RowCount; i++)
                 {
                     LTDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
                     LTDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
-                    LTDG[2, i].Value = Convert.ToString(info[idx + 3]); // stop
-                    LTDG[3, i].Value = Convert.ToString(info[idx + 4]); // start
-                    idx += 4;
+                    LTDG[2, i].Value = Convert.ToString(info[idx + 3]); // step
+                    idx += 3;
+                }
+
+
+                for (int i = 0; i < data_rail_en.RowCount; i++)
+                {
+                    data_rail_en[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    data_rail_en[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    idx += 2;
+                }
+
+                for (int i = 0; i < data_rail_vid.RowCount; i++)
+                {
+                    data_rail_vid[0, i].Value = Convert.ToString(info[idx + 1]); // start
+                    data_rail_vid[1, i].Value = Convert.ToString(info[idx + 2]); // step
+                    idx += 2;
                 }
 
                 for (int i = 0; i < MeasDG.RowCount; i++)
