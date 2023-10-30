@@ -618,7 +618,6 @@ namespace SoftStartTiming
                 MeasDG[1, i].Value = "CH" + (i + 1);
                 MeasDG[2, i].Value = "CH" + (i + 1);
                 MeasDG[3, i].Value = "Non-use";
-
             }
         }
 
@@ -743,9 +742,9 @@ namespace SoftStartTiming
             settings += "Vout_Rows=$" + VoutDG.RowCount + "$\r\n";
             settings += "CCM_Rows=$" + EloadDG_CCM.RowCount + "$\r\n";
             settings += "LTDG_Rows=$" + LTDG.RowCount + "$\r\n";
-            settings += "Rail_En_Rows=$" + data_rail_en.RowCount + "\r\n";
-            settings += "Rail_VID_Rows=$" + data_rail_vid.RowCount + "\r\n";
-            settings += "Meas_Rows=$" + MeasDG.RowCount + "\r\n";
+            settings += "Rail_En_Rows=$" + data_rail_en.RowCount + "$\r\n";
+            settings += "Rail_VID_Rows=$" + data_rail_vid.RowCount + "$\r\n";
+            settings += "Meas_Rows=$" + MeasDG.RowCount + "$\r\n";
 
             for (int i = 0; i < FreqDG.RowCount; i++)
             {
@@ -859,8 +858,10 @@ namespace SoftStartTiming
                             ((DataGridView)obj_arr[i + 2]).RowCount = Convert.ToInt32(info[i + 2]);
                             ((DataGridView)obj_arr[i + 3]).RowCount = Convert.ToInt32(info[i + 3]);
                             ((DataGridView)obj_arr[i + 4]).RowCount = Convert.ToInt32(info[i + 4]);
+                            ((DataGridView)obj_arr[i + 5]).RowCount = Convert.ToInt32(info[i + 5]);
+                            ((DataGridView)obj_arr[i + 6]).RowCount = Convert.ToInt32(info[i + 6]);
 
-                            idx = i + 4;
+                            idx = i + 6;
                             goto fullDG;
 
                             break;
