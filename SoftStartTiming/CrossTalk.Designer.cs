@@ -61,8 +61,6 @@ namespace SoftStartTiming
             this.led_power = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.MeasDG = new System.Windows.Forms.DataGridView();
             this.nuToerance = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -77,12 +75,6 @@ namespace SoftStartTiming
             this.tb_vinList = new System.Windows.Forms.TextBox();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.LTDG = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.VoutDG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,8 +87,38 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.LTDG = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.Label17 = new System.Windows.Forms.Label();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.data_rail_vid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_note = new System.Windows.Forms.TextBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.data_rail_en = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.MeasDG = new System.Windows.Forms.DataGridView();
+            this.Railname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ScopeCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.ELoadCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.LxCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.nuCH_number = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.BTPause = new System.Windows.Forms.Button();
@@ -105,56 +127,36 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.data_rail_en = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Railname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ScopeCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ELoadCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.LxCH = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.data_rail_vid = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Label17 = new System.Windows.Forms.Label();
-            this.txt_note = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.ck_freq_en = new System.Windows.Forms.CheckBox();
+            this.ck_vout_en = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).BeginInit();
             this.tabPage4.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).BeginInit();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).BeginInit();
+            this.tabPage2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.data_rail_en)).BeginInit();
-            this.tabPage2.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).BeginInit();
             this.tabPage3.SuspendLayout();
-            this.tabPage5.SuspendLayout();
             this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.data_rail_vid)).BeginInit();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data_rail_en)).BeginInit();
+            this.tabPage5.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -455,7 +457,7 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(759, 426);
+            this.tabControl1.Size = new System.Drawing.Size(759, 448);
             this.tabControl1.TabIndex = 101;
             // 
             // tabPage1
@@ -498,32 +500,6 @@ namespace SoftStartTiming
             this.tabPage1.Size = new System.Drawing.Size(751, 400);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.MeasDG);
-            this.groupBox5.Location = new System.Drawing.Point(6, 6);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(485, 181);
-            this.groupBox5.TabIndex = 108;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Measure Setting";
-            // 
-            // MeasDG
-            // 
-            this.MeasDG.AllowUserToAddRows = false;
-            this.MeasDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.MeasDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Railname,
-            this.ScopeCH,
-            this.ELoadCH,
-            this.LxCH});
-            this.MeasDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.MeasDG.Location = new System.Drawing.Point(19, 27);
-            this.MeasDG.Name = "MeasDG";
-            this.MeasDG.RowTemplate.Height = 24;
-            this.MeasDG.Size = new System.Drawing.Size(450, 143);
-            this.MeasDG.TabIndex = 0;
             // 
             // nuToerance
             // 
@@ -683,9 +659,162 @@ namespace SoftStartTiming
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(751, 400);
+            this.tabPage4.Size = new System.Drawing.Size(751, 422);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "I2C";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.ck_vout_en);
+            this.groupBox7.Controls.Add(this.VoutDG);
+            this.groupBox7.Location = new System.Drawing.Point(6, 214);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(485, 202);
+            this.groupBox7.TabIndex = 107;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Vout Setting";
+            // 
+            // VoutDG
+            // 
+            this.VoutDG.AllowUserToAddRows = false;
+            this.VoutDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.VoutDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12,
+            this.dataGridViewTextBoxColumn13});
+            this.VoutDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.VoutDG.Location = new System.Drawing.Point(19, 37);
+            this.VoutDG.Name = "VoutDG";
+            this.VoutDG.RowTemplate.Height = 24;
+            this.VoutDG.Size = new System.Drawing.Size(432, 154);
+            this.VoutDG.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 80;
+            // 
+            // dataGridViewTextBoxColumn12
+            // 
+            this.dataGridViewTextBoxColumn12.HeaderText = "Data (Hex)";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            // 
+            // dataGridViewTextBoxColumn13
+            // 
+            this.dataGridViewTextBoxColumn13.HeaderText = "Vout Des.";
+            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.FreqDG);
+            this.groupBox6.Controls.Add(this.ck_freq_en);
+            this.groupBox6.Location = new System.Drawing.Point(6, 6);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(485, 195);
+            this.groupBox6.TabIndex = 106;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Freq Setting";
+            // 
+            // FreqDG
+            // 
+            this.FreqDG.AllowUserToAddRows = false;
+            this.FreqDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.FreqDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.Column7,
+            this.Column8});
+            this.FreqDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.FreqDG.Location = new System.Drawing.Point(19, 37);
+            this.FreqDG.Name = "FreqDG";
+            this.FreqDG.RowTemplate.Height = 24;
+            this.FreqDG.Size = new System.Drawing.Size(432, 143);
+            this.FreqDG.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 80;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Data (Hex)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Freq(KHz) Des.";
+            this.Column8.Name = "Column8";
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.Silver;
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(751, 400);
+            this.tabPage2.TabIndex = 4;
+            this.tabPage2.Text = "ELoad";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.EloadDG_CCM);
+            this.groupBox1.Location = new System.Drawing.Point(6, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(485, 164);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ELoad (CCM) Setting";
+            // 
+            // EloadDG_CCM
+            // 
+            this.EloadDG_CCM.AllowUserToAddRows = false;
+            this.EloadDG_CCM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.EloadDG_CCM.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column9});
+            this.EloadDG_CCM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.EloadDG_CCM.Location = new System.Drawing.Point(19, 27);
+            this.EloadDG_CCM.Name = "EloadDG_CCM";
+            this.EloadDG_CCM.RowTemplate.Height = 24;
+            this.EloadDG_CCM.Size = new System.Drawing.Size(448, 126);
+            this.EloadDG_CCM.TabIndex = 0;
+            this.EloadDG_CCM.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.EloadDG_CCM_CellValueChanged);
+            this.EloadDG_CCM.Enter += new System.EventHandler(this.EloadDG_CCM_Enter);
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Rail";
+            this.Column1.Name = "Column1";
+            this.Column1.Width = 80;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Aggressor Loading (A)";
+            this.Column2.Name = "Column2";
+            this.Column2.Width = 180;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Victim Loading (A)";
+            this.Column9.Name = "Column9";
+            this.Column9.Width = 140;
             // 
             // groupBox2
             // 
@@ -734,287 +863,6 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn4.HeaderText = "LT Full (A)";
             this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
             // 
-            // groupBox7
-            // 
-            this.groupBox7.Controls.Add(this.VoutDG);
-            this.groupBox7.Location = new System.Drawing.Point(6, 193);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(485, 192);
-            this.groupBox7.TabIndex = 107;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Vout Setting";
-            // 
-            // VoutDG
-            // 
-            this.VoutDG.AllowUserToAddRows = false;
-            this.VoutDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.VoutDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn10,
-            this.dataGridViewTextBoxColumn11,
-            this.dataGridViewTextBoxColumn12,
-            this.dataGridViewTextBoxColumn13});
-            this.VoutDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.VoutDG.Location = new System.Drawing.Point(19, 27);
-            this.VoutDG.Name = "VoutDG";
-            this.VoutDG.RowTemplate.Height = 24;
-            this.VoutDG.Size = new System.Drawing.Size(432, 154);
-            this.VoutDG.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.Width = 80;
-            // 
-            // dataGridViewTextBoxColumn12
-            // 
-            this.dataGridViewTextBoxColumn12.HeaderText = "Data (Hex)";
-            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
-            // 
-            // dataGridViewTextBoxColumn13
-            // 
-            this.dataGridViewTextBoxColumn13.HeaderText = "Vout Des.";
-            this.dataGridViewTextBoxColumn13.Name = "dataGridViewTextBoxColumn13";
-            // 
-            // groupBox6
-            // 
-            this.groupBox6.Controls.Add(this.FreqDG);
-            this.groupBox6.Location = new System.Drawing.Point(6, 6);
-            this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(485, 181);
-            this.groupBox6.TabIndex = 106;
-            this.groupBox6.TabStop = false;
-            this.groupBox6.Text = "Freq Setting";
-            // 
-            // FreqDG
-            // 
-            this.FreqDG.AllowUserToAddRows = false;
-            this.FreqDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.FreqDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn8,
-            this.dataGridViewTextBoxColumn9,
-            this.Column7,
-            this.Column8});
-            this.FreqDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.FreqDG.Location = new System.Drawing.Point(19, 27);
-            this.FreqDG.Name = "FreqDG";
-            this.FreqDG.RowTemplate.Height = 24;
-            this.FreqDG.Size = new System.Drawing.Size(432, 143);
-            this.FreqDG.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.HeaderText = "Addr (Hex)";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.Width = 80;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Data (Hex)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Freq(KHz) Des.";
-            this.Column8.Name = "Column8";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.EloadDG_CCM);
-            this.groupBox1.Location = new System.Drawing.Point(6, 6);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(485, 164);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ELoad (CCM) Setting";
-            // 
-            // EloadDG_CCM
-            // 
-            this.EloadDG_CCM.AllowUserToAddRows = false;
-            this.EloadDG_CCM.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.EloadDG_CCM.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column1,
-            this.Column2,
-            this.Column9});
-            this.EloadDG_CCM.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.EloadDG_CCM.Location = new System.Drawing.Point(19, 27);
-            this.EloadDG_CCM.Name = "EloadDG_CCM";
-            this.EloadDG_CCM.RowTemplate.Height = 24;
-            this.EloadDG_CCM.Size = new System.Drawing.Size(448, 126);
-            this.EloadDG_CCM.TabIndex = 0;
-            this.EloadDG_CCM.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.EloadDG_CCM_CellValueChanged);
-            this.EloadDG_CCM.Enter += new System.EventHandler(this.EloadDG_CCM_Enter);
-            // 
-            // nuCH_number
-            // 
-            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(390, 463);
-            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nuCH_number.Maximum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-            this.nuCH_number.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.nuCH_number.Name = "nuCH_number";
-            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
-            this.nuCH_number.TabIndex = 63;
-            this.nuCH_number.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
-            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(317, 449);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 12);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Total Channel Number";
-            // 
-            // BTPause
-            // 
-            this.BTPause.Location = new System.Drawing.Point(612, 454);
-            this.BTPause.Name = "BTPause";
-            this.BTPause.Size = new System.Drawing.Size(60, 32);
-            this.BTPause.TabIndex = 104;
-            this.BTPause.Text = "Pause";
-            this.BTPause.UseVisualStyleBackColor = true;
-            this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
-            // 
-            // BTStop
-            // 
-            this.BTStop.Location = new System.Drawing.Point(678, 454);
-            this.BTStop.Name = "BTStop";
-            this.BTStop.Size = new System.Drawing.Size(60, 32);
-            this.BTStop.TabIndex = 103;
-            this.BTStop.Text = "Stop";
-            this.BTStop.UseVisualStyleBackColor = true;
-            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
-            // 
-            // BTRun
-            // 
-            this.BTRun.Location = new System.Drawing.Point(546, 454);
-            this.BTRun.Name = "BTRun";
-            this.BTRun.Size = new System.Drawing.Size(60, 32);
-            this.BTRun.TabIndex = 102;
-            this.BTRun.Text = "Run";
-            this.BTRun.UseVisualStyleBackColor = true;
-            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(455, 454);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(85, 32);
-            this.button1.TabIndex = 109;
-            this.button1.Text = "Excel Kill";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // labStatus
-            // 
-            this.labStatus.AutoSize = true;
-            this.labStatus.Location = new System.Drawing.Point(14, 450);
-            this.labStatus.Name = "labStatus";
-            this.labStatus.Size = new System.Drawing.Size(97, 12);
-            this.labStatus.TabIndex = 114;
-            this.labStatus.Text = "Progress Status :";
-            // 
-            // progressBar2
-            // 
-            this.progressBar2.Location = new System.Drawing.Point(13, 465);
-            this.progressBar2.Name = "progressBar2";
-            this.progressBar2.Size = new System.Drawing.Size(371, 21);
-            this.progressBar2.TabIndex = 115;
-            // 
-            // groupBox8
-            // 
-            this.groupBox8.Controls.Add(this.data_rail_en);
-            this.groupBox8.Location = new System.Drawing.Point(6, 15);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(301, 164);
-            this.groupBox8.TabIndex = 1;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "Rail Enable Bit (On/Off)";
-            // 
-            // data_rail_en
-            // 
-            this.data_rail_en.AllowUserToAddRows = false;
-            this.data_rail_en.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.data_rail_en.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.dataGridViewTextBoxColumn5,
-            this.dataGridViewTextBoxColumn6});
-            this.data_rail_en.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.data_rail_en.Location = new System.Drawing.Point(19, 27);
-            this.data_rail_en.Name = "data_rail_en";
-            this.data_rail_en.RowTemplate.Height = 24;
-            this.data_rail_en.Size = new System.Drawing.Size(252, 126);
-            this.data_rail_en.TabIndex = 0;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.HeaderText = "Rail (name)";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.HeaderText = "On Setting";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            // 
-            // Railname
-            // 
-            this.Railname.HeaderText = "Rail (name)";
-            this.Railname.Name = "Railname";
-            // 
-            // ScopeCH
-            // 
-            this.ScopeCH.HeaderText = "Vout CH";
-            this.ScopeCH.Name = "ScopeCH";
-            this.ScopeCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ScopeCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ELoadCH
-            // 
-            this.ELoadCH.HeaderText = "ELoad CH";
-            this.ELoadCH.Name = "ELoadCH";
-            this.ELoadCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.ELoadCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // LxCH
-            // 
-            this.LxCH.HeaderText = "Lx CH";
-            this.LxCH.Name = "LxCH";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.Silver;
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(751, 400);
-            this.tabPage2.TabIndex = 4;
-            this.tabPage2.Text = "ELoad";
-            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.Silver;
@@ -1031,34 +879,38 @@ namespace SoftStartTiming
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "Rail";
             // 
-            // tabPage5
+            // label6
             // 
-            this.tabPage5.BackColor = System.Drawing.Color.Silver;
-            this.tabPage5.Controls.Add(this.groupBox5);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(751, 400);
-            this.tabPage5.TabIndex = 6;
-            this.tabPage5.Text = "Scope";
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(313, 185);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(36, 15);
+            this.label6.TabIndex = 3068;
+            this.label6.Text = "Note:";
             // 
-            // Column1
+            // textBox1
             // 
-            this.Column1.HeaderText = "Rail";
-            this.Column1.Name = "Column1";
-            this.Column1.Width = 80;
+            this.textBox1.BackColor = System.Drawing.Color.LightYellow;
+            this.textBox1.Location = new System.Drawing.Point(313, 203);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.textBox1.Size = new System.Drawing.Size(203, 46);
+            this.textBox1.TabIndex = 3067;
+            this.textBox1.Text = "VID Setting:\r\nAddr_HiCode_LoCode \r\nEx: 32_77_28\r\n";
             // 
-            // Column2
+            // Label17
             // 
-            this.Column2.HeaderText = "Aggressor Loading (A)";
-            this.Column2.Name = "Column2";
-            this.Column2.Width = 180;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Victim Loading (A)";
-            this.Column9.Name = "Column9";
-            this.Column9.Width = 140;
+            this.Label17.AutoSize = true;
+            this.Label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label17.ForeColor = System.Drawing.Color.Black;
+            this.Label17.Location = new System.Drawing.Point(313, 24);
+            this.Label17.Name = "Label17";
+            this.Label17.Size = new System.Drawing.Size(36, 15);
+            this.Label17.TabIndex = 3066;
+            this.Label17.Text = "Note:";
             // 
             // groupBox9
             // 
@@ -1095,17 +947,6 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn14.HeaderText = "VID Setting";
             this.dataGridViewTextBoxColumn14.Name = "dataGridViewTextBoxColumn14";
             // 
-            // Label17
-            // 
-            this.Label17.AutoSize = true;
-            this.Label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label17.ForeColor = System.Drawing.Color.Black;
-            this.Label17.Location = new System.Drawing.Point(313, 24);
-            this.Label17.Name = "Label17";
-            this.Label17.Size = new System.Drawing.Size(36, 15);
-            this.Label17.TabIndex = 3066;
-            this.Label17.Text = "Note:";
-            // 
             // txt_note
             // 
             this.txt_note.BackColor = System.Drawing.Color.LightYellow;
@@ -1117,34 +958,218 @@ namespace SoftStartTiming
             this.txt_note.TabIndex = 3065;
             this.txt_note.Text = "Rail Enable bit Setting:\r\nAddr[bit] Ex: 01[0]";
             // 
-            // label6
+            // groupBox8
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.Black;
-            this.label6.Location = new System.Drawing.Point(313, 185);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(36, 15);
-            this.label6.TabIndex = 3068;
-            this.label6.Text = "Note:";
+            this.groupBox8.Controls.Add(this.data_rail_en);
+            this.groupBox8.Location = new System.Drawing.Point(6, 15);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(301, 164);
+            this.groupBox8.TabIndex = 1;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Rail Enable Bit (On/Off)";
             // 
-            // textBox1
+            // data_rail_en
             // 
-            this.textBox1.BackColor = System.Drawing.Color.LightYellow;
-            this.textBox1.Location = new System.Drawing.Point(313, 203);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBox1.Size = new System.Drawing.Size(203, 46);
-            this.textBox1.TabIndex = 3067;
-            this.textBox1.Text = "VID Setting:\r\nAddr_HiCode_LoCode \r\nEx: 32_77_28\r\n";
+            this.data_rail_en.AllowUserToAddRows = false;
+            this.data_rail_en.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.data_rail_en.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6});
+            this.data_rail_en.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.data_rail_en.Location = new System.Drawing.Point(19, 27);
+            this.data_rail_en.Name = "data_rail_en";
+            this.data_rail_en.RowTemplate.Height = 24;
+            this.data_rail_en.Size = new System.Drawing.Size(252, 126);
+            this.data_rail_en.TabIndex = 0;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "Rail (name)";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.HeaderText = "On Setting";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.BackColor = System.Drawing.Color.Silver;
+            this.tabPage5.Controls.Add(this.groupBox5);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(751, 400);
+            this.tabPage5.TabIndex = 6;
+            this.tabPage5.Text = "Scope";
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.MeasDG);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(485, 181);
+            this.groupBox5.TabIndex = 108;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Measure Setting";
+            // 
+            // MeasDG
+            // 
+            this.MeasDG.AllowUserToAddRows = false;
+            this.MeasDG.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.MeasDG.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Railname,
+            this.ScopeCH,
+            this.ELoadCH,
+            this.LxCH});
+            this.MeasDG.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.MeasDG.Location = new System.Drawing.Point(19, 27);
+            this.MeasDG.Name = "MeasDG";
+            this.MeasDG.RowTemplate.Height = 24;
+            this.MeasDG.Size = new System.Drawing.Size(450, 143);
+            this.MeasDG.TabIndex = 0;
+            // 
+            // Railname
+            // 
+            this.Railname.HeaderText = "Rail (name)";
+            this.Railname.Name = "Railname";
+            // 
+            // ScopeCH
+            // 
+            this.ScopeCH.HeaderText = "Vout CH";
+            this.ScopeCH.Name = "ScopeCH";
+            this.ScopeCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ScopeCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // ELoadCH
+            // 
+            this.ELoadCH.HeaderText = "ELoad CH";
+            this.ELoadCH.Name = "ELoadCH";
+            this.ELoadCH.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.ELoadCH.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // LxCH
+            // 
+            this.LxCH.HeaderText = "Lx CH";
+            this.LxCH.Name = "LxCH";
+            // 
+            // nuCH_number
+            // 
+            this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nuCH_number.Location = new System.Drawing.Point(396, 491);
+            this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nuCH_number.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nuCH_number.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.nuCH_number.Name = "nuCH_number";
+            this.nuCH_number.Size = new System.Drawing.Size(59, 23);
+            this.nuCH_number.TabIndex = 63;
+            this.nuCH_number.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            this.nuCH_number.ValueChanged += new System.EventHandler(this.nuCH_number_ValueChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(323, 477);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(132, 12);
+            this.label4.TabIndex = 1;
+            this.label4.Text = "Total Channel Number";
+            // 
+            // BTPause
+            // 
+            this.BTPause.Location = new System.Drawing.Point(618, 482);
+            this.BTPause.Name = "BTPause";
+            this.BTPause.Size = new System.Drawing.Size(60, 32);
+            this.BTPause.TabIndex = 104;
+            this.BTPause.Text = "Pause";
+            this.BTPause.UseVisualStyleBackColor = true;
+            this.BTPause.Click += new System.EventHandler(this.BTPause_Click);
+            // 
+            // BTStop
+            // 
+            this.BTStop.Location = new System.Drawing.Point(684, 482);
+            this.BTStop.Name = "BTStop";
+            this.BTStop.Size = new System.Drawing.Size(60, 32);
+            this.BTStop.TabIndex = 103;
+            this.BTStop.Text = "Stop";
+            this.BTStop.UseVisualStyleBackColor = true;
+            this.BTStop.Click += new System.EventHandler(this.BTStop_Click);
+            // 
+            // BTRun
+            // 
+            this.BTRun.Location = new System.Drawing.Point(552, 482);
+            this.BTRun.Name = "BTRun";
+            this.BTRun.Size = new System.Drawing.Size(60, 32);
+            this.BTRun.TabIndex = 102;
+            this.BTRun.Text = "Run";
+            this.BTRun.UseVisualStyleBackColor = true;
+            this.BTRun.Click += new System.EventHandler(this.BTRun_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(461, 482);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 32);
+            this.button1.TabIndex = 109;
+            this.button1.Text = "Excel Kill";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labStatus
+            // 
+            this.labStatus.AutoSize = true;
+            this.labStatus.Location = new System.Drawing.Point(20, 478);
+            this.labStatus.Name = "labStatus";
+            this.labStatus.Size = new System.Drawing.Size(97, 12);
+            this.labStatus.TabIndex = 114;
+            this.labStatus.Text = "Progress Status :";
+            // 
+            // progressBar2
+            // 
+            this.progressBar2.Location = new System.Drawing.Point(19, 493);
+            this.progressBar2.Name = "progressBar2";
+            this.progressBar2.Size = new System.Drawing.Size(371, 21);
+            this.progressBar2.TabIndex = 115;
+            // 
+            // ck_freq_en
+            // 
+            this.ck_freq_en.AutoSize = true;
+            this.ck_freq_en.Location = new System.Drawing.Point(19, 17);
+            this.ck_freq_en.Name = "ck_freq_en";
+            this.ck_freq_en.Size = new System.Drawing.Size(91, 16);
+            this.ck_freq_en.TabIndex = 108;
+            this.ck_freq_en.Text = "Freq Enable";
+            this.ck_freq_en.UseVisualStyleBackColor = true;
+            this.ck_freq_en.CheckedChanged += new System.EventHandler(this.ck_freq_en_CheckedChanged);
+            // 
+            // ck_vout_en
+            // 
+            this.ck_vout_en.AutoSize = true;
+            this.ck_vout_en.Location = new System.Drawing.Point(19, 15);
+            this.ck_vout_en.Name = "ck_vout_en";
+            this.ck_vout_en.Size = new System.Drawing.Size(93, 16);
+            this.ck_vout_en.TabIndex = 109;
+            this.ck_vout_en.Text = "Vout Enable";
+            this.ck_vout_en.UseVisualStyleBackColor = true;
             // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(787, 506);
+            this.ClientSize = new System.Drawing.Size(787, 524);
             this.Controls.Add(this.labStatus);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.nuCH_number);
@@ -1166,31 +1191,33 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuToerance)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuAccumulate)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ontime_scale)).EndInit();
             this.tabPage4.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).EndInit();
             this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.VoutDG)).EndInit();
             this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.FreqDG)).EndInit();
+            this.tabPage2.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.EloadDG_CCM)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.data_rail_en)).EndInit();
-            this.tabPage2.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.LTDG)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
-            this.tabPage5.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.data_rail_vid)).EndInit();
+            this.groupBox8.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.data_rail_en)).EndInit();
+            this.tabPage5.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1294,5 +1321,7 @@ namespace SoftStartTiming
         internal System.Windows.Forms.TextBox txt_note;
         internal System.Windows.Forms.Label label6;
         internal System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.CheckBox ck_freq_en;
+        private System.Windows.Forms.CheckBox ck_vout_en;
     }
 }

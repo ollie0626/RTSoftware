@@ -325,6 +325,10 @@ namespace SoftStartTiming
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
             test_parameter.slave = (byte)nuslave.Value;
 
+            test_parameter.freq_en = ck_freq_en.Checked;
+            test_parameter.vout_en = ck_vout_en.Checked;
+            string[] tmp;
+            byte[] byt_tmp;
             // perpare test parameter.
             for (int i = 0; i < test_parameter.cross_en.Length; i++)
             {
@@ -333,40 +337,43 @@ namespace SoftStartTiming
                 // Eload CCM data grid
                 test_parameter.full_load.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
                 // freq and vout parameter
-                test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
-                test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, i].Value), 16);
 
-                // fre data
-                string[] tmp = ((string)FreqDG[2, i].Value).Split(',');
-                byte[] byt_tmp = new byte[tmp.Length];
-                for (int idx = 0; idx < tmp.Length; idx++)
-                {
-                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
-                }
-                test_parameter.freq_data.Add(i, byt_tmp.ToList());
 
-                // vout data
-                tmp = ((string)VoutDG[2, i].Value).Split(',');
-                byt_tmp = new byte[tmp.Length];
-                for (int idx = 0; idx < tmp.Length; idx++)
+                if (test_parameter.freq_en)
                 {
-                    byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                    test_parameter.freq_addr[i] = Convert.ToByte(Convert.ToString(FreqDG[1, i].Value), 16);
+                    // fre data
+                    tmp = ((string)FreqDG[2, i].Value).Split(',');
+                    byt_tmp = new byte[tmp.Length];
+                    for (int idx = 0; idx < tmp.Length; idx++)
+                    {
+                        byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                    }
+                    test_parameter.freq_data.Add(i, byt_tmp.ToList());
+                    test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 }
-                test_parameter.vout_data.Add(i, byt_tmp.ToList());
+                
+                if (test_parameter.vout_en)
+                {
+                    test_parameter.vout_addr[i] = Convert.ToByte(Convert.ToString(VoutDG[1, i].Value), 16);
+                    // vout data
+                    tmp = ((string)VoutDG[2, i].Value).Split(',');
+                    byt_tmp = new byte[tmp.Length];
+                    for (int idx = 0; idx < tmp.Length; idx++)
+                    {
+                        byt_tmp[idx] = Convert.ToByte(tmp[idx], 16);
+                    }
+                    test_parameter.vout_data.Add(i, byt_tmp.ToList());
+                }
 
                 // vout and freq desc
-                test_parameter.freq_des.Add(i, ((string)FreqDG[3, i].Value).Split(',').ToList());
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
-
+                test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
                 switch (CBItem.SelectedIndex)
                 {
-                    case 0:
-                        // CCM Setting
-                        test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
-                        break;
                     case 1:
                         // EN Addr[bit]
-                        temp = Convert.ToString(EloadDG_CCM[1, i].Value).Split('[');
+                        temp = Convert.ToString(data_rail_en[1, i].Value).Split('[');
                         test_parameter.en_addr[i] = Convert.ToByte(temp[0], 16);
                         test_parameter.en_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
                         test_parameter.disen_data[i] = Convert.ToByte(temp[1].Replace("]", ""), 16);
@@ -400,7 +407,6 @@ namespace SoftStartTiming
                 comboBoxCell = (DataGridViewComboBoxCell)MeasDG[3, i];
                 txt = (string)comboBoxCell.Value;
                 test_parameter.scope_lx.Add(txt);
-
                 test_parameter.cross_en[i] = true;
             }
 
@@ -936,6 +942,11 @@ namespace SoftStartTiming
             //ScopeCH.Items.Add("CH" + i);
             //DataGridViewComboBoxCell comboBoxCell = (DataGridViewComboBoxCell)EloadDG_CCM[6, 0];
             //Console.WriteLine(comboBoxCell.Value);
+        }
+
+        private void ck_freq_en_CheckedChanged(object sender, EventArgs e)
+        {
+            FreqDG.Enabled = ck_freq_en.Checked;
         }
     }
 }

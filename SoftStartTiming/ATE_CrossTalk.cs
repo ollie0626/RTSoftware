@@ -70,7 +70,7 @@ namespace SoftStartTiming
                         {
                             double temp = 0;
 #if Eload_en
-                            InsControl._eload.Loading(parameter.sw_en[parameter.idx] + 1, parameter.iout[parameter.idx]);
+                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
                             temp = InsControl._eload.GetIout();
                             _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
 #endif
@@ -152,7 +152,6 @@ namespace SoftStartTiming
                             byte addr_temp = en_addr[j];
                             RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map[addr_temp] });
                             RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map_off[addr_temp] });
-                            //Console.WriteLine("Val {2:X}, Write Enable {0:X}, Write Disable {1:X}", (byte)addr_map[addr_temp], addr_map_off[addr_temp], val);
                         }
 
                         break;
@@ -466,6 +465,10 @@ namespace SoftStartTiming
 #endif
 
 #if Report_en
+
+            // print waveform name with aggressor loading
+            _sheet.Cells[row, XLS_Table.B] = test_parameter.waveform_name;
+
             // for measure victim channel
             //int col_cnt = 7;
             double pos_delta = (vmax - vmean) * 1000;
@@ -569,15 +572,18 @@ namespace SoftStartTiming
                     {
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
-                            /* change victim vout */
-                            for (int i = 0; i < test_parameter.vout_addr.Length; i++)
+                            if (test_parameter.vout_en)
                             {
-                                RTDev.I2C_Write((byte)(test_parameter.slave),
-                                                test_parameter.vout_addr[i],
-                                                new byte[] { test_parameter.vout_data[i][vout_idx] });
+                                /* change victim vout */
+                                for (int i = 0; i < test_parameter.vout_addr.Length; i++)
+                                {
+                                    RTDev.I2C_Write((byte)(test_parameter.slave),
+                                                    test_parameter.vout_addr[i],
+                                                    new byte[] { test_parameter.vout_data[i][vout_idx] });
+                                }
                             }
 
-                            WriteFreq(select_idx, freq_idx);
+                            if (test_parameter.freq_en) WriteFreq(select_idx, freq_idx);
 
                             int cnt_max = 0;
                             for (int cnt_idx = 0; cnt_idx < test_parameter.cross_en.Length; cnt_idx++)
@@ -605,6 +611,7 @@ namespace SoftStartTiming
                                     int col_start = col_base;
 
 #if Report_en
+                                    Excel.Range _range;
                                     _sheet.Cells[row, col_start] = string.Format("Vout={0}, Addr={1:X2}, Data={2:X2}"
                                                                     , test_parameter.vout_des[select_idx][vout_idx]
                                                                     , test_parameter.vout_addr[select_idx]
@@ -653,6 +660,11 @@ namespace SoftStartTiming
                                             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                                         }
                                     }
+
+                                    _sheet.Cells[row, XLS_Table.B] = "File Name";
+                                    _range = _sheet.Cells[row, XLS_Table.B];
+                                    _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
                                     col_pos[(int)Col_List.b_Vmean] = col_base;
@@ -1104,6 +1116,15 @@ namespace SoftStartTiming
             Dictionary<int, int> ch_map = new Dictionary<int, int>();
 
 #if Scope_en
+
+            if (test_parameter.cross_mode == 1)
+            {
+                byte addr = (byte)test_parameter.en_addr[measNParameter.select_idx];
+                RTDev.I2C_Write((byte)test_parameter.slave, addr, new byte[] { (byte)(0x01 << test_parameter.en_data[measNParameter.select_idx]) });
+            }
+
+
+
             switch (name)
             {
                 case "CH1": CHx_LevelReScale(1, measNParameter.vout); break;
