@@ -53,10 +53,10 @@ namespace SoftStartTiming
             EloadDG_CCM[0, 2].Value = "Buck3";
             EloadDG_CCM[0, 3].Value = "Buck4";
 
-            data_rail_en[1, 0].Value = "01[0]";
-            data_rail_en[1, 1].Value = "01[1]";
-            data_rail_en[1, 2].Value = "01[2]";
-            data_rail_en[1, 3].Value = "01[3]";
+            data_rail_en[1, 0].Value = "2F[6]";
+            data_rail_en[1, 1].Value = "2F[5]";
+            data_rail_en[1, 2].Value = "2F[4]";
+            data_rail_en[1, 3].Value = "2F[3]";
 
             data_rail_vid[1, 0].Value = "32_77_28";
             data_rail_vid[1, 1].Value = "33_77_28";

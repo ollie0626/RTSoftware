@@ -1,8 +1,8 @@
 ﻿
 #define Report_en
 //#define Power_en
-//#define Eload_en
-//#define Scope_en
+#define Eload_en
+#define Scope_en
 
 
 using System;
@@ -1233,13 +1233,25 @@ namespace SoftStartTiming
 #if Scope_en
                         InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
 #endif
+                        // print victim eload channel
+                        Console.WriteLine("Victim Channel[{0}]", measNParameter.select_idx + 1);
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
-                        while (dont_stop_cnt <= 100) ;
+                        while (dont_stop_cnt <= 100);
                         dont_stop.Abort();
                         dont_stop = null;
                     }
+
+                    // print data log
+                    string truth_conditions = "";
+                    foreach (double aa in data)
+                    {
+                        truth_conditions += aa.ToString() + " ";
+                    }
+                    truth_conditions.Substring(0, truth_conditions.Length - 1);
+                    Console.WriteLine("Truth table: {0}", truth_conditions);
+
                 }
 
                 string temp = test_parameter.waveform_name;
