@@ -76,6 +76,7 @@ namespace SoftStartTiming
             this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.ck_vout_en = new System.Windows.Forms.CheckBox();
             this.VoutDG = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -87,6 +88,7 @@ namespace SoftStartTiming
             this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ck_freq_en = new System.Windows.Forms.CheckBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.EloadDG_CCM = new System.Windows.Forms.DataGridView();
@@ -127,8 +129,6 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.ck_freq_en = new System.Windows.Forms.CheckBox();
-            this.ck_vout_en = new System.Windows.Forms.CheckBox();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -497,7 +497,7 @@ namespace SoftStartTiming
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(751, 400);
+            this.tabPage1.Size = new System.Drawing.Size(751, 422);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             // 
@@ -674,6 +674,16 @@ namespace SoftStartTiming
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Vout Setting";
             // 
+            // ck_vout_en
+            // 
+            this.ck_vout_en.AutoSize = true;
+            this.ck_vout_en.Location = new System.Drawing.Point(19, 15);
+            this.ck_vout_en.Name = "ck_vout_en";
+            this.ck_vout_en.Size = new System.Drawing.Size(93, 16);
+            this.ck_vout_en.TabIndex = 109;
+            this.ck_vout_en.Text = "Vout Enable";
+            this.ck_vout_en.UseVisualStyleBackColor = true;
+            // 
             // VoutDG
             // 
             this.VoutDG.AllowUserToAddRows = false;
@@ -759,6 +769,19 @@ namespace SoftStartTiming
             this.Column8.HeaderText = "Freq(KHz) Des.";
             this.Column8.Name = "Column8";
             // 
+            // ck_freq_en
+            // 
+            this.ck_freq_en.AutoSize = true;
+            this.ck_freq_en.Checked = true;
+            this.ck_freq_en.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ck_freq_en.Location = new System.Drawing.Point(19, 17);
+            this.ck_freq_en.Name = "ck_freq_en";
+            this.ck_freq_en.Size = new System.Drawing.Size(91, 16);
+            this.ck_freq_en.TabIndex = 108;
+            this.ck_freq_en.Text = "Freq Enable";
+            this.ck_freq_en.UseVisualStyleBackColor = true;
+            this.ck_freq_en.CheckedChanged += new System.EventHandler(this.ck_freq_en_CheckedChanged);
+            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Silver;
@@ -767,7 +790,7 @@ namespace SoftStartTiming
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(751, 400);
+            this.tabPage2.Size = new System.Drawing.Size(751, 422);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "ELoad";
             // 
@@ -875,7 +898,7 @@ namespace SoftStartTiming
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(751, 400);
+            this.tabPage3.Size = new System.Drawing.Size(751, 422);
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "Rail";
             // 
@@ -999,7 +1022,7 @@ namespace SoftStartTiming
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(751, 400);
+            this.tabPage5.Size = new System.Drawing.Size(751, 422);
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "Scope";
             // 
@@ -1142,27 +1165,6 @@ namespace SoftStartTiming
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 115;
-            // 
-            // ck_freq_en
-            // 
-            this.ck_freq_en.AutoSize = true;
-            this.ck_freq_en.Location = new System.Drawing.Point(19, 17);
-            this.ck_freq_en.Name = "ck_freq_en";
-            this.ck_freq_en.Size = new System.Drawing.Size(91, 16);
-            this.ck_freq_en.TabIndex = 108;
-            this.ck_freq_en.Text = "Freq Enable";
-            this.ck_freq_en.UseVisualStyleBackColor = true;
-            this.ck_freq_en.CheckedChanged += new System.EventHandler(this.ck_freq_en_CheckedChanged);
-            // 
-            // ck_vout_en
-            // 
-            this.ck_vout_en.AutoSize = true;
-            this.ck_vout_en.Location = new System.Drawing.Point(19, 15);
-            this.ck_vout_en.Name = "ck_vout_en";
-            this.ck_vout_en.Size = new System.Drawing.Size(93, 16);
-            this.ck_vout_en.TabIndex = 109;
-            this.ck_vout_en.Text = "Vout Enable";
-            this.ck_vout_en.UseVisualStyleBackColor = true;
             // 
             // CrossTalk
             // 

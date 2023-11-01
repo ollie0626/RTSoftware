@@ -105,7 +105,7 @@ namespace SoftStartTiming
 
                         Dictionary<int, int> addr_map = new Dictionary<int, int>();
                         Dictionary<int, int> addr_map_off = new Dictionary<int, int>();
-                        
+
                         //int val = 0x00;
                         //for (int j = 0; j < parameter.data.Count; j++)
                         //{
@@ -287,7 +287,6 @@ namespace SoftStartTiming
             }
         }
 
-
         public override void ATETask()
         {
             progress = 0;
@@ -402,7 +401,7 @@ namespace SoftStartTiming
                 Cross_CCM();
         }
 
-        private void MeasureVictim(int victim, int col_start, double vout, bool before, double vin)
+        private void MeasureVictim(int victim, int col_start, double vout, bool before, double vin, bool meas_lx_en = false)
         {
             double vmean = 0;
             double vmax = 0;
@@ -410,19 +409,12 @@ namespace SoftStartTiming
             double jitter = 0;
 
 #if Scope_en
-            for (int i = 0; i < 5; i++)
-            {
-                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
 
-                vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
-                vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
-                vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
+            if (meas_lx_en)
+            {
                 string res = "";
-                if (victim <= test_parameter.scope_lx.Count)
-                    res = test_parameter.scope_lx[victim - 1];
-                if (res.IndexOf("CH") != -1)
+                res = test_parameter.scope_lx[victim];
+                for(int i = 0; i < 5; i++)
                 {
                     res = res.Replace("CH", "");
                     int int_res = Convert.ToInt32(res);
@@ -456,8 +448,24 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetDPXOff();
                 }
             }
+            else
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
+
+                    vmean = InsControl._oscilloscope.CHx_Meas_Mean(victim, 1);
+                    vmax = InsControl._oscilloscope.CHx_Meas_Max(victim, 2);
+                    vmin = InsControl._oscilloscope.CHx_Meas_Min(victim, 3);
+                }
+            }
 
             InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name);
+            if(meas_lx_en) InsControl._oscilloscope.SetDPXOff();
+
+
             InsControl._oscilloscope.SetMeasureOff(1);
             InsControl._oscilloscope.SetMeasureOff(2);
             InsControl._oscilloscope.SetMeasureOff(3);
@@ -595,6 +603,7 @@ namespace SoftStartTiming
                                         cnt_max = test_parameter.ccm_eload[cnt_idx].Count;
                                 }
                             }
+
                             for (int full_idx = 0; full_idx < test_parameter.full_load[select_idx].Count; full_idx++)
                             {
                                 double victim_iout = test_parameter.full_load[select_idx][full_idx];
@@ -644,10 +653,14 @@ namespace SoftStartTiming
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
 
-                                    _sheet.Cells[row, col_start] = string.Format("Freq(KHz)={0}, Addr={1:X2}, Data={2:X2}"
-                                                                    , test_parameter.freq_des[select_idx][freq_idx]
-                                                                    , test_parameter.freq_addr[select_idx]
-                                                                    , test_parameter.freq_data[select_idx][freq_idx]);
+                                    if (test_parameter.freq_en)
+                                    {
+                                        _sheet.Cells[row, col_start] = string.Format("Freq(KHz)={0}, Addr={1:X2}, Data={2:X2}"
+                                                                        , test_parameter.freq_des[select_idx][freq_idx]
+                                                                        , test_parameter.freq_addr[select_idx]
+                                                                        , test_parameter.freq_data[select_idx][freq_idx]);
+                                    }
+
 
                                     row++;
                                     int col_idx = (int)XLS_Table.C;
@@ -1124,7 +1137,6 @@ namespace SoftStartTiming
             }
 
 
-
             switch (name)
             {
                 case "CH1": CHx_LevelReScale(1, measNParameter.vout); break;
@@ -1259,7 +1271,7 @@ namespace SoftStartTiming
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
-                        while (dont_stop_cnt <= 100);
+                        while (dont_stop_cnt <= 100) ;
                         dont_stop.Abort();
                         dont_stop = null;
                     }
@@ -1277,14 +1289,31 @@ namespace SoftStartTiming
 
                 string temp = test_parameter.waveform_name;
                 test_parameter.waveform_name = test_parameter.waveform_name + string.Format("_case{0}", i);
-                MeasureVictim(
-                                Convert.ToInt32(name.Replace("CH", "")),
-                                measNParameter.col_start + 1,
-                                measNParameter.vout,
-                                measNParameter.before,
-                                measNParameter.vin);
-                test_parameter.waveform_name = temp;
 
+                // string res = test_parameter.scope_lx[measNParameter.select_idx];
+
+                if(res != "Non-use")
+                {
+                    // measure lx jitter
+                    MeasureVictim(
+                                    Convert.ToInt32(res.Replace("CH", "")),
+                                    measNParameter.col_start + 1,
+                                    measNParameter.vout,
+                                    measNParameter.before,
+                                    measNParameter.vin, true);
+                }
+                else
+                {
+                   // measure vout cross talk
+                   MeasureVictim(
+                                   Convert.ToInt32(name.Replace("CH", "")),
+                                   measNParameter.col_start + 1,
+                                   measNParameter.vout,
+                                   measNParameter.before,
+                                   measNParameter.vin);
+                }
+
+                test_parameter.waveform_name = temp;
 #if Eload_en
                 InsControl._eload.Loading(test_parameter.eload_chx[measNParameter.select_idx], measNParameter.iout_n);
 #if Report_en
