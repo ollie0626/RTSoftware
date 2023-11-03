@@ -20,10 +20,10 @@ namespace SoftStartTiming
 {
     public partial class CrossTalk : Form
     {
-        private string win_name = "Cross talk v1.10";
+        private string win_name = "Cross talk v1.11";
         ParameterizedThreadStart p_thread;
         ATE_CrossTalk _ate_crosstalk;
-        Thread ATETask;
+        public Thread ATETask;
         int SteadyTime;
         string[] tempList;
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
@@ -952,7 +952,7 @@ namespace SoftStartTiming
                 {
                     i2c_datagrid[0, i].Value = Convert.ToString(info[idx + 1]);
                     i2c_datagrid[1, i].Value = Convert.ToString(info[idx + 2]);
-                    idx += 4;
+                    idx += 2;
                 }
 
             }

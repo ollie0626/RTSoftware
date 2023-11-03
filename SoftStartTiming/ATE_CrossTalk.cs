@@ -1,6 +1,6 @@
 ﻿
 #define Report_en
-//#define Power_en
+#define Power_en
 #define Eload_en
 #define Scope_en
 
@@ -68,7 +68,7 @@ namespace SoftStartTiming
                     case 0: // ccm mode
 
 
-                        for(int i = 0; i < parameter.data.Count; i++)
+                        for (int i = 0; i < parameter.data.Count; i++)
                         {
                             int col = (int)XLS_Table.C;
                             if (parameter.data[i] != 0)
@@ -94,30 +94,30 @@ namespace SoftStartTiming
 
                         }
 
-//                        if (parameter.data[parameter.idx] != 0)
-//                        {
-//                            double temp = 0;
-//#if Eload_en
-//                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
-//                            temp = InsControl._eload.GetIout();
-//                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
-//#endif
+                        //                        if (parameter.data[parameter.idx] != 0)
+                        //                        {
+                        //                            double temp = 0;
+                        //#if Eload_en
+                        //                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
+                        //                            temp = InsControl._eload.GetIout();
+                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
+                        //#endif
 
-//#if Report_en
-//                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
-//#endif
-//                        }
-//                        else
-//                        {
-//#if Eload_en
-//                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
-//                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
-//#endif
+                        //#if Report_en
+                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
+                        //#endif
+                        //                        }
+                        //                        else
+                        //                        {
+                        //#if Eload_en
+                        //                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+                        //                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
+                        //#endif
 
-//#if Report_en
-//                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
-//#endif
-//                        }
+                        //#if Report_en
+                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
+                        //#endif
+                        //                        }
                         break;
                     case 1:
 #if Report_en
@@ -143,7 +143,7 @@ namespace SoftStartTiming
                         //    }
                         //}
 
-                        for(int j = 0; j < parameter.data.Count; j++)
+                        for (int j = 0; j < parameter.data.Count; j++)
                         {
 #if Report_en
                             _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
@@ -208,7 +208,7 @@ namespace SoftStartTiming
                             }
                         }
 
-                        for (int k = 0; k < parameter.data.Count; k++ )
+                        for (int k = 0; k < parameter.data.Count; k++)
                         {
                             _sheet.Cells[row, k + aggressor_col].NumberFormat = "@";
                             _sheet.Cells[row, k + aggressor_col] = (parameter.data[k] == 1) ? vid_low[k].ToString("X") + "<->" + vid_high[k].ToString("X") : "0";
@@ -224,23 +224,54 @@ namespace SoftStartTiming
 
                         break;
                     case 3: // LT
-                        _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
+                        //_sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
+                        //_sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
                         // eload over 4CH need to select channel
-#if Eload_en
+
                         //if (parameter.data[parameter.idx] != 0)
                         //    InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx] + 1, parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
                         //else
                         //    InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
 
-                        if (parameter.data[parameter.idx] != 0)
-                            InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx], parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
-                        else
-                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
+                        for (int i = 0; i < parameter.data.Count; i++)
+                        {
+                            int col = (int)XLS_Table.C;
+                            if (parameter.data[i] != 0)
+                            {
+#if Eload_en
+                                //InsControl._eload.Loading(parameter.sw_en[i], parameter.iout[i]);
+                                InsControl._eload.DymanicLoad(parameter.sw_en[i], parameter.data_l1[i], parameter.data_l2[i], 500, 500);
+                                temp = InsControl._eload.GetIout();
+                                _sheet.Cells[row, i + aggressor_col] = temp;
 #endif
-                        break;
-                }
+#if Report_en
+                                _sheet.Cells[row, i + aggressor_col].NumberFormat = "@";
+                                _sheet.Cells[row, i + aggressor_col] = (parameter.data[i] == 1) ? parameter.l1[i] + " <-> " + parameter.l2[i] : "0";
+#endif
+                            }
+                            else
+                            {
+#if Eload_en
+                                InsControl._eload.LoadOFF(parameter.sw_en[i]);
+#endif
+#if Report_en
+                                _sheet.Cells[row, i + col] = 0;
+#endif
+                            }
+                        }
 
+                        //if (parameter.data[parameter.idx] != 0)
+                        //    InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx], parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
+                        //else
+                        //    InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
+                        break;
+
+
+                }
+                if (!updateMain.ATETask.IsAlive)
+                {
+                    dont_stop.Abort();
+                }
                 dont_stop_cnt++;
             } // while loop end
         }
@@ -446,6 +477,8 @@ namespace SoftStartTiming
             double vmax = 0;
             double vmin = 0;
             double jitter = 0;
+            double period_max = 0;
+            double period_min = 0;
 
 #if Scope_en
 
@@ -463,10 +496,12 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetTimeScale(0.00001);
                 }
 
+                InsControl._oscilloscope.SetMeasureSource(int_res, 4, "MAXimum");
+                MyLib.Delay1ms(100);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
                 vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
-
+                // adjust level scale
                 InsControl._oscilloscope.CHx_Level(int_res, vmax / 4);
                 //InsControl._oscilloscope.CHx_Position(int_res, -3);
                 InsControl._oscilloscope.SetNormalTrigger();
@@ -474,6 +509,8 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetTriggerLevel(int_res, vin * 0.9);
 
                 double period = 0;
+                InsControl._oscilloscope.SetMeasureSource(int_res, 4, "PERIod");
+                MyLib.Delay1ms(100);
                 period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                 period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
                 period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
@@ -483,11 +520,15 @@ namespace SoftStartTiming
 
                 InsControl._oscilloscope.SetDPXOn();
                 MyLib.Delay1ms(300);
-                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
-                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
                 MyLib.Delay1s(test_parameter.accumulate);
-                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4) * Math.Pow(10, 9);
-                //InsControl._oscilloscope.SetDPXOff();
+
+                period_max = InsControl._oscilloscope.MeasureMax(4);
+                period_max = InsControl._oscilloscope.MeasureMax(4);
+
+                period_min = InsControl._oscilloscope.MeasureMin(4);
+                period_min = InsControl._oscilloscope.MeasureMin(4);
+
+                jitter = (period_max - period_min) * Math.Pow(10, 9);
             }
             else
             {
@@ -805,7 +846,7 @@ namespace SoftStartTiming
                                     row++;
 #endif
 
-                                    
+
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
                                         test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
