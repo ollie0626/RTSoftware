@@ -280,7 +280,6 @@ namespace SoftStartTiming
 
             freq_addr = freq_addr.Distinct().ToList();
 
-
             for (int i = 0; i < freq_addr.Count; i++)
             {
                 RTDev.I2C_Write((byte)(test_parameter.slave), freq_addr[i], new byte[] { freq_data[i] });
@@ -861,6 +860,10 @@ namespace SoftStartTiming
                     {
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
+
+                            // write initail condtions
+                            WriteDataGridTable(test_parameter.i2c_init_dg);
+
                             /* change victim vout */
                             for (int i = 0; i < test_parameter.vout_addr.Length; i++)
                             {
@@ -1335,7 +1338,28 @@ namespace SoftStartTiming
         }
 
         #endregion
+
+
+
+
+        public void WriteDataGridTable(DataGridView dgtable)
+        {
+            int row_cnt = dgtable.RowCount;
+            byte addr = 0x00;
+            byte data = 0x00;
+
+            for (int idx = 0; idx < row_cnt; idx++)
+            {
+                addr = Convert.ToByte(dgtable[0, idx].Value.ToString(), 16);
+                data = Convert.ToByte(dgtable[1, idx].Value.ToString(), 16);
+
+                RTDev.I2C_Write((byte)test_parameter.slave, addr, new byte[] { data });
+            }
+        }
+
     }
+
+
 
     public class CrossTalkParameter
     {

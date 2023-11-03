@@ -129,6 +129,15 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.btn_i2c_data = new System.Windows.Forms.Button();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.nuaddr_to_dg = new System.Windows.Forms.NumericUpDown();
+            this.nudata_to_dg = new System.Windows.Forms.NumericUpDown();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.i2c_datagrid = new System.Windows.Forms.DataGridView();
+            this.Address = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Data = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -157,6 +166,10 @@ namespace SoftStartTiming
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuaddr_to_dg)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudata_to_dg)).BeginInit();
+            this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_datagrid)).BeginInit();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -654,6 +667,7 @@ namespace SoftStartTiming
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.Silver;
+            this.tabPage4.Controls.Add(this.groupBox10);
             this.tabPage4.Controls.Add(this.groupBox7);
             this.tabPage4.Controls.Add(this.groupBox6);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
@@ -677,6 +691,8 @@ namespace SoftStartTiming
             // ck_vout_en
             // 
             this.ck_vout_en.AutoSize = true;
+            this.ck_vout_en.Checked = true;
+            this.ck_vout_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_vout_en.Location = new System.Drawing.Point(19, 15);
             this.ck_vout_en.Name = "ck_vout_en";
             this.ck_vout_en.Size = new System.Drawing.Size(93, 16);
@@ -1166,6 +1182,109 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 115;
             // 
+            // btn_i2c_data
+            // 
+            this.btn_i2c_data.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_i2c_data.BackgroundImage")));
+            this.btn_i2c_data.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_i2c_data.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btn_i2c_data.Image = ((System.Drawing.Image)(resources.GetObject("btn_i2c_data.Image")));
+            this.btn_i2c_data.Location = new System.Drawing.Point(124, 23);
+            this.btn_i2c_data.Name = "btn_i2c_data";
+            this.btn_i2c_data.Size = new System.Drawing.Size(60, 35);
+            this.btn_i2c_data.TabIndex = 3027;
+            this.btn_i2c_data.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_i2c_data.UseVisualStyleBackColor = true;
+            this.btn_i2c_data.Click += new System.EventHandler(this.btn_i2c_data_Click);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(68, 18);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(30, 12);
+            this.label19.TabIndex = 3026;
+            this.label19.Text = "Data";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(13, 18);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(49, 12);
+            this.label18.TabIndex = 3025;
+            this.label18.Text = "Address";
+            // 
+            // nuaddr_to_dg
+            // 
+            this.nuaddr_to_dg.Hexadecimal = true;
+            this.nuaddr_to_dg.Location = new System.Drawing.Point(12, 33);
+            this.nuaddr_to_dg.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nuaddr_to_dg.Name = "nuaddr_to_dg";
+            this.nuaddr_to_dg.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nuaddr_to_dg.Size = new System.Drawing.Size(50, 22);
+            this.nuaddr_to_dg.TabIndex = 3023;
+            this.nuaddr_to_dg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // nudata_to_dg
+            // 
+            this.nudata_to_dg.Hexadecimal = true;
+            this.nudata_to_dg.Location = new System.Drawing.Point(68, 33);
+            this.nudata_to_dg.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudata_to_dg.Name = "nudata_to_dg";
+            this.nudata_to_dg.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nudata_to_dg.Size = new System.Drawing.Size(50, 22);
+            this.nudata_to_dg.TabIndex = 3024;
+            this.nudata_to_dg.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.i2c_datagrid);
+            this.groupBox10.Controls.Add(this.nudata_to_dg);
+            this.groupBox10.Controls.Add(this.btn_i2c_data);
+            this.groupBox10.Controls.Add(this.nuaddr_to_dg);
+            this.groupBox10.Controls.Add(this.label18);
+            this.groupBox10.Controls.Add(this.label19);
+            this.groupBox10.Location = new System.Drawing.Point(497, 6);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(194, 367);
+            this.groupBox10.TabIndex = 3028;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "I2C Initial";
+            // 
+            // i2c_datagrid
+            // 
+            this.i2c_datagrid.AllowUserToAddRows = false;
+            this.i2c_datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.i2c_datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Address,
+            this.Data});
+            this.i2c_datagrid.Location = new System.Drawing.Point(6, 64);
+            this.i2c_datagrid.Name = "i2c_datagrid";
+            this.i2c_datagrid.RowHeadersVisible = false;
+            this.i2c_datagrid.RowTemplate.Height = 24;
+            this.i2c_datagrid.Size = new System.Drawing.Size(159, 266);
+            this.i2c_datagrid.TabIndex = 116;
+            // 
+            // Address
+            // 
+            this.Address.HeaderText = "Address";
+            this.Address.Name = "Address";
+            this.Address.Width = 80;
+            // 
+            // Data
+            // 
+            this.Data.HeaderText = "Data";
+            this.Data.Name = "Data";
+            this.Data.Width = 50;
+            // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1220,6 +1339,11 @@ namespace SoftStartTiming
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuaddr_to_dg)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudata_to_dg)).EndInit();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_datagrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1325,5 +1449,14 @@ namespace SoftStartTiming
         internal System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox ck_freq_en;
         private System.Windows.Forms.CheckBox ck_vout_en;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.NumericUpDown nudata_to_dg;
+        internal System.Windows.Forms.Button btn_i2c_data;
+        private System.Windows.Forms.NumericUpDown nuaddr_to_dg;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.DataGridView i2c_datagrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Address;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Data;
     }
 }

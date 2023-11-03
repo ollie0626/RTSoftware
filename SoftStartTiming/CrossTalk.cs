@@ -327,6 +327,9 @@ namespace SoftStartTiming
 
             test_parameter.freq_en = ck_freq_en.Checked;
             test_parameter.vout_en = ck_vout_en.Checked;
+            test_parameter.i2c_init_dg = i2c_datagrid;
+
+
             string[] tmp;
             byte[] byt_tmp;
             // perpare test parameter.
@@ -752,6 +755,8 @@ namespace SoftStartTiming
             settings += "Rail_VID_Rows=$" + data_rail_vid.RowCount + "$\r\n";
             settings += "Meas_Rows=$" + MeasDG.RowCount + "$\r\n";
 
+            settings += "I2C_Init_Rows=$" + i2c_datagrid.RowCount + "$\r\n";
+
             for (int i = 0; i < FreqDG.RowCount; i++)
             {
                 settings += "Rail=$" + FreqDG[0, i].Value.ToString() + "$\r\n";
@@ -803,6 +808,12 @@ namespace SoftStartTiming
                 settings += "Meas3=$" + MeasDG[3, i].Value.ToString() + "$\r\n";
             }
 
+            for (int i = 0; i < i2c_datagrid.RowCount; i++)
+            {
+                settings += "Addr=$" + i2c_datagrid[0, i].Value.ToString() + "$\r\n";
+                settings += "Data=$" + i2c_datagrid[1, i].Value.ToString() + "$\r\n";
+            }
+
             using (StreamWriter sw = new StreamWriter(file))
             {
                 sw.Write(settings);
@@ -824,7 +835,7 @@ namespace SoftStartTiming
             object[] obj_arr = new object[]
             {
                 nuslave, tbWave, tb_vinList, CBItem, nuToerance, ck_chamber_en, tb_templist, nu_steady, nu_ontime_scale, nuCH_number,
-                FreqDG, VoutDG, EloadDG_CCM, LTDG, data_rail_en, data_rail_vid, MeasDG
+                FreqDG, VoutDG, EloadDG_CCM, LTDG, data_rail_en, data_rail_vid, MeasDG, i2c_datagrid
             };
 
             List<string> info = new List<string>();
@@ -866,8 +877,10 @@ namespace SoftStartTiming
                             ((DataGridView)obj_arr[i + 4]).RowCount = Convert.ToInt32(info[i + 4]);
                             ((DataGridView)obj_arr[i + 5]).RowCount = Convert.ToInt32(info[i + 5]);
                             ((DataGridView)obj_arr[i + 6]).RowCount = Convert.ToInt32(info[i + 6]);
+                            ((DataGridView)obj_arr[i + 7]).RowCount = Convert.ToInt32(info[i + 7]);
 
-                            idx = i + 6;
+
+                            idx = i + 7;
                             goto fullDG;
 
                             break;
@@ -934,6 +947,13 @@ namespace SoftStartTiming
                     idx += 4;
                 }
 
+                for (int i = 0; i < i2c_datagrid.RowCount; i++)
+                {
+                    i2c_datagrid[0, i].Value = Convert.ToString(info[idx + 1]);
+                    i2c_datagrid[1, i].Value = Convert.ToString(info[idx + 2]);
+                    idx += 4;
+                }
+
             }
         }
 
@@ -947,6 +967,14 @@ namespace SoftStartTiming
         private void ck_freq_en_CheckedChanged(object sender, EventArgs e)
         {
             FreqDG.Enabled = ck_freq_en.Checked;
+        }
+
+        private void btn_i2c_data_Click(object sender, EventArgs e)
+        {
+            i2c_datagrid.RowCount++;
+            int idx = i2c_datagrid.RowCount - 1;
+            i2c_datagrid[0, idx].Value = string.Format("{0:X}", (int)nuaddr_to_dg.Value);
+            i2c_datagrid[1, idx].Value = string.Format("{0:X}", (int)nudata_to_dg.Value);
         }
     }
 }
