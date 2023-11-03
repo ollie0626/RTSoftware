@@ -128,7 +128,8 @@ namespace SoftStartTiming
                 LxCH.Items.Add("CH" + i);
             }
             LxCH.Items.Add("Non-use");
-            
+            ScopeCH.Items.Add("Non-use");
+
         }
 
 

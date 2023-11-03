@@ -66,35 +66,63 @@ namespace SoftStartTiming
                 switch (test_parameter.cross_mode)
                 {
                     case 0: // ccm mode
-                        if (parameter.data[parameter.idx] != 0)
-                        {
-                            double temp = 0;
-#if Eload_en
-                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
-                            temp = InsControl._eload.GetIout();
-                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
-#endif
 
-#if Report_en
-                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
-#endif
-                        }
-                        else
-                        {
-#if Eload_en
-                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
-                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
-#endif
 
-#if Report_en
-                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
+                        for(int i = 0; i < parameter.data.Count; i++)
+                        {
+                            int col = (int)XLS_Table.C;
+                            if (parameter.data[i] != 0)
+                            {
+#if Eload_en
+                                InsControl._eload.Loading(parameter.sw_en[i], parameter.iout[i]);
+                                temp = InsControl._eload.GetIout();
+                                _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
 #endif
+#if Report_en
+                                _sheet.Cells[row, i + col] = parameter.data[i];
+#endif
+                            }
+                            else
+                            {
+#if Eload_en
+                                InsControl._eload.LoadOFF(parameter.sw_en[i]);
+#endif
+#if Report_en
+                                _sheet.Cells[row, i + col] = 0;
+#endif
+                            }
+
                         }
+
+//                        if (parameter.data[parameter.idx] != 0)
+//                        {
+//                            double temp = 0;
+//#if Eload_en
+//                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
+//                            temp = InsControl._eload.GetIout();
+//                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
+//#endif
+
+//#if Report_en
+//                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
+//#endif
+//                        }
+//                        else
+//                        {
+//#if Eload_en
+//                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
+//                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
+//#endif
+
+//#if Report_en
+//                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
+//#endif
+//                        }
                         break;
                     case 1:
 #if Report_en
-                        _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? "Enable" : "0";
+                        //_sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
+                        //_sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? "Enable" : "0";
 #endif
                         List<byte> en_addr = new List<byte>();
                         List<byte> en_data = new List<byte>();
@@ -114,6 +142,15 @@ namespace SoftStartTiming
                         //        val |= (0x01 << j);
                         //    }
                         //}
+
+                        for(int j = 0; j < parameter.data.Count; j++)
+                        {
+#if Report_en
+                            _sheet.Cells[row, j + aggressor_col].NumberFormat = "@";
+                            _sheet.Cells[row, j + aggressor_col] = (parameter.data[j] == 1) ? "Enable" : "0";
+#endif
+                        }
+
 
                         for (int j = 0; j < en_addr.Count; j++)
                         {
@@ -171,8 +208,11 @@ namespace SoftStartTiming
                             }
                         }
 
-                        _sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        _sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? vid_low[parameter.idx].ToString("X") + "<->" + vid_high[parameter.idx].ToString("X") : "0";
+                        for (int k = 0; k < parameter.data.Count; k++ )
+                        {
+                            _sheet.Cells[row, k + aggressor_col].NumberFormat = "@";
+                            _sheet.Cells[row, k + aggressor_col] = (parameter.data[k] == 1) ? vid_low[k].ToString("X") + "<->" + vid_high[k].ToString("X") : "0";
+                        }
                         //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
 
                         for (int j = 0; j < vid_addr.Count; j++)
@@ -413,40 +453,42 @@ namespace SoftStartTiming
             if (meas_lx_en)
             {
                 string res = "";
-                res = test_parameter.scope_lx[victim];
-                for(int i = 0; i < 5; i++)
+                res = res.Replace("CH", "");
+                int int_res = Convert.ToInt32(victim);
+                for (int i = 0; i < 3; i++)
                 {
-                    res = res.Replace("CH", "");
-                    int int_res = Convert.ToInt32(res);
+                    InsControl._oscilloscope.CHx_Level(int_res, vin);
+                    MyLib.Delay1ms(200);
+                    InsControl._oscilloscope.CHx_Position(int_res, -3);
                     InsControl._oscilloscope.CHx_Offset(int_res, 0);
                     InsControl._oscilloscope.SetTimeScale(0.00001);
-
-                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
-                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
-                    vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
-
-                    InsControl._oscilloscope.CHx_Level(int_res, vin / 4);
-                    InsControl._oscilloscope.CHx_Position(int_res, -3);
-                    InsControl._oscilloscope.SetNormalTrigger();
-                    InsControl._oscilloscope.SetTriggerFall();
-                    InsControl._oscilloscope.SetTriggerLevel(int_res, vin * 0.9);
-
-                    double period = 0;
-                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
-                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
-                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
-                    period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
-                    if (period < Math.Pow(10, 10))
-                        InsControl._oscilloscope.SetTimeScale(period);
-
-                    InsControl._oscilloscope.SetDPXOn();
-                    MyLib.Delay1ms(300);
-                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
-                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
-                    MyLib.Delay1s(test_parameter.accumulate);
-                    jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4) * Math.Pow(10, 9);
-                    InsControl._oscilloscope.SetDPXOff();
                 }
+
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+                vmax = InsControl._oscilloscope.CHx_Meas_Max(int_res, 4);
+
+                InsControl._oscilloscope.CHx_Level(int_res, vmax / 4);
+                //InsControl._oscilloscope.CHx_Position(int_res, -3);
+                InsControl._oscilloscope.SetNormalTrigger();
+                InsControl._oscilloscope.SetTriggerFall();
+                InsControl._oscilloscope.SetTriggerLevel(int_res, vin * 0.9);
+
+                double period = 0;
+                period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                period = InsControl._oscilloscope.CHx_Meas_Period(int_res, 4);
+                if (period < Math.Pow(10, 10))
+                    InsControl._oscilloscope.SetTimeScale(period);
+
+                InsControl._oscilloscope.SetDPXOn();
+                MyLib.Delay1ms(300);
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4);
+                MyLib.Delay1s(test_parameter.accumulate);
+                jitter = InsControl._oscilloscope.CHx_Meas_Jitter(int_res, 4) * Math.Pow(10, 9);
+                //InsControl._oscilloscope.SetDPXOff();
             }
             else
             {
@@ -463,7 +505,7 @@ namespace SoftStartTiming
             }
 
             InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name);
-            if(meas_lx_en) InsControl._oscilloscope.SetDPXOff();
+            if (meas_lx_en) InsControl._oscilloscope.SetDPXOff();
 
 
             InsControl._oscilloscope.SetMeasureOff(1);
@@ -631,27 +673,30 @@ namespace SoftStartTiming
 
                                     _range = _sheet.Range[cells[col_start - 1] + row, cells[col_start - 1] + (row + 2)];
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
+                                    Marshal.ReleaseComObject(_range);
 
 
                                     _sheet.Cells[row++, XLS_Table.C] = "Vin=" + test_parameter.VinList[vin_idx] + "V";
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row - 1)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                    Marshal.ReleaseComObject(_range);
 
                                     _range = _sheet.Range["C" + (row - 1), cells[test_parameter.ch_num] + (row + 1)];
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
-
+                                    Marshal.ReleaseComObject(_range);
 
                                     _sheet.Cells[row, XLS_Table.C] = "Aggressor";
                                     _range = _sheet.Range["C" + (row), cells[test_parameter.ch_num] + (row)];
                                     _range.Merge();
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
+                                    Marshal.ReleaseComObject(_range);
 
                                     _range = _sheet.Cells[row - 2, col_start];
                                     _sheet.Cells[row - 2, col_start] = "Victim Info";
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                                     _range.Interior.Color = Color.FromArgb(0xFF, 0xFF, 0xCC);
+                                    Marshal.ReleaseComObject(_range);
 
                                     if (test_parameter.freq_en)
                                     {
@@ -677,6 +722,7 @@ namespace SoftStartTiming
                                     _sheet.Cells[row, XLS_Table.B] = "File Name";
                                     _range = _sheet.Cells[row, XLS_Table.B];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                    Marshal.ReleaseComObject(_range);
 
 
                                     _sheet.Cells[row, col_base++] = test_parameter.rail_name[select_idx] + " (A)";
@@ -692,6 +738,7 @@ namespace SoftStartTiming
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                                     _range = _sheet.Range[cells[col_base - 1] + (row - 1), cells[col_base + 3] + (row)];
                                     _range.Interior.Color = Color.FromArgb(0xCC, 0xFF, 0xEF);
+                                    Marshal.ReleaseComObject(_range);
                                     col_base++;
 
                                     col_pos[(int)Col_List.b_Vmin] = col_base;
@@ -732,6 +779,7 @@ namespace SoftStartTiming
 
                                     _range = _sheet.Range[cells[(int)XLS_Table.C + 2 + test_parameter.ch_num - 1] + (row - 1), cells[col_base - 1] + row];
                                     _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                                    Marshal.ReleaseComObject(_range);
 
                                     col_base += 2;
 
@@ -758,7 +806,7 @@ namespace SoftStartTiming
                                     row++;
 #endif
 
-
+                                    
                                     for (int victim_idx = 0; victim_idx < 2; victim_idx++)
                                     {
                                         test_parameter.waveform_name = string.Format("{0}_{1}_VIN={2}_Vout={3}_Freq={4}_Iout={5}",
@@ -1250,11 +1298,11 @@ namespace SoftStartTiming
                 // after test
                 if (!measNParameter.before)
                 {
-                    for (int j = 0; j < measNParameter.N; j++) // run each channel
+                    //for (int j = 0; j < measNParameter.N; j++) // run each channel
                     {
                         dont_stop_cnt = 0;
                         CrossTalkParameter input = new CrossTalkParameter();
-                        input.idx = j; // truth table number
+                        input.idx = 0; // truth table number
                         input.select_idx = measNParameter.select_idx;
                         input.data = data; // data is truth table
                         input.sw_en = sw_en;
@@ -1271,7 +1319,7 @@ namespace SoftStartTiming
                         dont_stop = new Thread(p_dont_stop);
                         dont_stop.Start(input);
                         MyLib.Delay1s(test_parameter.accumulate);
-                        while (dont_stop_cnt <= 100) ;
+                        //while (dont_stop_cnt <= 100) ;
                         dont_stop.Abort();
                         dont_stop = null;
                     }
@@ -1292,7 +1340,7 @@ namespace SoftStartTiming
 
                 // string res = test_parameter.scope_lx[measNParameter.select_idx];
 
-                if(res != "Non-use")
+                if (res != "Non-use")
                 {
                     // measure lx jitter
                     MeasureVictim(
@@ -1304,13 +1352,13 @@ namespace SoftStartTiming
                 }
                 else
                 {
-                   // measure vout cross talk
-                   MeasureVictim(
-                                   Convert.ToInt32(name.Replace("CH", "")),
-                                   measNParameter.col_start + 1,
-                                   measNParameter.vout,
-                                   measNParameter.before,
-                                   measNParameter.vin);
+                    // measure vout cross talk
+                    MeasureVictim(
+                                    Convert.ToInt32(name.Replace("CH", "")),
+                                    measNParameter.col_start + 1,
+                                    measNParameter.vout,
+                                    measNParameter.before,
+                                    measNParameter.vin);
                 }
 
                 test_parameter.waveform_name = temp;
