@@ -699,6 +699,7 @@ namespace SoftStartTiming
             this.ck_vout_en.TabIndex = 109;
             this.ck_vout_en.Text = "Vout Enable";
             this.ck_vout_en.UseVisualStyleBackColor = true;
+            this.ck_vout_en.Visible = false;
             // 
             // VoutDG
             // 
@@ -796,6 +797,7 @@ namespace SoftStartTiming
             this.ck_freq_en.TabIndex = 108;
             this.ck_freq_en.Text = "Freq Enable";
             this.ck_freq_en.UseVisualStyleBackColor = true;
+            this.ck_freq_en.Visible = false;
             this.ck_freq_en.CheckedChanged += new System.EventHandler(this.ck_freq_en_CheckedChanged);
             // 
             // tabPage2
