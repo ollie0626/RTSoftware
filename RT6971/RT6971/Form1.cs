@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.05";
+        string win_ver = "1.06";
 
 
         public Form1()
@@ -722,7 +722,7 @@ namespace RT6971
             W23.Value = cb_dummy_clk.SelectedIndex << 5 |
                         cb_reverse.SelectedIndex << 3 |
                         cb_double.SelectedIndex << 2 |
-                        comboBox1.SelectedIndex << 4;
+                        comboBox1.SelectedIndex << 7;
         }
 
         private void cb_vcc2_dis_SelectedIndexChanged(object sender, EventArgs e)
@@ -813,32 +813,25 @@ namespace RT6971
 
         private void cb_avdd_protect_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //if (cb_avdd_protect.SelectedIndex == -1) return;
-            //if (cb_vcc1_protect.SelectedIndex == -1) return;
-            //if (cb_havdd_protect.SelectedIndex == -1) return;
-            //if (cb_vgh_protect.SelectedIndex == -1) return;
-            //if (cb_vgh_protect.SelectedIndex == -1) return;
-            //if (cb_vgl1_protect.SelectedIndex == -1) return;
 
-            //try
-            //{
-            //    ComboBox[] cb_arr = new ComboBox[]
-            //    {
-            //        cb_vgl1_protect, cb_vgh_protect, cb_vgh_protect, cb_havdd_protect, cb_vcc1_protect, cb_avdd_protect
-            //    };
+            ComboBox cb = (ComboBox)sender;
 
-            //    int data = 0x00;
-            //    for (int i = 0; i < 6; i++) data |= cb_arr[i].SelectedIndex << i;
-            //    W2C.Value = data | (int)W2C.Value & 0xC0;
-            //}
-            //catch
-            //{
+            if (cb.SelectedIndex == -1) return;
 
-            //}
+            if (cb.SelectedIndex == 0) cb.BackColor = Color.White;
+            else if (cb.SelectedIndex == 1) cb.BackColor = Color.Red;
         }
 
         private void cb_ls7_protect_SelectedIndexChanged(object sender, EventArgs e)
         {
+            ComboBox cb = (ComboBox)sender;
+
+            if (cb.SelectedIndex == -1) return;
+
+            if (cb.SelectedIndex == 0) cb.BackColor = Color.White;
+            else if (cb.SelectedIndex == 1) cb.BackColor = Color.Red;
+
+
             //if (cb_ls7_protect.SelectedIndex == -1) return;
             //if (cb_ls6_protect.SelectedIndex == -1) return;
             //if (cb_ls5_protect.SelectedIndex == -1) return;
@@ -1135,7 +1128,7 @@ namespace RT6971
             cb_dummy_clk.SelectedIndex = GetValue(code, 5, 5);
             cb_reverse.SelectedIndex = GetValue(code, 3, 3);
             cb_double.SelectedIndex = GetValue(code, 2, 2);
-            comboBox1.SelectedIndex = GetValue(code, 4, 4);
+            comboBox1.SelectedIndex = GetValue(code, 7, 7);
         }
 
         private void W24_ValueChanged(object sender, EventArgs e)
@@ -1346,7 +1339,7 @@ namespace RT6971
 
         private void R2D_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W2D.Value;
+            int code = (int)R2D.Value;
             cb_ls7_protect.SelectedIndex = GetValue(code, 7, 7);
             cb_ls6_protect.SelectedIndex = GetValue(code, 6, 6);
             cb_ls5_protect.SelectedIndex = GetValue(code, 5, 5);
@@ -1360,7 +1353,7 @@ namespace RT6971
 
         private void R2C_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W2C.Value;
+            int code = (int)R2C.Value;
             cb_avdd_protect.SelectedIndex = GetValue(code, 5, 5);
             cb_vcc1_protect.SelectedIndex = GetValue(code, 4, 4);
             cb_havdd_protect.SelectedIndex = GetValue(code, 3, 3);
@@ -1597,6 +1590,78 @@ namespace RT6971
         {
             int code = (int)W27.Value;
             cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
+        }
+
+        private void cb_sclk_psk_rst_MouseEnter(object sender, EventArgs e)
+        {
+            cb_sclk_psk_rst.Width = 150;
+            groupBox35.Width = 200;
+        }
+
+        private void cb_sclk_psk_rst_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox35.Width = 165;
+            cb_sclk_psk_rst.Width = 121;
+        }
+
+        private void cb_avdd_ext_drv_MouseEnter(object sender, EventArgs e)
+        {
+            groupBox37.Width = 200;
+            cb_avdd_ext_drv.Width = 150;
+        }
+
+        private void cb_avdd_ext_drv_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox37.Width = 165;
+            cb_avdd_ext_drv.Width = 121;
+        }
+
+        private void cb_hsr_MouseEnter(object sender, EventArgs e)
+        {
+            groupBox46.Width = 280;
+            cb_hsr.Width = 240;
+        }
+
+        private void cb_hsr_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox46.Width = 165;
+            cb_hsr.Width = 121;
+        }
+
+        private void cb_enE_Type_MouseEnter(object sender, EventArgs e)
+        {
+            groupBox50.Width = 230;
+            cb_enE_Type.Width = 200;
+        }
+
+        private void cb_enE_Type_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox50.Width = 165;
+            cb_enE_Type.Width = 121;
+        }
+
+        private void cb_stv_rest_MouseEnter(object sender, EventArgs e)
+        {
+            groupBox51.Width = 230;
+            cb_stv_rest.Width = 200;
+        }
+
+        private void cb_stv_rest_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox51.Width = 165;
+            cb_stv_rest.Width = 121;
+        }
+
+        private void cb_ch_mode_MouseEnter(object sender, EventArgs e)
+        {
+            groupBox51.Width = 230;
+            cb_ch_mode.Width = 200;
+        }
+
+        private void cb_ch_mode_MouseLeave(object sender, EventArgs e)
+        {
+            groupBox51.Width = 165;
+            cb_ch_mode.Width = 121;
         }
     }
 }

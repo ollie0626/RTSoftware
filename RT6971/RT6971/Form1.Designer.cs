@@ -1126,7 +1126,7 @@
             this.tabControl1.Location = new System.Drawing.Point(20, 65);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1245, 711);
+            this.tabControl1.Size = new System.Drawing.Size(1277, 711);
             this.tabControl1.TabIndex = 156;
             // 
             // tabPage1
@@ -3395,13 +3395,13 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.Silver;
+            this.tabPage2.Controls.Add(this.groupBox46);
             this.tabPage2.Controls.Add(this.groupBox31);
             this.tabPage2.Controls.Add(this.groupBox51);
             this.tabPage2.Controls.Add(this.groupBox50);
             this.tabPage2.Controls.Add(this.groupBox49);
             this.tabPage2.Controls.Add(this.groupBox48);
             this.tabPage2.Controls.Add(this.groupBox47);
-            this.tabPage2.Controls.Add(this.groupBox46);
             this.tabPage2.Controls.Add(this.groupBox45);
             this.tabPage2.Controls.Add(this.groupBox44);
             this.tabPage2.Controls.Add(this.groupBox43);
@@ -3419,7 +3419,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1237, 685);
+            this.tabPage2.Size = new System.Drawing.Size(1269, 685);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "IC Configure";
             // 
@@ -3591,6 +3591,8 @@
             this.cb_ch_mode.Size = new System.Drawing.Size(121, 20);
             this.cb_ch_mode.TabIndex = 7;
             this.cb_ch_mode.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
+            this.cb_ch_mode.MouseEnter += new System.EventHandler(this.cb_ch_mode_MouseEnter);
+            this.cb_ch_mode.MouseLeave += new System.EventHandler(this.cb_ch_mode_MouseLeave);
             // 
             // label210
             // 
@@ -3612,6 +3614,8 @@
             this.cb_stv_rest.Size = new System.Drawing.Size(121, 20);
             this.cb_stv_rest.TabIndex = 5;
             this.cb_stv_rest.SelectedIndexChanged += new System.EventHandler(this.cb_vgh_uvlo_SelectedIndexChanged);
+            this.cb_stv_rest.MouseEnter += new System.EventHandler(this.cb_stv_rest_MouseEnter);
+            this.cb_stv_rest.MouseLeave += new System.EventHandler(this.cb_stv_rest_MouseLeave);
             // 
             // label211
             // 
@@ -3673,6 +3677,8 @@
             this.cb_enE_Type.Size = new System.Drawing.Size(121, 20);
             this.cb_enE_Type.TabIndex = 9;
             this.cb_enE_Type.SelectedIndexChanged += new System.EventHandler(this.cb_ilmt1_SelectedIndexChanged);
+            this.cb_enE_Type.MouseEnter += new System.EventHandler(this.cb_enE_Type_MouseEnter);
+            this.cb_enE_Type.MouseLeave += new System.EventHandler(this.cb_enE_Type_MouseLeave);
             // 
             // label201
             // 
@@ -4136,6 +4142,8 @@
             this.cb_hsr.Size = new System.Drawing.Size(121, 20);
             this.cb_hsr.TabIndex = 5;
             this.cb_hsr.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
+            this.cb_hsr.MouseEnter += new System.EventHandler(this.cb_hsr_MouseEnter);
+            this.cb_hsr.MouseLeave += new System.EventHandler(this.cb_hsr_MouseLeave);
             // 
             // label194
             // 
@@ -4194,7 +4202,6 @@
             // 
             // cb_otp_protect
             // 
-            this.cb_otp_protect.Enabled = false;
             this.cb_otp_protect.FormattingEnabled = true;
             this.cb_otp_protect.Items.AddRange(new object[] {
             "FT_OTP = 0",
@@ -4216,7 +4223,6 @@
             // 
             // cb_ls1_protect
             // 
-            this.cb_ls1_protect.Enabled = false;
             this.cb_ls1_protect.FormattingEnabled = true;
             this.cb_ls1_protect.Items.AddRange(new object[] {
             "FT_L/S1 = 0",
@@ -4238,7 +4244,6 @@
             // 
             // cb_ls2_protect
             // 
-            this.cb_ls2_protect.Enabled = false;
             this.cb_ls2_protect.FormattingEnabled = true;
             this.cb_ls2_protect.Items.AddRange(new object[] {
             "FT_L/S2 = 0",
@@ -4260,7 +4265,6 @@
             // 
             // cb_ls3_protect
             // 
-            this.cb_ls3_protect.Enabled = false;
             this.cb_ls3_protect.FormattingEnabled = true;
             this.cb_ls3_protect.Items.AddRange(new object[] {
             "FT_L/S3 = 0",
@@ -4282,7 +4286,6 @@
             // 
             // cb_ls4_protect
             // 
-            this.cb_ls4_protect.Enabled = false;
             this.cb_ls4_protect.FormattingEnabled = true;
             this.cb_ls4_protect.Items.AddRange(new object[] {
             "FT_L/S4 = 0",
@@ -4304,7 +4307,6 @@
             // 
             // cb_ls5_protect
             // 
-            this.cb_ls5_protect.Enabled = false;
             this.cb_ls5_protect.FormattingEnabled = true;
             this.cb_ls5_protect.Items.AddRange(new object[] {
             "FT_L/S5 = 0",
@@ -4326,7 +4328,6 @@
             // 
             // cb_ls6_protect
             // 
-            this.cb_ls6_protect.Enabled = false;
             this.cb_ls6_protect.FormattingEnabled = true;
             this.cb_ls6_protect.Items.AddRange(new object[] {
             "FT_L/S6 = 0",
@@ -4348,7 +4349,6 @@
             // 
             // cb_ls7_protect
             // 
-            this.cb_ls7_protect.Enabled = false;
             this.cb_ls7_protect.FormattingEnabled = true;
             this.cb_ls7_protect.Items.AddRange(new object[] {
             "FT_L/S7 = 0",
@@ -4391,7 +4391,6 @@
             // 
             // cb_vgl1_protect
             // 
-            this.cb_vgl1_protect.Enabled = false;
             this.cb_vgl1_protect.FormattingEnabled = true;
             this.cb_vgl1_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4413,7 +4412,6 @@
             // 
             // cb_vgl2_protect
             // 
-            this.cb_vgl2_protect.Enabled = false;
             this.cb_vgl2_protect.FormattingEnabled = true;
             this.cb_vgl2_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4435,7 +4433,6 @@
             // 
             // cb_vgh_protect
             // 
-            this.cb_vgh_protect.Enabled = false;
             this.cb_vgh_protect.FormattingEnabled = true;
             this.cb_vgh_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4457,7 +4454,6 @@
             // 
             // cb_havdd_protect
             // 
-            this.cb_havdd_protect.Enabled = false;
             this.cb_havdd_protect.FormattingEnabled = true;
             this.cb_havdd_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4479,7 +4475,6 @@
             // 
             // cb_vcc1_protect
             // 
-            this.cb_vcc1_protect.Enabled = false;
             this.cb_vcc1_protect.FormattingEnabled = true;
             this.cb_vcc1_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4501,7 +4496,6 @@
             // 
             // cb_avdd_protect
             // 
-            this.cb_avdd_protect.Enabled = false;
             this.cb_avdd_protect.FormattingEnabled = true;
             this.cb_avdd_protect.Items.AddRange(new object[] {
             "the UVP, SCP Flag = 0",
@@ -4775,7 +4769,7 @@
             this.label212.Name = "label212";
             this.label212.Size = new System.Drawing.Size(71, 12);
             this.label212.TabIndex = 6;
-            this.label212.Text = "EN_120Hz[4]";
+            this.label212.Text = "EN_120Hz[7]";
             // 
             // comboBox1
             // 
@@ -5010,6 +5004,8 @@
             this.cb_avdd_ext_drv.Size = new System.Drawing.Size(121, 20);
             this.cb_avdd_ext_drv.TabIndex = 7;
             this.cb_avdd_ext_drv.SelectedIndexChanged += new System.EventHandler(this.cb_vcc2_dis_SelectedIndexChanged);
+            this.cb_avdd_ext_drv.MouseEnter += new System.EventHandler(this.cb_avdd_ext_drv_MouseEnter);
+            this.cb_avdd_ext_drv.MouseLeave += new System.EventHandler(this.cb_avdd_ext_drv_MouseLeave);
             // 
             // groupBox35
             // 
@@ -5032,6 +5028,8 @@
             this.cb_sclk_psk_rst.Size = new System.Drawing.Size(121, 20);
             this.cb_sclk_psk_rst.TabIndex = 1;
             this.cb_sclk_psk_rst.SelectedIndexChanged += new System.EventHandler(this.cb_sclk_psk_rst_SelectedIndexChanged);
+            this.cb_sclk_psk_rst.MouseEnter += new System.EventHandler(this.cb_sclk_psk_rst_MouseEnter);
+            this.cb_sclk_psk_rst.MouseLeave += new System.EventHandler(this.cb_sclk_psk_rst_MouseLeave);
             // 
             // groupBox34
             // 
