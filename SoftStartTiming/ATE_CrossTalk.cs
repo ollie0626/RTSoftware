@@ -1,6 +1,6 @@
 ﻿
 #define Report_en
-#define Power_en
+//#define Power_en
 #define Eload_en
 #define Scope_en
 
@@ -76,7 +76,7 @@ namespace SoftStartTiming
 #if Eload_en
                                 InsControl._eload.Loading(parameter.sw_en[i], parameter.iout[i]);
                                 temp = InsControl._eload.GetIout();
-                                _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
+                                _sheet.Cells[row, i + aggressor_col] = temp;
 #endif
 #if Report_en
                                 _sheet.Cells[row, i + col] = parameter.data[i];
@@ -662,6 +662,10 @@ namespace SoftStartTiming
                     {
                         for (int vout_idx = 0; vout_idx < test_parameter.vout_data[select_idx].Count; vout_idx++)
                         {
+
+                            // write initail condtions
+                            WriteDataGridTable(test_parameter.i2c_init_dg);
+
                             if (test_parameter.vout_en)
                             {
                                 /* change victim vout */
