@@ -4277,10 +4277,6 @@ Public Class PartI
                                 'X
                                 For ii = stability_row_start(stability_num) To stability_row_stop(stability_num)
 
-
-
-
-
                                     'Next 'stabitity
                                     last_row = row
                                     row = row + 1
@@ -4298,9 +4294,6 @@ Public Class PartI
 
 
                                     Next 'iout
-
-
-
 
                                 End If
 
@@ -4348,20 +4341,10 @@ Public Class PartI
 
 
                                 Next 'stabitity
-
-
-
-
-
                                 stability_num = stability_num + 1
-
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
-
-
-
                                 '-------------------------------------------------------------------------------
                                 'Add Serial 
 

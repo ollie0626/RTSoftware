@@ -135,10 +135,10 @@ namespace SoftStartTiming
         public static bool vout_en;
 
         public static DataGridView i2c_init_dg;
+        public static DataGridView i2c_mtp_dg;
 
         // modify for support 8 channel eload and 4 channel scope
         public static List<OutputInfo> outputs = new List<OutputInfo>();
-
         public static VIDIO_parameter vidio = new VIDIO_parameter();
         public static VIDI2C_parameter vidi2c = new VIDI2C_parameter();
         public static LoadTransient_parameter loadtransient = new LoadTransient_parameter();

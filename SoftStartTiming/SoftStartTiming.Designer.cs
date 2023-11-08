@@ -144,6 +144,16 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.i2c_mtp_datagrid = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btn_i2c_mtp_data = new System.Windows.Forms.Button();
+            this.nu_data_mtp = new System.Windows.Forms.NumericUpDown();
+            this.label21 = new System.Windows.Forms.Label();
+            this.nu_addr_mtp = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -173,6 +183,11 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_mtp_datagrid)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_data_mtp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_addr_mtp)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -774,12 +789,8 @@ namespace SoftStartTiming
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.DarkGray;
-            this.tabPage3.Controls.Add(this.btn_i2c_data);
-            this.tabPage3.Controls.Add(this.label19);
-            this.tabPage3.Controls.Add(this.label18);
-            this.tabPage3.Controls.Add(this.nuaddr_to_dg);
-            this.tabPage3.Controls.Add(this.nudata_to_dg);
-            this.tabPage3.Controls.Add(this.i2c_datagrid);
+            this.tabPage3.Controls.Add(this.groupBox8);
+            this.tabPage3.Controls.Add(this.groupBox7);
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Controls.Add(this.nuAddr);
             this.tabPage3.Controls.Add(this.nuData1);
@@ -799,7 +810,7 @@ namespace SoftStartTiming
             this.btn_i2c_data.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_i2c_data.ForeColor = System.Drawing.Color.WhiteSmoke;
             this.btn_i2c_data.Image = ((System.Drawing.Image)(resources.GetObject("btn_i2c_data.Image")));
-            this.btn_i2c_data.Location = new System.Drawing.Point(16, 107);
+            this.btn_i2c_data.Location = new System.Drawing.Point(120, 23);
             this.btn_i2c_data.Name = "btn_i2c_data";
             this.btn_i2c_data.Size = new System.Drawing.Size(60, 35);
             this.btn_i2c_data.TabIndex = 3022;
@@ -810,7 +821,7 @@ namespace SoftStartTiming
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(72, 64);
+            this.label19.Location = new System.Drawing.Point(61, 18);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(30, 12);
             this.label19.TabIndex = 99;
@@ -819,7 +830,7 @@ namespace SoftStartTiming
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(17, 64);
+            this.label18.Location = new System.Drawing.Point(6, 18);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(49, 12);
             this.label18.TabIndex = 98;
@@ -828,7 +839,7 @@ namespace SoftStartTiming
             // nuaddr_to_dg
             // 
             this.nuaddr_to_dg.Hexadecimal = true;
-            this.nuaddr_to_dg.Location = new System.Drawing.Point(16, 79);
+            this.nuaddr_to_dg.Location = new System.Drawing.Point(5, 33);
             this.nuaddr_to_dg.Maximum = new decimal(new int[] {
             255,
             0,
@@ -843,7 +854,7 @@ namespace SoftStartTiming
             // nudata_to_dg
             // 
             this.nudata_to_dg.Hexadecimal = true;
-            this.nudata_to_dg.Location = new System.Drawing.Point(72, 79);
+            this.nudata_to_dg.Location = new System.Drawing.Point(61, 33);
             this.nudata_to_dg.Maximum = new decimal(new int[] {
             255,
             0,
@@ -862,10 +873,10 @@ namespace SoftStartTiming
             this.i2c_datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Address,
             this.Data});
-            this.i2c_datagrid.Location = new System.Drawing.Point(128, 64);
+            this.i2c_datagrid.Location = new System.Drawing.Point(8, 64);
             this.i2c_datagrid.Name = "i2c_datagrid";
             this.i2c_datagrid.RowTemplate.Height = 24;
-            this.i2c_datagrid.Size = new System.Drawing.Size(253, 266);
+            this.i2c_datagrid.Size = new System.Drawing.Size(253, 222);
             this.i2c_datagrid.TabIndex = 93;
             // 
             // Address
@@ -1421,6 +1432,121 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.label18);
+            this.groupBox7.Controls.Add(this.i2c_datagrid);
+            this.groupBox7.Controls.Add(this.btn_i2c_data);
+            this.groupBox7.Controls.Add(this.nudata_to_dg);
+            this.groupBox7.Controls.Add(this.label19);
+            this.groupBox7.Controls.Add(this.nuaddr_to_dg);
+            this.groupBox7.Location = new System.Drawing.Point(16, 58);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(267, 306);
+            this.groupBox7.TabIndex = 3023;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "I2C Init";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label20);
+            this.groupBox8.Controls.Add(this.i2c_mtp_datagrid);
+            this.groupBox8.Controls.Add(this.btn_i2c_mtp_data);
+            this.groupBox8.Controls.Add(this.nu_data_mtp);
+            this.groupBox8.Controls.Add(this.label21);
+            this.groupBox8.Controls.Add(this.nu_addr_mtp);
+            this.groupBox8.Location = new System.Drawing.Point(289, 58);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(267, 306);
+            this.groupBox8.TabIndex = 3024;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "MTP Program";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(6, 18);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(49, 12);
+            this.label20.TabIndex = 98;
+            this.label20.Text = "Address";
+            // 
+            // i2c_mtp_datagrid
+            // 
+            this.i2c_mtp_datagrid.AllowUserToAddRows = false;
+            this.i2c_mtp_datagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.i2c_mtp_datagrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2});
+            this.i2c_mtp_datagrid.Location = new System.Drawing.Point(8, 64);
+            this.i2c_mtp_datagrid.Name = "i2c_mtp_datagrid";
+            this.i2c_mtp_datagrid.RowTemplate.Height = 24;
+            this.i2c_mtp_datagrid.Size = new System.Drawing.Size(253, 222);
+            this.i2c_mtp_datagrid.TabIndex = 93;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "Address";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.HeaderText = "Data";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            // 
+            // btn_i2c_mtp_data
+            // 
+            this.btn_i2c_mtp_data.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_i2c_mtp_data.BackgroundImage")));
+            this.btn_i2c_mtp_data.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_i2c_mtp_data.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.btn_i2c_mtp_data.Image = ((System.Drawing.Image)(resources.GetObject("btn_i2c_mtp_data.Image")));
+            this.btn_i2c_mtp_data.Location = new System.Drawing.Point(120, 23);
+            this.btn_i2c_mtp_data.Name = "btn_i2c_mtp_data";
+            this.btn_i2c_mtp_data.Size = new System.Drawing.Size(60, 35);
+            this.btn_i2c_mtp_data.TabIndex = 3022;
+            this.btn_i2c_mtp_data.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btn_i2c_mtp_data.UseVisualStyleBackColor = true;
+            this.btn_i2c_mtp_data.Click += new System.EventHandler(this.btn_i2c_mtp_data_Click);
+            // 
+            // nu_data_mtp
+            // 
+            this.nu_data_mtp.Hexadecimal = true;
+            this.nu_data_mtp.Location = new System.Drawing.Point(61, 33);
+            this.nu_data_mtp.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_data_mtp.Name = "nu_data_mtp";
+            this.nu_data_mtp.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nu_data_mtp.Size = new System.Drawing.Size(50, 22);
+            this.nu_data_mtp.TabIndex = 97;
+            this.nu_data_mtp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(61, 18);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(30, 12);
+            this.label21.TabIndex = 99;
+            this.label21.Text = "Data";
+            // 
+            // nu_addr_mtp
+            // 
+            this.nu_addr_mtp.Hexadecimal = true;
+            this.nu_addr_mtp.Location = new System.Drawing.Point(5, 33);
+            this.nu_addr_mtp.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_addr_mtp.Name = "nu_addr_mtp";
+            this.nu_addr_mtp.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nu_addr_mtp.Size = new System.Drawing.Size(50, 22);
+            this.nu_addr_mtp.TabIndex = 96;
+            this.nu_addr_mtp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1503,6 +1629,13 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.i2c_mtp_datagrid)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_data_mtp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_addr_mtp)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1624,6 +1757,16 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label18;
         internal System.Windows.Forms.Button btn_i2c_data;
+        private System.Windows.Forms.GroupBox groupBox7;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.DataGridView i2c_mtp_datagrid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        internal System.Windows.Forms.Button btn_i2c_mtp_data;
+        private System.Windows.Forms.NumericUpDown nu_data_mtp;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.NumericUpDown nu_addr_mtp;
     }
 }
 
