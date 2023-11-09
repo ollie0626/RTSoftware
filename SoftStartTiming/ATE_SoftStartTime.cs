@@ -799,8 +799,10 @@ namespace SoftStartTiming
                             _range.Interior.Color = Color.LightGreen;
                         }
 #endif
-                        
+
 #endif
+
+#if Scope_en
                         // SST Fall test
                         if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
                         else InsControl._scope.Root_RUN();
@@ -818,6 +820,7 @@ namespace SoftStartTiming
                             InsControl._scope.SetTrigModeEdge(true);
                             InsControl._scope.Root_Clear();
                         }
+
                         PowerOffEvent();
 
                         if (InsControl._tek_scope_en)
@@ -858,12 +861,14 @@ namespace SoftStartTiming
                             }
                         }
 
+#if Report
                         _sheet.Cells[row, XLS_Table.O] = sst;
                         _sheet.Cells[row, XLS_Table.P] = vmax;
                         _sheet.Cells[row, XLS_Table.Q] = vmin;
                         _sheet.Cells[row, XLS_Table.R] = ilx_max;
                         _sheet.Cells[row, XLS_Table.S] = ilx_min;
                         //_sheet.Cells[row, XLS_Table.T] = "Pass/Fail";
+#endif
 
                         MyLib.Delay1s(1);
                         if (InsControl._tek_scope_en)
@@ -874,7 +879,8 @@ namespace SoftStartTiming
                         {
                             InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_fall");
                         }
-
+#endif
+#if Report
                         switch (wave_pos)
                         {
                             case 0:
@@ -921,7 +927,7 @@ namespace SoftStartTiming
 
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_rise");
                         MyLib.PastWaveform(_sheet, _range_fall, test_parameter.waveform_path, file_name + "_fall");
-
+#endif
 
                         row++;
 #if Eload_en
