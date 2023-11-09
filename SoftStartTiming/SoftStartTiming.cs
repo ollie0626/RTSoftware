@@ -215,6 +215,7 @@ namespace SoftStartTiming
         {
             // test condition
             test_parameter.i2c_setting = i2c_datagrid;
+            test_parameter.i2c_mtp_dg = i2c_mtp_datagrid;
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
             test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
             test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
@@ -907,6 +908,14 @@ namespace SoftStartTiming
             int idx = i2c_datagrid.RowCount - 1;
             i2c_datagrid[0, idx].Value = string.Format("{0:X}", (int)nuaddr_to_dg.Value);
             i2c_datagrid[1, idx].Value = string.Format("{0:X}", (int)nudata_to_dg.Value);
+        }
+
+        private void btn_i2c_mtp_data_Click(object sender, EventArgs e)
+        {
+            i2c_mtp_datagrid.RowCount++;
+            int idx = i2c_mtp_datagrid.RowCount - 1;
+            i2c_mtp_datagrid[0, idx].Value = string.Format("{0:X}", (int)nuaddr_to_dg.Value);
+            i2c_mtp_datagrid[1, idx].Value = string.Format("{0:X}", (int)nudata_to_dg.Value);
         }
     }
 }

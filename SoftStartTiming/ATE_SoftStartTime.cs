@@ -3,6 +3,7 @@
 #define Report
 #define Power_en
 #define Eload_en
+#define Scope_en
 
 
 using System;
@@ -15,6 +16,7 @@ using System.Diagnostics;
 using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using System.Windows.Forms;
 
 namespace SoftStartTiming
 {
@@ -25,6 +27,7 @@ namespace SoftStartTiming
         Excel.Worksheet _sheet;
         Excel.Workbook _book;
         Excel.Range _range;
+        Excel.Range _range_fall;
         //Excel.Chart _chart;
 
         //public double temp;
@@ -45,8 +48,8 @@ namespace SoftStartTiming
         int meas_vmin = 3;
         int meas_imax = 4;
         int meas_imin = 5;
-
         int meas_level = 6;
+        int meas_falling = 7;
 
 
         public ATE_SoftStartTime()
@@ -94,12 +97,12 @@ namespace SoftStartTiming
             }
         }
 
-        private void I2C_DG_Write()
+        private void I2C_DG_Write(DataGridView dg)
         {
-            for(int i = 0; i < test_parameter.i2c_setting.RowCount; i++)
+            for(int i = 0; i < dg.RowCount; i++)
             {
-                byte addr = Convert.ToByte(test_parameter.i2c_setting[0, i].Value.ToString(), 16);
-                byte data = Convert.ToByte(test_parameter.i2c_setting[1, i].Value.ToString(), 16);
+                byte addr = Convert.ToByte(dg[0, i].Value.ToString(), 16);
+                byte data = Convert.ToByte(dg[1, i].Value.ToString(), 16);
                 RTDev.I2C_Write((byte)(test_parameter.slave), addr, new byte[] { data });
             }
         }
@@ -144,13 +147,12 @@ namespace SoftStartTiming
                 InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:MID 50");
                 InsControl._tek_scope.DoCommand("MEASUrement:MEAS1:REFLevel:PERCent:LOW 10");
 
-
                 InsControl._tek_scope.SetMeasureSource(2, meas_rising, "RISe");
                 InsControl._tek_scope.SetMeasureSource(2, meas_vmax, "MAXimum");
                 InsControl._tek_scope.SetMeasureSource(2, meas_vmin, "MINImum");
                 InsControl._tek_scope.SetMeasureSource(4, meas_imax, "MAXimum");
                 InsControl._tek_scope.SetMeasureSource(4, meas_imin, "MINImum");
-
+                InsControl._tek_scope.SetMeasureSource(2, meas_falling, "FALL");
 
                 MyLib.Delay1ms(500);
             }
@@ -263,7 +265,7 @@ namespace SoftStartTiming
                         InsControl._scope.CHx_Level(1, 3.3 / 2);
                         InsControl._scope.CHx_Offset(1, 0);
                     }
-                    I2C_DG_Write();
+                    I2C_DG_Write(test_parameter.i2c_init_dg);
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
@@ -276,34 +278,14 @@ namespace SoftStartTiming
             }
             MyLib.Delay1s(1);
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            I2C_DG_Write(test_parameter.i2c_mtp_dg); // mtp program
 
-            if(test_parameter.trigger_event == 1)
+            if (test_parameter.trigger_event == 1)
             {
-                I2C_DG_Write();
+                I2C_DG_Write(test_parameter.i2c_init_dg);
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
             }
                 
-
-
-            //RT5151
-            //byte[] tm_code = new byte[] { 0x01 };
-            //byte addr = 0xFF;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9F;
-            //tm_code[0] = 0x62;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9D;
-            //tm_code[0] = 0x86;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9A;
-            //tm_code[0] = 0x98;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-
-            //addr = 0x85;
-            //tm_code = new byte[] { 0x08, 0x40, 0xff };
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //tm_code = new byte[] { 0x01 };
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
             MyLib.Delay1ms(800);
 
             // initial channel 
@@ -494,7 +476,6 @@ namespace SoftStartTiming
             _sheet.Cells[1, XLS_Table.B] = "Soft-Start time";
             _sheet.Cells[2, XLS_Table.B] = test_parameter.tool_ver + test_parameter.vin_conditions + test_parameter.bin_file_cnt;
 
-
             _sheet.Cells[row, XLS_Table.D] = "No.";
             _sheet.Cells[row, XLS_Table.E] = "Temp(C)";
             _sheet.Cells[row, XLS_Table.F] = "Vin(V)";
@@ -505,18 +486,33 @@ namespace SoftStartTiming
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
             // major measure timing
-            _sheet.Cells[row, XLS_Table.I] = "SST (us)";
-            _sheet.Cells[row, XLS_Table.J] = "V1 Max (V)";
-            _sheet.Cells[row, XLS_Table.K] = "V1 Min (V)";
-            _sheet.Cells[row, XLS_Table.L] = "ILx Max (mA)";
-            _sheet.Cells[row, XLS_Table.M] = "ILx Min (mA)";
+            _sheet.Cells[row, XLS_Table.I] = "SST_Rise (us)";
+            _sheet.Cells[row, XLS_Table.J] = "V1 Max_Rise (V)";
+            _sheet.Cells[row, XLS_Table.K] = "V1 Min_Rise (V)";
+            _sheet.Cells[row, XLS_Table.L] = "ILx Max_Rise (mA)";
+            _sheet.Cells[row, XLS_Table.M] = "ILx Min_Rise (mA)";
             _sheet.Cells[row, XLS_Table.N] = "Pass/Fail";
+
+            _sheet.Cells[row, XLS_Table.O] = "SST_Fall (us)";
+            _sheet.Cells[row, XLS_Table.P] = "V1 Max_Fall (V)";
+            _sheet.Cells[row, XLS_Table.Q] = "V1 Min_Fall (V)";
+            _sheet.Cells[row, XLS_Table.R] = "ILx Max_Fall (mA)";
+            _sheet.Cells[row, XLS_Table.S] = "ILx Min_Fall (mA)";
+            _sheet.Cells[row, XLS_Table.T] = "Pass/Fail";
 
             _range = _sheet.Range["I" + row, "M" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
+            _range = _sheet.Range["O" + row, "S" + row];
+            _range.Interior.Color = Color.FromArgb(30, 144, 255);
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
             _range = _sheet.Range["N" + row, "N" + row];
+            _range.Interior.Color = Color.FromArgb(124, 252, 0);
+            _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+            _range = _sheet.Range["T" + row, "T" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
@@ -642,35 +638,7 @@ namespace SoftStartTiming
                         MyLib.Delay1ms(1500);
 
                         // power on trigger
-                        switch (test_parameter.trigger_event)
-                        {
-                            case 0:
-                                // GPIO trigger event
-                                if (test_parameter.sleep_mode)
-                                {
-                                    GpioOnSelect(test_parameter.gpio_pin);
-                                    MyLib.Delay1ms(1000);
-                                }
-                                else
-                                {
-                                    GpioOffSelect(test_parameter.gpio_pin);
-                                    MyLib.Delay1ms(1000);
-                                }
-                                time_scale = time_scale * 1000;
-                                break;
-                            case 1:
-                                // I2C trigger event
-                                RTDev.I2C_Write((byte)(test_parameter.slave),
-                                                test_parameter.Rail_addr,
-                                                new byte[] { test_parameter.Rail_en });
-                                break;
-                            case 2:
-                                // Power supply trigger event
-#if Power_en
-                                InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
-#endif
-                                break;
-                        }
+                        PowerOnEvent();
 
                         MyLib.Delay1s(1);
                         if (InsControl._tek_scope_en) InsControl._tek_scope.SetStop();
@@ -722,32 +690,7 @@ namespace SoftStartTiming
                         }
 
                         MyLib.Delay1ms(1500);
-                        switch (test_parameter.trigger_event)
-                        {
-                            case 0:
-                                // GPIO trigger event
-                                if (test_parameter.sleep_mode)
-                                {
-                                    GpioOnSelect(test_parameter.gpio_pin);
-                                    MyLib.Delay1ms(1000);
-                                }
-                                else
-                                {
-                                    GpioOffSelect(test_parameter.gpio_pin);
-                                    MyLib.Delay1ms(1000);
-                                }
-                                break;
-                            case 1:
-                                // I2C trigger event
-                                RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-                                break;
-                            case 2:
-#if Power_en
-                                // Power supply trigger event
-                                InsControl._power.AutoPowerOff();
-#endif
-                                break;
-                        }
+                        PowerOnEvent();
                         MyLib.Delay1s(1);
 
                         if (InsControl._tek_scope_en)
@@ -759,7 +702,7 @@ namespace SoftStartTiming
                             InsControl._scope.Root_STOP();
                         }
 
-#if true
+#if Scope_en
                         double vin = 0;
                         double sst = 0, vmax = 0, vmin = 0, ilx_max = 0, ilx_min = 0;
 
@@ -789,7 +732,6 @@ namespace SoftStartTiming
 
                             for(int i = 0; i < 2; i++)
                             {
-                                
                                 double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?"); MyLib.Delay1ms(250);
                                 double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?"); MyLib.Delay1ms(250);
 
@@ -817,15 +759,14 @@ namespace SoftStartTiming
                         MyLib.Delay1s(1);
                         if (InsControl._tek_scope_en)
                         {
-                            InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                            InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_rise");
                         }
                         else
                         {
-                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_rise");
                         }
 
 #if Report
-
                         _sheet.Cells[row, XLS_Table.D] = cnt++;
                         _sheet.Cells[row, XLS_Table.E] = temp;
                         _sheet.Cells[row, XLS_Table.F] = vin;
@@ -857,7 +798,89 @@ namespace SoftStartTiming
                             _range = _sheet.Range["N" + row];
                             _range.Interior.Color = Color.LightGreen;
                         }
+#endif
 
+#endif
+
+#if Scope_en
+                        // SST Fall test
+                        if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
+                        else InsControl._scope.Root_RUN();
+
+
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SetTriggerMode(false);
+                            InsControl._tek_scope.SetTriggerFall();
+                            InsControl._tek_scope.SetClear();
+                        }
+                        else
+                        {
+                            InsControl._scope.NormalTrigger();
+                            InsControl._scope.SetTrigModeEdge(true);
+                            InsControl._scope.Root_Clear();
+                        }
+
+                        PowerOffEvent();
+
+                        if (InsControl._tek_scope_en)
+                        {
+#if Power_en
+                            vin = InsControl._power.GetVoltage();
+#endif
+                            sst = InsControl._tek_scope.MeasureMax(meas_falling) * Math.Pow(10, 6);
+                            vmax = InsControl._tek_scope.MeasureMax(meas_vmax);
+                            vmin = InsControl._tek_scope.MeasureMin(meas_vmin);
+                            ilx_max = InsControl._tek_scope.MeasureMax(meas_imax);
+                            ilx_min = InsControl._tek_scope.MeasureMin(meas_imin);
+
+                            InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
+                            InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH2");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH2");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                            MyLib.Delay1ms(100);
+                            InsControl._tek_scope.DoCommand("CURSor:STATE ON");
+                            MyLib.Delay1ms(100);
+
+                            InsControl._tek_scope.DoCommand("MEASUrement:ANNOTation:STATE MEAS7"); MyLib.Delay1ms(200);
+                            MyLib.Delay1ms(1000);
+
+                            for (int i = 0; i < 2; i++)
+                            {
+                                double x1 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X1?"); MyLib.Delay1ms(250);
+                                double x2 = InsControl._tek_scope.doQueryNumber("MEASUrement:ANNOTation:X2?"); MyLib.Delay1ms(250);
+
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1);
+                                MyLib.Delay1ms(250);
+                                double data = InsControl._tek_scope.CHx_Meas_Rise(2, 1) * 0.9;
+                                MyLib.Delay1ms(250);
+                                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2);
+                                MyLib.Delay1ms(250);
+                            }
+                        }
+
+#if Report
+                        _sheet.Cells[row, XLS_Table.O] = sst;
+                        _sheet.Cells[row, XLS_Table.P] = vmax;
+                        _sheet.Cells[row, XLS_Table.Q] = vmin;
+                        _sheet.Cells[row, XLS_Table.R] = ilx_max;
+                        _sheet.Cells[row, XLS_Table.S] = ilx_min;
+                        //_sheet.Cells[row, XLS_Table.T] = "Pass/Fail";
+#endif
+
+                        MyLib.Delay1s(1);
+                        if (InsControl._tek_scope_en)
+                        {
+                            InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_fall");
+                        }
+                        else
+                        {
+                            InsControl._scope.SaveWaveform(test_parameter.waveform_path, file_name + "_fall");
+                        }
+#endif
+#if Report
                         switch (wave_pos)
                         {
                             case 0:
@@ -876,27 +899,11 @@ namespace SoftStartTiming
                                 _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=H" + row;
                                 _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=G" + row;
                                 _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AI" + (wave_row + 16).ToString()];
+                                _range_fall = _sheet.Range["AK" + (wave_row + 2).ToString(), "AS" + (wave_row + 16).ToString()];
                                 wave_pos++;
                                 break;
-                            case 1:
-                                _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
-                                _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
-                                _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
-                                _sheet.Cells[wave_row, XLS_Table.AO] = "Bin file";
-                                _sheet.Cells[wave_row, XLS_Table.AP] = "Iout(A)";
-                                _range = _sheet.Range["AL" + wave_row, "AP" + wave_row];
-                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                                _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=H" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.AP] = "=G" + row;
-                                _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AT" + (wave_row + 16).ToString()];
-                                wave_pos++;
-                                break;
-                            case 2:
+                            case 1:
                                 _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
                                 _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
                                 _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
@@ -912,42 +919,21 @@ namespace SoftStartTiming
                                 _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=H" + row;
                                 _sheet.Cells[wave_row + 1, XLS_Table.BA] = "=G" + row;
                                 _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
-                                wave_pos++;
-                                break;
-                            case 3:
-                                _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
-                                _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
-                                _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
-                                _sheet.Cells[wave_row, XLS_Table.BK] = "Bin file";
-                                _sheet.Cells[wave_row, XLS_Table.BL] = "Iout(A)";
-                                _range = _sheet.Range["BH" + wave_row, "BL" + wave_row];
-                                _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                                _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=H" + row;
-                                _sheet.Cells[wave_row + 1, XLS_Table.BL] = "=G" + row;
-                                _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BP" + (wave_row + 16).ToString()];
-                                wave_pos = 0; wave_row = wave_row + 19;
+                                _range = _sheet.Range["BG" + (wave_row + 2).ToString(), "BO" + (wave_row + 16).ToString()];
+                                wave_pos = 0;
+                                wave_row = wave_row + 19;
                                 break;
                         }
 
-                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_rise");
+                        MyLib.PastWaveform(_sheet, _range_fall, test_parameter.waveform_path, file_name + "_fall");
 #endif
+
                         row++;
-#endif
-                        if (InsControl._tek_scope_en) InsControl._tek_scope.SetRun();
-                        else InsControl._scope.Root_RUN();
-
-                        PowerOffEvent();
-
 #if Eload_en
                         InsControl._eload.CH1_Loading(0);
                         InsControl._eload.LoadOFF(1);
 #endif
-
                     } // iout loop
                 } // bin loop
             } // vin loop
@@ -972,6 +958,36 @@ namespace SoftStartTiming
 #endif
         }
 
+        private void PowerOnEvent()
+        {
+            switch (test_parameter.trigger_event)
+            {
+                case 0:
+                    // GPIO trigger event
+                    if (test_parameter.sleep_mode)
+                    {
+                        GpioOnSelect(test_parameter.gpio_pin);
+                        MyLib.Delay1ms(1000);
+                    }
+                    else
+                    {
+                        GpioOffSelect(test_parameter.gpio_pin);
+                        MyLib.Delay1ms(1000);
+                    }
+                    break;
+                case 1:
+                    // I2C trigger event
+                    RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                    break;
+                case 2:
+#if Power_en
+                    // Power supply trigger event
+                    InsControl._power.AutoPowerOff();
+#endif
+                    break;
+            }
+        }
+
         private void PowerOffEvent()
         {
             switch (test_parameter.trigger_event)
@@ -992,7 +1008,7 @@ namespace SoftStartTiming
 #endif
                     break;
             }
-            I2C_DG_Write();
+            I2C_DG_Write(test_parameter.i2c_init_dg);
         }
 
     }

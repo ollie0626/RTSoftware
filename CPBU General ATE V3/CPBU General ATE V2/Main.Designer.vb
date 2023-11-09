@@ -1761,7 +1761,7 @@ Partial Class Main
         '
         Me.cbox_fs_ctr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbox_fs_ctr.FormattingEnabled = True
-        Me.cbox_fs_ctr.Items.AddRange(New Object() {"NA", "I2C", "GPIO"})
+        Me.cbox_fs_ctr.Items.AddRange(New Object() {"NA", "I2C", "GPIO", "Volt"})
         Me.cbox_fs_ctr.Location = New System.Drawing.Point(127, 20)
         Me.cbox_fs_ctr.Name = "cbox_fs_ctr"
         Me.cbox_fs_ctr.Size = New System.Drawing.Size(102, 23)
