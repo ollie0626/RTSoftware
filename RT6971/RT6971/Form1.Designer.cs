@@ -226,6 +226,15 @@
             this.VCC1V = new System.Windows.Forms.NumericUpDown();
             this.VCC1H = new System.Windows.Forms.NumericUpDown();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox46 = new System.Windows.Forms.GroupBox();
+            this.label191 = new System.Windows.Forms.Label();
+            this.cb_clk_falling = new System.Windows.Forms.ComboBox();
+            this.label192 = new System.Windows.Forms.Label();
+            this.cb_clk_rising = new System.Windows.Forms.ComboBox();
+            this.label193 = new System.Windows.Forms.Label();
+            this.cb_hsr = new System.Windows.Forms.ComboBox();
+            this.label194 = new System.Windows.Forms.Label();
+            this.cb_ls_en = new System.Windows.Forms.ComboBox();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.label84 = new System.Windows.Forms.Label();
             this.cb_vcom_tc = new System.Windows.Forms.ComboBox();
@@ -276,15 +285,6 @@
             this.cb_stv2_dis = new System.Windows.Forms.ComboBox();
             this.label196 = new System.Windows.Forms.Label();
             this.cb_stv1_dis = new System.Windows.Forms.ComboBox();
-            this.groupBox46 = new System.Windows.Forms.GroupBox();
-            this.label191 = new System.Windows.Forms.Label();
-            this.cb_clk_falling = new System.Windows.Forms.ComboBox();
-            this.label192 = new System.Windows.Forms.Label();
-            this.cb_clk_rising = new System.Windows.Forms.ComboBox();
-            this.label193 = new System.Windows.Forms.Label();
-            this.cb_hsr = new System.Windows.Forms.ComboBox();
-            this.label194 = new System.Windows.Forms.Label();
-            this.cb_ls_en = new System.Windows.Forms.ComboBox();
             this.groupBox45 = new System.Windows.Forms.GroupBox();
             this.label145 = new System.Windows.Forms.Label();
             this.cb_otp_protect = new System.Windows.Forms.ComboBox();
@@ -752,13 +752,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.VCC1V)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.VCC1H)).BeginInit();
             this.tabPage2.SuspendLayout();
+            this.groupBox46.SuspendLayout();
             this.groupBox31.SuspendLayout();
             this.groupBox51.SuspendLayout();
             this.groupBox50.SuspendLayout();
             this.groupBox49.SuspendLayout();
             this.groupBox48.SuspendLayout();
             this.groupBox47.SuspendLayout();
-            this.groupBox46.SuspendLayout();
             this.groupBox45.SuspendLayout();
             this.groupBox44.SuspendLayout();
             this.groupBox43.SuspendLayout();
@@ -1167,7 +1167,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1237, 685);
+            this.tabPage1.Size = new System.Drawing.Size(1269, 685);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Vout Setting";
             // 
@@ -3423,6 +3423,119 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "IC Configure";
             // 
+            // groupBox46
+            // 
+            this.groupBox46.Controls.Add(this.label191);
+            this.groupBox46.Controls.Add(this.cb_clk_falling);
+            this.groupBox46.Controls.Add(this.label192);
+            this.groupBox46.Controls.Add(this.cb_clk_rising);
+            this.groupBox46.Controls.Add(this.label193);
+            this.groupBox46.Controls.Add(this.cb_hsr);
+            this.groupBox46.Controls.Add(this.label194);
+            this.groupBox46.Controls.Add(this.cb_ls_en);
+            this.groupBox46.Location = new System.Drawing.Point(872, 16);
+            this.groupBox46.Name = "groupBox46";
+            this.groupBox46.Size = new System.Drawing.Size(165, 198);
+            this.groupBox46.TabIndex = 24;
+            this.groupBox46.TabStop = false;
+            this.groupBox46.Text = "40h";
+            // 
+            // label191
+            // 
+            this.label191.AutoSize = true;
+            this.label191.Location = new System.Drawing.Point(14, 148);
+            this.label191.Name = "label191";
+            this.label191.Size = new System.Drawing.Size(97, 12);
+            this.label191.TabIndex = 10;
+            this.label191.Text = "Clk Falling SR[1:0]";
+            // 
+            // cb_clk_falling
+            // 
+            this.cb_clk_falling.FormattingEnabled = true;
+            this.cb_clk_falling.Items.AddRange(new object[] {
+            "0h : 1000V/μs",
+            "1h : 700V/μs",
+            "2h : 400V/μs",
+            "3h : 100V/μs"});
+            this.cb_clk_falling.Location = new System.Drawing.Point(16, 166);
+            this.cb_clk_falling.Name = "cb_clk_falling";
+            this.cb_clk_falling.Size = new System.Drawing.Size(121, 20);
+            this.cb_clk_falling.TabIndex = 9;
+            this.cb_clk_falling.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
+            // 
+            // label192
+            // 
+            this.label192.AutoSize = true;
+            this.label192.Location = new System.Drawing.Point(14, 104);
+            this.label192.Name = "label192";
+            this.label192.Size = new System.Drawing.Size(95, 12);
+            this.label192.TabIndex = 8;
+            this.label192.Text = "Clk Rising SR[3:2]";
+            // 
+            // cb_clk_rising
+            // 
+            this.cb_clk_rising.FormattingEnabled = true;
+            this.cb_clk_rising.Items.AddRange(new object[] {
+            "0h : 1000V/μs",
+            "1h : 700V/μs",
+            "2h : 400V/μs",
+            "3h : 100V/μs"});
+            this.cb_clk_rising.Location = new System.Drawing.Point(16, 122);
+            this.cb_clk_rising.Name = "cb_clk_rising";
+            this.cb_clk_rising.Size = new System.Drawing.Size(121, 20);
+            this.cb_clk_rising.TabIndex = 7;
+            this.cb_clk_rising.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
+            // 
+            // label193
+            // 
+            this.label193.AutoSize = true;
+            this.label193.Location = new System.Drawing.Point(14, 62);
+            this.label193.Name = "label193";
+            this.label193.Size = new System.Drawing.Size(50, 12);
+            this.label193.TabIndex = 6;
+            this.label193.Text = "HSR[6:4]";
+            // 
+            // cb_hsr
+            // 
+            this.cb_hsr.FormattingEnabled = true;
+            this.cb_hsr.Items.AddRange(new object[] {
+            "0h : Normal Mode – LC 1-In, 2-Out",
+            "1h : Normal Mode – LC 2-In, 2-Out",
+            "2h : Only enable at forward, wo Dummy, signal.",
+            "3h : Only enable at forward, wo Dummy, signal.",
+            "4h : Only enable at forward, wo Dummy, signal.",
+            "5h : Only enable at forward, wo Dummy, signal.",
+            "6h : Only enable at forward, wo Dummy, signal.",
+            "7h : Only enable at forward, wo Dummy, signal."});
+            this.cb_hsr.Location = new System.Drawing.Point(16, 80);
+            this.cb_hsr.Name = "cb_hsr";
+            this.cb_hsr.Size = new System.Drawing.Size(121, 20);
+            this.cb_hsr.TabIndex = 5;
+            this.cb_hsr.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
+            this.cb_hsr.MouseEnter += new System.EventHandler(this.cb_hsr_MouseEnter);
+            this.cb_hsr.MouseLeave += new System.EventHandler(this.cb_hsr_MouseLeave);
+            // 
+            // label194
+            // 
+            this.label194.AutoSize = true;
+            this.label194.Location = new System.Drawing.Point(14, 18);
+            this.label194.Name = "label194";
+            this.label194.Size = new System.Drawing.Size(48, 12);
+            this.label194.TabIndex = 4;
+            this.label194.Text = "LS En[7]";
+            // 
+            // cb_ls_en
+            // 
+            this.cb_ls_en.FormattingEnabled = true;
+            this.cb_ls_en.Items.AddRange(new object[] {
+            "0h : All L/S outputs Hi-Z",
+            "1h : All L/S outputs normally operate"});
+            this.cb_ls_en.Location = new System.Drawing.Point(16, 36);
+            this.cb_ls_en.Name = "cb_ls_en";
+            this.cb_ls_en.Size = new System.Drawing.Size(121, 20);
+            this.cb_ls_en.TabIndex = 1;
+            this.cb_ls_en.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
+            // 
             // groupBox31
             // 
             this.groupBox31.Controls.Add(this.label84);
@@ -4052,119 +4165,6 @@
             this.cb_stv1_dis.Size = new System.Drawing.Size(121, 20);
             this.cb_stv1_dis.TabIndex = 1;
             this.cb_stv1_dis.SelectedIndexChanged += new System.EventHandler(this.cb_stv1_dis_SelectedIndexChanged);
-            // 
-            // groupBox46
-            // 
-            this.groupBox46.Controls.Add(this.label191);
-            this.groupBox46.Controls.Add(this.cb_clk_falling);
-            this.groupBox46.Controls.Add(this.label192);
-            this.groupBox46.Controls.Add(this.cb_clk_rising);
-            this.groupBox46.Controls.Add(this.label193);
-            this.groupBox46.Controls.Add(this.cb_hsr);
-            this.groupBox46.Controls.Add(this.label194);
-            this.groupBox46.Controls.Add(this.cb_ls_en);
-            this.groupBox46.Location = new System.Drawing.Point(872, 16);
-            this.groupBox46.Name = "groupBox46";
-            this.groupBox46.Size = new System.Drawing.Size(165, 198);
-            this.groupBox46.TabIndex = 24;
-            this.groupBox46.TabStop = false;
-            this.groupBox46.Text = "40h";
-            // 
-            // label191
-            // 
-            this.label191.AutoSize = true;
-            this.label191.Location = new System.Drawing.Point(14, 148);
-            this.label191.Name = "label191";
-            this.label191.Size = new System.Drawing.Size(97, 12);
-            this.label191.TabIndex = 10;
-            this.label191.Text = "Clk Falling SR[1:0]";
-            // 
-            // cb_clk_falling
-            // 
-            this.cb_clk_falling.FormattingEnabled = true;
-            this.cb_clk_falling.Items.AddRange(new object[] {
-            "0h : 1000V/μs",
-            "1h : 700V/μs",
-            "2h : 400V/μs",
-            "3h : 100V/μs"});
-            this.cb_clk_falling.Location = new System.Drawing.Point(16, 166);
-            this.cb_clk_falling.Name = "cb_clk_falling";
-            this.cb_clk_falling.Size = new System.Drawing.Size(121, 20);
-            this.cb_clk_falling.TabIndex = 9;
-            this.cb_clk_falling.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
-            // 
-            // label192
-            // 
-            this.label192.AutoSize = true;
-            this.label192.Location = new System.Drawing.Point(14, 104);
-            this.label192.Name = "label192";
-            this.label192.Size = new System.Drawing.Size(95, 12);
-            this.label192.TabIndex = 8;
-            this.label192.Text = "Clk Rising SR[3:2]";
-            // 
-            // cb_clk_rising
-            // 
-            this.cb_clk_rising.FormattingEnabled = true;
-            this.cb_clk_rising.Items.AddRange(new object[] {
-            "0h : 1000V/μs",
-            "1h : 700V/μs",
-            "2h : 400V/μs",
-            "3h : 100V/μs"});
-            this.cb_clk_rising.Location = new System.Drawing.Point(16, 122);
-            this.cb_clk_rising.Name = "cb_clk_rising";
-            this.cb_clk_rising.Size = new System.Drawing.Size(121, 20);
-            this.cb_clk_rising.TabIndex = 7;
-            this.cb_clk_rising.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
-            // 
-            // label193
-            // 
-            this.label193.AutoSize = true;
-            this.label193.Location = new System.Drawing.Point(14, 62);
-            this.label193.Name = "label193";
-            this.label193.Size = new System.Drawing.Size(50, 12);
-            this.label193.TabIndex = 6;
-            this.label193.Text = "HSR[6:4]";
-            // 
-            // cb_hsr
-            // 
-            this.cb_hsr.FormattingEnabled = true;
-            this.cb_hsr.Items.AddRange(new object[] {
-            "0h : Normal Mode – LC 1-In, 2-Out",
-            "1h : Normal Mode – LC 2-In, 2-Out",
-            "2h : Only enable at forward, wo Dummy, signal.",
-            "3h : Only enable at forward, wo Dummy, signal.",
-            "4h : Only enable at forward, wo Dummy, signal.",
-            "5h : Only enable at forward, wo Dummy, signal.",
-            "6h : Only enable at forward, wo Dummy, signal.",
-            "7h : Only enable at forward, wo Dummy, signal."});
-            this.cb_hsr.Location = new System.Drawing.Point(16, 80);
-            this.cb_hsr.Name = "cb_hsr";
-            this.cb_hsr.Size = new System.Drawing.Size(121, 20);
-            this.cb_hsr.TabIndex = 5;
-            this.cb_hsr.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
-            this.cb_hsr.MouseEnter += new System.EventHandler(this.cb_hsr_MouseEnter);
-            this.cb_hsr.MouseLeave += new System.EventHandler(this.cb_hsr_MouseLeave);
-            // 
-            // label194
-            // 
-            this.label194.AutoSize = true;
-            this.label194.Location = new System.Drawing.Point(14, 18);
-            this.label194.Name = "label194";
-            this.label194.Size = new System.Drawing.Size(48, 12);
-            this.label194.TabIndex = 4;
-            this.label194.Text = "LS En[7]";
-            // 
-            // cb_ls_en
-            // 
-            this.cb_ls_en.FormattingEnabled = true;
-            this.cb_ls_en.Items.AddRange(new object[] {
-            "0h : All L/S outputs Hi-Z",
-            "1h : All L/S outputs normally operate"});
-            this.cb_ls_en.Location = new System.Drawing.Point(16, 36);
-            this.cb_ls_en.Name = "cb_ls_en";
-            this.cb_ls_en.Size = new System.Drawing.Size(121, 20);
-            this.cb_ls_en.TabIndex = 1;
-            this.cb_ls_en.SelectedIndexChanged += new System.EventHandler(this.cb_ls_en_SelectedIndexChanged);
             // 
             // groupBox45
             // 
@@ -4874,7 +4874,6 @@
             // 
             // cb_ft_vcc2
             // 
-            this.cb_ft_vcc2.Enabled = false;
             this.cb_ft_vcc2.FormattingEnabled = true;
             this.cb_ft_vcc2.Items.AddRange(new object[] {
             "FT_VCC2: the UVP, SCP flag = 0",
@@ -4883,7 +4882,7 @@
             this.cb_ft_vcc2.Name = "cb_ft_vcc2";
             this.cb_ft_vcc2.Size = new System.Drawing.Size(121, 20);
             this.cb_ft_vcc2.TabIndex = 11;
-            this.cb_ft_vcc2.SelectedIndexChanged += new System.EventHandler(this.cb_vcc1_sync_SelectedIndexChanged);
+            this.cb_ft_vcc2.SelectedIndexChanged += new System.EventHandler(this.cb_ft_vcc2_SelectedIndexChanged);
             // 
             // label112
             // 
@@ -5771,7 +5770,7 @@
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(1237, 685);
+            this.tabPage3.Size = new System.Drawing.Size(1269, 685);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Register";
             // 
@@ -9210,6 +9209,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.VCC1V)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.VCC1H)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.groupBox46.ResumeLayout(false);
+            this.groupBox46.PerformLayout();
             this.groupBox31.ResumeLayout(false);
             this.groupBox31.PerformLayout();
             this.groupBox51.ResumeLayout(false);
@@ -9222,8 +9223,6 @@
             this.groupBox48.PerformLayout();
             this.groupBox47.ResumeLayout(false);
             this.groupBox47.PerformLayout();
-            this.groupBox46.ResumeLayout(false);
-            this.groupBox46.PerformLayout();
             this.groupBox45.ResumeLayout(false);
             this.groupBox45.PerformLayout();
             this.groupBox44.ResumeLayout(false);

@@ -1588,7 +1588,7 @@ namespace RT6971
 
         private void R27_ValueChanged(object sender, EventArgs e)
         {
-            int code = (int)W27.Value;
+            int code = (int)R27.Value;
             cb_ft_vcc2.SelectedIndex = GetValue(code, 2, 2);
         }
 
@@ -1662,6 +1662,12 @@ namespace RT6971
         {
             groupBox51.Width = 165;
             cb_ch_mode.Width = 121;
+        }
+
+        private void cb_ft_vcc2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cb_ft_vcc2.SelectedIndex == 0) cb_ft_vcc2.BackColor = Color.White;
+            else if (cb_ft_vcc2.SelectedIndex == 1) cb_ft_vcc2.BackColor = Color.Red;
         }
     }
 }
