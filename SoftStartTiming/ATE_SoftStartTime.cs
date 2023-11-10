@@ -243,9 +243,9 @@ namespace SoftStartTiming
                 {
                     case 2:
                         // vout setting
-                        InsControl._tek_scope.CHx_Level(ch, vmax / 5);
-                        InsControl._tek_scope.SetTriggerSource(2);
+                        InsControl._tek_scope.CHx_Level(ch, vmax / 5);                    InsControl._tek_scope.SetTriggerSource(2);
                         InsControl._tek_scope.SetTriggerLevel(vmax / 3);
+    
                         InsControl._tek_scope.CHx_Position(ch, -2);
                         break;
                     case 3:

@@ -763,6 +763,10 @@ namespace SoftStartTiming
         {
             string settings = "";
 
+
+            //    CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
+            //    nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
+            //    RBUs, nuOffset, i2c_datagrid, i2c_mtp_datagrid
             // chamber info
             settings = "0.Chamber_en=$" + (ck_chamber_en.Checked ? "1" : "0") + "$\r\n";
             settings += "1.Chamber_temp=$" + tb_chamber.Text + "$\r\n";
@@ -805,11 +809,18 @@ namespace SoftStartTiming
 
 
             settings += "28.i2c_setting_row=$" + i2c_datagrid.RowCount + "$\r\n";
+            settings += "29.i2c_mpt_setting_row=$" + i2c_mtp_datagrid.RowCount + "$\r\n";
 
             for (int i = 0; i < i2c_datagrid.RowCount; i++)
             {
-                settings += (i + 29).ToString() + ".Addr=$" + i2c_datagrid[0, i].Value.ToString() + "$\r\n";
-                settings += (i + 30).ToString() + ".Data=$" + i2c_datagrid[1, i].Value.ToString() + "$\r\n";
+                settings += (i + 30).ToString() + ".Addr=$" + i2c_datagrid[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 31).ToString() + ".Data=$" + i2c_datagrid[1, i].Value.ToString() + "$\r\n";
+            }
+
+            for (int i = 0; i < i2c_mtp_datagrid.RowCount; i++)
+            {
+                settings += (i + 32).ToString() + ".Addr=$" + i2c_mtp_datagrid[0, i].Value.ToString() + "$\r\n";
+                settings += (i + 33).ToString() + ".Data=$" + i2c_mtp_datagrid[1, i].Value.ToString() + "$\r\n";
             }
 
 
@@ -837,7 +848,7 @@ namespace SoftStartTiming
                 tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
-                RBUs, nuOffset, i2c_datagrid
+                RBUs, nuOffset, i2c_datagrid, i2c_mtp_datagrid
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -874,9 +885,11 @@ namespace SoftStartTiming
                             ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
                             break;
                         case "DataGridView":
+                            Console.WriteLine("{0}", i);
                             ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
-                            idx = i + 1;
-                            break;
+                            ((DataGridView)obj_arr[i + 1]).RowCount = Convert.ToInt32(info[i + 1]);
+                            idx = i + 2;
+                            goto fullDG;
                     }
                 }
 
@@ -885,6 +898,13 @@ namespace SoftStartTiming
                 {
                     i2c_datagrid[0, i].Value = Convert.ToString(info[idx + 0]);
                     i2c_datagrid[1, i].Value = Convert.ToString(info[idx + 1]);
+                    idx += 2;
+                }
+
+                for (int i = 0; i < i2c_mtp_datagrid.RowCount; i++)
+                {
+                    i2c_mtp_datagrid[0, i].Value = Convert.ToString(info[idx + 0]);
+                    i2c_mtp_datagrid[1, i].Value = Convert.ToString(info[idx + 1]);
                     idx += 2;
                 }
             }
@@ -914,8 +934,8 @@ namespace SoftStartTiming
         {
             i2c_mtp_datagrid.RowCount++;
             int idx = i2c_mtp_datagrid.RowCount - 1;
-            i2c_mtp_datagrid[0, idx].Value = string.Format("{0:X}", (int)nuaddr_to_dg.Value);
-            i2c_mtp_datagrid[1, idx].Value = string.Format("{0:X}", (int)nudata_to_dg.Value);
+            i2c_mtp_datagrid[0, idx].Value = string.Format("{0:X}", (int)nu_addr_mtp.Value);
+            i2c_mtp_datagrid[1, idx].Value = string.Format("{0:X}", (int)nu_data_mtp.Value);
         }
     }
 }
