@@ -190,7 +190,7 @@ namespace SoftStartTiming
                     InsControl._tek_scope.CHx_Level(1, 3.3 / 2);
                     InsControl._tek_scope.CHx_Position(1, 2.5);
 
-                    I2C_DG_Write(test_parameter.i2c_init_dg);
+                    I2C_DG_Write(test_parameter.i2c_init_dg); // write initial code
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                     break;
                 case 2: // vin trigger
@@ -202,9 +202,10 @@ namespace SoftStartTiming
             MyLib.Delay1s(1);
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
             I2C_DG_Write(test_parameter.i2c_mtp_dg); // mtp program
-            MyLib.Delay1s(1);
+            MyLib.Delay1s(1); // wait for program time
             if (test_parameter.trigger_event == 1)
             {
+                // i2c trigger
                 I2C_DG_Write(test_parameter.i2c_init_dg);
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
             }
@@ -767,7 +768,7 @@ namespace SoftStartTiming
 #endif
                     break;
             }
-            I2C_DG_Write(test_parameter.i2c_init_dg);
+            //I2C_DG_Write(test_parameter.i2c_init_dg);
         }
 
     }
