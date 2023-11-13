@@ -214,7 +214,7 @@ namespace SoftStartTiming
         private void test_parameter_copy()
         {
             // test condition
-            test_parameter.i2c_setting = i2c_datagrid;
+            test_parameter.i2c_init_dg = i2c_datagrid;
             test_parameter.i2c_mtp_dg = i2c_mtp_datagrid;
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
             test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;

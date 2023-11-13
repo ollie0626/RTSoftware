@@ -25,6 +25,13 @@ namespace InsLibDotNet
             InsClose();
         }
 
+        public int GetCount()
+        {
+            int res = 0;
+            res = (int)doQueryNumber("ACQuire:NUMACq?");
+            return res;
+        }
+
         public void ConnectOscilloscope(string Addr)
         {
             LinkingIns(Addr);

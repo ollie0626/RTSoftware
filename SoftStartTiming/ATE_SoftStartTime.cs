@@ -1,8 +1,8 @@
 ﻿
 
 #define Report
-#define Power_en
-#define Eload_en
+//#define Power_en
+//#define Eload_en
 #define Scope_en
 
 
@@ -272,6 +272,18 @@ namespace SoftStartTiming
             MyLib.Delay1ms(250);
         }
 
+        private bool TriggerStatus()
+        {
+            int cnt = 0;
+            while (InsControl._tek_scope.GetCount() == 0)
+            {
+                cnt++;
+                MyLib.Delay1ms(50);
+                if (cnt > 100) return false;
+            }
+            return true;
+        }
+
         public override void ATETask()
         {
             Stopwatch stopWatch = new Stopwatch();
@@ -379,7 +391,7 @@ namespace SoftStartTiming
             for (int vin_idx = 0; vin_idx < vin_cnt; vin_idx++)
             {
 
-                InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                
                 InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                 InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                 InsControl._tek_scope.SetTimeBasePosition(35);
@@ -448,11 +460,12 @@ namespace SoftStartTiming
                         InsControl._tek_scope.SetTriggerMode(false);
                         InsControl._tek_scope.SetTriggerRise();
                         InsControl._tek_scope.SetClear();
+                        InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                         MyLib.Delay1ms(1500);
 
                         // power on trigger
                         PowerOnEvent();
-                        MyLib.Delay1s(1);
+                        while (!TriggerStatus()) ;
                         InsControl._tek_scope.SetStop();
                         MyLib.Delay1ms(1000);
 
@@ -470,16 +483,16 @@ namespace SoftStartTiming
                         InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
 
-                        PowerOffEvent();
+                        //PowerOffEvent();
                         RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
                         MyLib.Delay1ms(1800);
 
                         InsControl._tek_scope.SetRun();
-                        InsControl._tek_scope.SetClear();
+                        //InsControl._tek_scope.SetClear();
 
-                        MyLib.Delay1ms(1500);
-                        PowerOnEvent();
-                        MyLib.Delay1s(1);
+                        //MyLib.Delay1ms(1500);
+                        //PowerOnEvent();
+                        //MyLib.Delay1s(1);
                         InsControl._tek_scope.SetStop();
 
 
@@ -562,13 +575,22 @@ namespace SoftStartTiming
 
 #if Scope_en
                         // SST Fall test
-
                         InsControl._tek_scope.SetRun();
                         InsControl._tek_scope.SetTriggerMode(false);
                         InsControl._tek_scope.SetTriggerFall();
                         InsControl._tek_scope.SetClear();
+                        InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                        MyLib.Delay1ms(1000);
 
                         PowerOffEvent();
+                        while (!TriggerStatus());
+
+                        MyLib.Delay1ms(100);
+                        delay_time = InsControl._tek_scope.MeasureMax(meas_falling);
+                        temp_time = (delay_time / 4);
+                        InsControl._tek_scope.SetTimeScale(temp_time);
+                        InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+                        InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 #if Power_en
                         vin = InsControl._power.GetVoltage();
 #endif
@@ -656,7 +678,7 @@ namespace SoftStartTiming
                                 _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=H" + row;
                                 _sheet.Cells[wave_row + 1, XLS_Table.BA] = "=G" + row;
                                 _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BE" + (wave_row + 16).ToString()];
-                                _range = _sheet.Range["BG" + (wave_row + 2).ToString(), "BO" + (wave_row + 16).ToString()];
+                                _range_fall = _sheet.Range["BG" + (wave_row + 2).ToString(), "BO" + (wave_row + 16).ToString()];
                                 wave_pos = 0;
                                 wave_row = wave_row + 19;
                                 break;
