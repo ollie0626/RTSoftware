@@ -64,6 +64,7 @@ Module Module_ATE
     Public Vout_name As String = "VOUT (V)"
     Public Iout_name As String = "IOUT (A)"
     Public Vcc_name As String = "VCC (V)"
+    Public Mode_name As String = "MODE (V)"
     Public Icc_name As String = "ICC (A)"
     Public En_name As String = "EN (V)"
 
@@ -178,6 +179,14 @@ Module Module_ATE
     Public vcc_addr As Integer
     Public vcc_dev_ch As Integer = 0
 
+
+    Public Mode_Dev As Integer = 0
+    Public Mode_device As String
+    Public Mode_out As String
+    Public Mode_addr As Integer
+    Public Mode_dev_ch As Integer = 0
+
+
     Public Power_vcc_check() As Boolean
 
 
@@ -189,10 +198,12 @@ Module Module_ATE
     Public vin_daq As String = ""
     Public vout_daq As String = ""
     Public vcc_daq As String = ""
+    Public mode_daq As String = ""
 
 
     '//-----------------------------------------------------------------------------//
     Public vin_meas As Double
+    Public mode_meas As Double
     Public iin_meas As Double
 
     Public iout_meas As Double
@@ -206,6 +217,7 @@ Module Module_ATE
     Public vin_now As Double
     Public fs_now As Double
     Public vout_now As Double
+    Public mode_now As Double
 
 
 
@@ -1579,27 +1591,17 @@ Module Module_ATE
                 load_init(Load_range)
             End If
 
-
-
-
-
             load_set(iout_now / Load_ch_set.Length)
-
 
             If DCLoad_ON = False Then
                 DCLoad_ONOFF("ON")
-
                 Delay(100)
             End If
         Next
 
-
-
         If vout_check = True Then
             check_vout()
         End If
-
-
 
     End Function
 
@@ -1805,8 +1807,8 @@ Module Module_ATE
         If VCC_Dev <> 0 Then
             ibonl(VCC_Dev, 0)
             VCC_Dev = ildev(BDINDEX, vcc_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
-
         End If
+
 
         If vin_Dev <> 0 Then
             ibonl(vin_Dev, 0)
@@ -1818,6 +1820,11 @@ Module Module_ATE
             ibonl(Ven_Dev, 0)
             Ven_Dev = ildev(BDINDEX, ven_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
 
+        End If
+
+        If Mode_Dev <> 0 Then
+            ibonl(Mode_Dev, 0)
+            Mode_Dev = ildev(BDINDEX, Mode_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         End If
 
         '-------------------------------------------------
@@ -1895,7 +1902,11 @@ Module Module_ATE
         If Ven_Dev <> 0 Then
             ibonl(Ven_Dev, 0)
             Ven_Dev = 0
+        End If
 
+        If Mode_Dev <> 0 Then
+            ibonl(Mode_Dev, 0)
+            Mode_Dev = 0
         End If
 
         '-------------------------------------------------
@@ -1913,9 +1924,6 @@ Module Module_ATE
         End If
 
         '-------------------------------------------------
-
-
-
 
         Main.btn_RUN.Visible = True
         Main.btn_stop.Visible = False
@@ -1945,7 +1953,6 @@ Module Module_ATE
         Power_EN(False)
 
         'Vin
-
         Power_Dev = vin_Dev
         power_on_off(vin_device, Vin_out, "OFF")
 
@@ -2168,62 +2175,6 @@ Module Module_ATE
 
     End Function
 
-    'Function Grobal_Control_check(ByVal type As String) As Double
-    '    Dim temp() As String
-    '    Dim test() As String
-    '    Dim i, ii As Integer
-    '    Dim ID, addr, data As Byte
-    '    Dim control_bits As Integer = 4
-
-    '    Dim cbox_ctr As Object
-    '    Dim txt_set As Object
-
-
-
-    '    If type = Fs_control Then
-    '        txt_set = Main.txt_fs_set
-    '        cbox_ctr = Main.cbox_fs_ctr
-    '    Else
-
-    '        txt_set = Main.txt_vout_set
-    '        cbox_ctr = Main.cbox_vout_ctr
-
-    '    End If
-
-
-
-    '    temp = Split(txt_set.Text, ",")
-    '    Select Case cbox_ctr.SelectedItem
-
-    '        Case "I2C"
-    '            For ii = 0 To temp.Length - 1
-    '                ' ID_Addr[Data],
-    '                test = Split(temp(ii), "_")
-    '                ID = Val("&H" & test(0))
-    '                addr = Val("&H" & Mid(test(1), 1, 2))
-    '                data = Val("&H" & Mid(test(1), 4, 2))
-    '                reg_write(ID, addr, data)
-    '            Next
-
-
-
-    '        Case "GPIO"
-
-    '            For ii = 0 To temp.Length - 1
-
-    '                gpio_b3_0(ii) = temp(ii)
-    '            Next
-
-    '            GPIO_out(control_bits, gpio_b3_0)
-
-
-
-    '    End Select
-
-
-
-    'End Function
-
 
     Function Grobal_Control(ByVal type As String, ByVal test_value As Double,
                             ByVal data_fs As DataGridView,
@@ -2251,10 +2202,8 @@ Module Module_ATE
             data_set = data_fs
             cbox_ctr = cbox_fs_ctr
         Else
-
             data_set = data_vout
             cbox_ctr = cbox_vout_ctr
-
         End If
 
         For i = 0 To data_set.Rows.Count - 1
@@ -2263,6 +2212,15 @@ Module Module_ATE
 
                 temp = Split(data_set.Rows(i).Cells(1).Value, ",")
                 Select Case cbox_ctr.SelectedItem
+
+                    Case "Voltage"
+                        Dim mode_v As Double = temp(0).Replace("V", "")
+
+                        Power_Dev = Mode_Dev
+                        power_volt(Mode_device, Mode_out, mode_v)
+                        power_on_off(Mode_device, Mode_out, "ON")
+
+                        Exit For
 
                     Case "I2C"
                         For ii = 0 To temp.Length - 1

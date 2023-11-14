@@ -2657,4 +2657,5 @@ Public Class Main
     Private Sub txt_scope_folder_TextChanged(sender As Object, e As EventArgs) Handles txt_scope_folder.TextChanged
         Scope_folder = txt_scope_folder.Text
     End Sub
+
 End Class
