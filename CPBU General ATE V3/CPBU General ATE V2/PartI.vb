@@ -250,14 +250,8 @@ Public Class PartI
         End If
         '-----------------------------------------------------
         'Vout SET
-
-
         clist_vout.Items.AddRange(vout_value)
-
         clist_vout.SetItemChecked(0, True)
-
-
-
         If clist_vout.Items.Count = 1 Then
 
             clist_vout.Enabled = False
@@ -283,28 +277,29 @@ Public Class PartI
         data_jitter_iout.Rows.Add(Math.Round(Full_load * 0.75, 4).ToString("F2"))
         data_jitter_iout.Rows.Add(Math.Round(Full_load, 4).ToString("F2"))
 
-
-
         data_lineR_iout.Rows.Add("0.0000")
         data_lineR_iout.Rows.Add(Math.Round(Full_load * 0.5, 4).ToString("F4"))
         data_lineR_iout.Rows.Add(Math.Round(Full_load, 4).ToString("F4"))
 
         '------------------------------------------------------------------
         'Vin
-
         cbox_vin.Items.Clear()
         cbox_VCC.Items.Clear()
+        cbox_mode.Items.Clear()
 
         If Power_num > 0 Then
             cbox_vin.Items.AddRange(Power_name)
             cbox_VCC.Items.AddRange(Power_name)
+            cbox_mode.Items.AddRange(Power_name)
         Else
             cbox_vin.Items.Add(no_device)
+            cbox_mode.Items.Add(no_device)
         End If
         cbox_VCC.Items.Add(no_device)
-        cbox_vin.SelectedIndex = 0
         cbox_VCC.SelectedItem = no_device
 
+        cbox_vin.SelectedIndex = 0
+        cbox_mode.SelectedIndex = 0
         '-----------------------------------------------------
 
         cbox_IIN_meter.Items.Clear()
@@ -461,6 +456,12 @@ Public Class PartI
             cbox_VCC_daq.SelectedItem = vcc_daq
         End If
 
+        If mode_daq = "" Then
+            cbox_mode_daq.SelectedItem = no_device
+        Else
+            cbox_mode_daq.SelectedItem = mode_daq
+        End If
+
         cbox_data_resolution.SelectedIndex = 0
         cbox_delay_unit.SelectedIndex = 0
         cbox_meter_mini.SelectedIndex = 0
@@ -468,6 +469,13 @@ Public Class PartI
         cbox_board_buck.SelectedIndex = 0
         cbox_vout_ctr.SelectedIndex = 0
         cbox_fs_ctr.SelectedIndex = 0
+
+        cbox_daq1.SelectedIndex = 0
+        cbox_daq2.SelectedIndex = 0
+        cbox_daq3.SelectedIndex = 0
+        cbox_daq4.SelectedIndex = 0
+        cbox_daq5.SelectedIndex = 0
+        cbox_daq6.SelectedIndex = 0
 
         PartI_first = False
     End Sub
@@ -744,6 +752,12 @@ Public Class PartI
         Eff_vout_daq = Mid(cbox_vout1_daq.SelectedItem, 3)
         DAQ_config(Eff_vout_daq)
 
+        ' Mode power 
+        If cbox_mode_daq.SelectedItem <> no_device Then
+            mode_daq = Mid(cbox_mode_daq.SelectedItem, 3)
+            DAQ_config(mode_daq)
+        End If
+
         'Vcc
         If cbox_VCC_daq.SelectedItem <> no_device Then
             vcc_daq = Mid(cbox_VCC_daq.SelectedItem, 3)
@@ -758,7 +772,6 @@ Public Class PartI
         DCload_ch(2) = check_IOUT_ch3.Checked
         DCload_ch(3) = check_IOUT_ch4.Checked
         iout_now = data_result.Rows(0).Cells("col_test_iout1").Value
-
         load_num = 0
 
         For i = 0 To 3
@@ -876,10 +889,40 @@ Public Class PartI
         temp = data_result.Rows(0).Cells("col_test_fsw1").Value
         fs_now = temp * 1000
         If cbox_fs_ctr.SelectedItem <> no_device Then
+
+            If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                Mode_addr = Val(txt_mode_addr.Text)
+                Mode_device = cbox_mode.SelectedItem
+                'Power_channel(vin_device, cbox_vin_ch.SelectedIndex)
+                Mode_out = Power_channel(Mode_device, cbox_mode_ch.SelectedIndex)
+                Mode_Dev = ildev(BDINDEX, Mode_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
+            End If
+
+            ' i2c select fs
             Grobal_Control(Fs_control, fs_now,
                            data_fs, data_vout,
                            cbox_fs_ctr, cbox_vout_ctr)
         End If
+
+
+        'If cbox_fs_ctr.SelectedItem <> no_device And cbox_fs_ctr.SelectedItem <> 3 Then
+        '    ' i2c select fs
+        '    Grobal_Control(Fs_control, fs_now,
+        '                   data_fs, data_vout,
+        '                   cbox_fs_ctr, cbox_vout_ctr)
+        'ElseIf cbox_fs_ctr.SelectedItem <> no_device Then
+        '    ' mode(power) select fs
+        '    temp = data_result.Rows(0).Cells("col_test_fsw1").Value
+        '    mode_now = temp
+        '    Mode_addr = Val(txt_mode_addr.Text)
+        '    Mode_Dev = ildev(BDINDEX, Mode_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
+        '    Power_Dev = Mode_Dev
+        '    Mode_device = cbox_mode.SelectedItem
+        '    Mode_out = Power_channel(Mode_device, cbox_mode_ch.SelectedIndex)
+        '    power_volt(Mode_device, Mode_out, mode_now)
+        '    power_on_off(Mode_device, Mode_out, "ON")
+        '    mode_meas = DAQ_read(mode_daq)
+        'End If
 
 
 
@@ -1574,6 +1617,7 @@ Public Class PartI
 
         Dim t, n, i, ii, v As Integer
         Dim vcc_temp As String
+        'Dim mode_temp() As String
         Dim TA_temp() As String
         Dim fs_temp() As String
         Dim vout_temp() As String
@@ -1632,6 +1676,8 @@ Public Class PartI
             ReDim fs_0_temp(data_set.Rows.Count - 1)
             ReDim IOB_start_temp(data_set.Rows.Count - 1)
             ReDim IOB_stop_temp(data_set.Rows.Count - 1)
+
+            'ReDim mode_temp(data_set.Rows.Count - 1)
 
             For i = 0 To data_set.Rows.Count - 1
                 TA_temp(i) = data_set.Rows(i).Cells(0).Value
@@ -1982,6 +2028,7 @@ Public Class PartI
 
         data_result.Rows.Clear()
         data_result.Columns("col_test_vcc1").HeaderText = Vcc_name
+        'data_result.Columns("col_test_mode1").HeaderText = Mode_name
         data_result.Columns("col_test_vin1").HeaderText = Vin_name
         data_result.Columns("col_test_iout1").HeaderText = Iout_name
         data_result.Columns("col_test_vout1").HeaderText = Vout_name
@@ -7688,8 +7735,6 @@ Public Class PartI
                                     'toff_stop_time = time_volt(i, 1)
 
                                     toff_stop_time = wave_time(i - 1)
-
-
                                     meas_time_value = (toff_stop_time - toff_start_time)
 
                                     If meas_time_value >= toff_pass Then
@@ -7702,28 +7747,10 @@ Public Class PartI
                                     Else
                                         ton_test = True
                                     End If
-
-
-
-
                                 End If
-
-
-
-
                         End Select
 
                     End If
-
-
-
-
-
-
-
-
-
-
                 Next
 
                 If meas_num > 1 Then
@@ -7761,11 +7788,6 @@ Public Class PartI
                                 meas_cursor_stop = meas_cursor_value(i + 1)
                             End If
                         End If
-
-
-
-
-
                     Next
 
 
@@ -7972,13 +7994,7 @@ Public Class PartI
             first_Check = True
         End If
 
-
-
-
-
         report_init()
-
-
         GC.Collect()
         GC.WaitForPendingFinalizers()
         Delay(100)
@@ -8057,9 +8073,11 @@ Public Class PartI
                 fs_test_num = i
                 If cbox_fs_ctr.SelectedItem <> no_device Then
                     DCLoad_ONOFF("OFF")
+
                     Grobal_Control(Fs_control, fs_now,
-                                   data_fs, data_vout,
-                                   cbox_fs_ctr, cbox_vout_ctr)
+                                       data_fs, data_vout,
+                                       cbox_fs_ctr, cbox_vout_ctr)
+
                     If Main.check_EN_off.Checked = True Then
                         Power_EN(False)
                         Power_EN(True)
@@ -10348,6 +10366,37 @@ Public Class PartI
     Private Sub btn_i2c_add_Click(sender As Object, e As EventArgs) Handles btn_i2c_add.Click
         data_i2c.Rows.Add(hex_data(num_ID.Value, 2), hex_data(num_addr.Value, 2), hex_data(num_data.Value, 2))
         data_i2c.CurrentCell = data_i2c.Rows(data_i2c.Rows.Count - 1).Cells(0)
+    End Sub
+
+    Private Sub cbox_fs_ctr_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_fs_ctr.SelectedIndexChanged
+        If cbox_fs_ctr.SelectedIndex = 3 Then
+            data_fs.Columns(1).HeaderText = "Setting (V)"
+        Else
+            data_fs.Columns(1).HeaderText = "Setting"
+        End If
+    End Sub
+
+    Private Sub cbox_mode_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_mode.SelectedIndexChanged
+        Dim addr() As String
+
+        power_channel_set(cbox_mode, cbox_mode_ch)
+        If cbox_mode.SelectedItem = no_device Then
+            txt_mode_addr.Text = ""
+            Mode_dev_ch = 0
+        Else
+            addr = Split(Power_addr(cbox_mode.SelectedIndex), "::")
+            txt_mode_addr.Text = addr(1)
+        End If
+
+        cbox_mode_ch.SelectedIndex = Mode_dev_ch
+    End Sub
+
+    Private Sub cbox_mode_ch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_mode_ch.SelectedIndexChanged
+        Mode_dev_ch = cbox_mode_ch.SelectedIndex
+    End Sub
+
+    Private Sub cbox_mode_daq_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_mode_daq.SelectedIndexChanged
+        mode_daq = Mid(cbox_mode_daq.SelectedItem, 3)
     End Sub
 
     Private Sub num_fs_set_ValueChanged(sender As Object, e As EventArgs) Handles num_fs_set.ValueChanged
