@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
+using System.Windows.Forms;
 
 namespace SoftStartTiming
 {
@@ -279,7 +280,7 @@ namespace SoftStartTiming
                     }
 
                     // rails enable
-                    I2C_DG_Write();
+                    I2C_DG_Write(test_parameter.i2c_init_dg);
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
 
 
@@ -401,49 +402,16 @@ namespace SoftStartTiming
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
 #endif
             MyLib.Delay1ms(1000);
-            TriggerEvent(idx);
-
+            TriggerEvent(idx); // gpio, i2c(initial), vin trigger
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
+            MyLib.Delay1s(1); // wait for program time
             if(test_parameter.trigger_event == 1)
             {
-                I2C_DG_Write();
+                I2C_DG_Write(test_parameter.i2c_init_dg);
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
             }
             
-            // FF = 0x01
-            // 9F = 0x62
-            // 9D = 0x86
-            // 9A = 0x98
-            // RT5151 into test mode
-            //byte[] tm_code = new byte[] { 0x01 };
-            //byte addr = 0xFF;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9F;
-            //tm_code[0] = 0x62;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9D;
-            //tm_code[0] = 0x86;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //addr = 0x9A;
-            //tm_code[0] = 0x98;
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-
-            //addr = 0x85;
-            //tm_code = new byte[] { 0x08, 0x40, 0xff };
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-            //tm_code = new byte[] { 0x01 };
-            //RTDev.I2C_Write(test_parameter.slave, addr, tm_code);
-
-            //MyLib.Delay1ms(3000);
-            //for (int i = 0; i < 100; i++)
-            //{
-            //    int ret = RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
-            //    Console.WriteLine("I2C Return value {0}", ret);
-            //    if (ret == 0) break;
-            //}
-
-
-            //MyLib.Delay1s(1);
 
             if (InsControl._tek_scope_en) MyLib.Delay1s(1);
 
@@ -478,17 +446,15 @@ namespace SoftStartTiming
             }
             else
                 InsControl._scope.TimeScale(time_scale);
-
-
             //MyLib.Delay1ms(250);
         }
 
-        private void I2C_DG_Write()
+        private void I2C_DG_Write(DataGridView dg)
         {
-            for (int i = 0; i < test_parameter.i2c_setting.RowCount; i++)
+            for (int i = 0; i < dg.RowCount; i++)
             {
-                byte addr = Convert.ToByte(test_parameter.i2c_setting[0, i].Value.ToString(), 16);
-                byte data = Convert.ToByte(test_parameter.i2c_setting[1, i].Value.ToString(), 16);
+                byte addr = Convert.ToByte(dg[0, i].Value.ToString(), 16);
+                byte data = Convert.ToByte(dg[1, i].Value.ToString(), 16);
                 RTDev.I2C_Write((byte)(test_parameter.slave), addr, new byte[] { data });
             }
         }
@@ -751,11 +717,11 @@ namespace SoftStartTiming
 
                                     //time_scale = time_scale * 1000;
                                     //MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
-
                                     if (InsControl._tek_scope_en) MyLib.Delay1s(1);
                                     break;
                                 case 1:
                                     // I2C trigger event 
+                                    //I2C_DG_Write(test_parameter.i2c_init_dg);
                                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
                                     MyLib.Delay1s(1);
                                     break;
@@ -1306,7 +1272,7 @@ namespace SoftStartTiming
                 case 1:
                     // rails disable
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
-                    I2C_DG_Write();
+                    I2C_DG_Write(test_parameter.i2c_init_dg);
                     break;
                 case 2: // vin trigger
 #if Power_en
