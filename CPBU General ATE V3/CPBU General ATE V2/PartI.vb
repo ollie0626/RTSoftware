@@ -163,6 +163,7 @@ Public Class PartI
 
     'Dim data_set_num() As Integer
     Dim test_point_num As Integer
+    Dim daq_meas_list As List(Of Integer) = New List(Of Integer)()
 
 
     '----------------------------------------------------------------------------------------------
@@ -308,7 +309,6 @@ Public Class PartI
 
 
         If Meter_num > 0 Then
-
             rbtn_meter_iin.Checked = True
             rbtn_meter_iout.Checked = True
             cbox_IIN_meter.Items.AddRange(Meter_name)
@@ -330,8 +330,6 @@ Public Class PartI
 
         cbox_IIN_meter.SelectedIndex = 0
         cbox_IIN_relay.SelectedIndex = 0
-
-
 
 
         If Meter_num > 1 Then
@@ -379,9 +377,6 @@ Public Class PartI
             txt_load_model2.Text = LOAD_6312_Model
 
         End If
-
-
-
 
     End Function
 
@@ -730,6 +725,20 @@ Public Class PartI
     Function instrument_init() As Integer
         Dim temp As String
         Dim i As Integer
+        Dim daq_table() As ComboBox = New ComboBox() _
+        {cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6}
+
+        daq_meas_list.Clear()
+
+        For i = 0 To daq_table.Length - 1
+            If daq_table(i).SelectedItem <> no_device Then
+                daq_meas_list.Add(Mid(daq_table(i).SelectedItem, 3))
+            End If
+        Next
+
+        For i = 0 To daq_meas_list.Count - 1
+            DAQ_config(daq_meas_list(i))
+        Next
 
         If cbox_bridge_sel.SelectedIndex <> 0 Then
             device_sel = cbox_bridge_sel.SelectedIndex - 1
@@ -963,8 +972,6 @@ Public Class PartI
         Relay7_Islammer_VSS = False 'CH4
         Relay8_PG_MODE = False 'CH4
 
-
-
         If check_stability.Checked = True Or check_jitter.Checked = True Or (check_LineR.Checked = True And check_lineR_scope.Checked = True) Then
 
             If (Scope_Addr <> 0) And (RS_Scope = False) Then
@@ -1080,15 +1087,11 @@ Public Class PartI
             If rbtn_manual_lx.Checked = True Then
                 CHx_scale(lx_ch, num_scale_lx.Value, "mV") 'Voltage Scale > SW/2
             Else
-
                 CHx_scale(lx_ch, (vin_now / num_lx_scale.Value), "V") 'Voltage Scale > SW/2
             End If
 
-
-
             ''----------------------------------------------------------------------------------
             'VOUT
-
             CHx_display(vout_ch, "ON")
             CHx_coupling(vout_ch, cbox_coupling_vout.SelectedItem)
             CHx_position(vout_ch, num_position_vout.Value)
@@ -1297,15 +1300,7 @@ Public Class PartI
             RS_Scope_EN = False
         End If
 
-
-
-
-
-
     End Function
-
-
-
 
     Function eff_parameter() As Integer
         Dim i, v As Integer
@@ -1324,11 +1319,7 @@ Public Class PartI
             gbox_iin.Enabled = True
         Else
             gbox_iin.Enabled = False
-
         End If
-
-
-
 
 
         If (data_eff.Rows.Count > 0) Then
@@ -1551,8 +1542,6 @@ Public Class PartI
         Dim fs_num As Integer = 0
         Dim vout_num As Integer = 0
         If data_VCC.Rows.Count > 0 Then
-
-
             For n = 0 To data_VCC.Rows.Count - 1
 
                 vcc_now = data_VCC.Rows(n).Cells(0).Value
@@ -1560,13 +1549,9 @@ Public Class PartI
                 total_vcc(vcc_num) = vcc_now
                 vcc_num = vcc_num + 1
             Next
-
-
         Else
             ReDim total_vcc(0)
             total_vcc(0) = 0
-
-
         End If
 
         For i = 0 To clist_fs.Items.Count - 1
@@ -1577,14 +1562,10 @@ Public Class PartI
                     data_vin.Rows.Clear()
                     Exit Function
                 End If
-
                 ReDim Preserve total_fs(fs_num)
-
                 total_fs(fs_num) = fs_now
                 fs_num = fs_num + 1
-
             End If
-
         Next
 
         For ii = 0 To clist_vout.Items.Count - 1
@@ -1595,15 +1576,10 @@ Public Class PartI
                     data_vin.Rows.Clear()
                     Exit Function
                 End If
-
                 ReDim Preserve total_vout(vout_num)
-
                 total_vout(vout_num) = vout_now
                 vout_num = vout_num + 1
-
-
             End If
-
         Next
 
 
@@ -1629,12 +1605,8 @@ Public Class PartI
         Dim update_ok As Boolean = False
         Dim temp As String
         Dim TA_now_temp As String
-
         Dim num As Integer
-
         Dim x As Integer
-
-
 
         If (import_now = True) Then
             Exit Function
@@ -1644,7 +1616,6 @@ Public Class PartI
 
         If data_vin.Rows.Count = 0 Then
             data_set.Rows.Clear()
-
             Exit Function
         End If
 
@@ -3862,14 +3833,8 @@ Public Class PartI
             If TA_Test_num = 0 Then
                 sheet_init(txt_LoadR_sheet.Text)
             End If
-
-
-
-
             'Load Regulation
             test_report_init(Load_Regulation)
-
-
         End If
 
         '-----------------------------------------------------------------------------------
@@ -4005,14 +3970,21 @@ Public Class PartI
             ReDim Preserve eff_col(col_num)
             eff_col(col_num) = "Total Eff (%)"
             col_num = col_num + 1
-
         End If
-
 
         ReDim Preserve eff_col(col_num)
         eff_col(col_num) = "PASS/FAIL"
-
         eff_title_total = eff_col.Length
+
+        If daq_meas_list.Count > 0 Then
+            ReDim Preserve eff_col(col_num + daq_meas_list.Count)
+            Dim idx As Integer = 1
+            For i = col_num To col_num + daq_meas_list.Count - 1
+                eff_col(i) = "DAQ" + idx
+                idx += 1
+            Next
+            eff_title_total = eff_col.Length + daq_meas_list.Count
+        End If
 
         '---------------------------------------------------------------------------------
         'for stability
@@ -4023,8 +3995,6 @@ Public Class PartI
                 stability_num = i
                 Exit For
             End If
-
-
         Next
 
         '---------------------------------------------------------------------------------
@@ -4037,9 +4007,6 @@ Public Class PartI
         Else
             data_Line_vin = data_vin
         End If
-
-
-
         '---------------------------------------------------------------------------------
 
         'Init
@@ -4093,9 +4060,6 @@ Public Class PartI
         '---------------------------------------------------------------------------------
         For n = 0 To total_vcc.Length - 1
             ' VCC Loop
-
-
-
             vcc_now = total_vcc(n)
 
             If vcc_now <> 0 Then
@@ -4149,7 +4113,7 @@ Public Class PartI
                     Select Case test_name
 
                         Case Stability
-
+#Region "Stability Report"
                             'Vout, Vin, vcc往下移，fs, temp都往左移
 
                             xlSheet = xlBook.Sheets(txt_stability_sheet.Text)
@@ -4496,16 +4460,12 @@ Public Class PartI
 
 
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
                             '----------------------------------------------------------------------------------
-
-
-
+#End Region
                         Case Jitter
+#Region "Jitter Report"
+
 
                             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                             xlSheet.Activate()
@@ -4646,39 +4606,17 @@ Public Class PartI
                                     Jitter_pic_num = Jitter_pic_num + 1
 
                                 Next 'iout
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
-
-
-
-
-
                                 '----------------------------------------------------------------------------------
                                 col = col + 1
-
                                 row = row + 1
-
-
-
-
-
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
-
-
-                            '----------------------------------------------------------------------------------
-
-
-
-
+#End Region
                         Case Line_Regulation
-
+#Region "Line Regulation Report"
                             If check_lineR_scope.Checked = True Then
 
 
@@ -5045,14 +4983,7 @@ Public Class PartI
 
 
                             '----------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
+#End Region
                         Case Load_Regulation
                             xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
                             xlSheet.Activate()
@@ -5072,13 +5003,8 @@ Public Class PartI
 
                             End If
 
-
-
-
                             col = start_col
                             row = first_row
-
-
 
                             chart_num = v + 1
                             '----------------------------------------------------------------------------------
@@ -5272,20 +5198,15 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
                             'Add Line
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
-
                                 report_Group(start_col, first_row, col_num + 2, last_row - first_row + 1)
-
                             Else
-
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
                             End If
                             '----------------------------------------------------------------------------------
                             last_row = last_row + 3
 
-
                             '----------------------------------------------------------------------------------
                             '----------------------------------------------------------------------------------
-
                         Case Efficiency
                             xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                             xlSheet.Activate()
@@ -5326,10 +5247,6 @@ Public Class PartI
                                 iout_now = data_eff_iout.Rows(data_eff_iout.Rows.Count - 1).Cells(0).Value
 
                                 chart_init(Eff_Chart, TA_title & "VOUT=" & vout_now & "V", test_name, Iout_title, "Efficiency (%)", iout_now, 0, pass_value_Max, pass_value_Min, cbox_type_Eff.SelectedItem)
-
-
-
-
                             End If
                             '-------------------------------------------------------------------------------
 
@@ -5351,7 +5268,6 @@ Public Class PartI
                                     report_title(eff_col(nn), col, row, 1, 1, data_title_color)
                                     xlSheet.Columns(col).AutoFit()
                                     col = col + 1
-
                                 Next
 
 

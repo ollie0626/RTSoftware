@@ -35,7 +35,6 @@ Module Module_ATE
     Public L_Value() As Double
 
 
-
     '//-----------------------------------------------------------------------------//
     'unit
     Public ns As Double = 10 ^ -9
