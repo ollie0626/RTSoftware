@@ -776,6 +776,7 @@ namespace SoftStartTiming
             settings += "3.Slave=$" + nuslave.Value.ToString() + "$\r\n";
             settings += "4.Addr=$" + nuAddr.Value.ToString() + "$\r\n";
             settings += "5.Rail_en=$" + nuData1.Value.ToString() + "$\r\n";
+            settings += "5_1.Rail_dis=$" + nuData2.Value.ToString() + "$\r\n";
 
             // bin folder
             settings += "6.Bin1=$" + tbBin.Text + "$\r\n";
@@ -844,7 +845,7 @@ namespace SoftStartTiming
         {
             object[] obj_arr = new object[]
             {
-                ck_chamber_en, tb_chamber, nu_steady, nuslave, nuAddr, nuData1,
+                ck_chamber_en, tb_chamber, nu_steady, nuslave, nuAddr, nuData1, nuData2,
                 tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,

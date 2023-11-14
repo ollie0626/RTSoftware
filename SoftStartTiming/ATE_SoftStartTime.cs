@@ -1,8 +1,8 @@
 ﻿
 
 #define Report
-//#define Power_en
-//#define Eload_en
+#define Power_en
+#define Eload_en
 #define Scope_en
 
 
@@ -761,6 +761,7 @@ namespace SoftStartTiming
                 case 1:
                     // rails disable
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
+                    I2C_DG_Write(test_parameter.i2c_init_dg);
                     break;
                 case 2: // vin trigger
 #if Power_en
@@ -768,7 +769,6 @@ namespace SoftStartTiming
 #endif
                     break;
             }
-            //I2C_DG_Write(test_parameter.i2c_init_dg);
         }
 
     }
