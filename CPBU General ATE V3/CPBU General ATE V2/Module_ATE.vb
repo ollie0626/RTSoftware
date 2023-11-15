@@ -215,6 +215,7 @@ Module Module_ATE
     Public iout_now As Double
     Public vin_now As Double
     Public fs_now As Double
+    Public fs_v_now As Double
     Public vout_now As Double
     Public mode_now As Double
 
@@ -222,6 +223,7 @@ Module Module_ATE
 
     Public total_vcc() As Double
     Public total_fs() As Double
+    Public total_fs_v() As Double
     Public total_vout() As Double
     'Public total_iout() As Double
 

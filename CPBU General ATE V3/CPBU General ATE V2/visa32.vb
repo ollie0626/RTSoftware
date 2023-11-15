@@ -16,7 +16,7 @@ Public Module Unknown
     '  Purpose : Include file for the VISA Library 3.0 spec
     ' -------------------------------------------------------------------------
 
-    Public Const VI_SPEC_VERSION As Integer = &H300000`   
+    Public Const VI_SPEC_VERSION As Integer = &H300000
 
     ' - Resource Template Functions and Operations ----------------------------
 

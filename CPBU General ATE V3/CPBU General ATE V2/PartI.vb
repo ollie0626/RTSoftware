@@ -1563,6 +1563,14 @@ Public Class PartI
                     Exit Function
                 End If
                 ReDim Preserve total_fs(fs_num)
+                ReDim Preserve total_fs_v(fs_num)
+
+                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                    Dim temp As String = data_fs.Rows(i).Cells(1).Value
+                    temp = temp.Replace("V", "")
+                    total_fs_v(fs_num) = temp
+                End If
+
                 total_fs(fs_num) = fs_now
                 fs_num = fs_num + 1
             End If
@@ -3942,8 +3950,6 @@ Public Class PartI
 
         col_num = eff_col.Length
 
-
-
         If (cbox_VCC.SelectedItem <> no_device) Or (cbox_VCC_daq.SelectedItem <> no_device) Then
             ReDim Preserve eff_col(col_num)
             eff_col(col_num) = Vcc_name
@@ -3977,10 +3983,10 @@ Public Class PartI
         eff_title_total = eff_col.Length
 
         If daq_meas_list.Count > 0 Then
-            ReDim Preserve eff_col(col_num + daq_meas_list.Count)
-            Dim idx As Integer = 1
+            ReDim Preserve eff_col(col_num + daq_meas_list.Count - 1)
+            Dim idx As Integer = 0
             For i = col_num To col_num + daq_meas_list.Count - 1
-                eff_col(i) = "DAQ" + idx
+                eff_col(i) = "DAQ" & daq_meas_list(idx)
                 idx += 1
             Next
             eff_title_total = eff_col.Length + daq_meas_list.Count
@@ -4039,14 +4045,11 @@ Public Class PartI
         End If
 
         'TA Loop
-
-
         If Main.check_TA_en.Checked = False Then
             TA_title = ""
         Else
             TA_now = Main.data_Temp.Rows(TA_Test_num).Cells(0).Value
             TA_title = "TA=" & TA_now & ", "
-
         End If
 
         If (Main.data_Temp.Rows.Count > 1) Then
@@ -4079,18 +4082,18 @@ Public Class PartI
 
             For f = 0 To total_fs.Length - 1
                 ' Fsw Loop
-
-
                 fs_now = total_fs(f)
                 If fs_now <> 0 Then
                     Fs_title = "Fsw=" & fs_now / 1000 & "kHz, "
-                Else
 
+                    If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                        Fs_title += "MODE=" & total_fs_v(f) & "V, "
+                    End If
+                Else
                     Fs_title = ""
                 End If
 
                 If total_fs.Length > 1 Then
-
                     Fs_serial = Fs_title
                 Else
                     Fs_serial = ""
@@ -4101,15 +4104,9 @@ Public Class PartI
                     'Vout Loop
                     System.Windows.Forms.Application.DoEvents()
                     vout_now = total_vout(v)
-
                     total_title = TA_title & VCC_title & Fs_title & "VOUT=" & vout_now & "V"
-
-
-
                     ''----------------------------------------------------------------------------------
-
                     'Start Test
-
                     Select Case test_name
 
                         Case Stability
@@ -4121,12 +4118,9 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
-
                             If cbox_coupling_vout.SelectedItem = "AC" Then
                                 pass_value_Max = vout_now * (num_vout_ac.Value / 100)
                                 stability_col(22) = "Vpp(max) <" & pass_value_Max & "V"
-
-
                             Else
                                 pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
                                 pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
@@ -4465,8 +4459,6 @@ Public Class PartI
 #End Region
                         Case Jitter
 #Region "Jitter Report"
-
-
                             xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                             xlSheet.Activate()
 
@@ -4618,39 +4610,32 @@ Public Class PartI
                         Case Line_Regulation
 #Region "Line Regulation Report"
                             If check_lineR_scope.Checked = True Then
-
-
                                 xlSheet = xlBook.Sheets(txt_data_sheet.Text)
                                 xlSheet.Activate()
-
                                 '----------------------------------------------------------------------------------
                                 'initial
                                 'Init col
                                 col_num = lineR_col.Length * data_lineR_iout.Rows.Count + 1
-
-
                                 row_num = data_Line_vin.Rows.Count + 3
-
                                 start_col = test_col + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
-
                                 first_row = test_row + v * (row_num + row_Space)
-
                                 col = start_col
                                 row = first_row
-
-
                                 chart_num = v + 1
 
 
+
+                                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                    col_num = col_num + daq_meas_list.Count
+                                End If
                                 '-------------------------------------------------------------------------------
                                 'Title
-
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 '-------------------------------------------------------------------------------
                                 row = row + 1
                                 '-------------------------------------------------------------------------------
                                 '    |VOUT  |
-                                'VIN|n* IOUT
+                                'VIN |n*IOUT|
                                 '-------------------------------------------------------------------------------
                                 For i = 0 To data_lineR_iout.Rows.Count
 
@@ -4773,6 +4758,11 @@ Public Class PartI
 
                             pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
                             pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
+
+
+                            If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                col_num = col_num + daq_meas_list.Count
+                            End If
                             '-------------------------------------------------------------------------------
                             'Title
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
@@ -4962,8 +4952,17 @@ Public Class PartI
                                     report_title("PASS/FAIL", col, row, 1, 2, data_title_color)
                                     row = row + 2
                                 End If
-
                                 col = col + 1
+                                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                    If ii = 0 Then
+                                        row = first_row + 1
+                                        For i = 0 To daq_meas_list.Count - 1
+                                            report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            col = col + 1
+                                        Next
+                                        row = row + 2
+                                    End If
+                                End If
 
                                 row = row + 1
                             Next  'vin
@@ -5025,6 +5024,11 @@ Public Class PartI
                             pass_value_Max = vout_now * (1 + (num_pass_loadR.Value / 100))
                             pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
                             '-------------------------------------------------------------------------------
+
+                            If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                col_num = col_num + daq_meas_list.Count
+                            End If
+
                             'Title
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
                                 'Add Max, Min 
@@ -5044,6 +5048,7 @@ Public Class PartI
                                 If i = 0 Then
                                     'X
                                     'Iout
+
                                     report_title(Iout_name, col, row, 1, 2, data_title_color)
                                     row = row + 2
 
@@ -5073,10 +5078,7 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     ' xlSheet.Cells(row, col) = "variation"
                                     row = row + 1
-
-
                                 Else
-
                                     'Y
                                     '-------------------------------------------------------------------------------
                                     'Vin
@@ -5114,20 +5116,13 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     row = row + 1
                                     '-------------------------------------------------------------------------------
-
-
-
                                 End If
                                 xlSheet.Columns(col).AutoFit()
                                 col = col + 1
-
-
                             Next  'iout
 
                             '----------------------------------------------------------------------------------
-
                             ' PASS & Criteria
-
                             For ii = 0 To data_eff_iout.Rows.Count - 1
                                 col = start_col + data_vin.Rows.Count + 1
 
@@ -5136,13 +5131,10 @@ Public Class PartI
 
                                 If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Max. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_eff_iout.Rows.Count - 1
                                         chart_add_series(txt_LoadR_sheet.Text, LoadR_Chart, chart_num, "Max. Criteria", start_col, col, True)
@@ -5154,22 +5146,15 @@ Public Class PartI
                                     xlrange.Value = pass_value_Max
                                     FinalReleaseComObject(xlrange)
                                     ' xlSheet.Cells(row, col) = pass_value_Max
-
-
                                     col = col + 1
-
                                     If ii = 0 Then
-
                                         row = first_row + 1
                                         report_title("Min. Criteria", col, row, 1, 2, data_title_color)
-
                                         '----------------------------------------------------------------------------------
                                         'Add Serial 
-
                                         chart_row_start = first_row + 3
                                         chart_row_stop = chart_row_start + data_eff_iout.Rows.Count - 1
                                         chart_add_series(txt_LoadR_sheet.Text, LoadR_Chart, chart_num, "Min. Criteria", start_col, col, True)
-
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
@@ -5177,21 +5162,32 @@ Public Class PartI
                                     xlrange.Value = pass_value_Min
                                     FinalReleaseComObject(xlrange)
                                     'xlSheet.Cells(row, col) = pass_value_Min
-
                                     col = col + 1
+
+
+
+
                                 End If
 
                                 '----------------------------------------------------------------------------------
                                 'PASS
                                 If ii = 0 Then
-
                                     row = first_row + 1
                                     report_title("PASS/FAIL", col, row, 1, 2, data_title_color)
                                     row = row + 2
                                 End If
-
-
                                 col = col + 1
+
+                                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                    If ii = 0 Then
+                                        row = first_row + 1
+                                        For i = 0 To daq_meas_list.Count - 1
+                                            report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            col = col + 1
+                                        Next
+                                        row = row + 2
+                                    End If
+                                End If
 
                                 row = row + 1
                             Next  'iout
@@ -5210,12 +5206,12 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
 #End Region
                         Case Efficiency
+#Region "Efficiency Report"
                             xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
-
                             col_num = eff_col.Length
                             row_num = data_eff_iout.Rows.Count + 2
                             start_col = test_col + chart_width + col_Space + (n * total_fs.Length + f) * ((col_num + 1) * (data_vin.Rows.Count))
@@ -5254,9 +5250,8 @@ Public Class PartI
 
                             'pass_value_Min = num_pass_eff.Value
                             '-------------------------------------------------------------------------------
-                            'VIN (V)	IIN(A)	VOUT (V)	IOUT (A)	Efficiency(%)	Loss(W)	PASS/FAIL
+                            'VIN (V)	IIN(A)	VOUT (V)	IOUT (A)	Efficiency(%)	Loss(W)	PASS/FAIL 
                             '-------------------------------------------------------------------------------
-
                             For i = 0 To data_vin.Rows.Count - 1
                                 row = first_row
                                 start_col = col
@@ -5291,12 +5286,7 @@ Public Class PartI
                                     Next 'eff
                                     last_row = row
                                     row = row + 1
-
-
                                 Next 'iout
-
-
-
                                 '-------------------------------------------------------------------------------
                                 'Add Serial 
 
@@ -5306,8 +5296,6 @@ Public Class PartI
                                 chart_add_series(txt_eff_sheet.Text, Eff_Chart, chart_num, total_serial, start_col + 3, start_col + 4, False)
 
                                 xlSheet.Columns(col).AutoFit()
-
-
                                 '----------------------------------------------------------------------------------
                                 'Add Line
                                 report_Group(start_col, first_row, col_num, last_row - first_row + 1)
@@ -5315,25 +5303,10 @@ Public Class PartI
                                 '----------------------------------------------------------------------------------
                                 col = col + 1
                             Next  'vin
-
-
                             last_row = last_row + 2
-
-
                             '----------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
+#End Region
                     End Select
-
-
-
-
                 Next   'vout
 
                 xlBook.Save()
