@@ -26,7 +26,6 @@ Public Class Main
 
         RS_Scope = False
 
-
         RS_Scope_Dev = ""
         Scope_Addr = 0
         Power_num = 0
@@ -39,7 +38,6 @@ Public Class Main
         DCLOAD_63600 = False
         Temp_name = no_device
         DAQ_name = no_device
-
 
         data_GPIB.Rows.Clear()
 
@@ -434,21 +432,15 @@ Public Class Main
     Function main_reset() As Integer
         Dim f As Form
         Dim open_num As Integer
-
         data_Test.Rows.Clear()
         open_num = My.Application.OpenForms.Count - 1
-
         While My.Application.OpenForms.Count > 1
             f = My.Application.OpenForms(My.Application.OpenForms.Count - 1)
             If f.Name <> Me.Name Then
                 f.Close()
             End If
-
         End While
-
-
         PartI_num = 0
-     
     End Function
 
     Function main_set() As Integer
