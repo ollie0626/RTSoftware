@@ -4985,6 +4985,7 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
 #End Region
                         Case Load_Regulation
+#Region "Load Regulation Report"
                             xlSheet = xlBook.Sheets(txt_LoadR_sheet.Text)
                             xlSheet.Activate()
                             '----------------------------------------------------------------------------------
@@ -5207,6 +5208,7 @@ Public Class PartI
 
                             '----------------------------------------------------------------------------------
                             '----------------------------------------------------------------------------------
+#End Region
                         Case Efficiency
                             xlSheet = xlBook.Sheets(txt_eff_sheet.Text)
                             xlSheet.Activate()
@@ -5269,8 +5271,6 @@ Public Class PartI
                                     xlSheet.Columns(col).AutoFit()
                                     col = col + 1
                                 Next
-
-
 
                                 row = row + 1
                                 'X
@@ -6624,8 +6624,6 @@ Public Class PartI
 
             Case Jitter
 
-
-
                 xlSheet = xlBook.Sheets(txt_jitter_sheet.Text)
                 xlSheet.Activate()
                 'report_test_update(TA_Test_num, start_test_time, txt_test_now.Text)
@@ -6830,8 +6828,6 @@ Public Class PartI
 
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
 
             Case Line_Regulation
 
