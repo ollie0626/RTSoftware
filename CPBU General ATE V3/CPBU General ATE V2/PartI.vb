@@ -4712,17 +4712,11 @@ Public Class PartI
 
                             xlSheet = xlBook.Sheets(txt_LineR_sheet.Text)
                             xlSheet.Activate()
-
                             '----------------------------------------------------------------------------------
                             'initial
                             'Init col
                             col_num = data_lineR_iout.Rows.Count + 2
-
-
-
-
                             row_num = data_Line_vin.Rows.Count + 3
-
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             'init row
                             If row_num < (chart_height + 1) Then
@@ -4731,16 +4725,9 @@ Public Class PartI
                                 first_row = test_row + v * (row_num + row_Space)
 
                             End If
-
-
-
                             col = start_col
                             row = first_row
-
-
                             chart_num = v + 1
-
-
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
@@ -4785,34 +4772,24 @@ Public Class PartI
                                     'Vin
                                     report_title(Vin_name, col, row, 1, 2, data_title_color)
                                     row = row + 2
-
                                     For ii = 0 To data_Line_vin.Rows.Count - 1
-
                                         vin_now = data_Line_vin.Rows(ii).Cells(0).Value
                                         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                         xlrange.Value = vin_now
                                         FinalReleaseComObject(xlrange)
-
                                         last_row = row
                                         row = row + 1
                                     Next  'vin
-
                                     If (rbtn_lineR_test1.Checked = True) And (check_lineR_up.Checked = True) Then
                                         For ii = data_Line_vin.Rows.Count - 2 To 0 Step -1
-
                                             vin_now = data_Line_vin.Rows(ii).Cells(0).Value
                                             xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                             xlrange.Value = vin_now
                                             FinalReleaseComObject(xlrange)
-
                                             last_row = row
                                             row = row + 1
                                         Next  'vin
                                     End If
-
-
-
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = "max"
                                     FinalReleaseComObject(xlrange)
@@ -5331,10 +5308,6 @@ Public Class PartI
 
 
     End Function
-
-
-
-
 
 
     Function iin_range_report_info() As Integer
@@ -6218,13 +6191,7 @@ Public Class PartI
                     End If
 
                 End If
-
                 xlSheet.Activate()
-
-
-
-
-
                 '----------------------------------------------------------------------------------
                 'initial
                 'Init col
@@ -6276,11 +6243,7 @@ Public Class PartI
                     xlrange.Value = fs(ii) / (10 ^ 3) ' Format(fs(ii) / (10 ^ 3), "#0.000")
                     FinalReleaseComObject(xlrange)
                     col = col + 1
-
                 Next
-
-
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
 
                 'freq_update
@@ -6362,16 +6325,8 @@ Public Class PartI
                         End If
 
                     End If
-
-
-
                 End If
-
-
                 '--------------------------------------------------------
-
-
-
                 '-------------------------------------------------------------------------
                 'ton
 
@@ -6405,17 +6360,12 @@ Public Class PartI
                 '-------------------------------------------------------------------------
                 'toff
                 For ii = 0 To 3
-
-
                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                     xlrange.Value = toff(ii) * (10 ^ 9) ' Format(toff(ii) * (10 ^ 9), "#0.000")
                     FinalReleaseComObject(xlrange)
                     col = col + 1
-
                 Next
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
-
                 'toff_update
                 If (AutoScalling_EN = True) Then
                     If (autoscanning_update = True) Then
@@ -6761,12 +6711,8 @@ Public Class PartI
                 Scope_RUN(False)
 
                 If RS_Scope = True Then
-
-
-
                     RS_Display(RS_RES_MES, RS_DISP_PREV)
                     Scope_measure_clear()
-
                     RS_Scope_measure_status(1, True)
                     RS_Scope_measure_status(2, True)
                     RS_Scope_measure_status(3, True)
@@ -6885,7 +6831,14 @@ Public Class PartI
                 End If
 
                 '----------------------------------------------------------------------------------
-
+                If daq_meas_list.Count <> 0 Then
+                    For i = 0 To daq_meas_list.Count
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        col = col + 1
+                        Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
+                        xlrange.Value = daq_meas
+                    Next
+                End If
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
 
@@ -6970,6 +6923,7 @@ Public Class PartI
                     Next
 
 
+
                     FinalReleaseComObject(xlrange)
                     FinalReleaseComObject(xlSheet)
 
@@ -7047,6 +7001,15 @@ Public Class PartI
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     End If
+                End If
+
+                If daq_meas_list.Count <> 0 Then
+                    For i = 0 To daq_meas_list.Count
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        col = col + 1
+                        Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
+                        xlrange.Value = daq_meas
+                    Next
                 End If
 
                 '----------------------------------------------------------------------------------
@@ -7161,11 +7124,21 @@ Public Class PartI
 
                 'PASS
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
-
                 If pass_result = FAIL Then
                     xlrange.Interior.Color = test_fail_color
                 End If
                 xlrange.Value = pass_result
+                col = col + 1
+
+
+                If daq_meas_list.Count <> 0 Then
+                    For i = 0 To daq_meas_list.Count
+                        xlrange = xlSheet.Range(ConvertToLetter(col) & row)
+                        col = col + 1
+                        Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
+                        xlrange.Value = daq_meas
+                    Next
+                End If
 
                 '----------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
@@ -7803,11 +7776,8 @@ Public Class PartI
         ReDim eff_iin_change(data_eff.Rows.Count - 1)
 
         Dim num As Integer
-
-
         Vout_TA_set = txt_OTP.Text
         Power_recorve = check_OTP.Checked
-
         TestITem_run_now = True
 
         ''Init Parameter
@@ -7892,9 +7862,6 @@ Public Class PartI
                 Jitter_pic_num = data_jitter_iout.Rows.Count * total_vcc.Length * total_fs.Length * total_vout.Length * data_vin.Rows.Count * TA_Test_num + 1
             End If
         End If
-
-        ''---------------------------------------------------------------------------------
-        '------------------------------------------------------
 
         'TA
         Delay(100)
@@ -8047,7 +8014,6 @@ Public Class PartI
                                 total_iout = other_iout
                                 total_iout_num = total_other_iout
                             Else
-
                                 total_iout_num = 0
                             End If
 
@@ -8069,14 +8035,12 @@ Public Class PartI
                                     num = num + 1
                                 Next
 
-
                                 If check_Force_CCM.Checked = False Then
                                     Fs_leak_0A = test_fs0(set_num)
                                     ton_now = test_ton(set_num) / (10 ^ 9)
                                     IOUT_Boundary_Start = test_IOB_start(set_num)
                                     IOUT_Boundary_Stop = test_IOB_stop(set_num)
                                 End If
-
 
                             End If
 
@@ -8091,14 +8055,12 @@ Public Class PartI
                             '-----------------------------------------------------------------------------------------------------------
                             'check Iin Meter
                             If (check_Efficiency.Checked = True) And ((check_iin.Checked = True) Or (rbtn_board_iin.Checked = True)) Then
-
                                 If (n = 0) And (i = 0) Then
                                     check_meter_iin_max()
                                 Else
                                     iin_meter_change = eff_iin_change(ii * data_vin.Rows.Count + v)
                                 End If
                             End If
-
 
                             If check_Efficiency.Checked Then
                                 If rbtn_iin_current_measure.Checked Then
