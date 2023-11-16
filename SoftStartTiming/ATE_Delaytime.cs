@@ -412,9 +412,9 @@ namespace SoftStartTiming
             if (test_parameter.trigger_event == 1)
             {
                 I2C_DG_Write(test_parameter.i2c_init_dg);
-                MyLib.Delay1ms(100);
+                //MyLib.Delay1ms(100);
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
-                MyLib.Delay1ms(100);
+                //MyLib.Delay1ms(100);
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
             }
 
