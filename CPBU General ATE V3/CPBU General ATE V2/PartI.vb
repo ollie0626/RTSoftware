@@ -4760,7 +4760,7 @@ Public Class PartI
                             pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
 
 
-                            If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                            If daq_meas_list.Count <> 0 Then
                                 col_num = col_num + daq_meas_list.Count
                             End If
                             '-------------------------------------------------------------------------------
@@ -4953,7 +4953,7 @@ Public Class PartI
                                     row = row + 2
                                 End If
                                 col = col + 1
-                                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                If daq_meas_list.Count <> 0 Then
                                     If ii = 0 Then
                                         row = first_row + 1
                                         For i = 0 To daq_meas_list.Count - 1
@@ -5025,7 +5025,7 @@ Public Class PartI
                             pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
                             '-------------------------------------------------------------------------------
 
-                            If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                            If daq_meas_list.Count <> 0 Then
                                 col_num = col_num + daq_meas_list.Count
                             End If
 
@@ -5178,7 +5178,7 @@ Public Class PartI
                                 End If
                                 col = col + 1
 
-                                If cbox_fs_ctr.SelectedItem = "Voltage" Then
+                                If daq_meas_list.Count <> 0 Then
                                     If ii = 0 Then
                                         row = first_row + 1
                                         For i = 0 To daq_meas_list.Count - 1
