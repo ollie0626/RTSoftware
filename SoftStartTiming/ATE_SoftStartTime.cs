@@ -104,6 +104,7 @@ namespace SoftStartTiming
                 byte addr = Convert.ToByte(dg[0, i].Value.ToString(), 16);
                 byte data = Convert.ToByte(dg[1, i].Value.ToString(), 16);
                 RTDev.I2C_Write((byte)(test_parameter.slave), addr, new byte[] { data });
+                MyLib.Delay1ms(50);
             }
         }
 
@@ -151,7 +152,7 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetMeasureSource(4, meas_imax, "MAXimum");
             InsControl._tek_scope.SetMeasureSource(4, meas_imin, "MINImum");
             InsControl._tek_scope.SetMeasureSource(2, meas_falling, "FALL");
-
+            InsControl._tek_scope.PersistenceDisable();
             MyLib.Delay1ms(500);
         }
 
@@ -164,6 +165,7 @@ namespace SoftStartTiming
 #if Power_en
             InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
             MyLib.Delay1ms(800);
+            RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
 #endif
 
             double time_scale = 0;
@@ -485,7 +487,7 @@ namespace SoftStartTiming
 
 
                         //PowerOffEvent();
-                        RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
+                        //RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, binList[bin_idx]); // test conditions
                         MyLib.Delay1ms(1800);
 
                         InsControl._tek_scope.SetRun();
@@ -576,6 +578,10 @@ namespace SoftStartTiming
 
 #if Scope_en
                         // SST Fall test
+                        //PowerOnEvent();
+
+
+
                         InsControl._tek_scope.SetRun();
                         InsControl._tek_scope.SetTriggerMode(false);
                         InsControl._tek_scope.SetTriggerFall();
@@ -761,7 +767,7 @@ namespace SoftStartTiming
                 case 1:
                     // rails disable
                     RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_dis });
-                    I2C_DG_Write(test_parameter.i2c_init_dg);
+                    //I2C_DG_Write(test_parameter.i2c_init_dg);
                     break;
                 case 2: // vin trigger
 #if Power_en

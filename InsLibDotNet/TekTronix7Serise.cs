@@ -422,5 +422,13 @@ namespace InsLibDotNet
             return res;
         }
 
+        public double MeasureValue(int num)
+        {
+            string cmd = "";
+            cmd = string.Format("MEASUrement:MEAS{0}:VALue?", num);
+            double res = doQueryNumber(cmd);
+            return res;
+        }
+
     }
 }
