@@ -9233,12 +9233,42 @@ Public Class PartI
         End If
     End Sub
 
+    Private Function detect_daq_channel_select() As Boolean
+        Dim channel_list As List(Of String) = New List(Of String)()
+        Dim daq_sel() As ComboBox = New ComboBox() {
+            cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6
+            }
+        Dim res As Boolean = False
+
+        channel_list.Add(cbox_vin_daq.SelectedItem)
+        channel_list.Add(cbox_vout_daq.SelectedItem)
+        channel_list.Add(cbox_mode_daq.SelectedItem)
+        For i = 0 To daq_sel.Length - 1
+
+            If daq_sel(i).SelectedItem <> "NA" Then
+                channel_list.Add(daq_sel(i).SelectedItem)
+            End If
+
+        Next
+
+        res = channel_list.Count() <> channel_list.Distinct().Count()
+
+        Return res
+
+
+    End Function
+
     Private Sub btn_ok_Click(sender As Object, e As EventArgs) Handles btn_ok.Click
 
         Dim power_temp As String
         Dim v As Integer
 
         power_temp = Mid(cbox_vin.SelectedItem, 1, 6)
+
+
+        If detect_daq_channel_select() Then
+            error_message("Please check DAQ Measure Setting!!")
+        End If
 
 
         If ((power_temp = "62006P") Or (power_temp = "62012P")) And (num_VIN_OCP.Value = 0) Then
