@@ -3983,13 +3983,13 @@ Public Class PartI
         eff_title_total = eff_col.Length
 
         If daq_meas_list.Count > 0 Then
-            ReDim Preserve eff_col(col_num + daq_meas_list.Count - 1)
+            ReDim Preserve eff_col(col_num + daq_meas_list.Count)
             Dim idx As Integer = 0
-            For i = col_num To col_num + daq_meas_list.Count - 1
+            For i = col_num + 1 To col_num + daq_meas_list.Count ' (-1 +1 )
                 eff_col(i) = "DAQ" & daq_meas_list(idx)
                 idx += 1
             Next
-            eff_title_total = eff_col.Length + daq_meas_list.Count
+            eff_title_total = eff_col.Length
         End If
 
         '---------------------------------------------------------------------------------
@@ -4616,6 +4616,11 @@ Public Class PartI
                                 'initial
                                 'Init col
                                 col_num = lineR_col.Length * data_lineR_iout.Rows.Count + 1
+                                If daq_meas_list.Count <> 0 Then
+                                    col_num = daq_meas_list.Count + col_num
+                                End If
+
+
                                 row_num = data_Line_vin.Rows.Count + 3
                                 start_col = test_col + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                                 first_row = test_row + v * (row_num + row_Space)
@@ -4968,7 +4973,13 @@ Public Class PartI
                             'initial
                             'Init col
 
+
                             col_num = data_vin.Rows.Count + 2
+                            If daq_meas_list.Count <> 0 Then
+                                col_num = col_num + daq_meas_list.Count
+                            End If
+
+
                             row_num = data_eff_iout.Rows.Count + 3
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             'Init row
@@ -5002,9 +5013,7 @@ Public Class PartI
                             pass_value_Min = vout_now * (1 - (num_pass_loadR.Value / 100))
                             '-------------------------------------------------------------------------------
 
-                            If daq_meas_list.Count <> 0 Then
-                                col_num = col_num + daq_meas_list.Count
-                            End If
+
 
                             'Title
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
@@ -6760,12 +6769,18 @@ Public Class PartI
 
                 If rbtn_lineR_test2.Checked = True Then
                     col_num = data_lineR_iout.Rows.Count + 2
+                    If daq_meas_list.Count <> 0 Then
+                        col_num = daq_meas_list.Count + col_num
+                    End If
                     row_num = data_vin.Rows.Count + 3
                 Else
                     col_num = data_lineR_iout.Rows.Count + 2
                     If check_lineR_up.Checked = True Then
 
                         row_num = (2 * data_lineR_vin.Rows.Count - 1) + 3
+                        If daq_meas_list.Count <> 0 Then
+                            col_num = daq_meas_list.Count + col_num
+                        End If
                     Else
                         row_num = data_lineR_vin.Rows.Count + 3
                     End If
@@ -6945,6 +6960,9 @@ Public Class PartI
                 'initial
                 'Init col
                 col_num = data_vin.Rows.Count + 2
+                If daq_meas_list.Count <> 0 Then
+                    col_num = col_num + daq_meas_list.Count
+                End If
                 row_num = data_eff_iout.Rows.Count + 3
 
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
@@ -7028,7 +7046,8 @@ Public Class PartI
                 'Init col
                 col_num = eff_title_total
                 row_num = data_eff_iout.Rows.Count + 2
-                start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) + Vin_test_num * (col_num + 1)
+                'start_col = test_col + chart_width + col_Space + (n * total_fs.Length + f) * ((col_num + 1) * (data_vin.Rows.Count))
+                start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) '+ Vin_test_num * (col_num + 1)
                 'Init row
 
                 If row_num < (chart_height + 1) Then
@@ -7132,7 +7151,7 @@ Public Class PartI
 
 
                 If daq_meas_list.Count <> 0 Then
-                    For i = 0 To daq_meas_list.Count
+                    For i = 0 To daq_meas_list.Count - 1
                         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                         col = col + 1
                         Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
@@ -7787,6 +7806,18 @@ Public Class PartI
         data_vout_p = data_vout
         cbox_fs_ctr_p = cbox_fs_ctr
         cbox_vout_ctr_p = cbox_vout_ctr
+
+
+        Dim daq_table() As ComboBox = New ComboBox() _
+        {cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6}
+
+        daq_meas_list.Clear()
+
+        For i = 0 To daq_table.Length - 1
+            If daq_table(i).SelectedItem <> no_device Then
+                daq_meas_list.Add(Mid(daq_table(i).SelectedItem, 3))
+            End If
+        Next
         instrument_init()
 
 
