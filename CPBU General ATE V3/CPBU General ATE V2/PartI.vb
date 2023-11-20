@@ -164,7 +164,7 @@ Public Class PartI
     'Dim data_set_num() As Integer
     Dim test_point_num As Integer
     Dim daq_meas_list As List(Of Integer) = New List(Of Integer)()
-
+    Dim daq_meas_name_list As List(Of String) = New List(Of String)()
 
     '----------------------------------------------------------------------------------------------
 
@@ -728,11 +728,17 @@ Public Class PartI
         Dim daq_table() As ComboBox = New ComboBox() _
         {cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6}
 
+        Dim daq_name_table() As TextBox = New TextBox() _
+            {tb_daq_name1, tb_daq_name2, tb_daq_name3, tb_daq_name4, tb_daq_name5, tb_daq_name6}
+
+
         daq_meas_list.Clear()
+        daq_meas_name_list.Clear()
 
         For i = 0 To daq_table.Length - 1
             If daq_table(i).SelectedItem <> no_device Then
                 daq_meas_list.Add(Mid(daq_table(i).SelectedItem, 3))
+                daq_meas_name_list.Add(daq_name_table(i).Text)
             End If
         Next
 
@@ -2971,6 +2977,39 @@ Public Class PartI
         xlSheet.Cells(row, col + 1) = num_slave_out_IO.Value
         row = row + 1
         '------------------------------------------------------------------------------------
+        xlSheet.Cells(row, col) = "DAQ Measure Setting"
+        title_set()
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ1 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq1.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name1.Text
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ2 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq2.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name2.Text
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ3 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq3.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name3.Text
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ4 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq4.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name4.Text
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ5 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq5.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name5.Text
+
+        row = row + 1
+        xlSheet.Cells(row, col) = "DAQ6 Select Info"
+        xlSheet.Cells(row, col + 1) = cbox_daq6.SelectedItem
+        xlSheet.Cells(row, col + 2) = tb_daq_name6.Text
+        row = row + 1
+
 
 
         xlSheet.Columns(1).AutoFit()
@@ -3792,8 +3831,34 @@ Public Class PartI
         row = row + 1
 
         num_slave_out_IO.Value = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        row = row + 1
+        '------------------------------------------------------------------------------------
+        row = row + 1
 
 
+        cbox_daq1.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name1.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        cbox_daq2.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name2.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        cbox_daq3.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name3.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        cbox_daq4.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name4.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        cbox_daq5.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name5.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
+
+        cbox_daq6.SelectedItem = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 1).Value
+        tb_daq_name6.Text = xlSheet.Range(ConvertToLetter(col) & row).Offset(, 2).Value
+        row = row + 1
 
 
         import_now = False
@@ -3807,8 +3872,6 @@ Public Class PartI
     End Function
 
     Function report_init() As Integer
-
-
         '-----------------------------------------------------------------------------------
         'PartI data 
         '-----------------------------------------------------------------------------------
@@ -3986,7 +4049,8 @@ Public Class PartI
             ReDim Preserve eff_col(col_num + daq_meas_list.Count)
             Dim idx As Integer = 0
             For i = col_num + 1 To col_num + daq_meas_list.Count ' (-1 +1 )
-                eff_col(i) = "DAQ" & daq_meas_list(idx)
+                'eff_col(i) = "DAQ" & daq_meas_list(idx)
+                eff_col(i) = daq_meas_name_list(idx)
                 idx += 1
             Next
             eff_title_total = eff_col.Length
@@ -4721,6 +4785,10 @@ Public Class PartI
                             'initial
                             'Init col
                             col_num = data_lineR_iout.Rows.Count + 2
+                            If daq_meas_list.Count <> 0 Then
+                                col_num = col_num + daq_meas_list.Count
+                            End If
+
                             row_num = data_Line_vin.Rows.Count + 3
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             'init row
@@ -4736,25 +4804,16 @@ Public Class PartI
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 pass_value_Max = vout_now * (1 + (num_pass_lineR.Value * 5 / 100))
                                 pass_value_Min = vout_now * (1 - (num_pass_lineR.Value * 5 / 100))
-
                                 chart_init(LineR_Chart, "VOUT=" & vout_now & "V", test_name, vin_title, vout_title, vin_max, vin_min, pass_value_Max, pass_value_Min, cbox_type_LineR.SelectedItem)
-
-
                             End If
 
                             pass_value_Max = vout_now * (1 + (num_pass_lineR.Value / 100))
                             pass_value_Min = vout_now * (1 - (num_pass_lineR.Value / 100))
 
-
-                            If daq_meas_list.Count <> 0 Then
-                                col_num = col_num + daq_meas_list.Count
-                            End If
                             '-------------------------------------------------------------------------------
                             'Title
                             If (TA_Test_num = TA_num) And (n = total_vcc.Length - 1) And (f = total_fs.Length - 1) Then
@@ -4858,20 +4917,12 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     row = row + 1
                                     '-------------------------------------------------------------------------------
-
-
-
                                 End If
                                 xlSheet.Columns(col).AutoFit()
                                 col = col + 1
-
-
                             Next  'iout
-
                             '----------------------------------------------------------------------------------
-
                             ' PASS & Criteria
-
                             For ii = 0 To data_Line_vin.Rows.Count - 1
                                 col = start_col + data_lineR_iout.Rows.Count + 1
 
@@ -4939,7 +4990,8 @@ Public Class PartI
                                     If ii = 0 Then
                                         row = first_row + 1
                                         For i = 0 To daq_meas_list.Count - 1
-                                            report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            'report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            report_title(daq_meas_name_list(i), col, row, 1, 2, data_title_color)
                                             col = col + 1
                                         Next
                                         row = row + 2
@@ -5111,7 +5163,6 @@ Public Class PartI
                             ' PASS & Criteria
                             For ii = 0 To data_eff_iout.Rows.Count - 1
                                 col = start_col + data_vin.Rows.Count + 1
-
                                 '----------------------------------------------------------------------------------
                                 'Only Last parameter
 
@@ -5127,7 +5178,6 @@ Public Class PartI
                                         '----------------------------------------------------------------------------------
                                         row = row + 2
                                     End If
-
                                     xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                                     xlrange.Value = pass_value_Max
                                     FinalReleaseComObject(xlrange)
@@ -5149,10 +5199,6 @@ Public Class PartI
                                     FinalReleaseComObject(xlrange)
                                     'xlSheet.Cells(row, col) = pass_value_Min
                                     col = col + 1
-
-
-
-
                                 End If
 
                                 '----------------------------------------------------------------------------------
@@ -5163,18 +5209,17 @@ Public Class PartI
                                     row = row + 2
                                 End If
                                 col = col + 1
-
                                 If daq_meas_list.Count <> 0 Then
                                     If ii = 0 Then
                                         row = first_row + 1
                                         For i = 0 To daq_meas_list.Count - 1
-                                            report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            'report_title("DAQ" & daq_meas_list(i), col, row, 1, 2, data_title_color)
+                                            report_title(daq_meas_name_list(i), col, row, 1, 2, data_title_color)
                                             col = col + 1
                                         Next
                                         row = row + 2
                                     End If
                                 End If
-
                                 row = row + 1
                             Next  'iout
 
@@ -5187,7 +5232,6 @@ Public Class PartI
                             End If
                             '----------------------------------------------------------------------------------
                             last_row = last_row + 3
-
                             '----------------------------------------------------------------------------------
                             '----------------------------------------------------------------------------------
 #End Region
@@ -6597,13 +6641,9 @@ Public Class PartI
                     End If
                 End If
 
-
-
                 col = start_col
                 row = first_row + 2 + jitter_iout_num
                 'Ton_mean(ns)	Toff_min(ns)	Toff_max(ns)
-
-
                 xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                 xlrange.Value = vout_meas
                 If vout_meas < (vout_now * (vout_err / 100)) Then
@@ -6689,24 +6729,15 @@ Public Class PartI
                 'update_pic(jitter_pic_col, jitter_pic_row)
 
                 If (RS_Scope = False) And (check_fastAcq.Checked = True) Then
-
-
                     Scope_RUN(False)
-
-
-
                     FastAcq_ONOFF("ON")
                     'Delay(100)
                     Scope_RUN(True)
-
                     Delay_s(num_FastAcq.Value)
                     jitter_pic_path = Jitter_folder & "\" & Jitter_pic_num & "_Fast_" & "Ta=" & TA_now & "; Fs=" & fs_now & "Hz; Vout=" & vout_now & "V; Vin=" & vin_now & "V; Iout=" & iout_now & "A" & ".PNG"
                     ' update_pic(jitter_pic_col, jitter_pic_row, jitter_pic_path)
                     Hardcopy("PNG", jitter_pic_path)
-
                     'update_pic(jitter_pic_col, jitter_pic_row + pic_height, jitter_pic_path)
-
-
                 End If
 
                 Jitter_pic_num = Jitter_pic_num + 1
@@ -6769,32 +6800,28 @@ Public Class PartI
 
                 If rbtn_lineR_test2.Checked = True Then
                     col_num = data_lineR_iout.Rows.Count + 2
-                    If daq_meas_list.Count <> 0 Then
-                        col_num = daq_meas_list.Count + col_num
-                    End If
                     row_num = data_vin.Rows.Count + 3
                 Else
                     col_num = data_lineR_iout.Rows.Count + 2
                     If check_lineR_up.Checked = True Then
 
                         row_num = (2 * data_lineR_vin.Rows.Count - 1) + 3
-                        If daq_meas_list.Count <> 0 Then
-                            col_num = daq_meas_list.Count + col_num
-                        End If
+
                     Else
                         row_num = data_lineR_vin.Rows.Count + 3
                     End If
 
                 End If
 
-
+                If daq_meas_list.Count <> 0 Then
+                    col_num = daq_meas_list.Count + col_num
+                End If
                 start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + VCC_test_num * total_fs.Length + fs_test_num) * (col_num + 1)
                 'init row
                 If row_num < (chart_height + 1) Then
                     first_row = test_row + Vout_test_num * ((chart_height + 1) + row_Space)
                 Else
                     first_row = test_row + Vout_test_num * (row_num + row_Space)
-
                 End If
 
                 '----------------------------------------------------------------------------------
@@ -6834,11 +6861,13 @@ Public Class PartI
 
                 If vout_meas < pass_value_Min Or vout_meas > pass_value_Max Then
                     If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1 + 2) & row)
 
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
                     Else
+
                         xlrange = xlSheet.Range(ConvertToLetter(start_col + data_lineR_iout.Rows.Count + 1) & row)
                         xlrange.Value = FAIL
                         xlrange.Interior.Color = test_fail_color
@@ -6847,7 +6876,19 @@ Public Class PartI
 
                 '----------------------------------------------------------------------------------
                 If daq_meas_list.Count <> 0 Then
-                    For i = 0 To daq_meas_list.Count
+                    If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+                        col = start_col + data_lineR_iout.Rows.Count + 1 + 2
+                    Else
+                        col = start_col + data_lineR_iout.Rows.Count + 1
+                    End If
+                    col = col + 1
+                    'xlrange = xlSheet.Range(ConvertToLetter(col - 1) & row)
+                    'Dim str = xlrange.Value
+                    'If TypeOf str Is Double Then
+                    '    col = col + 2
+                    'End If
+
+                    For i = 0 To daq_meas_list.Count - 1
                         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                         col = col + 1
                         Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
@@ -6856,8 +6897,6 @@ Public Class PartI
                 End If
                 FinalReleaseComObject(xlrange)
                 FinalReleaseComObject(xlSheet)
-
-
                 '-------------------------------------------------------------------------------------
 
                 If check_lineR_scope.Checked = True Then
@@ -6988,10 +7027,7 @@ Public Class PartI
                 'xlrange.Value = iout_now
                 'FinalReleaseComObject(xlrange)
                 If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
-
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1 + 2) & row)
-
-
                     xlrange.Value = PASS
                 Else
                     xlrange = xlSheet.Range(ConvertToLetter(start_col + data_vin.Rows.Count + 1) & row)
@@ -7022,13 +7058,22 @@ Public Class PartI
                 End If
 
                 If daq_meas_list.Count <> 0 Then
-                    For i = 0 To daq_meas_list.Count
+                    If (TA_Test_num = TA_num) And (VCC_test_num = total_vcc.Length - 1) And (fs_test_num = total_fs.Length - 1) Then
+                        col = start_col + data_vin.Rows.Count + 1 + 2
+                    Else
+                        col = start_col + data_vin.Rows.Count + 1
+                    End If
+
+                    col = col + 1
+                    For i = 0 To daq_meas_list.Count - 1
                         xlrange = xlSheet.Range(ConvertToLetter(col) & row)
                         col = col + 1
                         Dim daq_meas As Double = DAQ_read(daq_meas_list(i))
                         xlrange.Value = daq_meas
                     Next
                 End If
+
+
 
                 '----------------------------------------------------------------------------------
                 FinalReleaseComObject(xlrange)
@@ -7808,19 +7853,23 @@ Public Class PartI
         cbox_vout_ctr_p = cbox_vout_ctr
 
 
-        Dim daq_table() As ComboBox = New ComboBox() _
-        {cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6}
+        'Dim daq_table() As ComboBox = New ComboBox() _
+        '{cbox_daq1, cbox_daq2, cbox_daq3, cbox_daq4, cbox_daq5, cbox_daq6}
 
-        daq_meas_list.Clear()
+        'Dim daq_name_table() As TextBox = New TextBox() _
+        '    {tb_daq_name1, tb_daq_name2, tb_daq_name3, tb_daq_name4, tb_daq_name5, tb_daq_name6}
 
-        For i = 0 To daq_table.Length - 1
-            If daq_table(i).SelectedItem <> no_device Then
-                daq_meas_list.Add(Mid(daq_table(i).SelectedItem, 3))
-            End If
-        Next
+
+        'daq_meas_list.Clear()
+        'daq_meas_name_list.Clear()
+
+        'For i = 0 To daq_table.Length - 1
+        '    If daq_table(i).SelectedItem <> no_device Then
+        '        daq_meas_list.Add(Mid(daq_table(i).SelectedItem, 3))
+        '        daq_meas_name_list.Add(daq_name_table(i).Text)
+        '    End If
+        'Next
         instrument_init()
-
-
 
         If run = False Then
             Exit Function
@@ -8020,6 +8069,11 @@ Public Class PartI
                             DCLoad_ONOFF("OFF")
                             Power_Dev = vin_Dev
                             power_volt(vin_device, Vin_out, vin_now)
+
+                            If Main.check_EN_off.Checked = True Then
+                                Power_EN(False)
+                                Power_EN(True)
+                            End If
 
                             '-----------------------------------------------------------------------------------------------------------
                             If check_stability.Checked = True Or check_jitter.Checked = True Then
@@ -9299,6 +9353,7 @@ Public Class PartI
 
         If detect_daq_channel_select() Then
             error_message("Please check DAQ Measure Setting!!")
+            Exit Sub
         End If
 
 

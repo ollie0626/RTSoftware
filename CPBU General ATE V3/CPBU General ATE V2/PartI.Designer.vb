@@ -728,6 +728,12 @@ Partial Class PartI
         Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Column12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.tb_daq_name1 = New System.Windows.Forms.TextBox()
+        Me.tb_daq_name2 = New System.Windows.Forms.TextBox()
+        Me.tb_daq_name3 = New System.Windows.Forms.TextBox()
+        Me.tb_daq_name4 = New System.Windows.Forms.TextBox()
+        Me.tb_daq_name5 = New System.Windows.Forms.TextBox()
+        Me.tb_daq_name6 = New System.Windows.Forms.TextBox()
         Me.Tab_Set.SuspendLayout
         Me.TabPage_Main1.SuspendLayout
         Me.Panel57.SuspendLayout
@@ -6844,14 +6850,14 @@ Partial Class PartI
         Me.Panel62.Controls.Add(Me.Label122)
         Me.Panel62.Location = New System.Drawing.Point(343, 58)
         Me.Panel62.Name = "Panel62"
-        Me.Panel62.Size = New System.Drawing.Size(79, 95)
+        Me.Panel62.Size = New System.Drawing.Size(79, 189)
         Me.Panel62.TabIndex = 3284
         '
         'Label122
         '
         Me.Label122.AutoSize = True
         Me.Label122.ForeColor = System.Drawing.Color.Black
-        Me.Label122.Location = New System.Drawing.Point(21, 39)
+        Me.Label122.Location = New System.Drawing.Point(18, 78)
         Me.Label122.Name = "Label122"
         Me.Label122.Size = New System.Drawing.Size(35, 15)
         Me.Label122.TabIndex = 3164
@@ -6861,6 +6867,12 @@ Partial Class PartI
         '
         Me.Panel61.BackColor = System.Drawing.Color.LightGray
         Me.Panel61.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.Panel61.Controls.Add(Me.tb_daq_name6)
+        Me.Panel61.Controls.Add(Me.tb_daq_name5)
+        Me.Panel61.Controls.Add(Me.tb_daq_name4)
+        Me.Panel61.Controls.Add(Me.tb_daq_name3)
+        Me.Panel61.Controls.Add(Me.tb_daq_name2)
+        Me.Panel61.Controls.Add(Me.tb_daq_name1)
         Me.Panel61.Controls.Add(Me.Label127)
         Me.Panel61.Controls.Add(Me.cbox_daq6)
         Me.Panel61.Controls.Add(Me.Label126)
@@ -6875,14 +6887,14 @@ Partial Class PartI
         Me.Panel61.Controls.Add(Me.cbox_daq1)
         Me.Panel61.Location = New System.Drawing.Point(421, 58)
         Me.Panel61.Name = "Panel61"
-        Me.Panel61.Size = New System.Drawing.Size(277, 95)
+        Me.Panel61.Size = New System.Drawing.Size(277, 189)
         Me.Panel61.TabIndex = 3283
         '
         'Label127
         '
         Me.Label127.AutoSize = True
         Me.Label127.ForeColor = System.Drawing.Color.Black
-        Me.Label127.Location = New System.Drawing.Point(132, 67)
+        Me.Label127.Location = New System.Drawing.Point(3, 153)
         Me.Label127.Name = "Label127"
         Me.Label127.Size = New System.Drawing.Size(42, 15)
         Me.Label127.TabIndex = 3262
@@ -6893,7 +6905,7 @@ Partial Class PartI
         Me.cbox_daq6.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbox_daq6.FormattingEnabled = True
         Me.cbox_daq6.Items.AddRange(New Object() {"NA", "CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_daq6.Location = New System.Drawing.Point(175, 64)
+        Me.cbox_daq6.Location = New System.Drawing.Point(46, 150)
         Me.cbox_daq6.Name = "cbox_daq6"
         Me.cbox_daq6.Size = New System.Drawing.Size(80, 23)
         Me.cbox_daq6.TabIndex = 3261
@@ -6902,7 +6914,7 @@ Partial Class PartI
         '
         Me.Label126.AutoSize = True
         Me.Label126.ForeColor = System.Drawing.Color.Black
-        Me.Label126.Location = New System.Drawing.Point(132, 39)
+        Me.Label126.Location = New System.Drawing.Point(3, 125)
         Me.Label126.Name = "Label126"
         Me.Label126.Size = New System.Drawing.Size(42, 15)
         Me.Label126.TabIndex = 3260
@@ -6913,7 +6925,7 @@ Partial Class PartI
         Me.cbox_daq5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbox_daq5.FormattingEnabled = True
         Me.cbox_daq5.Items.AddRange(New Object() {"NA", "CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_daq5.Location = New System.Drawing.Point(175, 36)
+        Me.cbox_daq5.Location = New System.Drawing.Point(46, 122)
         Me.cbox_daq5.Name = "cbox_daq5"
         Me.cbox_daq5.Size = New System.Drawing.Size(80, 23)
         Me.cbox_daq5.TabIndex = 3259
@@ -6922,7 +6934,7 @@ Partial Class PartI
         '
         Me.Label125.AutoSize = True
         Me.Label125.ForeColor = System.Drawing.Color.Black
-        Me.Label125.Location = New System.Drawing.Point(132, 10)
+        Me.Label125.Location = New System.Drawing.Point(3, 96)
         Me.Label125.Name = "Label125"
         Me.Label125.Size = New System.Drawing.Size(42, 15)
         Me.Label125.TabIndex = 3258
@@ -6933,7 +6945,7 @@ Partial Class PartI
         Me.cbox_daq4.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.cbox_daq4.FormattingEnabled = True
         Me.cbox_daq4.Items.AddRange(New Object() {"NA", "CH101", "CH102", "CH103", "CH104", "CH105", "CH106", "CH107", "CH108", "CH109", "CH110", "CH111", "CH112", "CH113", "CH114", "CH115", "CH116", "CH117", "CH118", "CH119", "CH120"})
-        Me.cbox_daq4.Location = New System.Drawing.Point(175, 7)
+        Me.cbox_daq4.Location = New System.Drawing.Point(46, 93)
         Me.cbox_daq4.Name = "cbox_daq4"
         Me.cbox_daq4.Size = New System.Drawing.Size(80, 23)
         Me.cbox_daq4.TabIndex = 3257
@@ -8339,6 +8351,54 @@ Partial Class PartI
         Me.Column12.Name = "Column12"
         Me.Column12.Width = 80
         '
+        'tb_daq_name1
+        '
+        Me.tb_daq_name1.Location = New System.Drawing.Point(132, 7)
+        Me.tb_daq_name1.Name = "tb_daq_name1"
+        Me.tb_daq_name1.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name1.TabIndex = 3263
+        Me.tb_daq_name1.Text = "DAQ1"
+        '
+        'tb_daq_name2
+        '
+        Me.tb_daq_name2.Location = New System.Drawing.Point(132, 36)
+        Me.tb_daq_name2.Name = "tb_daq_name2"
+        Me.tb_daq_name2.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name2.TabIndex = 3264
+        Me.tb_daq_name2.Text = "DAQ2"
+        '
+        'tb_daq_name3
+        '
+        Me.tb_daq_name3.Location = New System.Drawing.Point(132, 64)
+        Me.tb_daq_name3.Name = "tb_daq_name3"
+        Me.tb_daq_name3.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name3.TabIndex = 3265
+        Me.tb_daq_name3.Text = "DAQ3"
+        '
+        'tb_daq_name4
+        '
+        Me.tb_daq_name4.Location = New System.Drawing.Point(132, 93)
+        Me.tb_daq_name4.Name = "tb_daq_name4"
+        Me.tb_daq_name4.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name4.TabIndex = 3266
+        Me.tb_daq_name4.Text = "DAQ4"
+        '
+        'tb_daq_name5
+        '
+        Me.tb_daq_name5.Location = New System.Drawing.Point(132, 122)
+        Me.tb_daq_name5.Name = "tb_daq_name5"
+        Me.tb_daq_name5.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name5.TabIndex = 3267
+        Me.tb_daq_name5.Text = "DAQ5"
+        '
+        'tb_daq_name6
+        '
+        Me.tb_daq_name6.Location = New System.Drawing.Point(132, 150)
+        Me.tb_daq_name6.Name = "tb_daq_name6"
+        Me.tb_daq_name6.Size = New System.Drawing.Size(100, 21)
+        Me.tb_daq_name6.TabIndex = 3268
+        Me.tb_daq_name6.Text = "DAQ6"
+        '
         'PartI
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
@@ -9286,4 +9346,10 @@ Partial Class PartI
     Friend WithEvents Label123 As Label
     Friend WithEvents cbox_daq2 As ComboBox
     Friend WithEvents TextBox31 As TextBox
+    Friend WithEvents tb_daq_name1 As TextBox
+    Friend WithEvents tb_daq_name6 As TextBox
+    Friend WithEvents tb_daq_name5 As TextBox
+    Friend WithEvents tb_daq_name4 As TextBox
+    Friend WithEvents tb_daq_name3 As TextBox
+    Friend WithEvents tb_daq_name2 As TextBox
 End Class

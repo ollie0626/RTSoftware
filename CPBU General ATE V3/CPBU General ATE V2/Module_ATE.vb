@@ -1944,9 +1944,9 @@ Module Module_ATE
             Exit Function
         End If
         vout_meas = DAQ_read(vout_daq)
-        If vout_meas < (vout_now * vout_err / 100) Then
-            critical_message("Please confirm the output voltage!")
-        End If
+        'If vout_meas < (vout_now * vout_err / 100) Then
+        '    critical_message("Please confirm the output voltage!")
+        'End If
     End Function
 
     Function Power_OFF_set() As Integer
