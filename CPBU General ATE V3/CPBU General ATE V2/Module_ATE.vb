@@ -780,7 +780,7 @@ Module Module_ATE
                         temp = Split(Power_addr(Main.cbox_ven.SelectedIndex), "::")
                         Ven_Dev = ildev(BDINDEX, temp(1), NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
                         ven_device = Main.cbox_ven.SelectedItem
-                        Ven_out = Power_channel(vin_device, Main.cbox_ven_ch.SelectedIndex)
+                        Ven_out = Power_channel(ven_device, Main.cbox_ven_ch.SelectedIndex)
                     End If
 
 

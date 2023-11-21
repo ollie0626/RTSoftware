@@ -608,11 +608,11 @@ Public Class PartI
         cbox_vin_ch.SelectedIndex = vin_dev_ch
 
 
-        If device_select_same(cbox_VCC, txt_vcc_Addr, Power, True) = False Then
-            vcc_dev_ch = 0
-        End If
+        'If device_select_same(cbox_VCC, txt_vcc_Addr, Power, True) = False Then
+        '    vcc_dev_ch = 0
+        'End If
 
-        cbox_VCC_ch.SelectedIndex = vcc_dev_ch
+        'cbox_VCC_ch.SelectedIndex = vcc_dev_ch
 
         If Meter_num = 0 Then
             If Main.data_meas.Rows.Count > 0 Then

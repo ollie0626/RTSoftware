@@ -1663,7 +1663,7 @@ Public Class Main
             ven_addr = addr(1)
             Ven_Dev = ildev(BDINDEX, addr(1), NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
             ven_device = cbox_ven.SelectedItem
-            Ven_out = Power_channel(VCC_device, cbox_ven_ch.SelectedIndex)
+            Ven_out = Power_channel(ven_device, cbox_ven_ch.SelectedIndex)
         End If
 
 
