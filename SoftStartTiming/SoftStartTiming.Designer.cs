@@ -109,6 +109,11 @@ namespace SoftStartTiming
             this.labRail_en = new System.Windows.Forms.Label();
             this.nuData2 = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.label22 = new System.Windows.Forms.Label();
+            this.cbox_dly1 = new System.Windows.Forms.ComboBox();
+            this.cbox_dly3 = new System.Windows.Forms.ComboBox();
+            this.cbox_dly2 = new System.Windows.Forms.ComboBox();
             this.tb_connect4 = new System.Windows.Forms.TextBox();
             this.tb_connect3 = new System.Windows.Forms.TextBox();
             this.tb_connect2 = new System.Windows.Forms.TextBox();
@@ -154,6 +159,9 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label25 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -184,6 +192,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuData2)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
@@ -1079,6 +1088,7 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.tb_connect4);
             this.tabPage1.Controls.Add(this.tb_connect3);
             this.tabPage1.Controls.Add(this.tb_connect2);
@@ -1092,12 +1102,74 @@ namespace SoftStartTiming
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(808, 412);
             this.tabPage1.TabIndex = 2;
-            this.tabPage1.Text = "How to Connect";
+            this.tabPage1.Text = "Scope";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.label25);
+            this.panel1.Controls.Add(this.label24);
+            this.panel1.Controls.Add(this.label23);
+            this.panel1.Controls.Add(this.label22);
+            this.panel1.Controls.Add(this.cbox_dly1);
+            this.panel1.Controls.Add(this.cbox_dly3);
+            this.panel1.Controls.Add(this.cbox_dly2);
+            this.panel1.Location = new System.Drawing.Point(228, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(184, 131);
+            this.panel1.TabIndex = 11;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(6, 10);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(108, 12);
+            this.label22.TabIndex = 11;
+            this.label22.Text = "Delay time Setting";
+            // 
+            // cbox_dly1
+            // 
+            this.cbox_dly1.FormattingEnabled = true;
+            this.cbox_dly1.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly1.Location = new System.Drawing.Point(44, 38);
+            this.cbox_dly1.Name = "cbox_dly1";
+            this.cbox_dly1.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly1.TabIndex = 8;
+            // 
+            // cbox_dly3
+            // 
+            this.cbox_dly3.FormattingEnabled = true;
+            this.cbox_dly3.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly3.Location = new System.Drawing.Point(45, 94);
+            this.cbox_dly3.Name = "cbox_dly3";
+            this.cbox_dly3.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly3.TabIndex = 10;
+            // 
+            // cbox_dly2
+            // 
+            this.cbox_dly2.FormattingEnabled = true;
+            this.cbox_dly2.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly2.Location = new System.Drawing.Point(45, 66);
+            this.cbox_dly2.Name = "cbox_dly2";
+            this.cbox_dly2.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly2.TabIndex = 9;
             // 
             // tb_connect4
             // 
             this.tb_connect4.Enabled = false;
-            this.tb_connect4.Location = new System.Drawing.Point(75, 107);
+            this.tb_connect4.Location = new System.Drawing.Point(76, 100);
             this.tb_connect4.Name = "tb_connect4";
             this.tb_connect4.Size = new System.Drawing.Size(146, 22);
             this.tb_connect4.TabIndex = 7;
@@ -1107,7 +1179,7 @@ namespace SoftStartTiming
             // tb_connect3
             // 
             this.tb_connect3.Enabled = false;
-            this.tb_connect3.Location = new System.Drawing.Point(75, 79);
+            this.tb_connect3.Location = new System.Drawing.Point(76, 72);
             this.tb_connect3.Name = "tb_connect3";
             this.tb_connect3.Size = new System.Drawing.Size(146, 22);
             this.tb_connect3.TabIndex = 6;
@@ -1117,7 +1189,7 @@ namespace SoftStartTiming
             // tb_connect2
             // 
             this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(75, 51);
+            this.tb_connect2.Location = new System.Drawing.Point(76, 44);
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 5;
@@ -1127,7 +1199,7 @@ namespace SoftStartTiming
             // tb_connect1
             // 
             this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(75, 23);
+            this.tb_connect1.Location = new System.Drawing.Point(76, 16);
             this.tb_connect1.Name = "tb_connect1";
             this.tb_connect1.Size = new System.Drawing.Size(146, 22);
             this.tb_connect1.TabIndex = 4;
@@ -1137,7 +1209,7 @@ namespace SoftStartTiming
             // textBox4
             // 
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(17, 107);
+            this.textBox4.Location = new System.Drawing.Point(18, 100);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(52, 22);
             this.textBox4.TabIndex = 3;
@@ -1147,7 +1219,7 @@ namespace SoftStartTiming
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(17, 79);
+            this.textBox3.Location = new System.Drawing.Point(18, 72);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(52, 22);
             this.textBox3.TabIndex = 2;
@@ -1157,7 +1229,7 @@ namespace SoftStartTiming
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(17, 51);
+            this.textBox2.Location = new System.Drawing.Point(18, 44);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(52, 22);
             this.textBox2.TabIndex = 1;
@@ -1167,7 +1239,7 @@ namespace SoftStartTiming
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(17, 23);
+            this.textBox1.Location = new System.Drawing.Point(18, 16);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(52, 22);
             this.textBox1.TabIndex = 0;
@@ -1547,6 +1619,33 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(16, 41);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(18, 12);
+            this.label23.TabIndex = 12;
+            this.label23.Text = "→";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(16, 69);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 12);
+            this.label24.TabIndex = 13;
+            this.label24.Text = "→";
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(16, 97);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(18, 12);
+            this.label25.TabIndex = 14;
+            this.label25.Text = "→";
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1631,6 +1730,8 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuData2)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -1767,6 +1868,14 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_data_mtp;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.NumericUpDown nu_addr_mtp;
+        private System.Windows.Forms.ComboBox cbox_dly3;
+        private System.Windows.Forms.ComboBox cbox_dly2;
+        private System.Windows.Forms.ComboBox cbox_dly1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label23;
     }
 }
 

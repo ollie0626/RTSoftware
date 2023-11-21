@@ -144,6 +144,10 @@ namespace SoftStartTiming
         public static LoadTransient_parameter loadtransient = new LoadTransient_parameter();
         public static LTLab_parameter lt_lab = new LTLab_parameter();
 
+        // delay time select
+        public static int dly1_sel;
+        public static int dly2_sel;
+        public static int dly3_sel;
 
     }
 }
