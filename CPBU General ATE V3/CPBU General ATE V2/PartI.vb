@@ -7092,7 +7092,7 @@ Public Class PartI
                 col_num = eff_title_total
                 row_num = data_eff_iout.Rows.Count + 2
                 'start_col = test_col + chart_width + col_Space + (n * total_fs.Length + f) * ((col_num + 1) * (data_vin.Rows.Count))
-                start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) '+ Vin_test_num * (col_num + 1)
+                start_col = test_col + chart_width + col_Space + (VCC_test_num * total_fs.Length + fs_test_num) * ((col_num + 1) * (data_vin.Rows.Count)) + Vin_test_num * (col_num + 1)
                 'Init row
 
                 If row_num < (chart_height + 1) Then
