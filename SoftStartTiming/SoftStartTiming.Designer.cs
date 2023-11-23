@@ -110,6 +110,9 @@ namespace SoftStartTiming
             this.nuData2 = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.cbox_dly1 = new System.Windows.Forms.ComboBox();
             this.cbox_dly3 = new System.Windows.Forms.ComboBox();
@@ -159,9 +162,6 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -1118,6 +1118,33 @@ namespace SoftStartTiming
             this.panel1.Size = new System.Drawing.Size(184, 131);
             this.panel1.TabIndex = 11;
             // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(16, 97);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(18, 12);
+            this.label25.TabIndex = 14;
+            this.label25.Text = "→";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(16, 69);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 12);
+            this.label24.TabIndex = 13;
+            this.label24.Text = "→";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(16, 41);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(18, 12);
+            this.label23.TabIndex = 12;
+            this.label23.Text = "→";
+            // 
             // label22
             // 
             this.label22.AutoSize = true;
@@ -1173,7 +1200,7 @@ namespace SoftStartTiming
             this.tb_connect4.Name = "tb_connect4";
             this.tb_connect4.Size = new System.Drawing.Size(146, 22);
             this.tb_connect4.TabIndex = 7;
-            this.tb_connect4.Text = "Rial 3";
+            this.tb_connect4.Text = "Rail 3";
             this.tb_connect4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tb_connect3
@@ -1183,7 +1210,7 @@ namespace SoftStartTiming
             this.tb_connect3.Name = "tb_connect3";
             this.tb_connect3.Size = new System.Drawing.Size(146, 22);
             this.tb_connect3.TabIndex = 6;
-            this.tb_connect3.Text = "Rial 2";
+            this.tb_connect3.Text = "Rail 2";
             this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tb_connect2
@@ -1193,7 +1220,7 @@ namespace SoftStartTiming
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 5;
-            this.tb_connect2.Text = "Rial 1";
+            this.tb_connect2.Text = "Rail 1";
             this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // tb_connect1
@@ -1618,33 +1645,6 @@ namespace SoftStartTiming
             this.CBItem.Size = new System.Drawing.Size(185, 20);
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(16, 41);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(18, 12);
-            this.label23.TabIndex = 12;
-            this.label23.Text = "→";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(16, 69);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(18, 12);
-            this.label24.TabIndex = 13;
-            this.label24.Text = "→";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(16, 97);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(18, 12);
-            this.label25.TabIndex = 14;
-            this.label25.Text = "→";
             // 
             // SoftStartTiming
             // 
