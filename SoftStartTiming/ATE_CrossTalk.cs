@@ -1,8 +1,13 @@
 ﻿
 #define Report_en
 //#define Power_en
-#define Eload_en
+//#define Eload_en
 #define Scope_en
+
+
+
+//InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+//InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
 
 using System;
@@ -93,31 +98,6 @@ namespace SoftStartTiming
                             }
 
                         }
-
-                        //                        if (parameter.data[parameter.idx] != 0)
-                        //                        {
-                        //                            double temp = 0;
-                        //#if Eload_en
-                        //                            InsControl._eload.Loading(parameter.sw_en[parameter.idx], parameter.iout[parameter.idx]);
-                        //                            temp = InsControl._eload.GetIout();
-                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = temp;
-                        //#endif
-
-                        //#if Report_en
-                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = parameter.data[parameter.idx];
-                        //#endif
-                        //                        }
-                        //                        else
-                        //                        {
-                        //#if Eload_en
-                        //                            //InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
-                        //                            InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
-                        //#endif
-
-                        //#if Report_en
-                        //                            _sheet.Cells[row, parameter.idx + aggressor_col] = 0;
-                        //#endif
-                        //                        }
                         break;
                     case 1:
 #if Report_en
@@ -215,12 +195,23 @@ namespace SoftStartTiming
                         }
                         //WriteEn(data, test_parameter.vid_addr, test_parameter.hi_code, test_parameter.lo_code);
 
+
                         for (int j = 0; j < vid_addr.Count; j++)
                         {
-                            if (parameter.data[parameter.idx] == 0) break;
-                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
-                            RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
+                            if (parameter.data[j] == 1)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
+                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
+                            }
                         }
+
+
+                        //for (int j = 0; j < vid_addr.Count; j++)
+                        //{
+                        //    if (parameter.data[parameter.idx] == 0) break;
+                        //    RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
+                        //    RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
+                        //}
 
                         break;
                     case 3: // LT
@@ -291,6 +282,7 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
+#if Scope_en
             InsControl._oscilloscope.SetAutoTrigger();
             InsControl._oscilloscope.SetTimeScale(test_parameter.offtime_scale_ms);
 
@@ -314,6 +306,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_BWLimitOn(2);
             InsControl._oscilloscope.CHx_BWLimitOn(3);
             InsControl._oscilloscope.CHx_BWLimitOn(4);
+#endif
         }
 
         public void WriteFreq(int sealect, int freq_idx)
@@ -619,7 +612,7 @@ namespace SoftStartTiming
 #endif
         }
 
-        #region " ---- Cross Talk ---- "
+#region " ---- Cross Talk ---- "
 
         private void Cross_CCM()
         {
@@ -1204,6 +1197,10 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Level(ch, vpp / 2);
             }
 
+            MyLib.Delay1ms(500);
+            InsControl._oscilloscope.CHx_Offset(ch, vpp / 2);
+            MyLib.Delay1ms(500);
+
             double res = InsControl._oscilloscope.doQueryNumber(string.Format("CH{0}:SCAle?", ch));
             if (res >= 0.1)
                 goto RE_Scale;
@@ -1240,6 +1237,8 @@ namespace SoftStartTiming
                 case "CH3": CHx_LevelReScale(3, measNParameter.vout); break;
                 case "CH4": CHx_LevelReScale(4, measNParameter.vout); break;
             }
+
+
 
             // enable lx channel
             switch (res)
@@ -1346,31 +1345,28 @@ namespace SoftStartTiming
                 // after test
                 if (!measNParameter.before)
                 {
-                    //for (int j = 0; j < measNParameter.N; j++) // run each channel
-                    {
-                        dont_stop_cnt = 0;
-                        CrossTalkParameter input = new CrossTalkParameter();
-                        input.idx = 0; // truth table number
-                        input.select_idx = measNParameter.select_idx;
-                        input.data = data; // data is truth table
-                        input.sw_en = sw_en;
-                        input.iout = iout;
-                        input.data_l1 = data_l1;
-                        input.data_l2 = data_l2;
-                        input.l1 = l1;
-                        input.l2 = l2;
+                    dont_stop_cnt = 0;
+                    CrossTalkParameter input = new CrossTalkParameter();
+                    input.idx = 0; // truth table number
+                    input.select_idx = measNParameter.select_idx;
+                    input.data = data; // data is truth table
+                    input.sw_en = sw_en;
+                    input.iout = iout;
+                    input.data_l1 = data_l1;
+                    input.data_l2 = data_l2;
+                    input.l1 = l1;
+                    input.l2 = l2;
 #if Scope_en
-                        InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
+                    InsControl._oscilloscope.CHx_On(measNParameter.select_idx + 1);
 #endif
-                        // print victim eload channel
-                        Console.WriteLine("Victim Channel[{0}]", measNParameter.select_idx + 1);
-                        dont_stop = new Thread(p_dont_stop);
-                        dont_stop.Start(input);
-                        MyLib.Delay1s(test_parameter.accumulate);
-                        //while (dont_stop_cnt <= 100) ;
-                        dont_stop.Abort();
-                        dont_stop = null;
-                    }
+                    // print victim eload channel
+                    Console.WriteLine("Victim Channel[{0}]", measNParameter.select_idx + 1);
+                    dont_stop = new Thread(p_dont_stop);
+                    dont_stop.Start(input);
+                    MyLib.Delay1s(test_parameter.accumulate);
+                    //while (dont_stop_cnt <= 100) ;
+                    dont_stop.Abort();
+                    dont_stop = null;
 
                     // print data log
                     string truth_conditions = "";
@@ -1430,7 +1426,7 @@ namespace SoftStartTiming
 #endif
         }
 
-        #endregion
+#endregion
 
 
 

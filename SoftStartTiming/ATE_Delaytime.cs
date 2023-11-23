@@ -259,14 +259,10 @@ namespace SoftStartTiming
             LevelEvent();
             PowerOffEvent();
 
-            if (InsControl._tek_scope_en)
-            {
-                InsControl._tek_scope.SetTimeScale(time_scale);
-                InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-            }
-            else
-                InsControl._scope.TimeScale(time_scale);
+            InsControl._tek_scope.SetTimeScale(time_scale);
+            InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
+            InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
+
             //MyLib.Delay1ms(250);
         }
 

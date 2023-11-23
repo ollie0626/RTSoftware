@@ -758,6 +758,7 @@ namespace SoftStartTiming
 
             settings += "I2C_Init_Rows=$" + i2c_datagrid.RowCount + "$\r\n";
 
+
             for (int i = 0; i < FreqDG.RowCount; i++)
             {
                 settings += "Rail=$" + FreqDG[0, i].Value.ToString() + "$\r\n";
@@ -774,7 +775,6 @@ namespace SoftStartTiming
                 settings += "Vout_Des=$" + VoutDG[3, i].Value.ToString() + "$\r\n";
             }
 
-
             for (int i = 0; i < EloadDG_CCM.RowCount; i++)
             {
                 settings += "Rail=$" + EloadDG_CCM[0, i].Value.ToString() + "$\r\n";
@@ -787,6 +787,7 @@ namespace SoftStartTiming
                 settings += "Rail=$" + LTDG[0, i].Value.ToString() + "$\r\n";
                 settings += "L1=$" + LTDG[1, i].Value.ToString() + "$\r\n";
                 settings += "L2=$" + LTDG[2, i].Value.ToString() + "$\r\n";
+                settings += "LTFull=$" + LTDG[3, i].Value.ToString() + "$\r\n";
             }
 
             for (int i = 0; i < data_rail_en.RowCount; i++)
@@ -921,7 +922,8 @@ namespace SoftStartTiming
                     LTDG[0, i].Value = Convert.ToString(info[idx + 1]); // start
                     LTDG[1, i].Value = Convert.ToString(info[idx + 2]); // step
                     LTDG[2, i].Value = Convert.ToString(info[idx + 3]); // step
-                    idx += 3;
+                    LTDG[3, i].Value = Convert.ToString(info[idx + 4]);
+                    idx += 4;
                 }
 
 
