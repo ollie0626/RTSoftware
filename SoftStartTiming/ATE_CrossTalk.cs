@@ -161,6 +161,7 @@ namespace SoftStartTiming
                             }
                         }
 
+                        // victim always on
                         addr_map[en_addr[parameter.select_idx]] |= (0x01 << en_data[parameter.select_idx]);
                         addr_map_off[en_addr[parameter.select_idx]] |= (0x01 << en_data[parameter.select_idx]);
 
@@ -1197,9 +1198,9 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Level(ch, vpp / 2);
             }
 
-            MyLib.Delay1ms(500);
-            InsControl._oscilloscope.CHx_Offset(ch, vpp / 2);
-            MyLib.Delay1ms(500);
+            //MyLib.Delay1ms(500);
+            //InsControl._oscilloscope.CHx_Offset(ch, vpp / 2);
+            //MyLib.Delay1ms(500);
 
             double res = InsControl._oscilloscope.doQueryNumber(string.Format("CH{0}:SCAle?", ch));
             if (res >= 0.1)
