@@ -23,7 +23,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.15";
+        string win_name = "VIDIO v1.16";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -219,9 +219,9 @@ namespace SoftStartTiming
                     criteria_container.lpm_en = false;
 
                 if ((string)dataGridView1[2, i].Value != "NA") // time judge enable
-                    criteria_container.time_jd = true;
-                else
                     criteria_container.time_jd = false;
+                else
+                    criteria_container.time_jd = true;
 
 
 
