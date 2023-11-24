@@ -240,6 +240,10 @@ namespace SoftStartTiming
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
 
+            test_parameter.dly1_sel = cbox_dly1.SelectedIndex + 1;
+            test_parameter.dly2_sel = cbox_dly2.SelectedIndex + 1;
+            test_parameter.dly3_sel = cbox_dly3.SelectedIndex + 1;
+
             for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
@@ -808,6 +812,10 @@ namespace SoftStartTiming
             settings += "26.Unit=$" + (RBUs.Checked ? "1" : "0") + "$\r\n";
             settings += "27.Time_offset=$" + nuOffset.Value.ToString() + "$\r\n";
 
+            settings += "dly1_sel=$" + cbox_dly1.SelectedIndex + "$\r\n";
+            settings += "dly2_sel=$" + cbox_dly2.SelectedIndex + "$\r\n";
+            settings += "dly3_sel=$" + cbox_dly3.SelectedIndex + "$\r\n";
+
 
             settings += "28.i2c_setting_row=$" + i2c_datagrid.RowCount + "$\r\n";
             settings += "29.i2c_mpt_setting_row=$" + i2c_mtp_datagrid.RowCount + "$\r\n";
@@ -849,7 +857,7 @@ namespace SoftStartTiming
                 tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
-                RBUs, nuOffset, i2c_datagrid, i2c_mtp_datagrid
+                RBUs, nuOffset, cbox_dly1, cbox_dly2, cbox_dly3, i2c_datagrid, i2c_mtp_datagrid
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
