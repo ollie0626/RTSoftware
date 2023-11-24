@@ -2245,6 +2245,7 @@ Module Module_ATE
 
                             reg_write_multi(ID, addr, data, device_sel)
 
+
                             'data = Val("&H" & Mid(test(1), 4, 2))
                             'reg_write(ID, addr, data)
 
