@@ -80,7 +80,7 @@ namespace SoftStartTiming
             {
                 if (test_parameter.scope_en[i])
                 {
-                    InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0]);
+                    InsControl._tek_scope.CHx_Level(i + 2, 1.5);
                 }
             }
 
@@ -236,14 +236,14 @@ namespace SoftStartTiming
 
             if (InsControl._tek_scope_en) MyLib.Delay1s(1);
 
-            for (int i = 0; i < test_parameter.scope_en.Length; i++)
-            {
-                if (test_parameter.scope_en[i])
-                {
-                    InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] / 2);
-                    InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
-                }
-            }
+            //for (int i = 0; i < test_parameter.scope_en.Length; i++)
+            //{
+            //    if (test_parameter.scope_en[i])
+            //    {
+            //        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] / 2);
+            //        InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
+            //    }
+            //}
             MyLib.Delay1ms(900);
 
             LevelEvent();

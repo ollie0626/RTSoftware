@@ -55,11 +55,9 @@ namespace SoftStartTiming
             this.RBUs = new System.Windows.Forms.RadioButton();
             this.BTSelectBinPath4 = new System.Windows.Forms.Button();
             this.tbBin4 = new System.Windows.Forms.TextBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.CkBin2 = new System.Windows.Forms.CheckBox();
             this.CkBin3 = new System.Windows.Forms.CheckBox();
             this.CkBin1 = new System.Windows.Forms.CheckBox();
-            this.group_channel = new System.Windows.Forms.GroupBox();
             this.nu_ch4_level = new System.Windows.Forms.NumericUpDown();
             this.nu_ch3_level = new System.Windows.Forms.NumericUpDown();
             this.CkCH2 = new System.Windows.Forms.CheckBox();
@@ -113,10 +111,9 @@ namespace SoftStartTiming
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.cbox_dly1 = new System.Windows.Forms.ComboBox();
-            this.cbox_dly3 = new System.Windows.Forms.ComboBox();
-            this.cbox_dly2 = new System.Windows.Forms.ComboBox();
+            this.cbox_dly1_to = new System.Windows.Forms.ComboBox();
+            this.cbox_dly3_to = new System.Windows.Forms.ComboBox();
+            this.cbox_dly2_to = new System.Windows.Forms.ComboBox();
             this.tb_connect4 = new System.Windows.Forms.TextBox();
             this.tb_connect3 = new System.Windows.Forms.TextBox();
             this.tb_connect2 = new System.Windows.Forms.TextBox();
@@ -162,6 +159,38 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
+            this.cbox_dly1_from = new System.Windows.Forms.ComboBox();
+            this.cbox_dly3_from = new System.Windows.Forms.ComboBox();
+            this.cbox_dly2_from = new System.Windows.Forms.ComboBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            this.label29 = new System.Windows.Forms.Label();
+            this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
+            this.numericUpDown5 = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.numericUpDown6 = new System.Windows.Forms.NumericUpDown();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.textBox13 = new System.Windows.Forms.TextBox();
+            this.textBox14 = new System.Windows.Forms.TextBox();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label36 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -170,8 +199,6 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuLX)).BeginInit();
             this.groupBox6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).BeginInit();
-            this.groupBox5.SuspendLayout();
-            this.group_channel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
@@ -197,6 +224,14 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -207,43 +242,25 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(18, 309);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(816, 438);
+            this.tabControl1.Size = new System.Drawing.Size(860, 438);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.CkBin3);
+            this.tabPage2.Controls.Add(this.CkBin2);
+            this.tabPage2.Controls.Add(this.panel3);
             this.tabPage2.Controls.Add(this.CBEdge);
-            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.CkBin1);
             this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath6);
-            this.tabPage2.Controls.Add(this.group_sst);
-            this.tabPage2.Controls.Add(this.tbBin6);
-            this.tabPage2.Controls.Add(this.CBGPIO);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath5);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.tbBin5);
             this.tabPage2.Controls.Add(this.groupBox6);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath4);
-            this.tabPage2.Controls.Add(this.tbBin4);
-            this.tabPage2.Controls.Add(this.groupBox5);
-            this.tabPage2.Controls.Add(this.group_channel);
-            this.tabPage2.Controls.Add(this.label5);
-            this.tabPage2.Controls.Add(this.CbTrigger);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath3);
-            this.tabPage2.Controls.Add(this.tbBin3);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath2);
-            this.tabPage2.Controls.Add(this.tbBin2);
             this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Controls.Add(this.BTSelectBinPath);
-            this.tabPage2.Controls.Add(this.tbBin);
-            this.tabPage2.Controls.Add(this.tbWave);
-            this.tabPage2.Controls.Add(this.BTSelectWavePath);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(808, 412);
+            this.tabPage2.Size = new System.Drawing.Size(852, 412);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Page";
             // 
@@ -253,7 +270,7 @@ namespace SoftStartTiming
             this.CBEdge.Items.AddRange(new object[] {
             "Rising edge",
             "Falling edge"});
-            this.CBEdge.Location = new System.Drawing.Point(399, 92);
+            this.CBEdge.Location = new System.Drawing.Point(396, 208);
             this.CBEdge.Name = "CBEdge";
             this.CBEdge.Size = new System.Drawing.Size(140, 20);
             this.CBEdge.TabIndex = 90;
@@ -261,7 +278,7 @@ namespace SoftStartTiming
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(314, 95);
+            this.label16.Location = new System.Drawing.Point(312, 93);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(81, 12);
             this.label16.TabIndex = 89;
@@ -274,7 +291,7 @@ namespace SoftStartTiming
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(545, 149);
+            this.groupBox2.Location = new System.Drawing.Point(580, 149);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -304,7 +321,7 @@ namespace SoftStartTiming
             // 
             // BTSelectBinPath6
             // 
-            this.BTSelectBinPath6.Location = new System.Drawing.Point(6, 226);
+            this.BTSelectBinPath6.Location = new System.Drawing.Point(4, 228);
             this.BTSelectBinPath6.Name = "BTSelectBinPath6";
             this.BTSelectBinPath6.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath6.TabIndex = 85;
@@ -318,9 +335,9 @@ namespace SoftStartTiming
             this.group_sst.Controls.Add(this.nuLX);
             this.group_sst.Controls.Add(this.label13);
             this.group_sst.Controls.Add(this.label12);
-            this.group_sst.Location = new System.Drawing.Point(344, 274);
+            this.group_sst.Location = new System.Drawing.Point(261, 141);
             this.group_sst.Name = "group_sst";
-            this.group_sst.Size = new System.Drawing.Size(195, 116);
+            this.group_sst.Size = new System.Drawing.Size(195, 81);
             this.group_sst.TabIndex = 83;
             this.group_sst.TabStop = false;
             this.group_sst.Text = "Soft-Start CH Config";
@@ -370,7 +387,7 @@ namespace SoftStartTiming
             // tbBin6
             // 
             this.tbBin6.Enabled = false;
-            this.tbBin6.Location = new System.Drawing.Point(114, 226);
+            this.tbBin6.Location = new System.Drawing.Point(112, 228);
             this.tbBin6.Name = "tbBin6";
             this.tbBin6.Size = new System.Drawing.Size(425, 22);
             this.tbBin6.TabIndex = 84;
@@ -382,14 +399,14 @@ namespace SoftStartTiming
             "P2.0",
             "P2.1",
             "P2.2"});
-            this.CBGPIO.Location = new System.Drawing.Point(114, 144);
+            this.CBGPIO.Location = new System.Drawing.Point(112, 146);
             this.CBGPIO.Name = "CBGPIO";
             this.CBGPIO.Size = new System.Drawing.Size(62, 20);
             this.CBGPIO.TabIndex = 86;
             // 
             // BTSelectBinPath5
             // 
-            this.BTSelectBinPath5.Location = new System.Drawing.Point(6, 198);
+            this.BTSelectBinPath5.Location = new System.Drawing.Point(4, 200);
             this.BTSelectBinPath5.Name = "BTSelectBinPath5";
             this.BTSelectBinPath5.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath5.TabIndex = 83;
@@ -400,7 +417,7 @@ namespace SoftStartTiming
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(31, 147);
+            this.label7.Location = new System.Drawing.Point(29, 149);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 12);
             this.label7.TabIndex = 85;
@@ -409,7 +426,7 @@ namespace SoftStartTiming
             // tbBin5
             // 
             this.tbBin5.Enabled = false;
-            this.tbBin5.Location = new System.Drawing.Point(114, 198);
+            this.tbBin5.Location = new System.Drawing.Point(112, 200);
             this.tbBin5.Name = "tbBin5";
             this.tbBin5.Size = new System.Drawing.Size(425, 22);
             this.tbBin5.TabIndex = 82;
@@ -420,7 +437,7 @@ namespace SoftStartTiming
             this.groupBox6.Controls.Add(this.RBMs);
             this.groupBox6.Controls.Add(this.label6);
             this.groupBox6.Controls.Add(this.RBUs);
-            this.groupBox6.Location = new System.Drawing.Point(545, 226);
+            this.groupBox6.Location = new System.Drawing.Point(580, 226);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(257, 107);
             this.groupBox6.TabIndex = 84;
@@ -474,7 +491,7 @@ namespace SoftStartTiming
             // 
             // BTSelectBinPath4
             // 
-            this.BTSelectBinPath4.Location = new System.Drawing.Point(6, 170);
+            this.BTSelectBinPath4.Location = new System.Drawing.Point(4, 172);
             this.BTSelectBinPath4.Name = "BTSelectBinPath4";
             this.BTSelectBinPath4.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath4.TabIndex = 81;
@@ -485,29 +502,17 @@ namespace SoftStartTiming
             // tbBin4
             // 
             this.tbBin4.Enabled = false;
-            this.tbBin4.Location = new System.Drawing.Point(114, 170);
+            this.tbBin4.Location = new System.Drawing.Point(112, 172);
             this.tbBin4.Name = "tbBin4";
             this.tbBin4.Size = new System.Drawing.Size(425, 22);
             this.tbBin4.TabIndex = 80;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.CkBin2);
-            this.groupBox5.Controls.Add(this.CkBin3);
-            this.groupBox5.Controls.Add(this.CkBin1);
-            this.groupBox5.Location = new System.Drawing.Point(15, 274);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(117, 116);
-            this.groupBox5.TabIndex = 83;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "I2C Setting En";
             // 
             // CkBin2
             // 
             this.CkBin2.AutoSize = true;
             this.CkBin2.Checked = true;
             this.CkBin2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkBin2.Location = new System.Drawing.Point(7, 54);
+            this.CkBin2.Location = new System.Drawing.Point(108, 8);
             this.CkBin2.Name = "CkBin2";
             this.CkBin2.Size = new System.Drawing.Size(91, 16);
             this.CkBin2.TabIndex = 2;
@@ -517,7 +522,7 @@ namespace SoftStartTiming
             // CkBin3
             // 
             this.CkBin3.AutoSize = true;
-            this.CkBin3.Location = new System.Drawing.Point(7, 87);
+            this.CkBin3.Location = new System.Drawing.Point(205, 8);
             this.CkBin3.Name = "CkBin3";
             this.CkBin3.Size = new System.Drawing.Size(91, 16);
             this.CkBin3.TabIndex = 1;
@@ -529,31 +534,16 @@ namespace SoftStartTiming
             this.CkBin1.AutoSize = true;
             this.CkBin1.Checked = true;
             this.CkBin1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkBin1.Location = new System.Drawing.Point(7, 21);
+            this.CkBin1.Location = new System.Drawing.Point(11, 8);
             this.CkBin1.Name = "CkBin1";
             this.CkBin1.Size = new System.Drawing.Size(91, 16);
             this.CkBin1.TabIndex = 0;
             this.CkBin1.Text = "Bin1 Folder";
             this.CkBin1.UseVisualStyleBackColor = true;
             // 
-            // group_channel
-            // 
-            this.group_channel.Controls.Add(this.nu_ch4_level);
-            this.group_channel.Controls.Add(this.nu_ch3_level);
-            this.group_channel.Controls.Add(this.CkCH2);
-            this.group_channel.Controls.Add(this.nu_ch2_level);
-            this.group_channel.Controls.Add(this.CkCH3);
-            this.group_channel.Controls.Add(this.CkCH1);
-            this.group_channel.Location = new System.Drawing.Point(138, 274);
-            this.group_channel.Name = "group_channel";
-            this.group_channel.Size = new System.Drawing.Size(200, 116);
-            this.group_channel.TabIndex = 82;
-            this.group_channel.TabStop = false;
-            this.group_channel.Text = "Scope CH Enable";
-            // 
             // nu_ch4_level
             // 
-            this.nu_ch4_level.Location = new System.Drawing.Point(115, 81);
+            this.nu_ch4_level.Location = new System.Drawing.Point(576, 87);
             this.nu_ch4_level.Name = "nu_ch4_level";
             this.nu_ch4_level.Size = new System.Drawing.Size(55, 22);
             this.nu_ch4_level.TabIndex = 6;
@@ -565,7 +555,7 @@ namespace SoftStartTiming
             // 
             // nu_ch3_level
             // 
-            this.nu_ch3_level.Location = new System.Drawing.Point(115, 48);
+            this.nu_ch3_level.Location = new System.Drawing.Point(576, 60);
             this.nu_ch3_level.Name = "nu_ch3_level";
             this.nu_ch3_level.Size = new System.Drawing.Size(55, 22);
             this.nu_ch3_level.TabIndex = 5;
@@ -580,16 +570,15 @@ namespace SoftStartTiming
             this.CkCH2.AutoSize = true;
             this.CkCH2.Checked = true;
             this.CkCH2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkCH2.Location = new System.Drawing.Point(6, 54);
+            this.CkCH2.Location = new System.Drawing.Point(8, 63);
             this.CkCH2.Name = "CkCH2";
-            this.CkCH2.Size = new System.Drawing.Size(102, 16);
+            this.CkCH2.Size = new System.Drawing.Size(15, 14);
             this.CkCH2.TabIndex = 2;
-            this.CkCH2.Text = "CK_Channel3";
             this.CkCH2.UseVisualStyleBackColor = true;
             // 
             // nu_ch2_level
             // 
-            this.nu_ch2_level.Location = new System.Drawing.Point(115, 20);
+            this.nu_ch2_level.Location = new System.Drawing.Point(576, 32);
             this.nu_ch2_level.Name = "nu_ch2_level";
             this.nu_ch2_level.Size = new System.Drawing.Size(55, 22);
             this.nu_ch2_level.TabIndex = 4;
@@ -602,11 +591,10 @@ namespace SoftStartTiming
             // CkCH3
             // 
             this.CkCH3.AutoSize = true;
-            this.CkCH3.Location = new System.Drawing.Point(7, 87);
+            this.CkCH3.Location = new System.Drawing.Point(8, 91);
             this.CkCH3.Name = "CkCH3";
-            this.CkCH3.Size = new System.Drawing.Size(102, 16);
+            this.CkCH3.Size = new System.Drawing.Size(15, 14);
             this.CkCH3.TabIndex = 1;
-            this.CkCH3.Text = "CK_Channel4";
             this.CkCH3.UseVisualStyleBackColor = true;
             // 
             // CkCH1
@@ -614,17 +602,16 @@ namespace SoftStartTiming
             this.CkCH1.AutoSize = true;
             this.CkCH1.Checked = true;
             this.CkCH1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkCH1.Location = new System.Drawing.Point(7, 21);
+            this.CkCH1.Location = new System.Drawing.Point(8, 35);
             this.CkCH1.Name = "CkCH1";
-            this.CkCH1.Size = new System.Drawing.Size(102, 16);
+            this.CkCH1.Size = new System.Drawing.Size(15, 14);
             this.CkCH1.TabIndex = 0;
-            this.CkCH1.Text = "CK_Channel2";
             this.CkCH1.UseVisualStyleBackColor = true;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 95);
+            this.label5.Location = new System.Drawing.Point(23, 97);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 12);
             this.label5.TabIndex = 81;
@@ -637,7 +624,7 @@ namespace SoftStartTiming
             "0 : GPIO (PWRDIS / Sleep)",
             "1 : I2C",
             "2 : Vin (Power supply)"});
-            this.CbTrigger.Location = new System.Drawing.Point(114, 92);
+            this.CbTrigger.Location = new System.Drawing.Point(112, 94);
             this.CbTrigger.Name = "CbTrigger";
             this.CbTrigger.Size = new System.Drawing.Size(194, 20);
             this.CbTrigger.TabIndex = 80;
@@ -645,7 +632,7 @@ namespace SoftStartTiming
             // 
             // BTSelectBinPath3
             // 
-            this.BTSelectBinPath3.Location = new System.Drawing.Point(6, 62);
+            this.BTSelectBinPath3.Location = new System.Drawing.Point(4, 64);
             this.BTSelectBinPath3.Name = "BTSelectBinPath3";
             this.BTSelectBinPath3.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath3.TabIndex = 79;
@@ -655,14 +642,14 @@ namespace SoftStartTiming
             // 
             // tbBin3
             // 
-            this.tbBin3.Location = new System.Drawing.Point(114, 62);
+            this.tbBin3.Location = new System.Drawing.Point(112, 64);
             this.tbBin3.Name = "tbBin3";
             this.tbBin3.Size = new System.Drawing.Size(425, 22);
             this.tbBin3.TabIndex = 78;
             // 
             // BTSelectBinPath2
             // 
-            this.BTSelectBinPath2.Location = new System.Drawing.Point(6, 34);
+            this.BTSelectBinPath2.Location = new System.Drawing.Point(4, 36);
             this.BTSelectBinPath2.Name = "BTSelectBinPath2";
             this.BTSelectBinPath2.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath2.TabIndex = 77;
@@ -672,7 +659,7 @@ namespace SoftStartTiming
             // 
             // tbBin2
             // 
-            this.tbBin2.Location = new System.Drawing.Point(114, 34);
+            this.tbBin2.Location = new System.Drawing.Point(112, 36);
             this.tbBin2.Name = "tbBin2";
             this.tbBin2.Size = new System.Drawing.Size(425, 22);
             this.tbBin2.TabIndex = 76;
@@ -683,7 +670,7 @@ namespace SoftStartTiming
             this.groupBox4.Controls.Add(this.nu_offtime_scale);
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Controls.Add(this.nu_ontime_scale);
-            this.groupBox4.Location = new System.Drawing.Point(545, 6);
+            this.groupBox4.Location = new System.Drawing.Point(580, 6);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(257, 81);
             this.groupBox4.TabIndex = 75;
@@ -742,7 +729,7 @@ namespace SoftStartTiming
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(545, 92);
+            this.groupBox1.Location = new System.Drawing.Point(580, 92);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -761,7 +748,7 @@ namespace SoftStartTiming
             // 
             // BTSelectBinPath
             // 
-            this.BTSelectBinPath.Location = new System.Drawing.Point(6, 6);
+            this.BTSelectBinPath.Location = new System.Drawing.Point(4, 8);
             this.BTSelectBinPath.Name = "BTSelectBinPath";
             this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
             this.BTSelectBinPath.TabIndex = 53;
@@ -771,7 +758,7 @@ namespace SoftStartTiming
             // 
             // tbBin
             // 
-            this.tbBin.Location = new System.Drawing.Point(114, 6);
+            this.tbBin.Location = new System.Drawing.Point(112, 8);
             this.tbBin.Name = "tbBin";
             this.tbBin.Size = new System.Drawing.Size(425, 22);
             this.tbBin.TabIndex = 50;
@@ -779,7 +766,7 @@ namespace SoftStartTiming
             // 
             // tbWave
             // 
-            this.tbWave.Location = new System.Drawing.Point(114, 116);
+            this.tbWave.Location = new System.Drawing.Point(112, 118);
             this.tbWave.Name = "tbWave";
             this.tbWave.Size = new System.Drawing.Size(298, 22);
             this.tbWave.TabIndex = 52;
@@ -787,7 +774,7 @@ namespace SoftStartTiming
             // 
             // BTSelectWavePath
             // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 114);
+            this.BTSelectWavePath.Location = new System.Drawing.Point(4, 116);
             this.BTSelectWavePath.Name = "BTSelectWavePath";
             this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
             this.BTSelectWavePath.TabIndex = 55;
@@ -809,7 +796,7 @@ namespace SoftStartTiming
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(808, 412);
+            this.tabPage3.Size = new System.Drawing.Size(852, 412);
             this.tabPage3.TabIndex = 3;
             this.tabPage3.Text = "I2C Setting";
             // 
@@ -1088,40 +1075,69 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage1.Controls.Add(this.textBox9);
+            this.tabPage1.Controls.Add(this.panel2);
             this.tabPage1.Controls.Add(this.panel1);
-            this.tabPage1.Controls.Add(this.tb_connect4);
-            this.tabPage1.Controls.Add(this.tb_connect3);
-            this.tabPage1.Controls.Add(this.tb_connect2);
-            this.tabPage1.Controls.Add(this.tb_connect1);
-            this.tabPage1.Controls.Add(this.textBox4);
-            this.tabPage1.Controls.Add(this.textBox3);
-            this.tabPage1.Controls.Add(this.textBox2);
-            this.tabPage1.Controls.Add(this.textBox1);
+            this.tabPage1.Controls.Add(this.group_sst);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(808, 412);
+            this.tabPage1.Size = new System.Drawing.Size(852, 412);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Scope";
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.label25);
-            this.panel1.Controls.Add(this.label24);
-            this.panel1.Controls.Add(this.label23);
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label36);
+            this.panel1.Controls.Add(this.label35);
             this.panel1.Controls.Add(this.label22);
-            this.panel1.Controls.Add(this.cbox_dly1);
-            this.panel1.Controls.Add(this.cbox_dly3);
-            this.panel1.Controls.Add(this.cbox_dly2);
-            this.panel1.Location = new System.Drawing.Point(228, 6);
+            this.panel1.Controls.Add(this.nu_ch4_level);
+            this.panel1.Controls.Add(this.textBox14);
+            this.panel1.Controls.Add(this.nu_ch3_level);
+            this.panel1.Controls.Add(this.textBox13);
+            this.panel1.Controls.Add(this.nu_ch2_level);
+            this.panel1.Controls.Add(this.textBox12);
+            this.panel1.Controls.Add(this.label32);
+            this.panel1.Controls.Add(this.textBox11);
+            this.panel1.Controls.Add(this.label26);
+            this.panel1.Controls.Add(this.textBox7);
+            this.panel1.Controls.Add(this.numericUpDown4);
+            this.panel1.Controls.Add(this.textBox6);
+            this.panel1.Controls.Add(this.label29);
+            this.panel1.Controls.Add(this.CkCH2);
+            this.panel1.Controls.Add(this.label31);
+            this.panel1.Controls.Add(this.textBox5);
+            this.panel1.Controls.Add(this.numericUpDown1);
+            this.panel1.Controls.Add(this.numericUpDown5);
+            this.panel1.Controls.Add(this.cbox_dly1_from);
+            this.panel1.Controls.Add(this.label27);
+            this.panel1.Controls.Add(this.CkCH3);
+            this.panel1.Controls.Add(this.cbox_dly3_from);
+            this.panel1.Controls.Add(this.label28);
+            this.panel1.Controls.Add(this.CkCH1);
+            this.panel1.Controls.Add(this.cbox_dly2_from);
+            this.panel1.Controls.Add(this.label30);
+            this.panel1.Controls.Add(this.label25);
+            this.panel1.Controls.Add(this.label33);
+            this.panel1.Controls.Add(this.label24);
+            this.panel1.Controls.Add(this.numericUpDown6);
+            this.panel1.Controls.Add(this.label23);
+            this.panel1.Controls.Add(this.numericUpDown2);
+            this.panel1.Controls.Add(this.cbox_dly1_to);
+            this.panel1.Controls.Add(this.numericUpDown3);
+            this.panel1.Controls.Add(this.cbox_dly3_to);
+            this.panel1.Controls.Add(this.label34);
+            this.panel1.Controls.Add(this.cbox_dly2_to);
+            this.panel1.Location = new System.Drawing.Point(18, 16);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(184, 131);
+            this.panel1.Size = new System.Drawing.Size(664, 119);
             this.panel1.TabIndex = 11;
             // 
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(16, 97);
+            this.label25.Location = new System.Drawing.Point(263, 91);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 12);
             this.label25.TabIndex = 14;
@@ -1130,7 +1146,7 @@ namespace SoftStartTiming
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(16, 69);
+            this.label24.Location = new System.Drawing.Point(263, 63);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(18, 12);
             this.label24.TabIndex = 13;
@@ -1139,64 +1155,55 @@ namespace SoftStartTiming
             // label23
             // 
             this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(16, 41);
+            this.label23.Location = new System.Drawing.Point(263, 35);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(18, 12);
             this.label23.TabIndex = 12;
             this.label23.Text = "→";
             // 
-            // label22
+            // cbox_dly1_to
             // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(6, 10);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(108, 12);
-            this.label22.TabIndex = 11;
-            this.label22.Text = "Delay time Setting";
-            // 
-            // cbox_dly1
-            // 
-            this.cbox_dly1.FormattingEnabled = true;
-            this.cbox_dly1.Items.AddRange(new object[] {
+            this.cbox_dly1_to.FormattingEnabled = true;
+            this.cbox_dly1_to.Items.AddRange(new object[] {
             "CH1",
             "CH2",
             "CH3",
             "CH4"});
-            this.cbox_dly1.Location = new System.Drawing.Point(44, 38);
-            this.cbox_dly1.Name = "cbox_dly1";
-            this.cbox_dly1.Size = new System.Drawing.Size(107, 20);
-            this.cbox_dly1.TabIndex = 8;
+            this.cbox_dly1_to.Location = new System.Drawing.Point(286, 32);
+            this.cbox_dly1_to.Name = "cbox_dly1_to";
+            this.cbox_dly1_to.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly1_to.TabIndex = 8;
             // 
-            // cbox_dly3
+            // cbox_dly3_to
             // 
-            this.cbox_dly3.FormattingEnabled = true;
-            this.cbox_dly3.Items.AddRange(new object[] {
+            this.cbox_dly3_to.FormattingEnabled = true;
+            this.cbox_dly3_to.Items.AddRange(new object[] {
             "CH1",
             "CH2",
             "CH3",
             "CH4"});
-            this.cbox_dly3.Location = new System.Drawing.Point(45, 94);
-            this.cbox_dly3.Name = "cbox_dly3";
-            this.cbox_dly3.Size = new System.Drawing.Size(107, 20);
-            this.cbox_dly3.TabIndex = 10;
+            this.cbox_dly3_to.Location = new System.Drawing.Point(287, 88);
+            this.cbox_dly3_to.Name = "cbox_dly3_to";
+            this.cbox_dly3_to.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly3_to.TabIndex = 10;
             // 
-            // cbox_dly2
+            // cbox_dly2_to
             // 
-            this.cbox_dly2.FormattingEnabled = true;
-            this.cbox_dly2.Items.AddRange(new object[] {
+            this.cbox_dly2_to.FormattingEnabled = true;
+            this.cbox_dly2_to.Items.AddRange(new object[] {
             "CH1",
             "CH2",
             "CH3",
             "CH4"});
-            this.cbox_dly2.Location = new System.Drawing.Point(45, 66);
-            this.cbox_dly2.Name = "cbox_dly2";
-            this.cbox_dly2.Size = new System.Drawing.Size(107, 20);
-            this.cbox_dly2.TabIndex = 9;
+            this.cbox_dly2_to.Location = new System.Drawing.Point(287, 60);
+            this.cbox_dly2_to.Name = "cbox_dly2_to";
+            this.cbox_dly2_to.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly2_to.TabIndex = 9;
             // 
             // tb_connect4
             // 
             this.tb_connect4.Enabled = false;
-            this.tb_connect4.Location = new System.Drawing.Point(76, 100);
+            this.tb_connect4.Location = new System.Drawing.Point(70, 114);
             this.tb_connect4.Name = "tb_connect4";
             this.tb_connect4.Size = new System.Drawing.Size(146, 22);
             this.tb_connect4.TabIndex = 7;
@@ -1206,7 +1213,7 @@ namespace SoftStartTiming
             // tb_connect3
             // 
             this.tb_connect3.Enabled = false;
-            this.tb_connect3.Location = new System.Drawing.Point(76, 72);
+            this.tb_connect3.Location = new System.Drawing.Point(70, 86);
             this.tb_connect3.Name = "tb_connect3";
             this.tb_connect3.Size = new System.Drawing.Size(146, 22);
             this.tb_connect3.TabIndex = 6;
@@ -1216,7 +1223,7 @@ namespace SoftStartTiming
             // tb_connect2
             // 
             this.tb_connect2.Enabled = false;
-            this.tb_connect2.Location = new System.Drawing.Point(76, 44);
+            this.tb_connect2.Location = new System.Drawing.Point(70, 58);
             this.tb_connect2.Name = "tb_connect2";
             this.tb_connect2.Size = new System.Drawing.Size(146, 22);
             this.tb_connect2.TabIndex = 5;
@@ -1226,7 +1233,7 @@ namespace SoftStartTiming
             // tb_connect1
             // 
             this.tb_connect1.Enabled = false;
-            this.tb_connect1.Location = new System.Drawing.Point(76, 16);
+            this.tb_connect1.Location = new System.Drawing.Point(70, 30);
             this.tb_connect1.Name = "tb_connect1";
             this.tb_connect1.Size = new System.Drawing.Size(146, 22);
             this.tb_connect1.TabIndex = 4;
@@ -1236,7 +1243,7 @@ namespace SoftStartTiming
             // textBox4
             // 
             this.textBox4.Enabled = false;
-            this.textBox4.Location = new System.Drawing.Point(18, 100);
+            this.textBox4.Location = new System.Drawing.Point(12, 114);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(52, 22);
             this.textBox4.TabIndex = 3;
@@ -1246,7 +1253,7 @@ namespace SoftStartTiming
             // textBox3
             // 
             this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(18, 72);
+            this.textBox3.Location = new System.Drawing.Point(12, 86);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(52, 22);
             this.textBox3.TabIndex = 2;
@@ -1256,7 +1263,7 @@ namespace SoftStartTiming
             // textBox2
             // 
             this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(18, 44);
+            this.textBox2.Location = new System.Drawing.Point(12, 58);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(52, 22);
             this.textBox2.TabIndex = 1;
@@ -1266,7 +1273,7 @@ namespace SoftStartTiming
             // textBox1
             // 
             this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(18, 16);
+            this.textBox1.Location = new System.Drawing.Point(12, 30);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(52, 22);
             this.textBox1.TabIndex = 0;
@@ -1275,7 +1282,7 @@ namespace SoftStartTiming
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(313, 753);
+            this.button1.Location = new System.Drawing.Point(362, 753);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 32);
             this.button1.TabIndex = 66;
@@ -1516,7 +1523,7 @@ namespace SoftStartTiming
             // 
             // BTRun
             // 
-            this.BTRun.Location = new System.Drawing.Point(588, 753);
+            this.BTRun.Location = new System.Drawing.Point(637, 753);
             this.BTRun.Name = "BTRun";
             this.BTRun.Size = new System.Drawing.Size(75, 32);
             this.BTRun.TabIndex = 63;
@@ -1526,7 +1533,7 @@ namespace SoftStartTiming
             // 
             // BTStop
             // 
-            this.BTStop.Location = new System.Drawing.Point(750, 753);
+            this.BTStop.Location = new System.Drawing.Point(799, 753);
             this.BTStop.Name = "BTStop";
             this.BTStop.Size = new System.Drawing.Size(75, 32);
             this.BTStop.TabIndex = 64;
@@ -1536,7 +1543,7 @@ namespace SoftStartTiming
             // 
             // BTPause
             // 
-            this.BTPause.Location = new System.Drawing.Point(669, 753);
+            this.BTPause.Location = new System.Drawing.Point(718, 753);
             this.BTPause.Name = "BTPause";
             this.BTPause.Size = new System.Drawing.Size(75, 32);
             this.BTPause.TabIndex = 65;
@@ -1547,7 +1554,7 @@ namespace SoftStartTiming
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(404, 763);
+            this.label8.Location = new System.Drawing.Point(453, 763);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(76, 12);
             this.label8.TabIndex = 66;
@@ -1555,7 +1562,7 @@ namespace SoftStartTiming
             // 
             // nuCriteria
             // 
-            this.nuCriteria.Location = new System.Drawing.Point(486, 758);
+            this.nuCriteria.Location = new System.Drawing.Point(535, 758);
             this.nuCriteria.Name = "nuCriteria";
             this.nuCriteria.Size = new System.Drawing.Size(78, 22);
             this.nuCriteria.TabIndex = 67;
@@ -1646,12 +1653,371 @@ namespace SoftStartTiming
             this.CBItem.TabIndex = 75;
             this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
+            // cbox_dly1_from
+            // 
+            this.cbox_dly1_from.FormattingEnabled = true;
+            this.cbox_dly1_from.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly1_from.Location = new System.Drawing.Point(153, 32);
+            this.cbox_dly1_from.Name = "cbox_dly1_from";
+            this.cbox_dly1_from.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly1_from.TabIndex = 15;
+            // 
+            // cbox_dly3_from
+            // 
+            this.cbox_dly3_from.FormattingEnabled = true;
+            this.cbox_dly3_from.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly3_from.Location = new System.Drawing.Point(154, 88);
+            this.cbox_dly3_from.Name = "cbox_dly3_from";
+            this.cbox_dly3_from.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly3_from.TabIndex = 17;
+            // 
+            // cbox_dly2_from
+            // 
+            this.cbox_dly2_from.FormattingEnabled = true;
+            this.cbox_dly2_from.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_dly2_from.Location = new System.Drawing.Point(154, 60);
+            this.cbox_dly2_from.Name = "cbox_dly2_from";
+            this.cbox_dly2_from.Size = new System.Drawing.Size(107, 20);
+            this.cbox_dly2_from.TabIndex = 16;
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox5.Location = new System.Drawing.Point(31, 32);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ReadOnly = true;
+            this.textBox5.Size = new System.Drawing.Size(111, 22);
+            this.textBox5.TabIndex = 76;
+            this.textBox5.Text = "Seq0/Dly0";
+            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox6
+            // 
+            this.textBox6.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox6.Location = new System.Drawing.Point(31, 60);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ReadOnly = true;
+            this.textBox6.Size = new System.Drawing.Size(111, 22);
+            this.textBox6.TabIndex = 77;
+            this.textBox6.Text = "Seq1/Dly1";
+            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox7
+            // 
+            this.textBox7.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox7.Location = new System.Drawing.Point(31, 86);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ReadOnly = true;
+            this.textBox7.Size = new System.Drawing.Size(111, 22);
+            this.textBox7.TabIndex = 78;
+            this.textBox7.Text = "Seq2/Dly2";
+            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.Location = new System.Drawing.Point(399, 32);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown1.TabIndex = 80;
+            this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(455, 36);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(15, 12);
+            this.label26.TabIndex = 81;
+            this.label26.Text = "%";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(473, 35);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(18, 12);
+            this.label27.TabIndex = 82;
+            this.label27.Text = "→";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(553, 36);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(15, 12);
+            this.label28.TabIndex = 84;
+            this.label28.Text = "%";
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.Location = new System.Drawing.Point(496, 32);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown2.TabIndex = 83;
+            this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(553, 64);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(15, 12);
+            this.label29.TabIndex = 90;
+            this.label29.Text = "%";
+            // 
+            // numericUpDown3
+            // 
+            this.numericUpDown3.Location = new System.Drawing.Point(496, 60);
+            this.numericUpDown3.Name = "numericUpDown3";
+            this.numericUpDown3.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown3.TabIndex = 89;
+            this.numericUpDown3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(473, 63);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(18, 12);
+            this.label30.TabIndex = 88;
+            this.label30.Text = "→";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(455, 64);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(15, 12);
+            this.label31.TabIndex = 87;
+            this.label31.Text = "%";
+            // 
+            // numericUpDown4
+            // 
+            this.numericUpDown4.Location = new System.Drawing.Point(399, 60);
+            this.numericUpDown4.Name = "numericUpDown4";
+            this.numericUpDown4.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown4.TabIndex = 86;
+            this.numericUpDown4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(553, 92);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(15, 12);
+            this.label32.TabIndex = 90;
+            this.label32.Text = "%";
+            // 
+            // numericUpDown5
+            // 
+            this.numericUpDown5.Location = new System.Drawing.Point(496, 88);
+            this.numericUpDown5.Name = "numericUpDown5";
+            this.numericUpDown5.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown5.TabIndex = 89;
+            this.numericUpDown5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(473, 91);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(18, 12);
+            this.label33.TabIndex = 88;
+            this.label33.Text = "→";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(455, 92);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(15, 12);
+            this.label34.TabIndex = 87;
+            this.label34.Text = "%";
+            // 
+            // numericUpDown6
+            // 
+            this.numericUpDown6.Location = new System.Drawing.Point(399, 88);
+            this.numericUpDown6.Name = "numericUpDown6";
+            this.numericUpDown6.Size = new System.Drawing.Size(57, 22);
+            this.numericUpDown6.TabIndex = 86;
+            this.numericUpDown6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numericUpDown6.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // panel2
+            // 
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.textBox8);
+            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.tb_connect4);
+            this.panel2.Controls.Add(this.textBox3);
+            this.panel2.Controls.Add(this.tb_connect3);
+            this.panel2.Controls.Add(this.textBox4);
+            this.panel2.Controls.Add(this.tb_connect2);
+            this.panel2.Controls.Add(this.tb_connect1);
+            this.panel2.Location = new System.Drawing.Point(18, 141);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(237, 144);
+            this.panel2.TabIndex = 91;
+            // 
+            // textBox11
+            // 
+            this.textBox11.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox11.Enabled = false;
+            this.textBox11.Location = new System.Drawing.Point(153, 4);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ReadOnly = true;
+            this.textBox11.Size = new System.Drawing.Size(107, 22);
+            this.textBox11.TabIndex = 92;
+            this.textBox11.Text = "From";
+            this.textBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox12
+            // 
+            this.textBox12.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox12.Enabled = false;
+            this.textBox12.Location = new System.Drawing.Point(286, 4);
+            this.textBox12.Name = "textBox12";
+            this.textBox12.ReadOnly = true;
+            this.textBox12.Size = new System.Drawing.Size(107, 22);
+            this.textBox12.TabIndex = 93;
+            this.textBox12.Text = "End";
+            this.textBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox13
+            // 
+            this.textBox13.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox13.Enabled = false;
+            this.textBox13.Location = new System.Drawing.Point(31, 4);
+            this.textBox13.Name = "textBox13";
+            this.textBox13.ReadOnly = true;
+            this.textBox13.Size = new System.Drawing.Size(111, 22);
+            this.textBox13.TabIndex = 94;
+            this.textBox13.Text = "Number";
+            this.textBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox14
+            // 
+            this.textBox14.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox14.Enabled = false;
+            this.textBox14.Location = new System.Drawing.Point(399, 4);
+            this.textBox14.Name = "textBox14";
+            this.textBox14.ReadOnly = true;
+            this.textBox14.Size = new System.Drawing.Size(169, 22);
+            this.textBox14.TabIndex = 95;
+            this.textBox14.Text = "Position";
+            this.textBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // textBox8
+            // 
+            this.textBox8.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox8.Enabled = false;
+            this.textBox8.Location = new System.Drawing.Point(12, 3);
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ReadOnly = true;
+            this.textBox8.Size = new System.Drawing.Size(204, 22);
+            this.textBox8.TabIndex = 96;
+            this.textBox8.Text = "Connect";
+            this.textBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(637, 36);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(14, 12);
+            this.label22.TabIndex = 96;
+            this.label22.Text = "V";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(637, 62);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(14, 12);
+            this.label35.TabIndex = 97;
+            this.label35.Text = "V";
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(637, 89);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(14, 12);
+            this.label36.TabIndex = 98;
+            this.label36.Text = "V";
+            // 
+            // textBox9
+            // 
+            this.textBox9.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox9.Enabled = false;
+            this.textBox9.Location = new System.Drawing.Point(593, 21);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(77, 22);
+            this.textBox9.TabIndex = 99;
+            this.textBox9.Text = "Init Level";
+            this.textBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.BTSelectBinPath);
+            this.panel3.Controls.Add(this.BTSelectWavePath);
+            this.panel3.Controls.Add(this.label16);
+            this.panel3.Controls.Add(this.tbWave);
+            this.panel3.Controls.Add(this.tbBin);
+            this.panel3.Controls.Add(this.BTSelectBinPath6);
+            this.panel3.Controls.Add(this.tbBin2);
+            this.panel3.Controls.Add(this.tbBin6);
+            this.panel3.Controls.Add(this.BTSelectBinPath2);
+            this.panel3.Controls.Add(this.CBGPIO);
+            this.panel3.Controls.Add(this.tbBin3);
+            this.panel3.Controls.Add(this.BTSelectBinPath5);
+            this.panel3.Controls.Add(this.BTSelectBinPath3);
+            this.panel3.Controls.Add(this.label7);
+            this.panel3.Controls.Add(this.CbTrigger);
+            this.panel3.Controls.Add(this.tbBin5);
+            this.panel3.Controls.Add(this.label5);
+            this.panel3.Controls.Add(this.tbBin4);
+            this.panel3.Controls.Add(this.BTSelectBinPath4);
+            this.panel3.Location = new System.Drawing.Point(6, 31);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(553, 257);
+            this.panel3.TabIndex = 91;
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(849, 797);
+            this.ClientSize = new System.Drawing.Size(904, 797);
             this.Controls.Add(this.CBItem);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.button1);
@@ -1700,10 +2066,6 @@ namespace SoftStartTiming
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuOffset)).EndInit();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
-            this.group_channel.ResumeLayout(false);
-            this.group_channel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch4_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch3_level)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
@@ -1737,6 +2099,16 @@ namespace SoftStartTiming
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown6)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1790,11 +2162,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.TextBox tbBin3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox CbTrigger;
-        private System.Windows.Forms.GroupBox group_channel;
         private System.Windows.Forms.CheckBox CkCH2;
         private System.Windows.Forms.CheckBox CkCH3;
         private System.Windows.Forms.CheckBox CkCH1;
-        private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.CheckBox CkBin2;
         private System.Windows.Forms.CheckBox CkBin3;
         private System.Windows.Forms.CheckBox CkBin1;
@@ -1868,14 +2238,45 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_data_mtp;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.NumericUpDown nu_addr_mtp;
-        private System.Windows.Forms.ComboBox cbox_dly3;
-        private System.Windows.Forms.ComboBox cbox_dly2;
-        private System.Windows.Forms.ComboBox cbox_dly1;
+        private System.Windows.Forms.ComboBox cbox_dly3_to;
+        private System.Windows.Forms.ComboBox cbox_dly2_to;
+        private System.Windows.Forms.ComboBox cbox_dly1_to;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.ComboBox cbox_dly1_from;
+        private System.Windows.Forms.ComboBox cbox_dly3_from;
+        private System.Windows.Forms.ComboBox cbox_dly2_from;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.NumericUpDown numericUpDown5;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown numericUpDown3;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.NumericUpDown numericUpDown6;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.NumericUpDown numericUpDown4;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.TextBox textBox13;
+        private System.Windows.Forms.TextBox textBox14;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Panel panel3;
     }
 }
 
