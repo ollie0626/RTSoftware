@@ -145,9 +145,26 @@ namespace SoftStartTiming
         public static LTLab_parameter lt_lab = new LTLab_parameter();
 
         // delay time select
-        public static int dly1_sel;
-        public static int dly2_sel;
-        public static int dly3_sel;
+        //public static int dly1_sel;
+        //public static int dly2_sel;
+        //public static int dly3_sel;
+
+        public static int dly_start1;
+        public static int dly_start2;
+        public static int dly_start3;
+
+        public static int dly_end1;
+        public static int dly_end2;
+        public static int dly_end3;
+        
+
+        public static double dly1_from;
+        public static double dly2_from;
+        public static double dly3_from;
+
+        public static double dly1_end;
+        public static double dly2_end;
+        public static double dly3_end;
 
     }
 }

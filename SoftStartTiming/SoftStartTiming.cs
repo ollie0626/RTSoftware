@@ -240,9 +240,21 @@ namespace SoftStartTiming
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
 
-            test_parameter.dly1_sel = cbox_dly1_to.SelectedIndex + 1;
-            test_parameter.dly2_sel = cbox_dly2_to.SelectedIndex + 1;
-            test_parameter.dly3_sel = cbox_dly3_to.SelectedIndex + 1;
+            test_parameter.dly1_from = (double)nudly1_from.Value;
+            test_parameter.dly2_from = (double)nudly2_from.Value;
+            test_parameter.dly3_from = (double)nudly3_from.Value;
+
+            test_parameter.dly1_end = (double)nudly1_end.Value;
+            test_parameter.dly2_end = (double)nudly2_end.Value;
+            test_parameter.dly3_end = (double)nudly3_end.Value;
+
+            test_parameter.dly_start1 = cbox_dly1_to.SelectedIndex + 1;
+            test_parameter.dly_start2 = cbox_dly2_to.SelectedIndex + 1;
+            test_parameter.dly_start3 = cbox_dly3_to.SelectedIndex + 1;
+
+            test_parameter.dly_end1 = cbox_dly1_to.SelectedIndex + 1;
+            test_parameter.dly_end2 = cbox_dly2_to.SelectedIndex + 1;
+            test_parameter.dly_end3 = cbox_dly3_to.SelectedIndex + 1;
 
             for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
@@ -279,10 +291,9 @@ namespace SoftStartTiming
             // 
             test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? true : false;
 
-
-            test_parameter.ch2_level = (double)nu_ch2_level.Value;
-            test_parameter.ch3_level = (double)nu_ch3_level.Value;
-            test_parameter.ch4_level = (double)nu_ch4_level.Value;
+            test_parameter.ch2_level = (double)nu_ch1_level.Value;
+            test_parameter.ch3_level = (double)nu_ch2_level.Value;
+            test_parameter.ch4_level = (double)nu_ch3_level.Value;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -407,56 +418,6 @@ namespace SoftStartTiming
             Process p = new Process();
             p.StartInfo = psi;
             p.Start();
-
-            //InsControl._scope.SaveWaveform(@"D:\", "scope");
-            //OpenFileDialog opendlg = new OpenFileDialog();
-
-            //if (opendlg.ShowDialog() == DialogResult.OK)
-            //{
-
-            //    Excel.Application _app;
-            //    Excel.Worksheet _sheet;
-            //    Excel.Workbook _book;
-            //    Excel.Range _range;
-
-            //    _app = new Excel.Application();
-            //    _app.Visible = true;
-            //    _book = (Excel.Workbook)_app.Workbooks.Open(opendlg.FileName);
-            //    _sheet = (Excel.Worksheet)_book.ActiveSheet;
-            //    byte[] data = new byte[255];
-            //    for(int i = 1; i < 256; i++)
-            //    {
-            //        data[i - 1] = Convert.ToByte(_sheet.Cells[i, 2].Value, 16);
-            //    }
-            //    FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
-            //    BinaryWriter bwr = new BinaryWriter(myFile);
-            //    bwr.Write(data, 0, data.Length);
-            //    myFile.Close();
-
-
-            //    //string file_name = opendlg.FileName;
-            //    //StreamReader sr = new StreamReader(file_name);
-            //    //string line;
-            //    //List<byte> temp = new List<byte>();
-            //    //line = sr.ReadLine();
-            //    //while(line != null)
-            //    //{
-            //    //    Console.WriteLine(line);
-            //    //    string[] arr = line.Split('\t');
-            //    //    line = sr.ReadLine();
-            //    //    temp.Add(Convert.ToByte(arr[1], 16));
-            //    //}
-            //    //sr.Close();
-
-            //    //FileStream myFile = new FileStream(@"D:\123.bin", FileMode.OpenOrCreate);
-            //    //BinaryWriter bwr = new BinaryWriter(myFile);
-            //    //bwr.Write(temp.ToArray(), 0, temp.Count);
-            //    //bwr.Close();
-            //    //myFile.Close();
-
-            //    //string file_name = Path.GetFileNameWithoutExtension(opendlg.FileName);
-            //    //MyLib.GetCriteria_time(file_name);
-            //}
         }
 
         private void BTPause_Click(object sender, EventArgs e)
@@ -600,83 +561,6 @@ namespace SoftStartTiming
             tbBin6.Enabled = true;
         }
 
-        private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            switch (CBItem.SelectedIndex)
-            {
-                case 0:
-                    group_sst.Visible = false;
-                    group_channel.Visible = true;
-
-                    CkBin1.Checked = true;
-                    CkBin2.Checked = false;
-                    CkBin3.Checked = false;
-                    CkBin2.Enabled = true;
-                    CkBin3.Enabled = true;
-
-                    switch (CbTrigger.SelectedIndex)
-                    {
-                        case 0:
-                            tb_connect1.Text = "PWRDIS / Sleep";
-                            break;
-                        case 1:
-                            tb_connect1.Text = "I2C (SCL)";
-                            break;
-                        case 2:
-                            tb_connect1.Text = "Vin";
-                            break;
-                    }
-
-                    tb_connect2.Text = "Rail 1";
-                    tb_connect3.Text = "Rail 2";
-                    tb_connect4.Text = "Rail 3";
-
-                    PowerOffBinDisable();
-                    break;
-                case 1:
-                    // soft-start time
-                    group_sst.Visible = true;
-                    group_channel.Visible = false;
-
-                    CkBin1.Checked = true;
-                    CkBin2.Checked = false;
-                    CkBin3.Checked = false;
-                    CkBin2.Enabled = false;
-                    CkBin3.Enabled = false;
-
-                    switch (CbTrigger.SelectedIndex)
-                    {
-                        case 0:
-                            tb_connect1.Text = "PWRDIS / Sleep";
-                            break;
-                        case 1:
-                            tb_connect1.Text = "I2C (SCL)";
-                            break;
-                        case 2:
-                            tb_connect1.Text = "Vin";
-                            break;
-                    }
-
-                    tb_connect2.Text = "Vout";
-                    tb_connect3.Text = "LX";
-                    tb_connect4.Text = "ILX";
-
-                    PowerOffBinDisable();
-                    break;
-                case 2:
-                    // power off delay
-                    group_sst.Visible = false;
-                    group_channel.Visible = true;
-                    PowerOffBinDisable();
-                    break;
-                case 3:
-                    // continue test
-                    group_sst.Visible = false;
-                    group_channel.Visible = true;
-                    PowerOffBinEnable();
-                    break;
-            }
-        }
 
         private void CbTrigger_SelectedIndexChanged(object sender, EventArgs e)
         {
