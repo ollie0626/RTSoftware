@@ -212,7 +212,7 @@ namespace SoftStartTiming
                 RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
             }
             MyLib.Delay1ms(800);
-            InsControl._tek_scope.CHx_Level(2, test_parameter.VinList[0]);
+            InsControl._tek_scope.CHx_Level(2, 1.5);
             InsControl._tek_scope.CHx_Level(3, test_parameter.LX_Level);
             InsControl._tek_scope.CHx_Level(4, test_parameter.ILX_Level);
             MyLib.Delay1s(4);
@@ -246,9 +246,9 @@ namespace SoftStartTiming
                 {
                     case 2:
                         // vout setting
-                        InsControl._tek_scope.CHx_Level(ch, vmax / 5);                    InsControl._tek_scope.SetTriggerSource(2);
+                        InsControl._tek_scope.CHx_Level(ch, vmax / 5.5);                    
+                        InsControl._tek_scope.SetTriggerSource(2);
                         InsControl._tek_scope.SetTriggerLevel(vmax / 3);
-    
                         InsControl._tek_scope.CHx_Position(ch, -2);
                         break;
                     case 3:

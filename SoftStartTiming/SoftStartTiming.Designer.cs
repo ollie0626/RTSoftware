@@ -38,6 +38,7 @@ namespace SoftStartTiming
             this.BTSelectBinPath = new System.Windows.Forms.Button();
             this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
+            this.CBEdge = new System.Windows.Forms.ComboBox();
             this.tbWave = new System.Windows.Forms.TextBox();
             this.tbBin = new System.Windows.Forms.TextBox();
             this.BTSelectBinPath6 = new System.Windows.Forms.Button();
@@ -54,7 +55,6 @@ namespace SoftStartTiming
             this.label5 = new System.Windows.Forms.Label();
             this.tbBin4 = new System.Windows.Forms.TextBox();
             this.BTSelectBinPath4 = new System.Windows.Forms.Button();
-            this.CBEdge = new System.Windows.Forms.ComboBox();
             this.CkBin1 = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ck_crmode = new System.Windows.Forms.CheckBox();
@@ -98,7 +98,9 @@ namespace SoftStartTiming
             this.nuData2 = new System.Windows.Forms.NumericUpDown();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.label12 = new System.Windows.Forms.Label();
             this.textBox15 = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.textBox16 = new System.Windows.Forms.TextBox();
             this.nuILX = new System.Windows.Forms.NumericUpDown();
@@ -115,6 +117,10 @@ namespace SoftStartTiming
             this.tb_connect2 = new System.Windows.Forms.TextBox();
             this.tb_connect1 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.CkCH1 = new System.Windows.Forms.CheckBox();
+            this.CkCH2 = new System.Windows.Forms.CheckBox();
+            this.textBox17 = new System.Windows.Forms.TextBox();
+            this.CkCH3 = new System.Windows.Forms.CheckBox();
             this.label36 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -131,17 +137,14 @@ namespace SoftStartTiming
             this.nudly2_from = new System.Windows.Forms.NumericUpDown();
             this.textBox6 = new System.Windows.Forms.TextBox();
             this.label29 = new System.Windows.Forms.Label();
-            this.CkCH2 = new System.Windows.Forms.CheckBox();
             this.label31 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.nudly1_from = new System.Windows.Forms.NumericUpDown();
             this.nudly3_end = new System.Windows.Forms.NumericUpDown();
             this.cbox_dly1_from = new System.Windows.Forms.ComboBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.CkCH3 = new System.Windows.Forms.CheckBox();
             this.cbox_dly3_from = new System.Windows.Forms.ComboBox();
             this.label28 = new System.Windows.Forms.Label();
-            this.CkCH1 = new System.Windows.Forms.CheckBox();
             this.cbox_dly2_from = new System.Windows.Forms.ComboBox();
             this.label30 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
@@ -192,9 +195,6 @@ namespace SoftStartTiming
             this.CBChannel = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.CBItem = new System.Windows.Forms.ComboBox();
-            this.textBox17 = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -255,7 +255,6 @@ namespace SoftStartTiming
             this.tabPage2.Controls.Add(this.CkBin3);
             this.tabPage2.Controls.Add(this.CkBin2);
             this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Controls.Add(this.CBEdge);
             this.tabPage2.Controls.Add(this.CkBin1);
             this.tabPage2.Controls.Add(this.groupBox2);
             this.tabPage2.Controls.Add(this.groupBox6);
@@ -296,6 +295,7 @@ namespace SoftStartTiming
             this.panel3.Controls.Add(this.BTSelectBinPath);
             this.panel3.Controls.Add(this.BTSelectWavePath);
             this.panel3.Controls.Add(this.label16);
+            this.panel3.Controls.Add(this.CBEdge);
             this.panel3.Controls.Add(this.tbWave);
             this.panel3.Controls.Add(this.tbBin);
             this.panel3.Controls.Add(this.BTSelectBinPath6);
@@ -312,7 +312,7 @@ namespace SoftStartTiming
             this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.tbBin4);
             this.panel3.Controls.Add(this.BTSelectBinPath4);
-            this.panel3.Location = new System.Drawing.Point(6, 31);
+            this.panel3.Location = new System.Drawing.Point(11, 31);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(553, 257);
             this.panel3.TabIndex = 91;
@@ -345,6 +345,17 @@ namespace SoftStartTiming
             this.label16.Size = new System.Drawing.Size(81, 12);
             this.label16.TabIndex = 89;
             this.label16.Text = "GPIO Trigger";
+            // 
+            // CBEdge
+            // 
+            this.CBEdge.FormattingEnabled = true;
+            this.CBEdge.Items.AddRange(new object[] {
+            "Rising edge",
+            "Falling edge"});
+            this.CBEdge.Location = new System.Drawing.Point(399, 92);
+            this.CBEdge.Name = "CBEdge";
+            this.CBEdge.Size = new System.Drawing.Size(140, 20);
+            this.CBEdge.TabIndex = 90;
             // 
             // tbWave
             // 
@@ -492,17 +503,6 @@ namespace SoftStartTiming
             this.BTSelectBinPath4.Text = "Bin File Path";
             this.BTSelectBinPath4.UseVisualStyleBackColor = true;
             this.BTSelectBinPath4.Click += new System.EventHandler(this.BTSelectBinPath4_Click);
-            // 
-            // CBEdge
-            // 
-            this.CBEdge.FormattingEnabled = true;
-            this.CBEdge.Items.AddRange(new object[] {
-            "Rising edge",
-            "Falling edge"});
-            this.CBEdge.Location = new System.Drawing.Point(396, 208);
-            this.CBEdge.Name = "CBEdge";
-            this.CBEdge.Size = new System.Drawing.Size(140, 20);
-            this.CBEdge.TabIndex = 90;
             // 
             // CkBin1
             // 
@@ -1010,6 +1010,15 @@ namespace SoftStartTiming
             this.panel4.Size = new System.Drawing.Size(202, 90);
             this.panel4.TabIndex = 100;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(167, 58);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(14, 12);
+            this.label12.TabIndex = 99;
+            this.label12.Text = "V";
+            // 
             // textBox15
             // 
             this.textBox15.BackColor = System.Drawing.SystemColors.Info;
@@ -1020,6 +1029,15 @@ namespace SoftStartTiming
             this.textBox15.TabIndex = 100;
             this.textBox15.Text = "CH4";
             this.textBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(167, 30);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(14, 12);
+            this.label13.TabIndex = 98;
+            this.label13.Text = "V";
             // 
             // textBox10
             // 
@@ -1238,6 +1256,52 @@ namespace SoftStartTiming
             this.panel1.Size = new System.Drawing.Size(789, 119);
             this.panel1.TabIndex = 11;
             // 
+            // CkCH1
+            // 
+            this.CkCH1.AutoSize = true;
+            this.CkCH1.Checked = true;
+            this.CkCH1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkCH1.Location = new System.Drawing.Point(638, 34);
+            this.CkCH1.Name = "CkCH1";
+            this.CkCH1.Size = new System.Drawing.Size(125, 16);
+            this.CkCH1.TabIndex = 0;
+            this.CkCH1.Text = "CH2 Auto Scaling";
+            this.CkCH1.UseVisualStyleBackColor = true;
+            // 
+            // CkCH2
+            // 
+            this.CkCH2.AutoSize = true;
+            this.CkCH2.Checked = true;
+            this.CkCH2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkCH2.Location = new System.Drawing.Point(638, 62);
+            this.CkCH2.Name = "CkCH2";
+            this.CkCH2.Size = new System.Drawing.Size(125, 16);
+            this.CkCH2.TabIndex = 2;
+            this.CkCH2.Text = "CH3 Auto Scaling";
+            this.CkCH2.UseVisualStyleBackColor = true;
+            // 
+            // textBox17
+            // 
+            this.textBox17.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.textBox17.Enabled = false;
+            this.textBox17.Location = new System.Drawing.Point(636, 4);
+            this.textBox17.Name = "textBox17";
+            this.textBox17.ReadOnly = true;
+            this.textBox17.Size = new System.Drawing.Size(139, 22);
+            this.textBox17.TabIndex = 101;
+            this.textBox17.Text = "Auto Scale Level";
+            this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // CkCH3
+            // 
+            this.CkCH3.AutoSize = true;
+            this.CkCH3.Location = new System.Drawing.Point(638, 90);
+            this.CkCH3.Name = "CkCH3";
+            this.CkCH3.Size = new System.Drawing.Size(125, 16);
+            this.CkCH3.TabIndex = 1;
+            this.CkCH3.Text = "CH4 Auto Scaling";
+            this.CkCH3.UseVisualStyleBackColor = true;
+            // 
             // label36
             // 
             this.label36.AutoSize = true;
@@ -1411,18 +1475,6 @@ namespace SoftStartTiming
             this.label29.TabIndex = 90;
             this.label29.Text = "%";
             // 
-            // CkCH2
-            // 
-            this.CkCH2.AutoSize = true;
-            this.CkCH2.Checked = true;
-            this.CkCH2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkCH2.Location = new System.Drawing.Point(638, 62);
-            this.CkCH2.Name = "CkCH2";
-            this.CkCH2.Size = new System.Drawing.Size(125, 16);
-            this.CkCH2.TabIndex = 2;
-            this.CkCH2.Text = "CH3 Auto Scaling";
-            this.CkCH2.UseVisualStyleBackColor = true;
-            // 
             // label31
             // 
             this.label31.AutoSize = true;
@@ -1486,16 +1538,6 @@ namespace SoftStartTiming
             this.label27.TabIndex = 82;
             this.label27.Text = "→";
             // 
-            // CkCH3
-            // 
-            this.CkCH3.AutoSize = true;
-            this.CkCH3.Location = new System.Drawing.Point(638, 90);
-            this.CkCH3.Name = "CkCH3";
-            this.CkCH3.Size = new System.Drawing.Size(125, 16);
-            this.CkCH3.TabIndex = 1;
-            this.CkCH3.Text = "CH4 Auto Scaling";
-            this.CkCH3.UseVisualStyleBackColor = true;
-            // 
             // cbox_dly3_from
             // 
             this.cbox_dly3_from.FormattingEnabled = true;
@@ -1517,18 +1559,6 @@ namespace SoftStartTiming
             this.label28.Size = new System.Drawing.Size(15, 12);
             this.label28.TabIndex = 84;
             this.label28.Text = "%";
-            // 
-            // CkCH1
-            // 
-            this.CkCH1.AutoSize = true;
-            this.CkCH1.Checked = true;
-            this.CkCH1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkCH1.Location = new System.Drawing.Point(638, 34);
-            this.CkCH1.Name = "CkCH1";
-            this.CkCH1.Size = new System.Drawing.Size(125, 16);
-            this.CkCH1.TabIndex = 0;
-            this.CkCH1.Text = "CH2 Auto Scaling";
-            this.CkCH1.UseVisualStyleBackColor = true;
             // 
             // cbox_dly2_from
             // 
@@ -2036,36 +2066,7 @@ namespace SoftStartTiming
             this.CBItem.Name = "CBItem";
             this.CBItem.Size = new System.Drawing.Size(185, 20);
             this.CBItem.TabIndex = 75;
-            // 
-            // textBox17
-            // 
-            this.textBox17.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.textBox17.Enabled = false;
-            this.textBox17.Location = new System.Drawing.Point(636, 4);
-            this.textBox17.Name = "textBox17";
-            this.textBox17.ReadOnly = true;
-            this.textBox17.Size = new System.Drawing.Size(139, 22);
-            this.textBox17.TabIndex = 101;
-            this.textBox17.Text = "Auto Scale Level";
-            this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(167, 58);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(14, 12);
-            this.label12.TabIndex = 99;
-            this.label12.Text = "V";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(167, 30);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(14, 12);
-            this.label13.TabIndex = 98;
-            this.label13.Text = "V";
+            this.CBItem.SelectedIndexChanged += new System.EventHandler(this.CBItem_SelectedIndexChanged);
             // 
             // SoftStartTiming
             // 

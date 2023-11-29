@@ -16,6 +16,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection.Emit;
+using SoftStartTiming.Properties;
 
 namespace SoftStartTiming
 {
@@ -248,13 +249,13 @@ namespace SoftStartTiming
             test_parameter.dly2_end = (double)nudly2_end.Value;
             test_parameter.dly3_end = (double)nudly3_end.Value;
 
-            test_parameter.dly_start1 = cbox_dly1_to.SelectedIndex + 1;
-            test_parameter.dly_start2 = cbox_dly2_to.SelectedIndex + 1;
-            test_parameter.dly_start3 = cbox_dly3_to.SelectedIndex + 1;
-
             test_parameter.dly_end1 = cbox_dly1_to.SelectedIndex + 1;
             test_parameter.dly_end2 = cbox_dly2_to.SelectedIndex + 1;
             test_parameter.dly_end3 = cbox_dly3_to.SelectedIndex + 1;
+
+            test_parameter.dly_start1 = cbox_dly1_from.SelectedIndex + 1;
+            test_parameter.dly_start2 = cbox_dly2_from.SelectedIndex + 1;
+            test_parameter.dly_start3 = cbox_dly3_from.SelectedIndex + 1;
 
             for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
@@ -700,6 +701,22 @@ namespace SoftStartTiming
             settings += "dly2_sel=$" + cbox_dly2_to.SelectedIndex + "$\r\n";
             settings += "dly3_sel=$" + cbox_dly3_to.SelectedIndex + "$\r\n";
 
+            // ----------------------------------------------------------------
+            settings += "dly1_from=$" + cbox_dly1_from.SelectedIndex + "$\r\n";
+            settings += "dly2_from=$" + cbox_dly2_from.SelectedIndex + "$\r\n";
+            settings += "dly3_from=$" + cbox_dly3_from.SelectedIndex + "$\r\n";
+
+            settings += "dly1_100=$" + nudly1_from.Value + "$\r\n";
+            settings += "dly2_100=$" + nudly2_from.Value + "$\r\n";
+            settings += "dly3_100=$" + nudly3_from.Value + "$\r\n";
+
+            settings += "dly1_0=$" + nudly1_end.Value + "$\r\n";
+            settings += "dly2_0=$" + nudly2_end.Value + "$\r\n";
+            settings += "dly3_0=$" + nudly3_end.Value + "$\r\n";
+
+            settings += "init_level1=$" + nu_ch1_level.Value + "$\r\n";
+            settings += "init_level2=$" + nu_ch2_level.Value + "$\r\n";
+            settings += "init_level3=$" + nu_ch3_level.Value + "$\r\n";
 
             settings += "28.i2c_setting_row=$" + i2c_datagrid.RowCount + "$\r\n";
             settings += "29.i2c_mpt_setting_row=$" + i2c_mtp_datagrid.RowCount + "$\r\n";
@@ -735,13 +752,20 @@ namespace SoftStartTiming
 
         private void LoadSettings(string file)
         {
+
             object[] obj_arr = new object[]
             {
                 ck_chamber_en, tb_chamber, nu_steady, nuslave, nuAddr, nuData1, nuData2,
                 tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger,
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
-                RBUs, nuOffset, cbox_dly1_to, cbox_dly2_to, cbox_dly3_to, i2c_datagrid, i2c_mtp_datagrid
+                RBUs, nuOffset, cbox_dly1_to, cbox_dly2_to, cbox_dly3_to,
+                cbox_dly1_from, cbox_dly2_from, cbox_dly3_from, 
+                nudly1_from, nudly2_from, nudly3_from,
+                nudly1_end, nudly2_end, nudly3_end,
+                nu_ch1_level, nu_ch2_level, nu_ch3_level,
+
+                i2c_datagrid, i2c_mtp_datagrid
             };
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
@@ -829,6 +853,26 @@ namespace SoftStartTiming
             int idx = i2c_mtp_datagrid.RowCount - 1;
             i2c_mtp_datagrid[0, idx].Value = string.Format("{0:X}", (int)nu_addr_mtp.Value);
             i2c_mtp_datagrid[1, idx].Value = string.Format("{0:X}", (int)nu_data_mtp.Value);
+        }
+
+        private void CBItem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CBItem.SelectedIndex == 1)
+            {
+                CkBin2.Enabled = false;
+                CkBin3.Enabled = false;
+
+                CkBin2.Checked = false;
+                CkBin3.Checked = false;
+
+                CkBin1.Checked = true;
+            }
+            else
+            {
+                CkBin2.Enabled = true;
+                CkBin3.Enabled = true;
+            }
+
         }
     }
 }
