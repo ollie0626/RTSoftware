@@ -1,6 +1,7 @@
 ﻿Imports Excel = Microsoft.Office.Interop.Excel
 Imports System.Runtime.InteropServices.Marshal
 Imports System.Runtime.InteropServices
+Imports System.IO
 
 Public Class PartI
 
@@ -10360,6 +10361,58 @@ Public Class PartI
 
     Private Sub cbox_mode_daq_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cbox_mode_daq.SelectedIndexChanged
         mode_daq = Mid(cbox_mode_daq.SelectedItem, 3)
+    End Sub
+
+    Private Sub bt_meter_test_Click(sender As Object, e As EventArgs) Handles bt_meter_test.Click
+        ' meter board test
+        Dim Meas_ID As Integer
+        Dim IO_ID As Integer
+        Dim resolution As Double
+        Dim curr_data As Double = power_read(vin_device, Vin_out, "CURR")
+        Dim data_input As Byte
+        Dim in_out_sel As Integer = 0
+        Dim temp() As Integer
+        Dim iout_temp As Double
+        Dim array As List(Of Double) = New List(Of Double)()
+
+
+        ' relay board init
+        relay_in_meter_intial()
+
+        ' get iin current
+        iin_meas = meter_auto(0, num_meter_count.Value)
+
+        For i = 0 To (num_meter_count.Value - 1)
+            System.Windows.Forms.Application.DoEvents()
+            temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
+
+            While temp(0) <> 0 Or temp(1) = 65535
+                System.Windows.Forms.Application.DoEvents()
+                temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
+                Delay(10)
+            End While
+
+            iout_temp = temp(1) * resolution * 10 ^ -3
+            Delay(10)
+
+            array.Add(iout_temp)
+        Next
+
+
+        Dim filePath As String = Application.StartupPath & "\\file.csv"
+
+        SaveToCsv(filePath, array)
+
+
+
+    End Sub
+
+    Private Sub SaveToCsv(ByVal filePath As String, ByVal data As List(Of Double))
+        Using writer As New StreamWriter(filePath)
+            For Each row In data
+                writer.WriteLine(String.Join(",", row))
+            Next
+        End Using
     End Sub
 
     Private Sub num_fs_set_ValueChanged(sender As Object, e As EventArgs) Handles num_fs_set.ValueChanged
