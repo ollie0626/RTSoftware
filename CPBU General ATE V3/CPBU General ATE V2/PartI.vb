@@ -10375,36 +10375,23 @@ Public Class PartI
         Dim iout_temp As Double
         Dim array As List(Of Double) = New List(Of Double)()
 
-
+        run = True
+        Get_CurrnetBoard_Setting()
         ' relay board init
         relay_in_meter_intial()
 
         ' get iin current
         iin_meas = meter_auto(0, num_meter_count.Value)
-
-        For i = 0 To (num_meter_count.Value - 1)
-            System.Windows.Forms.Application.DoEvents()
-            temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
-
-            While temp(0) <> 0 Or temp(1) = 65535
-                System.Windows.Forms.Application.DoEvents()
-                temp = reg_read_word(Meas_ID, &H4, "H", device_sel)
-                Delay(10)
-            End While
-
-            iout_temp = temp(1) * resolution * 10 ^ -3
-            Delay(10)
-
-            array.Add(iout_temp)
-        Next
-
-
-        Dim filePath As String = Application.StartupPath & "\\file.csv"
-
-        SaveToCsv(filePath, array)
+        Console.WriteLine(iin_meas)
 
 
 
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        iin_meas = meter_auto(0, num_meter_count.Value)
+        Console.WriteLine(iin_meas)
     End Sub
 
     Private Sub SaveToCsv(ByVal filePath As String, ByVal data As List(Of Double))
@@ -10414,6 +10401,8 @@ Public Class PartI
             Next
         End Using
     End Sub
+
+
 
     Private Sub num_fs_set_ValueChanged(sender As Object, e As EventArgs) Handles num_fs_set.ValueChanged
         fs_vout_set()

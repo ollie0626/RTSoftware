@@ -535,6 +535,7 @@
     End Function
 
     Function realy_out_meter_initial() As Integer
+        relay_out_state = 0
         reg_write_word(out_io_id, &H3, &H0, "H", device_sel)
         reg_write_word(out_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
 
@@ -542,17 +543,31 @@
         reg_write_word(out_high_id, &H5, out_high_comp, "H", device_sel)
         reg_write_word(out_middle_id, &H5, out_middle_comp, "H", device_sel)
         reg_write_word(out_low_id, &H5, out_low_comp, "H", device_sel)
+
+        reg_write_word(out_high_id, &H0, &H4F1F, "H", device_sel)
+        reg_write_word(out_middle_id, &H0, &H4F1F, "H", device_sel)
+        reg_write_word(out_low_id, &H0, &H4F1F, "H", device_sel)
         Return 0
     End Function
 
     Function relay_in_meter_intial() As Integer
+
+        relay_in_state = 0
         reg_write_word(in_io_id, &H3, &H0, "H", device_sel)
         reg_write_word(in_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
+
+
 
         ' write comp value to ic 
         reg_write_word(in_high_id, &H5, in_high_comp, "H", device_sel)
         reg_write_word(in_middle_id, &H5, in_middle_comp, "H", device_sel)
         reg_write_word(in_low_id, &H5, in_low_comp, "H", device_sel)
+
+
+        reg_write_word(in_high_id, &H0, &H4F1F, "H", device_sel)
+        reg_write_word(in_middle_id, &H0, &H4F1F, "H", device_sel)
+        reg_write_word(in_low_id, &H0, &H4F1F, "H", device_sel)
+
         Return 0
     End Function
 
@@ -606,7 +621,26 @@
 
         ' H: write Hi byte first then low byte
         reg_write_word(IO_ID, &H1, data_input, "H", device_sel)
-        Delay(1000)
+
+
+        If in_out_sel = 0 Then ' output relay board
+            If relay_in_state <> data_input Then
+                relay_in_state = data_input
+                Delay(5000)
+            End If
+        End If
+
+        If in_out_sel = 1 Then ' input relay board
+            If relay_out_state <> data_input Then
+                relay_out_state = data_input
+                Delay(5000)
+            End If
+        End If
+
+        'For i = 0 To 30
+        '    Console.WriteLine(reg_read_word(Meas_ID, &H4, "H", device_sel)(1) * resolution * 10 ^ -3)
+        '    'Delay(10)
+        'Next
 
         Dim array As List(Of Double) = New List(Of Double)()
         Dim remove_data As Integer
