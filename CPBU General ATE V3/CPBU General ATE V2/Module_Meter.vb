@@ -263,14 +263,10 @@
 
     Function meter_meas(ByVal meter_name As String, ByVal Meter_Dev As Integer, ByVal range As String, ByVal mini_range As String) As Double
 
-
         Dim temp As Integer
         Dim test As Double = 0
         Dim i As Integer
-
         Dim down As Boolean = False
-
-
 
         If range = "AUTO" Then
             ts = "MEAS:CURRent:DC? " & range & "," & Meter_Resolution
@@ -539,13 +535,13 @@
         reg_write_word(out_io_id, &H3, &H0, "H", device_sel)
         reg_write_word(out_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
 
-        ' write comp value to ic 
+        ' write comp value to ic
         reg_write_word(out_high_id, &H5, out_high_comp, "H", device_sel)
         reg_write_word(out_middle_id, &H5, out_middle_comp, "H", device_sel)
         reg_write_word(out_low_id, &H5, out_low_comp, "H", device_sel)
 
-        reg_write_word(out_high_id, &H0, &H4F1F, "H", device_sel)
-        reg_write_word(out_middle_id, &H0, &H4F1F, "H", device_sel)
+        'reg_write_word(out_high_id, &H0, &H4F1F, "H", device_sel)
+        'reg_write_word(out_middle_id, &H0, &H4F1F, "H", device_sel)
         reg_write_word(out_low_id, &H0, &H4F1F, "H", device_sel)
         Return 0
     End Function
@@ -556,16 +552,13 @@
         reg_write_word(in_io_id, &H3, &H0, "H", device_sel)
         reg_write_word(in_io_id, &H1, &H0, "H", device_sel) '切換最大檔位
 
-
-
         ' write comp value to ic 
         reg_write_word(in_high_id, &H5, in_high_comp, "H", device_sel)
         reg_write_word(in_middle_id, &H5, in_middle_comp, "H", device_sel)
         reg_write_word(in_low_id, &H5, in_low_comp, "H", device_sel)
 
-
-        reg_write_word(in_high_id, &H0, &H4F1F, "H", device_sel)
-        reg_write_word(in_middle_id, &H0, &H4F1F, "H", device_sel)
+        'reg_write_word(in_high_id, &H0, &H4F1F, "H", device_sel)
+        'reg_write_word(in_middle_id, &H0, &H4F1F, "H", device_sel)
         reg_write_word(in_low_id, &H0, &H4F1F, "H", device_sel)
 
         Return 0
@@ -585,7 +578,6 @@
             Case 0 : curr_data = power_read(vin_device, Vin_out, "CURR")
             Case 1 : curr_data = load_read("CURR")
         End Select
-
 
         If curr_data >= Meter_H Then
             Select Case in_out_sel
