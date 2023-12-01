@@ -629,11 +629,6 @@
             End If
         End If
 
-        'For i = 0 To 30
-        '    Console.WriteLine(reg_read_word(Meas_ID, &H4, "H", device_sel)(1) * resolution * 10 ^ -3)
-        '    'Delay(10)
-        'Next
-
         Dim array As List(Of Double) = New List(Of Double)()
         Dim remove_data As Integer
         Dim temp() As Integer

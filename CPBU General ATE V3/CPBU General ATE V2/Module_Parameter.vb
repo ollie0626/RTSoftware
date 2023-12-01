@@ -7,6 +7,7 @@
     Public out_high_id, out_low_id, out_middle_id, out_io_id As Integer
 
     Public relay_in_state, relay_out_state As Integer
+    Public error_cnt, fail_flag As Integer
 
     'Public resolution_input As Double
     'Public resolution_output As Double
