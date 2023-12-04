@@ -427,7 +427,6 @@ Public Class Main
 
     End Function
 
-   
 
     Function main_reset() As Integer
         Dim f As Form

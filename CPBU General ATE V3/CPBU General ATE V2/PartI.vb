@@ -8227,11 +8227,17 @@ Public Class PartI
                                     '確認小檔位的單位 100uA, 1mA....
                                     iin_meas = meter_average(cbox_IIN_meter.SelectedItem, Meter_iin_dev, 1, Meter_iin_range, Meter_iin_low)
                                     Meter_iin_range = Meter_range_now
-
                                 End If
 
 
-                                meter_auto(0, num_meter_count.Value)
+
+
+                                If check_Efficiency.Checked Then
+                                    If rbtn_iin_current_measure.Checked Then
+                                        meter_auto(0, num_meter_count.Value)
+                                    End If
+                                End If
+
                                 ''----------------------------------------------------------------------------------
                                 'Vin Sense
                                 If check_vin_sense.Checked = True Then
