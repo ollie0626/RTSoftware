@@ -8232,7 +8232,7 @@ Public Class PartI
 
 
 
-                                If check_Efficiency.Checked Then
+                                If check_Efficiency.Checked Or check_loadR.Checked Then
                                     If rbtn_iin_current_measure.Checked Then
                                         meter_auto(0, num_meter_count.Value)
                                     End If
