@@ -8231,12 +8231,14 @@ Public Class PartI
                                 End If
 
 
+                                meter_auto(0, num_meter_count.Value)
                                 ''----------------------------------------------------------------------------------
                                 'Vin Sense
                                 If check_vin_sense.Checked = True Then
                                     'Vin Sense
 
                                     vin_power_sense(cbox_vin.SelectedItem, num_vin_sense.Value, num_vin_max.Value, vin_now)
+
                                 End If
 
 
