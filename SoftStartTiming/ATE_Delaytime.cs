@@ -247,6 +247,11 @@ namespace SoftStartTiming
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
             I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
             MyLib.Delay1s(2); // wait for program time
+            InsControl._power.AutoPowerOff();
+            MyLib.Delay1s(1);
+            InsControl._power.AutoSelPowerOn(test_parameter.VinList[idx]);
+            MyLib.Delay1ms(1000);
+            I2C_DG_Write(test_parameter.i2c_init_dg);
 #endif
             TriggerEvent(idx); // gpio, i2c(initial), vin trigger
             //I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
@@ -261,14 +266,6 @@ namespace SoftStartTiming
 
             if (InsControl._tek_scope_en) MyLib.Delay1s(1);
 
-            //for (int i = 0; i < test_parameter.scope_en.Length; i++)
-            //{
-            //    if (test_parameter.scope_en[i])
-            //    {
-            //        InsControl._tek_scope.CHx_Level(i + 2, test_parameter.VinList[0] / 2);
-            //        InsControl._tek_scope.CHx_Position(i + 2, (i + 1) * -1);
-            //    }
-            //}
             MyLib.Delay1ms(900);
 
             LevelEvent();
