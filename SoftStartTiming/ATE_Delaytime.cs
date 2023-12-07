@@ -245,10 +245,12 @@ namespace SoftStartTiming
             MyLib.Delay1ms(1000);
             I2C_DG_Write(test_parameter.i2c_init_dg);
             RTDev.I2C_WriteBin((byte)(test_parameter.slave), 0x00, path); // test conditions
+            I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
+            MyLib.Delay1s(2); // wait for program time
 #endif
             TriggerEvent(idx); // gpio, i2c(initial), vin trigger
-            I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
-            MyLib.Delay1s(1); // wait for program time
+            //I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
+            //MyLib.Delay1s(1); // wait for program time
             if (test_parameter.trigger_event == 1)
             {
                 I2C_DG_Write(test_parameter.i2c_init_dg);

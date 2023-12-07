@@ -46,7 +46,17 @@
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="RichtekStatsInterface, Version=2.0.4.0, Culture=neutral, PublicKeyToken=2bc6d2b163e172ee, processorArchitecture=MSIL">
+      <HintPath>..\packages\RichtekStatsInterface.2.0.4\lib\netstandard2.0\RichtekStatsInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="RTLogger, Version=2.0.1.0, Culture=neutral, PublicKeyToken=1cfba0e854bf63ac, processorArchitecture=MSIL">
+      <HintPath>..\packages\RTLogger.2.0.1\lib\netstandard2.0\RTLogger.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />

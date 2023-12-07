@@ -12,8 +12,6 @@ Module Module_RTBBLib
     Public RTBB_board As Boolean = False
     Dim Result As Integer
 
-
-
     '---------------------------------------------------------------------
     'I2C
     Public no_slave As String = "No slave device"
@@ -259,9 +257,6 @@ Module Module_RTBBLib
             Next
         End If
 
-
-
-
     End Function
 
     Function GPIO_single_write(ByVal bit As Integer, ByVal value As Integer, Optional ByVal sel As Integer = 0) As Integer
@@ -301,9 +296,6 @@ Module Module_RTBBLib
         Else
             Return 0
         End If
-
-
-
 
     End Function
 
@@ -463,7 +455,7 @@ Module Module_RTBBLib
         '設定 register data 為"data", I2C data to be written to device
         If i2c_error = 0 Then
             Main.status_error.Text = "I2C Write Success!"
-            Main.nu_flag.Value = i2c_error
+            'Main.nu_flag.Value = i2c_error
         Else
             MsgBox("I2C Write Error:" & i2c_status(i2c_error), MsgBoxStyle.Exclamation, "Error Message")
             Main.status_error.Text = "I2C Write Error:" & i2c_status(i2c_error)
@@ -519,7 +511,7 @@ Module Module_RTBBLib
                 return_data(1) = DataBuffer(1) * (2 ^ 8) + DataBuffer(0)
             End If
             Main.status_error.Text = "I2C Read Success!"
-            Main.nu_flag.Value = i2c_error
+            'Main.nu_flag.Value = i2c_error
         Else
             MsgBox("I2C Read Error:" & i2c_status(i2c_error), MsgBoxStyle.Exclamation, "Error Message")
             Main.status_error.Text = "I2C Read Error:" & i2c_status(i2c_error)
