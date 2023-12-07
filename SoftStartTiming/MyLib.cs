@@ -415,5 +415,20 @@ namespace SoftStartTiming
             }
         }
 
+        
+        public static string ConvertToLetter(int icol)
+        {
+            int divided = icol;
+            string columnName = "";
+            int modulo = 0;
+            while(divided > 0)
+            {
+                modulo = (divided - 1) % 26;
+                columnName = modulo.ToString() + columnName;
+                divided = (divided - modulo) / 26;
+            }
+            return columnName;
+        }
+
     }
 }
