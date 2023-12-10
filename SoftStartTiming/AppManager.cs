@@ -6,7 +6,7 @@ namespace SoftStartTiming
 {
     public partial class SoftStartTiming
     {
-        private string win_name = "Soft start v1.21";
+        private string win_name = "Soft start v1.22";
 
 
         public CheckBox[] binTable;
