@@ -1835,13 +1835,15 @@ namespace MulanLite
             this.CiFreq.FormattingEnabled = true;
             this.CiFreq.Items.AddRange(new object[] {
             "6MHz (1%)",
-            "7.8MHz (3%)",
-            "15MHz (5%)",
-            "14MHz (10%)",
-            "13MHz (20%)",
-            "12MHz (30%)",
-            "10MHz / 8.7MHz(40%)",
-            "10MHz (50%)"});
+            "6MHz (2%)",
+            "6MHz (3%)",
+            "6MHz (4%)",
+            "6MHz (5%)",
+            "6MHz (6%)",
+            "6MHz (7%)",
+            "6MHz (8%)",
+            "6MHz (9%)",
+            "6MHz (10%)"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
             this.CiFreq.Size = new System.Drawing.Size(130, 23);
@@ -12370,7 +12372,7 @@ namespace MulanLite
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1421, 901);
+            this.ClientSize = new System.Drawing.Size(1421, 926);
             this.ControlBoxFillHoverColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.uiGroupBox5);
             this.Controls.Add(this.uiGroupBox22);

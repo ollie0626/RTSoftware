@@ -48,7 +48,7 @@ namespace MulanLite
             cb_ditheren.SelectedIndex = 1;
             cb_m_factor.SelectedIndex = 0;
             cb_centred.SelectedIndex = 0;
-            CiFreq.SelectedIndex = 1;
+            CiFreq.SelectedIndex = 4;
             RCLK_DIV.SelectedIndex = 0;
             CiEnable.Active = true;
             cb_pulse_rf.SelectedIndex = 3;

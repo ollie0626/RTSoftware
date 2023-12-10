@@ -8,7 +8,7 @@ namespace MulanLite
     public partial class main : UIForm
     {
         private IntPtr m_hNotifyDevNode;
-        private string win_name = "Mulan Lite tool v3.9_10M ver";
+        private string win_name = "Mulan Lite tool v3.91";
 
         private void timer1_Tick(object sender, EventArgs e)
         {

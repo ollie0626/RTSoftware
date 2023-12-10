@@ -66,14 +66,18 @@ namespace MulanLite
         }
 
         /* 
-         * idx = 0, Ci = 15MHz
-         * idx = 1, Ci = 14MHz
-         * idx = 2, Ci = 13MHz
-         * idx = 3, Ci = 12MHz
-         * idx = 4, Ci = 10MHz
-         * idx = 5, Ci = 7.8MHz
-         * idx = 6, Ci = 6MHz
-         * */
+         * idx = 0, Ci = 1%
+         * idx = 1, Ci = 2%
+         * idx = 2, Ci = 3%
+         * idx = 3, Ci = 4%
+         * idx = 4, Ci = 5%
+         * idx = 5, Ci = 6%
+         * idx = 6, Ci = 7%
+         * idx = 7, Ci = 8%
+         * idx = 8, Ci = 9%
+         * idx = 9, Ci = 10%
+         * 
+         */
         public void SetCiClock(int idx)
         {
             if (pwmModule == null) return;
@@ -87,59 +91,53 @@ namespace MulanLite
             {
 
                 case 0:
-                    // 6M
+                    // 6M (1%)
                     buf[0] = 0xBA;
-                    buf[1] = 0x06;
+                    buf[1] = 0x61;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, 2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 1:
-                    // 7.8M
                     buf[0] = 0xBA;
-                    buf[1] = 0x78;
+                    buf[1] = 0x62;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
 
                     break;
                 case 2:
-                    // 15M
                     pwmModule.RTBB_PWMSetPeriod(0, 3);
                     buf[0] = 0xBA;
-                    buf[1] = 0x18;
+                    buf[1] = 0x63;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 3:
-                    // 14M
                     buf[0] = 0xBA;
-                    buf[1] = 0x28;
+                    buf[1] = 0x64;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 4:
-                    // 13M
                     buf[0] = 0xBA;
-                    buf[1] = 0x38;
+                    buf[1] = 0x65;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 5:
-                    // 12M
                     buf[0] = 0xBA;
-                    buf[1] = 0x48;
+                    buf[1] = 0x66;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
                 case 6:
-                    // 10M
                     buf[0] = 0xBA;
-                    buf[1] = 0x58;
+                    buf[1] = 0x67;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
@@ -150,10 +148,25 @@ namespace MulanLite
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
+                    break;                
+                case 8:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x69;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
                     break;
+                case 9:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6A;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+
                 default:
                     buf[0] = 0xBA;
-                    buf[1] = 0x78;
+                    buf[1] = 0x75;
                     spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
