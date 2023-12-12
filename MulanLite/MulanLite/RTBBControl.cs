@@ -163,7 +163,62 @@ namespace MulanLite
                     spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
                     System.Threading.Thread.Sleep(20);
                     break;
-
+                case 10:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6B;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 11:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6C;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 12:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6D;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 13:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6E;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 14:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x6F;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 15:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x70;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 16:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x71;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
+                case 17:
+                    buf[0] = 0xBA;
+                    buf[1] = 0x72;
+                    spiModule.RTBB_SPISetMode((uint)GlobalVariable.ERTSPIMode.eSPIModeCPHA0CPOL0);
+                    spiModule.RTBB_SPIHLWriteCS(CS_Pin, CmdSize, (ushort)2, Cmd, buf);
+                    System.Threading.Thread.Sleep(20);
+                    break;
                 default:
                     buf[0] = 0xBA;
                     buf[1] = 0x75;

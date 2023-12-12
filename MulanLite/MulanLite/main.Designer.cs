@@ -1843,7 +1843,16 @@ namespace MulanLite
             "6MHz (7%)",
             "6MHz (8%)",
             "6MHz (9%)",
-            "6MHz (10%)"});
+            "6MHz (10%)",
+            "6MHz (91%)",
+            "6MHz (92%)",
+            "6MHz (93%)",
+            "6MHz (94%)",
+            "6MHz (95%)",
+            "6MHz (96%)",
+            "6MHz (97%)",
+            "6MHz (98%)",
+            "6MHz (99%)"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
             this.CiFreq.Size = new System.Drawing.Size(130, 23);
