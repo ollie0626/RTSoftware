@@ -330,6 +330,8 @@ namespace SoftStartTiming
             test_parameter.vout_en = ck_vout_en.Checked;
             test_parameter.i2c_init_dg = i2c_datagrid;
 
+            test_parameter.write_protect_addr = (byte)nu_write_protect_addr.Value;
+            test_parameter.write_protect_bit = (int)nu_write_protect_bit.Value;
 
             string[] tmp;
             byte[] byt_tmp;
@@ -373,6 +375,7 @@ namespace SoftStartTiming
                 // vout and freq desc
                 test_parameter.vout_des.Add(i, ((string)VoutDG[3, i].Value).Split(',').ToList());
                 test_parameter.ccm_eload.Add(i, ((string)EloadDG_CCM[2, i].Value).Split(',').Select(double.Parse).ToList());
+                
                 switch (CBItem.SelectedIndex)
                 {
                     case 1:
@@ -747,6 +750,8 @@ namespace SoftStartTiming
             settings += "10.ScaleTime=$" + nu_ontime_scale.Value + "$\r\n";
             settings += "CH_num=$" + nuCH_number.Value + "$\r\n";
 
+            settings += "write_protect_addr=$" + nu_write_protect_addr.Value + "$\r\n";
+            settings += "write_protect_bit=$" + nu_write_protect_bit.Value + "$\r\n";
 
             settings += "Freq_Row=$" + FreqDG.RowCount + "$\r\n";
             settings += "Vout_Rows=$" + VoutDG.RowCount + "$\r\n";
@@ -755,9 +760,7 @@ namespace SoftStartTiming
             settings += "Rail_En_Rows=$" + data_rail_en.RowCount + "$\r\n";
             settings += "Rail_VID_Rows=$" + data_rail_vid.RowCount + "$\r\n";
             settings += "Meas_Rows=$" + MeasDG.RowCount + "$\r\n";
-
             settings += "I2C_Init_Rows=$" + i2c_datagrid.RowCount + "$\r\n";
-
 
             for (int i = 0; i < FreqDG.RowCount; i++)
             {
@@ -837,8 +840,10 @@ namespace SoftStartTiming
             object[] obj_arr = new object[]
             {
                 nuslave, tbWave, tb_vinList, CBItem, nuToerance, ck_chamber_en, tb_templist, nu_steady, nu_ontime_scale, nuCH_number,
+                nu_write_protect_addr, nu_write_protect_bit,
                 FreqDG, VoutDG, EloadDG_CCM, LTDG, data_rail_en, data_rail_vid, MeasDG, i2c_datagrid
             };
+
 
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))

@@ -168,8 +168,32 @@ namespace SoftStartTiming
                         for (int j = 0; j < addr_map.Count; j++)
                         {
                             byte addr_temp = en_addr[j];
-                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map[addr_temp] });
-                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], new byte[] { (byte)addr_map_off[addr_temp] });
+                            byte[] on_data = new byte[1];
+
+                            if (en_addr[j] == test_parameter.write_protect_addr)
+                            {
+                                on_data[0] = (byte)((addr_map[addr_temp]) | (0x01 << test_parameter.write_protect_bit));
+                            }
+                            else
+                            {
+                                on_data[0] = (byte)(addr_map[addr_temp]);
+                            }
+                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], on_data);
+                        }
+
+                        for(int j = 0; j < addr_map.Count; j++)
+                        {
+                            byte addr_temp = en_addr[j];
+                            byte[] off_data = new byte[1];
+                            if (en_addr[j] == test_parameter.write_protect_addr)
+                            {
+                                off_data[0] = (byte)((addr_map_off[addr_temp]) | (0x01 << test_parameter.write_protect_bit));
+                            }
+                            else
+                            {
+                                off_data[0] = (byte)(addr_map_off[addr_temp]);
+                            }
+                            RTDev.I2C_Write((byte)test_parameter.slave, en_addr[j], off_data);
                         }
 
                         break;
@@ -202,28 +226,21 @@ namespace SoftStartTiming
                             if (parameter.data[j] == 1)
                             {
                                 RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
-                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
                             }
                         }
 
 
-                        //for (int j = 0; j < vid_addr.Count; j++)
-                        //{
-                        //    if (parameter.data[parameter.idx] == 0) break;
-                        //    RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
-                        //    RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_high[j] });
-                        //}
 
+                        for (int j = 0; j < vid_addr.Count; j++)
+                        {
+                            if (parameter.data[j] == 1)
+                            {
+                                RTDev.I2C_Write((byte)(test_parameter.slave), vid_addr[j], new byte[] { vid_low[j] });
+                            }
+                        }
+                       
                         break;
                     case 3: // LT
-                        //_sheet.Cells[row, parameter.idx + aggressor_col].NumberFormat = "@";
-                        //_sheet.Cells[row, parameter.idx + aggressor_col] = (parameter.data[parameter.idx] == 1) ? parameter.l1[parameter.idx] + " <-> " + parameter.l2[parameter.idx] : "0";
-                        // eload over 4CH need to select channel
-
-                        //if (parameter.data[parameter.idx] != 0)
-                        //    InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx] + 1, parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
-                        //else
-                        //    InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx] + 1);
 
                         for (int i = 0; i < parameter.data.Count; i++)
                         {
@@ -251,11 +268,6 @@ namespace SoftStartTiming
 #endif
                             }
                         }
-
-                        //if (parameter.data[parameter.idx] != 0)
-                        //    InsControl._eload.DymanicLoad(parameter.sw_en[parameter.idx], parameter.data_l1[parameter.idx], parameter.data_l2[parameter.idx], 500, 500);
-                        //else
-                        //    InsControl._eload.LoadOFF(parameter.sw_en[parameter.idx]);
                         break;
 
 
@@ -1227,7 +1239,16 @@ namespace SoftStartTiming
             if (test_parameter.cross_mode == 1)
             {
                 byte addr = (byte)test_parameter.en_addr[measNParameter.select_idx];
-                RTDev.I2C_Write((byte)test_parameter.slave, addr, new byte[] { (byte)(0x01 << test_parameter.en_data[measNParameter.select_idx]) });
+                byte wr_data = 0x00;
+                if (addr == test_parameter.write_protect_addr)
+                {
+                    wr_data = (byte)((0x01 << test_parameter.en_data[measNParameter.select_idx]) | (0x01 << test_parameter.write_protect_bit));
+                }
+                else
+                {
+                    wr_data = (byte)(0x01 << test_parameter.en_data[measNParameter.select_idx]);
+                }
+                    RTDev.I2C_Write((byte)test_parameter.slave, addr, new byte[] { wr_data });
             }
 
 
@@ -1365,7 +1386,7 @@ namespace SoftStartTiming
                     dont_stop = new Thread(p_dont_stop);
                     dont_stop.Start(input);
                     MyLib.Delay1s(test_parameter.accumulate);
-                    //while (dont_stop_cnt <= 100) ;
+                    while (dont_stop_cnt <= 100) ;
                     dont_stop.Abort();
                     dont_stop = null;
 
@@ -1462,6 +1483,7 @@ namespace SoftStartTiming
         public int select_idx;
         public double[] l1;
         public double[] l2;
+
 
         public CrossTalkParameter()
         { }

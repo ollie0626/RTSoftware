@@ -138,6 +138,12 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
+            this.nu_write_protect_bit = new System.Windows.Forms.NumericUpDown();
+            this.nu_write_protect_addr = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
@@ -170,6 +176,9 @@ namespace SoftStartTiming
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_write_protect_bit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_write_protect_addr)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // CBChannel
@@ -470,7 +479,7 @@ namespace SoftStartTiming
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(759, 448);
+            this.tabControl1.Size = new System.Drawing.Size(761, 467);
             this.tabControl1.TabIndex = 101;
             // 
             // tabPage1
@@ -510,7 +519,7 @@ namespace SoftStartTiming
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(751, 422);
+            this.tabPage1.Size = new System.Drawing.Size(753, 441);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General";
             // 
@@ -673,12 +682,13 @@ namespace SoftStartTiming
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(751, 422);
+            this.tabPage4.Size = new System.Drawing.Size(753, 441);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "I2C";
             // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.panel1);
             this.groupBox10.Controls.Add(this.i2c_datagrid);
             this.groupBox10.Controls.Add(this.nudata_to_dg);
             this.groupBox10.Controls.Add(this.btn_i2c_data);
@@ -687,7 +697,7 @@ namespace SoftStartTiming
             this.groupBox10.Controls.Add(this.label19);
             this.groupBox10.Location = new System.Drawing.Point(497, 6);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(194, 367);
+            this.groupBox10.Size = new System.Drawing.Size(194, 429);
             this.groupBox10.TabIndex = 3028;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "I2C Initial";
@@ -785,7 +795,7 @@ namespace SoftStartTiming
             this.groupBox7.Controls.Add(this.VoutDG);
             this.groupBox7.Location = new System.Drawing.Point(6, 214);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(485, 202);
+            this.groupBox7.Size = new System.Drawing.Size(485, 221);
             this.groupBox7.TabIndex = 107;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Vout Setting";
@@ -910,7 +920,7 @@ namespace SoftStartTiming
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(751, 422);
+            this.tabPage2.Size = new System.Drawing.Size(753, 441);
             this.tabPage2.TabIndex = 4;
             this.tabPage2.Text = "ELoad";
             // 
@@ -1018,7 +1028,7 @@ namespace SoftStartTiming
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(751, 422);
+            this.tabPage3.Size = new System.Drawing.Size(753, 441);
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "Rail";
             // 
@@ -1049,7 +1059,7 @@ namespace SoftStartTiming
             this.Label17.AutoSize = true;
             this.Label17.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label17.ForeColor = System.Drawing.Color.Black;
-            this.Label17.Location = new System.Drawing.Point(313, 24);
+            this.Label17.Location = new System.Drawing.Point(313, 15);
             this.Label17.Name = "Label17";
             this.Label17.Size = new System.Drawing.Size(36, 15);
             this.Label17.TabIndex = 3066;
@@ -1093,7 +1103,7 @@ namespace SoftStartTiming
             // txt_note
             // 
             this.txt_note.BackColor = System.Drawing.Color.LightYellow;
-            this.txt_note.Location = new System.Drawing.Point(313, 42);
+            this.txt_note.Location = new System.Drawing.Point(313, 33);
             this.txt_note.Multiline = true;
             this.txt_note.Name = "txt_note";
             this.txt_note.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -1142,7 +1152,7 @@ namespace SoftStartTiming
             this.tabPage5.Location = new System.Drawing.Point(4, 22);
             this.tabPage5.Name = "tabPage5";
             this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(751, 422);
+            this.tabPage5.Size = new System.Drawing.Size(753, 441);
             this.tabPage5.TabIndex = 6;
             this.tabPage5.Text = "Scope";
             // 
@@ -1199,7 +1209,7 @@ namespace SoftStartTiming
             // nuCH_number
             // 
             this.nuCH_number.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCH_number.Location = new System.Drawing.Point(396, 491);
+            this.nuCH_number.Location = new System.Drawing.Point(378, 503);
             this.nuCH_number.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.nuCH_number.Maximum = new decimal(new int[] {
             5,
@@ -1224,7 +1234,7 @@ namespace SoftStartTiming
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(323, 477);
+            this.label4.Location = new System.Drawing.Point(305, 489);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(132, 12);
             this.label4.TabIndex = 1;
@@ -1232,7 +1242,7 @@ namespace SoftStartTiming
             // 
             // BTPause
             // 
-            this.BTPause.Location = new System.Drawing.Point(618, 482);
+            this.BTPause.Location = new System.Drawing.Point(600, 494);
             this.BTPause.Name = "BTPause";
             this.BTPause.Size = new System.Drawing.Size(60, 32);
             this.BTPause.TabIndex = 104;
@@ -1242,7 +1252,7 @@ namespace SoftStartTiming
             // 
             // BTStop
             // 
-            this.BTStop.Location = new System.Drawing.Point(684, 482);
+            this.BTStop.Location = new System.Drawing.Point(666, 494);
             this.BTStop.Name = "BTStop";
             this.BTStop.Size = new System.Drawing.Size(60, 32);
             this.BTStop.TabIndex = 103;
@@ -1252,7 +1262,7 @@ namespace SoftStartTiming
             // 
             // BTRun
             // 
-            this.BTRun.Location = new System.Drawing.Point(552, 482);
+            this.BTRun.Location = new System.Drawing.Point(534, 494);
             this.BTRun.Name = "BTRun";
             this.BTRun.Size = new System.Drawing.Size(60, 32);
             this.BTRun.TabIndex = 102;
@@ -1262,7 +1272,7 @@ namespace SoftStartTiming
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(461, 482);
+            this.button1.Location = new System.Drawing.Point(443, 494);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(85, 32);
             this.button1.TabIndex = 109;
@@ -1273,7 +1283,7 @@ namespace SoftStartTiming
             // labStatus
             // 
             this.labStatus.AutoSize = true;
-            this.labStatus.Location = new System.Drawing.Point(20, 478);
+            this.labStatus.Location = new System.Drawing.Point(2, 490);
             this.labStatus.Name = "labStatus";
             this.labStatus.Size = new System.Drawing.Size(97, 12);
             this.labStatus.TabIndex = 114;
@@ -1281,17 +1291,97 @@ namespace SoftStartTiming
             // 
             // progressBar2
             // 
-            this.progressBar2.Location = new System.Drawing.Point(19, 493);
+            this.progressBar2.Location = new System.Drawing.Point(1, 505);
             this.progressBar2.Name = "progressBar2";
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 115;
+            // 
+            // nu_write_protect_bit
+            // 
+            this.nu_write_protect_bit.Hexadecimal = true;
+            this.nu_write_protect_bit.Location = new System.Drawing.Point(67, 45);
+            this.nu_write_protect_bit.Maximum = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            this.nu_write_protect_bit.Name = "nu_write_protect_bit";
+            this.nu_write_protect_bit.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nu_write_protect_bit.Size = new System.Drawing.Size(50, 22);
+            this.nu_write_protect_bit.TabIndex = 3028;
+            this.nu_write_protect_bit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_write_protect_bit.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
+            // nu_write_protect_addr
+            // 
+            this.nu_write_protect_addr.Hexadecimal = true;
+            this.nu_write_protect_addr.Location = new System.Drawing.Point(9, 45);
+            this.nu_write_protect_addr.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nu_write_protect_addr.Name = "nu_write_protect_addr";
+            this.nu_write_protect_addr.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.nu_write_protect_addr.Size = new System.Drawing.Size(50, 22);
+            this.nu_write_protect_addr.TabIndex = 3027;
+            this.nu_write_protect_addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_write_protect_addr.Value = new decimal(new int[] {
+            47,
+            0,
+            0,
+            0});
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(10, 30);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(49, 12);
+            this.label12.TabIndex = 3029;
+            this.label12.Text = "Address";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(67, 30);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(22, 12);
+            this.label13.TabIndex = 3030;
+            this.label13.Text = "Bit";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(7, 12);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(79, 12);
+            this.label16.TabIndex = 3031;
+            this.label16.Text = "Write protect";
+            // 
+            // panel1
+            // 
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.label16);
+            this.panel1.Controls.Add(this.nu_write_protect_bit);
+            this.panel1.Controls.Add(this.label13);
+            this.panel1.Controls.Add(this.label12);
+            this.panel1.Controls.Add(this.nu_write_protect_addr);
+            this.panel1.Location = new System.Drawing.Point(7, 342);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(176, 81);
+            this.panel1.TabIndex = 3028;
             // 
             // CrossTalk
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(787, 524);
+            this.ClientSize = new System.Drawing.Size(816, 541);
             this.Controls.Add(this.labStatus);
             this.Controls.Add(this.progressBar2);
             this.Controls.Add(this.nuCH_number);
@@ -1345,6 +1435,10 @@ namespace SoftStartTiming
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MeasDG)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuCH_number)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_write_protect_bit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_write_protect_addr)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1459,5 +1553,11 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridView i2c_datagrid;
         private System.Windows.Forms.DataGridViewTextBoxColumn Address;
         private System.Windows.Forms.DataGridViewTextBoxColumn Data;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown nu_write_protect_bit;
+        private System.Windows.Forms.NumericUpDown nu_write_protect_addr;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Panel panel1;
     }
 }
