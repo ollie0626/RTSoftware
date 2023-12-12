@@ -25,7 +25,10 @@ namespace SoftStartTiming
         public static int bin1_cnt;
         public static int bin2_cnt;
         public static int bin3_cnt;
-        
+
+        public static int write_protect_bit;
+        public static byte write_protect_addr;
+
         // 0: gpio trigger
         // 1: i2c trigger
         // 2: vin trigger
