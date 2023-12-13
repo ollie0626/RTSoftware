@@ -75,7 +75,6 @@ namespace MulanLite
          * idx = 6, Ci = 7%
          * idx = 7, Ci = 8%
          * idx = 8, Ci = 9%
-         * idx = 9, Ci = 10%
          * 
          */
         public void SetCiClock(int idx)

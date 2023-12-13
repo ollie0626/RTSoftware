@@ -1175,7 +1175,7 @@ namespace MulanLite
             0,
             0});
             this.nuFirst.Name = "nuFirst";
-            this.nuFirst.Size = new System.Drawing.Size(50, 23);
+            this.nuFirst.Size = new System.Drawing.Size(50, 27);
             this.nuFirst.TabIndex = 1;
             this.nuFirst.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1189,7 +1189,7 @@ namespace MulanLite
             0,
             0});
             this.nuEnd.Name = "nuEnd";
-            this.nuEnd.Size = new System.Drawing.Size(50, 23);
+            this.nuEnd.Size = new System.Drawing.Size(50, 27);
             this.nuEnd.TabIndex = 3;
             this.nuEnd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1214,7 +1214,7 @@ namespace MulanLite
             0,
             0});
             this.nu_persentid.Name = "nu_persentid";
-            this.nu_persentid.Size = new System.Drawing.Size(50, 23);
+            this.nu_persentid.Size = new System.Drawing.Size(50, 27);
             this.nu_persentid.TabIndex = 5;
             this.nu_persentid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -1432,7 +1432,7 @@ namespace MulanLite
             // uiLabel9
             // 
             this.uiLabel9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel9.Location = new System.Drawing.Point(3, 116);
+            this.uiLabel9.Location = new System.Drawing.Point(3, 132);
             this.uiLabel9.Name = "uiLabel9";
             this.uiLabel9.Size = new System.Drawing.Size(156, 23);
             this.uiLabel9.Style = Sunny.UI.UIStyle.Custom;
@@ -1443,14 +1443,14 @@ namespace MulanLite
             // nuPWMcycle
             // 
             this.nuPWMcycle.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuPWMcycle.Location = new System.Drawing.Point(165, 119);
+            this.nuPWMcycle.Location = new System.Drawing.Point(165, 135);
             this.nuPWMcycle.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.nuPWMcycle.Name = "nuPWMcycle";
-            this.nuPWMcycle.Size = new System.Drawing.Size(120, 23);
+            this.nuPWMcycle.Size = new System.Drawing.Size(120, 27);
             this.nuPWMcycle.TabIndex = 16;
             this.nuPWMcycle.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuPWMcycle.Value = new decimal(new int[] {
@@ -1463,7 +1463,7 @@ namespace MulanLite
             // uiLabel10
             // 
             this.uiLabel10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel10.Location = new System.Drawing.Point(3, 145);
+            this.uiLabel10.Location = new System.Drawing.Point(3, 165);
             this.uiLabel10.Name = "uiLabel10";
             this.uiLabel10.Size = new System.Drawing.Size(156, 23);
             this.uiLabel10.Style = Sunny.UI.UIStyle.Custom;
@@ -1474,14 +1474,14 @@ namespace MulanLite
             // nuMaxpulse
             // 
             this.nuMaxpulse.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuMaxpulse.Location = new System.Drawing.Point(165, 148);
+            this.nuMaxpulse.Location = new System.Drawing.Point(165, 168);
             this.nuMaxpulse.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.nuMaxpulse.Name = "nuMaxpulse";
-            this.nuMaxpulse.Size = new System.Drawing.Size(120, 23);
+            this.nuMaxpulse.Size = new System.Drawing.Size(120, 27);
             this.nuMaxpulse.TabIndex = 18;
             this.nuMaxpulse.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuMaxpulse.Value = new decimal(new int[] {
@@ -1494,7 +1494,7 @@ namespace MulanLite
             // uiLabel11
             // 
             this.uiLabel11.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel11.Location = new System.Drawing.Point(3, 174);
+            this.uiLabel11.Location = new System.Drawing.Point(3, 198);
             this.uiLabel11.Name = "uiLabel11";
             this.uiLabel11.Size = new System.Drawing.Size(156, 23);
             this.uiLabel11.Style = Sunny.UI.UIStyle.Custom;
@@ -1505,14 +1505,14 @@ namespace MulanLite
             // nuMinpulse
             // 
             this.nuMinpulse.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuMinpulse.Location = new System.Drawing.Point(165, 177);
+            this.nuMinpulse.Location = new System.Drawing.Point(165, 201);
             this.nuMinpulse.Maximum = new decimal(new int[] {
             4095,
             0,
             0,
             0});
             this.nuMinpulse.Name = "nuMinpulse";
-            this.nuMinpulse.Size = new System.Drawing.Size(120, 23);
+            this.nuMinpulse.Size = new System.Drawing.Size(120, 27);
             this.nuMinpulse.TabIndex = 0;
             this.nuMinpulse.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuMinpulse.Value = new decimal(new int[] {
@@ -1525,7 +1525,7 @@ namespace MulanLite
             // uiLabel12
             // 
             this.uiLabel12.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel12.Location = new System.Drawing.Point(3, 203);
+            this.uiLabel12.Location = new System.Drawing.Point(3, 231);
             this.uiLabel12.Name = "uiLabel12";
             this.uiLabel12.Size = new System.Drawing.Size(156, 23);
             this.uiLabel12.Style = Sunny.UI.UIStyle.Custom;
@@ -1536,7 +1536,7 @@ namespace MulanLite
             // uiLabel13
             // 
             this.uiLabel13.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel13.Location = new System.Drawing.Point(3, 232);
+            this.uiLabel13.Location = new System.Drawing.Point(3, 264);
             this.uiLabel13.Name = "uiLabel13";
             this.uiLabel13.Size = new System.Drawing.Size(156, 23);
             this.uiLabel13.Style = Sunny.UI.UIStyle.Custom;
@@ -1547,14 +1547,14 @@ namespace MulanLite
             // nuCy0
             // 
             this.nuCy0.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy0.Location = new System.Drawing.Point(165, 235);
+            this.nuCy0.Location = new System.Drawing.Point(165, 267);
             this.nuCy0.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy0.Name = "nuCy0";
-            this.nuCy0.Size = new System.Drawing.Size(120, 23);
+            this.nuCy0.Size = new System.Drawing.Size(120, 27);
             this.nuCy0.TabIndex = 1;
             this.nuCy0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy0.Value = new decimal(new int[] {
@@ -1567,7 +1567,7 @@ namespace MulanLite
             // uiLabel14
             // 
             this.uiLabel14.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel14.Location = new System.Drawing.Point(3, 261);
+            this.uiLabel14.Location = new System.Drawing.Point(3, 297);
             this.uiLabel14.Name = "uiLabel14";
             this.uiLabel14.Size = new System.Drawing.Size(156, 23);
             this.uiLabel14.Style = Sunny.UI.UIStyle.Custom;
@@ -1578,14 +1578,14 @@ namespace MulanLite
             // nuCy1
             // 
             this.nuCy1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy1.Location = new System.Drawing.Point(165, 264);
+            this.nuCy1.Location = new System.Drawing.Point(165, 300);
             this.nuCy1.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy1.Name = "nuCy1";
-            this.nuCy1.Size = new System.Drawing.Size(120, 23);
+            this.nuCy1.Size = new System.Drawing.Size(120, 27);
             this.nuCy1.TabIndex = 2;
             this.nuCy1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy1.Value = new decimal(new int[] {
@@ -1598,7 +1598,7 @@ namespace MulanLite
             // uiLabel15
             // 
             this.uiLabel15.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel15.Location = new System.Drawing.Point(3, 290);
+            this.uiLabel15.Location = new System.Drawing.Point(3, 330);
             this.uiLabel15.Name = "uiLabel15";
             this.uiLabel15.Size = new System.Drawing.Size(156, 23);
             this.uiLabel15.Style = Sunny.UI.UIStyle.Custom;
@@ -1609,14 +1609,14 @@ namespace MulanLite
             // nuCy2
             // 
             this.nuCy2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy2.Location = new System.Drawing.Point(165, 293);
+            this.nuCy2.Location = new System.Drawing.Point(165, 333);
             this.nuCy2.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy2.Name = "nuCy2";
-            this.nuCy2.Size = new System.Drawing.Size(120, 23);
+            this.nuCy2.Size = new System.Drawing.Size(120, 27);
             this.nuCy2.TabIndex = 3;
             this.nuCy2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy2.Value = new decimal(new int[] {
@@ -1629,7 +1629,7 @@ namespace MulanLite
             // uiLabel16
             // 
             this.uiLabel16.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel16.Location = new System.Drawing.Point(3, 319);
+            this.uiLabel16.Location = new System.Drawing.Point(3, 363);
             this.uiLabel16.Name = "uiLabel16";
             this.uiLabel16.Size = new System.Drawing.Size(156, 23);
             this.uiLabel16.Style = Sunny.UI.UIStyle.Custom;
@@ -1640,14 +1640,14 @@ namespace MulanLite
             // nuCy3
             // 
             this.nuCy3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy3.Location = new System.Drawing.Point(165, 322);
+            this.nuCy3.Location = new System.Drawing.Point(165, 366);
             this.nuCy3.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy3.Name = "nuCy3";
-            this.nuCy3.Size = new System.Drawing.Size(120, 23);
+            this.nuCy3.Size = new System.Drawing.Size(120, 27);
             this.nuCy3.TabIndex = 4;
             this.nuCy3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy3.Value = new decimal(new int[] {
@@ -1660,7 +1660,7 @@ namespace MulanLite
             // uiLabel17
             // 
             this.uiLabel17.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel17.Location = new System.Drawing.Point(3, 348);
+            this.uiLabel17.Location = new System.Drawing.Point(3, 396);
             this.uiLabel17.Name = "uiLabel17";
             this.uiLabel17.Size = new System.Drawing.Size(156, 23);
             this.uiLabel17.Style = Sunny.UI.UIStyle.Custom;
@@ -1671,14 +1671,14 @@ namespace MulanLite
             // nuCy4
             // 
             this.nuCy4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy4.Location = new System.Drawing.Point(165, 351);
+            this.nuCy4.Location = new System.Drawing.Point(165, 399);
             this.nuCy4.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy4.Name = "nuCy4";
-            this.nuCy4.Size = new System.Drawing.Size(120, 23);
+            this.nuCy4.Size = new System.Drawing.Size(120, 27);
             this.nuCy4.TabIndex = 5;
             this.nuCy4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy4.Value = new decimal(new int[] {
@@ -1691,7 +1691,7 @@ namespace MulanLite
             // uiLabel18
             // 
             this.uiLabel18.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel18.Location = new System.Drawing.Point(3, 377);
+            this.uiLabel18.Location = new System.Drawing.Point(3, 429);
             this.uiLabel18.Name = "uiLabel18";
             this.uiLabel18.Size = new System.Drawing.Size(156, 23);
             this.uiLabel18.Style = Sunny.UI.UIStyle.Custom;
@@ -1702,14 +1702,14 @@ namespace MulanLite
             // nuCy5
             // 
             this.nuCy5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy5.Location = new System.Drawing.Point(165, 380);
+            this.nuCy5.Location = new System.Drawing.Point(165, 432);
             this.nuCy5.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy5.Name = "nuCy5";
-            this.nuCy5.Size = new System.Drawing.Size(120, 23);
+            this.nuCy5.Size = new System.Drawing.Size(120, 27);
             this.nuCy5.TabIndex = 6;
             this.nuCy5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy5.Value = new decimal(new int[] {
@@ -1722,7 +1722,7 @@ namespace MulanLite
             // uiLabel19
             // 
             this.uiLabel19.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel19.Location = new System.Drawing.Point(3, 406);
+            this.uiLabel19.Location = new System.Drawing.Point(3, 462);
             this.uiLabel19.Name = "uiLabel19";
             this.uiLabel19.Size = new System.Drawing.Size(156, 23);
             this.uiLabel19.Style = Sunny.UI.UIStyle.Custom;
@@ -1733,14 +1733,14 @@ namespace MulanLite
             // nuCy6
             // 
             this.nuCy6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy6.Location = new System.Drawing.Point(165, 409);
+            this.nuCy6.Location = new System.Drawing.Point(165, 465);
             this.nuCy6.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy6.Name = "nuCy6";
-            this.nuCy6.Size = new System.Drawing.Size(120, 23);
+            this.nuCy6.Size = new System.Drawing.Size(120, 27);
             this.nuCy6.TabIndex = 7;
             this.nuCy6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy6.Value = new decimal(new int[] {
@@ -1753,7 +1753,7 @@ namespace MulanLite
             // uiLabel20
             // 
             this.uiLabel20.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel20.Location = new System.Drawing.Point(3, 435);
+            this.uiLabel20.Location = new System.Drawing.Point(3, 495);
             this.uiLabel20.Name = "uiLabel20";
             this.uiLabel20.Size = new System.Drawing.Size(156, 23);
             this.uiLabel20.Style = Sunny.UI.UIStyle.Custom;
@@ -1764,14 +1764,14 @@ namespace MulanLite
             // nuCy7
             // 
             this.nuCy7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nuCy7.Location = new System.Drawing.Point(165, 438);
+            this.nuCy7.Location = new System.Drawing.Point(165, 498);
             this.nuCy7.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
             this.nuCy7.Name = "nuCy7";
-            this.nuCy7.Size = new System.Drawing.Size(120, 23);
+            this.nuCy7.Size = new System.Drawing.Size(120, 27);
             this.nuCy7.TabIndex = 8;
             this.nuCy7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuCy7.ValueChanged += new System.EventHandler(this.nuMinpulse_ValueChanged);
@@ -1843,7 +1843,6 @@ namespace MulanLite
             "6MHz (7%)",
             "6MHz (8%)",
             "6MHz (9%)",
-            "6MHz (10%)",
             "6MHz (91%)",
             "6MHz (92%)",
             "6MHz (93%)",
@@ -1855,7 +1854,7 @@ namespace MulanLite
             "6MHz (99%)"});
             this.CiFreq.Location = new System.Drawing.Point(109, 61);
             this.CiFreq.Name = "CiFreq";
-            this.CiFreq.Size = new System.Drawing.Size(130, 23);
+            this.CiFreq.Size = new System.Drawing.Size(130, 27);
             this.CiFreq.TabIndex = 14;
             this.CiFreq.SelectedIndexChanged += new System.EventHandler(this.CiFreq_SelectedIndexChanged);
             // 
@@ -1871,7 +1870,7 @@ namespace MulanLite
             "2\'b11 : Fsw = 1/32"});
             this.RCLK_DIV.Location = new System.Drawing.Point(109, 32);
             this.RCLK_DIV.Name = "RCLK_DIV";
-            this.RCLK_DIV.Size = new System.Drawing.Size(130, 23);
+            this.RCLK_DIV.Size = new System.Drawing.Size(130, 27);
             this.RCLK_DIV.TabIndex = 43;
             this.RCLK_DIV.SelectedIndexChanged += new System.EventHandler(this.RCLK_DIV_SelectedIndexChanged);
             // 
@@ -2000,14 +1999,14 @@ namespace MulanLite
             0,
             0});
             this.nuPWMout.Name = "nuPWMout";
-            this.nuPWMout.Size = new System.Drawing.Size(120, 23);
+            this.nuPWMout.Size = new System.Drawing.Size(120, 27);
             this.nuPWMout.TabIndex = 7;
             this.nuPWMout.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel24
             // 
             this.uiLabel24.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel24.Location = new System.Drawing.Point(3, 29);
+            this.uiLabel24.Location = new System.Drawing.Point(3, 33);
             this.uiLabel24.Name = "uiLabel24";
             this.uiLabel24.Size = new System.Drawing.Size(156, 23);
             this.uiLabel24.Style = Sunny.UI.UIStyle.Custom;
@@ -2023,16 +2022,16 @@ namespace MulanLite
             this.cb_allowone.Items.AddRange(new object[] {
             "0",
             "1"});
-            this.cb_allowone.Location = new System.Drawing.Point(165, 32);
+            this.cb_allowone.Location = new System.Drawing.Point(165, 36);
             this.cb_allowone.Name = "cb_allowone";
-            this.cb_allowone.Size = new System.Drawing.Size(121, 23);
+            this.cb_allowone.Size = new System.Drawing.Size(121, 27);
             this.cb_allowone.TabIndex = 9;
             this.cb_allowone.SelectedIndexChanged += new System.EventHandler(this.cb_allowone_SelectedIndexChanged);
             // 
             // uiLabel25
             // 
             this.uiLabel25.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel25.Location = new System.Drawing.Point(3, 58);
+            this.uiLabel25.Location = new System.Drawing.Point(3, 66);
             this.uiLabel25.Name = "uiLabel25";
             this.uiLabel25.Size = new System.Drawing.Size(156, 23);
             this.uiLabel25.Style = Sunny.UI.UIStyle.Custom;
@@ -2048,16 +2047,16 @@ namespace MulanLite
             this.cb_ditheren.Items.AddRange(new object[] {
             "Disable",
             "Enable"});
-            this.cb_ditheren.Location = new System.Drawing.Point(165, 61);
+            this.cb_ditheren.Location = new System.Drawing.Point(165, 69);
             this.cb_ditheren.Name = "cb_ditheren";
-            this.cb_ditheren.Size = new System.Drawing.Size(121, 23);
+            this.cb_ditheren.Size = new System.Drawing.Size(121, 27);
             this.cb_ditheren.TabIndex = 11;
             this.cb_ditheren.SelectedIndexChanged += new System.EventHandler(this.cb_ditheren_SelectedIndexChanged);
             // 
             // uiLabel27
             // 
             this.uiLabel27.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel27.Location = new System.Drawing.Point(3, 87);
+            this.uiLabel27.Location = new System.Drawing.Point(3, 99);
             this.uiLabel27.Name = "uiLabel27";
             this.uiLabel27.Size = new System.Drawing.Size(156, 23);
             this.uiLabel27.Style = Sunny.UI.UIStyle.Custom;
@@ -2075,9 +2074,9 @@ namespace MulanLite
             "2\'d1 : M2",
             "2\'d2 : M3",
             "2\'d3 : M4"});
-            this.cb_m_factor.Location = new System.Drawing.Point(165, 90);
+            this.cb_m_factor.Location = new System.Drawing.Point(165, 102);
             this.cb_m_factor.Name = "cb_m_factor";
-            this.cb_m_factor.Size = new System.Drawing.Size(121, 23);
+            this.cb_m_factor.Size = new System.Drawing.Size(121, 27);
             this.cb_m_factor.TabIndex = 15;
             this.cb_m_factor.SelectedIndexChanged += new System.EventHandler(this.cb_m_factor_SelectedIndexChanged);
             // 
@@ -2089,9 +2088,9 @@ namespace MulanLite
             this.cb_centred.Items.AddRange(new object[] {
             "0",
             "1"});
-            this.cb_centred.Location = new System.Drawing.Point(165, 206);
+            this.cb_centred.Location = new System.Drawing.Point(165, 234);
             this.cb_centred.Name = "cb_centred";
-            this.cb_centred.Size = new System.Drawing.Size(121, 23);
+            this.cb_centred.Size = new System.Drawing.Size(121, 27);
             this.cb_centred.TabIndex = 39;
             this.cb_centred.SelectedIndexChanged += new System.EventHandler(this.cb_centred_SelectedIndexChanged);
             // 
@@ -2299,7 +2298,7 @@ namespace MulanLite
             0,
             0});
             this.nu_badcmd.Name = "nu_badcmd";
-            this.nu_badcmd.Size = new System.Drawing.Size(43, 21);
+            this.nu_badcmd.Size = new System.Drawing.Size(43, 24);
             this.nu_badcmd.TabIndex = 17;
             this.nu_badcmd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2314,7 +2313,7 @@ namespace MulanLite
             0,
             0});
             this.nu_badid.Name = "nu_badid";
-            this.nu_badid.Size = new System.Drawing.Size(43, 21);
+            this.nu_badid.Size = new System.Drawing.Size(43, 24);
             this.nu_badid.TabIndex = 16;
             this.nu_badid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2329,7 +2328,7 @@ namespace MulanLite
             0,
             0});
             this.nu_badadd.Name = "nu_badadd";
-            this.nu_badadd.Size = new System.Drawing.Size(43, 21);
+            this.nu_badadd.Size = new System.Drawing.Size(43, 24);
             this.nu_badadd.TabIndex = 15;
             this.nu_badadd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2344,7 +2343,7 @@ namespace MulanLite
             0,
             0});
             this.nu_badlen.Name = "nu_badlen";
-            this.nu_badlen.Size = new System.Drawing.Size(43, 21);
+            this.nu_badlen.Size = new System.Drawing.Size(43, 24);
             this.nu_badlen.TabIndex = 14;
             this.nu_badlen.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2359,7 +2358,7 @@ namespace MulanLite
             0,
             0});
             this.nu_rdo.Name = "nu_rdo";
-            this.nu_rdo.Size = new System.Drawing.Size(43, 21);
+            this.nu_rdo.Size = new System.Drawing.Size(43, 24);
             this.nu_rdo.TabIndex = 13;
             this.nu_rdo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2374,7 +2373,7 @@ namespace MulanLite
             0,
             0});
             this.nu_crc.Name = "nu_crc";
-            this.nu_crc.Size = new System.Drawing.Size(43, 21);
+            this.nu_crc.Size = new System.Drawing.Size(43, 24);
             this.nu_crc.TabIndex = 12;
             this.nu_crc.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2729,7 +2728,7 @@ namespace MulanLite
             0,
             0});
             this.nu_raise.Name = "nu_raise";
-            this.nu_raise.Size = new System.Drawing.Size(43, 21);
+            this.nu_raise.Size = new System.Drawing.Size(43, 24);
             this.nu_raise.TabIndex = 32;
             this.nu_raise.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2768,7 +2767,7 @@ namespace MulanLite
             0,
             0});
             this.nu_dont_lower.Name = "nu_dont_lower";
-            this.nu_dont_lower.Size = new System.Drawing.Size(43, 21);
+            this.nu_dont_lower.Size = new System.Drawing.Size(43, 24);
             this.nu_dont_lower.TabIndex = 31;
             this.nu_dont_lower.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2832,7 +2831,7 @@ namespace MulanLite
             0,
             0});
             this.nushort_ch1.Name = "nushort_ch1";
-            this.nushort_ch1.Size = new System.Drawing.Size(43, 21);
+            this.nushort_ch1.Size = new System.Drawing.Size(43, 24);
             this.nushort_ch1.TabIndex = 28;
             this.nushort_ch1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -2896,7 +2895,7 @@ namespace MulanLite
             0,
             0});
             this.nushort_ch2.Name = "nushort_ch2";
-            this.nushort_ch2.Size = new System.Drawing.Size(43, 21);
+            this.nushort_ch2.Size = new System.Drawing.Size(43, 24);
             this.nushort_ch2.TabIndex = 25;
             this.nushort_ch2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3085,7 +3084,7 @@ namespace MulanLite
             0,
             0});
             this.nushort_ch3.Name = "nushort_ch3";
-            this.nushort_ch3.Size = new System.Drawing.Size(43, 21);
+            this.nushort_ch3.Size = new System.Drawing.Size(43, 24);
             this.nushort_ch3.TabIndex = 17;
             this.nushort_ch3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3099,7 +3098,7 @@ namespace MulanLite
             0,
             0});
             this.nushort_ch4.Name = "nushort_ch4";
-            this.nushort_ch4.Size = new System.Drawing.Size(43, 21);
+            this.nushort_ch4.Size = new System.Drawing.Size(43, 24);
             this.nushort_ch4.TabIndex = 16;
             this.nushort_ch4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3113,7 +3112,7 @@ namespace MulanLite
             0,
             0});
             this.nuopen_ch1.Name = "nuopen_ch1";
-            this.nuopen_ch1.Size = new System.Drawing.Size(43, 21);
+            this.nuopen_ch1.Size = new System.Drawing.Size(43, 24);
             this.nuopen_ch1.TabIndex = 15;
             this.nuopen_ch1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3127,7 +3126,7 @@ namespace MulanLite
             0,
             0});
             this.nuopen_ch2.Name = "nuopen_ch2";
-            this.nuopen_ch2.Size = new System.Drawing.Size(43, 21);
+            this.nuopen_ch2.Size = new System.Drawing.Size(43, 24);
             this.nuopen_ch2.TabIndex = 14;
             this.nuopen_ch2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3141,7 +3140,7 @@ namespace MulanLite
             0,
             0});
             this.nuopen_ch3.Name = "nuopen_ch3";
-            this.nuopen_ch3.Size = new System.Drawing.Size(43, 21);
+            this.nuopen_ch3.Size = new System.Drawing.Size(43, 24);
             this.nuopen_ch3.TabIndex = 13;
             this.nuopen_ch3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3156,7 +3155,7 @@ namespace MulanLite
             0,
             0});
             this.nuopen_ch4.Name = "nuopen_ch4";
-            this.nuopen_ch4.Size = new System.Drawing.Size(43, 21);
+            this.nuopen_ch4.Size = new System.Drawing.Size(43, 24);
             this.nuopen_ch4.TabIndex = 12;
             this.nuopen_ch4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3340,7 +3339,7 @@ namespace MulanLite
             this.ck_tsd_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ck_tsd_mask.Location = new System.Drawing.Point(16, 131);
             this.ck_tsd_mask.Name = "ck_tsd_mask";
-            this.ck_tsd_mask.Size = new System.Drawing.Size(98, 19);
+            this.ck_tsd_mask.Size = new System.Drawing.Size(127, 25);
             this.ck_tsd_mask.TabIndex = 2;
             this.ck_tsd_mask.Text = "TSD_MASK[2]";
             this.ck_tsd_mask.UseVisualStyleBackColor = true;
@@ -3352,7 +3351,7 @@ namespace MulanLite
             this.ck_fuse_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ck_fuse_mask.Location = new System.Drawing.Point(16, 106);
             this.ck_fuse_mask.Name = "ck_fuse_mask";
-            this.ck_fuse_mask.Size = new System.Drawing.Size(157, 19);
+            this.ck_fuse_mask.Size = new System.Drawing.Size(205, 25);
             this.ck_fuse_mask.TabIndex = 3;
             this.ck_fuse_mask.Text = "EFUSE_CRCERR_MASK[3]";
             this.ck_fuse_mask.UseVisualStyleBackColor = true;
@@ -3364,7 +3363,7 @@ namespace MulanLite
             this.ck_clk_missing.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ck_clk_missing.Location = new System.Drawing.Point(16, 81);
             this.ck_clk_missing.Name = "ck_clk_missing";
-            this.ck_clk_missing.Size = new System.Drawing.Size(150, 19);
+            this.ck_clk_missing.Size = new System.Drawing.Size(195, 25);
             this.ck_clk_missing.TabIndex = 4;
             this.ck_clk_missing.Text = "CLK_MISSING_MASK[4]";
             this.ck_clk_missing.UseVisualStyleBackColor = true;
@@ -3376,7 +3375,7 @@ namespace MulanLite
             this.ck_open_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ck_open_mask.Location = new System.Drawing.Point(16, 56);
             this.ck_open_mask.Name = "ck_open_mask";
-            this.ck_open_mask.Size = new System.Drawing.Size(108, 19);
+            this.ck_open_mask.Size = new System.Drawing.Size(140, 25);
             this.ck_open_mask.TabIndex = 6;
             this.ck_open_mask.Text = "OPEN_MASK[6]";
             this.ck_open_mask.UseVisualStyleBackColor = true;
@@ -3388,7 +3387,7 @@ namespace MulanLite
             this.ck_short_mask.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ck_short_mask.Location = new System.Drawing.Point(16, 31);
             this.ck_short_mask.Name = "ck_short_mask";
-            this.ck_short_mask.Size = new System.Drawing.Size(114, 19);
+            this.ck_short_mask.Size = new System.Drawing.Size(148, 25);
             this.ck_short_mask.TabIndex = 7;
             this.ck_short_mask.Text = "SHORT_MASK[7]";
             this.ck_short_mask.UseVisualStyleBackColor = true;
@@ -3459,7 +3458,7 @@ namespace MulanLite
             0,
             0});
             this.nu_data.Name = "nu_data";
-            this.nu_data.Size = new System.Drawing.Size(117, 23);
+            this.nu_data.Size = new System.Drawing.Size(117, 27);
             this.nu_data.TabIndex = 49;
             this.nu_data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_data.Value = new decimal(new int[] {
@@ -3484,7 +3483,7 @@ namespace MulanLite
             this.nu_endid.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_endid.Location = new System.Drawing.Point(278, 96);
             this.nu_endid.Name = "nu_endid";
-            this.nu_endid.Size = new System.Drawing.Size(50, 23);
+            this.nu_endid.Size = new System.Drawing.Size(50, 27);
             this.nu_endid.TabIndex = 47;
             this.nu_endid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_endid.Visible = false;
@@ -3506,7 +3505,7 @@ namespace MulanLite
             this.nu_startid.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_startid.Location = new System.Drawing.Point(116, 96);
             this.nu_startid.Name = "nu_startid";
-            this.nu_startid.Size = new System.Drawing.Size(50, 23);
+            this.nu_startid.Size = new System.Drawing.Size(50, 27);
             this.nu_startid.TabIndex = 45;
             this.nu_startid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3531,7 +3530,7 @@ namespace MulanLite
             0,
             0});
             this.nu_start_offset.Name = "nu_start_offset";
-            this.nu_start_offset.Size = new System.Drawing.Size(117, 23);
+            this.nu_start_offset.Size = new System.Drawing.Size(117, 27);
             this.nu_start_offset.TabIndex = 8;
             this.nu_start_offset.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_start_offset.Value = new decimal(new int[] {
@@ -3561,7 +3560,7 @@ namespace MulanLite
             0,
             0});
             this.nu_mulan_qty.Name = "nu_mulan_qty";
-            this.nu_mulan_qty.Size = new System.Drawing.Size(50, 23);
+            this.nu_mulan_qty.Size = new System.Drawing.Size(50, 27);
             this.nu_mulan_qty.TabIndex = 6;
             this.nu_mulan_qty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_mulan_qty.Value = new decimal(new int[] {
@@ -3586,7 +3585,7 @@ namespace MulanLite
             this.nu_speciedid.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_speciedid.Location = new System.Drawing.Point(104, 30);
             this.nu_speciedid.Name = "nu_speciedid";
-            this.nu_speciedid.Size = new System.Drawing.Size(50, 23);
+            this.nu_speciedid.Size = new System.Drawing.Size(50, 27);
             this.nu_speciedid.TabIndex = 51;
             this.nu_speciedid.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -3611,7 +3610,7 @@ namespace MulanLite
             0,
             0});
             this.nu_spe_offset1.Name = "nu_spe_offset1";
-            this.nu_spe_offset1.Size = new System.Drawing.Size(74, 23);
+            this.nu_spe_offset1.Size = new System.Drawing.Size(74, 27);
             this.nu_spe_offset1.TabIndex = 53;
             this.nu_spe_offset1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_spe_offset1.Value = new decimal(new int[] {
@@ -3649,7 +3648,7 @@ namespace MulanLite
             // uiLabel32
             // 
             this.uiLabel32.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel32.Location = new System.Drawing.Point(3, 29);
+            this.uiLabel32.Location = new System.Drawing.Point(3, 33);
             this.uiLabel32.Name = "uiLabel32";
             this.uiLabel32.Size = new System.Drawing.Size(76, 23);
             this.uiLabel32.Style = Sunny.UI.UIStyle.Custom;
@@ -3660,14 +3659,14 @@ namespace MulanLite
             // nu_spe_offset2
             // 
             this.nu_spe_offset2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_spe_offset2.Location = new System.Drawing.Point(85, 32);
+            this.nu_spe_offset2.Location = new System.Drawing.Point(85, 36);
             this.nu_spe_offset2.Maximum = new decimal(new int[] {
             262143,
             0,
             0,
             0});
             this.nu_spe_offset2.Name = "nu_spe_offset2";
-            this.nu_spe_offset2.Size = new System.Drawing.Size(74, 23);
+            this.nu_spe_offset2.Size = new System.Drawing.Size(74, 27);
             this.nu_spe_offset2.TabIndex = 55;
             this.nu_spe_offset2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_spe_offset2.Value = new decimal(new int[] {
@@ -3679,7 +3678,7 @@ namespace MulanLite
             // uiLabel33
             // 
             this.uiLabel33.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel33.Location = new System.Drawing.Point(3, 58);
+            this.uiLabel33.Location = new System.Drawing.Point(3, 66);
             this.uiLabel33.Name = "uiLabel33";
             this.uiLabel33.Size = new System.Drawing.Size(76, 23);
             this.uiLabel33.Style = Sunny.UI.UIStyle.Custom;
@@ -3690,14 +3689,14 @@ namespace MulanLite
             // nu_spe_offset3
             // 
             this.nu_spe_offset3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_spe_offset3.Location = new System.Drawing.Point(85, 61);
+            this.nu_spe_offset3.Location = new System.Drawing.Point(85, 69);
             this.nu_spe_offset3.Maximum = new decimal(new int[] {
             262143,
             0,
             0,
             0});
             this.nu_spe_offset3.Name = "nu_spe_offset3";
-            this.nu_spe_offset3.Size = new System.Drawing.Size(74, 23);
+            this.nu_spe_offset3.Size = new System.Drawing.Size(74, 27);
             this.nu_spe_offset3.TabIndex = 57;
             this.nu_spe_offset3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_spe_offset3.Value = new decimal(new int[] {
@@ -3709,7 +3708,7 @@ namespace MulanLite
             // uiLabel34
             // 
             this.uiLabel34.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel34.Location = new System.Drawing.Point(3, 87);
+            this.uiLabel34.Location = new System.Drawing.Point(3, 99);
             this.uiLabel34.Name = "uiLabel34";
             this.uiLabel34.Size = new System.Drawing.Size(76, 23);
             this.uiLabel34.Style = Sunny.UI.UIStyle.Custom;
@@ -3720,14 +3719,14 @@ namespace MulanLite
             // nu_spe_offset4
             // 
             this.nu_spe_offset4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_spe_offset4.Location = new System.Drawing.Point(85, 90);
+            this.nu_spe_offset4.Location = new System.Drawing.Point(85, 102);
             this.nu_spe_offset4.Maximum = new decimal(new int[] {
             262143,
             0,
             0,
             0});
             this.nu_spe_offset4.Name = "nu_spe_offset4";
-            this.nu_spe_offset4.Size = new System.Drawing.Size(74, 23);
+            this.nu_spe_offset4.Size = new System.Drawing.Size(74, 27);
             this.nu_spe_offset4.TabIndex = 59;
             this.nu_spe_offset4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_spe_offset4.Value = new decimal(new int[] {
@@ -3805,7 +3804,7 @@ namespace MulanLite
             0,
             0});
             this.nu_specified_data4.Name = "nu_specified_data4";
-            this.nu_specified_data4.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data4.Size = new System.Drawing.Size(101, 27);
             this.nu_specified_data4.TabIndex = 65;
             this.nu_specified_data4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_specified_data4.Value = new decimal(new int[] {
@@ -3860,7 +3859,7 @@ namespace MulanLite
             0,
             0});
             this.nu_start_zone.Name = "nu_start_zone";
-            this.nu_start_zone.Size = new System.Drawing.Size(63, 23);
+            this.nu_start_zone.Size = new System.Drawing.Size(63, 27);
             this.nu_start_zone.TabIndex = 59;
             this.nu_start_zone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_start_zone.Value = new decimal(new int[] {
@@ -3879,7 +3878,7 @@ namespace MulanLite
             0,
             0});
             this.nu_specified_data3.Name = "nu_specified_data3";
-            this.nu_specified_data3.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data3.Size = new System.Drawing.Size(101, 27);
             this.nu_specified_data3.TabIndex = 63;
             this.nu_specified_data3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_specified_data3.Value = new decimal(new int[] {
@@ -3920,7 +3919,7 @@ namespace MulanLite
             0,
             0});
             this.nu_specified_data2.Name = "nu_specified_data2";
-            this.nu_specified_data2.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data2.Size = new System.Drawing.Size(101, 27);
             this.nu_specified_data2.TabIndex = 61;
             this.nu_specified_data2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_specified_data2.Value = new decimal(new int[] {
@@ -3939,7 +3938,7 @@ namespace MulanLite
             0,
             0});
             this.nu_specified_data1.Name = "nu_specified_data1";
-            this.nu_specified_data1.Size = new System.Drawing.Size(101, 23);
+            this.nu_specified_data1.Size = new System.Drawing.Size(101, 27);
             this.nu_specified_data1.TabIndex = 57;
             this.nu_specified_data1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_specified_data1.Value = new decimal(new int[] {
@@ -3980,7 +3979,7 @@ namespace MulanLite
             0,
             0});
             this.nu_end_zone.Name = "nu_end_zone";
-            this.nu_end_zone.Size = new System.Drawing.Size(63, 23);
+            this.nu_end_zone.Size = new System.Drawing.Size(63, 27);
             this.nu_end_zone.TabIndex = 59;
             this.nu_end_zone.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_end_zone.Value = new decimal(new int[] {
@@ -4036,7 +4035,7 @@ namespace MulanLite
             0,
             0});
             this.nu_fault_qty.Name = "nu_fault_qty";
-            this.nu_fault_qty.Size = new System.Drawing.Size(50, 23);
+            this.nu_fault_qty.Size = new System.Drawing.Size(50, 27);
             this.nu_fault_qty.TabIndex = 49;
             this.nu_fault_qty.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_fault_qty.Value = new decimal(new int[] {
@@ -4176,7 +4175,7 @@ namespace MulanLite
             0,
             0});
             this.flag1.Name = "flag1";
-            this.flag1.Size = new System.Drawing.Size(43, 21);
+            this.flag1.Size = new System.Drawing.Size(43, 24);
             this.flag1.TabIndex = 13;
             this.flag1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4185,13 +4184,13 @@ namespace MulanLite
             this.textBox1.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.textBox1.Location = new System.Drawing.Point(173, 3);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(213, 23);
+            this.textBox1.Size = new System.Drawing.Size(213, 27);
             this.textBox1.TabIndex = 14;
             // 
             // uiLabel40
             // 
             this.uiLabel40.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel40.Location = new System.Drawing.Point(3, 29);
+            this.uiLabel40.Location = new System.Drawing.Point(3, 33);
             this.uiLabel40.Name = "uiLabel40";
             this.uiLabel40.Size = new System.Drawing.Size(115, 23);
             this.uiLabel40.Style = Sunny.UI.UIStyle.Custom;
@@ -4203,29 +4202,29 @@ namespace MulanLite
             // 
             this.flag2.Enabled = false;
             this.flag2.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag2.Location = new System.Drawing.Point(124, 32);
+            this.flag2.Location = new System.Drawing.Point(124, 36);
             this.flag2.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag2.Name = "flag2";
-            this.flag2.Size = new System.Drawing.Size(43, 21);
+            this.flag2.Size = new System.Drawing.Size(43, 24);
             this.flag2.TabIndex = 16;
             this.flag2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox2
             // 
             this.textBox2.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.Location = new System.Drawing.Point(173, 32);
+            this.textBox2.Location = new System.Drawing.Point(173, 36);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(213, 23);
+            this.textBox2.Size = new System.Drawing.Size(213, 27);
             this.textBox2.TabIndex = 17;
             // 
             // uiLabel41
             // 
             this.uiLabel41.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel41.Location = new System.Drawing.Point(3, 58);
+            this.uiLabel41.Location = new System.Drawing.Point(3, 66);
             this.uiLabel41.Name = "uiLabel41";
             this.uiLabel41.Size = new System.Drawing.Size(115, 23);
             this.uiLabel41.Style = Sunny.UI.UIStyle.Custom;
@@ -4237,23 +4236,23 @@ namespace MulanLite
             // 
             this.flag3.Enabled = false;
             this.flag3.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag3.Location = new System.Drawing.Point(124, 61);
+            this.flag3.Location = new System.Drawing.Point(124, 69);
             this.flag3.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag3.Name = "flag3";
-            this.flag3.Size = new System.Drawing.Size(43, 21);
+            this.flag3.Size = new System.Drawing.Size(43, 24);
             this.flag3.TabIndex = 19;
             this.flag3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox3
             // 
             this.textBox3.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.Location = new System.Drawing.Point(173, 61);
+            this.textBox3.Location = new System.Drawing.Point(173, 69);
             this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(147, 23);
+            this.textBox3.Size = new System.Drawing.Size(147, 27);
             this.textBox3.TabIndex = 20;
             // 
             // bt_inq_therm
@@ -4269,7 +4268,7 @@ namespace MulanLite
             this.bt_inq_therm.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.bt_inq_therm.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
             this.bt_inq_therm.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inq_therm.Location = new System.Drawing.Point(326, 61);
+            this.bt_inq_therm.Location = new System.Drawing.Point(326, 69);
             this.bt_inq_therm.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_inq_therm.Name = "bt_inq_therm";
             this.bt_inq_therm.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
@@ -4284,7 +4283,7 @@ namespace MulanLite
             // uiLabel42
             // 
             this.uiLabel42.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel42.Location = new System.Drawing.Point(3, 87);
+            this.uiLabel42.Location = new System.Drawing.Point(3, 99);
             this.uiLabel42.Name = "uiLabel42";
             this.uiLabel42.Size = new System.Drawing.Size(115, 23);
             this.uiLabel42.Style = Sunny.UI.UIStyle.Custom;
@@ -4296,23 +4295,23 @@ namespace MulanLite
             // 
             this.flag4.Enabled = false;
             this.flag4.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag4.Location = new System.Drawing.Point(124, 90);
+            this.flag4.Location = new System.Drawing.Point(124, 102);
             this.flag4.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag4.Name = "flag4";
-            this.flag4.Size = new System.Drawing.Size(43, 21);
+            this.flag4.Size = new System.Drawing.Size(43, 24);
             this.flag4.TabIndex = 22;
             this.flag4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox4
             // 
             this.textBox4.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.Location = new System.Drawing.Point(173, 90);
+            this.textBox4.Location = new System.Drawing.Point(173, 102);
             this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(147, 23);
+            this.textBox4.Size = new System.Drawing.Size(147, 27);
             this.textBox4.TabIndex = 23;
             // 
             // bt_inq_crc
@@ -4328,7 +4327,7 @@ namespace MulanLite
             this.bt_inq_crc.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.bt_inq_crc.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
             this.bt_inq_crc.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inq_crc.Location = new System.Drawing.Point(326, 90);
+            this.bt_inq_crc.Location = new System.Drawing.Point(326, 102);
             this.bt_inq_crc.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_inq_crc.Name = "bt_inq_crc";
             this.bt_inq_crc.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
@@ -4343,7 +4342,7 @@ namespace MulanLite
             // uiLabel43
             // 
             this.uiLabel43.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel43.Location = new System.Drawing.Point(3, 116);
+            this.uiLabel43.Location = new System.Drawing.Point(3, 132);
             this.uiLabel43.Name = "uiLabel43";
             this.uiLabel43.Size = new System.Drawing.Size(115, 23);
             this.uiLabel43.Style = Sunny.UI.UIStyle.Custom;
@@ -4355,23 +4354,23 @@ namespace MulanLite
             // 
             this.flag5.Enabled = false;
             this.flag5.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag5.Location = new System.Drawing.Point(124, 119);
+            this.flag5.Location = new System.Drawing.Point(124, 135);
             this.flag5.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag5.Name = "flag5";
-            this.flag5.Size = new System.Drawing.Size(43, 21);
+            this.flag5.Size = new System.Drawing.Size(43, 24);
             this.flag5.TabIndex = 25;
             this.flag5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox5
             // 
             this.textBox5.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.Location = new System.Drawing.Point(173, 119);
+            this.textBox5.Location = new System.Drawing.Point(173, 135);
             this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(147, 23);
+            this.textBox5.Size = new System.Drawing.Size(147, 27);
             this.textBox5.TabIndex = 26;
             // 
             // bt_inq_clk_miss
@@ -4387,7 +4386,7 @@ namespace MulanLite
             this.bt_inq_clk_miss.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.bt_inq_clk_miss.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
             this.bt_inq_clk_miss.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inq_clk_miss.Location = new System.Drawing.Point(326, 119);
+            this.bt_inq_clk_miss.Location = new System.Drawing.Point(326, 135);
             this.bt_inq_clk_miss.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_inq_clk_miss.Name = "bt_inq_clk_miss";
             this.bt_inq_clk_miss.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
@@ -4402,7 +4401,7 @@ namespace MulanLite
             // uiLabel44
             // 
             this.uiLabel44.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel44.Location = new System.Drawing.Point(3, 145);
+            this.uiLabel44.Location = new System.Drawing.Point(3, 165);
             this.uiLabel44.Name = "uiLabel44";
             this.uiLabel44.Size = new System.Drawing.Size(115, 23);
             this.uiLabel44.Style = Sunny.UI.UIStyle.Custom;
@@ -4414,29 +4413,29 @@ namespace MulanLite
             // 
             this.flag6.Enabled = false;
             this.flag6.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag6.Location = new System.Drawing.Point(124, 148);
+            this.flag6.Location = new System.Drawing.Point(124, 168);
             this.flag6.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag6.Name = "flag6";
-            this.flag6.Size = new System.Drawing.Size(43, 21);
+            this.flag6.Size = new System.Drawing.Size(43, 24);
             this.flag6.TabIndex = 28;
             this.flag6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox6
             // 
             this.textBox6.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.Location = new System.Drawing.Point(173, 148);
+            this.textBox6.Location = new System.Drawing.Point(173, 168);
             this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(213, 23);
+            this.textBox6.Size = new System.Drawing.Size(213, 27);
             this.textBox6.TabIndex = 29;
             // 
             // uiLabel45
             // 
             this.uiLabel45.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel45.Location = new System.Drawing.Point(3, 174);
+            this.uiLabel45.Location = new System.Drawing.Point(3, 198);
             this.uiLabel45.Name = "uiLabel45";
             this.uiLabel45.Size = new System.Drawing.Size(115, 23);
             this.uiLabel45.Style = Sunny.UI.UIStyle.Custom;
@@ -4448,29 +4447,29 @@ namespace MulanLite
             // 
             this.flag7.Enabled = false;
             this.flag7.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag7.Location = new System.Drawing.Point(124, 177);
+            this.flag7.Location = new System.Drawing.Point(124, 201);
             this.flag7.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag7.Name = "flag7";
-            this.flag7.Size = new System.Drawing.Size(43, 21);
+            this.flag7.Size = new System.Drawing.Size(43, 24);
             this.flag7.TabIndex = 31;
             this.flag7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox7
             // 
             this.textBox7.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.Location = new System.Drawing.Point(173, 177);
+            this.textBox7.Location = new System.Drawing.Point(173, 201);
             this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(213, 23);
+            this.textBox7.Size = new System.Drawing.Size(213, 27);
             this.textBox7.TabIndex = 32;
             // 
             // uiLabel46
             // 
             this.uiLabel46.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel46.Location = new System.Drawing.Point(3, 203);
+            this.uiLabel46.Location = new System.Drawing.Point(3, 231);
             this.uiLabel46.Name = "uiLabel46";
             this.uiLabel46.Size = new System.Drawing.Size(115, 23);
             this.uiLabel46.Style = Sunny.UI.UIStyle.Custom;
@@ -4482,29 +4481,29 @@ namespace MulanLite
             // 
             this.flag8.Enabled = false;
             this.flag8.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag8.Location = new System.Drawing.Point(124, 206);
+            this.flag8.Location = new System.Drawing.Point(124, 234);
             this.flag8.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag8.Name = "flag8";
-            this.flag8.Size = new System.Drawing.Size(43, 21);
+            this.flag8.Size = new System.Drawing.Size(43, 24);
             this.flag8.TabIndex = 34;
             this.flag8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox8
             // 
             this.textBox8.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox8.Location = new System.Drawing.Point(173, 206);
+            this.textBox8.Location = new System.Drawing.Point(173, 234);
             this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(213, 23);
+            this.textBox8.Size = new System.Drawing.Size(213, 27);
             this.textBox8.TabIndex = 35;
             // 
             // uiLabel47
             // 
             this.uiLabel47.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel47.Location = new System.Drawing.Point(3, 232);
+            this.uiLabel47.Location = new System.Drawing.Point(3, 264);
             this.uiLabel47.Name = "uiLabel47";
             this.uiLabel47.Size = new System.Drawing.Size(115, 23);
             this.uiLabel47.Style = Sunny.UI.UIStyle.Custom;
@@ -4516,23 +4515,23 @@ namespace MulanLite
             // 
             this.flag9.Enabled = false;
             this.flag9.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag9.Location = new System.Drawing.Point(124, 235);
+            this.flag9.Location = new System.Drawing.Point(124, 267);
             this.flag9.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag9.Name = "flag9";
-            this.flag9.Size = new System.Drawing.Size(43, 21);
+            this.flag9.Size = new System.Drawing.Size(43, 24);
             this.flag9.TabIndex = 37;
             this.flag9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox9
             // 
             this.textBox9.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox9.Location = new System.Drawing.Point(173, 235);
+            this.textBox9.Location = new System.Drawing.Point(173, 267);
             this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(147, 23);
+            this.textBox9.Size = new System.Drawing.Size(147, 27);
             this.textBox9.TabIndex = 38;
             // 
             // bt_inq_upd
@@ -4548,7 +4547,7 @@ namespace MulanLite
             this.bt_inq_upd.ForeHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(160)))), ((int)(((byte)(255)))));
             this.bt_inq_upd.ForePressColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
             this.bt_inq_upd.ForeSelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(74)))), ((int)(((byte)(131)))), ((int)(((byte)(229)))));
-            this.bt_inq_upd.Location = new System.Drawing.Point(326, 235);
+            this.bt_inq_upd.Location = new System.Drawing.Point(326, 267);
             this.bt_inq_upd.MinimumSize = new System.Drawing.Size(1, 1);
             this.bt_inq_upd.Name = "bt_inq_upd";
             this.bt_inq_upd.RectColor = System.Drawing.Color.FromArgb(((int)(((byte)(216)))), ((int)(((byte)(219)))), ((int)(((byte)(227)))));
@@ -4563,7 +4562,7 @@ namespace MulanLite
             // uiLabel48
             // 
             this.uiLabel48.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel48.Location = new System.Drawing.Point(3, 261);
+            this.uiLabel48.Location = new System.Drawing.Point(3, 297);
             this.uiLabel48.Name = "uiLabel48";
             this.uiLabel48.Size = new System.Drawing.Size(115, 23);
             this.uiLabel48.Style = Sunny.UI.UIStyle.Custom;
@@ -4575,29 +4574,29 @@ namespace MulanLite
             // 
             this.flag10.Enabled = false;
             this.flag10.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag10.Location = new System.Drawing.Point(124, 264);
+            this.flag10.Location = new System.Drawing.Point(124, 300);
             this.flag10.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag10.Name = "flag10";
-            this.flag10.Size = new System.Drawing.Size(43, 21);
+            this.flag10.Size = new System.Drawing.Size(43, 24);
             this.flag10.TabIndex = 40;
             this.flag10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox10
             // 
             this.textBox10.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox10.Location = new System.Drawing.Point(173, 264);
+            this.textBox10.Location = new System.Drawing.Point(173, 300);
             this.textBox10.Name = "textBox10";
-            this.textBox10.Size = new System.Drawing.Size(213, 23);
+            this.textBox10.Size = new System.Drawing.Size(213, 27);
             this.textBox10.TabIndex = 41;
             // 
             // uiLabel49
             // 
             this.uiLabel49.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel49.Location = new System.Drawing.Point(3, 290);
+            this.uiLabel49.Location = new System.Drawing.Point(3, 330);
             this.uiLabel49.Name = "uiLabel49";
             this.uiLabel49.Size = new System.Drawing.Size(115, 23);
             this.uiLabel49.Style = Sunny.UI.UIStyle.Custom;
@@ -4609,29 +4608,29 @@ namespace MulanLite
             // 
             this.flag11.Enabled = false;
             this.flag11.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag11.Location = new System.Drawing.Point(124, 293);
+            this.flag11.Location = new System.Drawing.Point(124, 333);
             this.flag11.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag11.Name = "flag11";
-            this.flag11.Size = new System.Drawing.Size(43, 21);
+            this.flag11.Size = new System.Drawing.Size(43, 24);
             this.flag11.TabIndex = 43;
             this.flag11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox11
             // 
             this.textBox11.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox11.Location = new System.Drawing.Point(173, 293);
+            this.textBox11.Location = new System.Drawing.Point(173, 333);
             this.textBox11.Name = "textBox11";
-            this.textBox11.Size = new System.Drawing.Size(213, 23);
+            this.textBox11.Size = new System.Drawing.Size(213, 27);
             this.textBox11.TabIndex = 44;
             // 
             // uiLabel50
             // 
             this.uiLabel50.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel50.Location = new System.Drawing.Point(3, 319);
+            this.uiLabel50.Location = new System.Drawing.Point(3, 363);
             this.uiLabel50.Name = "uiLabel50";
             this.uiLabel50.Size = new System.Drawing.Size(115, 23);
             this.uiLabel50.Style = Sunny.UI.UIStyle.Custom;
@@ -4643,29 +4642,29 @@ namespace MulanLite
             // 
             this.flag12.Enabled = false;
             this.flag12.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag12.Location = new System.Drawing.Point(124, 322);
+            this.flag12.Location = new System.Drawing.Point(124, 366);
             this.flag12.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag12.Name = "flag12";
-            this.flag12.Size = new System.Drawing.Size(43, 21);
+            this.flag12.Size = new System.Drawing.Size(43, 24);
             this.flag12.TabIndex = 46;
             this.flag12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox12
             // 
             this.textBox12.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox12.Location = new System.Drawing.Point(173, 322);
+            this.textBox12.Location = new System.Drawing.Point(173, 366);
             this.textBox12.Name = "textBox12";
-            this.textBox12.Size = new System.Drawing.Size(213, 23);
+            this.textBox12.Size = new System.Drawing.Size(213, 27);
             this.textBox12.TabIndex = 47;
             // 
             // uiLabel51
             // 
             this.uiLabel51.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel51.Location = new System.Drawing.Point(3, 348);
+            this.uiLabel51.Location = new System.Drawing.Point(3, 396);
             this.uiLabel51.Name = "uiLabel51";
             this.uiLabel51.Size = new System.Drawing.Size(115, 23);
             this.uiLabel51.Style = Sunny.UI.UIStyle.Custom;
@@ -4677,23 +4676,23 @@ namespace MulanLite
             // 
             this.flag13.Enabled = false;
             this.flag13.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.flag13.Location = new System.Drawing.Point(124, 351);
+            this.flag13.Location = new System.Drawing.Point(124, 399);
             this.flag13.Maximum = new decimal(new int[] {
             1,
             0,
             0,
             0});
             this.flag13.Name = "flag13";
-            this.flag13.Size = new System.Drawing.Size(43, 21);
+            this.flag13.Size = new System.Drawing.Size(43, 24);
             this.flag13.TabIndex = 49;
             this.flag13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox13
             // 
             this.textBox13.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox13.Location = new System.Drawing.Point(173, 351);
+            this.textBox13.Location = new System.Drawing.Point(173, 399);
             this.textBox13.Name = "textBox13";
-            this.textBox13.Size = new System.Drawing.Size(213, 23);
+            this.textBox13.Size = new System.Drawing.Size(213, 27);
             this.textBox13.TabIndex = 50;
             // 
             // cb_vhr_short
@@ -4708,7 +4707,7 @@ namespace MulanLite
             "2\'b11 :    8    V"});
             this.cb_vhr_short.Location = new System.Drawing.Point(7, 90);
             this.cb_vhr_short.Name = "cb_vhr_short";
-            this.cb_vhr_short.Size = new System.Drawing.Size(208, 23);
+            this.cb_vhr_short.Size = new System.Drawing.Size(208, 27);
             this.cb_vhr_short.TabIndex = 14;
             this.cb_vhr_short.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_short_SelectedIndexChanged);
             // 
@@ -4724,7 +4723,7 @@ namespace MulanLite
             "2\'b11 : 400mV"});
             this.cb_vhr_open.Location = new System.Drawing.Point(7, 38);
             this.cb_vhr_open.Name = "cb_vhr_open";
-            this.cb_vhr_open.Size = new System.Drawing.Size(208, 23);
+            this.cb_vhr_open.Size = new System.Drawing.Size(208, 27);
             this.cb_vhr_open.TabIndex = 43;
             this.cb_vhr_open.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_open_SelectedIndexChanged);
             // 
@@ -4744,7 +4743,7 @@ namespace MulanLite
             "3\'b111 :  850   mV"});
             this.cb_vhr_up.Location = new System.Drawing.Point(10, 90);
             this.cb_vhr_up.Name = "cb_vhr_up";
-            this.cb_vhr_up.Size = new System.Drawing.Size(208, 23);
+            this.cb_vhr_up.Size = new System.Drawing.Size(208, 27);
             this.cb_vhr_up.TabIndex = 14;
             this.cb_vhr_up.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_up_SelectedIndexChanged);
             // 
@@ -4764,7 +4763,7 @@ namespace MulanLite
             "3\'b111 :  500   mV"});
             this.cb_vhr_hyst.Location = new System.Drawing.Point(10, 38);
             this.cb_vhr_hyst.Name = "cb_vhr_hyst";
-            this.cb_vhr_hyst.Size = new System.Drawing.Size(208, 23);
+            this.cb_vhr_hyst.Size = new System.Drawing.Size(208, 27);
             this.cb_vhr_hyst.TabIndex = 43;
             this.cb_vhr_hyst.SelectedIndexChanged += new System.EventHandler(this.cb_vhr_hyst_SelectedIndexChanged);
             // 
@@ -4780,7 +4779,7 @@ namespace MulanLite
             "2\'b11 : 16 Consecutive Detection Counts"});
             this.cb_short_dgl.Location = new System.Drawing.Point(6, 90);
             this.cb_short_dgl.Name = "cb_short_dgl";
-            this.cb_short_dgl.Size = new System.Drawing.Size(280, 23);
+            this.cb_short_dgl.Size = new System.Drawing.Size(280, 27);
             this.cb_short_dgl.TabIndex = 14;
             this.cb_short_dgl.SelectedIndexChanged += new System.EventHandler(this.cb_short_dgl_SelectedIndexChanged);
             // 
@@ -4796,7 +4795,7 @@ namespace MulanLite
             "2\'b11 : 16 Consecutive Detection Counts"});
             this.cb_open_dgl.Location = new System.Drawing.Point(6, 38);
             this.cb_open_dgl.Name = "cb_open_dgl";
-            this.cb_open_dgl.Size = new System.Drawing.Size(280, 23);
+            this.cb_open_dgl.Size = new System.Drawing.Size(280, 27);
             this.cb_open_dgl.TabIndex = 43;
             this.cb_open_dgl.SelectedIndexChanged += new System.EventHandler(this.cb_open_dgl_SelectedIndexChanged);
             // 
@@ -4896,7 +4895,7 @@ namespace MulanLite
             0,
             0});
             this.nu_tsd.Name = "nu_tsd";
-            this.nu_tsd.Size = new System.Drawing.Size(43, 21);
+            this.nu_tsd.Size = new System.Drawing.Size(43, 24);
             this.nu_tsd.TabIndex = 30;
             this.nu_tsd.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -4980,7 +4979,7 @@ namespace MulanLite
             0,
             0});
             this.nu_tsd_mask.Name = "nu_tsd_mask";
-            this.nu_tsd_mask.Size = new System.Drawing.Size(43, 21);
+            this.nu_tsd_mask.Size = new System.Drawing.Size(43, 24);
             this.nu_tsd_mask.TabIndex = 28;
             this.nu_tsd_mask.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5064,7 +5063,7 @@ namespace MulanLite
             0,
             0});
             this.nu_efuse_load.Name = "nu_efuse_load";
-            this.nu_efuse_load.Size = new System.Drawing.Size(43, 21);
+            this.nu_efuse_load.Size = new System.Drawing.Size(43, 24);
             this.nu_efuse_load.TabIndex = 25;
             this.nu_efuse_load.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5148,7 +5147,7 @@ namespace MulanLite
             0,
             0});
             this.nu_stat_init.Name = "nu_stat_init";
-            this.nu_stat_init.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_init.Size = new System.Drawing.Size(43, 24);
             this.nu_stat_init.TabIndex = 17;
             this.nu_stat_init.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5163,7 +5162,7 @@ namespace MulanLite
             0,
             0});
             this.nu_test_mode.Name = "nu_test_mode";
-            this.nu_test_mode.Size = new System.Drawing.Size(43, 21);
+            this.nu_test_mode.Size = new System.Drawing.Size(43, 24);
             this.nu_test_mode.TabIndex = 12;
             this.nu_test_mode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5178,7 +5177,7 @@ namespace MulanLite
             0,
             0});
             this.nu_stat_iden.Name = "nu_stat_iden";
-            this.nu_stat_iden.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_iden.Size = new System.Drawing.Size(43, 24);
             this.nu_stat_iden.TabIndex = 16;
             this.nu_stat_iden.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5193,7 +5192,7 @@ namespace MulanLite
             0,
             0});
             this.nu_stat_dis.Name = "nu_stat_dis";
-            this.nu_stat_dis.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_dis.Size = new System.Drawing.Size(43, 24);
             this.nu_stat_dis.TabIndex = 13;
             this.nu_stat_dis.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5208,7 +5207,7 @@ namespace MulanLite
             0,
             0});
             this.nu_stat_stb.Name = "nu_stat_stb";
-            this.nu_stat_stb.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_stb.Size = new System.Drawing.Size(43, 24);
             this.nu_stat_stb.TabIndex = 15;
             this.nu_stat_stb.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5223,7 +5222,7 @@ namespace MulanLite
             0,
             0});
             this.nu_stat_norm.Name = "nu_stat_norm";
-            this.nu_stat_norm.Size = new System.Drawing.Size(43, 21);
+            this.nu_stat_norm.Size = new System.Drawing.Size(43, 24);
             this.nu_stat_norm.TabIndex = 14;
             this.nu_stat_norm.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -5262,7 +5261,7 @@ namespace MulanLite
             "4\'hF : 30CI"});
             this.cb_min_count.Location = new System.Drawing.Point(9, 38);
             this.cb_min_count.Name = "cb_min_count";
-            this.cb_min_count.Size = new System.Drawing.Size(208, 23);
+            this.cb_min_count.Size = new System.Drawing.Size(208, 27);
             this.cb_min_count.TabIndex = 43;
             this.cb_min_count.SelectedIndexChanged += new System.EventHandler(this.cb_min_count_SelectedIndexChanged);
             // 
@@ -5271,7 +5270,7 @@ namespace MulanLite
             this.label119.AutoSize = true;
             this.label119.Location = new System.Drawing.Point(7, 20);
             this.label119.Name = "label119";
-            this.label119.Size = new System.Drawing.Size(107, 15);
+            this.label119.Size = new System.Drawing.Size(141, 21);
             this.label119.TabIndex = 0;
             this.label119.Text = "HR Min Count[3:0]";
             // 
@@ -5302,7 +5301,7 @@ namespace MulanLite
             "1:  2mA"});
             this.cb_datdrive.Location = new System.Drawing.Point(7, 193);
             this.cb_datdrive.Name = "cb_datdrive";
-            this.cb_datdrive.Size = new System.Drawing.Size(208, 23);
+            this.cb_datdrive.Size = new System.Drawing.Size(208, 27);
             this.cb_datdrive.TabIndex = 55;
             this.cb_datdrive.SelectedIndexChanged += new System.EventHandler(this.cb_datdrive_SelectedIndexChanged);
             // 
@@ -5311,7 +5310,7 @@ namespace MulanLite
             this.label140.AutoSize = true;
             this.label140.Location = new System.Drawing.Point(7, 175);
             this.label140.Name = "label140";
-            this.label140.Size = new System.Drawing.Size(77, 15);
+            this.label140.Size = new System.Drawing.Size(100, 21);
             this.label140.TabIndex = 54;
             this.label140.Text = "DAT Drive [1]";
             // 
@@ -5325,7 +5324,7 @@ namespace MulanLite
             "1:  2mA"});
             this.cb_clkdrive.Location = new System.Drawing.Point(7, 142);
             this.cb_clkdrive.Name = "cb_clkdrive";
-            this.cb_clkdrive.Size = new System.Drawing.Size(208, 23);
+            this.cb_clkdrive.Size = new System.Drawing.Size(208, 27);
             this.cb_clkdrive.TabIndex = 53;
             this.cb_clkdrive.SelectedIndexChanged += new System.EventHandler(this.cb_clkdrive_SelectedIndexChanged);
             // 
@@ -5334,7 +5333,7 @@ namespace MulanLite
             this.label114.AutoSize = true;
             this.label114.Location = new System.Drawing.Point(7, 124);
             this.label114.Name = "label114";
-            this.label114.Size = new System.Drawing.Size(76, 15);
+            this.label114.Size = new System.Drawing.Size(98, 21);
             this.label114.TabIndex = 52;
             this.label114.Text = "CLK Drive [2]";
             // 
@@ -5348,7 +5347,7 @@ namespace MulanLite
             "1:  Enable LDOIOPG"});
             this.cb_ldoio.Location = new System.Drawing.Point(7, 90);
             this.cb_ldoio.Name = "cb_ldoio";
-            this.cb_ldoio.Size = new System.Drawing.Size(208, 23);
+            this.cb_ldoio.Size = new System.Drawing.Size(208, 27);
             this.cb_ldoio.TabIndex = 51;
             this.cb_ldoio.SelectedIndexChanged += new System.EventHandler(this.cb_ldoio_SelectedIndexChanged);
             // 
@@ -5357,7 +5356,7 @@ namespace MulanLite
             this.label117.AutoSize = true;
             this.label117.Location = new System.Drawing.Point(7, 72);
             this.label117.Name = "label117";
-            this.label117.Size = new System.Drawing.Size(92, 15);
+            this.label117.Size = new System.Drawing.Size(119, 21);
             this.label117.TabIndex = 44;
             this.label117.Text = "LDOIOPG_EN[5]";
             // 
@@ -5366,7 +5365,7 @@ namespace MulanLite
             this.label118.AutoSize = true;
             this.label118.Location = new System.Drawing.Point(7, 20);
             this.label118.Name = "label118";
-            this.label118.Size = new System.Drawing.Size(90, 15);
+            this.label118.Size = new System.Drawing.Size(115, 21);
             this.label118.TabIndex = 0;
             this.label118.Text = "Range x8_x1[6]";
             // 
@@ -5380,7 +5379,7 @@ namespace MulanLite
             "1:  6.5 mA"});
             this.cb_range_x8_x1.Location = new System.Drawing.Point(7, 38);
             this.cb_range_x8_x1.Name = "cb_range_x8_x1";
-            this.cb_range_x8_x1.Size = new System.Drawing.Size(208, 23);
+            this.cb_range_x8_x1.Size = new System.Drawing.Size(208, 27);
             this.cb_range_x8_x1.TabIndex = 49;
             this.cb_range_x8_x1.SelectedIndexChanged += new System.EventHandler(this.cb_range_x8_x1_SelectedIndexChanged);
             // 
@@ -5423,7 +5422,7 @@ namespace MulanLite
             this.label115.AutoSize = true;
             this.label115.Location = new System.Drawing.Point(8, 67);
             this.label115.Name = "label115";
-            this.label115.Size = new System.Drawing.Size(86, 15);
+            this.label115.Size = new System.Drawing.Size(112, 21);
             this.label115.TabIndex = 44;
             this.label115.Text = "CH Data [16:0]";
             // 
@@ -5437,7 +5436,7 @@ namespace MulanLite
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(95, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(95, 27);
             this.numericUpDown1.TabIndex = 60;
             this.numericUpDown1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
@@ -5447,7 +5446,7 @@ namespace MulanLite
             this.label116.AutoSize = true;
             this.label116.Location = new System.Drawing.Point(7, 20);
             this.label116.Name = "label116";
-            this.label116.Size = new System.Drawing.Size(77, 15);
+            this.label116.Size = new System.Drawing.Size(104, 21);
             this.label116.TabIndex = 0;
             this.label116.Text = "CH NUM[1:0]";
             // 
@@ -5463,7 +5462,7 @@ namespace MulanLite
             "2\'b11: LED Data Packet for CH3"});
             this.cb_ch_num.Location = new System.Drawing.Point(10, 38);
             this.cb_ch_num.Name = "cb_ch_num";
-            this.cb_ch_num.Size = new System.Drawing.Size(208, 23);
+            this.cb_ch_num.Size = new System.Drawing.Size(208, 27);
             this.cb_ch_num.TabIndex = 43;
             this.cb_ch_num.SelectedIndexChanged += new System.EventHandler(this.cb_ch_num_SelectedIndexChanged);
             // 
@@ -5507,7 +5506,7 @@ namespace MulanLite
             0,
             0});
             this.nu_bl_late.Name = "nu_bl_late";
-            this.nu_bl_late.Size = new System.Drawing.Size(76, 23);
+            this.nu_bl_late.Size = new System.Drawing.Size(76, 27);
             this.nu_bl_late.TabIndex = 58;
             this.nu_bl_late.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_bl_late.ValueChanged += new System.EventHandler(this.nu_bl_late_ValueChanged);
@@ -5549,7 +5548,7 @@ namespace MulanLite
             "4\'hF : 30 CI"});
             this.cb_blanking_time.Location = new System.Drawing.Point(7, 90);
             this.cb_blanking_time.Name = "cb_blanking_time";
-            this.cb_blanking_time.Size = new System.Drawing.Size(208, 23);
+            this.cb_blanking_time.Size = new System.Drawing.Size(208, 27);
             this.cb_blanking_time.TabIndex = 45;
             this.cb_blanking_time.SelectedIndexChanged += new System.EventHandler(this.cb_switch_filter_time_SelectedIndexChanged);
             // 
@@ -5558,7 +5557,7 @@ namespace MulanLite
             this.label112.AutoSize = true;
             this.label112.Location = new System.Drawing.Point(7, 72);
             this.label112.Name = "label112";
-            this.label112.Size = new System.Drawing.Size(187, 15);
+            this.label112.Size = new System.Drawing.Size(243, 21);
             this.label112.TabIndex = 44;
             this.label112.Text = "OPEN_SHORT_blanking_time[3:0]";
             // 
@@ -5567,7 +5566,7 @@ namespace MulanLite
             this.label113.AutoSize = true;
             this.label113.Location = new System.Drawing.Point(7, 20);
             this.label113.Name = "label113";
-            this.label113.Size = new System.Drawing.Size(157, 15);
+            this.label113.Size = new System.Drawing.Size(205, 21);
             this.label113.TabIndex = 0;
             this.label113.Text = "Vref_switch_filter_time[7:4]";
             // 
@@ -5595,7 +5594,7 @@ namespace MulanLite
             "4\'hF : 30 CI"});
             this.cb_switch_filter_time.Location = new System.Drawing.Point(7, 38);
             this.cb_switch_filter_time.Name = "cb_switch_filter_time";
-            this.cb_switch_filter_time.Size = new System.Drawing.Size(208, 23);
+            this.cb_switch_filter_time.Size = new System.Drawing.Size(208, 27);
             this.cb_switch_filter_time.TabIndex = 43;
             this.cb_switch_filter_time.SelectedIndexChanged += new System.EventHandler(this.cb_switch_filter_time_SelectedIndexChanged);
             // 
@@ -5626,7 +5625,7 @@ namespace MulanLite
             "3\'d7 : 40 CI clcok"});
             this.cb_pulse_rf.Location = new System.Drawing.Point(7, 38);
             this.cb_pulse_rf.Name = "cb_pulse_rf";
-            this.cb_pulse_rf.Size = new System.Drawing.Size(208, 23);
+            this.cb_pulse_rf.Size = new System.Drawing.Size(208, 27);
             this.cb_pulse_rf.TabIndex = 43;
             this.cb_pulse_rf.SelectedIndexChanged += new System.EventHandler(this.cb_pulse_rf_SelectedIndexChanged);
             // 
@@ -5635,7 +5634,7 @@ namespace MulanLite
             this.label107.AutoSize = true;
             this.label107.Location = new System.Drawing.Point(7, 20);
             this.label107.Name = "label107";
-            this.label107.Size = new System.Drawing.Size(89, 15);
+            this.label107.Size = new System.Drawing.Size(119, 21);
             this.label107.TabIndex = 0;
             this.label107.Text = "PULSE_R_F[2:0]";
             // 
@@ -5662,7 +5661,7 @@ namespace MulanLite
             "2\'d3 : 32 clk"});
             this.cb_thresh_clk_missing.Location = new System.Drawing.Point(6, 38);
             this.cb_thresh_clk_missing.Name = "cb_thresh_clk_missing";
-            this.cb_thresh_clk_missing.Size = new System.Drawing.Size(208, 23);
+            this.cb_thresh_clk_missing.Size = new System.Drawing.Size(208, 27);
             this.cb_thresh_clk_missing.TabIndex = 43;
             this.cb_thresh_clk_missing.SelectedIndexChanged += new System.EventHandler(this.cb_thresh_clk_missing_SelectedIndexChanged);
             // 
@@ -5671,7 +5670,7 @@ namespace MulanLite
             this.label108.AutoSize = true;
             this.label108.Location = new System.Drawing.Point(7, 20);
             this.label108.Name = "label108";
-            this.label108.Size = new System.Drawing.Size(125, 15);
+            this.label108.Size = new System.Drawing.Size(166, 21);
             this.label108.TabIndex = 0;
             this.label108.Text = "THRESH CLK MISS[1:0]";
             // 
@@ -5693,7 +5692,7 @@ namespace MulanLite
             this.label105.AutoSize = true;
             this.label105.Location = new System.Drawing.Point(7, 72);
             this.label105.Name = "label105";
-            this.label105.Size = new System.Drawing.Size(92, 15);
+            this.label105.Size = new System.Drawing.Size(122, 21);
             this.label105.TabIndex = 44;
             this.label105.Text = "SHORT DGL[1:0]";
             // 
@@ -5702,7 +5701,7 @@ namespace MulanLite
             this.label106.AutoSize = true;
             this.label106.Location = new System.Drawing.Point(7, 20);
             this.label106.Name = "label106";
-            this.label106.Size = new System.Drawing.Size(86, 15);
+            this.label106.Size = new System.Drawing.Size(114, 21);
             this.label106.TabIndex = 0;
             this.label106.Text = "OPEN DGL[3:2]";
             // 
@@ -5724,7 +5723,7 @@ namespace MulanLite
             this.label103.AutoSize = true;
             this.label103.Location = new System.Drawing.Point(7, 72);
             this.label103.Name = "label103";
-            this.label103.Size = new System.Drawing.Size(75, 15);
+            this.label103.Size = new System.Drawing.Size(101, 21);
             this.label103.TabIndex = 44;
             this.label103.Text = "VHR_UP[2:0]";
             // 
@@ -5733,7 +5732,7 @@ namespace MulanLite
             this.label104.AutoSize = true;
             this.label104.Location = new System.Drawing.Point(7, 20);
             this.label104.Name = "label104";
-            this.label104.Size = new System.Drawing.Size(89, 15);
+            this.label104.Size = new System.Drawing.Size(120, 21);
             this.label104.TabIndex = 0;
             this.label104.Text = "VHR_HYST [6:4]";
             // 
@@ -5755,7 +5754,7 @@ namespace MulanLite
             this.label102.AutoSize = true;
             this.label102.Location = new System.Drawing.Point(7, 72);
             this.label102.Name = "label102";
-            this.label102.Size = new System.Drawing.Size(99, 15);
+            this.label102.Size = new System.Drawing.Size(132, 21);
             this.label102.TabIndex = 44;
             this.label102.Text = "VHR_SHORT [1:0]";
             // 
@@ -5764,7 +5763,7 @@ namespace MulanLite
             this.label101.AutoSize = true;
             this.label101.Location = new System.Drawing.Point(7, 20);
             this.label101.Name = "label101";
-            this.label101.Size = new System.Drawing.Size(93, 15);
+            this.label101.Size = new System.Drawing.Size(124, 21);
             this.label101.TabIndex = 0;
             this.label101.Text = "VHR_OPEN [5:4]";
             // 
@@ -5826,7 +5825,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH0x8.Name = "nu_CH0x8";
-            this.nu_CH0x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH0x8.Size = new System.Drawing.Size(50, 27);
             this.nu_CH0x8.TabIndex = 58;
             this.nu_CH0x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH0x8.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -5874,7 +5873,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH1x8.Name = "nu_CH1x8";
-            this.nu_CH1x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH1x8.Size = new System.Drawing.Size(50, 27);
             this.nu_CH1x8.TabIndex = 58;
             this.nu_CH1x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH1x8.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -5922,7 +5921,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH2x8.Name = "nu_CH2x8";
-            this.nu_CH2x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH2x8.Size = new System.Drawing.Size(50, 27);
             this.nu_CH2x8.TabIndex = 58;
             this.nu_CH2x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH2x8.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -5970,7 +5969,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH3x8.Name = "nu_CH3x8";
-            this.nu_CH3x8.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH3x8.Size = new System.Drawing.Size(50, 27);
             this.nu_CH3x8.TabIndex = 58;
             this.nu_CH3x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH3x8.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -6018,7 +6017,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH0x1.Name = "nu_CH0x1";
-            this.nu_CH0x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH0x1.Size = new System.Drawing.Size(50, 27);
             this.nu_CH0x1.TabIndex = 58;
             this.nu_CH0x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH0x1.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -6066,7 +6065,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH1x1.Name = "nu_CH1x1";
-            this.nu_CH1x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH1x1.Size = new System.Drawing.Size(50, 27);
             this.nu_CH1x1.TabIndex = 58;
             this.nu_CH1x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH1x1.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -6114,7 +6113,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH2x1.Name = "nu_CH2x1";
-            this.nu_CH2x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH2x1.Size = new System.Drawing.Size(50, 27);
             this.nu_CH2x1.TabIndex = 58;
             this.nu_CH2x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH2x1.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -6161,7 +6160,7 @@ namespace MulanLite
             0,
             0});
             this.nu_CH3x1.Name = "nu_CH3x1";
-            this.nu_CH3x1.Size = new System.Drawing.Size(50, 23);
+            this.nu_CH3x1.Size = new System.Drawing.Size(50, 27);
             this.nu_CH3x1.TabIndex = 58;
             this.nu_CH3x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_CH3x1.ValueChanged += new System.EventHandler(this.nu_CH0x8_ValueChanged);
@@ -6322,7 +6321,7 @@ namespace MulanLite
             0,
             0});
             this.R5F.Name = "R5F";
-            this.R5F.Size = new System.Drawing.Size(42, 22);
+            this.R5F.Size = new System.Drawing.Size(42, 26);
             this.R5F.TabIndex = 33;
             this.R5F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6337,7 +6336,7 @@ namespace MulanLite
             0,
             0});
             this.R50.Name = "R50";
-            this.R50.Size = new System.Drawing.Size(42, 22);
+            this.R50.Size = new System.Drawing.Size(42, 26);
             this.R50.TabIndex = 1;
             this.R50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R50.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6353,7 +6352,7 @@ namespace MulanLite
             0,
             0});
             this.R5E.Name = "R5E";
-            this.R5E.Size = new System.Drawing.Size(42, 22);
+            this.R5E.Size = new System.Drawing.Size(42, 26);
             this.R5E.TabIndex = 32;
             this.R5E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R5E.ValueChanged += new System.EventHandler(this.R5E_ValueChanged);
@@ -6369,7 +6368,7 @@ namespace MulanLite
             0,
             0});
             this.R51.Name = "R51";
-            this.R51.Size = new System.Drawing.Size(42, 22);
+            this.R51.Size = new System.Drawing.Size(42, 26);
             this.R51.TabIndex = 2;
             this.R51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R51.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6385,7 +6384,7 @@ namespace MulanLite
             0,
             0});
             this.R5D.Name = "R5D";
-            this.R5D.Size = new System.Drawing.Size(42, 22);
+            this.R5D.Size = new System.Drawing.Size(42, 26);
             this.R5D.TabIndex = 31;
             this.R5D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6400,7 +6399,7 @@ namespace MulanLite
             0,
             0});
             this.R52.Name = "R52";
-            this.R52.Size = new System.Drawing.Size(42, 22);
+            this.R52.Size = new System.Drawing.Size(42, 26);
             this.R52.TabIndex = 3;
             this.R52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R52.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6416,7 +6415,7 @@ namespace MulanLite
             0,
             0});
             this.R5C.Name = "R5C";
-            this.R5C.Size = new System.Drawing.Size(42, 22);
+            this.R5C.Size = new System.Drawing.Size(42, 26);
             this.R5C.TabIndex = 30;
             this.R5C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6431,7 +6430,7 @@ namespace MulanLite
             0,
             0});
             this.R53.Name = "R53";
-            this.R53.Size = new System.Drawing.Size(42, 22);
+            this.R53.Size = new System.Drawing.Size(42, 26);
             this.R53.TabIndex = 4;
             this.R53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R53.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6447,7 +6446,7 @@ namespace MulanLite
             0,
             0});
             this.R5B.Name = "R5B";
-            this.R5B.Size = new System.Drawing.Size(42, 22);
+            this.R5B.Size = new System.Drawing.Size(42, 26);
             this.R5B.TabIndex = 29;
             this.R5B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6462,7 +6461,7 @@ namespace MulanLite
             0,
             0});
             this.R54.Name = "R54";
-            this.R54.Size = new System.Drawing.Size(42, 22);
+            this.R54.Size = new System.Drawing.Size(42, 26);
             this.R54.TabIndex = 5;
             this.R54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R54.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6478,7 +6477,7 @@ namespace MulanLite
             0,
             0});
             this.R5A.Name = "R5A";
-            this.R5A.Size = new System.Drawing.Size(42, 22);
+            this.R5A.Size = new System.Drawing.Size(42, 26);
             this.R5A.TabIndex = 28;
             this.R5A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6493,7 +6492,7 @@ namespace MulanLite
             0,
             0});
             this.R55.Name = "R55";
-            this.R55.Size = new System.Drawing.Size(42, 22);
+            this.R55.Size = new System.Drawing.Size(42, 26);
             this.R55.TabIndex = 6;
             this.R55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R55.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6509,7 +6508,7 @@ namespace MulanLite
             0,
             0});
             this.R59.Name = "R59";
-            this.R59.Size = new System.Drawing.Size(42, 22);
+            this.R59.Size = new System.Drawing.Size(42, 26);
             this.R59.TabIndex = 27;
             this.R59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6524,7 +6523,7 @@ namespace MulanLite
             0,
             0});
             this.R56.Name = "R56";
-            this.R56.Size = new System.Drawing.Size(42, 22);
+            this.R56.Size = new System.Drawing.Size(42, 26);
             this.R56.TabIndex = 7;
             this.R56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R56.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6540,7 +6539,7 @@ namespace MulanLite
             0,
             0});
             this.R58.Name = "R58";
-            this.R58.Size = new System.Drawing.Size(42, 22);
+            this.R58.Size = new System.Drawing.Size(42, 26);
             this.R58.TabIndex = 26;
             this.R58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R58.ValueChanged += new System.EventHandler(this.R58_ValueChanged);
@@ -6556,7 +6555,7 @@ namespace MulanLite
             0,
             0});
             this.R57.Name = "R57";
-            this.R57.Size = new System.Drawing.Size(42, 22);
+            this.R57.Size = new System.Drawing.Size(42, 26);
             this.R57.TabIndex = 8;
             this.R57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R57.ValueChanged += new System.EventHandler(this.R50_ValueChanged);
@@ -6566,7 +6565,7 @@ namespace MulanLite
             this.label81.AutoSize = true;
             this.label81.Location = new System.Drawing.Point(841, 457);
             this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(27, 15);
+            this.label81.Size = new System.Drawing.Size(36, 21);
             this.label81.TabIndex = 128;
             this.label81.Text = "5Fh";
             // 
@@ -6598,7 +6597,7 @@ namespace MulanLite
             this.label82.AutoSize = true;
             this.label82.Location = new System.Drawing.Point(841, 429);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(27, 15);
+            this.label82.Size = new System.Drawing.Size(36, 21);
             this.label82.TabIndex = 126;
             this.label82.Text = "5Eh";
             // 
@@ -6607,7 +6606,7 @@ namespace MulanLite
             this.label65.AutoSize = true;
             this.label65.Location = new System.Drawing.Point(346, 457);
             this.label65.Name = "label65";
-            this.label65.Size = new System.Drawing.Size(27, 15);
+            this.label65.Size = new System.Drawing.Size(36, 21);
             this.label65.TabIndex = 164;
             this.label65.Text = "2Fh";
             // 
@@ -6616,7 +6615,7 @@ namespace MulanLite
             this.label49.AutoSize = true;
             this.label49.Location = new System.Drawing.Point(672, 457);
             this.label49.Name = "label49";
-            this.label49.Size = new System.Drawing.Size(27, 15);
+            this.label49.Size = new System.Drawing.Size(36, 21);
             this.label49.TabIndex = 127;
             this.label49.Text = "4Fh";
             // 
@@ -6658,7 +6657,7 @@ namespace MulanLite
             0,
             0});
             this.W0F.Name = "W0F";
-            this.W0F.Size = new System.Drawing.Size(42, 22);
+            this.W0F.Size = new System.Drawing.Size(42, 26);
             this.W0F.TabIndex = 17;
             this.W0F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6673,7 +6672,7 @@ namespace MulanLite
             0,
             0});
             this.W0E.Name = "W0E";
-            this.W0E.Size = new System.Drawing.Size(42, 22);
+            this.W0E.Size = new System.Drawing.Size(42, 26);
             this.W0E.TabIndex = 16;
             this.W0E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6688,7 +6687,7 @@ namespace MulanLite
             0,
             0});
             this.W0D.Name = "W0D";
-            this.W0D.Size = new System.Drawing.Size(42, 22);
+            this.W0D.Size = new System.Drawing.Size(42, 26);
             this.W0D.TabIndex = 15;
             this.W0D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6703,7 +6702,7 @@ namespace MulanLite
             0,
             0});
             this.W0C.Name = "W0C";
-            this.W0C.Size = new System.Drawing.Size(42, 22);
+            this.W0C.Size = new System.Drawing.Size(42, 26);
             this.W0C.TabIndex = 14;
             this.W0C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6718,7 +6717,7 @@ namespace MulanLite
             0,
             0});
             this.W0B.Name = "W0B";
-            this.W0B.Size = new System.Drawing.Size(42, 22);
+            this.W0B.Size = new System.Drawing.Size(42, 26);
             this.W0B.TabIndex = 13;
             this.W0B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6733,7 +6732,7 @@ namespace MulanLite
             0,
             0});
             this.W0A.Name = "W0A";
-            this.W0A.Size = new System.Drawing.Size(42, 22);
+            this.W0A.Size = new System.Drawing.Size(42, 26);
             this.W0A.TabIndex = 12;
             this.W0A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6748,7 +6747,7 @@ namespace MulanLite
             0,
             0});
             this.W09.Name = "W09";
-            this.W09.Size = new System.Drawing.Size(42, 22);
+            this.W09.Size = new System.Drawing.Size(42, 26);
             this.W09.TabIndex = 11;
             this.W09.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6763,7 +6762,7 @@ namespace MulanLite
             0,
             0});
             this.W08.Name = "W08";
-            this.W08.Size = new System.Drawing.Size(42, 22);
+            this.W08.Size = new System.Drawing.Size(42, 26);
             this.W08.TabIndex = 10;
             this.W08.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6778,7 +6777,7 @@ namespace MulanLite
             0,
             0});
             this.W07.Name = "W07";
-            this.W07.Size = new System.Drawing.Size(42, 22);
+            this.W07.Size = new System.Drawing.Size(42, 26);
             this.W07.TabIndex = 9;
             this.W07.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6793,7 +6792,7 @@ namespace MulanLite
             0,
             0});
             this.W06.Name = "W06";
-            this.W06.Size = new System.Drawing.Size(42, 22);
+            this.W06.Size = new System.Drawing.Size(42, 26);
             this.W06.TabIndex = 8;
             this.W06.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6808,7 +6807,7 @@ namespace MulanLite
             0,
             0});
             this.W05.Name = "W05";
-            this.W05.Size = new System.Drawing.Size(42, 22);
+            this.W05.Size = new System.Drawing.Size(42, 26);
             this.W05.TabIndex = 7;
             this.W05.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6823,7 +6822,7 @@ namespace MulanLite
             0,
             0});
             this.W04.Name = "W04";
-            this.W04.Size = new System.Drawing.Size(42, 22);
+            this.W04.Size = new System.Drawing.Size(42, 26);
             this.W04.TabIndex = 6;
             this.W04.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6838,7 +6837,7 @@ namespace MulanLite
             0,
             0});
             this.W03.Name = "W03";
-            this.W03.Size = new System.Drawing.Size(42, 22);
+            this.W03.Size = new System.Drawing.Size(42, 26);
             this.W03.TabIndex = 5;
             this.W03.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6853,7 +6852,7 @@ namespace MulanLite
             0,
             0});
             this.W02.Name = "W02";
-            this.W02.Size = new System.Drawing.Size(42, 22);
+            this.W02.Size = new System.Drawing.Size(42, 26);
             this.W02.TabIndex = 4;
             this.W02.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6868,7 +6867,7 @@ namespace MulanLite
             0,
             0});
             this.W01.Name = "W01";
-            this.W01.Size = new System.Drawing.Size(42, 22);
+            this.W01.Size = new System.Drawing.Size(42, 26);
             this.W01.TabIndex = 3;
             this.W01.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6883,7 +6882,7 @@ namespace MulanLite
             0,
             0});
             this.W00.Name = "W00";
-            this.W00.Size = new System.Drawing.Size(42, 22);
+            this.W00.Size = new System.Drawing.Size(42, 26);
             this.W00.TabIndex = 2;
             this.W00.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6892,7 +6891,7 @@ namespace MulanLite
             this.label83.AutoSize = true;
             this.label83.Location = new System.Drawing.Point(841, 401);
             this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(29, 15);
+            this.label83.Size = new System.Drawing.Size(38, 21);
             this.label83.TabIndex = 123;
             this.label83.Text = "5Dh";
             // 
@@ -6901,7 +6900,7 @@ namespace MulanLite
             this.label66.AutoSize = true;
             this.label66.Location = new System.Drawing.Point(346, 429);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(27, 15);
+            this.label66.Size = new System.Drawing.Size(36, 21);
             this.label66.TabIndex = 163;
             this.label66.Text = "2Eh";
             // 
@@ -6910,7 +6909,7 @@ namespace MulanLite
             this.label84.AutoSize = true;
             this.label84.Location = new System.Drawing.Point(841, 373);
             this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(28, 15);
+            this.label84.Size = new System.Drawing.Size(37, 21);
             this.label84.TabIndex = 122;
             this.label84.Text = "5Ch";
             // 
@@ -6952,7 +6951,7 @@ namespace MulanLite
             0,
             0});
             this.R0F.Name = "R0F";
-            this.R0F.Size = new System.Drawing.Size(42, 22);
+            this.R0F.Size = new System.Drawing.Size(42, 26);
             this.R0F.TabIndex = 33;
             this.R0F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6967,7 +6966,7 @@ namespace MulanLite
             0,
             0});
             this.R00.Name = "R00";
-            this.R00.Size = new System.Drawing.Size(42, 22);
+            this.R00.Size = new System.Drawing.Size(42, 26);
             this.R00.TabIndex = 18;
             this.R00.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6982,7 +6981,7 @@ namespace MulanLite
             0,
             0});
             this.R0E.Name = "R0E";
-            this.R0E.Size = new System.Drawing.Size(42, 22);
+            this.R0E.Size = new System.Drawing.Size(42, 26);
             this.R0E.TabIndex = 32;
             this.R0E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -6997,7 +6996,7 @@ namespace MulanLite
             0,
             0});
             this.R01.Name = "R01";
-            this.R01.Size = new System.Drawing.Size(42, 22);
+            this.R01.Size = new System.Drawing.Size(42, 26);
             this.R01.TabIndex = 19;
             this.R01.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7012,7 +7011,7 @@ namespace MulanLite
             0,
             0});
             this.R0D.Name = "R0D";
-            this.R0D.Size = new System.Drawing.Size(42, 22);
+            this.R0D.Size = new System.Drawing.Size(42, 26);
             this.R0D.TabIndex = 31;
             this.R0D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0D.ValueChanged += new System.EventHandler(this.R0D_ValueChanged);
@@ -7028,7 +7027,7 @@ namespace MulanLite
             0,
             0});
             this.R02.Name = "R02";
-            this.R02.Size = new System.Drawing.Size(42, 22);
+            this.R02.Size = new System.Drawing.Size(42, 26);
             this.R02.TabIndex = 20;
             this.R02.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7043,7 +7042,7 @@ namespace MulanLite
             0,
             0});
             this.R0C.Name = "R0C";
-            this.R0C.Size = new System.Drawing.Size(42, 22);
+            this.R0C.Size = new System.Drawing.Size(42, 26);
             this.R0C.TabIndex = 30;
             this.R0C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0C.ValueChanged += new System.EventHandler(this.R0C_ValueChanged);
@@ -7059,7 +7058,7 @@ namespace MulanLite
             0,
             0});
             this.R03.Name = "R03";
-            this.R03.Size = new System.Drawing.Size(42, 22);
+            this.R03.Size = new System.Drawing.Size(42, 26);
             this.R03.TabIndex = 21;
             this.R03.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7074,7 +7073,7 @@ namespace MulanLite
             0,
             0});
             this.R0B.Name = "R0B";
-            this.R0B.Size = new System.Drawing.Size(42, 22);
+            this.R0B.Size = new System.Drawing.Size(42, 26);
             this.R0B.TabIndex = 29;
             this.R0B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0B.ValueChanged += new System.EventHandler(this.R0B_ValueChanged);
@@ -7090,7 +7089,7 @@ namespace MulanLite
             0,
             0});
             this.R04.Name = "R04";
-            this.R04.Size = new System.Drawing.Size(42, 22);
+            this.R04.Size = new System.Drawing.Size(42, 26);
             this.R04.TabIndex = 22;
             this.R04.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R04.ValueChanged += new System.EventHandler(this.R04_ValueChanged);
@@ -7106,7 +7105,7 @@ namespace MulanLite
             0,
             0});
             this.R0A.Name = "R0A";
-            this.R0A.Size = new System.Drawing.Size(42, 22);
+            this.R0A.Size = new System.Drawing.Size(42, 26);
             this.R0A.TabIndex = 28;
             this.R0A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R0A.ValueChanged += new System.EventHandler(this.R0A_ValueChanged);
@@ -7122,7 +7121,7 @@ namespace MulanLite
             0,
             0});
             this.R05.Name = "R05";
-            this.R05.Size = new System.Drawing.Size(42, 22);
+            this.R05.Size = new System.Drawing.Size(42, 26);
             this.R05.TabIndex = 23;
             this.R05.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7137,7 +7136,7 @@ namespace MulanLite
             0,
             0});
             this.R09.Name = "R09";
-            this.R09.Size = new System.Drawing.Size(42, 22);
+            this.R09.Size = new System.Drawing.Size(42, 26);
             this.R09.TabIndex = 27;
             this.R09.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7152,7 +7151,7 @@ namespace MulanLite
             0,
             0});
             this.R06.Name = "R06";
-            this.R06.Size = new System.Drawing.Size(42, 22);
+            this.R06.Size = new System.Drawing.Size(42, 26);
             this.R06.TabIndex = 24;
             this.R06.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R06.ValueChanged += new System.EventHandler(this.R06_ValueChanged);
@@ -7168,7 +7167,7 @@ namespace MulanLite
             0,
             0});
             this.R08.Name = "R08";
-            this.R08.Size = new System.Drawing.Size(42, 22);
+            this.R08.Size = new System.Drawing.Size(42, 26);
             this.R08.TabIndex = 26;
             this.R08.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7183,7 +7182,7 @@ namespace MulanLite
             0,
             0});
             this.R07.Name = "R07";
-            this.R07.Size = new System.Drawing.Size(42, 22);
+            this.R07.Size = new System.Drawing.Size(42, 26);
             this.R07.TabIndex = 25;
             this.R07.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R07.ValueChanged += new System.EventHandler(this.R07_ValueChanged);
@@ -7193,7 +7192,7 @@ namespace MulanLite
             this.label85.AutoSize = true;
             this.label85.Location = new System.Drawing.Point(841, 345);
             this.label85.Name = "label85";
-            this.label85.Size = new System.Drawing.Size(28, 15);
+            this.label85.Size = new System.Drawing.Size(37, 21);
             this.label85.TabIndex = 119;
             this.label85.Text = "5Bh";
             // 
@@ -7202,7 +7201,7 @@ namespace MulanLite
             this.label33.AutoSize = true;
             this.label33.Location = new System.Drawing.Point(177, 457);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(27, 15);
+            this.label33.Size = new System.Drawing.Size(36, 21);
             this.label33.TabIndex = 146;
             this.label33.Text = "1Fh";
             // 
@@ -7211,7 +7210,7 @@ namespace MulanLite
             this.label86.AutoSize = true;
             this.label86.Location = new System.Drawing.Point(841, 317);
             this.label86.Name = "label86";
-            this.label86.Size = new System.Drawing.Size(28, 15);
+            this.label86.Size = new System.Drawing.Size(38, 21);
             this.label86.TabIndex = 117;
             this.label86.Text = "5Ah";
             // 
@@ -7220,7 +7219,7 @@ namespace MulanLite
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(28, 15);
+            this.label1.Size = new System.Drawing.Size(37, 21);
             this.label1.TabIndex = 95;
             this.label1.Text = "00h";
             // 
@@ -7229,7 +7228,7 @@ namespace MulanLite
             this.label50.AutoSize = true;
             this.label50.Location = new System.Drawing.Point(672, 429);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(27, 15);
+            this.label50.Size = new System.Drawing.Size(36, 21);
             this.label50.TabIndex = 125;
             this.label50.Text = "4Eh";
             // 
@@ -7238,7 +7237,7 @@ namespace MulanLite
             this.label67.AutoSize = true;
             this.label67.Location = new System.Drawing.Point(346, 401);
             this.label67.Name = "label67";
-            this.label67.Size = new System.Drawing.Size(29, 15);
+            this.label67.Size = new System.Drawing.Size(38, 21);
             this.label67.TabIndex = 162;
             this.label67.Text = "2Dh";
             // 
@@ -7247,7 +7246,7 @@ namespace MulanLite
             this.label87.AutoSize = true;
             this.label87.Location = new System.Drawing.Point(841, 289);
             this.label87.Name = "label87";
-            this.label87.Size = new System.Drawing.Size(28, 15);
+            this.label87.Size = new System.Drawing.Size(37, 21);
             this.label87.TabIndex = 115;
             this.label87.Text = "59h";
             // 
@@ -7256,7 +7255,7 @@ namespace MulanLite
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 65);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(28, 15);
+            this.label2.Size = new System.Drawing.Size(37, 21);
             this.label2.TabIndex = 96;
             this.label2.Text = "01h";
             // 
@@ -7265,7 +7264,7 @@ namespace MulanLite
             this.label88.AutoSize = true;
             this.label88.Location = new System.Drawing.Point(841, 261);
             this.label88.Name = "label88";
-            this.label88.Size = new System.Drawing.Size(28, 15);
+            this.label88.Size = new System.Drawing.Size(37, 21);
             this.label88.TabIndex = 113;
             this.label88.Text = "58h";
             // 
@@ -7274,7 +7273,7 @@ namespace MulanLite
             this.label68.AutoSize = true;
             this.label68.Location = new System.Drawing.Point(346, 373);
             this.label68.Name = "label68";
-            this.label68.Size = new System.Drawing.Size(28, 15);
+            this.label68.Size = new System.Drawing.Size(37, 21);
             this.label68.TabIndex = 161;
             this.label68.Text = "2Ch";
             // 
@@ -7283,7 +7282,7 @@ namespace MulanLite
             this.label89.AutoSize = true;
             this.label89.Location = new System.Drawing.Point(841, 233);
             this.label89.Name = "label89";
-            this.label89.Size = new System.Drawing.Size(28, 15);
+            this.label89.Size = new System.Drawing.Size(37, 21);
             this.label89.TabIndex = 111;
             this.label89.Text = "57h";
             // 
@@ -7292,7 +7291,7 @@ namespace MulanLite
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(28, 15);
+            this.label3.Size = new System.Drawing.Size(37, 21);
             this.label3.TabIndex = 97;
             this.label3.Text = "02h";
             // 
@@ -7301,7 +7300,7 @@ namespace MulanLite
             this.label90.AutoSize = true;
             this.label90.Location = new System.Drawing.Point(841, 205);
             this.label90.Name = "label90";
-            this.label90.Size = new System.Drawing.Size(28, 15);
+            this.label90.Size = new System.Drawing.Size(37, 21);
             this.label90.TabIndex = 109;
             this.label90.Text = "56h";
             // 
@@ -7310,7 +7309,7 @@ namespace MulanLite
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(177, 429);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(27, 15);
+            this.label34.Size = new System.Drawing.Size(36, 21);
             this.label34.TabIndex = 145;
             this.label34.Text = "1Eh";
             // 
@@ -7319,7 +7318,7 @@ namespace MulanLite
             this.label51.AutoSize = true;
             this.label51.Location = new System.Drawing.Point(672, 401);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(29, 15);
+            this.label51.Size = new System.Drawing.Size(38, 21);
             this.label51.TabIndex = 124;
             this.label51.Text = "4Dh";
             // 
@@ -7328,7 +7327,7 @@ namespace MulanLite
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(12, 121);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(28, 15);
+            this.label6.Size = new System.Drawing.Size(37, 21);
             this.label6.TabIndex = 98;
             this.label6.Text = "03h";
             // 
@@ -7337,7 +7336,7 @@ namespace MulanLite
             this.label91.AutoSize = true;
             this.label91.Location = new System.Drawing.Point(841, 177);
             this.label91.Name = "label91";
-            this.label91.Size = new System.Drawing.Size(28, 15);
+            this.label91.Size = new System.Drawing.Size(37, 21);
             this.label91.TabIndex = 107;
             this.label91.Text = "55h";
             // 
@@ -7346,7 +7345,7 @@ namespace MulanLite
             this.label69.AutoSize = true;
             this.label69.Location = new System.Drawing.Point(346, 345);
             this.label69.Name = "label69";
-            this.label69.Size = new System.Drawing.Size(28, 15);
+            this.label69.Size = new System.Drawing.Size(37, 21);
             this.label69.TabIndex = 160;
             this.label69.Text = "2Bh";
             // 
@@ -7355,7 +7354,7 @@ namespace MulanLite
             this.label92.AutoSize = true;
             this.label92.Location = new System.Drawing.Point(841, 149);
             this.label92.Name = "label92";
-            this.label92.Size = new System.Drawing.Size(28, 15);
+            this.label92.Size = new System.Drawing.Size(37, 21);
             this.label92.TabIndex = 106;
             this.label92.Text = "54h";
             // 
@@ -7364,7 +7363,7 @@ namespace MulanLite
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(12, 149);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(28, 15);
+            this.label5.Size = new System.Drawing.Size(37, 21);
             this.label5.TabIndex = 99;
             this.label5.Text = "04h";
             // 
@@ -7373,7 +7372,7 @@ namespace MulanLite
             this.label93.AutoSize = true;
             this.label93.Location = new System.Drawing.Point(841, 121);
             this.label93.Name = "label93";
-            this.label93.Size = new System.Drawing.Size(28, 15);
+            this.label93.Size = new System.Drawing.Size(37, 21);
             this.label93.TabIndex = 104;
             this.label93.Text = "53h";
             // 
@@ -7382,7 +7381,7 @@ namespace MulanLite
             this.label70.AutoSize = true;
             this.label70.Location = new System.Drawing.Point(346, 317);
             this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(28, 15);
+            this.label70.Size = new System.Drawing.Size(38, 21);
             this.label70.TabIndex = 159;
             this.label70.Text = "2Ah";
             // 
@@ -7391,7 +7390,7 @@ namespace MulanLite
             this.label94.AutoSize = true;
             this.label94.Location = new System.Drawing.Point(841, 93);
             this.label94.Name = "label94";
-            this.label94.Size = new System.Drawing.Size(28, 15);
+            this.label94.Size = new System.Drawing.Size(37, 21);
             this.label94.TabIndex = 102;
             this.label94.Text = "52h";
             // 
@@ -7400,7 +7399,7 @@ namespace MulanLite
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(12, 177);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(28, 15);
+            this.label4.Size = new System.Drawing.Size(37, 21);
             this.label4.TabIndex = 100;
             this.label4.Text = "05h";
             // 
@@ -7409,7 +7408,7 @@ namespace MulanLite
             this.label52.AutoSize = true;
             this.label52.Location = new System.Drawing.Point(672, 373);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(28, 15);
+            this.label52.Size = new System.Drawing.Size(37, 21);
             this.label52.TabIndex = 121;
             this.label52.Text = "4Ch";
             // 
@@ -7418,7 +7417,7 @@ namespace MulanLite
             this.label35.AutoSize = true;
             this.label35.Location = new System.Drawing.Point(177, 401);
             this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(29, 15);
+            this.label35.Size = new System.Drawing.Size(38, 21);
             this.label35.TabIndex = 144;
             this.label35.Text = "1Dh";
             // 
@@ -7427,7 +7426,7 @@ namespace MulanLite
             this.label95.AutoSize = true;
             this.label95.Location = new System.Drawing.Point(841, 65);
             this.label95.Name = "label95";
-            this.label95.Size = new System.Drawing.Size(28, 15);
+            this.label95.Size = new System.Drawing.Size(37, 21);
             this.label95.TabIndex = 100;
             this.label95.Text = "51h";
             // 
@@ -7436,7 +7435,7 @@ namespace MulanLite
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(12, 205);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(28, 15);
+            this.label9.Size = new System.Drawing.Size(37, 21);
             this.label9.TabIndex = 101;
             this.label9.Text = "06h";
             // 
@@ -7445,7 +7444,7 @@ namespace MulanLite
             this.label96.AutoSize = true;
             this.label96.Location = new System.Drawing.Point(841, 37);
             this.label96.Name = "label96";
-            this.label96.Size = new System.Drawing.Size(28, 15);
+            this.label96.Size = new System.Drawing.Size(37, 21);
             this.label96.TabIndex = 98;
             this.label96.Text = "50h";
             // 
@@ -7454,7 +7453,7 @@ namespace MulanLite
             this.label71.AutoSize = true;
             this.label71.Location = new System.Drawing.Point(346, 289);
             this.label71.Name = "label71";
-            this.label71.Size = new System.Drawing.Size(28, 15);
+            this.label71.Size = new System.Drawing.Size(37, 21);
             this.label71.TabIndex = 158;
             this.label71.Text = "29h";
             // 
@@ -7463,7 +7462,7 @@ namespace MulanLite
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(12, 233);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(28, 15);
+            this.label8.Size = new System.Drawing.Size(37, 21);
             this.label8.TabIndex = 102;
             this.label8.Text = "07h";
             // 
@@ -7505,7 +7504,7 @@ namespace MulanLite
             0,
             0});
             this.W5F.Name = "W5F";
-            this.W5F.Size = new System.Drawing.Size(42, 22);
+            this.W5F.Size = new System.Drawing.Size(42, 26);
             this.W5F.TabIndex = 17;
             this.W5F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7520,7 +7519,7 @@ namespace MulanLite
             0,
             0});
             this.W5E.Name = "W5E";
-            this.W5E.Size = new System.Drawing.Size(42, 22);
+            this.W5E.Size = new System.Drawing.Size(42, 26);
             this.W5E.TabIndex = 16;
             this.W5E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7535,7 +7534,7 @@ namespace MulanLite
             0,
             0});
             this.W5D.Name = "W5D";
-            this.W5D.Size = new System.Drawing.Size(42, 22);
+            this.W5D.Size = new System.Drawing.Size(42, 26);
             this.W5D.TabIndex = 15;
             this.W5D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7550,7 +7549,7 @@ namespace MulanLite
             0,
             0});
             this.W5C.Name = "W5C";
-            this.W5C.Size = new System.Drawing.Size(42, 22);
+            this.W5C.Size = new System.Drawing.Size(42, 26);
             this.W5C.TabIndex = 14;
             this.W5C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7565,7 +7564,7 @@ namespace MulanLite
             0,
             0});
             this.W5B.Name = "W5B";
-            this.W5B.Size = new System.Drawing.Size(42, 22);
+            this.W5B.Size = new System.Drawing.Size(42, 26);
             this.W5B.TabIndex = 13;
             this.W5B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7580,7 +7579,7 @@ namespace MulanLite
             0,
             0});
             this.W5A.Name = "W5A";
-            this.W5A.Size = new System.Drawing.Size(42, 22);
+            this.W5A.Size = new System.Drawing.Size(42, 26);
             this.W5A.TabIndex = 12;
             this.W5A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7595,7 +7594,7 @@ namespace MulanLite
             0,
             0});
             this.W59.Name = "W59";
-            this.W59.Size = new System.Drawing.Size(42, 22);
+            this.W59.Size = new System.Drawing.Size(42, 26);
             this.W59.TabIndex = 11;
             this.W59.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7610,7 +7609,7 @@ namespace MulanLite
             0,
             0});
             this.W58.Name = "W58";
-            this.W58.Size = new System.Drawing.Size(42, 22);
+            this.W58.Size = new System.Drawing.Size(42, 26);
             this.W58.TabIndex = 10;
             this.W58.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7625,7 +7624,7 @@ namespace MulanLite
             0,
             0});
             this.W57.Name = "W57";
-            this.W57.Size = new System.Drawing.Size(42, 22);
+            this.W57.Size = new System.Drawing.Size(42, 26);
             this.W57.TabIndex = 9;
             this.W57.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7640,7 +7639,7 @@ namespace MulanLite
             0,
             0});
             this.W56.Name = "W56";
-            this.W56.Size = new System.Drawing.Size(42, 22);
+            this.W56.Size = new System.Drawing.Size(42, 26);
             this.W56.TabIndex = 8;
             this.W56.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7655,7 +7654,7 @@ namespace MulanLite
             0,
             0});
             this.W55.Name = "W55";
-            this.W55.Size = new System.Drawing.Size(42, 22);
+            this.W55.Size = new System.Drawing.Size(42, 26);
             this.W55.TabIndex = 7;
             this.W55.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7670,7 +7669,7 @@ namespace MulanLite
             0,
             0});
             this.W54.Name = "W54";
-            this.W54.Size = new System.Drawing.Size(42, 22);
+            this.W54.Size = new System.Drawing.Size(42, 26);
             this.W54.TabIndex = 6;
             this.W54.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7685,7 +7684,7 @@ namespace MulanLite
             0,
             0});
             this.W53.Name = "W53";
-            this.W53.Size = new System.Drawing.Size(42, 22);
+            this.W53.Size = new System.Drawing.Size(42, 26);
             this.W53.TabIndex = 5;
             this.W53.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7700,7 +7699,7 @@ namespace MulanLite
             0,
             0});
             this.W52.Name = "W52";
-            this.W52.Size = new System.Drawing.Size(42, 22);
+            this.W52.Size = new System.Drawing.Size(42, 26);
             this.W52.TabIndex = 4;
             this.W52.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7715,7 +7714,7 @@ namespace MulanLite
             0,
             0});
             this.W51.Name = "W51";
-            this.W51.Size = new System.Drawing.Size(42, 22);
+            this.W51.Size = new System.Drawing.Size(42, 26);
             this.W51.TabIndex = 3;
             this.W51.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7730,7 +7729,7 @@ namespace MulanLite
             0,
             0});
             this.W50.Name = "W50";
-            this.W50.Size = new System.Drawing.Size(42, 22);
+            this.W50.Size = new System.Drawing.Size(42, 26);
             this.W50.TabIndex = 2;
             this.W50.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -7739,7 +7738,7 @@ namespace MulanLite
             this.label72.AutoSize = true;
             this.label72.Location = new System.Drawing.Point(346, 261);
             this.label72.Name = "label72";
-            this.label72.Size = new System.Drawing.Size(28, 15);
+            this.label72.Size = new System.Drawing.Size(37, 21);
             this.label72.TabIndex = 157;
             this.label72.Text = "28h";
             // 
@@ -7748,7 +7747,7 @@ namespace MulanLite
             this.label53.AutoSize = true;
             this.label53.Location = new System.Drawing.Point(672, 345);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(28, 15);
+            this.label53.Size = new System.Drawing.Size(37, 21);
             this.label53.TabIndex = 120;
             this.label53.Text = "4Bh";
             // 
@@ -7757,7 +7756,7 @@ namespace MulanLite
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(12, 261);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(28, 15);
+            this.label7.Size = new System.Drawing.Size(37, 21);
             this.label7.TabIndex = 103;
             this.label7.Text = "08h";
             // 
@@ -7766,7 +7765,7 @@ namespace MulanLite
             this.label54.AutoSize = true;
             this.label54.Location = new System.Drawing.Point(672, 317);
             this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(28, 15);
+            this.label54.Size = new System.Drawing.Size(38, 21);
             this.label54.TabIndex = 118;
             this.label54.Text = "4Ah";
             // 
@@ -7775,7 +7774,7 @@ namespace MulanLite
             this.label36.AutoSize = true;
             this.label36.Location = new System.Drawing.Point(177, 373);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(28, 15);
+            this.label36.Size = new System.Drawing.Size(37, 21);
             this.label36.TabIndex = 143;
             this.label36.Text = "1Ch";
             // 
@@ -7784,7 +7783,7 @@ namespace MulanLite
             this.label55.AutoSize = true;
             this.label55.Location = new System.Drawing.Point(672, 289);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(28, 15);
+            this.label55.Size = new System.Drawing.Size(37, 21);
             this.label55.TabIndex = 116;
             this.label55.Text = "49h";
             // 
@@ -7793,7 +7792,7 @@ namespace MulanLite
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(12, 289);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(28, 15);
+            this.label16.Size = new System.Drawing.Size(37, 21);
             this.label16.TabIndex = 104;
             this.label16.Text = "09h";
             // 
@@ -7802,7 +7801,7 @@ namespace MulanLite
             this.label56.AutoSize = true;
             this.label56.Location = new System.Drawing.Point(672, 261);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(28, 15);
+            this.label56.Size = new System.Drawing.Size(37, 21);
             this.label56.TabIndex = 114;
             this.label56.Text = "48h";
             // 
@@ -7811,7 +7810,7 @@ namespace MulanLite
             this.label73.AutoSize = true;
             this.label73.Location = new System.Drawing.Point(346, 233);
             this.label73.Name = "label73";
-            this.label73.Size = new System.Drawing.Size(28, 15);
+            this.label73.Size = new System.Drawing.Size(37, 21);
             this.label73.TabIndex = 156;
             this.label73.Text = "27h";
             // 
@@ -7820,7 +7819,7 @@ namespace MulanLite
             this.label57.AutoSize = true;
             this.label57.Location = new System.Drawing.Point(672, 233);
             this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(28, 15);
+            this.label57.Size = new System.Drawing.Size(37, 21);
             this.label57.TabIndex = 112;
             this.label57.Text = "47h";
             // 
@@ -7829,7 +7828,7 @@ namespace MulanLite
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(12, 317);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(28, 15);
+            this.label15.Size = new System.Drawing.Size(38, 21);
             this.label15.TabIndex = 105;
             this.label15.Text = "0Ah";
             // 
@@ -7838,7 +7837,7 @@ namespace MulanLite
             this.label58.AutoSize = true;
             this.label58.Location = new System.Drawing.Point(672, 205);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(28, 15);
+            this.label58.Size = new System.Drawing.Size(37, 21);
             this.label58.TabIndex = 110;
             this.label58.Text = "46h";
             // 
@@ -7847,7 +7846,7 @@ namespace MulanLite
             this.label74.AutoSize = true;
             this.label74.Location = new System.Drawing.Point(346, 205);
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(28, 15);
+            this.label74.Size = new System.Drawing.Size(37, 21);
             this.label74.TabIndex = 155;
             this.label74.Text = "26h";
             // 
@@ -7856,7 +7855,7 @@ namespace MulanLite
             this.label59.AutoSize = true;
             this.label59.Location = new System.Drawing.Point(672, 177);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(28, 15);
+            this.label59.Size = new System.Drawing.Size(37, 21);
             this.label59.TabIndex = 108;
             this.label59.Text = "45h";
             // 
@@ -7865,7 +7864,7 @@ namespace MulanLite
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(12, 345);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(28, 15);
+            this.label14.Size = new System.Drawing.Size(37, 21);
             this.label14.TabIndex = 106;
             this.label14.Text = "0Bh";
             // 
@@ -7874,7 +7873,7 @@ namespace MulanLite
             this.label60.AutoSize = true;
             this.label60.Location = new System.Drawing.Point(672, 149);
             this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(28, 15);
+            this.label60.Size = new System.Drawing.Size(37, 21);
             this.label60.TabIndex = 105;
             this.label60.Text = "44h";
             // 
@@ -7883,7 +7882,7 @@ namespace MulanLite
             this.label37.AutoSize = true;
             this.label37.Location = new System.Drawing.Point(177, 345);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(28, 15);
+            this.label37.Size = new System.Drawing.Size(37, 21);
             this.label37.TabIndex = 142;
             this.label37.Text = "1Bh";
             // 
@@ -7892,7 +7891,7 @@ namespace MulanLite
             this.label61.AutoSize = true;
             this.label61.Location = new System.Drawing.Point(672, 121);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(28, 15);
+            this.label61.Size = new System.Drawing.Size(37, 21);
             this.label61.TabIndex = 103;
             this.label61.Text = "43h";
             // 
@@ -7901,7 +7900,7 @@ namespace MulanLite
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(12, 373);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(28, 15);
+            this.label13.Size = new System.Drawing.Size(37, 21);
             this.label13.TabIndex = 107;
             this.label13.Text = "0Ch";
             // 
@@ -7910,7 +7909,7 @@ namespace MulanLite
             this.label62.AutoSize = true;
             this.label62.Location = new System.Drawing.Point(672, 93);
             this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(28, 15);
+            this.label62.Size = new System.Drawing.Size(37, 21);
             this.label62.TabIndex = 101;
             this.label62.Text = "42h";
             // 
@@ -7919,7 +7918,7 @@ namespace MulanLite
             this.label75.AutoSize = true;
             this.label75.Location = new System.Drawing.Point(346, 177);
             this.label75.Name = "label75";
-            this.label75.Size = new System.Drawing.Size(28, 15);
+            this.label75.Size = new System.Drawing.Size(37, 21);
             this.label75.TabIndex = 154;
             this.label75.Text = "25h";
             // 
@@ -7928,7 +7927,7 @@ namespace MulanLite
             this.label63.AutoSize = true;
             this.label63.Location = new System.Drawing.Point(672, 65);
             this.label63.Name = "label63";
-            this.label63.Size = new System.Drawing.Size(28, 15);
+            this.label63.Size = new System.Drawing.Size(37, 21);
             this.label63.TabIndex = 99;
             this.label63.Text = "41h";
             // 
@@ -7937,7 +7936,7 @@ namespace MulanLite
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(12, 401);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(29, 15);
+            this.label12.Size = new System.Drawing.Size(38, 21);
             this.label12.TabIndex = 108;
             this.label12.Text = "0Dh";
             // 
@@ -7946,7 +7945,7 @@ namespace MulanLite
             this.label64.AutoSize = true;
             this.label64.Location = new System.Drawing.Point(672, 37);
             this.label64.Name = "label64";
-            this.label64.Size = new System.Drawing.Size(28, 15);
+            this.label64.Size = new System.Drawing.Size(37, 21);
             this.label64.TabIndex = 97;
             this.label64.Text = "40h";
             // 
@@ -7955,7 +7954,7 @@ namespace MulanLite
             this.label76.AutoSize = true;
             this.label76.Location = new System.Drawing.Point(346, 149);
             this.label76.Name = "label76";
-            this.label76.Size = new System.Drawing.Size(28, 15);
+            this.label76.Size = new System.Drawing.Size(37, 21);
             this.label76.TabIndex = 153;
             this.label76.Text = "24h";
             // 
@@ -7997,7 +7996,7 @@ namespace MulanLite
             0,
             0});
             this.R4F.Name = "R4F";
-            this.R4F.Size = new System.Drawing.Size(42, 22);
+            this.R4F.Size = new System.Drawing.Size(42, 26);
             this.R4F.TabIndex = 33;
             this.R4F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8012,7 +8011,7 @@ namespace MulanLite
             0,
             0});
             this.R40.Name = "R40";
-            this.R40.Size = new System.Drawing.Size(42, 22);
+            this.R40.Size = new System.Drawing.Size(42, 26);
             this.R40.TabIndex = 18;
             this.R40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8027,7 +8026,7 @@ namespace MulanLite
             0,
             0});
             this.R4E.Name = "R4E";
-            this.R4E.Size = new System.Drawing.Size(42, 22);
+            this.R4E.Size = new System.Drawing.Size(42, 26);
             this.R4E.TabIndex = 32;
             this.R4E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8042,7 +8041,7 @@ namespace MulanLite
             0,
             0});
             this.R41.Name = "R41";
-            this.R41.Size = new System.Drawing.Size(42, 22);
+            this.R41.Size = new System.Drawing.Size(42, 26);
             this.R41.TabIndex = 19;
             this.R41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8057,7 +8056,7 @@ namespace MulanLite
             0,
             0});
             this.R4D.Name = "R4D";
-            this.R4D.Size = new System.Drawing.Size(42, 22);
+            this.R4D.Size = new System.Drawing.Size(42, 26);
             this.R4D.TabIndex = 31;
             this.R4D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8072,7 +8071,7 @@ namespace MulanLite
             0,
             0});
             this.R42.Name = "R42";
-            this.R42.Size = new System.Drawing.Size(42, 22);
+            this.R42.Size = new System.Drawing.Size(42, 26);
             this.R42.TabIndex = 20;
             this.R42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8087,7 +8086,7 @@ namespace MulanLite
             0,
             0});
             this.R4C.Name = "R4C";
-            this.R4C.Size = new System.Drawing.Size(42, 22);
+            this.R4C.Size = new System.Drawing.Size(42, 26);
             this.R4C.TabIndex = 30;
             this.R4C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8102,7 +8101,7 @@ namespace MulanLite
             0,
             0});
             this.R43.Name = "R43";
-            this.R43.Size = new System.Drawing.Size(42, 22);
+            this.R43.Size = new System.Drawing.Size(42, 26);
             this.R43.TabIndex = 21;
             this.R43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8117,7 +8116,7 @@ namespace MulanLite
             0,
             0});
             this.R4B.Name = "R4B";
-            this.R4B.Size = new System.Drawing.Size(42, 22);
+            this.R4B.Size = new System.Drawing.Size(42, 26);
             this.R4B.TabIndex = 29;
             this.R4B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4B.ValueChanged += new System.EventHandler(this.R4B_ValueChanged);
@@ -8133,7 +8132,7 @@ namespace MulanLite
             0,
             0});
             this.R44.Name = "R44";
-            this.R44.Size = new System.Drawing.Size(42, 22);
+            this.R44.Size = new System.Drawing.Size(42, 26);
             this.R44.TabIndex = 22;
             this.R44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R44.ValueChanged += new System.EventHandler(this.R44_ValueChanged);
@@ -8149,7 +8148,7 @@ namespace MulanLite
             0,
             0});
             this.R4A.Name = "R4A";
-            this.R4A.Size = new System.Drawing.Size(42, 22);
+            this.R4A.Size = new System.Drawing.Size(42, 26);
             this.R4A.TabIndex = 28;
             this.R4A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R4A.ValueChanged += new System.EventHandler(this.R4A_ValueChanged);
@@ -8165,7 +8164,7 @@ namespace MulanLite
             0,
             0});
             this.R45.Name = "R45";
-            this.R45.Size = new System.Drawing.Size(42, 22);
+            this.R45.Size = new System.Drawing.Size(42, 26);
             this.R45.TabIndex = 23;
             this.R45.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R45.ValueChanged += new System.EventHandler(this.R45_ValueChanged);
@@ -8181,7 +8180,7 @@ namespace MulanLite
             0,
             0});
             this.R49.Name = "R49";
-            this.R49.Size = new System.Drawing.Size(42, 22);
+            this.R49.Size = new System.Drawing.Size(42, 26);
             this.R49.TabIndex = 27;
             this.R49.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8196,7 +8195,7 @@ namespace MulanLite
             0,
             0});
             this.R46.Name = "R46";
-            this.R46.Size = new System.Drawing.Size(42, 22);
+            this.R46.Size = new System.Drawing.Size(42, 26);
             this.R46.TabIndex = 24;
             this.R46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R46.ValueChanged += new System.EventHandler(this.R46_ValueChanged);
@@ -8212,7 +8211,7 @@ namespace MulanLite
             0,
             0});
             this.R48.Name = "R48";
-            this.R48.Size = new System.Drawing.Size(42, 22);
+            this.R48.Size = new System.Drawing.Size(42, 26);
             this.R48.TabIndex = 26;
             this.R48.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8227,7 +8226,7 @@ namespace MulanLite
             0,
             0});
             this.R47.Name = "R47";
-            this.R47.Size = new System.Drawing.Size(42, 22);
+            this.R47.Size = new System.Drawing.Size(42, 26);
             this.R47.TabIndex = 25;
             this.R47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R47.ValueChanged += new System.EventHandler(this.R47_ValueChanged);
@@ -8237,7 +8236,7 @@ namespace MulanLite
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(12, 429);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(27, 15);
+            this.label11.Size = new System.Drawing.Size(36, 21);
             this.label11.TabIndex = 109;
             this.label11.Text = "0Eh";
             // 
@@ -8279,7 +8278,7 @@ namespace MulanLite
             0,
             0});
             this.W4F.Name = "W4F";
-            this.W4F.Size = new System.Drawing.Size(42, 22);
+            this.W4F.Size = new System.Drawing.Size(42, 26);
             this.W4F.TabIndex = 17;
             this.W4F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8294,7 +8293,7 @@ namespace MulanLite
             0,
             0});
             this.W4E.Name = "W4E";
-            this.W4E.Size = new System.Drawing.Size(42, 22);
+            this.W4E.Size = new System.Drawing.Size(42, 26);
             this.W4E.TabIndex = 16;
             this.W4E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8309,7 +8308,7 @@ namespace MulanLite
             0,
             0});
             this.W4D.Name = "W4D";
-            this.W4D.Size = new System.Drawing.Size(42, 22);
+            this.W4D.Size = new System.Drawing.Size(42, 26);
             this.W4D.TabIndex = 15;
             this.W4D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8324,7 +8323,7 @@ namespace MulanLite
             0,
             0});
             this.W4C.Name = "W4C";
-            this.W4C.Size = new System.Drawing.Size(42, 22);
+            this.W4C.Size = new System.Drawing.Size(42, 26);
             this.W4C.TabIndex = 14;
             this.W4C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8339,7 +8338,7 @@ namespace MulanLite
             0,
             0});
             this.W4B.Name = "W4B";
-            this.W4B.Size = new System.Drawing.Size(42, 22);
+            this.W4B.Size = new System.Drawing.Size(42, 26);
             this.W4B.TabIndex = 13;
             this.W4B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8354,7 +8353,7 @@ namespace MulanLite
             0,
             0});
             this.W4A.Name = "W4A";
-            this.W4A.Size = new System.Drawing.Size(42, 22);
+            this.W4A.Size = new System.Drawing.Size(42, 26);
             this.W4A.TabIndex = 12;
             this.W4A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8369,7 +8368,7 @@ namespace MulanLite
             0,
             0});
             this.W49.Name = "W49";
-            this.W49.Size = new System.Drawing.Size(42, 22);
+            this.W49.Size = new System.Drawing.Size(42, 26);
             this.W49.TabIndex = 11;
             this.W49.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8384,7 +8383,7 @@ namespace MulanLite
             0,
             0});
             this.W48.Name = "W48";
-            this.W48.Size = new System.Drawing.Size(42, 22);
+            this.W48.Size = new System.Drawing.Size(42, 26);
             this.W48.TabIndex = 10;
             this.W48.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8399,7 +8398,7 @@ namespace MulanLite
             0,
             0});
             this.W47.Name = "W47";
-            this.W47.Size = new System.Drawing.Size(42, 22);
+            this.W47.Size = new System.Drawing.Size(42, 26);
             this.W47.TabIndex = 9;
             this.W47.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8414,7 +8413,7 @@ namespace MulanLite
             0,
             0});
             this.W46.Name = "W46";
-            this.W46.Size = new System.Drawing.Size(42, 22);
+            this.W46.Size = new System.Drawing.Size(42, 26);
             this.W46.TabIndex = 8;
             this.W46.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8429,7 +8428,7 @@ namespace MulanLite
             0,
             0});
             this.W45.Name = "W45";
-            this.W45.Size = new System.Drawing.Size(42, 22);
+            this.W45.Size = new System.Drawing.Size(42, 26);
             this.W45.TabIndex = 7;
             this.W45.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8444,7 +8443,7 @@ namespace MulanLite
             0,
             0});
             this.W44.Name = "W44";
-            this.W44.Size = new System.Drawing.Size(42, 22);
+            this.W44.Size = new System.Drawing.Size(42, 26);
             this.W44.TabIndex = 6;
             this.W44.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8459,7 +8458,7 @@ namespace MulanLite
             0,
             0});
             this.W43.Name = "W43";
-            this.W43.Size = new System.Drawing.Size(42, 22);
+            this.W43.Size = new System.Drawing.Size(42, 26);
             this.W43.TabIndex = 5;
             this.W43.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8474,7 +8473,7 @@ namespace MulanLite
             0,
             0});
             this.W42.Name = "W42";
-            this.W42.Size = new System.Drawing.Size(42, 22);
+            this.W42.Size = new System.Drawing.Size(42, 26);
             this.W42.TabIndex = 4;
             this.W42.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8489,7 +8488,7 @@ namespace MulanLite
             0,
             0});
             this.W41.Name = "W41";
-            this.W41.Size = new System.Drawing.Size(42, 22);
+            this.W41.Size = new System.Drawing.Size(42, 26);
             this.W41.TabIndex = 3;
             this.W41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8504,7 +8503,7 @@ namespace MulanLite
             0,
             0});
             this.W40.Name = "W40";
-            this.W40.Size = new System.Drawing.Size(42, 22);
+            this.W40.Size = new System.Drawing.Size(42, 26);
             this.W40.TabIndex = 2;
             this.W40.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8513,7 +8512,7 @@ namespace MulanLite
             this.label38.AutoSize = true;
             this.label38.Location = new System.Drawing.Point(177, 317);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(28, 15);
+            this.label38.Size = new System.Drawing.Size(38, 21);
             this.label38.TabIndex = 141;
             this.label38.Text = "1Ah";
             // 
@@ -8522,7 +8521,7 @@ namespace MulanLite
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(12, 457);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(27, 15);
+            this.label10.Size = new System.Drawing.Size(36, 21);
             this.label10.TabIndex = 110;
             this.label10.Text = "0Fh";
             // 
@@ -8531,7 +8530,7 @@ namespace MulanLite
             this.label77.AutoSize = true;
             this.label77.Location = new System.Drawing.Point(346, 121);
             this.label77.Name = "label77";
-            this.label77.Size = new System.Drawing.Size(28, 15);
+            this.label77.Size = new System.Drawing.Size(37, 21);
             this.label77.TabIndex = 152;
             this.label77.Text = "23h";
             // 
@@ -8573,7 +8572,7 @@ namespace MulanLite
             0,
             0});
             this.W3F.Name = "W3F";
-            this.W3F.Size = new System.Drawing.Size(42, 22);
+            this.W3F.Size = new System.Drawing.Size(42, 26);
             this.W3F.TabIndex = 17;
             this.W3F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8588,7 +8587,7 @@ namespace MulanLite
             0,
             0});
             this.W3E.Name = "W3E";
-            this.W3E.Size = new System.Drawing.Size(42, 22);
+            this.W3E.Size = new System.Drawing.Size(42, 26);
             this.W3E.TabIndex = 16;
             this.W3E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8603,7 +8602,7 @@ namespace MulanLite
             0,
             0});
             this.W3D.Name = "W3D";
-            this.W3D.Size = new System.Drawing.Size(42, 22);
+            this.W3D.Size = new System.Drawing.Size(42, 26);
             this.W3D.TabIndex = 15;
             this.W3D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8618,7 +8617,7 @@ namespace MulanLite
             0,
             0});
             this.W3C.Name = "W3C";
-            this.W3C.Size = new System.Drawing.Size(42, 22);
+            this.W3C.Size = new System.Drawing.Size(42, 26);
             this.W3C.TabIndex = 14;
             this.W3C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8633,7 +8632,7 @@ namespace MulanLite
             0,
             0});
             this.W3B.Name = "W3B";
-            this.W3B.Size = new System.Drawing.Size(42, 22);
+            this.W3B.Size = new System.Drawing.Size(42, 26);
             this.W3B.TabIndex = 13;
             this.W3B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8648,7 +8647,7 @@ namespace MulanLite
             0,
             0});
             this.W3A.Name = "W3A";
-            this.W3A.Size = new System.Drawing.Size(42, 22);
+            this.W3A.Size = new System.Drawing.Size(42, 26);
             this.W3A.TabIndex = 12;
             this.W3A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8663,7 +8662,7 @@ namespace MulanLite
             0,
             0});
             this.W39.Name = "W39";
-            this.W39.Size = new System.Drawing.Size(42, 22);
+            this.W39.Size = new System.Drawing.Size(42, 26);
             this.W39.TabIndex = 11;
             this.W39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8678,7 +8677,7 @@ namespace MulanLite
             0,
             0});
             this.W38.Name = "W38";
-            this.W38.Size = new System.Drawing.Size(42, 22);
+            this.W38.Size = new System.Drawing.Size(42, 26);
             this.W38.TabIndex = 10;
             this.W38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8693,7 +8692,7 @@ namespace MulanLite
             0,
             0});
             this.W37.Name = "W37";
-            this.W37.Size = new System.Drawing.Size(42, 22);
+            this.W37.Size = new System.Drawing.Size(42, 26);
             this.W37.TabIndex = 9;
             this.W37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8708,7 +8707,7 @@ namespace MulanLite
             0,
             0});
             this.W36.Name = "W36";
-            this.W36.Size = new System.Drawing.Size(42, 22);
+            this.W36.Size = new System.Drawing.Size(42, 26);
             this.W36.TabIndex = 8;
             this.W36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8723,7 +8722,7 @@ namespace MulanLite
             0,
             0});
             this.W35.Name = "W35";
-            this.W35.Size = new System.Drawing.Size(42, 22);
+            this.W35.Size = new System.Drawing.Size(42, 26);
             this.W35.TabIndex = 7;
             this.W35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8738,7 +8737,7 @@ namespace MulanLite
             0,
             0});
             this.W34.Name = "W34";
-            this.W34.Size = new System.Drawing.Size(42, 22);
+            this.W34.Size = new System.Drawing.Size(42, 26);
             this.W34.TabIndex = 6;
             this.W34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8753,7 +8752,7 @@ namespace MulanLite
             0,
             0});
             this.W33.Name = "W33";
-            this.W33.Size = new System.Drawing.Size(42, 22);
+            this.W33.Size = new System.Drawing.Size(42, 26);
             this.W33.TabIndex = 5;
             this.W33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8768,7 +8767,7 @@ namespace MulanLite
             0,
             0});
             this.W32.Name = "W32";
-            this.W32.Size = new System.Drawing.Size(42, 22);
+            this.W32.Size = new System.Drawing.Size(42, 26);
             this.W32.TabIndex = 4;
             this.W32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8783,7 +8782,7 @@ namespace MulanLite
             0,
             0});
             this.W31.Name = "W31";
-            this.W31.Size = new System.Drawing.Size(42, 22);
+            this.W31.Size = new System.Drawing.Size(42, 26);
             this.W31.TabIndex = 3;
             this.W31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8798,7 +8797,7 @@ namespace MulanLite
             0,
             0});
             this.W30.Name = "W30";
-            this.W30.Size = new System.Drawing.Size(42, 22);
+            this.W30.Size = new System.Drawing.Size(42, 26);
             this.W30.TabIndex = 2;
             this.W30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8807,7 +8806,7 @@ namespace MulanLite
             this.label78.AutoSize = true;
             this.label78.Location = new System.Drawing.Point(346, 93);
             this.label78.Name = "label78";
-            this.label78.Size = new System.Drawing.Size(28, 15);
+            this.label78.Size = new System.Drawing.Size(37, 21);
             this.label78.TabIndex = 151;
             this.label78.Text = "22h";
             // 
@@ -8849,7 +8848,7 @@ namespace MulanLite
             0,
             0});
             this.R3F.Name = "R3F";
-            this.R3F.Size = new System.Drawing.Size(42, 22);
+            this.R3F.Size = new System.Drawing.Size(42, 26);
             this.R3F.TabIndex = 33;
             this.R3F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3F.ValueChanged += new System.EventHandler(this.R3F_ValueChanged);
@@ -8865,7 +8864,7 @@ namespace MulanLite
             0,
             0});
             this.R30.Name = "R30";
-            this.R30.Size = new System.Drawing.Size(42, 22);
+            this.R30.Size = new System.Drawing.Size(42, 26);
             this.R30.TabIndex = 18;
             this.R30.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R30.ValueChanged += new System.EventHandler(this.R30_ValueChanged);
@@ -8881,7 +8880,7 @@ namespace MulanLite
             0,
             0});
             this.R3E.Name = "R3E";
-            this.R3E.Size = new System.Drawing.Size(42, 22);
+            this.R3E.Size = new System.Drawing.Size(42, 26);
             this.R3E.TabIndex = 32;
             this.R3E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3E.ValueChanged += new System.EventHandler(this.R3E_ValueChanged);
@@ -8897,7 +8896,7 @@ namespace MulanLite
             0,
             0});
             this.R31.Name = "R31";
-            this.R31.Size = new System.Drawing.Size(42, 22);
+            this.R31.Size = new System.Drawing.Size(42, 26);
             this.R31.TabIndex = 19;
             this.R31.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R31.ValueChanged += new System.EventHandler(this.R31_ValueChanged);
@@ -8913,7 +8912,7 @@ namespace MulanLite
             0,
             0});
             this.R3D.Name = "R3D";
-            this.R3D.Size = new System.Drawing.Size(42, 22);
+            this.R3D.Size = new System.Drawing.Size(42, 26);
             this.R3D.TabIndex = 31;
             this.R3D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3D.ValueChanged += new System.EventHandler(this.R3D_ValueChanged);
@@ -8929,7 +8928,7 @@ namespace MulanLite
             0,
             0});
             this.R32.Name = "R32";
-            this.R32.Size = new System.Drawing.Size(42, 22);
+            this.R32.Size = new System.Drawing.Size(42, 26);
             this.R32.TabIndex = 20;
             this.R32.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R32.ValueChanged += new System.EventHandler(this.R32_ValueChanged);
@@ -8945,7 +8944,7 @@ namespace MulanLite
             0,
             0});
             this.R3C.Name = "R3C";
-            this.R3C.Size = new System.Drawing.Size(42, 22);
+            this.R3C.Size = new System.Drawing.Size(42, 26);
             this.R3C.TabIndex = 30;
             this.R3C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3C.ValueChanged += new System.EventHandler(this.R3C_ValueChanged);
@@ -8961,7 +8960,7 @@ namespace MulanLite
             0,
             0});
             this.R33.Name = "R33";
-            this.R33.Size = new System.Drawing.Size(42, 22);
+            this.R33.Size = new System.Drawing.Size(42, 26);
             this.R33.TabIndex = 21;
             this.R33.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R33.ValueChanged += new System.EventHandler(this.R33_ValueChanged);
@@ -8977,7 +8976,7 @@ namespace MulanLite
             0,
             0});
             this.R3B.Name = "R3B";
-            this.R3B.Size = new System.Drawing.Size(42, 22);
+            this.R3B.Size = new System.Drawing.Size(42, 26);
             this.R3B.TabIndex = 29;
             this.R3B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -8992,7 +8991,7 @@ namespace MulanLite
             0,
             0});
             this.R34.Name = "R34";
-            this.R34.Size = new System.Drawing.Size(42, 22);
+            this.R34.Size = new System.Drawing.Size(42, 26);
             this.R34.TabIndex = 22;
             this.R34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R34.ValueChanged += new System.EventHandler(this.R34_ValueChanged);
@@ -9008,7 +9007,7 @@ namespace MulanLite
             0,
             0});
             this.R3A.Name = "R3A";
-            this.R3A.Size = new System.Drawing.Size(42, 22);
+            this.R3A.Size = new System.Drawing.Size(42, 26);
             this.R3A.TabIndex = 28;
             this.R3A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R3A.ValueChanged += new System.EventHandler(this.R3A_ValueChanged);
@@ -9024,7 +9023,7 @@ namespace MulanLite
             0,
             0});
             this.R35.Name = "R35";
-            this.R35.Size = new System.Drawing.Size(42, 22);
+            this.R35.Size = new System.Drawing.Size(42, 26);
             this.R35.TabIndex = 23;
             this.R35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R35.ValueChanged += new System.EventHandler(this.R35_ValueChanged);
@@ -9040,7 +9039,7 @@ namespace MulanLite
             0,
             0});
             this.R39.Name = "R39";
-            this.R39.Size = new System.Drawing.Size(42, 22);
+            this.R39.Size = new System.Drawing.Size(42, 26);
             this.R39.TabIndex = 27;
             this.R39.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R39.ValueChanged += new System.EventHandler(this.R39_ValueChanged);
@@ -9056,7 +9055,7 @@ namespace MulanLite
             0,
             0});
             this.R36.Name = "R36";
-            this.R36.Size = new System.Drawing.Size(42, 22);
+            this.R36.Size = new System.Drawing.Size(42, 26);
             this.R36.TabIndex = 24;
             this.R36.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R36.ValueChanged += new System.EventHandler(this.R36_ValueChanged);
@@ -9072,7 +9071,7 @@ namespace MulanLite
             0,
             0});
             this.R38.Name = "R38";
-            this.R38.Size = new System.Drawing.Size(42, 22);
+            this.R38.Size = new System.Drawing.Size(42, 26);
             this.R38.TabIndex = 26;
             this.R38.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R38.ValueChanged += new System.EventHandler(this.R38_ValueChanged);
@@ -9088,7 +9087,7 @@ namespace MulanLite
             0,
             0});
             this.R37.Name = "R37";
-            this.R37.Size = new System.Drawing.Size(42, 22);
+            this.R37.Size = new System.Drawing.Size(42, 26);
             this.R37.TabIndex = 25;
             this.R37.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R37.ValueChanged += new System.EventHandler(this.R37_ValueChanged);
@@ -9098,7 +9097,7 @@ namespace MulanLite
             this.label39.AutoSize = true;
             this.label39.Location = new System.Drawing.Point(177, 289);
             this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(28, 15);
+            this.label39.Size = new System.Drawing.Size(37, 21);
             this.label39.TabIndex = 140;
             this.label39.Text = "19h";
             // 
@@ -9107,7 +9106,7 @@ namespace MulanLite
             this.label32.AutoSize = true;
             this.label32.Location = new System.Drawing.Point(508, 37);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(28, 15);
+            this.label32.Size = new System.Drawing.Size(37, 21);
             this.label32.TabIndex = 113;
             this.label32.Text = "30h";
             // 
@@ -9116,7 +9115,7 @@ namespace MulanLite
             this.label79.AutoSize = true;
             this.label79.Location = new System.Drawing.Point(346, 65);
             this.label79.Name = "label79";
-            this.label79.Size = new System.Drawing.Size(28, 15);
+            this.label79.Size = new System.Drawing.Size(37, 21);
             this.label79.TabIndex = 150;
             this.label79.Text = "21h";
             // 
@@ -9125,7 +9124,7 @@ namespace MulanLite
             this.label31.AutoSize = true;
             this.label31.Location = new System.Drawing.Point(508, 65);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(28, 15);
+            this.label31.Size = new System.Drawing.Size(37, 21);
             this.label31.TabIndex = 114;
             this.label31.Text = "31h";
             // 
@@ -9134,7 +9133,7 @@ namespace MulanLite
             this.label80.AutoSize = true;
             this.label80.Location = new System.Drawing.Point(346, 37);
             this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(28, 15);
+            this.label80.Size = new System.Drawing.Size(37, 21);
             this.label80.TabIndex = 149;
             this.label80.Text = "20h";
             // 
@@ -9143,7 +9142,7 @@ namespace MulanLite
             this.label30.AutoSize = true;
             this.label30.Location = new System.Drawing.Point(508, 93);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(28, 15);
+            this.label30.Size = new System.Drawing.Size(37, 21);
             this.label30.TabIndex = 115;
             this.label30.Text = "32h";
             // 
@@ -9152,7 +9151,7 @@ namespace MulanLite
             this.label40.AutoSize = true;
             this.label40.Location = new System.Drawing.Point(177, 261);
             this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(28, 15);
+            this.label40.Size = new System.Drawing.Size(37, 21);
             this.label40.TabIndex = 139;
             this.label40.Text = "18h";
             // 
@@ -9161,7 +9160,7 @@ namespace MulanLite
             this.label29.AutoSize = true;
             this.label29.Location = new System.Drawing.Point(508, 121);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(28, 15);
+            this.label29.Size = new System.Drawing.Size(37, 21);
             this.label29.TabIndex = 116;
             this.label29.Text = "33h";
             // 
@@ -9203,7 +9202,7 @@ namespace MulanLite
             0,
             0});
             this.R2F.Name = "R2F";
-            this.R2F.Size = new System.Drawing.Size(42, 22);
+            this.R2F.Size = new System.Drawing.Size(42, 26);
             this.R2F.TabIndex = 33;
             this.R2F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2F.ValueChanged += new System.EventHandler(this.R2F_ValueChanged);
@@ -9219,7 +9218,7 @@ namespace MulanLite
             0,
             0});
             this.R20.Name = "R20";
-            this.R20.Size = new System.Drawing.Size(42, 22);
+            this.R20.Size = new System.Drawing.Size(42, 26);
             this.R20.TabIndex = 18;
             this.R20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9234,7 +9233,7 @@ namespace MulanLite
             0,
             0});
             this.R2E.Name = "R2E";
-            this.R2E.Size = new System.Drawing.Size(42, 22);
+            this.R2E.Size = new System.Drawing.Size(42, 26);
             this.R2E.TabIndex = 32;
             this.R2E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2E.ValueChanged += new System.EventHandler(this.R2E_ValueChanged);
@@ -9250,7 +9249,7 @@ namespace MulanLite
             0,
             0});
             this.R21.Name = "R21";
-            this.R21.Size = new System.Drawing.Size(42, 22);
+            this.R21.Size = new System.Drawing.Size(42, 26);
             this.R21.TabIndex = 19;
             this.R21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9265,7 +9264,7 @@ namespace MulanLite
             0,
             0});
             this.R2D.Name = "R2D";
-            this.R2D.Size = new System.Drawing.Size(42, 22);
+            this.R2D.Size = new System.Drawing.Size(42, 26);
             this.R2D.TabIndex = 31;
             this.R2D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2D.ValueChanged += new System.EventHandler(this.R2D_ValueChanged);
@@ -9281,7 +9280,7 @@ namespace MulanLite
             0,
             0});
             this.R22.Name = "R22";
-            this.R22.Size = new System.Drawing.Size(42, 22);
+            this.R22.Size = new System.Drawing.Size(42, 26);
             this.R22.TabIndex = 20;
             this.R22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9296,7 +9295,7 @@ namespace MulanLite
             0,
             0});
             this.R2C.Name = "R2C";
-            this.R2C.Size = new System.Drawing.Size(42, 22);
+            this.R2C.Size = new System.Drawing.Size(42, 26);
             this.R2C.TabIndex = 30;
             this.R2C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2C.ValueChanged += new System.EventHandler(this.R2C_ValueChanged);
@@ -9312,7 +9311,7 @@ namespace MulanLite
             0,
             0});
             this.R23.Name = "R23";
-            this.R23.Size = new System.Drawing.Size(42, 22);
+            this.R23.Size = new System.Drawing.Size(42, 26);
             this.R23.TabIndex = 21;
             this.R23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9327,7 +9326,7 @@ namespace MulanLite
             0,
             0});
             this.R2B.Name = "R2B";
-            this.R2B.Size = new System.Drawing.Size(42, 22);
+            this.R2B.Size = new System.Drawing.Size(42, 26);
             this.R2B.TabIndex = 29;
             this.R2B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2B.ValueChanged += new System.EventHandler(this.R2B_ValueChanged);
@@ -9343,7 +9342,7 @@ namespace MulanLite
             0,
             0});
             this.R24.Name = "R24";
-            this.R24.Size = new System.Drawing.Size(42, 22);
+            this.R24.Size = new System.Drawing.Size(42, 26);
             this.R24.TabIndex = 22;
             this.R24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9358,7 +9357,7 @@ namespace MulanLite
             0,
             0});
             this.R2A.Name = "R2A";
-            this.R2A.Size = new System.Drawing.Size(42, 22);
+            this.R2A.Size = new System.Drawing.Size(42, 26);
             this.R2A.TabIndex = 28;
             this.R2A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R2A.ValueChanged += new System.EventHandler(this.R2A_ValueChanged);
@@ -9374,7 +9373,7 @@ namespace MulanLite
             0,
             0});
             this.R25.Name = "R25";
-            this.R25.Size = new System.Drawing.Size(42, 22);
+            this.R25.Size = new System.Drawing.Size(42, 26);
             this.R25.TabIndex = 23;
             this.R25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9389,7 +9388,7 @@ namespace MulanLite
             0,
             0});
             this.R29.Name = "R29";
-            this.R29.Size = new System.Drawing.Size(42, 22);
+            this.R29.Size = new System.Drawing.Size(42, 26);
             this.R29.TabIndex = 27;
             this.R29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R29.ValueChanged += new System.EventHandler(this.R29_ValueChanged);
@@ -9405,7 +9404,7 @@ namespace MulanLite
             0,
             0});
             this.R26.Name = "R26";
-            this.R26.Size = new System.Drawing.Size(42, 22);
+            this.R26.Size = new System.Drawing.Size(42, 26);
             this.R26.TabIndex = 24;
             this.R26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9420,7 +9419,7 @@ namespace MulanLite
             0,
             0});
             this.R28.Name = "R28";
-            this.R28.Size = new System.Drawing.Size(42, 22);
+            this.R28.Size = new System.Drawing.Size(42, 26);
             this.R28.TabIndex = 26;
             this.R28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.R28.ValueChanged += new System.EventHandler(this.R28_ValueChanged);
@@ -9436,7 +9435,7 @@ namespace MulanLite
             0,
             0});
             this.R27.Name = "R27";
-            this.R27.Size = new System.Drawing.Size(42, 22);
+            this.R27.Size = new System.Drawing.Size(42, 26);
             this.R27.TabIndex = 25;
             this.R27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9445,7 +9444,7 @@ namespace MulanLite
             this.label28.AutoSize = true;
             this.label28.Location = new System.Drawing.Point(508, 149);
             this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(28, 15);
+            this.label28.Size = new System.Drawing.Size(37, 21);
             this.label28.TabIndex = 117;
             this.label28.Text = "34h";
             // 
@@ -9487,7 +9486,7 @@ namespace MulanLite
             0,
             0});
             this.W2F.Name = "W2F";
-            this.W2F.Size = new System.Drawing.Size(42, 22);
+            this.W2F.Size = new System.Drawing.Size(42, 26);
             this.W2F.TabIndex = 17;
             this.W2F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9502,7 +9501,7 @@ namespace MulanLite
             0,
             0});
             this.W2E.Name = "W2E";
-            this.W2E.Size = new System.Drawing.Size(42, 22);
+            this.W2E.Size = new System.Drawing.Size(42, 26);
             this.W2E.TabIndex = 16;
             this.W2E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9517,7 +9516,7 @@ namespace MulanLite
             0,
             0});
             this.W2D.Name = "W2D";
-            this.W2D.Size = new System.Drawing.Size(42, 22);
+            this.W2D.Size = new System.Drawing.Size(42, 26);
             this.W2D.TabIndex = 15;
             this.W2D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9532,7 +9531,7 @@ namespace MulanLite
             0,
             0});
             this.W2C.Name = "W2C";
-            this.W2C.Size = new System.Drawing.Size(42, 22);
+            this.W2C.Size = new System.Drawing.Size(42, 26);
             this.W2C.TabIndex = 14;
             this.W2C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9547,7 +9546,7 @@ namespace MulanLite
             0,
             0});
             this.W2B.Name = "W2B";
-            this.W2B.Size = new System.Drawing.Size(42, 22);
+            this.W2B.Size = new System.Drawing.Size(42, 26);
             this.W2B.TabIndex = 13;
             this.W2B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9562,7 +9561,7 @@ namespace MulanLite
             0,
             0});
             this.W2A.Name = "W2A";
-            this.W2A.Size = new System.Drawing.Size(42, 22);
+            this.W2A.Size = new System.Drawing.Size(42, 26);
             this.W2A.TabIndex = 12;
             this.W2A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9577,7 +9576,7 @@ namespace MulanLite
             0,
             0});
             this.W29.Name = "W29";
-            this.W29.Size = new System.Drawing.Size(42, 22);
+            this.W29.Size = new System.Drawing.Size(42, 26);
             this.W29.TabIndex = 11;
             this.W29.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9592,7 +9591,7 @@ namespace MulanLite
             0,
             0});
             this.W28.Name = "W28";
-            this.W28.Size = new System.Drawing.Size(42, 22);
+            this.W28.Size = new System.Drawing.Size(42, 26);
             this.W28.TabIndex = 10;
             this.W28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9607,7 +9606,7 @@ namespace MulanLite
             0,
             0});
             this.W27.Name = "W27";
-            this.W27.Size = new System.Drawing.Size(42, 22);
+            this.W27.Size = new System.Drawing.Size(42, 26);
             this.W27.TabIndex = 9;
             this.W27.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9622,7 +9621,7 @@ namespace MulanLite
             0,
             0});
             this.W26.Name = "W26";
-            this.W26.Size = new System.Drawing.Size(42, 22);
+            this.W26.Size = new System.Drawing.Size(42, 26);
             this.W26.TabIndex = 8;
             this.W26.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9637,7 +9636,7 @@ namespace MulanLite
             0,
             0});
             this.W25.Name = "W25";
-            this.W25.Size = new System.Drawing.Size(42, 22);
+            this.W25.Size = new System.Drawing.Size(42, 26);
             this.W25.TabIndex = 7;
             this.W25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9652,7 +9651,7 @@ namespace MulanLite
             0,
             0});
             this.W24.Name = "W24";
-            this.W24.Size = new System.Drawing.Size(42, 22);
+            this.W24.Size = new System.Drawing.Size(42, 26);
             this.W24.TabIndex = 6;
             this.W24.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9667,7 +9666,7 @@ namespace MulanLite
             0,
             0});
             this.W23.Name = "W23";
-            this.W23.Size = new System.Drawing.Size(42, 22);
+            this.W23.Size = new System.Drawing.Size(42, 26);
             this.W23.TabIndex = 5;
             this.W23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9682,7 +9681,7 @@ namespace MulanLite
             0,
             0});
             this.W22.Name = "W22";
-            this.W22.Size = new System.Drawing.Size(42, 22);
+            this.W22.Size = new System.Drawing.Size(42, 26);
             this.W22.TabIndex = 4;
             this.W22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9697,7 +9696,7 @@ namespace MulanLite
             0,
             0});
             this.W21.Name = "W21";
-            this.W21.Size = new System.Drawing.Size(42, 22);
+            this.W21.Size = new System.Drawing.Size(42, 26);
             this.W21.TabIndex = 3;
             this.W21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9712,7 +9711,7 @@ namespace MulanLite
             0,
             0});
             this.W20.Name = "W20";
-            this.W20.Size = new System.Drawing.Size(42, 22);
+            this.W20.Size = new System.Drawing.Size(42, 26);
             this.W20.TabIndex = 2;
             this.W20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9721,7 +9720,7 @@ namespace MulanLite
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(508, 177);
             this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(28, 15);
+            this.label27.Size = new System.Drawing.Size(37, 21);
             this.label27.TabIndex = 118;
             this.label27.Text = "35h";
             // 
@@ -9730,7 +9729,7 @@ namespace MulanLite
             this.label41.AutoSize = true;
             this.label41.Location = new System.Drawing.Point(177, 233);
             this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(28, 15);
+            this.label41.Size = new System.Drawing.Size(37, 21);
             this.label41.TabIndex = 138;
             this.label41.Text = "17h";
             // 
@@ -9739,7 +9738,7 @@ namespace MulanLite
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(508, 205);
             this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(28, 15);
+            this.label26.Size = new System.Drawing.Size(37, 21);
             this.label26.TabIndex = 119;
             this.label26.Text = "36h";
             // 
@@ -9748,7 +9747,7 @@ namespace MulanLite
             this.label42.AutoSize = true;
             this.label42.Location = new System.Drawing.Point(177, 205);
             this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(28, 15);
+            this.label42.Size = new System.Drawing.Size(37, 21);
             this.label42.TabIndex = 137;
             this.label42.Text = "16h";
             // 
@@ -9757,7 +9756,7 @@ namespace MulanLite
             this.label25.AutoSize = true;
             this.label25.Location = new System.Drawing.Point(508, 233);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(28, 15);
+            this.label25.Size = new System.Drawing.Size(37, 21);
             this.label25.TabIndex = 120;
             this.label25.Text = "37h";
             // 
@@ -9766,7 +9765,7 @@ namespace MulanLite
             this.label43.AutoSize = true;
             this.label43.Location = new System.Drawing.Point(177, 177);
             this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(28, 15);
+            this.label43.Size = new System.Drawing.Size(37, 21);
             this.label43.TabIndex = 136;
             this.label43.Text = "15h";
             // 
@@ -9775,7 +9774,7 @@ namespace MulanLite
             this.label24.AutoSize = true;
             this.label24.Location = new System.Drawing.Point(508, 261);
             this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(28, 15);
+            this.label24.Size = new System.Drawing.Size(37, 21);
             this.label24.TabIndex = 121;
             this.label24.Text = "38h";
             // 
@@ -9784,7 +9783,7 @@ namespace MulanLite
             this.label44.AutoSize = true;
             this.label44.Location = new System.Drawing.Point(177, 149);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(28, 15);
+            this.label44.Size = new System.Drawing.Size(37, 21);
             this.label44.TabIndex = 135;
             this.label44.Text = "14h";
             // 
@@ -9793,7 +9792,7 @@ namespace MulanLite
             this.label23.AutoSize = true;
             this.label23.Location = new System.Drawing.Point(508, 289);
             this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(28, 15);
+            this.label23.Size = new System.Drawing.Size(37, 21);
             this.label23.TabIndex = 122;
             this.label23.Text = "39h";
             // 
@@ -9802,7 +9801,7 @@ namespace MulanLite
             this.label45.AutoSize = true;
             this.label45.Location = new System.Drawing.Point(177, 121);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(28, 15);
+            this.label45.Size = new System.Drawing.Size(37, 21);
             this.label45.TabIndex = 134;
             this.label45.Text = "13h";
             // 
@@ -9811,7 +9810,7 @@ namespace MulanLite
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(508, 317);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(28, 15);
+            this.label22.Size = new System.Drawing.Size(38, 21);
             this.label22.TabIndex = 123;
             this.label22.Text = "3Ah";
             // 
@@ -9820,7 +9819,7 @@ namespace MulanLite
             this.label46.AutoSize = true;
             this.label46.Location = new System.Drawing.Point(177, 93);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(28, 15);
+            this.label46.Size = new System.Drawing.Size(37, 21);
             this.label46.TabIndex = 133;
             this.label46.Text = "12h";
             // 
@@ -9829,7 +9828,7 @@ namespace MulanLite
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(508, 345);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(28, 15);
+            this.label21.Size = new System.Drawing.Size(37, 21);
             this.label21.TabIndex = 124;
             this.label21.Text = "3Bh";
             // 
@@ -9838,7 +9837,7 @@ namespace MulanLite
             this.label47.AutoSize = true;
             this.label47.Location = new System.Drawing.Point(177, 65);
             this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(28, 15);
+            this.label47.Size = new System.Drawing.Size(37, 21);
             this.label47.TabIndex = 132;
             this.label47.Text = "11h";
             // 
@@ -9847,7 +9846,7 @@ namespace MulanLite
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(508, 373);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(28, 15);
+            this.label20.Size = new System.Drawing.Size(37, 21);
             this.label20.TabIndex = 125;
             this.label20.Text = "3Ch";
             // 
@@ -9856,7 +9855,7 @@ namespace MulanLite
             this.label48.AutoSize = true;
             this.label48.Location = new System.Drawing.Point(177, 37);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(28, 15);
+            this.label48.Size = new System.Drawing.Size(37, 21);
             this.label48.TabIndex = 131;
             this.label48.Text = "10h";
             // 
@@ -9865,7 +9864,7 @@ namespace MulanLite
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(508, 401);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(29, 15);
+            this.label19.Size = new System.Drawing.Size(38, 21);
             this.label19.TabIndex = 126;
             this.label19.Text = "3Dh";
             // 
@@ -9907,7 +9906,7 @@ namespace MulanLite
             0,
             0});
             this.R1F.Name = "R1F";
-            this.R1F.Size = new System.Drawing.Size(42, 22);
+            this.R1F.Size = new System.Drawing.Size(42, 26);
             this.R1F.TabIndex = 33;
             this.R1F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9922,7 +9921,7 @@ namespace MulanLite
             0,
             0});
             this.R10.Name = "R10";
-            this.R10.Size = new System.Drawing.Size(42, 22);
+            this.R10.Size = new System.Drawing.Size(42, 26);
             this.R10.TabIndex = 18;
             this.R10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9937,7 +9936,7 @@ namespace MulanLite
             0,
             0});
             this.R1E.Name = "R1E";
-            this.R1E.Size = new System.Drawing.Size(42, 22);
+            this.R1E.Size = new System.Drawing.Size(42, 26);
             this.R1E.TabIndex = 32;
             this.R1E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9952,7 +9951,7 @@ namespace MulanLite
             0,
             0});
             this.R11.Name = "R11";
-            this.R11.Size = new System.Drawing.Size(42, 22);
+            this.R11.Size = new System.Drawing.Size(42, 26);
             this.R11.TabIndex = 19;
             this.R11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9967,7 +9966,7 @@ namespace MulanLite
             0,
             0});
             this.R1D.Name = "R1D";
-            this.R1D.Size = new System.Drawing.Size(42, 22);
+            this.R1D.Size = new System.Drawing.Size(42, 26);
             this.R1D.TabIndex = 31;
             this.R1D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9982,7 +9981,7 @@ namespace MulanLite
             0,
             0});
             this.R12.Name = "R12";
-            this.R12.Size = new System.Drawing.Size(42, 22);
+            this.R12.Size = new System.Drawing.Size(42, 26);
             this.R12.TabIndex = 20;
             this.R12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -9997,7 +9996,7 @@ namespace MulanLite
             0,
             0});
             this.R1C.Name = "R1C";
-            this.R1C.Size = new System.Drawing.Size(42, 22);
+            this.R1C.Size = new System.Drawing.Size(42, 26);
             this.R1C.TabIndex = 30;
             this.R1C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10012,7 +10011,7 @@ namespace MulanLite
             0,
             0});
             this.R13.Name = "R13";
-            this.R13.Size = new System.Drawing.Size(42, 22);
+            this.R13.Size = new System.Drawing.Size(42, 26);
             this.R13.TabIndex = 21;
             this.R13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10027,7 +10026,7 @@ namespace MulanLite
             0,
             0});
             this.R1B.Name = "R1B";
-            this.R1B.Size = new System.Drawing.Size(42, 22);
+            this.R1B.Size = new System.Drawing.Size(42, 26);
             this.R1B.TabIndex = 29;
             this.R1B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10042,7 +10041,7 @@ namespace MulanLite
             0,
             0});
             this.R14.Name = "R14";
-            this.R14.Size = new System.Drawing.Size(42, 22);
+            this.R14.Size = new System.Drawing.Size(42, 26);
             this.R14.TabIndex = 22;
             this.R14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10057,7 +10056,7 @@ namespace MulanLite
             0,
             0});
             this.R1A.Name = "R1A";
-            this.R1A.Size = new System.Drawing.Size(42, 22);
+            this.R1A.Size = new System.Drawing.Size(42, 26);
             this.R1A.TabIndex = 28;
             this.R1A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10072,7 +10071,7 @@ namespace MulanLite
             0,
             0});
             this.R15.Name = "R15";
-            this.R15.Size = new System.Drawing.Size(42, 22);
+            this.R15.Size = new System.Drawing.Size(42, 26);
             this.R15.TabIndex = 23;
             this.R15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10087,7 +10086,7 @@ namespace MulanLite
             0,
             0});
             this.R19.Name = "R19";
-            this.R19.Size = new System.Drawing.Size(42, 22);
+            this.R19.Size = new System.Drawing.Size(42, 26);
             this.R19.TabIndex = 27;
             this.R19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10102,7 +10101,7 @@ namespace MulanLite
             0,
             0});
             this.R16.Name = "R16";
-            this.R16.Size = new System.Drawing.Size(42, 22);
+            this.R16.Size = new System.Drawing.Size(42, 26);
             this.R16.TabIndex = 24;
             this.R16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10117,7 +10116,7 @@ namespace MulanLite
             0,
             0});
             this.R18.Name = "R18";
-            this.R18.Size = new System.Drawing.Size(42, 22);
+            this.R18.Size = new System.Drawing.Size(42, 26);
             this.R18.TabIndex = 26;
             this.R18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10132,7 +10131,7 @@ namespace MulanLite
             0,
             0});
             this.R17.Name = "R17";
-            this.R17.Size = new System.Drawing.Size(42, 22);
+            this.R17.Size = new System.Drawing.Size(42, 26);
             this.R17.TabIndex = 25;
             this.R17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10141,7 +10140,7 @@ namespace MulanLite
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(508, 429);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(27, 15);
+            this.label18.Size = new System.Drawing.Size(36, 21);
             this.label18.TabIndex = 127;
             this.label18.Text = "3Eh";
             // 
@@ -10183,7 +10182,7 @@ namespace MulanLite
             0,
             0});
             this.W1F.Name = "W1F";
-            this.W1F.Size = new System.Drawing.Size(42, 22);
+            this.W1F.Size = new System.Drawing.Size(42, 26);
             this.W1F.TabIndex = 17;
             this.W1F.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10198,7 +10197,7 @@ namespace MulanLite
             0,
             0});
             this.W1E.Name = "W1E";
-            this.W1E.Size = new System.Drawing.Size(42, 22);
+            this.W1E.Size = new System.Drawing.Size(42, 26);
             this.W1E.TabIndex = 16;
             this.W1E.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10213,7 +10212,7 @@ namespace MulanLite
             0,
             0});
             this.W1D.Name = "W1D";
-            this.W1D.Size = new System.Drawing.Size(42, 22);
+            this.W1D.Size = new System.Drawing.Size(42, 26);
             this.W1D.TabIndex = 15;
             this.W1D.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10228,7 +10227,7 @@ namespace MulanLite
             0,
             0});
             this.W1C.Name = "W1C";
-            this.W1C.Size = new System.Drawing.Size(42, 22);
+            this.W1C.Size = new System.Drawing.Size(42, 26);
             this.W1C.TabIndex = 14;
             this.W1C.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10243,7 +10242,7 @@ namespace MulanLite
             0,
             0});
             this.W1B.Name = "W1B";
-            this.W1B.Size = new System.Drawing.Size(42, 22);
+            this.W1B.Size = new System.Drawing.Size(42, 26);
             this.W1B.TabIndex = 13;
             this.W1B.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10258,7 +10257,7 @@ namespace MulanLite
             0,
             0});
             this.W1A.Name = "W1A";
-            this.W1A.Size = new System.Drawing.Size(42, 22);
+            this.W1A.Size = new System.Drawing.Size(42, 26);
             this.W1A.TabIndex = 12;
             this.W1A.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10273,7 +10272,7 @@ namespace MulanLite
             0,
             0});
             this.W19.Name = "W19";
-            this.W19.Size = new System.Drawing.Size(42, 22);
+            this.W19.Size = new System.Drawing.Size(42, 26);
             this.W19.TabIndex = 11;
             this.W19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10288,7 +10287,7 @@ namespace MulanLite
             0,
             0});
             this.W18.Name = "W18";
-            this.W18.Size = new System.Drawing.Size(42, 22);
+            this.W18.Size = new System.Drawing.Size(42, 26);
             this.W18.TabIndex = 10;
             this.W18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10303,7 +10302,7 @@ namespace MulanLite
             0,
             0});
             this.W17.Name = "W17";
-            this.W17.Size = new System.Drawing.Size(42, 22);
+            this.W17.Size = new System.Drawing.Size(42, 26);
             this.W17.TabIndex = 9;
             this.W17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10318,7 +10317,7 @@ namespace MulanLite
             0,
             0});
             this.W16.Name = "W16";
-            this.W16.Size = new System.Drawing.Size(42, 22);
+            this.W16.Size = new System.Drawing.Size(42, 26);
             this.W16.TabIndex = 8;
             this.W16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10333,7 +10332,7 @@ namespace MulanLite
             0,
             0});
             this.W15.Name = "W15";
-            this.W15.Size = new System.Drawing.Size(42, 22);
+            this.W15.Size = new System.Drawing.Size(42, 26);
             this.W15.TabIndex = 7;
             this.W15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10348,7 +10347,7 @@ namespace MulanLite
             0,
             0});
             this.W14.Name = "W14";
-            this.W14.Size = new System.Drawing.Size(42, 22);
+            this.W14.Size = new System.Drawing.Size(42, 26);
             this.W14.TabIndex = 6;
             this.W14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10363,7 +10362,7 @@ namespace MulanLite
             0,
             0});
             this.W13.Name = "W13";
-            this.W13.Size = new System.Drawing.Size(42, 22);
+            this.W13.Size = new System.Drawing.Size(42, 26);
             this.W13.TabIndex = 5;
             this.W13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10378,7 +10377,7 @@ namespace MulanLite
             0,
             0});
             this.W12.Name = "W12";
-            this.W12.Size = new System.Drawing.Size(42, 22);
+            this.W12.Size = new System.Drawing.Size(42, 26);
             this.W12.TabIndex = 4;
             this.W12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10393,7 +10392,7 @@ namespace MulanLite
             0,
             0});
             this.W11.Name = "W11";
-            this.W11.Size = new System.Drawing.Size(42, 22);
+            this.W11.Size = new System.Drawing.Size(42, 26);
             this.W11.TabIndex = 3;
             this.W11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10408,7 +10407,7 @@ namespace MulanLite
             0,
             0});
             this.W10.Name = "W10";
-            this.W10.Size = new System.Drawing.Size(42, 22);
+            this.W10.Size = new System.Drawing.Size(42, 26);
             this.W10.TabIndex = 2;
             this.W10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10417,7 +10416,7 @@ namespace MulanLite
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(508, 457);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(27, 15);
+            this.label17.Size = new System.Drawing.Size(36, 21);
             this.label17.TabIndex = 128;
             this.label17.Text = "3Fh";
             // 
@@ -10630,14 +10629,14 @@ namespace MulanLite
             0,
             0});
             this.nu_X_ADDR.Name = "nu_X_ADDR";
-            this.nu_X_ADDR.Size = new System.Drawing.Size(59, 23);
+            this.nu_X_ADDR.Size = new System.Drawing.Size(59, 27);
             this.nu_X_ADDR.TabIndex = 70;
             this.nu_X_ADDR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel52
             // 
             this.uiLabel52.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel52.Location = new System.Drawing.Point(3, 29);
+            this.uiLabel52.Location = new System.Drawing.Point(3, 33);
             this.uiLabel52.Name = "uiLabel52";
             this.uiLabel52.Size = new System.Drawing.Size(105, 23);
             this.uiLabel52.Style = Sunny.UI.UIStyle.Custom;
@@ -10649,21 +10648,21 @@ namespace MulanLite
             // 
             this.nu_Y_ADDR.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Y_ADDR.Hexadecimal = true;
-            this.nu_Y_ADDR.Location = new System.Drawing.Point(114, 32);
+            this.nu_Y_ADDR.Location = new System.Drawing.Point(114, 36);
             this.nu_Y_ADDR.Maximum = new decimal(new int[] {
             511,
             0,
             0,
             0});
             this.nu_Y_ADDR.Name = "nu_Y_ADDR";
-            this.nu_Y_ADDR.Size = new System.Drawing.Size(59, 23);
+            this.nu_Y_ADDR.Size = new System.Drawing.Size(59, 27);
             this.nu_Y_ADDR.TabIndex = 71;
             this.nu_Y_ADDR.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel53
             // 
             this.uiLabel53.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel53.Location = new System.Drawing.Point(3, 58);
+            this.uiLabel53.Location = new System.Drawing.Point(3, 66);
             this.uiLabel53.Name = "uiLabel53";
             this.uiLabel53.Size = new System.Drawing.Size(105, 23);
             this.uiLabel53.Style = Sunny.UI.UIStyle.Custom;
@@ -10675,21 +10674,21 @@ namespace MulanLite
             // 
             this.nu_LotID.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_LotID.Hexadecimal = true;
-            this.nu_LotID.Location = new System.Drawing.Point(114, 61);
+            this.nu_LotID.Location = new System.Drawing.Point(114, 69);
             this.nu_LotID.Maximum = new decimal(new int[] {
             131071,
             0,
             0,
             0});
             this.nu_LotID.Name = "nu_LotID";
-            this.nu_LotID.Size = new System.Drawing.Size(59, 23);
+            this.nu_LotID.Size = new System.Drawing.Size(59, 27);
             this.nu_LotID.TabIndex = 73;
             this.nu_LotID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel54
             // 
             this.uiLabel54.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel54.Location = new System.Drawing.Point(3, 87);
+            this.uiLabel54.Location = new System.Drawing.Point(3, 99);
             this.uiLabel54.Name = "uiLabel54";
             this.uiLabel54.Size = new System.Drawing.Size(105, 23);
             this.uiLabel54.Style = Sunny.UI.UIStyle.Custom;
@@ -10701,21 +10700,21 @@ namespace MulanLite
             // 
             this.nu_Wafer.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Wafer.Hexadecimal = true;
-            this.nu_Wafer.Location = new System.Drawing.Point(114, 90);
+            this.nu_Wafer.Location = new System.Drawing.Point(114, 102);
             this.nu_Wafer.Maximum = new decimal(new int[] {
             31,
             0,
             0,
             0});
             this.nu_Wafer.Name = "nu_Wafer";
-            this.nu_Wafer.Size = new System.Drawing.Size(59, 23);
+            this.nu_Wafer.Size = new System.Drawing.Size(59, 27);
             this.nu_Wafer.TabIndex = 75;
             this.nu_Wafer.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel55
             // 
             this.uiLabel55.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel55.Location = new System.Drawing.Point(3, 116);
+            this.uiLabel55.Location = new System.Drawing.Point(3, 132);
             this.uiLabel55.Name = "uiLabel55";
             this.uiLabel55.Size = new System.Drawing.Size(105, 23);
             this.uiLabel55.Style = Sunny.UI.UIStyle.Custom;
@@ -10727,21 +10726,21 @@ namespace MulanLite
             // 
             this.nu_PGM.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_PGM.Hexadecimal = true;
-            this.nu_PGM.Location = new System.Drawing.Point(114, 119);
+            this.nu_PGM.Location = new System.Drawing.Point(114, 135);
             this.nu_PGM.Maximum = new decimal(new int[] {
             7,
             0,
             0,
             0});
             this.nu_PGM.Name = "nu_PGM";
-            this.nu_PGM.Size = new System.Drawing.Size(59, 23);
+            this.nu_PGM.Size = new System.Drawing.Size(59, 27);
             this.nu_PGM.TabIndex = 77;
             this.nu_PGM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel56
             // 
             this.uiLabel56.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel56.Location = new System.Drawing.Point(3, 145);
+            this.uiLabel56.Location = new System.Drawing.Point(3, 165);
             this.uiLabel56.Name = "uiLabel56";
             this.uiLabel56.Size = new System.Drawing.Size(105, 23);
             this.uiLabel56.Style = Sunny.UI.UIStyle.Custom;
@@ -10753,21 +10752,21 @@ namespace MulanLite
             // 
             this.nu_Fab.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Fab.Hexadecimal = true;
-            this.nu_Fab.Location = new System.Drawing.Point(114, 148);
+            this.nu_Fab.Location = new System.Drawing.Point(114, 168);
             this.nu_Fab.Maximum = new decimal(new int[] {
             8191,
             0,
             0,
             0});
             this.nu_Fab.Name = "nu_Fab";
-            this.nu_Fab.Size = new System.Drawing.Size(59, 23);
+            this.nu_Fab.Size = new System.Drawing.Size(59, 27);
             this.nu_Fab.TabIndex = 79;
             this.nu_Fab.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // uiLabel57
             // 
             this.uiLabel57.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.uiLabel57.Location = new System.Drawing.Point(3, 174);
+            this.uiLabel57.Location = new System.Drawing.Point(3, 198);
             this.uiLabel57.Name = "uiLabel57";
             this.uiLabel57.Size = new System.Drawing.Size(105, 23);
             this.uiLabel57.Style = Sunny.UI.UIStyle.Custom;
@@ -10779,14 +10778,14 @@ namespace MulanLite
             // 
             this.nu_Lot_type.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nu_Lot_type.Hexadecimal = true;
-            this.nu_Lot_type.Location = new System.Drawing.Point(114, 177);
+            this.nu_Lot_type.Location = new System.Drawing.Point(114, 201);
             this.nu_Lot_type.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
             this.nu_Lot_type.Name = "nu_Lot_type";
-            this.nu_Lot_type.Size = new System.Drawing.Size(59, 23);
+            this.nu_Lot_type.Size = new System.Drawing.Size(59, 27);
             this.nu_Lot_type.TabIndex = 81;
             this.nu_Lot_type.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10829,7 +10828,7 @@ namespace MulanLite
             this.label121.AutoSize = true;
             this.label121.Location = new System.Drawing.Point(9, 63);
             this.label121.Name = "label121";
-            this.label121.Size = new System.Drawing.Size(118, 15);
+            this.label121.Size = new System.Drawing.Size(154, 21);
             this.label121.TabIndex = 67;
             this.label121.Text = "PWM Code x1 [12:0]";
             // 
@@ -10843,7 +10842,7 @@ namespace MulanLite
             0,
             0});
             this.nu_pwm_code_x1.Name = "nu_pwm_code_x1";
-            this.nu_pwm_code_x1.Size = new System.Drawing.Size(107, 23);
+            this.nu_pwm_code_x1.Size = new System.Drawing.Size(107, 27);
             this.nu_pwm_code_x1.TabIndex = 69;
             this.nu_pwm_code_x1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_pwm_code_x1.ValueChanged += new System.EventHandler(this.nu_pwm_code_x1_ValueChanged);
@@ -10872,7 +10871,7 @@ namespace MulanLite
             this.label120.AutoSize = true;
             this.label120.Location = new System.Drawing.Point(6, 19);
             this.label120.Name = "label120";
-            this.label120.Size = new System.Drawing.Size(118, 15);
+            this.label120.Size = new System.Drawing.Size(154, 21);
             this.label120.TabIndex = 64;
             this.label120.Text = "PWM Code x8 [12:0]";
             // 
@@ -10886,7 +10885,7 @@ namespace MulanLite
             0,
             0});
             this.nu_pwm_code_x8.Name = "nu_pwm_code_x8";
-            this.nu_pwm_code_x8.Size = new System.Drawing.Size(107, 23);
+            this.nu_pwm_code_x8.Size = new System.Drawing.Size(107, 27);
             this.nu_pwm_code_x8.TabIndex = 66;
             this.nu_pwm_code_x8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nu_pwm_code_x8.ValueChanged += new System.EventHandler(this.nu_pwm_code_x8_ValueChanged);
@@ -10914,7 +10913,7 @@ namespace MulanLite
             0,
             0});
             this.nu_ridge_dontlow.Name = "nu_ridge_dontlow";
-            this.nu_ridge_dontlow.Size = new System.Drawing.Size(43, 21);
+            this.nu_ridge_dontlow.Size = new System.Drawing.Size(43, 24);
             this.nu_ridge_dontlow.TabIndex = 66;
             this.nu_ridge_dontlow.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -10928,7 +10927,7 @@ namespace MulanLite
             0,
             0});
             this.nu_ridge_raise.Name = "nu_ridge_raise";
-            this.nu_ridge_raise.Size = new System.Drawing.Size(43, 21);
+            this.nu_ridge_raise.Size = new System.Drawing.Size(43, 24);
             this.nu_ridge_raise.TabIndex = 67;
             this.nu_ridge_raise.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11009,7 +11008,7 @@ namespace MulanLite
             "1 : The bits are set by polling."});
             this.cb_sticky.Location = new System.Drawing.Point(14, 37);
             this.cb_sticky.Name = "cb_sticky";
-            this.cb_sticky.Size = new System.Drawing.Size(208, 23);
+            this.cb_sticky.Size = new System.Drawing.Size(208, 27);
             this.cb_sticky.TabIndex = 48;
             this.cb_sticky.SelectedIndexChanged += new System.EventHandler(this.cb_sticky_SelectedIndexChanged);
             // 
@@ -11018,7 +11017,7 @@ namespace MulanLite
             this.label100.AutoSize = true;
             this.label100.Location = new System.Drawing.Point(11, 151);
             this.label100.Name = "label100";
-            this.label100.Size = new System.Drawing.Size(83, 15);
+            this.label100.Size = new System.Drawing.Size(107, 21);
             this.label100.TabIndex = 46;
             this.label100.Text = "Low Driver [7]";
             // 
@@ -11027,7 +11026,7 @@ namespace MulanLite
             this.label99.AutoSize = true;
             this.label99.Location = new System.Drawing.Point(11, 107);
             this.label99.Name = "label99";
-            this.label99.Size = new System.Drawing.Size(93, 15);
+            this.label99.Size = new System.Drawing.Size(119, 21);
             this.label99.TabIndex = 4;
             this.label99.Text = "Cal Mode x8 [1]";
             // 
@@ -11036,7 +11035,7 @@ namespace MulanLite
             this.label98.AutoSize = true;
             this.label98.Location = new System.Drawing.Point(11, 63);
             this.label98.Name = "label98";
-            this.label98.Size = new System.Drawing.Size(93, 15);
+            this.label98.Size = new System.Drawing.Size(119, 21);
             this.label98.TabIndex = 2;
             this.label98.Text = "Cal Mode x1 [2]";
             // 
@@ -11045,7 +11044,7 @@ namespace MulanLite
             this.label97.AutoSize = true;
             this.label97.Location = new System.Drawing.Point(11, 19);
             this.label97.Name = "label97";
-            this.label97.Size = new System.Drawing.Size(106, 15);
+            this.label97.Size = new System.Drawing.Size(138, 21);
             this.label97.TabIndex = 0;
             this.label97.Text = "Sticky up down [3]";
             // 
@@ -11059,7 +11058,7 @@ namespace MulanLite
             "1 : Regular drive on all channels"});
             this.cb_low_drive.Location = new System.Drawing.Point(14, 169);
             this.cb_low_drive.Name = "cb_low_drive";
-            this.cb_low_drive.Size = new System.Drawing.Size(208, 23);
+            this.cb_low_drive.Size = new System.Drawing.Size(208, 27);
             this.cb_low_drive.TabIndex = 47;
             this.cb_low_drive.SelectedIndexChanged += new System.EventHandler(this.cb_low_drive_SelectedIndexChanged);
             // 
@@ -11073,7 +11072,7 @@ namespace MulanLite
             "1 : TEST_PWM_CODE_1X"});
             this.cb_cal_modex1.Location = new System.Drawing.Point(14, 81);
             this.cb_cal_modex1.Name = "cb_cal_modex1";
-            this.cb_cal_modex1.Size = new System.Drawing.Size(208, 23);
+            this.cb_cal_modex1.Size = new System.Drawing.Size(208, 27);
             this.cb_cal_modex1.TabIndex = 43;
             this.cb_cal_modex1.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex1_SelectedIndexChanged);
             // 
@@ -11087,7 +11086,7 @@ namespace MulanLite
             "1 : TEST_PWM_CODE_8X"});
             this.cb_cal_modex8.Location = new System.Drawing.Point(14, 125);
             this.cb_cal_modex8.Name = "cb_cal_modex8";
-            this.cb_cal_modex8.Size = new System.Drawing.Size(208, 23);
+            this.cb_cal_modex8.Size = new System.Drawing.Size(208, 27);
             this.cb_cal_modex8.TabIndex = 45;
             this.cb_cal_modex8.SelectedIndexChanged += new System.EventHandler(this.cb_cal_modex8_SelectedIndexChanged);
             // 
@@ -11152,7 +11151,7 @@ namespace MulanLite
             "4\'hF"});
             this.cb_debug_out.Location = new System.Drawing.Point(6, 127);
             this.cb_debug_out.Name = "cb_debug_out";
-            this.cb_debug_out.Size = new System.Drawing.Size(216, 23);
+            this.cb_debug_out.Size = new System.Drawing.Size(216, 27);
             this.cb_debug_out.TabIndex = 47;
             this.cb_debug_out.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
             // 
@@ -11161,7 +11160,7 @@ namespace MulanLite
             this.label111.AutoSize = true;
             this.label111.Location = new System.Drawing.Point(8, 109);
             this.label111.Name = "label111";
-            this.label111.Size = new System.Drawing.Size(121, 15);
+            this.label111.Size = new System.Drawing.Size(161, 21);
             this.label111.TabIndex = 46;
             this.label111.Text = "DEBUG_OUT_SEL[4:0]";
             // 
@@ -11170,7 +11169,7 @@ namespace MulanLite
             this.label110.AutoSize = true;
             this.label110.Location = new System.Drawing.Point(8, 65);
             this.label110.Name = "label110";
-            this.label110.Size = new System.Drawing.Size(128, 15);
+            this.label110.Size = new System.Drawing.Size(166, 21);
             this.label110.TabIndex = 44;
             this.label110.Text = "TM_CO_DO_keep_0[6]";
             // 
@@ -11179,7 +11178,7 @@ namespace MulanLite
             this.label109.AutoSize = true;
             this.label109.Location = new System.Drawing.Point(7, 20);
             this.label109.Name = "label109";
-            this.label109.Size = new System.Drawing.Size(73, 15);
+            this.label109.Size = new System.Drawing.Size(96, 21);
             this.label109.TabIndex = 0;
             this.label109.Text = "Debug EN[7]";
             // 
@@ -11193,7 +11192,7 @@ namespace MulanLite
             "1\'b1: CO and DO will be tie to 0 "});
             this.cb_co_do_keep0.Location = new System.Drawing.Point(6, 83);
             this.cb_co_do_keep0.Name = "cb_co_do_keep0";
-            this.cb_co_do_keep0.Size = new System.Drawing.Size(216, 23);
+            this.cb_co_do_keep0.Size = new System.Drawing.Size(216, 27);
             this.cb_co_do_keep0.TabIndex = 45;
             this.cb_co_do_keep0.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
             // 
@@ -11207,7 +11206,7 @@ namespace MulanLite
             "1\'b1 : Enable"});
             this.cb_debug_en.Location = new System.Drawing.Point(6, 38);
             this.cb_debug_en.Name = "cb_debug_en";
-            this.cb_debug_en.Size = new System.Drawing.Size(216, 23);
+            this.cb_debug_en.Size = new System.Drawing.Size(216, 27);
             this.cb_debug_en.TabIndex = 43;
             this.cb_debug_en.SelectedIndexChanged += new System.EventHandler(this.cb_debug_en_SelectedIndexChanged);
             // 
@@ -11253,7 +11252,7 @@ namespace MulanLite
             this.label133.AutoSize = true;
             this.label133.Location = new System.Drawing.Point(162, 289);
             this.label133.Name = "label133";
-            this.label133.Size = new System.Drawing.Size(28, 15);
+            this.label133.Size = new System.Drawing.Size(37, 21);
             this.label133.TabIndex = 143;
             this.label133.Text = "98h";
             // 
@@ -11343,7 +11342,7 @@ namespace MulanLite
             0,
             0});
             this.RE2.Name = "RE2";
-            this.RE2.Size = new System.Drawing.Size(42, 22);
+            this.RE2.Size = new System.Drawing.Size(42, 26);
             this.RE2.TabIndex = 18;
             this.RE2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11358,7 +11357,7 @@ namespace MulanLite
             0,
             0});
             this.RE3.Name = "RE3";
-            this.RE3.Size = new System.Drawing.Size(42, 22);
+            this.RE3.Size = new System.Drawing.Size(42, 26);
             this.RE3.TabIndex = 19;
             this.RE3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11373,7 +11372,7 @@ namespace MulanLite
             0,
             0});
             this.nu_Sel.Name = "nu_Sel";
-            this.nu_Sel.Size = new System.Drawing.Size(61, 22);
+            this.nu_Sel.Size = new System.Drawing.Size(61, 26);
             this.nu_Sel.TabIndex = 133;
             this.nu_Sel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11382,7 +11381,7 @@ namespace MulanLite
             this.label141.AutoSize = true;
             this.label141.Location = new System.Drawing.Point(337, 39);
             this.label141.Name = "label141";
-            this.label141.Size = new System.Drawing.Size(27, 15);
+            this.label141.Size = new System.Drawing.Size(36, 21);
             this.label141.TabIndex = 138;
             this.label141.Text = "E2h";
             // 
@@ -11391,7 +11390,7 @@ namespace MulanLite
             this.label138.AutoSize = true;
             this.label138.Location = new System.Drawing.Point(14, 229);
             this.label138.Name = "label138";
-            this.label138.Size = new System.Drawing.Size(58, 15);
+            this.label138.Size = new System.Drawing.Size(74, 21);
             this.label138.TabIndex = 134;
             this.label138.Text = "Efuse_Sel";
             // 
@@ -11413,7 +11412,7 @@ namespace MulanLite
             this.label143.AutoSize = true;
             this.label143.Location = new System.Drawing.Point(337, 67);
             this.label143.Name = "label143";
-            this.label143.Size = new System.Drawing.Size(27, 15);
+            this.label143.Size = new System.Drawing.Size(36, 21);
             this.label143.TabIndex = 139;
             this.label143.Text = "E3h";
             // 
@@ -11490,7 +11489,7 @@ namespace MulanLite
             0,
             0});
             this.W98.Name = "W98";
-            this.W98.Size = new System.Drawing.Size(42, 22);
+            this.W98.Size = new System.Drawing.Size(42, 26);
             this.W98.TabIndex = 13;
             this.W98.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11505,7 +11504,7 @@ namespace MulanLite
             0,
             0});
             this.WF9.Name = "WF9";
-            this.WF9.Size = new System.Drawing.Size(42, 22);
+            this.WF9.Size = new System.Drawing.Size(42, 26);
             this.WF9.TabIndex = 12;
             this.WF9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11520,7 +11519,7 @@ namespace MulanLite
             0,
             0});
             this.WF8.Name = "WF8";
-            this.WF8.Size = new System.Drawing.Size(42, 22);
+            this.WF8.Size = new System.Drawing.Size(42, 26);
             this.WF8.TabIndex = 11;
             this.WF8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11535,7 +11534,7 @@ namespace MulanLite
             0,
             0});
             this.W97.Name = "W97";
-            this.W97.Size = new System.Drawing.Size(42, 22);
+            this.W97.Size = new System.Drawing.Size(42, 26);
             this.W97.TabIndex = 10;
             this.W97.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11550,7 +11549,7 @@ namespace MulanLite
             0,
             0});
             this.W96.Name = "W96";
-            this.W96.Size = new System.Drawing.Size(42, 22);
+            this.W96.Size = new System.Drawing.Size(42, 26);
             this.W96.TabIndex = 9;
             this.W96.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11565,7 +11564,7 @@ namespace MulanLite
             0,
             0});
             this.W95.Name = "W95";
-            this.W95.Size = new System.Drawing.Size(42, 22);
+            this.W95.Size = new System.Drawing.Size(42, 26);
             this.W95.TabIndex = 8;
             this.W95.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11580,7 +11579,7 @@ namespace MulanLite
             0,
             0});
             this.W94.Name = "W94";
-            this.W94.Size = new System.Drawing.Size(42, 22);
+            this.W94.Size = new System.Drawing.Size(42, 26);
             this.W94.TabIndex = 7;
             this.W94.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11595,7 +11594,7 @@ namespace MulanLite
             0,
             0});
             this.W93.Name = "W93";
-            this.W93.Size = new System.Drawing.Size(42, 22);
+            this.W93.Size = new System.Drawing.Size(42, 26);
             this.W93.TabIndex = 6;
             this.W93.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11610,7 +11609,7 @@ namespace MulanLite
             0,
             0});
             this.W92.Name = "W92";
-            this.W92.Size = new System.Drawing.Size(42, 22);
+            this.W92.Size = new System.Drawing.Size(42, 26);
             this.W92.TabIndex = 5;
             this.W92.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11625,7 +11624,7 @@ namespace MulanLite
             0,
             0});
             this.W91.Name = "W91";
-            this.W91.Size = new System.Drawing.Size(42, 22);
+            this.W91.Size = new System.Drawing.Size(42, 26);
             this.W91.TabIndex = 4;
             this.W91.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11640,7 +11639,7 @@ namespace MulanLite
             0,
             0});
             this.W90.Name = "W90";
-            this.W90.Size = new System.Drawing.Size(42, 22);
+            this.W90.Size = new System.Drawing.Size(42, 26);
             this.W90.TabIndex = 3;
             this.W90.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11655,7 +11654,7 @@ namespace MulanLite
             0,
             0});
             this.W70.Name = "W70";
-            this.W70.Size = new System.Drawing.Size(42, 22);
+            this.W70.Size = new System.Drawing.Size(42, 26);
             this.W70.TabIndex = 2;
             this.W70.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11693,7 +11692,7 @@ namespace MulanLite
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(42, 22);
+            this.numericUpDown2.Size = new System.Drawing.Size(42, 26);
             this.numericUpDown2.TabIndex = 29;
             this.numericUpDown2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11708,7 +11707,7 @@ namespace MulanLite
             0,
             0});
             this.R70.Name = "R70";
-            this.R70.Size = new System.Drawing.Size(42, 22);
+            this.R70.Size = new System.Drawing.Size(42, 26);
             this.R70.TabIndex = 18;
             this.R70.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11723,7 +11722,7 @@ namespace MulanLite
             0,
             0});
             this.R90.Name = "R90";
-            this.R90.Size = new System.Drawing.Size(42, 22);
+            this.R90.Size = new System.Drawing.Size(42, 26);
             this.R90.TabIndex = 19;
             this.R90.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11738,7 +11737,7 @@ namespace MulanLite
             0,
             0});
             this.R91.Name = "R91";
-            this.R91.Size = new System.Drawing.Size(42, 22);
+            this.R91.Size = new System.Drawing.Size(42, 26);
             this.R91.TabIndex = 20;
             this.R91.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11753,7 +11752,7 @@ namespace MulanLite
             0,
             0});
             this.R92.Name = "R92";
-            this.R92.Size = new System.Drawing.Size(42, 22);
+            this.R92.Size = new System.Drawing.Size(42, 26);
             this.R92.TabIndex = 21;
             this.R92.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11768,7 +11767,7 @@ namespace MulanLite
             0,
             0});
             this.R93.Name = "R93";
-            this.R93.Size = new System.Drawing.Size(42, 22);
+            this.R93.Size = new System.Drawing.Size(42, 26);
             this.R93.TabIndex = 22;
             this.R93.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11783,7 +11782,7 @@ namespace MulanLite
             0,
             0});
             this.RF9.Name = "RF9";
-            this.RF9.Size = new System.Drawing.Size(42, 22);
+            this.RF9.Size = new System.Drawing.Size(42, 26);
             this.RF9.TabIndex = 28;
             this.RF9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11798,7 +11797,7 @@ namespace MulanLite
             0,
             0});
             this.R94.Name = "R94";
-            this.R94.Size = new System.Drawing.Size(42, 22);
+            this.R94.Size = new System.Drawing.Size(42, 26);
             this.R94.TabIndex = 23;
             this.R94.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11813,7 +11812,7 @@ namespace MulanLite
             0,
             0});
             this.RF8.Name = "RF8";
-            this.RF8.Size = new System.Drawing.Size(42, 22);
+            this.RF8.Size = new System.Drawing.Size(42, 26);
             this.RF8.TabIndex = 27;
             this.RF8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11828,7 +11827,7 @@ namespace MulanLite
             0,
             0});
             this.R95.Name = "R95";
-            this.R95.Size = new System.Drawing.Size(42, 22);
+            this.R95.Size = new System.Drawing.Size(42, 26);
             this.R95.TabIndex = 24;
             this.R95.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11843,7 +11842,7 @@ namespace MulanLite
             0,
             0});
             this.R97.Name = "R97";
-            this.R97.Size = new System.Drawing.Size(42, 22);
+            this.R97.Size = new System.Drawing.Size(42, 26);
             this.R97.TabIndex = 26;
             this.R97.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11858,7 +11857,7 @@ namespace MulanLite
             0,
             0});
             this.R96.Name = "R96";
-            this.R96.Size = new System.Drawing.Size(42, 22);
+            this.R96.Size = new System.Drawing.Size(42, 26);
             this.R96.TabIndex = 25;
             this.R96.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -11880,7 +11879,7 @@ namespace MulanLite
             this.label122.AutoSize = true;
             this.label122.Location = new System.Drawing.Point(162, 39);
             this.label122.Name = "label122";
-            this.label122.Size = new System.Drawing.Size(28, 15);
+            this.label122.Size = new System.Drawing.Size(37, 21);
             this.label122.TabIndex = 113;
             this.label122.Text = "70h";
             // 
@@ -11889,7 +11888,7 @@ namespace MulanLite
             this.label123.AutoSize = true;
             this.label123.Location = new System.Drawing.Point(162, 67);
             this.label123.Name = "label123";
-            this.label123.Size = new System.Drawing.Size(28, 15);
+            this.label123.Size = new System.Drawing.Size(37, 21);
             this.label123.TabIndex = 114;
             this.label123.Text = "90h";
             // 
@@ -11898,7 +11897,7 @@ namespace MulanLite
             this.label124.AutoSize = true;
             this.label124.Location = new System.Drawing.Point(162, 95);
             this.label124.Name = "label124";
-            this.label124.Size = new System.Drawing.Size(28, 15);
+            this.label124.Size = new System.Drawing.Size(37, 21);
             this.label124.TabIndex = 115;
             this.label124.Text = "91h";
             // 
@@ -11907,7 +11906,7 @@ namespace MulanLite
             this.label125.AutoSize = true;
             this.label125.Location = new System.Drawing.Point(162, 123);
             this.label125.Name = "label125";
-            this.label125.Size = new System.Drawing.Size(28, 15);
+            this.label125.Size = new System.Drawing.Size(37, 21);
             this.label125.TabIndex = 116;
             this.label125.Text = "92h";
             // 
@@ -11916,7 +11915,7 @@ namespace MulanLite
             this.label126.AutoSize = true;
             this.label126.Location = new System.Drawing.Point(162, 151);
             this.label126.Name = "label126";
-            this.label126.Size = new System.Drawing.Size(28, 15);
+            this.label126.Size = new System.Drawing.Size(37, 21);
             this.label126.TabIndex = 117;
             this.label126.Text = "93h";
             // 
@@ -11925,7 +11924,7 @@ namespace MulanLite
             this.label127.AutoSize = true;
             this.label127.Location = new System.Drawing.Point(162, 179);
             this.label127.Name = "label127";
-            this.label127.Size = new System.Drawing.Size(28, 15);
+            this.label127.Size = new System.Drawing.Size(37, 21);
             this.label127.TabIndex = 118;
             this.label127.Text = "94h";
             // 
@@ -11934,7 +11933,7 @@ namespace MulanLite
             this.label132.AutoSize = true;
             this.label132.Location = new System.Drawing.Point(127, 372);
             this.label132.Name = "label132";
-            this.label132.Size = new System.Drawing.Size(63, 15);
+            this.label132.Size = new System.Drawing.Size(84, 21);
             this.label132.TabIndex = 123;
             this.label132.Text = "TMG (F9h)";
             // 
@@ -11943,7 +11942,7 @@ namespace MulanLite
             this.label128.AutoSize = true;
             this.label128.Location = new System.Drawing.Point(162, 207);
             this.label128.Name = "label128";
-            this.label128.Size = new System.Drawing.Size(28, 15);
+            this.label128.Size = new System.Drawing.Size(37, 21);
             this.label128.TabIndex = 119;
             this.label128.Text = "95h";
             // 
@@ -11952,7 +11951,7 @@ namespace MulanLite
             this.label131.AutoSize = true;
             this.label131.Location = new System.Drawing.Point(127, 344);
             this.label131.Name = "label131";
-            this.label131.Size = new System.Drawing.Size(63, 15);
+            this.label131.Size = new System.Drawing.Size(83, 21);
             this.label131.TabIndex = 122;
             this.label131.Text = "TMD (F8h)";
             // 
@@ -11961,7 +11960,7 @@ namespace MulanLite
             this.label129.AutoSize = true;
             this.label129.Location = new System.Drawing.Point(162, 235);
             this.label129.Name = "label129";
-            this.label129.Size = new System.Drawing.Size(28, 15);
+            this.label129.Size = new System.Drawing.Size(37, 21);
             this.label129.TabIndex = 120;
             this.label129.Text = "96h";
             // 
@@ -11970,7 +11969,7 @@ namespace MulanLite
             this.label130.AutoSize = true;
             this.label130.Location = new System.Drawing.Point(162, 263);
             this.label130.Name = "label130";
-            this.label130.Size = new System.Drawing.Size(28, 15);
+            this.label130.Size = new System.Drawing.Size(37, 21);
             this.label130.TabIndex = 121;
             this.label130.Text = "97h";
             // 
@@ -12060,7 +12059,7 @@ namespace MulanLite
             0,
             0});
             this.nuSRead.Name = "nuSRead";
-            this.nuSRead.Size = new System.Drawing.Size(82, 21);
+            this.nuSRead.Size = new System.Drawing.Size(82, 24);
             this.nuSRead.TabIndex = 21;
             this.nuSRead.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12088,7 +12087,7 @@ namespace MulanLite
             0,
             0});
             this.nuSWrite.Name = "nuSWrite";
-            this.nuSWrite.Size = new System.Drawing.Size(82, 21);
+            this.nuSWrite.Size = new System.Drawing.Size(82, 24);
             this.nuSWrite.TabIndex = 20;
             this.nuSWrite.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12116,7 +12115,7 @@ namespace MulanLite
             0,
             0});
             this.nuSAddr.Name = "nuSAddr";
-            this.nuSAddr.Size = new System.Drawing.Size(82, 21);
+            this.nuSAddr.Size = new System.Drawing.Size(82, 24);
             this.nuSAddr.TabIndex = 19;
             this.nuSAddr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12131,7 +12130,7 @@ namespace MulanLite
             0,
             0});
             this.nuSID.Name = "nuSID";
-            this.nuSID.Size = new System.Drawing.Size(82, 21);
+            this.nuSID.Size = new System.Drawing.Size(82, 24);
             this.nuSID.TabIndex = 18;
             this.nuSID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12231,7 +12230,7 @@ namespace MulanLite
             0,
             0});
             this.nu_conf_bit.Name = "nu_conf_bit";
-            this.nu_conf_bit.Size = new System.Drawing.Size(82, 21);
+            this.nu_conf_bit.Size = new System.Drawing.Size(82, 24);
             this.nu_conf_bit.TabIndex = 20;
             this.nu_conf_bit.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12259,7 +12258,7 @@ namespace MulanLite
             0,
             0});
             this.nu_conf_addr.Name = "nu_conf_addr";
-            this.nu_conf_addr.Size = new System.Drawing.Size(82, 21);
+            this.nu_conf_addr.Size = new System.Drawing.Size(82, 24);
             this.nu_conf_addr.TabIndex = 19;
             this.nu_conf_addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12274,7 +12273,7 @@ namespace MulanLite
             0,
             0});
             this.nu_conf_id.Name = "nu_conf_id";
-            this.nu_conf_id.Size = new System.Drawing.Size(82, 21);
+            this.nu_conf_id.Size = new System.Drawing.Size(82, 24);
             this.nu_conf_id.TabIndex = 18;
             this.nu_conf_id.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -12309,7 +12308,7 @@ namespace MulanLite
             this.ck_CH0_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH0_en.Location = new System.Drawing.Point(13, 35);
             this.ck_CH0_en.Name = "ck_CH0_en";
-            this.ck_CH0_en.Size = new System.Drawing.Size(77, 23);
+            this.ck_CH0_en.Size = new System.Drawing.Size(93, 28);
             this.ck_CH0_en.TabIndex = 0;
             this.ck_CH0_en.Text = "CH0 EN";
             this.ck_CH0_en.UseVisualStyleBackColor = true;
@@ -12343,7 +12342,7 @@ namespace MulanLite
             this.ck_CH3_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH3_en.Location = new System.Drawing.Point(13, 122);
             this.ck_CH3_en.Name = "ck_CH3_en";
-            this.ck_CH3_en.Size = new System.Drawing.Size(77, 23);
+            this.ck_CH3_en.Size = new System.Drawing.Size(93, 28);
             this.ck_CH3_en.TabIndex = 3;
             this.ck_CH3_en.Text = "CH3 EN";
             this.ck_CH3_en.UseVisualStyleBackColor = true;
@@ -12356,7 +12355,7 @@ namespace MulanLite
             this.ck_CH2_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH2_en.Location = new System.Drawing.Point(13, 93);
             this.ck_CH2_en.Name = "ck_CH2_en";
-            this.ck_CH2_en.Size = new System.Drawing.Size(77, 23);
+            this.ck_CH2_en.Size = new System.Drawing.Size(93, 28);
             this.ck_CH2_en.TabIndex = 2;
             this.ck_CH2_en.Text = "CH2 EN";
             this.ck_CH2_en.UseVisualStyleBackColor = true;
@@ -12369,7 +12368,7 @@ namespace MulanLite
             this.ck_CH1_en.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ck_CH1_en.Location = new System.Drawing.Point(13, 64);
             this.ck_CH1_en.Name = "ck_CH1_en";
-            this.ck_CH1_en.Size = new System.Drawing.Size(77, 23);
+            this.ck_CH1_en.Size = new System.Drawing.Size(93, 28);
             this.ck_CH1_en.TabIndex = 1;
             this.ck_CH1_en.Text = "CH1 EN";
             this.ck_CH1_en.UseVisualStyleBackColor = true;
@@ -12377,7 +12376,7 @@ namespace MulanLite
             // 
             // main
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 19F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Control;
