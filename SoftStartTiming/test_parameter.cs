@@ -169,5 +169,9 @@ namespace SoftStartTiming
         public static double dly2_end;
         public static double dly3_end;
 
+
+
+        public static DataGridView seq_dg;
+
     }
 }

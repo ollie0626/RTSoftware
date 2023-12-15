@@ -295,6 +295,8 @@ namespace SoftStartTiming
             test_parameter.ch2_level = (double)nu_ch1_level.Value;
             test_parameter.ch3_level = (double)nu_ch2_level.Value;
             test_parameter.ch4_level = (double)nu_ch3_level.Value;
+
+            test_parameter.seq_dg = test_dg;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
