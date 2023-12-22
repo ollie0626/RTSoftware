@@ -6,29 +6,41 @@ namespace SoftStartTiming
 {
     public partial class SoftStartTiming
     {
-        private string win_name = "Soft start v1.22";
+        private string win_name = "Soft start v1.23";
 
 
         public CheckBox[] binTable;
         public CheckBox[] ScopeChTable;
 
+        public ComboBox[] cboxTable;
+
 
         private void SoftStartTiming_Load(object sender, EventArgs e)
         {
             this.Text = win_name;
-
             CbTrigger.SelectedIndex = 0;
             CBGPIO.SelectedIndex = 0;
             CBPower.Enabled = false;
             CBChannel.Enabled = false;
-             
             ate_table = new TaskRun[] { _ate_delay_time, _ate_sst, _ate_delay_off };
-
             binTable = new CheckBox[] { CkBin1, CkBin2, CkBin3 };
             ScopeChTable = new CheckBox[] { CkCH1, CkCH2, CkCH3 };
+            cboxTable = new ComboBox[] { cbox_dly0_from, cbox_dly1_from, cbox_dly2_from, cbox_dly3_from,
+                                         cbox_dly0_to, cbox_dly1_to, cbox_dly2_to, cbox_dly3_to,
+                                         cbox_eload_ch1, cbox_eload_ch2, cbox_eload_ch3, cbox_eload_ch4
+
+                                        };
+
 
             CBItem.SelectedIndex = 1;
             CBEdge.SelectedIndex = 0;
+
+            for(int i = 0; i < cboxTable.Length; i++)
+            {
+                cboxTable[i].SelectedIndex = 0;
+            }
+
+
         }
     }
 

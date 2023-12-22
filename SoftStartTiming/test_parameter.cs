@@ -12,11 +12,6 @@ namespace SoftStartTiming
         public static List<double> VinList = new List<double>();
         public static List<double> IoutList = new List<double>();
 
-        public static double ch1_level;
-        public static double ch2_level;
-        public static double ch3_level;
-        public static double ch4_level;
-
         public static bool eload_cr;
         public static string vin_conditions;
         public static string iout_conditions;
@@ -147,30 +142,7 @@ namespace SoftStartTiming
         public static LoadTransient_parameter loadtransient = new LoadTransient_parameter();
         public static LTLab_parameter lt_lab = new LTLab_parameter();
 
-        // delay time select
-        //public static int dly1_sel;
-        //public static int dly2_sel;
-        //public static int dly3_sel;
-
-        public static int dly_start1;
-        public static int dly_start2;
-        public static int dly_start3;
-
-        public static int dly_end1;
-        public static int dly_end2;
-        public static int dly_end3;
-        
-
-        public static double dly1_from;
-        public static double dly2_from;
-        public static double dly3_from;
-
-        public static double dly1_end;
-        public static double dly2_end;
-        public static double dly3_end;
-
-
-
+        // for delay time test
         public static DataGridView seq_dg;
 
     }

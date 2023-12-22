@@ -15,9 +15,56 @@ using System.Drawing;
 using Excel = Microsoft.Office.Interop.Excel;
 using System.IO;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace SoftStartTiming
 {
+    public class delayTime_parameter
+    {
+        public double vin;
+
+        // each times test reflash test condition
+        public double CH1Lev;
+        public double CH2Lev;
+        public double CH3Lev;
+        public double CH4Lev;
+
+        public int[] meas_posCH1 = new int[2]; // meas channel 0: start, 1: stop
+        public int[] meas_posCH2 = new int[2];
+        public int[] meas_posCH3 = new int[2];
+        public int[] meas_posCH4 = new int[2];
+
+        public double[] precentCH1 = new double[2]; // meas percentage 100% to 0%
+        public double[] precentCH2 = new double[2];
+        public double[] precentCH3 = new double[2];
+        public double[] precentCH4 = new double[2];
+
+        public double idealTime0; // ideal spec
+        public double idealTime1;
+        public double idealTime2;
+        public double idealTime3;
+
+        public int eloadCH1;
+        public int eloadCH2;
+        public int eloadCH3;
+        public int eloadCH4;
+
+        public double loading1;
+        public double loading2;
+        public double loading3;
+        public double loading4;
+
+        public string seq0; // sequence reg
+        public string seq1;
+        public string seq2;
+        public string seq3;
+
+        public string ideal0; // ideal reg
+        public string ideal1;
+        public string ideal2;
+        public string ideal3;
+
+    }
 
     public class ATE_DelayTime : TaskRun
     {
@@ -41,15 +88,12 @@ namespace SoftStartTiming
         const int meas_sst1 = 2;
         const int meas_sst2 = 3;
         const int meas_sst3 = 4;
+        const int meas_sst4 = 5;
 
         const int meas_scope_ch1 = 6;
         const int meas_vmax = 7;
 
-
-        int[] start_list;
-        int[] end_list;
-        double[] dly_from_list;
-        double[] dly_end_list;
+        delayTime_parameter dt_test = new delayTime_parameter();
 
 
         public ATE_DelayTime()
@@ -78,29 +122,151 @@ namespace SoftStartTiming
             InsControl._tek_scope.DoCommand(cmd);
         }
 
+        private void GetParameter(int idx)
+        {
+            DataGridView seq_dg = test_parameter.seq_dg;
+            dt_test.vin =  Convert.ToDouble(seq_dg[0, idx].Value);
+
+            #region "scope info"
+            // init level
+            dt_test.CH1Lev = Convert.ToDouble(seq_dg[5, idx].Value.ToString().Split(',')[0]);
+            dt_test.CH2Lev = Convert.ToDouble(seq_dg[5, idx].Value.ToString().Split(',')[1]);
+            dt_test.CH3Lev = Convert.ToDouble(seq_dg[5, idx].Value.ToString().Split(',')[2]);
+            dt_test.CH4Lev = Convert.ToDouble(seq_dg[5, idx].Value.ToString().Split(',')[3]);
+
+            // get meas channel 
+            string[] tmp = seq_dg[2, idx].Value.ToString().Split(',');
+            string[] pos = tmp[0].Split('→');
+            dt_test.meas_posCH1[0] = Convert.ToInt32(pos[0].Replace("CH", ""));
+            dt_test.meas_posCH1[1] = Convert.ToInt32(pos[1].Replace("CH", ""));
+
+            pos = tmp[1].Split('→');
+            dt_test.meas_posCH2[0] = Convert.ToInt32(pos[0].Replace("CH", ""));
+            dt_test.meas_posCH2[1] = Convert.ToInt32(pos[1].Replace("CH", ""));
+
+            pos = tmp[2].Split('→');
+            dt_test.meas_posCH3[0] = Convert.ToInt32(pos[0].Replace("CH", ""));
+            dt_test.meas_posCH3[1] = Convert.ToInt32(pos[1].Replace("CH", ""));
+
+            pos = tmp[3].Split('→');
+            dt_test.meas_posCH4[0] = Convert.ToInt32(pos[0].Replace("CH", ""));
+            dt_test.meas_posCH4[1] = Convert.ToInt32(pos[1].Replace("CH", ""));
+
+            // percentage
+            tmp = seq_dg[3, idx].Value.ToString().Split(',');
+            string[] per = tmp[0].Split('→');
+            dt_test.precentCH1[0] = Convert.ToDouble(per[0]);
+            dt_test.precentCH1[1] = Convert.ToDouble(per[1]);
+
+            per = tmp[1].Split('→');
+            dt_test.precentCH2[0] = Convert.ToDouble(per[0]);
+            dt_test.precentCH2[1] = Convert.ToDouble(per[1]);
+
+            per = tmp[2].Split('→');
+            dt_test.precentCH3[0] = Convert.ToDouble(per[0]);
+            dt_test.precentCH3[1] = Convert.ToDouble(per[1]);
+
+            per = tmp[3].Split('→');
+            dt_test.precentCH4[0] = Convert.ToDouble(per[0]);
+            dt_test.precentCH4[1] = Convert.ToDouble(per[1]);
+
+
+            tmp = seq_dg[7, idx].Value.ToString().Split(',');
+            dt_test.idealTime0 = Convert.ToDouble(tmp[0]);
+            dt_test.idealTime1 = Convert.ToDouble(tmp[1]);
+            dt_test.idealTime2 = Convert.ToDouble(tmp[2]);
+            dt_test.idealTime3 = Convert.ToDouble(tmp[3]);
+
+            // example: CH1[3.15]
+            tmp = seq_dg[6, idx].Value.ToString().Split(',');
+            string input = tmp[0];
+            string pattern = @"([A-Za-z]+)(\[(\d+(\.\d+)?)\])?";
+            Match match = Regex.Match(input, pattern);
+
+            //match.Success
+            dt_test.eloadCH1 = Convert.ToInt32(match.Groups[1].Value);
+            dt_test.loading1 = Convert.ToDouble(match.Groups[3].Value);
+
+            input = tmp[1];
+            match = Regex.Match(input, pattern);
+            dt_test.eloadCH2 = Convert.ToInt32(match.Groups[1].Value);
+            dt_test.loading2 = Convert.ToDouble(match.Groups[3].Value);
+
+            input = tmp[2];
+            match = Regex.Match(input, pattern);
+            dt_test.eloadCH3 = Convert.ToInt32(match.Groups[1].Value);
+            dt_test.loading3 = Convert.ToDouble(match.Groups[3].Value);
+
+            input = tmp[3];
+            match = Regex.Match(input, pattern);
+            dt_test.eloadCH4 = Convert.ToInt32(match.Groups[1].Value);
+            dt_test.loading4 = Convert.ToDouble(match.Groups[3].Value);
+            #endregion
+
+            tmp = seq_dg[1, idx].Value.ToString().Split(',');
+            dt_test.seq0 = tmp[0];
+            dt_test.seq1 = tmp[1];
+            dt_test.seq2 = tmp[2];
+            dt_test.seq3 = tmp[3];
+
+            tmp = seq_dg[4, idx].Value.ToString().Split(',');
+            dt_test.ideal0 = tmp[0];
+            dt_test.ideal1 = tmp[1];
+            dt_test.ideal2 = tmp[2];
+            dt_test.ideal3 = tmp[3];
+        }
+
+        private void GetSameAddr(ref Dictionary<int, int> map, int addr, int data)
+        {
+            if (map.ContainsKey(addr))
+            {
+                map[addr] |= data;
+            }
+            else
+            {
+                map.Add(addr, data);
+            }
+        }
+
+        private void SeqAndIdealWrite()
+        {
+            string pattern = @"(\d+[A-Za-z]+)(\[(\d+[A-Za-z]+)\])?";
+
+            string[] seqTable = new string[] { dt_test.seq0, dt_test.seq1, dt_test.seq2, dt_test.seq3 };
+            string[] idealTable = new string[] { dt_test.ideal0, dt_test.ideal1, dt_test.ideal2, dt_test.ideal3};
+            Dictionary<int, int> addr_map = new Dictionary<int, int>();
+            List<int> addrList = new List<int>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                string input = seqTable[i];
+                Match match = Regex.Match(input, pattern);
+                int seq_addr = Convert.ToInt32(match.Groups[1].Value, 16);
+                int seq_data = Convert.ToInt32(match.Groups[3].Value, 16);
+                GetSameAddr(ref addr_map, seq_addr, seq_data);
+                input = idealTable[i];
+                match = Regex.Match(input, pattern);
+                int ideal_addr = Convert.ToInt32(match.Groups[1].Value, 16);
+                int ideal_data = Convert.ToInt32(match.Groups[3].Value, 16);
+                GetSameAddr(ref addr_map, ideal_addr, ideal_data);
+                addrList.Add(seq_addr);
+                addrList.Add(ideal_addr);
+            }
+
+            addrList = addrList.Distinct().ToList();
+
+            for (int i = 0; i < addr_map.Count; i++)
+            {
+                int addr = addrList[i];
+                int data = addr_map[addr];
+                byte[] buf = new byte[] { (byte)data };
+                RTDev.I2C_Write((byte)test_parameter.slave, (byte)addr, buf);
+            }
+        }
+
 
         private void OSCInit()
         {
-
-            start_list = new int[] { 
-                test_parameter.dly_start1,
-                test_parameter.dly_start2,
-                test_parameter.dly_start3 };
-
-            end_list = new int[] { 
-                test_parameter.dly_end1,
-                test_parameter.dly_end2,
-                test_parameter.dly_end3 };
-
-            dly_from_list = new double[] { 
-                test_parameter.dly1_from,
-                test_parameter.dly2_from,
-                test_parameter.dly3_from };
-
-            dly_end_list = new double[] { 
-                test_parameter.dly1_end,
-                test_parameter.dly_end2,
-                test_parameter.dly_end3 };
 
             InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
             InsControl._tek_scope.SetTimeBasePosition(15);
@@ -128,24 +294,37 @@ namespace SoftStartTiming
             if (test_parameter.sleep_mode) InsControl._tek_scope.SetMeasureSource(1, meas_sst_ch1, "RISe");
             else InsControl._tek_scope.SetMeasureSource(1, meas_sst_ch1, "FALL");
 
+            /* initial level setting */
+            InsControl._tek_scope.CHx_Level(1, dt_test.CH1Lev);
+            InsControl._tek_scope.CHx_Level(2, dt_test.CH2Lev);
+            InsControl._tek_scope.CHx_Level(3, dt_test.CH3Lev);
+            InsControl._tek_scope.CHx_Level(4, dt_test.CH4Lev);
 
-            InsControl._tek_scope.CHx_Level(2, test_parameter.ch2_level);
-            InsControl._tek_scope.SetMeasureSource(2, meas_sst1, "RISe");
-            SetMeasurePercent(meas_sst1, test_parameter.dly1_from, test_parameter.dly1_from * 0.5, test_parameter.dly1_end);
+            InsControl._tek_scope.SetMeasureSource(1, meas_sst1, "RISe");
+            InsControl._tek_scope.SetMeasureSource(2, meas_sst2, "RISe");
+            InsControl._tek_scope.SetMeasureSource(3, meas_sst3, "RISe");
+            InsControl._tek_scope.SetMeasureSource(4, meas_sst4, "RISe");
 
-            InsControl._tek_scope.CHx_Level(3, test_parameter.ch3_level);
-            InsControl._tek_scope.SetMeasureSource(3, meas_sst2, "RISe");
-            SetMeasurePercent(meas_sst2, test_parameter.dly2_from, test_parameter.dly2_from * 0.5, test_parameter.dly2_end);
 
-            InsControl._tek_scope.CHx_Level(4, test_parameter.ch4_level);
-            InsControl._tek_scope.SetMeasureSource(4, meas_sst3, "RISe");
-            SetMeasurePercent(meas_sst3, test_parameter.dly3_from, test_parameter.dly3_from * 0.5, test_parameter.dly3_end);
+            double hi = dt_test.precentCH1[0] > dt_test.precentCH1[1] ? dt_test.precentCH1[0] : dt_test.precentCH1[1];
+            double lo = dt_test.precentCH1[0] < dt_test.precentCH1[1] ? dt_test.precentCH1[0] : dt_test.precentCH1[1];
+            SetMeasurePercent(meas_sst1, hi, hi * 0.5, lo);
 
-            //InsControl._tek_scope.DoCommand("MEASUrement:IMMed:REFLevel:METHod PERCent");
-            //InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:HIGH 100");
-            //InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID 50");
-            //InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:LOW 1");
-            //InsControl._tek_scope.DoCommand("MEASUrement:REFLevel:PERCent:MID2 10");
+            hi = dt_test.precentCH2[0] > dt_test.precentCH2[1] ? dt_test.precentCH2[0] : dt_test.precentCH2[1];
+            lo = dt_test.precentCH2[0] < dt_test.precentCH2[1] ? dt_test.precentCH2[0] : dt_test.precentCH2[1];
+            SetMeasurePercent(meas_sst2, hi, hi * 0.5, lo);
+
+            hi = dt_test.precentCH3[0] > dt_test.precentCH3[1] ? dt_test.precentCH3[0] : dt_test.precentCH3[1];
+            lo = dt_test.precentCH3[0] < dt_test.precentCH3[1] ? dt_test.precentCH3[0] : dt_test.precentCH3[1];
+            SetMeasurePercent(meas_sst3, hi, hi * 0.5, lo);
+
+
+            hi = dt_test.precentCH4[0] > dt_test.precentCH4[1] ? dt_test.precentCH4[0] : dt_test.precentCH4[1];
+            lo = dt_test.precentCH4[0] < dt_test.precentCH4[1] ? dt_test.precentCH4[0] : dt_test.precentCH4[1];
+            SetMeasurePercent(meas_sst4, hi, hi * 0.5, lo);
+
+
+
             InsControl._tek_scope.DoCommand("HORizontal:ROLL OFF");
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             InsControl._tek_scope.PersistenceDisable();
@@ -194,36 +373,36 @@ namespace SoftStartTiming
         private void LevelEvent()
         {
             InsControl._tek_scope.SetMeasureSource(2, meas_vmax, "MAXimum");
-            InsControl._tek_scope.CHx_Level(2, test_parameter.ch2_level);
-            InsControl._tek_scope.CHx_Level(3, test_parameter.ch3_level);
-            InsControl._tek_scope.CHx_Level(4, test_parameter.ch4_level);
+
+            InsControl._tek_scope.CHx_Level(1, dt_test.CH1Lev);
+            InsControl._tek_scope.CHx_Level(2, dt_test.CH2Lev);
+            InsControl._tek_scope.CHx_Level(3, dt_test.CH3Lev);
+            InsControl._tek_scope.CHx_Level(4, dt_test.CH4Lev);
+
             int re_cnt = 0;
-            for (int ch_idx = 0; ch_idx < test_parameter.scope_en.Length; ch_idx++)
+            for (int ch_idx = 0; ch_idx < 4; ch_idx++)
             {
-                if (test_parameter.scope_en[ch_idx])
+            re_scale:;
+                if (re_cnt > 3)
                 {
-                re_scale:;
-                    if (re_cnt > 3)
-                    {
-                        re_cnt = 0;
-                        continue;
-                    }
+                    re_cnt = 0;
+                    continue;
+                }
 
-                    double vmax = 0;
-                    for (int k = 0; k < 3; k++)
-                    {
-                        vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
-                        vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
-                        MyLib.Delay1ms(50);
-                        vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 2, meas_vmax);
-                        //Console.WriteLine("VMax = {0}", vmax);
+                double vmax = 0;
+                for (int k = 0; k < 3; k++)
+                {
+                    vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 1, meas_vmax);
+                    vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 1, meas_vmax);
+                    MyLib.Delay1ms(50);
+                    vmax = InsControl._tek_scope.CHx_Meas_Mean(ch_idx + 1, meas_vmax);
+                    //Console.WriteLine("VMax = {0}", vmax);
 
-                        if (vmax > 0.3 && vmax < Math.Pow(10, 3))
-                            InsControl._tek_scope.CHx_Level(ch_idx + 2, vmax / 3);
-                        MyLib.Delay1ms(300);
-                    }
+                    if (vmax > 0.3 && vmax < Math.Pow(10, 3))
+                        InsControl._tek_scope.CHx_Level(ch_idx + 1, vmax / 3);
                     MyLib.Delay1ms(300);
                 }
+                MyLib.Delay1ms(300);
             }
         }
 
@@ -374,7 +553,6 @@ namespace SoftStartTiming
             {
                 if (test_parameter.bin_en[select_idx])
                 {
-
                     #region "Report initial"
 #if Report_en
                     _sheet = _book.Worksheets.Add();

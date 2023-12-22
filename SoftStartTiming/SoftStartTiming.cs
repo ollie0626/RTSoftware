@@ -116,14 +116,11 @@ namespace SoftStartTiming
 
         private async void uibt_osc_connect_Click(object sender, EventArgs e)
         {
-
             BTScan_Click(null, null);
-
             Button bt = (Button)sender;
             int idx = bt.TabIndex;
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             // scope idn name keysight DSOS054A DSO9064A  Tek DPO7054C DSO9064A
-
             for (int i = 0; i < scope_name.Length; i++)
             {
                 if (Device_map.ContainsKey(scope_name[i]))
@@ -149,9 +146,7 @@ namespace SoftStartTiming
                 await ConnectTask(Device_map["34970A"], 3);
                 tb_daq.Text = "DAQ:34970A";
             }
-
             await ConnectTask("GPIB0::3::INSTR", 4);
-
             // funcgen AFG31022
             MyLib.Delay1s(1);
             check_ins_state();
@@ -241,22 +236,6 @@ namespace SoftStartTiming
             test_parameter.ontime_scale_ms = (double)nu_ontime_scale.Value;
             test_parameter.offtime_scale_ms = (double)nu_offtime_scale.Value;
 
-            test_parameter.dly1_from = (double)nudly1_from.Value;
-            test_parameter.dly2_from = (double)nudly2_from.Value;
-            test_parameter.dly3_from = (double)nudly3_from.Value;
-
-            test_parameter.dly1_end = (double)nudly1_end.Value;
-            test_parameter.dly2_end = (double)nudly2_end.Value;
-            test_parameter.dly3_end = (double)nudly3_end.Value;
-
-            test_parameter.dly_end1 = cbox_dly1_to.SelectedIndex + 1;
-            test_parameter.dly_end2 = cbox_dly2_to.SelectedIndex + 1;
-            test_parameter.dly_end3 = cbox_dly3_to.SelectedIndex + 1;
-
-            test_parameter.dly_start1 = cbox_dly1_from.SelectedIndex + 1;
-            test_parameter.dly_start2 = cbox_dly2_from.SelectedIndex + 1;
-            test_parameter.dly_start3 = cbox_dly3_from.SelectedIndex + 1;
-
             for (int i = 0; i < test_parameter.bin_path.Length; i++)
             {
                 test_parameter.bin_path[i] = path_table[i].Text;
@@ -289,13 +268,11 @@ namespace SoftStartTiming
             test_parameter.eload_cr = ck_crmode.Checked;
 
             // CBEdge.SelectedIndex = 0 --> rising
-            // 
+            // sleep_mode: rising
+            // pwr_dis_mode: falling
             test_parameter.sleep_mode = (CBEdge.SelectedIndex == 0) ? true : false;
 
-            test_parameter.ch2_level = (double)nu_ch1_level.Value;
-            test_parameter.ch3_level = (double)nu_ch2_level.Value;
-            test_parameter.ch4_level = (double)nu_ch3_level.Value;
-
+            // delay time test conditions
             test_parameter.seq_dg = test_dg;
         }
 
@@ -304,7 +281,6 @@ namespace SoftStartTiming
             BTRun.Enabled = false;
             try
             {
-
                 RTDev.BoadInit();
                 List<byte> list = RTDev.ScanSlaveID();
 
@@ -325,7 +301,6 @@ namespace SoftStartTiming
                 else
                 {
                     // none Chamber
-
                     // Delay Time / Slot Time
                     // Soft - Start Time
                     p_thread = new ParameterizedThreadStart(Run_Single_Task);
@@ -395,14 +370,13 @@ namespace SoftStartTiming
 
         private void Run_Single_Task(object idx)
         {
-            if((int)idx == 3)
+            if ((int)idx == 3)
             {
                 ate_table[0].temp = 25;
                 ate_table[0].ATETask();
 
                 ate_table[2].temp = 25;
                 ate_table[2].ATETask();
-
             }
             else
             {
@@ -467,7 +441,6 @@ namespace SoftStartTiming
             foreach (string ins in ins_list)
             {
                 list_ins.Items.Add(ins);
-
                 VisaCommand visaCommand = new VisaCommand();
                 visaCommand.LinkingIns(ins);
                 string idn = visaCommand.doQueryIDN();
@@ -762,7 +735,7 @@ namespace SoftStartTiming
                 CBGPIO, CkBin1, CkBin2, CkBin3, CkCH1, CkCH2, CkCH3, nuLX,
                 nuILX, nu_ontime_scale, nu_offtime_scale, tb_vinList,
                 RBUs, nuOffset, cbox_dly1_to, cbox_dly2_to, cbox_dly3_to,
-                cbox_dly1_from, cbox_dly2_from, cbox_dly3_from, 
+                cbox_dly1_from, cbox_dly2_from, cbox_dly3_from,
                 nudly1_from, nudly2_from, nudly3_from,
                 nudly1_end, nudly2_end, nudly3_end,
                 nu_ch1_level, nu_ch2_level, nu_ch3_level,
@@ -831,7 +804,7 @@ namespace SoftStartTiming
 
         private void ck_crmode_CheckedChanged(object sender, EventArgs e)
         {
-            if(ck_crmode.Checked)
+            if (ck_crmode.Checked)
             {
                 groupBox2.Text = "Iout Range (ohm)";
             }
@@ -875,6 +848,100 @@ namespace SoftStartTiming
                 CkBin3.Enabled = true;
             }
 
+        }
+
+        private void bt_add_to_table_Click(object sender, EventArgs e)
+        {
+            ComboBox[] fromTable = new ComboBox[] { cbox_dly0_from, cbox_dly1_from, cbox_dly2_from, cbox_dly3_from };
+            ComboBox[] toTable = new ComboBox[] { cbox_dly0_to, cbox_dly1_to, cbox_dly2_to, cbox_dly3_to };
+            ComboBox[] EloadTable = new ComboBox[] { cbox_eload_ch1, cbox_eload_ch2, cbox_eload_ch3, cbox_eload_ch4 };
+
+            NumericUpDown[] percent_pos1 = new NumericUpDown[] { nudly0_from, nudly1_from, nudly2_from, nudly3_from };
+            NumericUpDown[] percent_pos2 = new NumericUpDown[] { nudly0_end, nudly1_end, nudly2_end, nudly3_end };
+            NumericUpDown[] initLevel = new NumericUpDown[] { nu_ch0_level, nu_ch1_level, nu_ch2_level, nu_ch3_level };
+            NumericUpDown[] seqTable_addr = new NumericUpDown[] { nu_seq0_addr, nu_seq1_addr, nu_seq2_addr, nu_seq3_addr };
+            NumericUpDown[] seqTable_data = new NumericUpDown[] { nu_seq0_data, nu_seq1_data, nu_seq2_data, nu_seq3_data };
+            NumericUpDown[] idelTable_addr = new NumericUpDown[] { nu_idel0_addr, nu_idel1_addr, nu_idel2_addr, nu_idel3_addr };
+            NumericUpDown[] idelTable_data = new NumericUpDown[] { nu_idel0_data, nu_idel1_data, nu_idel2_data, nu_idel3_data };
+            NumericUpDown[] idelTable = new NumericUpDown[] { nu_idel_time1, nu_idel_time2, nu_idel_time3, nu_idel_time4 };
+            NumericUpDown[] ioutTable = new NumericUpDown[] { nu_eload_ch1, nu_eload_ch2, nu_eload_ch3, nu_eload_ch4 };
+            
+            test_dg.RowCount = test_dg.RowCount + 1;
+            int current_row = test_dg.RowCount - 1;
+            
+            // add vin
+            test_dg[0, current_row].Value = num_vin.Value;
+
+            string seq_info = "";
+            string meas_info = "";
+            string precent_info = "";
+            string idel_info = "";
+            string chlevel_info = "";
+            string idelTime_info = "";
+            string eload_info = "";
+
+            for (int i = 0; i < seqTable_addr.Length; i++)
+            {
+                int addr = (int)seqTable_addr[i].Value;
+                int data = (int)seqTable_data[i].Value;
+
+                // seq reg
+                if (i == seqTable_addr.Length - 1)
+                    seq_info += string.Format("{0:X}[{1:X}]", addr, data);
+                else
+                    seq_info += string.Format("{0:X}[{1:X}],", addr, data);
+
+                // measure ch
+                if (i == fromTable.Length - 1)
+                    meas_info += fromTable[i].Text + "→" + toTable[i].Text;
+                else
+                    meas_info += fromTable[i].Text + "→" + toTable[i].Text + ",";
+
+                // precent
+                if (i == fromTable.Length - 1)
+                    precent_info += percent_pos1[i].Text + "→" + percent_pos2[i].Text;
+                else
+                    precent_info += percent_pos1[i].Text + "→" + percent_pos2[i].Text + ",";
+
+                // idel time
+                addr = (int)idelTable_addr[i].Value;
+                data = (int)idelTable_data[i].Value;
+                if (i == fromTable.Length - 1)
+                    idel_info += string.Format("{0:X}[{1:X}]", addr, data);
+                else
+                    idel_info += string.Format("{0:X}[{1:X}],", addr, data);
+
+                if (i == fromTable.Length - 1)
+                    chlevel_info += initLevel[i].Value.ToString();
+                else
+                    chlevel_info += initLevel[i].Value.ToString() + ",";
+
+                if (i == fromTable.Length - 1)
+                    idelTime_info += idelTable[i].Value.ToString();
+                else
+                    idelTime_info += idelTable[i].Value.ToString() + ",";
+
+                if (i == fromTable.Length - 1)
+                    eload_info += string.Format("{0}[{1}]", EloadTable[i].Text, ioutTable[i].Value);
+                else
+                    eload_info += string.Format("{0}[{1}],", EloadTable[i].Text, ioutTable[i].Value);
+
+                // add seq reg setting
+                if (i == seqTable_addr.Length - 1) test_dg[1, current_row].Value = seq_info;
+                // add measure ch
+                if (i == seqTable_addr.Length - 1) test_dg[2, current_row].Value = meas_info;
+                // add precentage
+                if(i == seqTable_addr.Length - 1) test_dg[3, current_row].Value = precent_info;
+                // add idel time
+                if (i == seqTable_addr.Length - 1) test_dg[4, current_row].Value = idel_info;
+                // add initial level
+                if (i == seqTable_addr.Length - 1) test_dg[5, current_row].Value = chlevel_info;
+                // add eload 
+                if (i == seqTable_addr.Length - 1) test_dg[6, current_row].Value = eload_info;
+                // add spec
+                if (i == seqTable_addr.Length - 1) test_dg[7, current_row].Value = idelTime_info;
+            }
+            
         }
     }
 }
