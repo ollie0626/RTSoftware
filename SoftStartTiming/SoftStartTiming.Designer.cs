@@ -353,8 +353,8 @@ namespace SoftStartTiming
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1360,23 +1360,15 @@ namespace SoftStartTiming
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel3.Controls.Add(this.BTSelectBinPath);
-            this.panel3.Controls.Add(this.BTSelectWavePath);
-            this.panel3.Controls.Add(this.label16);
-            this.panel3.Controls.Add(this.CBEdge);
-            this.panel3.Controls.Add(this.tbWave);
             this.panel3.Controls.Add(this.tbBin);
             this.panel3.Controls.Add(this.BTSelectBinPath6);
             this.panel3.Controls.Add(this.tbBin2);
             this.panel3.Controls.Add(this.tbBin6);
             this.panel3.Controls.Add(this.BTSelectBinPath2);
-            this.panel3.Controls.Add(this.CBGPIO);
             this.panel3.Controls.Add(this.tbBin3);
             this.panel3.Controls.Add(this.BTSelectBinPath5);
             this.panel3.Controls.Add(this.BTSelectBinPath3);
-            this.panel3.Controls.Add(this.label7);
-            this.panel3.Controls.Add(this.CbTrigger);
             this.panel3.Controls.Add(this.tbBin5);
-            this.panel3.Controls.Add(this.label5);
             this.panel3.Controls.Add(this.tbBin4);
             this.panel3.Controls.Add(this.BTSelectBinPath4);
             this.panel3.Location = new System.Drawing.Point(11, 31);
@@ -1396,9 +1388,9 @@ namespace SoftStartTiming
             // 
             // BTSelectWavePath
             // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(4, 116);
+            this.BTSelectWavePath.Location = new System.Drawing.Point(379, 404);
             this.BTSelectWavePath.Name = "BTSelectWavePath";
-            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 20);
             this.BTSelectWavePath.TabIndex = 55;
             this.BTSelectWavePath.Text = "Wave Path";
             this.BTSelectWavePath.UseVisualStyleBackColor = true;
@@ -1407,7 +1399,7 @@ namespace SoftStartTiming
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(312, 93);
+            this.label16.Location = new System.Drawing.Point(399, 379);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(81, 12);
             this.label16.TabIndex = 89;
@@ -1419,16 +1411,16 @@ namespace SoftStartTiming
             this.CBEdge.Items.AddRange(new object[] {
             "Rising edge",
             "Falling edge"});
-            this.CBEdge.Location = new System.Drawing.Point(399, 92);
+            this.CBEdge.Location = new System.Drawing.Point(491, 376);
             this.CBEdge.Name = "CBEdge";
-            this.CBEdge.Size = new System.Drawing.Size(140, 20);
+            this.CBEdge.Size = new System.Drawing.Size(192, 20);
             this.CBEdge.TabIndex = 90;
             // 
             // tbWave
             // 
-            this.tbWave.Location = new System.Drawing.Point(112, 118);
+            this.tbWave.Location = new System.Drawing.Point(491, 402);
             this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(298, 22);
+            this.tbWave.Size = new System.Drawing.Size(192, 22);
             this.tbWave.TabIndex = 52;
             this.tbWave.Text = "D:\\";
             // 
@@ -1482,7 +1474,7 @@ namespace SoftStartTiming
             "P2.0",
             "P2.1",
             "P2.2"});
-            this.CBGPIO.Location = new System.Drawing.Point(112, 146);
+            this.CBGPIO.Location = new System.Drawing.Point(491, 430);
             this.CBGPIO.Name = "CBGPIO";
             this.CBGPIO.Size = new System.Drawing.Size(62, 20);
             this.CBGPIO.TabIndex = 86;
@@ -1517,7 +1509,7 @@ namespace SoftStartTiming
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(29, 149);
+            this.label7.Location = new System.Drawing.Point(408, 433);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(72, 12);
             this.label7.TabIndex = 85;
@@ -1531,9 +1523,9 @@ namespace SoftStartTiming
             "1 : I2C",
             "2 : Vin (Power supply)",
             "3 : Vout (Rail)"});
-            this.CbTrigger.Location = new System.Drawing.Point(112, 94);
+            this.CbTrigger.Location = new System.Drawing.Point(491, 352);
             this.CbTrigger.Name = "CbTrigger";
-            this.CbTrigger.Size = new System.Drawing.Size(194, 20);
+            this.CbTrigger.Size = new System.Drawing.Size(192, 20);
             this.CbTrigger.TabIndex = 80;
             this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
             // 
@@ -1548,7 +1540,7 @@ namespace SoftStartTiming
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(23, 97);
+            this.label5.Location = new System.Drawing.Point(397, 355);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(83, 12);
             this.label5.TabIndex = 81;
@@ -1646,15 +1638,23 @@ namespace SoftStartTiming
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
             this.tabPage1.Controls.Add(this.panel7);
+            this.tabPage1.Controls.Add(this.BTSelectWavePath);
             this.tabPage1.Controls.Add(this.Label79);
             this.tabPage1.Controls.Add(this.panel6);
+            this.tabPage1.Controls.Add(this.label16);
+            this.tabPage1.Controls.Add(this.tbWave);
             this.tabPage1.Controls.Add(this.Label78);
+            this.tabPage1.Controls.Add(this.label7);
+            this.tabPage1.Controls.Add(this.CBEdge);
+            this.tabPage1.Controls.Add(this.CBGPIO);
             this.tabPage1.Controls.Add(this.panel5);
             this.tabPage1.Controls.Add(this.test_dg);
             this.tabPage1.Controls.Add(this.bt_add_to_table);
             this.tabPage1.Controls.Add(this.num_vin);
             this.tabPage1.Controls.Add(this.textBox9);
             this.tabPage1.Controls.Add(this.panel1);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.CbTrigger);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
@@ -1855,11 +1855,11 @@ namespace SoftStartTiming
             // Label79
             // 
             this.Label79.AutoSize = true;
-            this.Label79.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label79.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label79.ForeColor = System.Drawing.Color.Black;
-            this.Label79.Location = new System.Drawing.Point(383, 326);
+            this.Label79.Location = new System.Drawing.Point(432, 328);
             this.Label79.Name = "Label79";
-            this.Label79.Size = new System.Drawing.Size(47, 15);
+            this.Label79.Size = new System.Drawing.Size(48, 15);
             this.Label79.TabIndex = 3253;
             this.Label79.Text = "VIN (V):";
             // 
@@ -1906,6 +1906,7 @@ namespace SoftStartTiming
             // nu_idel_time4
             // 
             this.nu_idel_time4.DecimalPlaces = 3;
+            this.nu_idel_time4.Enabled = false;
             this.nu_idel_time4.Location = new System.Drawing.Point(355, 111);
             this.nu_idel_time4.Name = "nu_idel_time4";
             this.nu_idel_time4.Size = new System.Drawing.Size(89, 22);
@@ -1914,6 +1915,7 @@ namespace SoftStartTiming
             // 
             // nu_idel3_data
             // 
+            this.nu_idel3_data.Enabled = false;
             this.nu_idel3_data.Hexadecimal = true;
             this.nu_idel3_data.Location = new System.Drawing.Point(250, 114);
             this.nu_idel3_data.Maximum = new decimal(new int[] {
@@ -1997,6 +1999,7 @@ namespace SoftStartTiming
             // 
             // nu_idel3_addr
             // 
+            this.nu_idel3_addr.Enabled = false;
             this.nu_idel3_addr.Hexadecimal = true;
             this.nu_idel3_addr.Location = new System.Drawing.Point(135, 113);
             this.nu_idel3_addr.Maximum = new decimal(new int[] {
@@ -2101,6 +2104,7 @@ namespace SoftStartTiming
             // textBox32
             // 
             this.textBox32.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox32.Enabled = false;
             this.textBox32.Location = new System.Drawing.Point(3, 112);
             this.textBox32.Name = "textBox32";
             this.textBox32.ReadOnly = true;
@@ -2134,11 +2138,11 @@ namespace SoftStartTiming
             // Label78
             // 
             this.Label78.AutoSize = true;
-            this.Label78.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label78.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label78.ForeColor = System.Drawing.Color.Black;
-            this.Label78.Location = new System.Drawing.Point(510, 327);
+            this.Label78.Location = new System.Drawing.Point(567, 328);
             this.Label78.Name = "Label78";
-            this.Label78.Size = new System.Drawing.Size(14, 15);
+            this.Label78.Size = new System.Drawing.Size(15, 15);
             this.Label78.TabIndex = 3252;
             this.Label78.Text = "V";
             // 
@@ -2167,6 +2171,7 @@ namespace SoftStartTiming
             // 
             // nu_seq3_data
             // 
+            this.nu_seq3_data.Enabled = false;
             this.nu_seq3_data.Hexadecimal = true;
             this.nu_seq3_data.Location = new System.Drawing.Point(250, 114);
             this.nu_seq3_data.Maximum = new decimal(new int[] {
@@ -2223,6 +2228,7 @@ namespace SoftStartTiming
             // 
             // nu_seq3_addr
             // 
+            this.nu_seq3_addr.Enabled = false;
             this.nu_seq3_addr.Hexadecimal = true;
             this.nu_seq3_addr.Location = new System.Drawing.Point(135, 113);
             this.nu_seq3_addr.Maximum = new decimal(new int[] {
@@ -2327,6 +2333,7 @@ namespace SoftStartTiming
             // textBox19
             // 
             this.textBox19.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox19.Enabled = false;
             this.textBox19.Location = new System.Drawing.Point(3, 112);
             this.textBox19.Name = "textBox19";
             this.textBox19.ReadOnly = true;
@@ -2435,7 +2442,7 @@ namespace SoftStartTiming
             // num_vin
             // 
             this.num_vin.DecimalPlaces = 3;
-            this.num_vin.Location = new System.Drawing.Point(434, 324);
+            this.num_vin.Location = new System.Drawing.Point(491, 325);
             this.num_vin.Maximum = new decimal(new int[] {
             150,
             0,
@@ -2638,6 +2645,7 @@ namespace SoftStartTiming
             // textBox18
             // 
             this.textBox18.BackColor = System.Drawing.SystemColors.Info;
+            this.textBox18.Enabled = false;
             this.textBox18.Location = new System.Drawing.Point(12, 114);
             this.textBox18.Name = "textBox18";
             this.textBox18.ReadOnly = true;
@@ -2695,6 +2703,7 @@ namespace SoftStartTiming
             // label36
             // 
             this.label36.AutoSize = true;
+            this.label36.Enabled = false;
             this.label36.Location = new System.Drawing.Point(616, 117);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(14, 12);
@@ -2794,6 +2803,7 @@ namespace SoftStartTiming
             // label32
             // 
             this.label32.AutoSize = true;
+            this.label32.Enabled = false;
             this.label32.Location = new System.Drawing.Point(534, 120);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(15, 12);
@@ -2930,6 +2940,7 @@ namespace SoftStartTiming
             // 
             // cbox_dly3_from
             // 
+            this.cbox_dly3_from.Enabled = false;
             this.cbox_dly3_from.FormattingEnabled = true;
             this.cbox_dly3_from.Items.AddRange(new object[] {
             "CH1",
@@ -2975,6 +2986,7 @@ namespace SoftStartTiming
             // label25
             // 
             this.label25.AutoSize = true;
+            this.label25.Enabled = false;
             this.label25.Location = new System.Drawing.Point(244, 119);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 12);
@@ -2984,6 +2996,7 @@ namespace SoftStartTiming
             // label33
             // 
             this.label33.AutoSize = true;
+            this.label33.Enabled = false;
             this.label33.Location = new System.Drawing.Point(454, 119);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(18, 12);
@@ -3052,6 +3065,7 @@ namespace SoftStartTiming
             // 
             // cbox_dly3_to
             // 
+            this.cbox_dly3_to.Enabled = false;
             this.cbox_dly3_to.FormattingEnabled = true;
             this.cbox_dly3_to.Items.AddRange(new object[] {
             "CH1",
@@ -3066,6 +3080,7 @@ namespace SoftStartTiming
             // label34
             // 
             this.label34.AutoSize = true;
+            this.label34.Enabled = false;
             this.label34.Location = new System.Drawing.Point(436, 120);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(15, 12);
@@ -3152,7 +3167,7 @@ namespace SoftStartTiming
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
-            this.ClientSize = new System.Drawing.Size(898, 763);
+            this.ClientSize = new System.Drawing.Size(906, 763);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.nuCriteria);
             this.Controls.Add(this.label8);

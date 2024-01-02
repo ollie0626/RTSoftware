@@ -17,6 +17,7 @@ namespace SoftStartTiming
         public static string iout_conditions;
         public static string tool_ver;
         public static string bin_file_cnt;
+        public static string conditions;
         public static int bin1_cnt;
         public static int bin2_cnt;
         public static int bin3_cnt;
@@ -144,6 +145,7 @@ namespace SoftStartTiming
 
         // for delay time test
         public static DataGridView seq_dg;
+        public static bool[] auto_en = new bool[4];
 
     }
 }

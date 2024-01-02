@@ -6,7 +6,7 @@ namespace SoftStartTiming
 {
     public partial class SoftStartTiming
     {
-        private string win_name = "Soft start v1.23";
+        private string win_name = "Soft start v1.24";
 
 
         public CheckBox[] binTable;
@@ -40,7 +40,20 @@ namespace SoftStartTiming
                 cboxTable[i].SelectedIndex = 0;
             }
 
+            cbox_eload_ch1.SelectedIndex = 0;
+            cbox_eload_ch2.SelectedIndex = 1;
+            cbox_eload_ch3.SelectedIndex = 2;
+            cbox_eload_ch4.SelectedIndex = 3;
 
+            cbox_dly0_from.SelectedIndex = 0;
+            cbox_dly1_from.SelectedIndex = 1;
+            cbox_dly2_from.SelectedIndex = 2;
+            cbox_dly3_from.SelectedIndex = 3;
+
+            cbox_dly0_to.SelectedIndex = 1;
+            cbox_dly1_to.SelectedIndex = 2;
+            cbox_dly2_to.SelectedIndex = 3;
+            cbox_dly3_to.SelectedIndex = 3;
         }
     }
 
