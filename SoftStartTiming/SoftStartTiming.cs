@@ -213,14 +213,14 @@ namespace SoftStartTiming
             test_parameter.i2c_init_dg = i2c_datagrid;
             test_parameter.i2c_mtp_dg = i2c_mtp_datagrid;
             test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
-            test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
-            test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
-            test_parameter.bin3_cnt = CkBin3.Checked ? MyLib.ListBinFile(tbBin3.Text).Length : 0;
+            //test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
+            //test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
+            //test_parameter.bin3_cnt = CkBin3.Checked ? MyLib.ListBinFile(tbBin3.Text).Length : 0;
 
-            test_parameter.bin_file_cnt = "Bin1 file cnt : " + test_parameter.bin1_cnt + "\r\n" +
-                                          "Bin2 file cnt : " + test_parameter.bin2_cnt + "\r\n" +
-                                          "Bin3 file cnt : " + test_parameter.bin3_cnt + "\r\n" +
-                                          "Total cnt : " + (test_parameter.bin1_cnt + test_parameter.bin2_cnt + test_parameter.bin3_cnt).ToString() + " \r\n";
+            //test_parameter.bin_file_cnt = "Bin1 file cnt : " + test_parameter.bin1_cnt + "\r\n" +
+            //                              "Bin2 file cnt : " + test_parameter.bin2_cnt + "\r\n" +
+            //                              "Bin3 file cnt : " + test_parameter.bin3_cnt + "\r\n" +
+            //                              "Total cnt : " + (test_parameter.bin1_cnt + test_parameter.bin2_cnt + test_parameter.bin3_cnt).ToString() + " \r\n";
 
             test_parameter.conditions = "Measure setting:\r\n" + 
                                         cbox_dly0_from.Text + " → " + cbox_dly0_to.Text + "\r\n" +
@@ -926,9 +926,9 @@ namespace SoftStartTiming
 
                 // seq reg
                 if (i == seqTable_addr.Length - 1)
-                    seq_info += string.Format("{0:X}[{1:X}]", addr, data);
+                    seq_info += string.Format("{0:X2}[{1:X2}]", addr, data);
                 else
-                    seq_info += string.Format("{0:X}[{1:X}],", addr, data);
+                    seq_info += string.Format("{0:X2}[{1:X2}],", addr, data);
 
                 // measure ch
                 if (i == fromTable.Length - 1)
@@ -946,9 +946,9 @@ namespace SoftStartTiming
                 addr = (int)idelTable_addr[i].Value;
                 data = (int)idelTable_data[i].Value;
                 if (i == fromTable.Length - 1)
-                    idel_info += string.Format("{0:X}[{1:X}]", addr, data);
+                    idel_info += string.Format("{0:X2}[{1:X2}]", addr, data);
                 else
-                    idel_info += string.Format("{0:X}[{1:X}],", addr, data);
+                    idel_info += string.Format("{0:X2}[{1:X2}],", addr, data);
 
                 if (i == fromTable.Length - 1)
                     chlevel_info += initLevel[i].Value.ToString();

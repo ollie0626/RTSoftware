@@ -1,8 +1,8 @@
 ﻿
 
-//#define Report_en
-//#define Power_en
-//#define Eload_en
+#define Report_en
+#define Power_en
+#define Eload_en
 
 using System;
 using System.Collections.Generic;
@@ -243,7 +243,7 @@ namespace SoftStartTiming
             Dictionary<int, int> addr_map = new Dictionary<int, int>();
             List<int> addrList = new List<int>();
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 3; i++)
             {
                 string input = seqTable[i];
                 MatchCollection match = Regex.Matches(input, pattern);
@@ -445,7 +445,6 @@ namespace SoftStartTiming
             I2C_DG_Write(test_parameter.i2c_init_dg);
             SeqAndIdealWrite();
 #endif
-            SeqAndIdealWrite();
             TriggerEvent(vin); // gpio, i2c(initial), vin trigger
 
             if (test_parameter.trigger_event == 1)
@@ -537,8 +536,8 @@ namespace SoftStartTiming
         public override void ATETask()
         {
 
-            GetParameter(0);
-            SeqAndIdealWrite();
+            //GetParameter(0);
+            //SeqAndIdealWrite();
 
 
             Stopwatch stopWatch = new Stopwatch();

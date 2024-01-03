@@ -45,11 +45,8 @@ namespace Console_test
         static void Main()
         {
 
-            string inputString1 = "A1[2A]";
-
-
+            string inputString1 = "00[2A]";
             ExtractNumbersAndLetters(inputString1);
-
 
             int vendorId = 0x0488;
             int productId = 0x5755;
