@@ -4518,7 +4518,7 @@ Partial Class Form1
         'Label17
         '
         Me.Label17.AutoSize = True
-        Me.Label17.Location = New System.Drawing.Point(29, 346)
+        Me.Label17.Location = New System.Drawing.Point(30, 315)
         Me.Label17.Name = "Label17"
         Me.Label17.Size = New System.Drawing.Size(60, 12)
         Me.Label17.TabIndex = 36
@@ -4528,7 +4528,7 @@ Partial Class Form1
         'CK01_4
         '
         Me.CK01_4.AutoSize = True
-        Me.CK01_4.Location = New System.Drawing.Point(138, 313)
+        Me.CK01_4.Location = New System.Drawing.Point(138, 314)
         Me.CK01_4.Name = "CK01_4"
         Me.CK01_4.Size = New System.Drawing.Size(56, 16)
         Me.CK01_4.TabIndex = 55
@@ -4558,7 +4558,7 @@ Partial Class Form1
         'Label16
         '
         Me.Label16.AutoSize = True
-        Me.Label16.Location = New System.Drawing.Point(29, 315)
+        Me.Label16.Location = New System.Drawing.Point(29, 346)
         Me.Label16.Name = "Label16"
         Me.Label16.Size = New System.Drawing.Size(61, 12)
         Me.Label16.TabIndex = 35
