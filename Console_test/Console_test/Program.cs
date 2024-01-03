@@ -28,6 +28,8 @@ using LibUsbDotNet.Descriptors;
 using LibUsbDotNet.LibUsb;
 using LibUsbDotNet.WinUsb;
 using System.Collections.ObjectModel;
+//-----------------------------------
+using System.Text.RegularExpressions;
 
 
 namespace Console_test
@@ -42,6 +44,16 @@ namespace Console_test
     {
         static void Main()
         {
+
+            string inputString1 = "A1[2A]";
+
+
+            ExtractNumbersAndLetters(inputString1);
+
+
+
+
+
             int vendorId = 0x0488;
             int productId = 0x5755;
             ErrorCode ec = ErrorCode.None;
@@ -91,6 +103,29 @@ namespace Console_test
             Console.ReadKey();
         }
 
+        static void ExtractNumbersAndLetters(string input)
+        {
+            // 使用正则表达式匹配 "[数字][字母]" 模式
+            string pattern = @"\[(\d+[A-Za-z]+)\]";
+            string tmp = @"(\d)"; // find addr number
+            string tmp1 = @"[A-Za-z]"; // find addr letter
+            Match match = Regex.Match(input, pattern);
+
+            if (match.Success)
+            {
+                string extractedNumber = match.Groups[1].Value;
+                string extractedLetter = match.Groups[2].Value;
+
+                Console.WriteLine($"Input: {input}");
+                Console.WriteLine($"Extracted Number: {extractedNumber}");
+                Console.WriteLine($"Extracted Letter: {extractedLetter}");
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine($"No matching pattern found in input: {input}");
+            }
+        }
 
 
     }

@@ -234,8 +234,24 @@ namespace SoftStartTiming
             }
         }
 
+        private string GetDataInfo(string input)
+        {
+            string res = "";
+            Match match;
+            string[] pattern = { @"[(\d+A-Za-z)]", @"[(A-Za-z)\d+]" };
+            for (int i = 0; i < pattern.Length - 1; i++)
+            {
+                match = Regex.Match(input, pattern[i]);
+                res = match.Groups[1].Value;
+                if (res != "") break;
+            }
+            return res;
+        }
+
         private void SeqAndIdealWrite()
         {
+            // 使用正则表达式匹配 "[数字][字母]" 模式
+            // @"\[(\d+)([A-Za-z]+)\]"
             string pattern = @"\[(\d+)([A-Za-z]+)\]";
 
             string[] seqTable = new string[] { dt_test.seq0, dt_test.seq1, dt_test.seq2, dt_test.seq3 };
