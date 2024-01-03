@@ -51,9 +51,6 @@ namespace Console_test
             ExtractNumbersAndLetters(inputString1);
 
 
-
-
-
             int vendorId = 0x0488;
             int productId = 0x5755;
             ErrorCode ec = ErrorCode.None;
@@ -107,24 +104,26 @@ namespace Console_test
         {
             // 使用正则表达式匹配 "[数字][字母]" 模式
             string pattern = @"\[(\d+[A-Za-z]+)\]";
-            string tmp = @"(\d)"; // find addr number
-            string tmp1 = @"[A-Za-z]"; // find addr letter
-            Match match = Regex.Match(input, pattern);
+            string tmp = @"[A-Za-z0-9][A-Za-z0-9]";
 
-            if (match.Success)
-            {
-                string extractedNumber = match.Groups[1].Value;
-                string extractedLetter = match.Groups[2].Value;
+            MatchCollection match = Regex.Matches(input, tmp);
+            string aa = match[0].ToString();
+           // Match temp = Regex.Match(input, pattern);
 
-                Console.WriteLine($"Input: {input}");
-                Console.WriteLine($"Extracted Number: {extractedNumber}");
-                Console.WriteLine($"Extracted Letter: {extractedLetter}");
-                Console.WriteLine();
-            }
-            else
-            {
-                Console.WriteLine($"No matching pattern found in input: {input}");
-            }
+            //if (match.Success)
+            //{
+            //    string extractedNumber = match.Groups[1].Value;
+            //    string extractedLetter = match.Groups[2].Value;
+
+            //    Console.WriteLine($"Input: {input}");
+            //    Console.WriteLine($"Extracted Number: {extractedNumber}");
+            //    Console.WriteLine($"Extracted Letter: {extractedLetter}");
+            //    Console.WriteLine();
+            //}
+            //else
+            //{
+            //    Console.WriteLine($"No matching pattern found in input: {input}");
+            //}
         }
 
 

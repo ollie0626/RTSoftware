@@ -234,25 +234,9 @@ namespace SoftStartTiming
             }
         }
 
-        private string GetDataInfo(string input)
-        {
-            string res = "";
-            Match match;
-            string[] pattern = { @"[(\d+A-Za-z)]", @"[(A-Za-z)\d+]" };
-            for (int i = 0; i < pattern.Length - 1; i++)
-            {
-                match = Regex.Match(input, pattern[i]);
-                res = match.Groups[1].Value;
-                if (res != "") break;
-            }
-            return res;
-        }
-
         private void SeqAndIdealWrite()
         {
-            // 使用正则表达式匹配 "[数字][字母]" 模式
-            // @"\[(\d+)([A-Za-z]+)\]"
-            string pattern = @"\[(\d+)([A-Za-z]+)\]";
+            string pattern = @"[A-Za-z0-9][A-Za-z0-9]";
 
             string[] seqTable = new string[] { dt_test.seq0, dt_test.seq1, dt_test.seq2, dt_test.seq3 };
             string[] idealTable = new string[] { dt_test.ideal0, dt_test.ideal1, dt_test.ideal2, dt_test.ideal3 };
@@ -262,14 +246,14 @@ namespace SoftStartTiming
             for (int i = 0; i < 4; i++)
             {
                 string input = seqTable[i];
-                Match match = Regex.Match(input, pattern);
-                int seq_addr = Convert.ToInt32(match.Groups[1].Value, 16);
-                int seq_data = Convert.ToInt32(match.Groups[3].Value, 16);
+                MatchCollection match = Regex.Matches(input, pattern);
+                int seq_addr = Convert.ToInt32(match[0].ToString(), 16);
+                int seq_data = Convert.ToInt32(match[1].ToString(), 16);
                 GetSameAddr(ref addr_map, seq_addr, seq_data);
                 input = idealTable[i];
-                match = Regex.Match(input, pattern);
-                int ideal_addr = Convert.ToInt32(match.Groups[1].Value, 16);
-                int ideal_data = Convert.ToInt32(match.Groups[3].Value, 16);
+                match = Regex.Matches(input, pattern);
+                int ideal_addr = Convert.ToInt32(match[0].ToString(), 16);
+                int ideal_data = Convert.ToInt32(match[1].ToString(), 16);
                 GetSameAddr(ref addr_map, ideal_addr, ideal_data);
                 addrList.Add(seq_addr);
                 addrList.Add(ideal_addr);

@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class Form1
 
-    Dim main_ver As String = "IN528 Tool v1.7"
+    Dim main_ver As String = "IN528 Tool v1.8"
     Dim byt_Bin1(255) As Byte
     Dim byt_Bin2(255) As Byte
     Dim flagTable() As Boolean = {True, True, True, True, True, True, True, True}
