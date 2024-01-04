@@ -212,7 +212,15 @@ namespace SoftStartTiming
             // test condition
             test_parameter.i2c_init_dg = i2c_datagrid;
             test_parameter.i2c_mtp_dg = i2c_mtp_datagrid;
-            test_parameter.vin_conditions = "Vin :" + tb_vinList.Text + " (V)\r\n";
+
+            string vin_tmp = "";
+            for(int i = 0; i < test_dg.RowCount; i++)
+            {
+                if (i == test_dg.RowCount - 1) vin_tmp += test_dg[0, i].Value.ToString();
+                else vin_tmp += test_dg[0, i].Value.ToString() + ", ";
+            }
+
+            test_parameter.vin_conditions = "Vin :" + vin_tmp + " (V)\r\n";
             //test_parameter.bin1_cnt = CkBin1.Checked ? MyLib.ListBinFile(tbBin.Text).Length : 0;
             //test_parameter.bin2_cnt = CkBin2.Checked ? MyLib.ListBinFile(tbBin2.Text).Length : 0;
             //test_parameter.bin3_cnt = CkBin3.Checked ? MyLib.ListBinFile(tbBin3.Text).Length : 0;
@@ -227,6 +235,7 @@ namespace SoftStartTiming
                                         cbox_dly1_from.Text + " → " + cbox_dly1_to.Text + "\r\n" +
                                         cbox_dly2_from.Text + " → " + cbox_dly2_to.Text + "\r\n" +
                                        "Test cnt: " + test_dg.RowCount.ToString() + "\r\n";
+
             test_parameter.tool_ver = win_name + "\r\n";
 
             TextBox[] path_table = new TextBox[] { tbBin, tbBin2, tbBin3 };

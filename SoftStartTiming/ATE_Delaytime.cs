@@ -88,7 +88,6 @@ namespace SoftStartTiming
         const int meas_sst3 = 3;
         const int meas_sst4 = 4;
 
-
         const int meas_vmax1 = 5;
         const int meas_vmax2 = 6;
         const int meas_vmax3 = 7;
@@ -532,14 +531,8 @@ namespace SoftStartTiming
             return res;
         }
 
-
         public override void ATETask()
         {
-
-            //GetParameter(0);
-            //SeqAndIdealWrite();
-
-
             Stopwatch stopWatch = new Stopwatch();
             RTDev.BoadInit();
             RTDev.GpioInit();
@@ -632,7 +625,6 @@ namespace SoftStartTiming
             row++;
 #endif
             #endregion
-
 
             for (int bin_idx = 0; bin_idx < test_parameter.seq_dg.RowCount; bin_idx++)
             {
@@ -769,7 +761,6 @@ namespace SoftStartTiming
                 // scope time scale re-size
                 if (delay_time_res > Math.Pow(10, 20) || delay_time_res < 0)
                 {
-
                     InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
@@ -881,8 +872,6 @@ namespace SoftStartTiming
                 {
                     jd_res = "Fail";
                 }
-
-
 
                 if (jd_res == "Fail")
                 {
