@@ -404,7 +404,13 @@ namespace SoftStartTiming
                         vmax = InsControl._tek_scope.MeasureMax(meas_vmax1 + ch_idx);
 
                         if (vmax > 0.3 && vmax < Math.Pow(10, 3))
+                        {
                             InsControl._tek_scope.CHx_Level(ch_idx + 1, vmax / 3);
+                            if(ch_idx == 0)
+                            {
+                                InsControl._tek_scope.SetTriggerLevel((vmax / 3) * 0.5);
+                            }
+                        }
                         MyLib.Delay1ms(300);
                     }
                     MyLib.Delay1ms(300);
@@ -536,6 +542,7 @@ namespace SoftStartTiming
             Stopwatch stopWatch = new Stopwatch();
             RTDev.BoadInit();
             RTDev.GpioInit();
+            GetParameter(0);
 
             int vin_cnt = test_parameter.VinList.Count;
             int row = 8;
@@ -653,7 +660,7 @@ namespace SoftStartTiming
                                             dt_test.idealTime3
                                          );
 
-                string res = string.Format("Idealtime1={4}_Idealtime2={5}_Idealtime3={6}",
+                string res = string.Format("Idealtime1={0}_Idealtime2={1}_Idealtime3={2}",
                                             dt_test.idealTime0,
                                             dt_test.idealTime1,
                                             dt_test.idealTime2
@@ -810,10 +817,10 @@ namespace SoftStartTiming
                 InsControl._tek_scope.SetMeasureSource(2, meas_vmax2, "LOW");
                 InsControl._tek_scope.SetMeasureSource(3, meas_vmax3, "LOW");
                 InsControl._tek_scope.SetMeasureSource(4, meas_vmax4, "LOW");
-                vbase1 = InsControl._tek_scope.MeasureMin(meas_vmax1);
-                vbase2 = InsControl._tek_scope.MeasureMin(meas_vmax2);
-                vbase3 = InsControl._tek_scope.MeasureMin(meas_vmax3);
-                vbase4 = InsControl._tek_scope.MeasureMin(meas_vmax4);
+                vbase1 = InsControl._tek_scope.MeasureMean(meas_vmax1);
+                vbase2 = InsControl._tek_scope.MeasureMean(meas_vmax2);
+                vbase3 = InsControl._tek_scope.MeasureMean(meas_vmax3);
+                vbase4 = InsControl._tek_scope.MeasureMean(meas_vmax4);
                 dt1 = delay_time_res1;
                 dt2 = delay_time_res2;
                 dt3 = delay_time_res3;
@@ -843,7 +850,7 @@ namespace SoftStartTiming
                 _sheet.Cells[row, XLS_Table.R] = vbase4.ToString();
 
                 /* spec judge */
-                double value_base = dt_test.idealTime0;
+                double value_base = dt_test.idealTime0 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
                 double criteria_up = (test_parameter.judge_percent * value_base) + value_base;
                 double criteria_down = value_base - (test_parameter.judge_percent * value_base);
                 double value = 0;
@@ -856,7 +863,7 @@ namespace SoftStartTiming
                 }
 
                 value = dt2;
-                value_base = dt_test.idealTime1;
+                value_base = dt_test.idealTime1 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
                 criteria_up = (test_parameter.judge_percent * value_base) + value_base;
                 criteria_down = value_base - (test_parameter.judge_percent * value_base);
                 if (value > criteria_up || value < criteria_up)
@@ -865,7 +872,7 @@ namespace SoftStartTiming
                 }
 
                 value = dt3;
-                value_base = dt_test.idealTime2;
+                value_base = dt_test.idealTime2 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
                 criteria_up = (test_parameter.judge_percent * value_base) + value_base;
                 criteria_down = value_base - (test_parameter.judge_percent * value_base);
                 if (value > criteria_up || value < criteria_up)
