@@ -408,7 +408,7 @@ namespace SoftStartTiming
                             InsControl._tek_scope.CHx_Level(ch_idx + 1, vmax / 3);
                             if(ch_idx == 0)
                             {
-                                InsControl._tek_scope.SetTriggerLevel((vmax / 3) * 0.5);
+                                InsControl._tek_scope.SetTriggerLevel((vmax / 3) * 0.8);
                             }
                         }
                         MyLib.Delay1ms(300);

@@ -116,36 +116,6 @@ namespace SoftStartTiming
             this.tb_eload = new System.Windows.Forms.TextBox();
             this.tb_daq = new System.Windows.Forms.TextBox();
             this.tb_chamber = new System.Windows.Forms.TextBox();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.CkBin3 = new System.Windows.Forms.CheckBox();
-            this.CkBin2 = new System.Windows.Forms.CheckBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.BTSelectBinPath = new System.Windows.Forms.Button();
-            this.BTSelectWavePath = new System.Windows.Forms.Button();
-            this.label16 = new System.Windows.Forms.Label();
-            this.CBEdge = new System.Windows.Forms.ComboBox();
-            this.tbWave = new System.Windows.Forms.TextBox();
-            this.tbBin = new System.Windows.Forms.TextBox();
-            this.BTSelectBinPath6 = new System.Windows.Forms.Button();
-            this.tbBin2 = new System.Windows.Forms.TextBox();
-            this.tbBin6 = new System.Windows.Forms.TextBox();
-            this.BTSelectBinPath2 = new System.Windows.Forms.Button();
-            this.CBGPIO = new System.Windows.Forms.ComboBox();
-            this.tbBin3 = new System.Windows.Forms.TextBox();
-            this.BTSelectBinPath5 = new System.Windows.Forms.Button();
-            this.BTSelectBinPath3 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
-            this.CbTrigger = new System.Windows.Forms.ComboBox();
-            this.tbBin5 = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.tbBin4 = new System.Windows.Forms.TextBox();
-            this.BTSelectBinPath4 = new System.Windows.Forms.Button();
-            this.CkBin1 = new System.Windows.Forms.CheckBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ck_crmode = new System.Windows.Forms.CheckBox();
-            this.tb_iout = new System.Windows.Forms.TextBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.tb_vinList = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel7 = new System.Windows.Forms.Panel();
             this.cbox_eload_ch4 = new System.Windows.Forms.ComboBox();
@@ -163,6 +133,7 @@ namespace SoftStartTiming
             this.textBox38 = new System.Windows.Forms.TextBox();
             this.nu_eload_ch2 = new System.Windows.Forms.NumericUpDown();
             this.nu_eload_ch3 = new System.Windows.Forms.NumericUpDown();
+            this.BTSelectWavePath = new System.Windows.Forms.Button();
             this.Label79 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.textBox40 = new System.Windows.Forms.TextBox();
@@ -185,7 +156,12 @@ namespace SoftStartTiming
             this.textBox32 = new System.Windows.Forms.TextBox();
             this.textBox33 = new System.Windows.Forms.TextBox();
             this.textBox34 = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.tbWave = new System.Windows.Forms.TextBox();
             this.Label78 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.CBEdge = new System.Windows.Forms.ComboBox();
+            this.CBGPIO = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.nu_seq3_data = new System.Windows.Forms.NumericUpDown();
             this.nu_seq2_data = new System.Windows.Forms.NumericUpDown();
@@ -268,12 +244,38 @@ namespace SoftStartTiming
             this.cbox_dly3_to = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.cbox_dly2_to = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.CbTrigger = new System.Windows.Forms.ComboBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.CkBin3 = new System.Windows.Forms.CheckBox();
+            this.CkBin2 = new System.Windows.Forms.CheckBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.BTSelectBinPath = new System.Windows.Forms.Button();
+            this.tbBin = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath6 = new System.Windows.Forms.Button();
+            this.tbBin2 = new System.Windows.Forms.TextBox();
+            this.tbBin6 = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath2 = new System.Windows.Forms.Button();
+            this.tbBin3 = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath5 = new System.Windows.Forms.Button();
+            this.BTSelectBinPath3 = new System.Windows.Forms.Button();
+            this.tbBin5 = new System.Windows.Forms.TextBox();
+            this.tbBin4 = new System.Windows.Forms.TextBox();
+            this.BTSelectBinPath4 = new System.Windows.Forms.Button();
+            this.CkBin1 = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ck_crmode = new System.Windows.Forms.CheckBox();
+            this.tb_iout = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.tb_vinList = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.BTRun = new System.Windows.Forms.Button();
             this.BTStop = new System.Windows.Forms.Button();
             this.BTPause = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
+            this.label42 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -300,10 +302,6 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
-            this.tabPage2.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_eload_ch4)).BeginInit();
@@ -347,6 +345,10 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nudly3_from)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudly1_end)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudly2_end)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
             this.SuspendLayout();
             // 
@@ -355,7 +357,7 @@ namespace SoftStartTiming
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(12, 12);
+            this.tabControl1.Location = new System.Drawing.Point(14, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(874, 704);
@@ -1318,325 +1320,11 @@ namespace SoftStartTiming
             this.tb_chamber.TabIndex = 62;
             this.tb_chamber.Text = "Chanber:GPIB0::3::INSTR";
             // 
-            // tabPage2
-            // 
-            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
-            this.tabPage2.Controls.Add(this.CkBin3);
-            this.tabPage2.Controls.Add(this.CkBin2);
-            this.tabPage2.Controls.Add(this.panel3);
-            this.tabPage2.Controls.Add(this.CkBin1);
-            this.tabPage2.Controls.Add(this.groupBox2);
-            this.tabPage2.Controls.Add(this.groupBox1);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(866, 678);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Test Page";
-            // 
-            // CkBin3
-            // 
-            this.CkBin3.AutoSize = true;
-            this.CkBin3.Location = new System.Drawing.Point(205, 8);
-            this.CkBin3.Name = "CkBin3";
-            this.CkBin3.Size = new System.Drawing.Size(91, 16);
-            this.CkBin3.TabIndex = 1;
-            this.CkBin3.Text = "Bin3 Folder";
-            this.CkBin3.UseVisualStyleBackColor = true;
-            // 
-            // CkBin2
-            // 
-            this.CkBin2.AutoSize = true;
-            this.CkBin2.Checked = true;
-            this.CkBin2.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkBin2.Location = new System.Drawing.Point(108, 8);
-            this.CkBin2.Name = "CkBin2";
-            this.CkBin2.Size = new System.Drawing.Size(91, 16);
-            this.CkBin2.TabIndex = 2;
-            this.CkBin2.Text = "Bin2 Folder";
-            this.CkBin2.UseVisualStyleBackColor = true;
-            // 
-            // panel3
-            // 
-            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel3.Controls.Add(this.BTSelectBinPath);
-            this.panel3.Controls.Add(this.tbBin);
-            this.panel3.Controls.Add(this.BTSelectBinPath6);
-            this.panel3.Controls.Add(this.tbBin2);
-            this.panel3.Controls.Add(this.tbBin6);
-            this.panel3.Controls.Add(this.BTSelectBinPath2);
-            this.panel3.Controls.Add(this.tbBin3);
-            this.panel3.Controls.Add(this.BTSelectBinPath5);
-            this.panel3.Controls.Add(this.BTSelectBinPath3);
-            this.panel3.Controls.Add(this.tbBin5);
-            this.panel3.Controls.Add(this.tbBin4);
-            this.panel3.Controls.Add(this.BTSelectBinPath4);
-            this.panel3.Location = new System.Drawing.Point(11, 31);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(553, 257);
-            this.panel3.TabIndex = 91;
-            // 
-            // BTSelectBinPath
-            // 
-            this.BTSelectBinPath.Location = new System.Drawing.Point(4, 8);
-            this.BTSelectBinPath.Name = "BTSelectBinPath";
-            this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath.TabIndex = 53;
-            this.BTSelectBinPath.Text = "Bin File Path";
-            this.BTSelectBinPath.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath.Click += new System.EventHandler(this.BTSelectBinPath_Click);
-            // 
-            // BTSelectWavePath
-            // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(379, 404);
-            this.BTSelectWavePath.Name = "BTSelectWavePath";
-            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 20);
-            this.BTSelectWavePath.TabIndex = 55;
-            this.BTSelectWavePath.Text = "Wave Path";
-            this.BTSelectWavePath.UseVisualStyleBackColor = true;
-            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(399, 379);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(81, 12);
-            this.label16.TabIndex = 89;
-            this.label16.Text = "GPIO Trigger";
-            // 
-            // CBEdge
-            // 
-            this.CBEdge.FormattingEnabled = true;
-            this.CBEdge.Items.AddRange(new object[] {
-            "Rising edge",
-            "Falling edge"});
-            this.CBEdge.Location = new System.Drawing.Point(491, 376);
-            this.CBEdge.Name = "CBEdge";
-            this.CBEdge.Size = new System.Drawing.Size(192, 20);
-            this.CBEdge.TabIndex = 90;
-            // 
-            // tbWave
-            // 
-            this.tbWave.Location = new System.Drawing.Point(491, 402);
-            this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(192, 22);
-            this.tbWave.TabIndex = 52;
-            this.tbWave.Text = "D:\\";
-            // 
-            // tbBin
-            // 
-            this.tbBin.Location = new System.Drawing.Point(112, 8);
-            this.tbBin.Name = "tbBin";
-            this.tbBin.Size = new System.Drawing.Size(425, 22);
-            this.tbBin.TabIndex = 50;
-            this.tbBin.Text = "D:\\Desktop\\RT5150_setting";
-            // 
-            // BTSelectBinPath6
-            // 
-            this.BTSelectBinPath6.Location = new System.Drawing.Point(4, 228);
-            this.BTSelectBinPath6.Name = "BTSelectBinPath6";
-            this.BTSelectBinPath6.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath6.TabIndex = 85;
-            this.BTSelectBinPath6.Text = "Bin File Path";
-            this.BTSelectBinPath6.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath6.Click += new System.EventHandler(this.BTSelectBinPath6_Click);
-            // 
-            // tbBin2
-            // 
-            this.tbBin2.Location = new System.Drawing.Point(112, 36);
-            this.tbBin2.Name = "tbBin2";
-            this.tbBin2.Size = new System.Drawing.Size(425, 22);
-            this.tbBin2.TabIndex = 76;
-            // 
-            // tbBin6
-            // 
-            this.tbBin6.Enabled = false;
-            this.tbBin6.Location = new System.Drawing.Point(112, 228);
-            this.tbBin6.Name = "tbBin6";
-            this.tbBin6.Size = new System.Drawing.Size(425, 22);
-            this.tbBin6.TabIndex = 84;
-            // 
-            // BTSelectBinPath2
-            // 
-            this.BTSelectBinPath2.Location = new System.Drawing.Point(4, 36);
-            this.BTSelectBinPath2.Name = "BTSelectBinPath2";
-            this.BTSelectBinPath2.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath2.TabIndex = 77;
-            this.BTSelectBinPath2.Text = "Bin File Path";
-            this.BTSelectBinPath2.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath2.Click += new System.EventHandler(this.BTSelectBinPath2_Click);
-            // 
-            // CBGPIO
-            // 
-            this.CBGPIO.FormattingEnabled = true;
-            this.CBGPIO.Items.AddRange(new object[] {
-            "P2.0",
-            "P2.1",
-            "P2.2"});
-            this.CBGPIO.Location = new System.Drawing.Point(491, 430);
-            this.CBGPIO.Name = "CBGPIO";
-            this.CBGPIO.Size = new System.Drawing.Size(62, 20);
-            this.CBGPIO.TabIndex = 86;
-            // 
-            // tbBin3
-            // 
-            this.tbBin3.Location = new System.Drawing.Point(112, 64);
-            this.tbBin3.Name = "tbBin3";
-            this.tbBin3.Size = new System.Drawing.Size(425, 22);
-            this.tbBin3.TabIndex = 78;
-            // 
-            // BTSelectBinPath5
-            // 
-            this.BTSelectBinPath5.Location = new System.Drawing.Point(4, 200);
-            this.BTSelectBinPath5.Name = "BTSelectBinPath5";
-            this.BTSelectBinPath5.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath5.TabIndex = 83;
-            this.BTSelectBinPath5.Text = "Bin File Path";
-            this.BTSelectBinPath5.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath5.Click += new System.EventHandler(this.BTSelectBinPath5_Click);
-            // 
-            // BTSelectBinPath3
-            // 
-            this.BTSelectBinPath3.Location = new System.Drawing.Point(4, 64);
-            this.BTSelectBinPath3.Name = "BTSelectBinPath3";
-            this.BTSelectBinPath3.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath3.TabIndex = 79;
-            this.BTSelectBinPath3.Text = "Bin File Path";
-            this.BTSelectBinPath3.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath3.Click += new System.EventHandler(this.BTSelectBinPath3_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(408, 433);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 12);
-            this.label7.TabIndex = 85;
-            this.label7.Text = "GPIO Select";
-            // 
-            // CbTrigger
-            // 
-            this.CbTrigger.FormattingEnabled = true;
-            this.CbTrigger.Items.AddRange(new object[] {
-            "0 : GPIO (PWRDIS / Sleep)",
-            "1 : I2C",
-            "2 : Vin (Power supply)",
-            "3 : Vout (Rail)"});
-            this.CbTrigger.Location = new System.Drawing.Point(491, 352);
-            this.CbTrigger.Name = "CbTrigger";
-            this.CbTrigger.Size = new System.Drawing.Size(192, 20);
-            this.CbTrigger.TabIndex = 80;
-            this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
-            // 
-            // tbBin5
-            // 
-            this.tbBin5.Enabled = false;
-            this.tbBin5.Location = new System.Drawing.Point(112, 200);
-            this.tbBin5.Name = "tbBin5";
-            this.tbBin5.Size = new System.Drawing.Size(425, 22);
-            this.tbBin5.TabIndex = 82;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(397, 355);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(83, 12);
-            this.label5.TabIndex = 81;
-            this.label5.Text = "Trigger Event";
-            // 
-            // tbBin4
-            // 
-            this.tbBin4.Enabled = false;
-            this.tbBin4.Location = new System.Drawing.Point(112, 172);
-            this.tbBin4.Name = "tbBin4";
-            this.tbBin4.Size = new System.Drawing.Size(425, 22);
-            this.tbBin4.TabIndex = 80;
-            // 
-            // BTSelectBinPath4
-            // 
-            this.BTSelectBinPath4.Location = new System.Drawing.Point(4, 172);
-            this.BTSelectBinPath4.Name = "BTSelectBinPath4";
-            this.BTSelectBinPath4.Size = new System.Drawing.Size(102, 23);
-            this.BTSelectBinPath4.TabIndex = 81;
-            this.BTSelectBinPath4.Text = "Bin File Path";
-            this.BTSelectBinPath4.UseVisualStyleBackColor = true;
-            this.BTSelectBinPath4.Click += new System.EventHandler(this.BTSelectBinPath4_Click);
-            // 
-            // CkBin1
-            // 
-            this.CkBin1.AutoSize = true;
-            this.CkBin1.Checked = true;
-            this.CkBin1.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.CkBin1.Location = new System.Drawing.Point(11, 8);
-            this.CkBin1.Name = "CkBin1";
-            this.CkBin1.Size = new System.Drawing.Size(91, 16);
-            this.CkBin1.TabIndex = 0;
-            this.CkBin1.Text = "Bin1 Folder";
-            this.CkBin1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.ck_crmode);
-            this.groupBox2.Controls.Add(this.tb_iout);
-            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox2.Location = new System.Drawing.Point(570, 88);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox2.Size = new System.Drawing.Size(258, 72);
-            this.groupBox2.TabIndex = 57;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Iout Range (A)";
-            // 
-            // ck_crmode
-            // 
-            this.ck_crmode.AutoSize = true;
-            this.ck_crmode.Location = new System.Drawing.Point(9, 20);
-            this.ck_crmode.Name = "ck_crmode";
-            this.ck_crmode.Size = new System.Drawing.Size(119, 16);
-            this.ck_crmode.TabIndex = 63;
-            this.ck_crmode.Text = "CR Mode Enable";
-            this.ck_crmode.UseVisualStyleBackColor = true;
-            this.ck_crmode.CheckedChanged += new System.EventHandler(this.ck_crmode_CheckedChanged);
-            // 
-            // tb_iout
-            // 
-            this.tb_iout.Location = new System.Drawing.Point(9, 42);
-            this.tb_iout.Name = "tb_iout";
-            this.tb_iout.Size = new System.Drawing.Size(231, 22);
-            this.tb_iout.TabIndex = 49;
-            this.tb_iout.Text = "0.5";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.tb_vinList);
-            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.groupBox1.Location = new System.Drawing.Point(570, 31);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBox1.Size = new System.Drawing.Size(258, 53);
-            this.groupBox1.TabIndex = 56;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Vin Range (V)";
-            // 
-            // tb_vinList
-            // 
-            this.tb_vinList.Location = new System.Drawing.Point(6, 21);
-            this.tb_vinList.Name = "tb_vinList";
-            this.tb_vinList.Size = new System.Drawing.Size(231, 22);
-            this.tb_vinList.TabIndex = 49;
-            this.tb_vinList.Text = "3.3";
-            // 
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage1.Controls.Add(this.label42);
+            this.tabPage1.Controls.Add(this.comboBox1);
             this.tabPage1.Controls.Add(this.panel7);
             this.tabPage1.Controls.Add(this.BTSelectWavePath);
             this.tabPage1.Controls.Add(this.Label79);
@@ -1851,6 +1539,16 @@ namespace SoftStartTiming
             this.nu_eload_ch3.Size = new System.Drawing.Size(89, 22);
             this.nu_eload_ch3.TabIndex = 3265;
             this.nu_eload_ch3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // BTSelectWavePath
+            // 
+            this.BTSelectWavePath.Location = new System.Drawing.Point(379, 404);
+            this.BTSelectWavePath.Name = "BTSelectWavePath";
+            this.BTSelectWavePath.Size = new System.Drawing.Size(102, 20);
+            this.BTSelectWavePath.TabIndex = 55;
+            this.BTSelectWavePath.Text = "Wave Path";
+            this.BTSelectWavePath.UseVisualStyleBackColor = true;
+            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
             // 
             // Label79
             // 
@@ -2135,6 +1833,23 @@ namespace SoftStartTiming
             this.textBox34.Text = "Seq2/Dly2";
             this.textBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(399, 379);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(81, 12);
+            this.label16.TabIndex = 89;
+            this.label16.Text = "GPIO Trigger";
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(491, 402);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(192, 22);
+            this.tbWave.TabIndex = 52;
+            this.tbWave.Text = "D:\\";
+            // 
             // Label78
             // 
             this.Label78.AutoSize = true;
@@ -2145,6 +1860,38 @@ namespace SoftStartTiming
             this.Label78.Size = new System.Drawing.Size(15, 15);
             this.Label78.TabIndex = 3252;
             this.Label78.Text = "V";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(408, 433);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 12);
+            this.label7.TabIndex = 85;
+            this.label7.Text = "GPIO Select";
+            // 
+            // CBEdge
+            // 
+            this.CBEdge.FormattingEnabled = true;
+            this.CBEdge.Items.AddRange(new object[] {
+            "Rising edge",
+            "Falling edge"});
+            this.CBEdge.Location = new System.Drawing.Point(491, 376);
+            this.CBEdge.Name = "CBEdge";
+            this.CBEdge.Size = new System.Drawing.Size(192, 20);
+            this.CBEdge.TabIndex = 90;
+            // 
+            // CBGPIO
+            // 
+            this.CBGPIO.FormattingEnabled = true;
+            this.CBGPIO.Items.AddRange(new object[] {
+            "P2.0",
+            "P2.1",
+            "P2.2"});
+            this.CBGPIO.Location = new System.Drawing.Point(491, 430);
+            this.CBGPIO.Name = "CBGPIO";
+            this.CBGPIO.Size = new System.Drawing.Size(62, 20);
+            this.CBGPIO.TabIndex = 86;
             // 
             // panel5
             // 
@@ -2171,7 +1918,6 @@ namespace SoftStartTiming
             // 
             // nu_seq3_data
             // 
-            this.nu_seq3_data.Enabled = false;
             this.nu_seq3_data.Hexadecimal = true;
             this.nu_seq3_data.Location = new System.Drawing.Point(250, 114);
             this.nu_seq3_data.Maximum = new decimal(new int[] {
@@ -2228,7 +1974,6 @@ namespace SoftStartTiming
             // 
             // nu_seq3_addr
             // 
-            this.nu_seq3_addr.Enabled = false;
             this.nu_seq3_addr.Hexadecimal = true;
             this.nu_seq3_addr.Location = new System.Drawing.Point(135, 113);
             this.nu_seq3_addr.Maximum = new decimal(new int[] {
@@ -2333,7 +2078,6 @@ namespace SoftStartTiming
             // textBox19
             // 
             this.textBox19.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox19.Enabled = false;
             this.textBox19.Location = new System.Drawing.Point(3, 112);
             this.textBox19.Name = "textBox19";
             this.textBox19.ReadOnly = true;
@@ -2910,6 +2654,7 @@ namespace SoftStartTiming
             // 
             // nudly3_end
             // 
+            this.nudly3_end.Enabled = false;
             this.nudly3_end.Location = new System.Drawing.Point(477, 116);
             this.nudly3_end.Name = "nudly3_end";
             this.nudly3_end.Size = new System.Drawing.Size(57, 22);
@@ -3014,6 +2759,7 @@ namespace SoftStartTiming
             // 
             // nudly3_from
             // 
+            this.nudly3_from.Enabled = false;
             this.nudly3_from.Location = new System.Drawing.Point(380, 116);
             this.nudly3_from.Name = "nudly3_from";
             this.nudly3_from.Size = new System.Drawing.Size(57, 22);
@@ -3100,6 +2846,263 @@ namespace SoftStartTiming
             this.cbox_dly2_to.Size = new System.Drawing.Size(107, 20);
             this.cbox_dly2_to.TabIndex = 9;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(397, 355);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(83, 12);
+            this.label5.TabIndex = 81;
+            this.label5.Text = "Trigger Event";
+            // 
+            // CbTrigger
+            // 
+            this.CbTrigger.FormattingEnabled = true;
+            this.CbTrigger.Items.AddRange(new object[] {
+            "0 : GPIO (PWRDIS / Sleep)",
+            "1 : I2C",
+            "2 : Vin (Power supply)",
+            "3 : Vout (Rail)"});
+            this.CbTrigger.Location = new System.Drawing.Point(491, 352);
+            this.CbTrigger.Name = "CbTrigger";
+            this.CbTrigger.Size = new System.Drawing.Size(192, 20);
+            this.CbTrigger.TabIndex = 80;
+            this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage2.Controls.Add(this.CkBin3);
+            this.tabPage2.Controls.Add(this.CkBin2);
+            this.tabPage2.Controls.Add(this.panel3);
+            this.tabPage2.Controls.Add(this.CkBin1);
+            this.tabPage2.Controls.Add(this.groupBox2);
+            this.tabPage2.Controls.Add(this.groupBox1);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(866, 678);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Test Page";
+            // 
+            // CkBin3
+            // 
+            this.CkBin3.AutoSize = true;
+            this.CkBin3.Location = new System.Drawing.Point(205, 8);
+            this.CkBin3.Name = "CkBin3";
+            this.CkBin3.Size = new System.Drawing.Size(91, 16);
+            this.CkBin3.TabIndex = 1;
+            this.CkBin3.Text = "Bin3 Folder";
+            this.CkBin3.UseVisualStyleBackColor = true;
+            // 
+            // CkBin2
+            // 
+            this.CkBin2.AutoSize = true;
+            this.CkBin2.Checked = true;
+            this.CkBin2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBin2.Location = new System.Drawing.Point(108, 8);
+            this.CkBin2.Name = "CkBin2";
+            this.CkBin2.Size = new System.Drawing.Size(91, 16);
+            this.CkBin2.TabIndex = 2;
+            this.CkBin2.Text = "Bin2 Folder";
+            this.CkBin2.UseVisualStyleBackColor = true;
+            // 
+            // panel3
+            // 
+            this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.BTSelectBinPath);
+            this.panel3.Controls.Add(this.tbBin);
+            this.panel3.Controls.Add(this.BTSelectBinPath6);
+            this.panel3.Controls.Add(this.tbBin2);
+            this.panel3.Controls.Add(this.tbBin6);
+            this.panel3.Controls.Add(this.BTSelectBinPath2);
+            this.panel3.Controls.Add(this.tbBin3);
+            this.panel3.Controls.Add(this.BTSelectBinPath5);
+            this.panel3.Controls.Add(this.BTSelectBinPath3);
+            this.panel3.Controls.Add(this.tbBin5);
+            this.panel3.Controls.Add(this.tbBin4);
+            this.panel3.Controls.Add(this.BTSelectBinPath4);
+            this.panel3.Location = new System.Drawing.Point(11, 31);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(553, 257);
+            this.panel3.TabIndex = 91;
+            // 
+            // BTSelectBinPath
+            // 
+            this.BTSelectBinPath.Location = new System.Drawing.Point(4, 8);
+            this.BTSelectBinPath.Name = "BTSelectBinPath";
+            this.BTSelectBinPath.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath.TabIndex = 53;
+            this.BTSelectBinPath.Text = "Bin File Path";
+            this.BTSelectBinPath.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath.Click += new System.EventHandler(this.BTSelectBinPath_Click);
+            // 
+            // tbBin
+            // 
+            this.tbBin.Location = new System.Drawing.Point(112, 8);
+            this.tbBin.Name = "tbBin";
+            this.tbBin.Size = new System.Drawing.Size(425, 22);
+            this.tbBin.TabIndex = 50;
+            this.tbBin.Text = "D:\\Desktop\\RT5150_setting";
+            // 
+            // BTSelectBinPath6
+            // 
+            this.BTSelectBinPath6.Location = new System.Drawing.Point(4, 228);
+            this.BTSelectBinPath6.Name = "BTSelectBinPath6";
+            this.BTSelectBinPath6.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath6.TabIndex = 85;
+            this.BTSelectBinPath6.Text = "Bin File Path";
+            this.BTSelectBinPath6.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath6.Click += new System.EventHandler(this.BTSelectBinPath6_Click);
+            // 
+            // tbBin2
+            // 
+            this.tbBin2.Location = new System.Drawing.Point(112, 36);
+            this.tbBin2.Name = "tbBin2";
+            this.tbBin2.Size = new System.Drawing.Size(425, 22);
+            this.tbBin2.TabIndex = 76;
+            // 
+            // tbBin6
+            // 
+            this.tbBin6.Enabled = false;
+            this.tbBin6.Location = new System.Drawing.Point(112, 228);
+            this.tbBin6.Name = "tbBin6";
+            this.tbBin6.Size = new System.Drawing.Size(425, 22);
+            this.tbBin6.TabIndex = 84;
+            // 
+            // BTSelectBinPath2
+            // 
+            this.BTSelectBinPath2.Location = new System.Drawing.Point(4, 36);
+            this.BTSelectBinPath2.Name = "BTSelectBinPath2";
+            this.BTSelectBinPath2.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath2.TabIndex = 77;
+            this.BTSelectBinPath2.Text = "Bin File Path";
+            this.BTSelectBinPath2.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath2.Click += new System.EventHandler(this.BTSelectBinPath2_Click);
+            // 
+            // tbBin3
+            // 
+            this.tbBin3.Location = new System.Drawing.Point(112, 64);
+            this.tbBin3.Name = "tbBin3";
+            this.tbBin3.Size = new System.Drawing.Size(425, 22);
+            this.tbBin3.TabIndex = 78;
+            // 
+            // BTSelectBinPath5
+            // 
+            this.BTSelectBinPath5.Location = new System.Drawing.Point(4, 200);
+            this.BTSelectBinPath5.Name = "BTSelectBinPath5";
+            this.BTSelectBinPath5.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath5.TabIndex = 83;
+            this.BTSelectBinPath5.Text = "Bin File Path";
+            this.BTSelectBinPath5.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath5.Click += new System.EventHandler(this.BTSelectBinPath5_Click);
+            // 
+            // BTSelectBinPath3
+            // 
+            this.BTSelectBinPath3.Location = new System.Drawing.Point(4, 64);
+            this.BTSelectBinPath3.Name = "BTSelectBinPath3";
+            this.BTSelectBinPath3.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath3.TabIndex = 79;
+            this.BTSelectBinPath3.Text = "Bin File Path";
+            this.BTSelectBinPath3.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath3.Click += new System.EventHandler(this.BTSelectBinPath3_Click);
+            // 
+            // tbBin5
+            // 
+            this.tbBin5.Enabled = false;
+            this.tbBin5.Location = new System.Drawing.Point(112, 200);
+            this.tbBin5.Name = "tbBin5";
+            this.tbBin5.Size = new System.Drawing.Size(425, 22);
+            this.tbBin5.TabIndex = 82;
+            // 
+            // tbBin4
+            // 
+            this.tbBin4.Enabled = false;
+            this.tbBin4.Location = new System.Drawing.Point(112, 172);
+            this.tbBin4.Name = "tbBin4";
+            this.tbBin4.Size = new System.Drawing.Size(425, 22);
+            this.tbBin4.TabIndex = 80;
+            // 
+            // BTSelectBinPath4
+            // 
+            this.BTSelectBinPath4.Location = new System.Drawing.Point(4, 172);
+            this.BTSelectBinPath4.Name = "BTSelectBinPath4";
+            this.BTSelectBinPath4.Size = new System.Drawing.Size(102, 23);
+            this.BTSelectBinPath4.TabIndex = 81;
+            this.BTSelectBinPath4.Text = "Bin File Path";
+            this.BTSelectBinPath4.UseVisualStyleBackColor = true;
+            this.BTSelectBinPath4.Click += new System.EventHandler(this.BTSelectBinPath4_Click);
+            // 
+            // CkBin1
+            // 
+            this.CkBin1.AutoSize = true;
+            this.CkBin1.Checked = true;
+            this.CkBin1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.CkBin1.Location = new System.Drawing.Point(11, 8);
+            this.CkBin1.Name = "CkBin1";
+            this.CkBin1.Size = new System.Drawing.Size(91, 16);
+            this.CkBin1.TabIndex = 0;
+            this.CkBin1.Text = "Bin1 Folder";
+            this.CkBin1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ck_crmode);
+            this.groupBox2.Controls.Add(this.tb_iout);
+            this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox2.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox2.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox2.Location = new System.Drawing.Point(570, 88);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox2.Size = new System.Drawing.Size(258, 72);
+            this.groupBox2.TabIndex = 57;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Iout Range (A)";
+            // 
+            // ck_crmode
+            // 
+            this.ck_crmode.AutoSize = true;
+            this.ck_crmode.Location = new System.Drawing.Point(9, 20);
+            this.ck_crmode.Name = "ck_crmode";
+            this.ck_crmode.Size = new System.Drawing.Size(119, 16);
+            this.ck_crmode.TabIndex = 63;
+            this.ck_crmode.Text = "CR Mode Enable";
+            this.ck_crmode.UseVisualStyleBackColor = true;
+            this.ck_crmode.CheckedChanged += new System.EventHandler(this.ck_crmode_CheckedChanged);
+            // 
+            // tb_iout
+            // 
+            this.tb_iout.Location = new System.Drawing.Point(9, 42);
+            this.tb_iout.Name = "tb_iout";
+            this.tb_iout.Size = new System.Drawing.Size(231, 22);
+            this.tb_iout.TabIndex = 49;
+            this.tb_iout.Text = "0.5";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tb_vinList);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Font = new System.Drawing.Font("新細明體", 9F, System.Drawing.FontStyle.Bold);
+            this.groupBox1.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.groupBox1.Location = new System.Drawing.Point(570, 31);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.groupBox1.Size = new System.Drawing.Size(258, 53);
+            this.groupBox1.TabIndex = 56;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Vin Range (V)";
+            // 
+            // tb_vinList
+            // 
+            this.tb_vinList.Location = new System.Drawing.Point(6, 21);
+            this.tb_vinList.Name = "tb_vinList";
+            this.tb_vinList.Size = new System.Drawing.Size(231, 22);
+            this.tb_vinList.TabIndex = 49;
+            this.tb_vinList.Text = "3.3";
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(370, 722);
@@ -3162,6 +3165,28 @@ namespace SoftStartTiming
             0,
             0});
             // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(625, 327);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(84, 12);
+            this.label42.TabIndex = 3270;
+            this.label42.Text = "Scope Trigger";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.comboBox1.Location = new System.Drawing.Point(726, 324);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(98, 20);
+            this.comboBox1.TabIndex = 3269;
+            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -3215,14 +3240,6 @@ namespace SoftStartTiming
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             this.panel7.ResumeLayout(false);
@@ -3271,6 +3288,14 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nudly3_from)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudly1_end)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudly2_end)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -3523,6 +3548,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }
 

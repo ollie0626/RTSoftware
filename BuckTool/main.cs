@@ -47,9 +47,10 @@ namespace BuckTool
         ATE_OutputRipple _ate_ripple = new ATE_OutputRipple();
         ATE_Lx _ate_lx = new ATE_Lx();
         ATE_Loadtrans _ate_trans = new ATE_Loadtrans();
+        ATE_ShutdownCurrent _ate_iq = new ATE_ShutdownCurrent();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.66";
+        string App_name = "Buck Tool v1.67";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -57,7 +58,7 @@ namespace BuckTool
         {
             cb_item.SelectedIndex = 0;
             Eload_DG.RowCount = 1;
-            ate_table = new TaskRun[] { _ate_eff, _ate_line, _ate_ripple, _ate_lx, _ate_trans };
+            ate_table = new TaskRun[] { _ate_eff, _ate_line, _ate_ripple, _ate_lx, _ate_trans, _ate_iq };
 
             led_power.Color = Color.Red;
             led_osc.Color = Color.Red;
@@ -177,11 +178,18 @@ namespace BuckTool
 
         private void test_parameter_copy()
         {
-            //1.Efficiency / Load Regulation
-            //2.Line Regulation
-            //3.Output Ripple
-            //4.Lx
-            //5.Load Transient
+            /*
+                1. Efficiency/Load Regulation
+                2. Line Regulation
+                3. Output Ripple
+                4. Lx
+                5. Load Transient
+                6. Eff & Line
+                7. Shutdown Current
+
+             */
+
+
 
             switch (cb_item.SelectedIndex)
             {
@@ -217,6 +225,12 @@ namespace BuckTool
                         }
                     }
                     break;
+                case 6:
+                    // vin: start, stop, step
+                    test_parameter.Vin_table = MyLib.TBData(tb_lineVin);
+                    // iout:
+                    test_parameter.Iout_table = MyLib.DGData(Eload_DG);
+                    break;
                 default:
                     break;
             }
@@ -231,6 +245,10 @@ namespace BuckTool
             test_parameter.tr = (double)nu_tr.Value;
             test_parameter.tf = (double)nu_tf.Value;
             test_parameter.vout_ideal = (double)nu_Videa.Value;
+
+            test_parameter.interval = (int)nuinterval.Value;
+            test_parameter.test_cnt = (int)nutest_cnt.Value;
+            test_parameter.en_ms = (int)nuEnon.Value;
 
             //test_parameter.item = cb_item.SelectedIndex;
             test_parameter.chamber_en = ck_chamber_en.Checked;
@@ -457,8 +475,9 @@ namespace BuckTool
                 }
                 else
                 {
-                    ate_table[(int)idx].temp = Convert.ToDouble(test_parameter.temp_table[i]);
-                    ate_table[(int)idx].ATETask();
+
+                    ate_table[(int)idx > 5 ? (int)idx - 1: (int)idx].temp = Convert.ToDouble(test_parameter.temp_table[i]);
+                    ate_table[(int)idx > 5 ? (int)idx - 1 : (int)idx].ATETask();
                 }
             }
             // test finish chamber to 25C
@@ -493,8 +512,8 @@ namespace BuckTool
             }
             else
             {
-                ate_table[(int)idx].temp = 25;
-                ate_table[(int)idx].ATETask();
+                ate_table[(int)idx > 5 ? (int)idx - 1 : (int)idx].temp = 25;
+                ate_table[(int)idx > 5 ? (int)idx - 1 : (int)idx].ATETask();
                 InsControl._power.AutoPowerOff();
                 InsControl._eload.AllChannel_LoadOff();
             }

@@ -45,6 +45,11 @@ namespace BuckTool
         public static double tr;
         public static double tf;
 
+        // shutdown current
+        public static int interval;
+        public static int test_cnt;
+        public static int en_ms;
+
         // chamber parameter
         //public static int item;
         //public static int steadyTime;

@@ -68,6 +68,7 @@
     <Compile Include="ATE_Line.cs" />
     <Compile Include="ATE_Loadtrans.cs" />
     <Compile Include="ATE_Lx.cs" />
+    <Compile Include="ATE_ShutdownCurrent.cs" />
     <Compile Include="ChamberCtr.cs" />
     <Compile Include="InsControl.cs" />
     <Compile Include="main.cs">

@@ -55,6 +55,18 @@ namespace BuckTool
             gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
         }
 
+        public static void GpioEn_Enable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, true);
+        }
+
+        public static void GpioEn_Disable()
+        {
+            if (gpioModule == null) return;
+            gpioModule.RTBB_GPIOSingleWrite(GPIO2_2, false);
+        }
+
         public static void Meter400mA(int port)
         {
             if (gpioModule == null) return;

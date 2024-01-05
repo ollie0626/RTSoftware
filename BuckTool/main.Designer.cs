@@ -117,6 +117,12 @@ namespace BuckTool
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.ck_multi_chamber = new System.Windows.Forms.CheckBox();
+            this.nuinterval = new System.Windows.Forms.NumericUpDown();
+            this.label16 = new System.Windows.Forms.Label();
+            this.nutest_cnt = new System.Windows.Forms.NumericUpDown();
+            this.label17 = new System.Windows.Forms.Label();
+            this.nuEnon = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -135,6 +141,9 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nu_Videa)).BeginInit();
             this.group_chamber.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuinterval)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nutest_cnt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuEnon)).BeginInit();
             this.SuspendLayout();
             // 
             // led_chamber
@@ -605,7 +614,8 @@ namespace BuckTool
             "3. Output Ripple",
             "4. Lx",
             "5. Load Transient",
-            "6. Eff & Line"});
+            "6. Eff & Line",
+            "7. Shutdown Current"});
             this.cb_item.Location = new System.Drawing.Point(101, 138);
             this.cb_item.Name = "cb_item";
             this.cb_item.Size = new System.Drawing.Size(172, 23);
@@ -1360,11 +1370,101 @@ namespace BuckTool
             this.ck_multi_chamber.Text = "Multi-ATE";
             this.ck_multi_chamber.UseVisualStyleBackColor = true;
             // 
+            // nuinterval
+            // 
+            this.nuinterval.DecimalPlaces = 2;
+            this.nuinterval.Location = new System.Drawing.Point(548, 584);
+            this.nuinterval.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.nuinterval.Name = "nuinterval";
+            this.nuinterval.Size = new System.Drawing.Size(74, 23);
+            this.nuinterval.TabIndex = 93;
+            this.nuinterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuinterval.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(438, 586);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(80, 15);
+            this.label16.TabIndex = 94;
+            this.label16.Text = "delay time (s)";
+            // 
+            // nutest_cnt
+            // 
+            this.nutest_cnt.DecimalPlaces = 2;
+            this.nutest_cnt.Location = new System.Drawing.Point(547, 613);
+            this.nutest_cnt.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.nutest_cnt.Name = "nutest_cnt";
+            this.nutest_cnt.Size = new System.Drawing.Size(74, 23);
+            this.nutest_cnt.TabIndex = 95;
+            this.nutest_cnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nutest_cnt.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(471, 615);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(47, 15);
+            this.label17.TabIndex = 96;
+            this.label17.Text = "test cnt";
+            // 
+            // nuEnon
+            // 
+            this.nuEnon.DecimalPlaces = 2;
+            this.nuEnon.Location = new System.Drawing.Point(547, 642);
+            this.nuEnon.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.nuEnon.Name = "nuEnon";
+            this.nuEnon.Size = new System.Drawing.Size(74, 23);
+            this.nuEnon.TabIndex = 97;
+            this.nuEnon.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuEnon.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(467, 644);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(54, 15);
+            this.label18.TabIndex = 98;
+            this.label18.Text = "En on (s)";
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(738, 730);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.Controls.Add(this.nuEnon);
+            this.Controls.Add(this.label18);
+            this.Controls.Add(this.nutest_cnt);
+            this.Controls.Add(this.label17);
+            this.Controls.Add(this.nuinterval);
+            this.Controls.Add(this.label16);
             this.Controls.Add(this.group_chamber);
             this.Controls.Add(this.tb_lineVin);
             this.Controls.Add(this.label12);
@@ -1444,6 +1544,9 @@ namespace BuckTool
             this.group_chamber.ResumeLayout(false);
             this.group_chamber.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuinterval)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nutest_cnt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuEnon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1539,6 +1642,12 @@ namespace BuckTool
         private System.Windows.Forms.TextBox tb_templist;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.CheckBox ck_multi_chamber;
+        private System.Windows.Forms.NumericUpDown nuinterval;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.NumericUpDown nutest_cnt;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.NumericUpDown nuEnon;
+        private System.Windows.Forms.Label label18;
     }
 }
 
