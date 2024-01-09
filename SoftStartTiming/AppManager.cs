@@ -32,7 +32,7 @@ namespace SoftStartTiming
                                         };
 
 
-            CBItem.SelectedIndex = 1;
+            CBItem.SelectedIndex = 0;
             CBEdge.SelectedIndex = 0;
 
             for(int i = 0; i < cboxTable.Length; i++)

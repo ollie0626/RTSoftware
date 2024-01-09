@@ -63,6 +63,8 @@ namespace SoftStartTiming
         public string ideal1;
         public string ideal2;
         public string ideal3;
+
+        public int trigger_ch;
     }
 
     public class ATE_DelayTime : TaskRun
@@ -219,6 +221,11 @@ namespace SoftStartTiming
             dt_test.ideal1 = tmp[1];
             dt_test.ideal2 = tmp[2];
             dt_test.ideal3 = tmp[3];
+
+            string trigger_ch = seq_dg[8, idx].Value.ToString();
+            dt_test.trigger_ch = Convert.ToInt32(trigger_ch.Replace("CH", ""));
+
+
         }
 
         private void GetSameAddr(ref Dictionary<int, int> map, int addr, int data)
@@ -275,7 +282,7 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetTimeBasePosition(15);
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode(); // auto trigger
-            InsControl._tek_scope.SetTriggerSource(1);
+            InsControl._tek_scope.SetTriggerSource(dt_test.trigger_ch);
 
             InsControl._tek_scope.CHx_On(1);
             InsControl._tek_scope.CHx_On(2);
@@ -737,16 +744,23 @@ namespace SoftStartTiming
                 int ch2 = dt_test.meas_posCH1[1];
                 bool direct = dt_test.precentCH1[0] > dt_test.precentCH1[1];
                 double delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
+                MyLib.Delay1ms(100);
+                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
+
 
                 ch1 = dt_test.meas_posCH2[0];
                 ch2 = dt_test.meas_posCH2[1];
                 direct = dt_test.precentCH2[0] > dt_test.precentCH2[1];
                 double delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
+                MyLib.Delay1ms(100);
+                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
 
                 ch1 = dt_test.meas_posCH3[0];
                 ch2 = dt_test.meas_posCH3[1];
                 direct = dt_test.precentCH3[0] > dt_test.precentCH3[1];
                 double delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
+                MyLib.Delay1ms(100);
+                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
 
                 //ch1 = dt_test.meas_posCH4[0];
                 //ch2 = dt_test.meas_posCH4[1];

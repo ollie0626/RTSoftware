@@ -18,10 +18,14 @@ using Excel = Microsoft.Office.Interop.Excel;
 using System.Reflection.Emit;
 using SoftStartTiming.Properties;
 
+using System.Runtime.InteropServices;
+
+
 namespace SoftStartTiming
 {
     public partial class SoftStartTiming : Form
     {
+        
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         int SteadyTime;
@@ -633,7 +637,7 @@ namespace SoftStartTiming
         private void BT_SaveSetting_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveDlg = new SaveFileDialog();
-            saveDlg.Filter = "settings|*.tb_info";
+            saveDlg.Filter = "settings|*.xlsx";
 
             if (saveDlg.ShowDialog() == DialogResult.OK)
             {
@@ -642,212 +646,333 @@ namespace SoftStartTiming
             }
         }
 
+        private void title_set(Excel.Worksheet sheet, int row, int col)
+        {
+            Excel.Range range = sheet.Cells[row, col];
+            range.Font.Bold = true;
+            range.Interior.Color = 65535;
+
+            Marshal.ReleaseComObject(range);
+        }
+
+        private void data_set(Excel.Worksheet sheet, ref int row, DataGridView dg)
+        {
+            int col = 1;
+            for(int i = 0; i < dg.ColumnCount; i++)
+            {
+                sheet.Cells[row + i, col] = dg.Columns[i].HeaderText;
+            }
+
+            for(int i = 0; i < dg.RowCount; i++) // ↓
+            {
+                for(int j = 0; j < dg.ColumnCount;  j++) // →
+                {
+                    // excel -> (row, col), dg -> (col, row)
+                    sheet.Cells[row + j, col + 1 + i] = dg[j, i].Value;
+                }
+            }
+
+            for (int i = 0; i < dg.ColumnCount; i++) row++;
+        }
+
         private void SaveSettings(string file)
         {
-            string settings = "";
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook book = app.Workbooks.Add();
+            Excel.Worksheet sheet = (Excel.Worksheet)book.Sheets[1];
+            app.Visible = true;
+            //string settings = "";
 
-            // chamber info
-            settings = "Chamber_en=$" + (ck_chamber_en.Checked ? "1" : "0") + "$\r\n";
-            settings += "Chamber_temp=$" + tb_chamber.Text + "$\r\n";
-            settings += "Chamber_time=$" + nu_steady.Value.ToString() + "$\r\n";
+            int row = 1;
+            int col = 1;
 
-            // slave id
-            settings += "Slave=$" + nuslave.Value.ToString() + "$\r\n";
-            settings += "Addr=$" + nuAddr.Value.ToString() + "$\r\n";
-            settings += "Rail_en=$" + nuData1.Value.ToString() + "$\r\n";
-            settings += "Rail_dis=$" + nuData2.Value.ToString() + "$\r\n";
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "Chamber Config";
+            sheet.Cells[row, col] = "Chamber En";
+            sheet.Cells[row++, col + 1] = ck_chamber_en.Enabled;
+            sheet.Cells[row, col] = "Chamber Temp";
+            sheet.Cells[row++, col + 1] = tb_templist.Text;
+            sheet.Cells[row, col] = "Chamber steady time";
+            sheet.Cells[row, col + 1].Numberformat = "@";
+            sheet.Cells[row++, col + 1] = nu_steady.Value;
 
-            // bin folder
-            settings += "Bin1=$" + tbBin.Text + "$\r\n";
-            settings += "Bin2=$" + tbBin2.Text + "$\r\n";
-            settings += "Bin3=$" + tbBin3.Text + "$\r\n";
-            settings += "Bin4=$" + tbBin4.Text + "$\r\n";
-            settings += "Bin5=$" + tbBin5.Text + "$\r\n";
-            settings += "Bin6=$" + tbBin6.Text + "$\r\n";
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "I2C Rail Enable/Disable";
+            sheet.Cells[row, col] = "Slave";
+            sheet.Cells[row, col + 1].Numberformat = "@";
+            sheet.Cells[row++, col + 1] = string.Format("{0:X}", (int)nuslave.Value);
+            sheet.Cells[row, col] = "Addr";
+            sheet.Cells[row, col + 1].Numberformat = "@";
+            sheet.Cells[row++, col + 1] = string.Format("{0:X}", (int)nuAddr.Value);
+            sheet.Cells[row, col] = "Rail Enable/Disable";
+            sheet.Cells[row, col + 1].Numberformat = "@";
+            sheet.Cells[row, col + 2].Numberformat = "@";
+            sheet.Cells[row, col + 1] =  string.Format("{0:X}", (int)nuData1.Value);
+            sheet.Cells[row++, col + 2] = string.Format("{0:X}", (int)nuData2.Value);
 
-            settings += "WavePath=$" + tbWave.Text + "$\r\n";
-            settings += "Trigger_event=$" + CbTrigger.SelectedIndex + "$\r\n";
-            settings += "GPIO_sel=$" + CBGPIO.SelectedIndex + "$\r\n";
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "General setting";
+            sheet.Cells[row, col] = "Wave path";
+            sheet.Cells[row++, col + 1] = tbWave.Text;
 
-            settings += "Bin1_en=$" + (CkBin1.Checked ? "1" : "0") + "$\r\n";
-            settings += "Bin2_en=$" + (CkBin2.Checked ? "1" : "0") + "$\r\n";
-            settings += "Bin3_en=$" + (CkBin3.Checked ? "1" : "0") + "$\r\n";
+            sheet.Cells[row, col] = "Trigger Event";
+            sheet.Cells[row++, col + 1] = CbTrigger.SelectedIndex;
 
-            settings += "Scope_Ch0_en=$" + (CkCH0.Checked ? "1" : "0") + "$\r\n";
-            settings += "Scope_Ch1_en=$" + (CkCH1.Checked ? "1" : "0") + "$\r\n";
-            settings += "Scope_Ch2_en=$" + (CkCH2.Checked ? "1" : "0") + "$\r\n";
-            settings += "Scope_Ch3_en=$" + (CkCH3.Checked ? "1" : "0") + "$\r\n";
+            sheet.Cells[row, col] = "GPIO_sel";
+            sheet.Cells[row++, col + 1] = CBGPIO.SelectedIndex;
 
-            settings += "Lx_level=$" + nuLX.Value.ToString() + "$\r\n";
-            settings += "ILx_level=$" + nuILX.Value.ToString() + "$\r\n";
+            // -------------------------------------------------------
+            // scope setting
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "Scope Setting";
+            sheet.Cells[row, col] = "Channel Resize";
+            sheet.Cells[row, col + 1] = CkCH0.Checked;
+            sheet.Cells[row, col + 2] = CkCH1.Checked;
+            sheet.Cells[row, col + 3] = CkCH2.Checked;
+            sheet.Cells[row++, col + 4] = CkCH3.Checked;
 
-            settings += "On_TimeScale=$" + nu_ontime_scale.Value.ToString() + "$\r\n";
-            settings += "Off_TimeScale=$" + nu_offtime_scale.Value.ToString() + "$\r\n";
+            sheet.Cells[row, col] = "Power on/off TimeScale";
+            sheet.Cells[row, col + 1] = nu_ontime_scale.Value.ToString();
+            sheet.Cells[row++, col + 2] = nu_offtime_scale.Value.ToString();
+            sheet.Cells[row, col] = "Time Offset";
+            sheet.Cells[row++, col + 1] = nuOffset.Value;
 
-            settings += "Vintb=$" + tb_vinList.Text + "$\r\n";
-            settings += "Unit=$" + (RBUs.Checked ? "1" : "0") + "$\r\n";
-            settings += "Time_offset=$" + nuOffset.Value.ToString() + "$\r\n";
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "Measure Start and End";
+            sheet.Cells[row, col] = "Seq0";
+            sheet.Cells[row, col + 1] = cbox_dly0_from.SelectedIndex;
+            sheet.Cells[row, col + 2] = cbox_dly0_to.SelectedIndex;
+            sheet.Cells[row, col + 3] = nudly0_from.Value;
+            sheet.Cells[row, col + 4] = nudly0_end.Value;
+            sheet.Cells[row++, col + 5] = nu_ch0_level.Value;
 
-            settings += "dly0_sel=$" + cbox_dly0_to.SelectedIndex + "$\r\n";
-            settings += "dly1_sel=$" + cbox_dly1_to.SelectedIndex + "$\r\n";
-            settings += "dly2_sel=$" + cbox_dly2_to.SelectedIndex + "$\r\n";
-            settings += "dly3_sel=$" + cbox_dly3_to.SelectedIndex + "$\r\n";
+            sheet.Cells[row, col] = "Seq1";
+            sheet.Cells[row, col + 1] = cbox_dly1_from.SelectedIndex;
+            sheet.Cells[row, col + 2] = cbox_dly1_to.SelectedIndex;
+            sheet.Cells[row, col + 3] = nudly1_from.Value;
+            sheet.Cells[row, col + 4] = nudly1_end.Value;
+            sheet.Cells[row++, col + 5] = nu_ch1_level.Value;
 
-            // ----------------------------------------------------------------
-            settings += "dly0_from=$" + cbox_dly0_from.SelectedIndex + "$\r\n";
-            settings += "dly1_from=$" + cbox_dly1_from.SelectedIndex + "$\r\n";
-            settings += "dly2_from=$" + cbox_dly2_from.SelectedIndex + "$\r\n";
-            settings += "dly3_from=$" + cbox_dly3_from.SelectedIndex + "$\r\n";
+            sheet.Cells[row, col] = "Seq2";
+            sheet.Cells[row, col + 1] = cbox_dly2_from.SelectedIndex;
+            sheet.Cells[row, col + 2] = cbox_dly2_to.SelectedIndex;
+            sheet.Cells[row, col + 3] = nudly2_from.Value;
+            sheet.Cells[row, col + 4] = nudly2_end.Value;
+            sheet.Cells[row++, col + 5] = nu_ch2_level.Value;
 
-            settings += "dly0_100=$" + nudly0_from.Value + "$\r\n";
-            settings += "dly1_100=$" + nudly1_from.Value + "$\r\n";
-            settings += "dly2_100=$" + nudly2_from.Value + "$\r\n";
-            settings += "dly3_100=$" + nudly3_from.Value + "$\r\n";
-
-            settings += "dly0_0=$" + nudly0_end.Value + "$\r\n";
-            settings += "dly1_0=$" + nudly1_end.Value + "$\r\n";
-            settings += "dly2_0=$" + nudly2_end.Value + "$\r\n";
-            settings += "dly3_0=$" + nudly3_end.Value + "$\r\n";
-
-            settings += "init_level0=$" + nu_ch0_level.Value + "$\r\n";
-            settings += "init_level1=$" + nu_ch1_level.Value + "$\r\n";
-            settings += "init_level2=$" + nu_ch2_level.Value + "$\r\n";
-            settings += "init_level3=$" + nu_ch3_level.Value + "$\r\n";
-
-            settings += "i2c_setting_row=$" + i2c_datagrid.RowCount + "$\r\n";
-            settings += "i2c_mpt_setting_row=$" + i2c_mtp_datagrid.RowCount + "$\r\n";
-            settings += "test_conditions_row=$" + test_dg.RowCount + "$\r\n";
-
-            for (int i = 0; i < i2c_datagrid.RowCount; i++)
-            {
-                settings += "Addr=$" + i2c_datagrid[0, i].Value.ToString() + "$\r\n";
-                settings += "Data=$" + i2c_datagrid[1, i].Value.ToString() + "$\r\n";
-            }
-
-            for (int i = 0; i < i2c_mtp_datagrid.RowCount; i++)
-            {
-                settings += "Addr=$" + i2c_mtp_datagrid[0, i].Value.ToString() + "$\r\n";
-                settings += "Data=$" + i2c_mtp_datagrid[1, i].Value.ToString() + "$\r\n";
-            }
-
-            for(int i = 0; i < test_dg.RowCount; i++)
-            {
-                settings += "Vin=$" + test_dg[0, i].Value.ToString() + "$\r\n";
-                settings += "Seq=$" + test_dg[1, i].Value.ToString() + "$\r\n";
-                settings += "CHn=$" + test_dg[2, i].Value.ToString() + "$\r\n";
-                settings += "Percentage=$" + test_dg[3, i].Value.ToString() + "$\r\n";
-                settings += "Seq_time=$" + test_dg[4, i].Value.ToString() + "$\r\n";
-                settings += "Level=$" + test_dg[5, i].Value.ToString() + "$\r\n";
-                settings += "Iout=$" + test_dg[6, i].Value.ToString() + "$\r\n";
-                settings += "Spec=$" + test_dg[7, i].Value.ToString() + "$\r\n";
-            }
+            sheet.Cells[row, col] = "Seq3";
+            sheet.Cells[row, col + 1] = cbox_dly3_from.SelectedIndex;
+            sheet.Cells[row, col + 2] = cbox_dly3_to.SelectedIndex;
+            sheet.Cells[row, col + 3] = nudly3_from.Value;
+            sheet.Cells[row, col + 4] = nudly3_end.Value;
+            sheet.Cells[row++, col + 5] = nu_ch3_level.Value;
 
 
-            using (StreamWriter sw = new StreamWriter(file))
-            {
-                sw.Write(settings);
-            }
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "I2C Init Config";
+            data_set(sheet, ref row, i2c_datagrid);
+
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "I2C MTP Config";
+            data_set(sheet, ref row, i2c_mtp_datagrid);
+
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "Test Config";
+            data_set(sheet, ref row, test_dg);
+
+
+            sheet.Columns[1].AutoFit();
+
+            sheet.SaveAs(file);
+            book.Save();
+            book.Close();
+            app.Quit();
+
+
+            Marshal.ReleaseComObject(sheet);
+            Marshal.ReleaseComObject(book);
+            Marshal.ReleaseComObject(app);
         }
 
         private void BT_LoadSetting_Click(object sender, EventArgs e)
         {
             OpenFileDialog opendlg = new OpenFileDialog();
-            opendlg.Filter = "settings|*.tb_info";
+            opendlg.Filter = "settings|*.xlsx";
             if (opendlg.ShowDialog() == DialogResult.OK)
             {
                 LoadSettings(opendlg.FileName);
             }
         }
 
+        private int GetLastColumn(Excel.Worksheet sheet, int row)
+        {
+            return sheet.Cells[row, sheet.Columns.Count].End[Excel.XlDirection.xlToLeft].Column;
+        }
+
+        private void data_import(Excel.Worksheet sheet, ref int row, DataGridView dg)
+        {
+            // excel row number
+            int row_number = 9;
+            string temp = sheet.Cells[row, 1].Value;
+            if (temp == "Address") row_number = 2;
+
+            // excel col number --> dg row number
+            int last_col = GetLastColumn(sheet, row);
+            dg.RowCount = last_col - 1;
+
+
+            for (int j = 0; j < row_number; j++)
+            {
+                for (int i = 2; i < last_col + 1; i++)
+                {
+                    temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(i) + row].Value);
+                    dg[j, i - 2].Value = (object)temp;
+                }
+                row++;
+            }
+        }
+
         private void LoadSettings(string file)
         {
+            Excel.Application app = new Excel.Application();
+            Excel.Workbook book = app.Workbooks.Open(file);
+            Excel.Worksheet sheet = (Excel.Worksheet)book.Sheets[1];
+
+            string temp = "";
+            int row = 2;
+            int col = 1;
+
+            int last_col = GetLastColumn(sheet, row);
+            ck_chamber_en.Checked = sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value;
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            tb_templist.Text = sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value;
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            nu_steady.Value = Convert.ToInt32(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            row += 2;
+
+            // i2c Rail Enable/Disable
+            last_col = GetLastColumn(sheet, row);
+            nuslave.Value = Convert.ToInt32(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value, 16);
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            nuAddr.Value = Convert.ToInt32(temp, 16);
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nuData1.Value = Convert.ToInt32(temp, 16);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            nuData2.Value = Convert.ToInt32(temp, 16);
+            row += 2;
+
+            // General setting
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            tbWave.Text = temp;
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            cbox_trigger.SelectedIndex = Convert.ToInt32(temp);
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            CBGPIO.SelectedIndex = Convert.ToInt32(temp);
+            row += 2;
 
 
-            object[] obj_arr = new object[]
-            {
-                ck_chamber_en, tb_chamber, nu_steady, nuslave, nuAddr, nuData1, nuData2,
-                tbBin, tbBin2, tbBin3, tbBin4, tbBin5, tbBin6, tbWave, CbTrigger, CBGPIO,
-                CkBin1, CkBin2, CkBin3, CkCH0, CkCH1, CkCH2, CkCH3, nuLX, nuILX, nu_ontime_scale,
-                nu_offtime_scale, tb_vinList, RBUs, nuOffset, cbox_dly0_to, cbox_dly1_to, cbox_dly2_to,
-                cbox_dly3_to, cbox_dly0_from, cbox_dly1_from, cbox_dly2_from, cbox_dly3_from, nudly0_from,
-                nudly1_from, nudly2_from, nudly3_from, nudly0_end, nudly1_end, nudly2_end, nudly3_end,
-                nu_ch0_level, nu_ch1_level, nu_ch2_level, nu_ch3_level, i2c_datagrid, i2c_mtp_datagrid, test_dg
+            last_col = GetLastColumn(sheet, row);
+            CkCH0.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value;
+            CkCH1.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value;
+            CkCH2.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value;
+            CkCH3.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value;
+            row++;
 
-            };
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nu_ontime_scale.Value = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            nu_offtime_scale.Value = Convert.ToInt32(temp);
+            row++;
 
-            List<string> info = new List<string>();
-            using (StreamReader sr = new StreamReader(file))
-            {
-                string pattern = @"(?<=\$)(.*)(?=\$)";
-                MatchCollection matches;
-                string line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    Regex rg = new Regex(pattern);
-                    matches = rg.Matches(line);
-                    Match match = matches[0];
-                    info.Add(match.Value);
-                }
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            nuOffset.Value = Convert.ToInt32(temp);
+            row += 2;
 
-                int idx = 0;
-                for (int i = 0; i < obj_arr.Length; i++)
-                {
-                    switch (obj_arr[i].GetType().Name)
-                    {
-                        case "TextBox":
-                            ((TextBox)obj_arr[i]).Text = info[i];
-                            break;
-                        case "CheckBox":
-                            ((CheckBox)obj_arr[i]).Checked = info[i] == "1" ? true : false;
-                            break;
-                        case "NumericUpDown":
-                            ((NumericUpDown)obj_arr[i]).Value = Convert.ToDecimal(info[i]);
-                            break;
-                        case "ComboBox":
-                            ((ComboBox)obj_arr[i]).SelectedIndex = Convert.ToInt32(info[i]);
-                            break;
-                        case "RadioButton":
-                            ((RadioButton)obj_arr[i]).Checked = info[i] == "1" ? true : false;
-                            break;
-                        case "DataGridView":
-                            Console.WriteLine("{0}", i);
-                            ((DataGridView)obj_arr[i]).RowCount = Convert.ToInt32(info[i]);
-                            ((DataGridView)obj_arr[i + 1]).RowCount = Convert.ToInt32(info[i + 1]);
-                            ((DataGridView)obj_arr[i + 2]).RowCount = Convert.ToInt32(info[i + 2]);
-                            idx = i + 3;
-                            goto fullDG;
-                    }
-                }
 
-            fullDG:
-                for (int i = 0; i < i2c_datagrid.RowCount; i++)
-                {
-                    i2c_datagrid[0, i].Value = Convert.ToString(info[idx + 0]);
-                    i2c_datagrid[1, i].Value = Convert.ToString(info[idx + 1]);
-                    idx += 2;
-                }
+            // Measure Start and Stop
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 4) + row].Value);
+            cbox_dly0_from.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value);
+            cbox_dly0_to.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value);
+            nudly0_from.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nudly0_end.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value);
+            nu_ch0_level.Value = Convert.ToDecimal(temp);
+            row++;
 
-                for (int i = 0; i < i2c_mtp_datagrid.RowCount; i++)
-                {
-                    i2c_mtp_datagrid[0, i].Value = Convert.ToString(info[idx + 0]);
-                    i2c_mtp_datagrid[1, i].Value = Convert.ToString(info[idx + 1]);
-                    idx += 2;
-                }
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 4) + row].Value);
+            cbox_dly1_from.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value);
+            cbox_dly1_to.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value);
+            nudly1_from.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nudly1_end.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value);
+            nu_ch1_level.Value = Convert.ToDecimal(temp);
+            row++;
 
-                for (int i = 0; i < test_dg.RowCount; i++)
-                {
-                    test_dg[0, i].Value = Convert.ToString(info[idx + 0]);
-                    test_dg[1, i].Value = Convert.ToString(info[idx + 1]);
-                    test_dg[2, i].Value = Convert.ToString(info[idx + 2]);
-                    test_dg[3, i].Value = Convert.ToString(info[idx + 3]);
-                    test_dg[4, i].Value = Convert.ToString(info[idx + 4]);
-                    test_dg[5, i].Value = Convert.ToString(info[idx + 5]);
-                    test_dg[6, i].Value = Convert.ToString(info[idx + 6]);
-                    test_dg[7, i].Value = Convert.ToString(info[idx + 7]);
-                    idx += 8;
-                }
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 4) + row].Value);
+            cbox_dly2_from.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value);
+            cbox_dly2_to.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value);
+            nudly2_from.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nudly2_end.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value);
+            nu_ch2_level.Value = Convert.ToDecimal(temp);
+            row++;
 
-            }
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 4) + row].Value);
+            cbox_dly3_from.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value);
+            cbox_dly3_to.SelectedIndex = Convert.ToInt32(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value);
+            nudly3_from.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);
+            nudly3_end.Value = Convert.ToDecimal(temp);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value);
+            nu_ch3_level.Value = Convert.ToDecimal(temp);
+            row += 2;
+
+            // i2c Init config
+            data_import(sheet, ref row, i2c_datagrid); row += 1;
+            data_import(sheet, ref row, i2c_mtp_datagrid); row += 1;
+            data_import(sheet, ref row, test_dg);
+
+            book.Close();
+            app.Quit();
+
+            Marshal.ReleaseComObject(sheet);
+            Marshal.ReleaseComObject(book);
+            Marshal.ReleaseComObject(app);
+
         }
 
         private void ck_crmode_CheckedChanged(object sender, EventArgs e)
@@ -988,6 +1113,8 @@ namespace SoftStartTiming
                 if (i == seqTable_addr.Length - 1) test_dg[6, current_row].Value = eload_info;
                 // add spec
                 if (i == seqTable_addr.Length - 1) test_dg[7, current_row].Value = idelTime_info;
+
+                test_dg[8, current_row].Value = cbox_trigger.Text;
             }
             
         }

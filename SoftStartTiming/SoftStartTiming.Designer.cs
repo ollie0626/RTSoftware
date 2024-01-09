@@ -117,6 +117,8 @@ namespace SoftStartTiming
             this.tb_daq = new System.Windows.Forms.TextBox();
             this.tb_chamber = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label42 = new System.Windows.Forms.Label();
+            this.cbox_trigger = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
             this.cbox_eload_ch4 = new System.Windows.Forms.ComboBox();
             this.cbox_eload_ch3 = new System.Windows.Forms.ComboBox();
@@ -179,14 +181,6 @@ namespace SoftStartTiming
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.test_dg = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bt_add_to_table = new System.Windows.Forms.Button();
             this.num_vin = new System.Windows.Forms.NumericUpDown();
             this.textBox9 = new System.Windows.Forms.TextBox();
@@ -274,8 +268,15 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
-            this.label42 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -1324,7 +1325,7 @@ namespace SoftStartTiming
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
             this.tabPage1.Controls.Add(this.label42);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.cbox_trigger);
             this.tabPage1.Controls.Add(this.panel7);
             this.tabPage1.Controls.Add(this.BTSelectWavePath);
             this.tabPage1.Controls.Add(this.Label79);
@@ -1349,6 +1350,28 @@ namespace SoftStartTiming
             this.tabPage1.Size = new System.Drawing.Size(866, 678);
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Scope";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(625, 327);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(84, 12);
+            this.label42.TabIndex = 3270;
+            this.label42.Text = "Scope Trigger";
+            // 
+            // cbox_trigger
+            // 
+            this.cbox_trigger.FormattingEnabled = true;
+            this.cbox_trigger.Items.AddRange(new object[] {
+            "CH1",
+            "CH2",
+            "CH3",
+            "CH4"});
+            this.cbox_trigger.Location = new System.Drawing.Point(726, 324);
+            this.cbox_trigger.Name = "cbox_trigger";
+            this.cbox_trigger.Size = new System.Drawing.Size(98, 20);
+            this.cbox_trigger.TabIndex = 3269;
             // 
             // panel7
             // 
@@ -1604,7 +1627,6 @@ namespace SoftStartTiming
             // nu_idel_time4
             // 
             this.nu_idel_time4.DecimalPlaces = 3;
-            this.nu_idel_time4.Enabled = false;
             this.nu_idel_time4.Location = new System.Drawing.Point(355, 111);
             this.nu_idel_time4.Name = "nu_idel_time4";
             this.nu_idel_time4.Size = new System.Drawing.Size(89, 22);
@@ -1613,7 +1635,6 @@ namespace SoftStartTiming
             // 
             // nu_idel3_data
             // 
-            this.nu_idel3_data.Enabled = false;
             this.nu_idel3_data.Hexadecimal = true;
             this.nu_idel3_data.Location = new System.Drawing.Point(250, 114);
             this.nu_idel3_data.Maximum = new decimal(new int[] {
@@ -1697,7 +1718,6 @@ namespace SoftStartTiming
             // 
             // nu_idel3_addr
             // 
-            this.nu_idel3_addr.Enabled = false;
             this.nu_idel3_addr.Hexadecimal = true;
             this.nu_idel3_addr.Location = new System.Drawing.Point(135, 113);
             this.nu_idel3_addr.Maximum = new decimal(new int[] {
@@ -2120,58 +2140,13 @@ namespace SoftStartTiming
             this.Column4,
             this.Column6,
             this.Column7,
-            this.Column8});
+            this.Column8,
+            this.Column9});
             this.test_dg.Location = new System.Drawing.Point(18, 473);
             this.test_dg.Name = "test_dg";
             this.test_dg.RowTemplate.Height = 24;
             this.test_dg.Size = new System.Drawing.Size(814, 177);
             this.test_dg.TabIndex = 102;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Vin (V)";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Seq (0→n)";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "CHn(From/End)";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 120;
-            // 
-            // Column5
-            // 
-            this.Column5.FillWeight = 120F;
-            this.Column5.HeaderText = "Percentage(From/End)";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Sequence(0→n) Time";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 160;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "CHn (Init Level)";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 140;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Iout (A)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Idel Time Spec(ms)";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 180;
             // 
             // bt_add_to_table
             // 
@@ -3165,27 +3140,56 @@ namespace SoftStartTiming
             0,
             0});
             // 
-            // label42
+            // Column1
             // 
-            this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(625, 327);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(84, 12);
-            this.label42.TabIndex = 3270;
-            this.label42.Text = "Scope Trigger";
+            this.Column1.HeaderText = "Vin (V)";
+            this.Column1.Name = "Column1";
             // 
-            // comboBox1
+            // Column2
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "CH1",
-            "CH2",
-            "CH3",
-            "CH4"});
-            this.comboBox1.Location = new System.Drawing.Point(726, 324);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(98, 20);
-            this.comboBox1.TabIndex = 3269;
+            this.Column2.HeaderText = "Seq (0→n)";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "CHn(From/End)";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 120;
+            // 
+            // Column5
+            // 
+            this.Column5.FillWeight = 120F;
+            this.Column5.HeaderText = "Percentage(From/End)";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Sequence(0→n) Time";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 160;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "CHn (Init Level)";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 140;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Iout (A)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Idel Time Spec(ms)";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 180;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Trigger";
+            this.Column9.Name = "Column9";
             // 
             // SoftStartTiming
             // 
@@ -3540,6 +3544,8 @@ namespace SoftStartTiming
         private System.Windows.Forms.NumericUpDown nu_idel_time1;
         private System.Windows.Forms.NumericUpDown nu_idel_time2;
         private System.Windows.Forms.NumericUpDown nu_idel_time3;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.ComboBox cbox_trigger;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -3548,8 +3554,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
-        private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
     }
 }
 
