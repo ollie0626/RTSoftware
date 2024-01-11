@@ -224,8 +224,6 @@ namespace SoftStartTiming
 
             string trigger_ch = seq_dg[8, idx].Value.ToString();
             dt_test.trigger_ch = Convert.ToInt32(trigger_ch.Replace("CH", ""));
-
-
         }
 
         private void GetSameAddr(ref Dictionary<int, int> map, int addr, int data)
@@ -575,7 +573,7 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetTimeBasePosition(15);
             MyLib.Delay1s(1);
             int cnt = 0;
-
+            
             #region "Report initial"
 #if Report_en
             _sheet = _book.Worksheets.Add();
@@ -649,6 +647,8 @@ namespace SoftStartTiming
                 /* get test conditions */
                 GetParameter(bin_idx);
 
+                double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2) * Math.Pow(10, -3);
+
                 /* Eload current setting */
                 InsControl._eload.CH1_Loading(dt_test.loading1);
                 InsControl._eload.CH2_Loading(dt_test.loading2);
@@ -677,11 +677,13 @@ namespace SoftStartTiming
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
             retest:;
                 Scope_Channel_Resize(dt_test.vin);
+                InsControl._tek_scope.SetTriggerSource(dt_test.trigger_ch);
                 double tempVin = dt_test.vin;
                 if (retry_cnt > 3)
                 {
                     _sheet.Cells[row, XLS_Table.F] = "sATE test fail";
-                    InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                    //InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                    InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                     retry_cnt = 0;
@@ -782,7 +784,8 @@ namespace SoftStartTiming
                 // scope time scale re-size
                 if (delay_time_res > Math.Pow(10, 20) || delay_time_res < 0)
                 {
-                    InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                    //InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+                    InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                     InsControl._tek_scope.SetTimeBasePosition(15);
@@ -812,7 +815,7 @@ namespace SoftStartTiming
 
 
                 MyLib.Delay1ms(100);
-                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
+                //InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name);
 #if true
                 double vin = 0, dt1 = 0, dt2 = 0, dt3 = 0, dt4 = 0;
                 double vtop1, vtop2, vtop3, vtop4;
@@ -906,75 +909,99 @@ namespace SoftStartTiming
                 }
                 _sheet.Cells[row, XLS_Table.S] = jd_res;
 
-                switch (wave_pos)
-                {
-                    case 0:
-                        _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
-                        _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
-                        _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
-                        _sheet.Cells[wave_row, XLS_Table.AD] = "Conditions";
-                        _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
-                        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
+                _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
+                _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
+                _sheet.Cells[wave_row, XLS_Table.AD] = "Conditions";
+                _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
+                _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
-                        _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AG" + (wave_row + 16).ToString()];
-                        wave_pos++;
-                        break;
-                    case 1:
-                        _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
-                        _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
-                        _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
-                        _sheet.Cells[wave_row, XLS_Table.AO] = "Conditions";
-                        _range = _sheet.Range["AL" + wave_row, "AO" + wave_row];
-                        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
+                _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
+                _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
+                _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
+                _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AG" + (wave_row + 16).ToString()];
+                MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_seq0");
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
-                        _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AR" + (wave_row + 16).ToString()];
-                        wave_pos++;
-                        break;
-                    case 2:
-                        _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
-                        _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
-                        _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
-                        _sheet.Cells[wave_row, XLS_Table.AZ] = "Conditions";
-                        _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
-                        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                _range = _sheet.Range["AI" + (wave_row + 2).ToString(), "AO" + (wave_row + 16).ToString()];
+                MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_seq1");
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
-                        _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BC" + (wave_row + 16).ToString()];
-                        wave_pos++;
-                        break;
-                    case 3:
-                        _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
-                        _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
-                        _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
-                        _sheet.Cells[wave_row, XLS_Table.BK] = "Conditions";
-                        _range = _sheet.Range["BH" + wave_row, "BK" + wave_row];
-                        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+                _range = _sheet.Range["AQ" + (wave_row + 2).ToString(), "AW" + (wave_row + 16).ToString()];
+                MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_seq2");
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
-                        _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BN" + (wave_row + 16).ToString()];
-                        wave_pos = 0; wave_row = wave_row + 19;
-                        break;
-                } // switch case
+                #region "old version past waveform"
+                
+                //switch (wave_pos)
+                //{
+                //    case 0:
+                //        _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
+                //        _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
+                //        _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
+                //        _sheet.Cells[wave_row, XLS_Table.AD] = "Conditions";
+                //        _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
+                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
+                //        _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AG" + (wave_row + 16).ToString()];
+                //        wave_pos++;
+                //        break;
+                //    case 1:
+                //        _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
+                //        _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
+                //        _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
+                //        _sheet.Cells[wave_row, XLS_Table.AO] = "Conditions";
+                //        _range = _sheet.Range["AL" + wave_row, "AO" + wave_row];
+                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
+                //        _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AR" + (wave_row + 16).ToString()];
+                //        wave_pos++;
+                //        break;
+                //    case 2:
+                //        _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
+                //        _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
+                //        _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
+                //        _sheet.Cells[wave_row, XLS_Table.AZ] = "Conditions";
+                //        _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
+                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
+                //        _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BC" + (wave_row + 16).ToString()];
+                //        wave_pos++;
+                //        break;
+                //    case 3:
+                //        _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
+                //        _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
+                //        _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
+                //        _sheet.Cells[wave_row, XLS_Table.BK] = "Conditions";
+                //        _range = _sheet.Range["BH" + wave_row, "BK" + wave_row];
+                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
+                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
+
+                //        _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
+                //        _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
+                //        _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BN" + (wave_row + 16).ToString()];
+                //        wave_pos = 0; wave_row = wave_row + 19;
+                //        break;
+                //} // switch case
+
+                //MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
+                #endregion
 #endif
                 row++;
 #endif

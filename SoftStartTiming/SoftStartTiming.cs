@@ -469,6 +469,7 @@ namespace SoftStartTiming
                 string idn = visaCommand.doQueryIDN();
                 string name = "";
 
+                // split scan result (IDN)
                 if (idn.Split(',').Length != 1)
                     name = idn.Split(',')[1] != null ? idn.Split(',')[1] : "";
 

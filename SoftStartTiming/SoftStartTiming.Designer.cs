@@ -181,6 +181,15 @@ namespace SoftStartTiming
             this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox20 = new System.Windows.Forms.TextBox();
             this.test_dg = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bt_add_to_table = new System.Windows.Forms.Button();
             this.num_vin = new System.Windows.Forms.NumericUpDown();
             this.textBox9 = new System.Windows.Forms.TextBox();
@@ -268,15 +277,6 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -896,10 +896,12 @@ namespace SoftStartTiming
             // RBMs
             // 
             this.RBMs.AutoSize = true;
+            this.RBMs.Checked = true;
             this.RBMs.Location = new System.Drawing.Point(6, 43);
             this.RBMs.Name = "RBMs";
             this.RBMs.Size = new System.Drawing.Size(112, 16);
             this.RBMs.TabIndex = 1;
+            this.RBMs.TabStop = true;
             this.RBMs.Text = "Delay time (ms)";
             this.RBMs.UseVisualStyleBackColor = true;
             // 
@@ -915,12 +917,10 @@ namespace SoftStartTiming
             // RBUs
             // 
             this.RBUs.AutoSize = true;
-            this.RBUs.Checked = true;
             this.RBUs.Location = new System.Drawing.Point(6, 21);
             this.RBUs.Name = "RBUs";
             this.RBUs.Size = new System.Drawing.Size(109, 16);
             this.RBUs.TabIndex = 0;
-            this.RBUs.TabStop = true;
             this.RBUs.Text = "Delay time (us)";
             this.RBUs.UseVisualStyleBackColor = true;
             // 
@@ -1164,7 +1164,7 @@ namespace SoftStartTiming
             this.CBPower.FormattingEnabled = true;
             this.CBPower.Location = new System.Drawing.Point(135, 214);
             this.CBPower.Name = "CBPower";
-            this.CBPower.Size = new System.Drawing.Size(185, 20);
+            this.CBPower.Size = new System.Drawing.Size(107, 20);
             this.CBPower.TabIndex = 69;
             this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
@@ -2147,6 +2147,57 @@ namespace SoftStartTiming
             this.test_dg.RowTemplate.Height = 24;
             this.test_dg.Size = new System.Drawing.Size(814, 177);
             this.test_dg.TabIndex = 102;
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Vin (V)";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Seq (0→n)";
+            this.Column2.Name = "Column2";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "CHn(From/End)";
+            this.Column3.Name = "Column3";
+            this.Column3.Width = 120;
+            // 
+            // Column5
+            // 
+            this.Column5.FillWeight = 120F;
+            this.Column5.HeaderText = "Percentage(From/End)";
+            this.Column5.Name = "Column5";
+            this.Column5.Width = 150;
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "Sequence(0→n) Time";
+            this.Column4.Name = "Column4";
+            this.Column4.Width = 160;
+            // 
+            // Column6
+            // 
+            this.Column6.HeaderText = "CHn (Init Level)";
+            this.Column6.Name = "Column6";
+            this.Column6.Width = 140;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "Iout (A)";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Idel Time Spec(ms)";
+            this.Column8.Name = "Column8";
+            this.Column8.Width = 180;
+            // 
+            // Column9
+            // 
+            this.Column9.HeaderText = "Trigger";
+            this.Column9.Name = "Column9";
             // 
             // bt_add_to_table
             // 
@@ -3139,57 +3190,6 @@ namespace SoftStartTiming
             0,
             0,
             0});
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Vin (V)";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Seq (0→n)";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "CHn(From/End)";
-            this.Column3.Name = "Column3";
-            this.Column3.Width = 120;
-            // 
-            // Column5
-            // 
-            this.Column5.FillWeight = 120F;
-            this.Column5.HeaderText = "Percentage(From/End)";
-            this.Column5.Name = "Column5";
-            this.Column5.Width = 150;
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "Sequence(0→n) Time";
-            this.Column4.Name = "Column4";
-            this.Column4.Width = 160;
-            // 
-            // Column6
-            // 
-            this.Column6.HeaderText = "CHn (Init Level)";
-            this.Column6.Name = "Column6";
-            this.Column6.Width = 140;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "Iout (A)";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Idel Time Spec(ms)";
-            this.Column8.Name = "Column8";
-            this.Column8.Width = 180;
-            // 
-            // Column9
-            // 
-            this.Column9.HeaderText = "Trigger";
-            this.Column9.Name = "Column9";
             // 
             // SoftStartTiming
             // 
