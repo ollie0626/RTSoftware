@@ -424,7 +424,7 @@ namespace SoftStartTiming
             while(divided > 0)
             {
                 modulo = (divided - 1) % 26;
-                columnName = modulo.ToString() + columnName;
+                columnName = Convert.ToChar(65 + modulo).ToString() + columnName;
                 divided = (divided - modulo) / 26;
             }
             return columnName;

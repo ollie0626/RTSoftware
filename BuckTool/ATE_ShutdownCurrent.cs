@@ -44,9 +44,7 @@ namespace BuckTool
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             int row = 22;
-
             int no = 1;
-
             MyLib Mylib = new MyLib();
             double[] vinList = test_parameter.Vin_table.ToArray();
 
@@ -57,8 +55,6 @@ namespace BuckTool
             _sheet = (Excel.Worksheet)_book.ActiveSheet;
             Mylib.ExcelReportInit(_sheet);
             Mylib.testCondition(_sheet, "Shutdown IQ", 0, temp);
-
-
 #endif
             InsControl._power.AutoPowerOff();
             InsControl._eload.AllChannel_LoadOff();
