@@ -123,6 +123,8 @@ namespace BuckTool
             this.label17 = new System.Windows.Forms.Label();
             this.nuEnon = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
+            this.nuen_cnt = new System.Windows.Forms.NumericUpDown();
+            this.label19 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nu_chamber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_34970A)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_power)).BeginInit();
@@ -144,6 +146,7 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nuinterval)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nutest_cnt)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnon)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuen_cnt)).BeginInit();
             this.SuspendLayout();
             // 
             // led_chamber
@@ -1454,11 +1457,41 @@ namespace BuckTool
             this.label18.TabIndex = 98;
             this.label18.Text = "En on (s)";
             // 
+            // nuen_cnt
+            // 
+            this.nuen_cnt.DecimalPlaces = 2;
+            this.nuen_cnt.Location = new System.Drawing.Point(548, 671);
+            this.nuen_cnt.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.nuen_cnt.Name = "nuen_cnt";
+            this.nuen_cnt.Size = new System.Drawing.Size(74, 23);
+            this.nuen_cnt.TabIndex = 99;
+            this.nuen_cnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nuen_cnt.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(472, 673);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(50, 12);
+            this.label19.TabIndex = 100;
+            this.label19.Text = "en test cnt";
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(738, 730);
             this.ControlBoxFillHoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(163)))), ((int)(((byte)(163)))), ((int)(((byte)(163)))));
+            this.Controls.Add(this.nuen_cnt);
+            this.Controls.Add(this.label19);
             this.Controls.Add(this.nuEnon);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.nutest_cnt);
@@ -1547,6 +1580,7 @@ namespace BuckTool
             ((System.ComponentModel.ISupportInitialize)(this.nuinterval)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nutest_cnt)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuEnon)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nuen_cnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1648,6 +1682,8 @@ namespace BuckTool
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.NumericUpDown nuEnon;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.NumericUpDown nuen_cnt;
+        private System.Windows.Forms.Label label19;
     }
 }
 

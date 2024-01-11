@@ -48,6 +48,7 @@ namespace BuckTool
         // shutdown current
         public static int interval;
         public static int test_cnt;
+        public static int en_count;
         public static int en_ms;
 
         // chamber parameter

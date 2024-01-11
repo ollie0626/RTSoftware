@@ -24,9 +24,9 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.C] = "Vin(V)";
             _sheet.Cells[row, XLS_Table.D] = "Iout(A)";
             _sheet.Cells[row, XLS_Table.E] = "EnOn Vout(V)";
-            _sheet.Cells[row, XLS_Table.F] = "EnOn Iin(A)";
-            _sheet.Cells[row, XLS_Table.G] = "EnOn Vout(V)";
-            _sheet.Cells[row, XLS_Table.H] = "EnOff Iin(A)";
+            _sheet.Cells[row, XLS_Table.F] = "EnOn Iin(mA)";
+            _sheet.Cells[row, XLS_Table.G] = "EnOff Vout(V)";
+            _sheet.Cells[row, XLS_Table.H] = "EnOff Iin(mA)";
 
             _range = _sheet.Range["A" + row, "D" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
@@ -86,48 +86,48 @@ namespace BuckTool
                         double temp = 25;
                         if (test_parameter.run_stop == true) goto Stop;
                         if (test_parameter.chamber_en == true) temp = InsControl._chamber.GetChamberTemperature();
-                        
+
                         double on_current = 0, off_current = 0;
                         double on_vout = 0, off_vout = 0;
                         MyLib.Switch_ELoadLevel(iout);
-
-
-                        // step 1. power on -> en -> eload on
                         InsControl._power.AutoSelPowerOn(vin);
-                        RTBBControl.GpioEn_Enable();
-                        InsControl._eload.CH1_Loading(iout);
-                        MyLib.Delay1ms(test_parameter.en_ms * 1000);
 
-                        // Measure Iin current (En on)
-                        on_current = InsControl._dmm1.GetCurrent(0);
-                        on_vout = InsControl._34970A.Get_10Vol(1);
-
-                        // step 2. 
-                        RTBBControl.GpioEn_Disable();
-                        InsControl._eload.LoadOFF(1);
-                        
-                        // record ecah times shut down current
-                        for (int test_idx = 0; test_idx < test_parameter.test_cnt; test_idx++)
+                        for (int test_idx = 0; test_idx < test_parameter.en_count; test_idx++)
                         {
-                            // Measure Iin current (En off)
-                            off_current = InsControl._dmm1.GetCurrent(0);
-                            off_vout = InsControl._34970A.Get_10Vol(1);
+                            // step 1. power on -> en -> eload on    
+                            RTBBControl.GpioEn_Enable();
+                            InsControl._eload.CH1_Loading(iout);
+                            MyLib.Delay1ms(test_parameter.en_ms * 1000);
+                            // Measure Iin current (En on)
+                            on_current = InsControl._dmm1.GetCurrent(1);
+                            on_vout = InsControl._34970A.Get_10Vol(1);
 
-                            // delay time
-                            MyLib.Delay1ms(test_parameter.interval * 1000);
+                            // record ecah times shut down current
+                            for (int j = 0; j < test_parameter.test_cnt; j++)
+                            {
+                                // step 2. 
+                                RTBBControl.GpioEn_Disable();
+                                InsControl._eload.LoadOFF(1);
 
-                            _sheet.Cells[row, XLS_Table.A] = no++;
-                            _sheet.Cells[row, XLS_Table.B] = temp;
-                            _sheet.Cells[row, XLS_Table.C] = vin;
-                            _sheet.Cells[row, XLS_Table.D] = iout;
-                            _sheet.Cells[row, XLS_Table.E] = on_current;
-                            _sheet.Cells[row, XLS_Table.F] = on_vout;
-                            _sheet.Cells[row, XLS_Table.G] = off_current;
-                            _sheet.Cells[row, XLS_Table.H] = off_vout;
-                            
-                            row++;
+                                // Measure Iin current (En off)
+                                off_current = InsControl._dmm1.GetCurrent(0);
+                                off_vout = InsControl._34970A.Get_10Vol(1);
+
+                                // delay time
+                                MyLib.Delay1ms(test_parameter.interval * 1000);
+
+                                _sheet.Cells[row, XLS_Table.A] = no++;
+                                _sheet.Cells[row, XLS_Table.B] = temp;
+                                _sheet.Cells[row, XLS_Table.C] = vin;
+                                _sheet.Cells[row, XLS_Table.D] = iout;
+                                _sheet.Cells[row, XLS_Table.E] = on_vout;
+                                _sheet.Cells[row, XLS_Table.F] = on_current;
+                                _sheet.Cells[row, XLS_Table.G] = off_vout;
+                                _sheet.Cells[row, XLS_Table.H] = off_current;
+                                row++;
+                            }
                         }
-
+                        InsControl._power.AutoPowerOff();
                     } // eload loop
                 } // vin loop
             } // freq loop

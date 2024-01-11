@@ -50,7 +50,7 @@ namespace BuckTool
         ATE_ShutdownCurrent _ate_iq = new ATE_ShutdownCurrent();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.67";
+        string App_name = "Buck Tool v1.672";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 
@@ -249,6 +249,7 @@ namespace BuckTool
             test_parameter.interval = (int)nuinterval.Value;
             test_parameter.test_cnt = (int)nutest_cnt.Value;
             test_parameter.en_ms = (int)nuEnon.Value;
+            test_parameter.en_count = (int)nuen_cnt.Value;
 
             //test_parameter.item = cb_item.SelectedIndex;
             test_parameter.chamber_en = ck_chamber_en.Checked;
