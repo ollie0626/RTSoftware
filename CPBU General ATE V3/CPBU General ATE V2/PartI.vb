@@ -8444,14 +8444,8 @@ Public Class PartI
 
                                 End If
                             End If
-
-
-
-
                             '--------------------------------------------------------------------------------------------------------
-
                             'Stability line up
-
                             If (check_stability.Checked = True) And (check_iout_up.Checked = True) And (data_test.Rows.Count > 0) Then
 
                                 For y = stability_iout.Length - 2 To 0 Step -1
@@ -8528,13 +8522,7 @@ Public Class PartI
                                 Next
 
                             End If
-
-
-
                             excel_close()
-
-
-
                         Next 'vin
 
 
@@ -8543,6 +8531,16 @@ Public Class PartI
                     'Line Regulation
                     If (check_LineR.Checked = True) And (rbtn_lineR_test1.Checked = True) Then
                         excel_open()
+
+
+                        If rbtn_iin_current_measure.Checked Then
+                            relay_in_meter_intial()
+                        End If
+
+                        If rbtn_iout_current_measure.Checked Then
+                            realy_out_meter_initial()
+                        End If
+
 
                         DCLoad_ONOFF("OFF")
                         vin_now = data_lineR_vin.Rows(0).Cells(0).Value

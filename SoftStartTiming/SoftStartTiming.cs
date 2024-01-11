@@ -19,7 +19,7 @@ using System.Reflection.Emit;
 using SoftStartTiming.Properties;
 
 using System.Runtime.InteropServices;
-
+using System.Data.Common;
 
 namespace SoftStartTiming
 {
@@ -39,6 +39,17 @@ namespace SoftStartTiming
 
         // device name
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
+
+
+        public struct PowerInfo{
+            public string Dev;
+            public string ins;
+            public int addr;
+        }
+
+        List<PowerInfo> PowerInfoList = new List<PowerInfo>();
+
+
         RTBBControl RTDev = new RTBBControl();
 
         public SoftStartTiming()
@@ -297,6 +308,11 @@ namespace SoftStartTiming
             test_parameter.auto_en[1] = CkCH1.Checked;
             test_parameter.auto_en[2] = CkCH2.Checked;
             test_parameter.auto_en[3] = CkCH3.Checked;
+
+            test_parameter.seq_en[0] = ck_MeasSeq0.Checked;
+            test_parameter.seq_en[1] = ck_MeasSeq1.Checked;
+            test_parameter.seq_en[2] = ck_MeasSeq2.Checked;
+            test_parameter.seq_en[3] = ck_MeasSeq3.Checked;
         }
 
         private void BTRun_Click(object sender, EventArgs e)
@@ -461,6 +477,8 @@ namespace SoftStartTiming
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             string[] ins_list = ViCMD.ScanIns();
             if (ins_list == null) return;
+
+            // ins --> GPIB name
             foreach (string ins in ins_list)
             {
                 list_ins.Items.Add(ins);
@@ -488,20 +506,39 @@ namespace SoftStartTiming
                 if (Device_map.ContainsKey(name) == false)
                 {
                     Device_map.Add(name, ins);
-                    if (name.IndexOf("E363") != -1)
-                    {
-                        CBPower.Enabled = true;
-                        CBPower.Items.Add(name);
-                    }
+                }
+
+                if (name.IndexOf("E363") != -1)
+                {
+
+                    PowerInfo powerinfo_s = new PowerInfo();
+                    int addr = Convert.ToInt32(ins.Replace("::", ":").Split(':')[1]);
+                    powerinfo_s.Dev = name;
+                    powerinfo_s.ins = ins;
+                    powerinfo_s.addr = addr;
+                    PowerInfoList.Add(powerinfo_s);
+                    CBPower.Enabled = true;
+                    CBPower.Items.Add(name);
+                }
+
+                if (name.IndexOf("62006P") != -1)
+                {
+                    PowerInfo powerinfo_s = new PowerInfo();
+                    int addr = Convert.ToInt32(ins.Replace("::", ":").Split(':')[1]);
+                    powerinfo_s.Dev = name;
+                    powerinfo_s.ins = ins;
+                    powerinfo_s.addr = addr;
+                    PowerInfoList.Add(powerinfo_s);
+                    CBPower.Enabled = true;
+                    CBPower.Items.Add(name);
                 }
             }
         }
 
         private void CBPower_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(Device_map[CBPower.Text]);
-
-            InsControl._power = new PowerModule(Device_map[CBPower.Text]);
+            InsControl._power = new PowerModule(PowerInfoList[CBPower.SelectedIndex].ins);
+            nuPower_addr.Value = PowerInfoList[CBPower.SelectedIndex].addr;
 
             tb_power.Text = "Power: " + CBPower.Text;
             if (InsControl._power.InsState())
@@ -690,7 +727,7 @@ namespace SoftStartTiming
             title_set(sheet, row, col);
             sheet.Cells[row++, col] = "Chamber Config";
             sheet.Cells[row, col] = "Chamber En";
-            sheet.Cells[row++, col + 1] = ck_chamber_en.Enabled;
+            sheet.Cells[row++, col + 1] = ck_chamber_en.Checked;
             sheet.Cells[row, col] = "Chamber Temp";
             sheet.Cells[row++, col + 1] = tb_templist.Text;
             sheet.Cells[row, col] = "Chamber steady time";
@@ -719,6 +756,10 @@ namespace SoftStartTiming
             sheet.Cells[row, col] = "Trigger Event";
             sheet.Cells[row++, col + 1] = CbTrigger.SelectedIndex;
 
+            sheet.Cells[row, col] = "Scope Trigger CH";
+            sheet.Cells[row++, col + 1] = cbox_trigger.SelectedIndex;
+
+
             sheet.Cells[row, col] = "GPIO_sel";
             sheet.Cells[row++, col + 1] = CBGPIO.SelectedIndex;
 
@@ -732,6 +773,13 @@ namespace SoftStartTiming
             sheet.Cells[row, col + 3] = CkCH2.Checked;
             sheet.Cells[row++, col + 4] = CkCH3.Checked;
 
+            sheet.Cells[row, col] = "Seq Meas En";
+            sheet.Cells[row, col + 1] = ck_MeasSeq0.Checked;
+            sheet.Cells[row, col + 2] = ck_MeasSeq1.Checked;
+            sheet.Cells[row, col + 3] = ck_MeasSeq2.Checked;
+            sheet.Cells[row++, col + 4] = ck_MeasSeq3.Checked;
+
+            title_set(sheet, row, col);
             sheet.Cells[row, col] = "Power on/off TimeScale";
             sheet.Cells[row, col + 1] = nu_ontime_scale.Value.ToString();
             sheet.Cells[row++, col + 2] = nu_offtime_scale.Value.ToString();
@@ -788,7 +836,6 @@ namespace SoftStartTiming
             book.Save();
             book.Close();
             app.Quit();
-
 
             Marshal.ReleaseComObject(sheet);
             Marshal.ReleaseComObject(book);
@@ -880,6 +927,11 @@ namespace SoftStartTiming
 
             last_col = GetLastColumn(sheet, row);
             temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
+            CbTrigger.SelectedIndex = Convert.ToInt32(temp);
+            row++;
+
+            last_col = GetLastColumn(sheet, row);
+            temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value);
             cbox_trigger.SelectedIndex = Convert.ToInt32(temp);
             row++;
 
@@ -895,6 +947,14 @@ namespace SoftStartTiming
             CkCH2.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value;
             CkCH3.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value;
             row++;
+
+            last_col = GetLastColumn(sheet, row);
+            ck_MeasSeq0.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 3) + row].Value;
+            ck_MeasSeq1.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 2) + row].Value;
+            ck_MeasSeq2.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value;
+            ck_MeasSeq3.Checked = sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value;
+            row++;
+
 
             last_col = GetLastColumn(sheet, row);
             temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 1) + row].Value);

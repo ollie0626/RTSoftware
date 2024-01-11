@@ -32,6 +32,7 @@ namespace SoftStartTiming
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SoftStartTiming));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.nuPower_addr = new System.Windows.Forms.NumericUpDown();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.labAddr = new System.Windows.Forms.Label();
             this.nuData2 = new System.Windows.Forms.NumericUpDown();
@@ -194,6 +195,11 @@ namespace SoftStartTiming
             this.num_vin = new System.Windows.Forms.NumericUpDown();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ck_MeasSeq3 = new System.Windows.Forms.CheckBox();
+            this.ck_MeasSeq2 = new System.Windows.Forms.CheckBox();
+            this.ck_MeasSeq1 = new System.Windows.Forms.CheckBox();
+            this.ck_MeasSeq0 = new System.Windows.Forms.CheckBox();
+            this.textBox41 = new System.Windows.Forms.TextBox();
             this.CkCH0 = new System.Windows.Forms.CheckBox();
             this.label37 = new System.Windows.Forms.Label();
             this.nu_ch0_level = new System.Windows.Forms.NumericUpDown();
@@ -279,6 +285,7 @@ namespace SoftStartTiming
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuPower_addr)).BeginInit();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuData2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuData1)).BeginInit();
@@ -367,6 +374,7 @@ namespace SoftStartTiming
             // tabPage4
             // 
             this.tabPage4.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage4.Controls.Add(this.nuPower_addr);
             this.tabPage4.Controls.Add(this.groupBox5);
             this.tabPage4.Controls.Add(this.groupBox8);
             this.tabPage4.Controls.Add(this.panel4);
@@ -404,6 +412,13 @@ namespace SoftStartTiming
             this.tabPage4.Size = new System.Drawing.Size(866, 678);
             this.tabPage4.TabIndex = 4;
             this.tabPage4.Text = "General";
+            // 
+            // nuPower_addr
+            // 
+            this.nuPower_addr.Location = new System.Drawing.Point(248, 214);
+            this.nuPower_addr.Name = "nuPower_addr";
+            this.nuPower_addr.Size = new System.Drawing.Size(47, 22);
+            this.nuPower_addr.TabIndex = 3026;
             // 
             // groupBox5
             // 
@@ -2238,6 +2253,11 @@ namespace SoftStartTiming
             // panel1
             // 
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel1.Controls.Add(this.ck_MeasSeq3);
+            this.panel1.Controls.Add(this.ck_MeasSeq2);
+            this.panel1.Controls.Add(this.ck_MeasSeq1);
+            this.panel1.Controls.Add(this.ck_MeasSeq0);
+            this.panel1.Controls.Add(this.textBox41);
             this.panel1.Controls.Add(this.CkCH0);
             this.panel1.Controls.Add(this.label37);
             this.panel1.Controls.Add(this.nu_ch0_level);
@@ -2296,6 +2316,64 @@ namespace SoftStartTiming
             this.panel1.Size = new System.Drawing.Size(826, 148);
             this.panel1.TabIndex = 11;
             // 
+            // ck_MeasSeq3
+            // 
+            this.ck_MeasSeq3.AutoSize = true;
+            this.ck_MeasSeq3.Location = new System.Drawing.Point(751, 119);
+            this.ck_MeasSeq3.Name = "ck_MeasSeq3";
+            this.ck_MeasSeq3.Size = new System.Drawing.Size(39, 16);
+            this.ck_MeasSeq3.TabIndex = 118;
+            this.ck_MeasSeq3.Text = "En";
+            this.ck_MeasSeq3.UseVisualStyleBackColor = true;
+            // 
+            // ck_MeasSeq2
+            // 
+            this.ck_MeasSeq2.AutoSize = true;
+            this.ck_MeasSeq2.Checked = true;
+            this.ck_MeasSeq2.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ck_MeasSeq2.Location = new System.Drawing.Point(751, 91);
+            this.ck_MeasSeq2.Name = "ck_MeasSeq2";
+            this.ck_MeasSeq2.Size = new System.Drawing.Size(39, 16);
+            this.ck_MeasSeq2.TabIndex = 117;
+            this.ck_MeasSeq2.Text = "En";
+            this.ck_MeasSeq2.UseVisualStyleBackColor = true;
+            // 
+            // ck_MeasSeq1
+            // 
+            this.ck_MeasSeq1.AutoSize = true;
+            this.ck_MeasSeq1.Checked = true;
+            this.ck_MeasSeq1.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ck_MeasSeq1.Location = new System.Drawing.Point(751, 62);
+            this.ck_MeasSeq1.Name = "ck_MeasSeq1";
+            this.ck_MeasSeq1.Size = new System.Drawing.Size(39, 16);
+            this.ck_MeasSeq1.TabIndex = 116;
+            this.ck_MeasSeq1.Text = "En";
+            this.ck_MeasSeq1.UseVisualStyleBackColor = true;
+            // 
+            // ck_MeasSeq0
+            // 
+            this.ck_MeasSeq0.AutoSize = true;
+            this.ck_MeasSeq0.Checked = true;
+            this.ck_MeasSeq0.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ck_MeasSeq0.Location = new System.Drawing.Point(751, 33);
+            this.ck_MeasSeq0.Name = "ck_MeasSeq0";
+            this.ck_MeasSeq0.Size = new System.Drawing.Size(39, 16);
+            this.ck_MeasSeq0.TabIndex = 115;
+            this.ck_MeasSeq0.Text = "En";
+            this.ck_MeasSeq0.UseVisualStyleBackColor = true;
+            // 
+            // textBox41
+            // 
+            this.textBox41.BackColor = System.Drawing.Color.LightGray;
+            this.textBox41.Enabled = false;
+            this.textBox41.Location = new System.Drawing.Point(740, 4);
+            this.textBox41.Name = "textBox41";
+            this.textBox41.ReadOnly = true;
+            this.textBox41.Size = new System.Drawing.Size(73, 22);
+            this.textBox41.TabIndex = 114;
+            this.textBox41.Text = "Meas Seq";
+            this.textBox41.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // CkCH0
             // 
             this.CkCH0.AutoSize = true;
@@ -2303,9 +2381,9 @@ namespace SoftStartTiming
             this.CkCH0.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CkCH0.Location = new System.Drawing.Point(638, 34);
             this.CkCH0.Name = "CkCH0";
-            this.CkCH0.Size = new System.Drawing.Size(125, 16);
+            this.CkCH0.Size = new System.Drawing.Size(96, 16);
             this.CkCH0.TabIndex = 103;
-            this.CkCH0.Text = "CH1 Auto Scaling";
+            this.CkCH0.Text = "Auto Scaling";
             this.CkCH0.UseVisualStyleBackColor = true;
             // 
             // label37
@@ -2415,7 +2493,6 @@ namespace SoftStartTiming
             // textBox18
             // 
             this.textBox18.BackColor = System.Drawing.SystemColors.Info;
-            this.textBox18.Enabled = false;
             this.textBox18.Location = new System.Drawing.Point(12, 114);
             this.textBox18.Name = "textBox18";
             this.textBox18.ReadOnly = true;
@@ -2431,9 +2508,9 @@ namespace SoftStartTiming
             this.CkCH1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CkCH1.Location = new System.Drawing.Point(638, 62);
             this.CkCH1.Name = "CkCH1";
-            this.CkCH1.Size = new System.Drawing.Size(125, 16);
+            this.CkCH1.Size = new System.Drawing.Size(96, 16);
             this.CkCH1.TabIndex = 0;
-            this.CkCH1.Text = "CH2 Auto Scaling";
+            this.CkCH1.Text = "Auto Scaling";
             this.CkCH1.UseVisualStyleBackColor = true;
             // 
             // CkCH2
@@ -2443,9 +2520,9 @@ namespace SoftStartTiming
             this.CkCH2.CheckState = System.Windows.Forms.CheckState.Checked;
             this.CkCH2.Location = new System.Drawing.Point(638, 90);
             this.CkCH2.Name = "CkCH2";
-            this.CkCH2.Size = new System.Drawing.Size(125, 16);
+            this.CkCH2.Size = new System.Drawing.Size(96, 16);
             this.CkCH2.TabIndex = 2;
-            this.CkCH2.Text = "CH3 Auto Scaling";
+            this.CkCH2.Text = "Auto Scaling";
             this.CkCH2.UseVisualStyleBackColor = true;
             // 
             // textBox17
@@ -2455,9 +2532,9 @@ namespace SoftStartTiming
             this.textBox17.Location = new System.Drawing.Point(636, 4);
             this.textBox17.Name = "textBox17";
             this.textBox17.ReadOnly = true;
-            this.textBox17.Size = new System.Drawing.Size(139, 22);
+            this.textBox17.Size = new System.Drawing.Size(98, 22);
             this.textBox17.TabIndex = 101;
-            this.textBox17.Text = "Auto Scale Level";
+            this.textBox17.Text = "Level";
             this.textBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // CkCH3
@@ -2465,15 +2542,14 @@ namespace SoftStartTiming
             this.CkCH3.AutoSize = true;
             this.CkCH3.Location = new System.Drawing.Point(638, 118);
             this.CkCH3.Name = "CkCH3";
-            this.CkCH3.Size = new System.Drawing.Size(125, 16);
+            this.CkCH3.Size = new System.Drawing.Size(96, 16);
             this.CkCH3.TabIndex = 1;
-            this.CkCH3.Text = "CH4 Auto Scaling";
+            this.CkCH3.Text = "Auto Scaling";
             this.CkCH3.UseVisualStyleBackColor = true;
             // 
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Enabled = false;
             this.label36.Location = new System.Drawing.Point(616, 117);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(14, 12);
@@ -2573,7 +2649,6 @@ namespace SoftStartTiming
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Enabled = false;
             this.label32.Location = new System.Drawing.Point(534, 120);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(15, 12);
@@ -2680,7 +2755,6 @@ namespace SoftStartTiming
             // 
             // nudly3_end
             // 
-            this.nudly3_end.Enabled = false;
             this.nudly3_end.Location = new System.Drawing.Point(477, 116);
             this.nudly3_end.Name = "nudly3_end";
             this.nudly3_end.Size = new System.Drawing.Size(57, 22);
@@ -2711,7 +2785,6 @@ namespace SoftStartTiming
             // 
             // cbox_dly3_from
             // 
-            this.cbox_dly3_from.Enabled = false;
             this.cbox_dly3_from.FormattingEnabled = true;
             this.cbox_dly3_from.Items.AddRange(new object[] {
             "CH1",
@@ -2757,7 +2830,6 @@ namespace SoftStartTiming
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Enabled = false;
             this.label25.Location = new System.Drawing.Point(244, 119);
             this.label25.Name = "label25";
             this.label25.Size = new System.Drawing.Size(18, 12);
@@ -2767,7 +2839,6 @@ namespace SoftStartTiming
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Enabled = false;
             this.label33.Location = new System.Drawing.Point(454, 119);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(18, 12);
@@ -2785,7 +2856,6 @@ namespace SoftStartTiming
             // 
             // nudly3_from
             // 
-            this.nudly3_from.Enabled = false;
             this.nudly3_from.Location = new System.Drawing.Point(380, 116);
             this.nudly3_from.Name = "nudly3_from";
             this.nudly3_from.Size = new System.Drawing.Size(57, 22);
@@ -2837,7 +2907,6 @@ namespace SoftStartTiming
             // 
             // cbox_dly3_to
             // 
-            this.cbox_dly3_to.Enabled = false;
             this.cbox_dly3_to.FormattingEnabled = true;
             this.cbox_dly3_to.Items.AddRange(new object[] {
             "CH1",
@@ -2852,7 +2921,6 @@ namespace SoftStartTiming
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Enabled = false;
             this.label34.Location = new System.Drawing.Point(436, 120);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(15, 12);
@@ -3212,6 +3280,7 @@ namespace SoftStartTiming
             this.tabControl1.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nuPower_addr)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuData2)).EndInit();
@@ -3555,6 +3624,12 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column7;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
+        private System.Windows.Forms.NumericUpDown nuPower_addr;
+        private System.Windows.Forms.TextBox textBox41;
+        private System.Windows.Forms.CheckBox ck_MeasSeq3;
+        private System.Windows.Forms.CheckBox ck_MeasSeq2;
+        private System.Windows.Forms.CheckBox ck_MeasSeq1;
+        private System.Windows.Forms.CheckBox ck_MeasSeq0;
     }
 }
 

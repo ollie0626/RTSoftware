@@ -509,36 +509,40 @@ namespace SoftStartTiming
             // int meas_end = end_list[sel];
             TriggerStatus();
 
-            // enable start channel annotation
-            InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
-            MyLib.Delay1ms(800);
-            double x1 = direct ?
-                InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
-                InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
+            for(int i = 0; i < 3; i++)
+            {
+                // enable start channel annotation
+                InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
+                MyLib.Delay1ms(800);
+                double x1 = direct ?
+                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
+                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
 
-            InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch2));
-            MyLib.Delay1ms(800);
-            double x2 = !direct ?
-                InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
-                InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
+                InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch2));
+                MyLib.Delay1ms(800);
+                double x2 = !direct ?
+                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
+                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
 
 
-            InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
-            InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH" + ch1.ToString());
-            MyLib.Delay1ms(600);
-            InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH" + ch2.ToString());
-            MyLib.Delay1ms(600);
-            InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
-            MyLib.Delay1ms(600);
-            InsControl._tek_scope.DoCommand("CURSor:STATE ON");
-            MyLib.Delay1ms(600);
-            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1.ToString());
-            InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2.ToString());
-            MyLib.Delay1ms(600);
+                InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
+                InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH" + ch1.ToString());
+                MyLib.Delay1ms(600);
+                InsControl._tek_scope.DoCommand("CURSor:SOUrce2 CH" + ch2.ToString());
+                MyLib.Delay1ms(600);
+                InsControl._tek_scope.DoCommand("CURSor:MODe TRACk");
+                MyLib.Delay1ms(600);
+                InsControl._tek_scope.DoCommand("CURSor:STATE ON");
+                MyLib.Delay1ms(600);
+                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS1 " + x1.ToString());
+                InsControl._tek_scope.DoCommand("CURSor:VBArs:POS2 " + x2.ToString());
+                MyLib.Delay1ms(600);
 
-            res = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
-            MyLib.Delay1ms(100);
-            res = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+                res = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+                MyLib.Delay1ms(100);
+                res = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+            }
+
             return res;
         }
 
@@ -567,7 +571,13 @@ namespace SoftStartTiming
 #endif
             //InsControl._power.AutoPowerOff();
             OSCInit();
-            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+            //double total_ideal = Convert.ToDouble(dt_test.ideal0) +
+            //    Convert.ToDouble(dt_test.ideal1) +
+            //    Convert.ToDouble(dt_test.ideal2)+
+            //    Convert.ToDouble(dt_test.ideal3);
+
+
+            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms * Math.Pow(10, -3));
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
             InsControl._tek_scope.SetTimeBasePosition(15);
@@ -613,25 +623,26 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.H] = test_parameter.delay_us_en ? "DT1 (us)" : "DT1 (ms)";
             _sheet.Cells[row, XLS_Table.I] = test_parameter.delay_us_en ? "DT2 (us)" : "DT2 (ms)";
             _sheet.Cells[row, XLS_Table.J] = test_parameter.delay_us_en ? "DT3 (us)" : "DT3 (ms)";
+            _sheet.Cells[row, XLS_Table.K] = test_parameter.delay_us_en ? "DT4 (us)" : "DT4 (ms)";
 
             // Add new measure
-            _sheet.Cells[row, XLS_Table.K] = "V1 Top (V)";
-            _sheet.Cells[row, XLS_Table.L] = "V1 Base (V)";
-            _sheet.Cells[row, XLS_Table.M] = "V2 Top (V)";
-            _sheet.Cells[row, XLS_Table.N] = "V2 Base (V)";
-            _sheet.Cells[row, XLS_Table.O] = "V3 Top (V)";
-            _sheet.Cells[row, XLS_Table.P] = "V3 Base (V)";
-            _sheet.Cells[row, XLS_Table.Q] = "V4 Top (V)";
-            _sheet.Cells[row, XLS_Table.R] = "V4 Base (V)";
-            _sheet.Cells[row, XLS_Table.S] = "Pass/Fail";
+            _sheet.Cells[row, XLS_Table.L] = "V1 Top (V)";
+            _sheet.Cells[row, XLS_Table.M] = "V1 Base (V)";
+            _sheet.Cells[row, XLS_Table.N] = "V2 Top (V)";
+            _sheet.Cells[row, XLS_Table.O] = "V2 Base (V)";
+            _sheet.Cells[row, XLS_Table.P] = "V3 Top (V)";
+            _sheet.Cells[row, XLS_Table.Q] = "V3 Base (V)";
+            _sheet.Cells[row, XLS_Table.R] = "V4 Top (V)";
+            _sheet.Cells[row, XLS_Table.S] = "V4 Base (V)";
+            _sheet.Cells[row, XLS_Table.T] = "Pass/Fail";
             //_sheet.Cells[row, XLS_Table.Q] = "Max (V)";
             //_sheet.Cells[row, XLS_Table.R] = "Min (V)";
 
-            _range = _sheet.Range["H" + row, "R" + row];
+            _range = _sheet.Range["H" + row, "S" + row];
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-            _range = _sheet.Range["S" + row, "S" + row];
+            _range = _sheet.Range["T" + row, "T" + row];
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             row++;
@@ -647,8 +658,8 @@ namespace SoftStartTiming
                 /* get test conditions */
                 GetParameter(bin_idx);
 
-                double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2) * Math.Pow(10, -3);
-
+                double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2 + dt_test.idealTime2) * Math.Pow(10, -3);
+                InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
                 /* Eload current setting */
                 InsControl._eload.CH1_Loading(dt_test.loading1);
                 InsControl._eload.CH2_Loading(dt_test.loading2);
@@ -742,34 +753,57 @@ namespace SoftStartTiming
 
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
                 if (time_scale >= 0.005) MyLib.Delay1s(5);
-                int ch1 = dt_test.meas_posCH1[0];
-                int ch2 = dt_test.meas_posCH1[1];
-                bool direct = dt_test.precentCH1[0] > dt_test.precentCH1[1];
-                double delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
-                MyLib.Delay1ms(100);
-                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
+                int ch1;
+                int ch2;
+                bool direct;
+
+                double delay_time_res1 = 0, delay_time_res2 = 0, delay_time_res3 = 0, delay_time_res4 = 0;
+                double delay_time_res = 0;
+
+                if (test_parameter.seq_en[0])
+                {
+                    ch1 = dt_test.meas_posCH1[0];
+                    ch2 = dt_test.meas_posCH1[1];
+                    direct = dt_test.precentCH1[0] > dt_test.precentCH1[1];
+                    delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
+                    MyLib.Delay1ms(100);
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
+                    delay_time_res = delay_time_res1;
+                }
+
+                if (test_parameter.seq_en[1])
+                {
+                    ch1 = dt_test.meas_posCH2[0];
+                    ch2 = dt_test.meas_posCH2[1];
+                    direct = dt_test.precentCH2[0] > dt_test.precentCH2[1];
+                    delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
+                    MyLib.Delay1ms(100);
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
+                    delay_time_res += delay_time_res2;
+                }
 
 
-                ch1 = dt_test.meas_posCH2[0];
-                ch2 = dt_test.meas_posCH2[1];
-                direct = dt_test.precentCH2[0] > dt_test.precentCH2[1];
-                double delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
-                MyLib.Delay1ms(100);
-                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
+                if (test_parameter.seq_en[2])
+                {
+                    ch1 = dt_test.meas_posCH3[0];
+                    ch2 = dt_test.meas_posCH3[1];
+                    direct = dt_test.precentCH3[0] > dt_test.precentCH3[1];
+                    delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
+                    MyLib.Delay1ms(100);
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
+                    delay_time_res += delay_time_res3;
+                }
 
-                ch1 = dt_test.meas_posCH3[0];
-                ch2 = dt_test.meas_posCH3[1];
-                direct = dt_test.precentCH3[0] > dt_test.precentCH3[1];
-                double delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
-                MyLib.Delay1ms(100);
-                InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
-
-                //ch1 = dt_test.meas_posCH4[0];
-                //ch2 = dt_test.meas_posCH4[1];
-                //direct = dt_test.precentCH4[0] > dt_test.precentCH4[1];
-                //double delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
-
-                double delay_time_res = delay_time_res1 + delay_time_res2 + delay_time_res3;
+                if (test_parameter.seq_en[3])
+                {
+                    ch1 = dt_test.meas_posCH4[0];
+                    ch2 = dt_test.meas_posCH4[1];
+                    direct = dt_test.precentCH4[0] > dt_test.precentCH4[1];
+                    delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
+                    MyLib.Delay1ms(100);
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq3");
+                    delay_time_res += delay_time_res4;
+                }
 
                 double us_unit = Math.Pow(10, -6);
                 double ms_unit = Math.Pow(10, -3);
@@ -841,7 +875,7 @@ namespace SoftStartTiming
                 dt1 = delay_time_res1;
                 dt2 = delay_time_res2;
                 dt3 = delay_time_res3;
-                //dt4 = delay_time_res4;
+                dt4 = delay_time_res4;
 #if Power_en
                 vin = InsControl._power.GetVoltage();
 #endif
@@ -853,18 +887,20 @@ namespace SoftStartTiming
 
                 double calculate_dt = (test_parameter.delay_us_en ? dt1 * Math.Pow(10, 6) : dt1 * Math.Pow(10, 3));
                 _sheet.Cells[row, XLS_Table.H] = calculate_dt.ToString();
-                _sheet.Cells[row, XLS_Table.K] = vtop1.ToString();
-                _sheet.Cells[row, XLS_Table.L] = vbase1.ToString();
+                _sheet.Cells[row, XLS_Table.L] = vtop1.ToString();
+                _sheet.Cells[row, XLS_Table.M] = vbase1.ToString();
                 calculate_dt = (test_parameter.delay_us_en ? dt2 * Math.Pow(10, 6) : dt2 * Math.Pow(10, 3));
                 _sheet.Cells[row, XLS_Table.I] = calculate_dt.ToString();
-                _sheet.Cells[row, XLS_Table.M] = vtop2.ToString();
-                _sheet.Cells[row, XLS_Table.N] = vbase2.ToString();
+                _sheet.Cells[row, XLS_Table.N] = vtop2.ToString();
+                _sheet.Cells[row, XLS_Table.O] = vbase2.ToString();
                 calculate_dt = (test_parameter.delay_us_en ? dt3 * Math.Pow(10, 6) : dt3 * Math.Pow(10, 3));
                 _sheet.Cells[row, XLS_Table.J] = calculate_dt.ToString();
-                _sheet.Cells[row, XLS_Table.O] = vtop3.ToString();
-                _sheet.Cells[row, XLS_Table.P] = vbase3.ToString();
-                _sheet.Cells[row, XLS_Table.Q] = vtop4.ToString();
-                _sheet.Cells[row, XLS_Table.R] = vbase4.ToString();
+                _sheet.Cells[row, XLS_Table.P] = vtop3.ToString();
+                _sheet.Cells[row, XLS_Table.Q] = vbase3.ToString();
+                calculate_dt = (test_parameter.delay_us_en ? dt4 * Math.Pow(10, 6) : dt4 * Math.Pow(10, 3));
+                _sheet.Cells[row, XLS_Table.K] = calculate_dt.ToString();
+                _sheet.Cells[row, XLS_Table.R] = vtop4.ToString();
+                _sheet.Cells[row, XLS_Table.S] = vbase4.ToString();
 
                 /* spec judge */
                 double value_base = dt_test.idealTime0 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
@@ -874,7 +910,7 @@ namespace SoftStartTiming
                 string jd_res = "Pass";
 
                 value = dt1;
-                if (value > criteria_up || value < criteria_up)
+                if (value > criteria_up || value < criteria_down)
                 {
                     jd_res = "Fail";
                 }
@@ -883,7 +919,7 @@ namespace SoftStartTiming
                 value_base = dt_test.idealTime1 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
                 criteria_up = (test_parameter.judge_percent * value_base) + value_base;
                 criteria_down = value_base - (test_parameter.judge_percent * value_base);
-                if (value > criteria_up || value < criteria_up)
+                if (value > criteria_up || value < criteria_down)
                 {
                     jd_res = "Fail";
                 }
@@ -892,22 +928,22 @@ namespace SoftStartTiming
                 value_base = dt_test.idealTime2 * (test_parameter.delay_us_en ? Math.Pow(10, -6) : Math.Pow(10, -3));
                 criteria_up = (test_parameter.judge_percent * value_base) + value_base;
                 criteria_down = value_base - (test_parameter.judge_percent * value_base);
-                if (value > criteria_up || value < criteria_up)
+                if (value > criteria_up || value < criteria_down)
                 {
                     jd_res = "Fail";
                 }
 
                 if (jd_res == "Fail")
                 {
-                    _range = _sheet.Range["S" + row];
+                    _range = _sheet.Range["T" + row];
                     _range.Interior.Color = Color.Red;
                 }
                 else
                 {
-                    _range = _sheet.Range["S" + row];
+                    _range = _sheet.Range["T" + row];
                     _range.Interior.Color = Color.LightGreen;
                 }
-                _sheet.Cells[row, XLS_Table.S] = jd_res;
+                _sheet.Cells[row, XLS_Table.T] = jd_res;
 
                 _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
                 _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
