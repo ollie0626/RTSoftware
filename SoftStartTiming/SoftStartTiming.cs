@@ -161,6 +161,7 @@ namespace SoftStartTiming
                 await ConnectTask(Device_map["34970A"], 3);
                 tb_daq.Text = "DAQ:34970A";
             }
+
             await ConnectTask("GPIB0::3::INSTR", 4);
             // funcgen AFG31022
             MyLib.Delay1s(1);
@@ -304,6 +305,7 @@ namespace SoftStartTiming
 
             // delay time test conditions
             test_parameter.seq_dg = test_dg;
+            test_parameter.cursor_disable = ck_cursor_disable.Checked;
             test_parameter.auto_en[0] = CkCH0.Checked;
             test_parameter.auto_en[1] = CkCH1.Checked;
             test_parameter.auto_en[2] = CkCH2.Checked;

@@ -118,6 +118,7 @@ namespace SoftStartTiming
             this.tb_daq = new System.Windows.Forms.TextBox();
             this.tb_chamber = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.ck_cursor_disable = new System.Windows.Forms.CheckBox();
             this.label42 = new System.Windows.Forms.Label();
             this.cbox_trigger = new System.Windows.Forms.ComboBox();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -1339,6 +1340,7 @@ namespace SoftStartTiming
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.LightGray;
+            this.tabPage1.Controls.Add(this.ck_cursor_disable);
             this.tabPage1.Controls.Add(this.label42);
             this.tabPage1.Controls.Add(this.cbox_trigger);
             this.tabPage1.Controls.Add(this.panel7);
@@ -1366,10 +1368,20 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Scope";
             // 
+            // ck_cursor_disable
+            // 
+            this.ck_cursor_disable.AutoSize = true;
+            this.ck_cursor_disable.Location = new System.Drawing.Point(689, 356);
+            this.ck_cursor_disable.Name = "ck_cursor_disable";
+            this.ck_cursor_disable.Size = new System.Drawing.Size(160, 16);
+            this.ck_cursor_disable.TabIndex = 3271;
+            this.ck_cursor_disable.Text = "Cursor Function Disable";
+            this.ck_cursor_disable.UseVisualStyleBackColor = true;
+            // 
             // label42
             // 
             this.label42.AutoSize = true;
-            this.label42.Location = new System.Drawing.Point(625, 327);
+            this.label42.Location = new System.Drawing.Point(595, 328);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(84, 12);
             this.label42.TabIndex = 3270;
@@ -1383,7 +1395,7 @@ namespace SoftStartTiming
             "CH2",
             "CH3",
             "CH4"});
-            this.cbox_trigger.Location = new System.Drawing.Point(726, 324);
+            this.cbox_trigger.Location = new System.Drawing.Point(685, 328);
             this.cbox_trigger.Name = "cbox_trigger";
             this.cbox_trigger.Size = new System.Drawing.Size(98, 20);
             this.cbox_trigger.TabIndex = 3269;
@@ -1890,7 +1902,7 @@ namespace SoftStartTiming
             this.Label78.AutoSize = true;
             this.Label78.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Label78.ForeColor = System.Drawing.Color.Black;
-            this.Label78.Location = new System.Drawing.Point(567, 328);
+            this.Label78.Location = new System.Drawing.Point(569, 326);
             this.Label78.Name = "Label78";
             this.Label78.Size = new System.Drawing.Size(15, 15);
             this.Label78.TabIndex = 3252;
@@ -2227,7 +2239,7 @@ namespace SoftStartTiming
             // num_vin
             // 
             this.num_vin.DecimalPlaces = 3;
-            this.num_vin.Location = new System.Drawing.Point(491, 325);
+            this.num_vin.Location = new System.Drawing.Point(490, 326);
             this.num_vin.Maximum = new decimal(new int[] {
             150,
             0,
@@ -3630,6 +3642,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.CheckBox ck_MeasSeq2;
         private System.Windows.Forms.CheckBox ck_MeasSeq1;
         private System.Windows.Forms.CheckBox ck_MeasSeq0;
+        private System.Windows.Forms.CheckBox ck_cursor_disable;
     }
 }
 

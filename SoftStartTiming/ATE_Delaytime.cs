@@ -247,7 +247,7 @@ namespace SoftStartTiming
             Dictionary<int, int> addr_map = new Dictionary<int, int>();
             List<int> addrList = new List<int>();
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 4; i++)
             {
                 string input = seqTable[i];
                 MatchCollection match = Regex.Matches(input, pattern);
@@ -767,7 +767,7 @@ namespace SoftStartTiming
                     direct = dt_test.precentCH1[0] > dt_test.precentCH1[1];
                     delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
                     MyLib.Delay1ms(100);
-                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
+                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
                     delay_time_res = delay_time_res1;
                 }
 
@@ -778,7 +778,7 @@ namespace SoftStartTiming
                     direct = dt_test.precentCH2[0] > dt_test.precentCH2[1];
                     delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
                     MyLib.Delay1ms(100);
-                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
+                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
                     delay_time_res += delay_time_res2;
                 }
 
@@ -790,7 +790,7 @@ namespace SoftStartTiming
                     direct = dt_test.precentCH3[0] > dt_test.precentCH3[1];
                     delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
                     MyLib.Delay1ms(100);
-                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
+                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
                     delay_time_res += delay_time_res3;
                 }
 
@@ -799,7 +799,7 @@ namespace SoftStartTiming
                     ch1 = dt_test.meas_posCH4[0];
                     ch2 = dt_test.meas_posCH4[1];
                     direct = dt_test.precentCH4[0] > dt_test.precentCH4[1];
-                    delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
+                    if(!test_parameter.cursor_disable) delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
                     MyLib.Delay1ms(100);
                     InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq3");
                     delay_time_res += delay_time_res4;

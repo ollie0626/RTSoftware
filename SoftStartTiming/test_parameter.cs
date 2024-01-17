@@ -145,6 +145,7 @@ namespace SoftStartTiming
 
         // for delay time test
         public static DataGridView seq_dg;
+        public static bool cursor_disable;
         public static bool[] auto_en = new bool[4];
         public static bool[] seq_en = new bool[4];
 
