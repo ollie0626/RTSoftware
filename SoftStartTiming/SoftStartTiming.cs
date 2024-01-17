@@ -818,6 +818,10 @@ namespace SoftStartTiming
             sheet.Cells[row, col + 4] = nudly3_end.Value;
             sheet.Cells[row++, col + 5] = nu_ch3_level.Value;
 
+            title_set(sheet, row, col);
+            sheet.Cells[row++, col] = "Disable cursor function";
+            sheet.Cells[row, col] = "Disable State";
+            sheet.Cells[row++, col + 1] = ck_cursor_disable.Checked;
 
             title_set(sheet, row, col);
             sheet.Cells[row++, col] = "I2C Init Config";
@@ -1178,6 +1182,7 @@ namespace SoftStartTiming
                 if (i == seqTable_addr.Length - 1) test_dg[7, current_row].Value = idelTime_info;
 
                 test_dg[8, current_row].Value = cbox_trigger.Text;
+                test_dg[9, current_row].Value = CBEdge.Text;
             }
             
         }

@@ -65,6 +65,7 @@ namespace SoftStartTiming
         public string ideal3;
 
         public int trigger_ch;
+        public string trigger_event;
     }
 
     public class ATE_DelayTime : TaskRun
@@ -224,6 +225,7 @@ namespace SoftStartTiming
 
             string trigger_ch = seq_dg[8, idx].Value.ToString();
             dt_test.trigger_ch = Convert.ToInt32(trigger_ch.Replace("CH", ""));
+            dt_test.trigger_event = seq_dg[9, idx].Value.ToString();
         }
 
         private void GetSameAddr(ref Dictionary<int, int> map, int addr, int data)
@@ -468,8 +470,7 @@ namespace SoftStartTiming
 
             MyLib.Delay1ms(900);
             LevelEvent();
-            PowerOffEvent();
-
+            if(dt_test.trigger_event == "Rising edge") PowerOffEvent();
             InsControl._tek_scope.SetTimeScale(time_scale);
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
@@ -704,53 +705,63 @@ namespace SoftStartTiming
 
                 InsControl._tek_scope.SetTriggerMode(false);
                 MyLib.Delay1s(2);
-                // power on trigger
-                switch (test_parameter.trigger_event)
+
+                if (dt_test.trigger_event == "Rising edge")
                 {
-                    case 0:
-                        // GPIO trigger event
-                        if (InsControl._tek_scope_en)
-                            InsControl._tek_scope.SetClear();
-                        else
-                            InsControl._scope.Root_Clear();
+                    // power on trigger
+                    switch (test_parameter.trigger_event)
+                    {
+                        case 0:
+                            // GPIO trigger event
+                            if (InsControl._tek_scope_en)
+                                InsControl._tek_scope.SetClear();
+                            else
+                                InsControl._scope.Root_Clear();
 
-                        //MyLib.Delay1ms(1500);
-                        if (test_parameter.sleep_mode)
-                        {
-                            // sleep mode
-                            InsControl._tek_scope.SetTriggerRise();
+                            //MyLib.Delay1ms(1500);
+                            if (test_parameter.sleep_mode)
+                            {
+                                // sleep mode
+                                InsControl._tek_scope.SetTriggerRise();
 
-                            MyLib.Delay1ms(800);
-                            GpioOnSelect(test_parameter.gpio_pin);
-                        }
-                        else
-                        {
-                            // PWRDis
-                            InsControl._tek_scope.SetTriggerFall();
+                                MyLib.Delay1ms(800);
+                                GpioOnSelect(test_parameter.gpio_pin);
+                            }
+                            else
+                            {
+                                // PWRDis
+                                InsControl._tek_scope.SetTriggerFall();
 
-                            MyLib.Delay1ms(1000);
-                            GpioOffSelect(test_parameter.gpio_pin);
-                        }
+                                MyLib.Delay1ms(1000);
+                                GpioOffSelect(test_parameter.gpio_pin);
+                            }
 
-                        if (InsControl._tek_scope_en) MyLib.Delay1s(1);
-                        break;
-                    case 1:
-                        RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-                        MyLib.Delay1s(1);
-                        break;
-                    case 2:
-                        // Power supply trigger event
-                        InsControl._power.AutoSelPowerOn(dt_test.vin);
-                        MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
-                        break;
-                    case 3:
-                        // rail trigger
-                        RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-                        MyLib.Delay1s(1);
-                        break;
+                            if (InsControl._tek_scope_en) MyLib.Delay1s(1);
+                            break;
+                        case 1:
+                            RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                            MyLib.Delay1s(1);
+                            break;
+                        case 2:
+                            // Power supply trigger event
+                            InsControl._power.AutoSelPowerOn(dt_test.vin);
+                            MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
+                            break;
+                        case 3:
+                            // rail trigger
+                            RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
+                            MyLib.Delay1s(1);
+                            break;
+                    }
                 }
-                InsControl._tek_scope.SetStop();
+                else
+                {
+                    PowerOffEvent();
+                }
 
+
+
+                InsControl._tek_scope.SetStop();
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
                 if (time_scale >= 0.005) MyLib.Delay1s(5);
                 int ch1;
