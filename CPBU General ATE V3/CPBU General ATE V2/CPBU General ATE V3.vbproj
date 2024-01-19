@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="RTBBLibDefs.vb" />
     <Compile Include="RTBBLibDll.vb" />
+    <Compile Include="TEC_ControlFuntion.vb" />
     <Compile Include="Vbib-32.vb" />
     <Compile Include="visa32.vb" />
     <Compile Include="Visa_function.vb" />

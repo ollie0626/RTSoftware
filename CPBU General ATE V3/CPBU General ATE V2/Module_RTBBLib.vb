@@ -20,6 +20,10 @@ Module Module_RTBBLib
     Public Device_OK As Boolean
     Dim W_DataBuffer(&HFF) As Byte
     Dim R_DataBuffer(&HFF) As Byte
+
+    Dim hIsoEnum As Integer
+    Public pIsoDevice As Integer
+
     '---------------------------------------------------------------------
     'GPIO
 
@@ -33,13 +37,17 @@ Module Module_RTBBLib
 
     Function Check_Eagleboard() As Boolean
         hEnum = RTBB_EnumBoard()
-
-
         BoardCount = RTBB_GetBoardCount(hEnum)
 
         Main.txt_ID.Text = no_slave
         Main.status_bridgeboad.Text = no_device
         Main.num_ID.Value = 0
+
+
+        ' TEC 控制溫度
+        hIsoEnum = RTBB_EnumIsolatedBoard(TEC_ControlFuntion.isoboardNames, TEC_ControlFuntion.isoboardNames.Length)
+        pIsoDevice = RTBB_ConnectToIsoBoardAsBridgeByIndex(hIsoEnum, 0)
+
 
         RTBB_board = False
         If BoardCount = 0 Then

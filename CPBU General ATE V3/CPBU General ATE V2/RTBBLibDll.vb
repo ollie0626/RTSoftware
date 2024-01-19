@@ -656,6 +656,51 @@ Module RTBBLibDll
     Public Function RTBB_SPIGetCSCount(ByVal hDevice As Integer, ByVal nBus As Integer) As Integer
     End Function
 
+
+
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_GetIsoBoardCount", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_GetIsoBoardCount(ByVal hEnumIsoBoard As Integer) As Integer
+    End Function
+
+    '2023/07/11
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_FreeEnumIsoBoard", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_FreeEnumIsoBoard(ByVal hEnumIsoBoard As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_DisconnectIso", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_DisconnectIso(ByVal hIsoDevice As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_GetIsoBoardInfo", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_GetIsoBoardInfo(ByVal hIsoDevice As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_ConnectToIsoBoardAsBridgeByIndex", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_ConnectToIsoBoardAsBridgeByIndex(ByVal hEnumIsoBoard As Integer, ByVal nIndex As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_EnumIsolatedBoard", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_EnumIsolatedBoard(ByVal pBoardNames As String(), ByVal nameCount As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_ConnectToIsoBoardByIndex", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_ConnectToIsoBoardByIndex(ByVal hEnumIsoBoard As Integer, ByVal nIndex As Integer) As Integer
+    End Function
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_Iso_Transact", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_Iso_Transact(ByVal hIsoDevice As Integer,
+                                                                 ByVal pCmdIn As Integer(), ByVal pDataInCount As Integer(), ByVal pDataIn As Byte(),
+                                                                 ByVal pCmdOut As Integer(), ByVal pDataOutCount As Integer(), ByVal pDataOut As Byte()) As Integer
+    End Function
+
+
+
+    <DllImportAttribute(RTBBDLLNAME, EntryPoint:="RTBB_Iso_Ping", CallingConvention:=CallingConvention.Cdecl)>
+    Public Function RTBB_Iso_Ping(ByVal hIsoDevice As Integer) As Integer
+    End Function
+
     ' * -> ByReF
     'uint8_t -> Byte
 

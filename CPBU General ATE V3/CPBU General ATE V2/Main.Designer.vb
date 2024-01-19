@@ -275,6 +275,8 @@ Partial Class Main
         Me.dlgSave = New System.Windows.Forms.SaveFileDialog()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.TextBox24 = New System.Windows.Forms.TextBox()
+        Me.rbtn_chamber = New System.Windows.Forms.RadioButton()
+        Me.rbtn_TEC = New System.Windows.Forms.RadioButton()
         Me.StatusStrip1.SuspendLayout()
         CType(Me.data_Test, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.TabControl1.SuspendLayout()
@@ -349,10 +351,10 @@ Partial Class Main
         Me.StatusStrip1.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.StatusStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
         Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.status_led_error, Me.status_led_run, Me.ToolStripStatusLabel8, Me.status_bridgeboad, Me.ToolStripStatusLabel3, Me.status_Version, Me.ToolStripStatusLabel5, Me.ToolStripStatusLabel6, Me.status_error})
-        Me.StatusStrip1.Location = New System.Drawing.Point(0, 509)
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 510)
         Me.StatusStrip1.Name = "StatusStrip1"
         Me.StatusStrip1.Padding = New System.Windows.Forms.Padding(1, 0, 19, 0)
-        Me.StatusStrip1.Size = New System.Drawing.Size(703, 34)
+        Me.StatusStrip1.Size = New System.Drawing.Size(703, 33)
         Me.StatusStrip1.SizingGrip = False
         Me.StatusStrip1.TabIndex = 3045
         '
@@ -361,7 +363,7 @@ Partial Class Main
         Me.ToolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel2.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
-        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(53, 28)
+        Me.ToolStripStatusLabel2.Size = New System.Drawing.Size(41, 28)
         Me.ToolStripStatusLabel2.Text = "GPIB:"
         '
         'status_led_error
@@ -383,7 +385,7 @@ Partial Class Main
         Me.ToolStripStatusLabel8.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel8.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel8.Name = "ToolStripStatusLabel8"
-        Me.ToolStripStatusLabel8.Size = New System.Drawing.Size(105, 28)
+        Me.ToolStripStatusLabel8.Size = New System.Drawing.Size(84, 28)
         Me.ToolStripStatusLabel8.Text = "Bridgeboard:"
         '
         'status_bridgeboad
@@ -393,7 +395,7 @@ Partial Class Main
         Me.status_bridgeboad.Font = New System.Drawing.Font("Arial", 9.0!)
         Me.status_bridgeboad.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.status_bridgeboad.Name = "status_bridgeboad"
-        Me.status_bridgeboad.Size = New System.Drawing.Size(44, 28)
+        Me.status_bridgeboad.Size = New System.Drawing.Size(38, 28)
         Me.status_bridgeboad.Text = "1.0.0"
         '
         'ToolStripStatusLabel3
@@ -401,7 +403,7 @@ Partial Class Main
         Me.ToolStripStatusLabel3.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right
         Me.ToolStripStatusLabel3.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold)
         Me.ToolStripStatusLabel3.Name = "ToolStripStatusLabel3"
-        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(39, 28)
+        Me.ToolStripStatusLabel3.Size = New System.Drawing.Size(33, 28)
         Me.ToolStripStatusLabel3.Text = "Ver:"
         '
         'status_Version
@@ -411,7 +413,7 @@ Partial Class Main
         Me.status_Version.Font = New System.Drawing.Font("Arial", 9.0!)
         Me.status_Version.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None
         Me.status_Version.Name = "status_Version"
-        Me.status_Version.Size = New System.Drawing.Size(44, 28)
+        Me.status_Version.Size = New System.Drawing.Size(38, 28)
         Me.status_Version.Text = "1.0.0"
         '
         'ToolStripStatusLabel5
@@ -428,7 +430,7 @@ Partial Class Main
         Me.ToolStripStatusLabel6.Font = New System.Drawing.Font("Arial", 9.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.ToolStripStatusLabel6.ForeColor = System.Drawing.Color.Black
         Me.ToolStripStatusLabel6.Name = "ToolStripStatusLabel6"
-        Me.ToolStripStatusLabel6.Size = New System.Drawing.Size(61, 28)
+        Me.ToolStripStatusLabel6.Size = New System.Drawing.Size(51, 28)
         Me.ToolStripStatusLabel6.Text = "Status:"
         '
         'status_error
@@ -436,7 +438,7 @@ Partial Class Main
         Me.status_error.Font = New System.Drawing.Font("Arial", 9.0!)
         Me.status_error.ForeColor = System.Drawing.Color.Black
         Me.status_error.Name = "status_error"
-        Me.status_error.Size = New System.Drawing.Size(41, 28)
+        Me.status_error.Size = New System.Drawing.Size(34, 28)
         Me.status_error.Text = "Error"
         '
         'data_Test
@@ -509,9 +511,9 @@ Partial Class Main
         Me.TabPage4.Controls.Add(Me.GroupBox3)
         Me.TabPage4.Controls.Add(Me.GroupBox9)
         Me.TabPage4.Controls.Add(Me.GroupBox2)
-        Me.TabPage4.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage4.Location = New System.Drawing.Point(4, 24)
         Me.TabPage4.Name = "TabPage4"
-        Me.TabPage4.Size = New System.Drawing.Size(563, 470)
+        Me.TabPage4.Size = New System.Drawing.Size(563, 472)
         Me.TabPage4.TabIndex = 6
         Me.TabPage4.Text = "Main"
         '
@@ -544,7 +546,7 @@ Partial Class Main
         Me.TextBox23.Location = New System.Drawing.Point(12, 126)
         Me.TextBox23.Name = "TextBox23"
         Me.TextBox23.ReadOnly = True
-        Me.TextBox23.Size = New System.Drawing.Size(45, 25)
+        Me.TextBox23.Size = New System.Drawing.Size(45, 21)
         Me.TextBox23.TabIndex = 3280
         Me.TextBox23.Text = "P2.3"
         Me.TextBox23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -556,7 +558,7 @@ Partial Class Main
         Me.TextBox18.Location = New System.Drawing.Point(63, 126)
         Me.TextBox18.Name = "TextBox18"
         Me.TextBox18.ReadOnly = True
-        Me.TextBox18.Size = New System.Drawing.Size(45, 25)
+        Me.TextBox18.Size = New System.Drawing.Size(45, 21)
         Me.TextBox18.TabIndex = 3279
         Me.TextBox18.Text = "P2.2"
         Me.TextBox18.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -568,7 +570,7 @@ Partial Class Main
         Me.TextBox16.Location = New System.Drawing.Point(114, 126)
         Me.TextBox16.Name = "TextBox16"
         Me.TextBox16.ReadOnly = True
-        Me.TextBox16.Size = New System.Drawing.Size(45, 25)
+        Me.TextBox16.Size = New System.Drawing.Size(45, 21)
         Me.TextBox16.TabIndex = 3278
         Me.TextBox16.Text = "P2.1"
         Me.TextBox16.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -580,7 +582,7 @@ Partial Class Main
         Me.TextBox25.Location = New System.Drawing.Point(165, 126)
         Me.TextBox25.Name = "TextBox25"
         Me.TextBox25.ReadOnly = True
-        Me.TextBox25.Size = New System.Drawing.Size(45, 25)
+        Me.TextBox25.Size = New System.Drawing.Size(45, 21)
         Me.TextBox25.TabIndex = 3277
         Me.TextBox25.Text = "P2.0"
         Me.TextBox25.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -594,7 +596,7 @@ Partial Class Main
         Me.TextBox28.Location = New System.Drawing.Point(12, 103)
         Me.TextBox28.Name = "TextBox28"
         Me.TextBox28.ReadOnly = True
-        Me.TextBox28.Size = New System.Drawing.Size(198, 25)
+        Me.TextBox28.Size = New System.Drawing.Size(198, 21)
         Me.TextBox28.TabIndex = 3274
         Me.TextBox28.Text = "MCU"
         Me.TextBox28.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -616,7 +618,7 @@ Partial Class Main
         Me.txt_slave.Location = New System.Drawing.Point(114, 74)
         Me.txt_slave.Name = "txt_slave"
         Me.txt_slave.ReadOnly = True
-        Me.txt_slave.Size = New System.Drawing.Size(95, 25)
+        Me.txt_slave.Size = New System.Drawing.Size(95, 21)
         Me.txt_slave.TabIndex = 3087
         Me.txt_slave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -625,7 +627,7 @@ Partial Class Main
         Me.check_multi.AutoSize = True
         Me.check_multi.Location = New System.Drawing.Point(11, 20)
         Me.check_multi.Name = "check_multi"
-        Me.check_multi.Size = New System.Drawing.Size(227, 21)
+        Me.check_multi.Size = New System.Drawing.Size(191, 19)
         Me.check_multi.TabIndex = 3086
         Me.check_multi.Text = "Enable (Max.=8 temperatures)"
         Me.check_multi.UseVisualStyleBackColor = True
@@ -636,7 +638,7 @@ Partial Class Main
         Me.txt_master.Location = New System.Drawing.Point(12, 74)
         Me.txt_master.Name = "txt_master"
         Me.txt_master.ReadOnly = True
-        Me.txt_master.Size = New System.Drawing.Size(95, 25)
+        Me.txt_master.Size = New System.Drawing.Size(95, 21)
         Me.txt_master.TabIndex = 3085
         Me.txt_master.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -645,7 +647,7 @@ Partial Class Main
         Me.rbtn_Slave.AutoSize = True
         Me.rbtn_Slave.Location = New System.Drawing.Point(114, 49)
         Me.rbtn_Slave.Name = "rbtn_Slave"
-        Me.rbtn_Slave.Size = New System.Drawing.Size(65, 21)
+        Me.rbtn_Slave.Size = New System.Drawing.Size(55, 19)
         Me.rbtn_Slave.TabIndex = 1
         Me.rbtn_Slave.Text = "Slave"
         Me.rbtn_Slave.UseVisualStyleBackColor = True
@@ -656,7 +658,7 @@ Partial Class Main
         Me.rbtn_Master.Checked = True
         Me.rbtn_Master.Location = New System.Drawing.Point(11, 49)
         Me.rbtn_Master.Name = "rbtn_Master"
-        Me.rbtn_Master.Size = New System.Drawing.Size(77, 21)
+        Me.rbtn_Master.Size = New System.Drawing.Size(65, 19)
         Me.rbtn_Master.TabIndex = 0
         Me.rbtn_Master.TabStop = True
         Me.rbtn_Master.Text = "Master "
@@ -664,6 +666,8 @@ Partial Class Main
         '
         'GroupBox3
         '
+        Me.GroupBox3.Controls.Add(Me.rbtn_TEC)
+        Me.GroupBox3.Controls.Add(Me.rbtn_chamber)
         Me.GroupBox3.Controls.Add(Me.TextBox35)
         Me.GroupBox3.Controls.Add(Me.num_delay_Temp)
         Me.GroupBox3.Controls.Add(Me.Label133)
@@ -686,7 +690,7 @@ Partial Class Main
         Me.TextBox35.Location = New System.Drawing.Point(85, 19)
         Me.TextBox35.Name = "TextBox35"
         Me.TextBox35.ReadOnly = True
-        Me.TextBox35.Size = New System.Drawing.Size(89, 25)
+        Me.TextBox35.Size = New System.Drawing.Size(89, 21)
         Me.TextBox35.TabIndex = 3120
         Me.TextBox35.Text = "Temp. (℃)"
         Me.TextBox35.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -695,10 +699,10 @@ Partial Class Main
         '
         Me.num_delay_Temp.ForeColor = System.Drawing.Color.Black
         Me.num_delay_Temp.Increment = New Decimal(New Integer() {3, 0, 0, 0})
-        Me.num_delay_Temp.Location = New System.Drawing.Point(163, 131)
+        Me.num_delay_Temp.Location = New System.Drawing.Point(197, 131)
         Me.num_delay_Temp.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_delay_Temp.Name = "num_delay_Temp"
-        Me.num_delay_Temp.Size = New System.Drawing.Size(101, 25)
+        Me.num_delay_Temp.Size = New System.Drawing.Size(101, 21)
         Me.num_delay_Temp.TabIndex = 2957
         Me.num_delay_Temp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_delay_Temp.Value = New Decimal(New Integer() {1, 0, 0, 0})
@@ -707,9 +711,9 @@ Partial Class Main
         '
         Me.Label133.AutoSize = True
         Me.Label133.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Label133.Location = New System.Drawing.Point(270, 133)
+        Me.Label133.Location = New System.Drawing.Point(304, 133)
         Me.Label133.Name = "Label133"
-        Me.Label133.Size = New System.Drawing.Size(41, 17)
+        Me.Label133.Size = New System.Drawing.Size(34, 15)
         Me.Label133.TabIndex = 2958
         Me.Label133.Text = "sec )"
         '
@@ -718,7 +722,7 @@ Partial Class Main
         Me.check_TA_en.AutoSize = True
         Me.check_TA_en.Location = New System.Drawing.Point(11, 20)
         Me.check_TA_en.Name = "check_TA_en"
-        Me.check_TA_en.Size = New System.Drawing.Size(75, 21)
+        Me.check_TA_en.Size = New System.Drawing.Size(65, 19)
         Me.check_TA_en.TabIndex = 2960
         Me.check_TA_en.Text = "Enable"
         Me.check_TA_en.UseVisualStyleBackColor = True
@@ -727,9 +731,9 @@ Partial Class Main
         '
         Me.Label83.AutoSize = True
         Me.Label83.ForeColor = System.Drawing.Color.WhiteSmoke
-        Me.Label83.Location = New System.Drawing.Point(116, 133)
+        Me.Label83.Location = New System.Drawing.Point(150, 133)
         Me.Label83.Name = "Label83"
-        Me.Label83.Size = New System.Drawing.Size(58, 17)
+        Me.Label83.Size = New System.Drawing.Size(48, 15)
         Me.Label83.TabIndex = 2956
         Me.Label83.Text = "( Delay:"
         '
@@ -812,7 +816,7 @@ Partial Class Main
         Me.num_Temp.Maximum = New Decimal(New Integer() {200, 0, 0, 0})
         Me.num_Temp.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.num_Temp.Name = "num_Temp"
-        Me.num_Temp.Size = New System.Drawing.Size(61, 25)
+        Me.num_Temp.Size = New System.Drawing.Size(61, 21)
         Me.num_Temp.TabIndex = 2952
         Me.num_Temp.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -857,7 +861,7 @@ Partial Class Main
         Me.Label7.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label7.Location = New System.Drawing.Point(171, 51)
         Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(78, 17)
+        Me.Label7.Size = New System.Drawing.Size(65, 15)
         Me.Label7.TabIndex = 3129
         Me.Label7.Text = "Data (Hex)"
         '
@@ -868,7 +872,7 @@ Partial Class Main
         Me.Label5.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label5.Location = New System.Drawing.Point(86, 51)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(80, 17)
+        Me.Label5.Size = New System.Drawing.Size(66, 15)
         Me.Label5.TabIndex = 3128
         Me.Label5.Text = "Addr. (Hex)"
         '
@@ -889,7 +893,7 @@ Partial Class Main
         Me.num_ID.Location = New System.Drawing.Point(9, 69)
         Me.num_ID.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         Me.num_ID.Name = "num_ID"
-        Me.num_ID.Size = New System.Drawing.Size(71, 25)
+        Me.num_ID.Size = New System.Drawing.Size(71, 21)
         Me.num_ID.TabIndex = 3126
         Me.num_ID.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -912,7 +916,7 @@ Partial Class Main
         Me.num_data.Location = New System.Drawing.Point(174, 69)
         Me.num_data.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         Me.num_data.Name = "num_data"
-        Me.num_data.Size = New System.Drawing.Size(80, 25)
+        Me.num_data.Size = New System.Drawing.Size(80, 21)
         Me.num_data.TabIndex = 3120
         Me.num_data.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -982,7 +986,7 @@ Partial Class Main
         Me.num_addr.Location = New System.Drawing.Point(86, 69)
         Me.num_addr.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
         Me.num_addr.Name = "num_addr"
-        Me.num_addr.Size = New System.Drawing.Size(80, 25)
+        Me.num_addr.Size = New System.Drawing.Size(80, 21)
         Me.num_addr.TabIndex = 3118
         Me.num_addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -993,7 +997,7 @@ Partial Class Main
         Me.Label58.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label58.Location = New System.Drawing.Point(6, 51)
         Me.Label58.Name = "Label58"
-        Me.Label58.Size = New System.Drawing.Size(69, 17)
+        Me.Label58.Size = New System.Drawing.Size(57, 15)
         Me.Label58.TabIndex = 3102
         Me.Label58.Text = "ID (Hex) :"
         '
@@ -1022,7 +1026,7 @@ Partial Class Main
         Me.num_full_load.Location = New System.Drawing.Point(143, 101)
         Me.num_full_load.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_full_load.Name = "num_full_load"
-        Me.num_full_load.Size = New System.Drawing.Size(63, 25)
+        Me.num_full_load.Size = New System.Drawing.Size(63, 21)
         Me.num_full_load.TabIndex = 3085
         Me.num_full_load.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_full_load.Value = New Decimal(New Integer() {5, 0, 0, 0})
@@ -1033,7 +1037,7 @@ Partial Class Main
         Me.txt_full_load.Location = New System.Drawing.Point(6, 101)
         Me.txt_full_load.Name = "txt_full_load"
         Me.txt_full_load.ReadOnly = True
-        Me.txt_full_load.Size = New System.Drawing.Size(135, 25)
+        Me.txt_full_load.Size = New System.Drawing.Size(135, 21)
         Me.txt_full_load.TabIndex = 3084
         Me.txt_full_load.Text = "Full Load (A)"
         Me.txt_full_load.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1044,7 +1048,7 @@ Partial Class Main
         Me.num_inductor.Location = New System.Drawing.Point(143, 74)
         Me.num_inductor.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_inductor.Name = "num_inductor"
-        Me.num_inductor.Size = New System.Drawing.Size(63, 25)
+        Me.num_inductor.Size = New System.Drawing.Size(63, 21)
         Me.num_inductor.TabIndex = 3079
         Me.num_inductor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_inductor.Value = New Decimal(New Integer() {15, 0, 0, 65536})
@@ -1055,7 +1059,7 @@ Partial Class Main
         Me.txt_inductor.Location = New System.Drawing.Point(6, 74)
         Me.txt_inductor.Name = "txt_inductor"
         Me.txt_inductor.ReadOnly = True
-        Me.txt_inductor.Size = New System.Drawing.Size(135, 25)
+        Me.txt_inductor.Size = New System.Drawing.Size(135, 21)
         Me.txt_inductor.TabIndex = 3078
         Me.txt_inductor.Text = "Inductor (uH)"
         Me.txt_inductor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1065,7 +1069,7 @@ Partial Class Main
         Me.num_vout_cap.Location = New System.Drawing.Point(143, 47)
         Me.num_vout_cap.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_vout_cap.Name = "num_vout_cap"
-        Me.num_vout_cap.Size = New System.Drawing.Size(63, 25)
+        Me.num_vout_cap.Size = New System.Drawing.Size(63, 21)
         Me.num_vout_cap.TabIndex = 3077
         Me.num_vout_cap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_vout_cap.Value = New Decimal(New Integer() {66, 0, 0, 0})
@@ -1076,7 +1080,7 @@ Partial Class Main
         Me.txt_vin_cap.Location = New System.Drawing.Point(6, 20)
         Me.txt_vin_cap.Name = "txt_vin_cap"
         Me.txt_vin_cap.ReadOnly = True
-        Me.txt_vin_cap.Size = New System.Drawing.Size(135, 25)
+        Me.txt_vin_cap.Size = New System.Drawing.Size(135, 21)
         Me.txt_vin_cap.TabIndex = 3076
         Me.txt_vin_cap.Text = "VIN Capacitors (uF)"
         Me.txt_vin_cap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1086,7 +1090,7 @@ Partial Class Main
         Me.num_vin_cap.Location = New System.Drawing.Point(143, 20)
         Me.num_vin_cap.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_vin_cap.Name = "num_vin_cap"
-        Me.num_vin_cap.Size = New System.Drawing.Size(63, 25)
+        Me.num_vin_cap.Size = New System.Drawing.Size(63, 21)
         Me.num_vin_cap.TabIndex = 3075
         Me.num_vin_cap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_vin_cap.Value = New Decimal(New Integer() {20, 0, 0, 0})
@@ -1097,7 +1101,7 @@ Partial Class Main
         Me.txt_vout_cap.Location = New System.Drawing.Point(6, 47)
         Me.txt_vout_cap.Name = "txt_vout_cap"
         Me.txt_vout_cap.ReadOnly = True
-        Me.txt_vout_cap.Size = New System.Drawing.Size(135, 25)
+        Me.txt_vout_cap.Size = New System.Drawing.Size(135, 21)
         Me.txt_vout_cap.TabIndex = 3032
         Me.txt_vout_cap.Text = "VOUT Capacitors (uF)"
         Me.txt_vout_cap.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1111,9 +1115,9 @@ Partial Class Main
         Me.TabPage5.Controls.Add(Me.Link_relay_sch)
         Me.TabPage5.Controls.Add(Me.GroupBox5)
         Me.TabPage5.Controls.Add(Me.data_meas)
-        Me.TabPage5.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 24)
         Me.TabPage5.Name = "TabPage5"
-        Me.TabPage5.Size = New System.Drawing.Size(563, 470)
+        Me.TabPage5.Size = New System.Drawing.Size(563, 472)
         Me.TabPage5.TabIndex = 8
         Me.TabPage5.Text = "Relay Board"
         '
@@ -1124,7 +1128,7 @@ Partial Class Main
         Me.Label18.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label18.Location = New System.Drawing.Point(323, 2)
         Me.Label18.Name = "Label18"
-        Me.Label18.Size = New System.Drawing.Size(176, 17)
+        Me.Label18.Size = New System.Drawing.Size(148, 15)
         Me.Label18.TabIndex = 3132
         Me.Label18.Text = "Current Monitor (INA226) :"
         '
@@ -1135,7 +1139,7 @@ Partial Class Main
         Me.Label16.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label16.Location = New System.Drawing.Point(6, 5)
         Me.Label16.Name = "Label16"
-        Me.Label16.Size = New System.Drawing.Size(187, 17)
+        Me.Label16.Size = New System.Drawing.Size(155, 15)
         Me.Label16.TabIndex = 3131
         Me.Label16.Text = "I/O Expander (MCP23017) :"
         '
@@ -1208,7 +1212,7 @@ Partial Class Main
         Me.Link_relay_sch.LinkColor = System.Drawing.Color.Yellow
         Me.Link_relay_sch.Location = New System.Drawing.Point(8, 451)
         Me.Link_relay_sch.Name = "Link_relay_sch"
-        Me.Link_relay_sch.Size = New System.Drawing.Size(182, 17)
+        Me.Link_relay_sch.Size = New System.Drawing.Size(153, 15)
         Me.Link_relay_sch.TabIndex = 3130
         Me.Link_relay_sch.TabStop = True
         Me.Link_relay_sch.Text = "Click here to get more info."
@@ -1248,7 +1252,7 @@ Partial Class Main
         Me.Label10.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label10.Location = New System.Drawing.Point(5, 56)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(195, 17)
+        Me.Label10.Size = New System.Drawing.Size(166, 15)
         Me.Label10.TabIndex = 3845
         Me.Label10.Text = "Configuration Register (00h):"
         '
@@ -1259,7 +1263,7 @@ Partial Class Main
         Me.txt_INA226_00h.Name = "txt_INA226_00h"
         Me.txt_INA226_00h.ReadOnly = True
         Me.txt_INA226_00h.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.txt_INA226_00h.Size = New System.Drawing.Size(67, 25)
+        Me.txt_INA226_00h.Size = New System.Drawing.Size(67, 21)
         Me.txt_INA226_00h.TabIndex = 3844
         Me.txt_INA226_00h.Text = "4127"
         Me.txt_INA226_00h.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1271,7 +1275,7 @@ Partial Class Main
         Me.cbox_INA226_b11_9.Items.AddRange(New Object() {"1", "4", "16", "64", "128", "256", "512", "1024"})
         Me.cbox_INA226_b11_9.Location = New System.Drawing.Point(74, 21)
         Me.cbox_INA226_b11_9.Name = "cbox_INA226_b11_9"
-        Me.cbox_INA226_b11_9.Size = New System.Drawing.Size(97, 25)
+        Me.cbox_INA226_b11_9.Size = New System.Drawing.Size(97, 23)
         Me.cbox_INA226_b11_9.TabIndex = 3843
         '
         'Label8
@@ -1281,7 +1285,7 @@ Partial Class Main
         Me.Label8.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label8.Location = New System.Drawing.Point(5, 3)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(119, 17)
+        Me.Label8.Size = New System.Drawing.Size(100, 15)
         Me.Label8.TabIndex = 3842
         Me.Label8.Text = "Averaging Mode :"
         '
@@ -1315,7 +1319,7 @@ Partial Class Main
         Me.txt_IOUT_H.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_IOUT_H.Location = New System.Drawing.Point(3, 40)
         Me.txt_IOUT_H.Name = "txt_IOUT_H"
-        Me.txt_IOUT_H.Size = New System.Drawing.Size(75, 18)
+        Me.txt_IOUT_H.Size = New System.Drawing.Size(75, 14)
         Me.txt_IOUT_H.TabIndex = 3143
         Me.txt_IOUT_H.Text = "0.08~4A "
         '
@@ -1325,7 +1329,7 @@ Partial Class Main
         Me.txt_IOUT_L.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_IOUT_L.Location = New System.Drawing.Point(3, 6)
         Me.txt_IOUT_L.Name = "txt_IOUT_L"
-        Me.txt_IOUT_L.Size = New System.Drawing.Size(75, 18)
+        Me.txt_IOUT_L.Size = New System.Drawing.Size(75, 14)
         Me.txt_IOUT_L.TabIndex = 3142
         Me.txt_IOUT_L.Text = "0~0.08A:"
         '
@@ -1335,7 +1339,7 @@ Partial Class Main
         Me.num_IOUT_Rshunt_H.Location = New System.Drawing.Point(80, 57)
         Me.num_IOUT_Rshunt_H.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_IOUT_Rshunt_H.Name = "num_IOUT_Rshunt_H"
-        Me.num_IOUT_Rshunt_H.Size = New System.Drawing.Size(90, 25)
+        Me.num_IOUT_Rshunt_H.Size = New System.Drawing.Size(90, 21)
         Me.num_IOUT_Rshunt_H.TabIndex = 3134
         Me.num_IOUT_Rshunt_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_IOUT_Rshunt_H.Value = New Decimal(New Integer() {25, 0, 0, 196608})
@@ -1346,7 +1350,7 @@ Partial Class Main
         Me.num_IOUT_Rshunt_L.Location = New System.Drawing.Point(80, 18)
         Me.num_IOUT_Rshunt_L.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_IOUT_Rshunt_L.Name = "num_IOUT_Rshunt_L"
-        Me.num_IOUT_Rshunt_L.Size = New System.Drawing.Size(90, 25)
+        Me.num_IOUT_Rshunt_L.Size = New System.Drawing.Size(90, 21)
         Me.num_IOUT_Rshunt_L.TabIndex = 3132
         Me.num_IOUT_Rshunt_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_IOUT_Rshunt_L.Value = New Decimal(New Integer() {1, 0, 0, 0})
@@ -1356,7 +1360,7 @@ Partial Class Main
         Me.TextBox14.BackColor = System.Drawing.Color.LightCyan
         Me.TextBox14.Location = New System.Drawing.Point(187, 16)
         Me.TextBox14.Name = "TextBox14"
-        Me.TextBox14.Size = New System.Drawing.Size(175, 25)
+        Me.TextBox14.Size = New System.Drawing.Size(175, 21)
         Me.TextBox14.TabIndex = 3143
         Me.TextBox14.Text = "IOUT Rshunt (Ω) "
         Me.TextBox14.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1380,7 +1384,7 @@ Partial Class Main
         Me.txt_IIN_H.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_IIN_H.Location = New System.Drawing.Point(3, 40)
         Me.txt_IIN_H.Name = "txt_IIN_H"
-        Me.txt_IIN_H.Size = New System.Drawing.Size(75, 18)
+        Me.txt_IIN_H.Size = New System.Drawing.Size(75, 14)
         Me.txt_IIN_H.TabIndex = 3141
         Me.txt_IIN_H.Text = "0.08~4A:"
         '
@@ -1390,7 +1394,7 @@ Partial Class Main
         Me.txt_IIN_L.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.txt_IIN_L.Location = New System.Drawing.Point(3, 5)
         Me.txt_IIN_L.Name = "txt_IIN_L"
-        Me.txt_IIN_L.Size = New System.Drawing.Size(75, 18)
+        Me.txt_IIN_L.Size = New System.Drawing.Size(75, 14)
         Me.txt_IIN_L.TabIndex = 3140
         Me.txt_IIN_L.Text = "0~0.08A :"
         '
@@ -1400,7 +1404,7 @@ Partial Class Main
         Me.num_IIN_Rshunt_H.Location = New System.Drawing.Point(80, 57)
         Me.num_IIN_Rshunt_H.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_IIN_Rshunt_H.Name = "num_IIN_Rshunt_H"
-        Me.num_IIN_Rshunt_H.Size = New System.Drawing.Size(90, 25)
+        Me.num_IIN_Rshunt_H.Size = New System.Drawing.Size(90, 21)
         Me.num_IIN_Rshunt_H.TabIndex = 3134
         Me.num_IIN_Rshunt_H.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_IIN_Rshunt_H.Value = New Decimal(New Integer() {25, 0, 0, 196608})
@@ -1411,7 +1415,7 @@ Partial Class Main
         Me.num_IIN_Rshunt_L.Location = New System.Drawing.Point(80, 18)
         Me.num_IIN_Rshunt_L.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_IIN_Rshunt_L.Name = "num_IIN_Rshunt_L"
-        Me.num_IIN_Rshunt_L.Size = New System.Drawing.Size(90, 25)
+        Me.num_IIN_Rshunt_L.Size = New System.Drawing.Size(90, 21)
         Me.num_IIN_Rshunt_L.TabIndex = 3132
         Me.num_IIN_Rshunt_L.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_IIN_Rshunt_L.Value = New Decimal(New Integer() {1, 0, 0, 0})
@@ -1421,7 +1425,7 @@ Partial Class Main
         Me.TextBox12.BackColor = System.Drawing.Color.LightCyan
         Me.TextBox12.Location = New System.Drawing.Point(6, 16)
         Me.TextBox12.Name = "TextBox12"
-        Me.TextBox12.Size = New System.Drawing.Size(175, 25)
+        Me.TextBox12.Size = New System.Drawing.Size(175, 21)
         Me.TextBox12.TabIndex = 3139
         Me.TextBox12.Text = "IIN Rshunt (Ω) "
         Me.TextBox12.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1486,9 +1490,9 @@ Partial Class Main
         Me.TabPage3.Controls.Add(Me.GroupBox1)
         Me.TabPage3.Controls.Add(Me.Label17)
         Me.TabPage3.Controls.Add(Me.txt_note)
-        Me.TabPage3.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage3.Location = New System.Drawing.Point(4, 24)
         Me.TabPage3.Name = "TabPage3"
-        Me.TabPage3.Size = New System.Drawing.Size(563, 470)
+        Me.TabPage3.Size = New System.Drawing.Size(563, 472)
         Me.TabPage3.TabIndex = 2
         Me.TabPage3.Text = "Global"
         '
@@ -1535,7 +1539,7 @@ Partial Class Main
         Me.Label23.ForeColor = System.Drawing.Color.Black
         Me.Label23.Location = New System.Drawing.Point(354, 7)
         Me.Label23.Name = "Label23"
-        Me.Label23.Size = New System.Drawing.Size(66, 17)
+        Me.Label23.Size = New System.Drawing.Size(56, 15)
         Me.Label23.TabIndex = 3683
         Me.Label23.Text = "I2C Flag:"
         '
@@ -1544,7 +1548,7 @@ Partial Class Main
         Me.TextBox17.Location = New System.Drawing.Point(98, 4)
         Me.TextBox17.Name = "TextBox17"
         Me.TextBox17.ReadOnly = True
-        Me.TextBox17.Size = New System.Drawing.Size(55, 25)
+        Me.TextBox17.Size = New System.Drawing.Size(55, 21)
         Me.TextBox17.TabIndex = 3118
         Me.TextBox17.Text = "V"
         Me.TextBox17.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1555,7 +1559,7 @@ Partial Class Main
         Me.nu_flag.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
         Me.nu_flag.Minimum = New Decimal(New Integer() {100, 0, 0, -2147483648})
         Me.nu_flag.Name = "nu_flag"
-        Me.nu_flag.Size = New System.Drawing.Size(64, 25)
+        Me.nu_flag.Size = New System.Drawing.Size(64, 21)
         Me.nu_flag.TabIndex = 3682
         Me.nu_flag.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1565,7 +1569,7 @@ Partial Class Main
         Me.num_EN_OFF.Location = New System.Drawing.Point(2, 5)
         Me.num_EN_OFF.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_EN_OFF.Name = "num_EN_OFF"
-        Me.num_EN_OFF.Size = New System.Drawing.Size(90, 25)
+        Me.num_EN_OFF.Size = New System.Drawing.Size(90, 21)
         Me.num_EN_OFF.TabIndex = 3117
         Me.num_EN_OFF.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1575,7 +1579,7 @@ Partial Class Main
         Me.Label22.ForeColor = System.Drawing.Color.Black
         Me.Label22.Location = New System.Drawing.Point(185, 6)
         Me.Label22.Name = "Label22"
-        Me.Label22.Size = New System.Drawing.Size(99, 17)
+        Me.Label22.Size = New System.Drawing.Size(83, 15)
         Me.Label22.TabIndex = 3681
         Me.Label22.Text = "Error number:"
         '
@@ -1585,7 +1589,7 @@ Partial Class Main
         Me.nu_error_cnt.Maximum = New Decimal(New Integer() {100000, 0, 0, 0})
         Me.nu_error_cnt.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.nu_error_cnt.Name = "nu_error_cnt"
-        Me.nu_error_cnt.Size = New System.Drawing.Size(64, 25)
+        Me.nu_error_cnt.Size = New System.Drawing.Size(64, 21)
         Me.nu_error_cnt.TabIndex = 3680
         Me.nu_error_cnt.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.nu_error_cnt.Value = New Decimal(New Integer() {1000, 0, 0, 0})
@@ -1608,7 +1612,7 @@ Partial Class Main
         Me.txt_ven_Addr.Location = New System.Drawing.Point(485, 4)
         Me.txt_ven_Addr.Name = "txt_ven_Addr"
         Me.txt_ven_Addr.ReadOnly = True
-        Me.txt_ven_Addr.Size = New System.Drawing.Size(55, 25)
+        Me.txt_ven_Addr.Size = New System.Drawing.Size(55, 21)
         Me.txt_ven_Addr.TabIndex = 3128
         Me.txt_ven_Addr.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1619,7 +1623,7 @@ Partial Class Main
         Me.cbox_ven.Items.AddRange(New Object() {"OFF", "Agilent 3631A (6V)", "Agilent 3631A (25V)", "Agilent 3632A", "CHROMA 62006P-100-25"})
         Me.cbox_ven.Location = New System.Drawing.Point(221, 5)
         Me.cbox_ven.Name = "cbox_ven"
-        Me.cbox_ven.Size = New System.Drawing.Size(140, 25)
+        Me.cbox_ven.Size = New System.Drawing.Size(140, 23)
         Me.cbox_ven.TabIndex = 3022
         '
         'TextBox7
@@ -1627,7 +1631,7 @@ Partial Class Main
         Me.TextBox7.Location = New System.Drawing.Point(160, 6)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.ReadOnly = True
-        Me.TextBox7.Size = New System.Drawing.Size(55, 25)
+        Me.TextBox7.Size = New System.Drawing.Size(55, 21)
         Me.TextBox7.TabIndex = 3127
         Me.TextBox7.Text = "V"
         Me.TextBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1639,7 +1643,7 @@ Partial Class Main
         Me.cbox_ven_ch.Items.AddRange(New Object() {"1", "2", "3"})
         Me.cbox_ven_ch.Location = New System.Drawing.Point(367, 4)
         Me.cbox_ven_ch.Name = "cbox_ven_ch"
-        Me.cbox_ven_ch.Size = New System.Drawing.Size(117, 25)
+        Me.cbox_ven_ch.Size = New System.Drawing.Size(117, 23)
         Me.cbox_ven_ch.TabIndex = 3023
         '
         'TextBox13
@@ -1648,7 +1652,7 @@ Partial Class Main
         Me.TextBox13.Location = New System.Drawing.Point(3, 7)
         Me.TextBox13.Name = "TextBox13"
         Me.TextBox13.ReadOnly = True
-        Me.TextBox13.Size = New System.Drawing.Size(69, 25)
+        Me.TextBox13.Size = New System.Drawing.Size(69, 21)
         Me.TextBox13.TabIndex = 3126
         Me.TextBox13.Text = "EN"
         Me.TextBox13.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1659,7 +1663,7 @@ Partial Class Main
         Me.num_EN_ON.Location = New System.Drawing.Point(78, 7)
         Me.num_EN_ON.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_EN_ON.Name = "num_EN_ON"
-        Me.num_EN_ON.Size = New System.Drawing.Size(81, 25)
+        Me.num_EN_ON.Size = New System.Drawing.Size(81, 21)
         Me.num_EN_ON.TabIndex = 3121
         Me.num_EN_ON.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1675,7 +1679,7 @@ Partial Class Main
         '
         Me.txt_EN_set_OFF.Location = New System.Drawing.Point(3, 3)
         Me.txt_EN_set_OFF.Name = "txt_EN_set_OFF"
-        Me.txt_EN_set_OFF.Size = New System.Drawing.Size(482, 25)
+        Me.txt_EN_set_OFF.Size = New System.Drawing.Size(482, 21)
         Me.txt_EN_set_OFF.TabIndex = 3074
         '
         'Panel_other_EN
@@ -1693,7 +1697,7 @@ Partial Class Main
         Me.Label15.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label15.Location = New System.Drawing.Point(3, 5)
         Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(38, 17)
+        Me.Label15.Size = New System.Drawing.Size(31, 15)
         Me.Label15.TabIndex = 3068
         Me.Label15.Text = "ON :"
         '
@@ -1701,7 +1705,7 @@ Partial Class Main
         '
         Me.txt_EN_set_ON.Location = New System.Drawing.Point(58, 2)
         Me.txt_EN_set_ON.Name = "txt_EN_set_ON"
-        Me.txt_EN_set_ON.Size = New System.Drawing.Size(466, 25)
+        Me.txt_EN_set_ON.Size = New System.Drawing.Size(466, 21)
         Me.txt_EN_set_ON.TabIndex = 3072
         '
         'Label27
@@ -1710,7 +1714,7 @@ Partial Class Main
         Me.Label27.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label27.Location = New System.Drawing.Point(9, 140)
         Me.Label27.Name = "Label27"
-        Me.Label27.Size = New System.Drawing.Size(46, 17)
+        Me.Label27.Size = New System.Drawing.Size(36, 15)
         Me.Label27.TabIndex = 3123
         Me.Label27.Text = "OFF :"
         '
@@ -1719,7 +1723,7 @@ Partial Class Main
         Me.check_EN_off.AutoSize = True
         Me.check_EN_off.Location = New System.Drawing.Point(11, 48)
         Me.check_EN_off.Name = "check_EN_off"
-        Me.check_EN_off.Size = New System.Drawing.Size(328, 21)
+        Me.check_EN_off.Size = New System.Drawing.Size(271, 19)
         Me.check_EN_off.TabIndex = 3118
         Me.check_EN_off.Text = "Fs/ Vout Setting → Enable OFF → Enable ON"
         Me.check_EN_off.UseVisualStyleBackColor = True
@@ -1729,7 +1733,7 @@ Partial Class Main
         Me.txt_EN.Location = New System.Drawing.Point(32, 19)
         Me.txt_EN.Name = "txt_EN"
         Me.txt_EN.ReadOnly = True
-        Me.txt_EN.Size = New System.Drawing.Size(57, 25)
+        Me.txt_EN.Size = New System.Drawing.Size(57, 21)
         Me.txt_EN.TabIndex = 3117
         Me.txt_EN.Text = "VIN"
         Me.txt_EN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1739,7 +1743,7 @@ Partial Class Main
         Me.Label114.AutoSize = True
         Me.Label114.Location = New System.Drawing.Point(124, 21)
         Me.Label114.Name = "Label114"
-        Me.Label114.Size = New System.Drawing.Size(49, 17)
+        Me.Label114.Size = New System.Drawing.Size(41, 15)
         Me.Label114.TabIndex = 3099
         Me.Label114.Text = "Delay:"
         '
@@ -1748,7 +1752,7 @@ Partial Class Main
         Me.num_en_delay.Location = New System.Drawing.Point(173, 19)
         Me.num_en_delay.Maximum = New Decimal(New Integer() {10000, 0, 0, 0})
         Me.num_en_delay.Name = "num_en_delay"
-        Me.num_en_delay.Size = New System.Drawing.Size(78, 25)
+        Me.num_en_delay.Size = New System.Drawing.Size(78, 21)
         Me.num_en_delay.TabIndex = 3100
         Me.num_en_delay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1757,7 +1761,7 @@ Partial Class Main
         Me.Label117.AutoSize = True
         Me.Label117.Location = New System.Drawing.Point(257, 21)
         Me.Label117.Name = "Label117"
-        Me.Label117.Size = New System.Drawing.Size(29, 17)
+        Me.Label117.Size = New System.Drawing.Size(25, 15)
         Me.Label117.TabIndex = 3101
         Me.Label117.Text = "ms"
         '
@@ -1768,7 +1772,7 @@ Partial Class Main
         Me.cbox_en_mode.Items.AddRange(New Object() {"Power Supply", "I2C", "GPIO", "SVID"})
         Me.cbox_en_mode.Location = New System.Drawing.Point(317, 19)
         Me.cbox_en_mode.Name = "cbox_en_mode"
-        Me.cbox_en_mode.Size = New System.Drawing.Size(150, 25)
+        Me.cbox_en_mode.Size = New System.Drawing.Size(150, 23)
         Me.cbox_en_mode.TabIndex = 3113
         '
         'check_en
@@ -1776,7 +1780,7 @@ Partial Class Main
         Me.check_en.AutoSize = True
         Me.check_en.Location = New System.Drawing.Point(11, 23)
         Me.check_en.Name = "check_en"
-        Me.check_en.Size = New System.Drawing.Size(18, 17)
+        Me.check_en.Size = New System.Drawing.Size(15, 14)
         Me.check_en.TabIndex = 3024
         Me.check_en.UseVisualStyleBackColor = True
         '
@@ -1786,7 +1790,7 @@ Partial Class Main
         Me.Label13.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label13.Location = New System.Drawing.Point(287, 20)
         Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(30, 23)
+        Me.Label13.Size = New System.Drawing.Size(24, 18)
         Me.Label13.TabIndex = 3107
         Me.Label13.Text = "→"
         '
@@ -1796,7 +1800,7 @@ Partial Class Main
         Me.Label21.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.Label21.Location = New System.Drawing.Point(94, 20)
         Me.Label21.Name = "Label21"
-        Me.Label21.Size = New System.Drawing.Size(30, 23)
+        Me.Label21.Size = New System.Drawing.Size(24, 18)
         Me.Label21.TabIndex = 3109
         Me.Label21.Text = "→"
         '
@@ -1825,7 +1829,7 @@ Partial Class Main
         Me.TextBox9.Location = New System.Drawing.Point(185, 48)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.ReadOnly = True
-        Me.TextBox9.Size = New System.Drawing.Size(55, 25)
+        Me.TextBox9.Size = New System.Drawing.Size(55, 21)
         Me.TextBox9.TabIndex = 3125
         Me.TextBox9.Text = "KHz"
         Me.TextBox9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1837,7 +1841,7 @@ Partial Class Main
         Me.cbox_fs_ctr.Items.AddRange(New Object() {"NA", "I2C", "GPIO", "Voltage"})
         Me.cbox_fs_ctr.Location = New System.Drawing.Point(127, 20)
         Me.cbox_fs_ctr.Name = "cbox_fs_ctr"
-        Me.cbox_fs_ctr.Size = New System.Drawing.Size(102, 25)
+        Me.cbox_fs_ctr.Size = New System.Drawing.Size(102, 23)
         Me.cbox_fs_ctr.TabIndex = 3118
         '
         'Label19
@@ -1845,7 +1849,7 @@ Partial Class Main
         Me.Label19.AutoSize = True
         Me.Label19.Location = New System.Drawing.Point(14, 23)
         Me.Label19.Name = "Label19"
-        Me.Label19.Size = New System.Drawing.Size(118, 17)
+        Me.Label19.Size = New System.Drawing.Size(99, 15)
         Me.Label19.TabIndex = 3117
         Me.Label19.Text = "Control Method : "
         '
@@ -1855,7 +1859,7 @@ Partial Class Main
         Me.TextBox8.Location = New System.Drawing.Point(14, 49)
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.ReadOnly = True
-        Me.TextBox8.Size = New System.Drawing.Size(69, 25)
+        Me.TextBox8.Size = New System.Drawing.Size(69, 21)
         Me.TextBox8.TabIndex = 3124
         Me.TextBox8.Text = "Fs"
         Me.TextBox8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1879,7 +1883,7 @@ Partial Class Main
         Me.num_fs_set.Location = New System.Drawing.Point(89, 49)
         Me.num_fs_set.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_fs_set.Name = "num_fs_set"
-        Me.num_fs_set.Size = New System.Drawing.Size(90, 25)
+        Me.num_fs_set.Size = New System.Drawing.Size(90, 21)
         Me.num_fs_set.TabIndex = 3120
         Me.num_fs_set.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -1937,7 +1941,7 @@ Partial Class Main
         '
         Me.txt_fs_set.Location = New System.Drawing.Point(67, 79)
         Me.txt_fs_set.Name = "txt_fs_set"
-        Me.txt_fs_set.Size = New System.Drawing.Size(154, 25)
+        Me.txt_fs_set.Size = New System.Drawing.Size(154, 21)
         Me.txt_fs_set.TabIndex = 3122
         '
         'Label11
@@ -1945,7 +1949,7 @@ Partial Class Main
         Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(11, 79)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(61, 17)
+        Me.Label11.Size = New System.Drawing.Size(51, 15)
         Me.Label11.TabIndex = 3119
         Me.Label11.Text = "Setting :"
         '
@@ -1974,7 +1978,7 @@ Partial Class Main
         Me.TextBox22.Location = New System.Drawing.Point(183, 47)
         Me.TextBox22.Name = "TextBox22"
         Me.TextBox22.ReadOnly = True
-        Me.TextBox22.Size = New System.Drawing.Size(55, 25)
+        Me.TextBox22.Size = New System.Drawing.Size(55, 21)
         Me.TextBox22.TabIndex = 3142
         Me.TextBox22.Text = "V"
         Me.TextBox22.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -1985,7 +1989,7 @@ Partial Class Main
         Me.TextBox6.Location = New System.Drawing.Point(12, 46)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.ReadOnly = True
-        Me.TextBox6.Size = New System.Drawing.Size(69, 25)
+        Me.TextBox6.Size = New System.Drawing.Size(69, 21)
         Me.TextBox6.TabIndex = 3141
         Me.TextBox6.Text = "VOUT"
         Me.TextBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2009,7 +2013,7 @@ Partial Class Main
         Me.num_vout_set.Location = New System.Drawing.Point(87, 46)
         Me.num_vout_set.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_vout_set.Name = "num_vout_set"
-        Me.num_vout_set.Size = New System.Drawing.Size(90, 25)
+        Me.num_vout_set.Size = New System.Drawing.Size(90, 21)
         Me.num_vout_set.TabIndex = 3136
         Me.num_vout_set.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2067,7 +2071,7 @@ Partial Class Main
         '
         Me.txt_vout_set.Location = New System.Drawing.Point(65, 77)
         Me.txt_vout_set.Name = "txt_vout_set"
-        Me.txt_vout_set.Size = New System.Drawing.Size(154, 25)
+        Me.txt_vout_set.Size = New System.Drawing.Size(154, 21)
         Me.txt_vout_set.TabIndex = 3138
         '
         'Label6
@@ -2075,7 +2079,7 @@ Partial Class Main
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(8, 80)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(61, 17)
+        Me.Label6.Size = New System.Drawing.Size(51, 15)
         Me.Label6.TabIndex = 3135
         Me.Label6.Text = "Setting :"
         '
@@ -2086,7 +2090,7 @@ Partial Class Main
         Me.cbox_vout_ctr.Items.AddRange(New Object() {"NA", "I2C", "GPIO"})
         Me.cbox_vout_ctr.Location = New System.Drawing.Point(123, 18)
         Me.cbox_vout_ctr.Name = "cbox_vout_ctr"
-        Me.cbox_vout_ctr.Size = New System.Drawing.Size(102, 25)
+        Me.cbox_vout_ctr.Size = New System.Drawing.Size(102, 23)
         Me.cbox_vout_ctr.TabIndex = 3134
         '
         'Label3
@@ -2094,7 +2098,7 @@ Partial Class Main
         Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(10, 21)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(118, 17)
+        Me.Label3.Size = New System.Drawing.Size(99, 15)
         Me.Label3.TabIndex = 3133
         Me.Label3.Text = "Control Method : "
         '
@@ -2105,7 +2109,7 @@ Partial Class Main
         Me.Label17.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label17.Location = New System.Drawing.Point(12, 418)
         Me.Label17.Name = "Label17"
-        Me.Label17.Size = New System.Drawing.Size(46, 18)
+        Me.Label17.Size = New System.Drawing.Size(36, 15)
         Me.Label17.TabIndex = 3064
         Me.Label17.Text = "Note:"
         '
@@ -2129,9 +2133,9 @@ Partial Class Main
         Me.TabPage1.Controls.Add(Me.Label9)
         Me.TabPage1.Controls.Add(Me.GroupBox6)
         Me.TabPage1.Controls.Add(Me.GroupBox4)
-        Me.TabPage1.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 24)
         Me.TabPage1.Name = "TabPage1"
-        Me.TabPage1.Size = New System.Drawing.Size(563, 470)
+        Me.TabPage1.Size = New System.Drawing.Size(563, 472)
         Me.TabPage1.TabIndex = 7
         Me.TabPage1.Text = "Other"
         '
@@ -2139,7 +2143,7 @@ Partial Class Main
         '
         Me.txt_scope_folder.Location = New System.Drawing.Point(97, 445)
         Me.txt_scope_folder.Name = "txt_scope_folder"
-        Me.txt_scope_folder.Size = New System.Drawing.Size(205, 25)
+        Me.txt_scope_folder.Size = New System.Drawing.Size(205, 21)
         Me.txt_scope_folder.TabIndex = 3263
         Me.txt_scope_folder.Text = "C:\Temp"
         '
@@ -2149,7 +2153,7 @@ Partial Class Main
         Me.Label9.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label9.Location = New System.Drawing.Point(9, 445)
         Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(94, 17)
+        Me.Label9.Size = New System.Drawing.Size(79, 15)
         Me.Label9.TabIndex = 3262
         Me.Label9.Text = "Scope folder:"
         '
@@ -2176,7 +2180,7 @@ Partial Class Main
         '
         Me.txt_sheet.Location = New System.Drawing.Point(94, 113)
         Me.txt_sheet.Name = "txt_sheet"
-        Me.txt_sheet.Size = New System.Drawing.Size(205, 25)
+        Me.txt_sheet.Size = New System.Drawing.Size(205, 21)
         Me.txt_sheet.TabIndex = 3261
         '
         'btn_update
@@ -2231,7 +2235,7 @@ Partial Class Main
         Me.Label20.AutoSize = True
         Me.Label20.Location = New System.Drawing.Point(6, 77)
         Me.Label20.Name = "Label20"
-        Me.Label20.Size = New System.Drawing.Size(78, 17)
+        Me.Label20.Size = New System.Drawing.Size(67, 15)
         Me.Label20.TabIndex = 3253
         Me.Label20.Text = "File Name:"
         '
@@ -2240,7 +2244,7 @@ Partial Class Main
         Me.Label14.AutoSize = True
         Me.Label14.Location = New System.Drawing.Point(6, 113)
         Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(93, 17)
+        Me.Label14.Size = New System.Drawing.Size(79, 15)
         Me.Label14.TabIndex = 3250
         Me.Label14.Text = "Sheet Name:"
         '
@@ -2264,7 +2268,7 @@ Partial Class Main
         Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(6, 26)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(98, 17)
+        Me.Label12.Size = New System.Drawing.Size(82, 15)
         Me.Label12.TabIndex = 3247
         Me.Label12.Text = "Picture folder:"
         '
@@ -2322,7 +2326,7 @@ Partial Class Main
         Me.TextBox19.Location = New System.Drawing.Point(18, 123)
         Me.TextBox19.Name = "TextBox19"
         Me.TextBox19.ReadOnly = True
-        Me.TextBox19.Size = New System.Drawing.Size(161, 25)
+        Me.TextBox19.Size = New System.Drawing.Size(161, 21)
         Me.TextBox19.TabIndex = 3257
         Me.TextBox19.Text = "Title Color"
         Me.TextBox19.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2336,7 +2340,7 @@ Partial Class Main
         Me.TextBox15.Location = New System.Drawing.Point(182, 21)
         Me.TextBox15.Name = "TextBox15"
         Me.TextBox15.ReadOnly = True
-        Me.TextBox15.Size = New System.Drawing.Size(81, 25)
+        Me.TextBox15.Size = New System.Drawing.Size(81, 21)
         Me.TextBox15.TabIndex = 3252
         Me.TextBox15.Text = "Space"
         Me.TextBox15.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2347,7 +2351,7 @@ Partial Class Main
         Me.TextBox20.Location = New System.Drawing.Point(18, 170)
         Me.TextBox20.Name = "TextBox20"
         Me.TextBox20.ReadOnly = True
-        Me.TextBox20.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox20.Size = New System.Drawing.Size(78, 21)
         Me.TextBox20.TabIndex = 3256
         Me.TextBox20.Text = "Chart"
         Me.TextBox20.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2361,7 +2365,7 @@ Partial Class Main
         Me.num_col_space.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_col_space.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_col_space.Name = "num_col_space"
-        Me.num_col_space.Size = New System.Drawing.Size(81, 25)
+        Me.num_col_space.Size = New System.Drawing.Size(81, 21)
         Me.num_col_space.TabIndex = 3249
         Me.num_col_space.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_col_space.Value = New Decimal(New Integer() {3, 0, 0, 0})
@@ -2372,7 +2376,7 @@ Partial Class Main
         Me.TextBox21.Location = New System.Drawing.Point(18, 146)
         Me.TextBox21.Name = "TextBox21"
         Me.TextBox21.ReadOnly = True
-        Me.TextBox21.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox21.Size = New System.Drawing.Size(78, 21)
         Me.TextBox21.TabIndex = 3255
         Me.TextBox21.Text = "Data"
         Me.TextBox21.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2386,7 +2390,7 @@ Partial Class Main
         Me.num_row_space.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_row_space.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_row_space.Name = "num_row_space"
-        Me.num_row_space.Size = New System.Drawing.Size(81, 25)
+        Me.num_row_space.Size = New System.Drawing.Size(81, 21)
         Me.num_row_space.TabIndex = 3248
         Me.num_row_space.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_row_space.Value = New Decimal(New Integer() {5, 0, 0, 0})
@@ -2396,7 +2400,7 @@ Partial Class Main
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(131, 92)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(103, 17)
+        Me.Label4.Size = New System.Drawing.Size(88, 15)
         Me.Label4.TabIndex = 3247
         Me.Label4.Text = "(Unit: Number)"
         '
@@ -2408,7 +2412,7 @@ Partial Class Main
         Me.num_chart_color.Maximum = New Decimal(New Integer() {56, 0, 0, 0})
         Me.num_chart_color.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_chart_color.Name = "num_chart_color"
-        Me.num_chart_color.Size = New System.Drawing.Size(81, 25)
+        Me.num_chart_color.Size = New System.Drawing.Size(81, 21)
         Me.num_chart_color.TabIndex = 3254
         Me.num_chart_color.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_chart_color.Value = New Decimal(New Integer() {19, 0, 0, 0})
@@ -2419,7 +2423,7 @@ Partial Class Main
         Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(407, 92)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(84, 17)
+        Me.Label1.Size = New System.Drawing.Size(72, 15)
         Me.Label1.TabIndex = 3246
         Me.Label1.Text = "(Unit: Cells)"
         '
@@ -2431,7 +2435,7 @@ Partial Class Main
         Me.num_data_color.Maximum = New Decimal(New Integer() {56, 0, 0, 0})
         Me.num_data_color.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_data_color.Name = "num_data_color"
-        Me.num_data_color.Size = New System.Drawing.Size(81, 25)
+        Me.num_data_color.Size = New System.Drawing.Size(81, 21)
         Me.num_data_color.TabIndex = 3253
         Me.num_data_color.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_data_color.Value = New Decimal(New Integer() {24, 0, 0, 0})
@@ -2445,7 +2449,7 @@ Partial Class Main
         Me.TextBox11.Location = New System.Drawing.Point(448, 20)
         Me.TextBox11.Name = "TextBox11"
         Me.TextBox11.ReadOnly = True
-        Me.TextBox11.Size = New System.Drawing.Size(81, 25)
+        Me.TextBox11.Size = New System.Drawing.Size(81, 21)
         Me.TextBox11.TabIndex = 3245
         Me.TextBox11.Text = "Picture size"
         Me.TextBox11.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2458,7 +2462,7 @@ Partial Class Main
         Me.num_pic_width.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_pic_width.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_pic_width.Name = "num_pic_width"
-        Me.num_pic_width.Size = New System.Drawing.Size(81, 25)
+        Me.num_pic_width.Size = New System.Drawing.Size(81, 21)
         Me.num_pic_width.TabIndex = 3242
         Me.num_pic_width.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_pic_width.Value = New Decimal(New Integer() {8, 0, 0, 0})
@@ -2471,7 +2475,7 @@ Partial Class Main
         Me.num_pic_height.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_pic_height.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_pic_height.Name = "num_pic_height"
-        Me.num_pic_height.Size = New System.Drawing.Size(81, 25)
+        Me.num_pic_height.Size = New System.Drawing.Size(81, 21)
         Me.num_pic_height.TabIndex = 3241
         Me.num_pic_height.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_pic_height.Value = New Decimal(New Integer() {16, 0, 0, 0})
@@ -2484,7 +2488,7 @@ Partial Class Main
         Me.TextBox1.Location = New System.Drawing.Point(364, 20)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(81, 25)
+        Me.TextBox1.Size = New System.Drawing.Size(81, 21)
         Me.TextBox1.TabIndex = 3240
         Me.TextBox1.Text = "Chart size"
         Me.TextBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2495,7 +2499,7 @@ Partial Class Main
         Me.TextBox5.Location = New System.Drawing.Point(284, 67)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.ReadOnly = True
-        Me.TextBox5.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox5.Size = New System.Drawing.Size(78, 21)
         Me.TextBox5.TabIndex = 3239
         Me.TextBox5.Text = "Width"
         Me.TextBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2506,7 +2510,7 @@ Partial Class Main
         Me.TextBox10.Location = New System.Drawing.Point(284, 43)
         Me.TextBox10.Name = "TextBox10"
         Me.TextBox10.ReadOnly = True
-        Me.TextBox10.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox10.Size = New System.Drawing.Size(78, 21)
         Me.TextBox10.TabIndex = 3238
         Me.TextBox10.Text = "Height"
         Me.TextBox10.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2519,7 +2523,7 @@ Partial Class Main
         Me.num_chart_width.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_chart_width.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_chart_width.Name = "num_chart_width"
-        Me.num_chart_width.Size = New System.Drawing.Size(81, 25)
+        Me.num_chart_width.Size = New System.Drawing.Size(81, 21)
         Me.num_chart_width.TabIndex = 3237
         Me.num_chart_width.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_chart_width.Value = New Decimal(New Integer() {8, 0, 0, 0})
@@ -2532,7 +2536,7 @@ Partial Class Main
         Me.num_chart_height.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_chart_height.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_chart_height.Name = "num_chart_height"
-        Me.num_chart_height.Size = New System.Drawing.Size(81, 25)
+        Me.num_chart_height.Size = New System.Drawing.Size(81, 21)
         Me.num_chart_height.TabIndex = 3236
         Me.num_chart_height.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_chart_height.Value = New Decimal(New Integer() {16, 0, 0, 0})
@@ -2545,7 +2549,7 @@ Partial Class Main
         Me.TextBox2.Location = New System.Drawing.Point(98, 21)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.ReadOnly = True
-        Me.TextBox2.Size = New System.Drawing.Size(81, 25)
+        Me.TextBox2.Size = New System.Drawing.Size(81, 21)
         Me.TextBox2.TabIndex = 3235
         Me.TextBox2.Text = "Start"
         Me.TextBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2556,7 +2560,7 @@ Partial Class Main
         Me.TextBox4.Location = New System.Drawing.Point(18, 68)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ReadOnly = True
-        Me.TextBox4.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox4.Size = New System.Drawing.Size(78, 21)
         Me.TextBox4.TabIndex = 3131
         Me.TextBox4.Text = "Column"
         Me.TextBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2567,7 +2571,7 @@ Partial Class Main
         Me.TextBox3.Location = New System.Drawing.Point(18, 44)
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ReadOnly = True
-        Me.TextBox3.Size = New System.Drawing.Size(78, 25)
+        Me.TextBox3.Size = New System.Drawing.Size(78, 21)
         Me.TextBox3.TabIndex = 3128
         Me.TextBox3.Text = "Row"
         Me.TextBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
@@ -2580,7 +2584,7 @@ Partial Class Main
         Me.num_test_col.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_test_col.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.num_test_col.Name = "num_test_col"
-        Me.num_test_col.Size = New System.Drawing.Size(81, 25)
+        Me.num_test_col.Size = New System.Drawing.Size(81, 21)
         Me.num_test_col.TabIndex = 2959
         Me.num_test_col.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_test_col.Value = New Decimal(New Integer() {2, 0, 0, 0})
@@ -2593,7 +2597,7 @@ Partial Class Main
         Me.num_test_row.Maximum = New Decimal(New Integer() {100000000, 0, 0, 0})
         Me.num_test_row.Minimum = New Decimal(New Integer() {10, 0, 0, 0})
         Me.num_test_row.Name = "num_test_row"
-        Me.num_test_row.Size = New System.Drawing.Size(81, 25)
+        Me.num_test_row.Size = New System.Drawing.Size(81, 21)
         Me.num_test_row.TabIndex = 2957
         Me.num_test_row.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.num_test_row.Value = New Decimal(New Integer() {20, 0, 0, 0})
@@ -2613,9 +2617,9 @@ Partial Class Main
         Me.TabPage2.Controls.Add(Me.btn_RUN)
         Me.TabPage2.Controls.Add(Me.btn_test_Add)
         Me.TabPage2.Controls.Add(Me.data_Test)
-        Me.TabPage2.Location = New System.Drawing.Point(4, 26)
+        Me.TabPage2.Location = New System.Drawing.Point(4, 24)
         Me.TabPage2.Name = "TabPage2"
-        Me.TabPage2.Size = New System.Drawing.Size(563, 470)
+        Me.TabPage2.Size = New System.Drawing.Size(563, 472)
         Me.TabPage2.TabIndex = 5
         Me.TabPage2.Text = "Test Item"
         '
@@ -2691,11 +2695,11 @@ Partial Class Main
         'ListBox1
         '
         Me.ListBox1.FormattingEnabled = True
-        Me.ListBox1.ItemHeight = 17
+        Me.ListBox1.ItemHeight = 15
         Me.ListBox1.Items.AddRange(New Object() {"Efficiency", "Load Regulation", "Line Regulation", "Stability", "Jitter"})
         Me.ListBox1.Location = New System.Drawing.Point(9, 52)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(244, 106)
+        Me.ListBox1.Size = New System.Drawing.Size(244, 94)
         Me.ListBox1.TabIndex = 3837
         '
         'Label2
@@ -2704,7 +2708,7 @@ Partial Class Main
         Me.Label2.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.Label2.Location = New System.Drawing.Point(6, 19)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(71, 17)
+        Me.Label2.Size = New System.Drawing.Size(60, 15)
         Me.Label2.TabIndex = 3835
         Me.Label2.Text = "Test Item:"
         '
@@ -2715,7 +2719,7 @@ Partial Class Main
         Me.cbox_test.Items.AddRange(New Object() {"PartI: Stability,Efficiency,..", "PartII: Power ON OFF"})
         Me.cbox_test.Location = New System.Drawing.Point(72, 16)
         Me.cbox_test.Name = "cbox_test"
-        Me.cbox_test.Size = New System.Drawing.Size(223, 25)
+        Me.cbox_test.Size = New System.Drawing.Size(223, 23)
         Me.cbox_test.TabIndex = 3836
         '
         'check_excel_visible
@@ -2726,7 +2730,7 @@ Partial Class Main
         Me.check_excel_visible.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.check_excel_visible.Location = New System.Drawing.Point(360, 405)
         Me.check_excel_visible.Name = "check_excel_visible"
-        Me.check_excel_visible.Size = New System.Drawing.Size(112, 21)
+        Me.check_excel_visible.Size = New System.Drawing.Size(95, 19)
         Me.check_excel_visible.TabIndex = 3832
         Me.check_excel_visible.Text = "Excel Visible"
         Me.check_excel_visible.UseVisualStyleBackColor = True
@@ -2751,7 +2755,7 @@ Partial Class Main
         Me.check_email.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.check_email.Location = New System.Drawing.Point(9, 20)
         Me.check_email.Name = "check_email"
-        Me.check_email.Size = New System.Drawing.Size(109, 21)
+        Me.check_email.Size = New System.Drawing.Size(93, 19)
         Me.check_email.TabIndex = 3118
         Me.check_email.Text = "Send Email:"
         Me.check_email.UseVisualStyleBackColor = True
@@ -2760,7 +2764,7 @@ Partial Class Main
         '
         Me.txt_email.Location = New System.Drawing.Point(242, 18)
         Me.txt_email.Name = "txt_email"
-        Me.txt_email.Size = New System.Drawing.Size(89, 25)
+        Me.txt_email.Size = New System.Drawing.Size(89, 21)
         Me.txt_email.TabIndex = 3117
         Me.txt_email.Text = "@richtek.com"
         '
@@ -2768,7 +2772,7 @@ Partial Class Main
         '
         Me.txt_email_to.Location = New System.Drawing.Point(101, 18)
         Me.txt_email_to.Name = "txt_email_to"
-        Me.txt_email_to.Size = New System.Drawing.Size(135, 25)
+        Me.txt_email_to.Size = New System.Drawing.Size(135, 21)
         Me.txt_email_to.TabIndex = 2277
         Me.txt_email_to.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         '
@@ -2778,7 +2782,7 @@ Partial Class Main
         Me.check_report.ForeColor = System.Drawing.Color.WhiteSmoke
         Me.check_report.Location = New System.Drawing.Point(9, 45)
         Me.check_report.Name = "check_report"
-        Me.check_report.Size = New System.Drawing.Size(134, 21)
+        Me.check_report.Size = New System.Drawing.Size(113, 19)
         Me.check_report.TabIndex = 2278
         Me.check_report.Text = "Add Test Report"
         Me.check_report.UseVisualStyleBackColor = True
@@ -2912,9 +2916,31 @@ Partial Class Main
         Me.TextBox24.TabIndex = 3059
         Me.TextBox24.Text = "Support" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "-Excel:" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  2013" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "-R&S Scope" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "   FW4.7" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "-RTMCU" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "  Sparrowboard"
         '
+        'rbtn_chamber
+        '
+        Me.rbtn_chamber.AutoSize = True
+        Me.rbtn_chamber.Location = New System.Drawing.Point(6, 131)
+        Me.rbtn_chamber.Name = "rbtn_chamber"
+        Me.rbtn_chamber.Size = New System.Drawing.Size(77, 19)
+        Me.rbtn_chamber.TabIndex = 3121
+        Me.rbtn_chamber.TabStop = True
+        Me.rbtn_chamber.Text = "Chamber"
+        Me.rbtn_chamber.UseVisualStyleBackColor = True
+        '
+        'rbtn_TEC
+        '
+        Me.rbtn_TEC.AutoSize = True
+        Me.rbtn_TEC.Location = New System.Drawing.Point(85, 131)
+        Me.rbtn_TEC.Name = "rbtn_TEC"
+        Me.rbtn_TEC.Size = New System.Drawing.Size(49, 19)
+        Me.rbtn_TEC.TabIndex = 3122
+        Me.rbtn_TEC.TabStop = True
+        Me.rbtn_TEC.Text = "TEC"
+        Me.rbtn_TEC.UseVisualStyleBackColor = True
+        '
         'Main
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 17.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.AutoScroll = True
         Me.AutoSize = True
@@ -3241,4 +3267,6 @@ Partial Class Main
     Friend WithEvents nu_flag As NumericUpDown
     Friend WithEvents Label22 As Label
     Friend WithEvents nu_error_cnt As NumericUpDown
+    Friend WithEvents rbtn_chamber As RadioButton
+    Friend WithEvents rbtn_TEC As RadioButton
 End Class
