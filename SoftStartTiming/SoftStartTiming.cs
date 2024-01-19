@@ -866,7 +866,7 @@ namespace SoftStartTiming
         private void data_import(Excel.Worksheet sheet, ref int row, DataGridView dg)
         {
             // excel row number
-            int row_number = 9;
+            int row_number = 10;
             string temp = sheet.Cells[row, 1].Value;
             if (temp == "Address") row_number = 2;
 
@@ -1026,6 +1026,10 @@ namespace SoftStartTiming
             nudly3_end.Value = Convert.ToDecimal(temp);
             temp = Convert.ToString(sheet.Range[MyLib.ConvertToLetter(last_col - 0) + row].Value);
             nu_ch3_level.Value = Convert.ToDecimal(temp);
+            row += 2;
+
+            last_col = GetLastColumn(sheet, row);
+            ck_cursor_disable.Checked = sheet.Range[MyLib.ConvertToLetter(last_col) + row].Value;
             row += 2;
 
             // i2c Init config

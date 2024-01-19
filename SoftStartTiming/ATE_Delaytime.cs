@@ -750,7 +750,7 @@ namespace SoftStartTiming
                         case 3:
                             // rail trigger
                             RTDev.I2C_Write((byte)(test_parameter.slave), test_parameter.Rail_addr, new byte[] { test_parameter.Rail_en });
-                            MyLib.Delay1s(1);
+                            MyLib.Delay1s(2);
                             break;
                     }
                 }
@@ -759,11 +759,12 @@ namespace SoftStartTiming
                     PowerOffEvent();
                 }
 
-
-
+                if (time_scale >= 0.005) MyLib.Delay1s(5);
+                while (InsControl._tek_scope.GetCount() <= 0) ;
                 InsControl._tek_scope.SetStop();
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-                if (time_scale >= 0.005) MyLib.Delay1s(5);
+               
+
                 int ch1;
                 int ch2;
                 bool direct;
@@ -776,9 +777,9 @@ namespace SoftStartTiming
                     ch1 = dt_test.meas_posCH1[0];
                     ch2 = dt_test.meas_posCH1[1];
                     direct = dt_test.precentCH1[0] > dt_test.precentCH1[1];
-                    delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
+                    if (!test_parameter.cursor_disable) delay_time_res1 = CursorFunction(ch1, ch2, direct); // ideal time1
                     MyLib.Delay1ms(100);
-                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq0");
                     delay_time_res = delay_time_res1;
                 }
 
@@ -787,9 +788,9 @@ namespace SoftStartTiming
                     ch1 = dt_test.meas_posCH2[0];
                     ch2 = dt_test.meas_posCH2[1];
                     direct = dt_test.precentCH2[0] > dt_test.precentCH2[1];
-                    delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
+                    if (!test_parameter.cursor_disable) delay_time_res2 = CursorFunction(ch1, ch2, direct); // ideal time2
                     MyLib.Delay1ms(100);
-                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq1");
                     delay_time_res += delay_time_res2;
                 }
 
@@ -799,9 +800,9 @@ namespace SoftStartTiming
                     ch1 = dt_test.meas_posCH3[0];
                     ch2 = dt_test.meas_posCH3[1];
                     direct = dt_test.precentCH3[0] > dt_test.precentCH3[1];
-                    delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
+                    if (!test_parameter.cursor_disable) delay_time_res3 = CursorFunction(ch1, ch2, direct); // ideal time3
                     MyLib.Delay1ms(100);
-                    if (!test_parameter.cursor_disable) InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
+                    InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq2");
                     delay_time_res += delay_time_res3;
                 }
 
@@ -977,6 +978,7 @@ namespace SoftStartTiming
                 _range = _sheet.Range["AQ" + (wave_row + 2).ToString(), "AW" + (wave_row + 16).ToString()];
                 MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_seq2");
 
+                wave_row += 19;
                 #region "old version past waveform"
                 
                 //switch (wave_pos)
