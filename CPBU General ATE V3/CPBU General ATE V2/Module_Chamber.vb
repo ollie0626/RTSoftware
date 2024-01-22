@@ -6,6 +6,7 @@
     Public ts As String
     Public Temp_Time As Double = 0
     Public Chamber_ok As Boolean = True
+    Public Temp_name As String
 
 
     Function chamber_init() As Integer
@@ -13,8 +14,6 @@
         If Chamber_ok = True Then
             Temp_Dev = ildev(BDINDEX, Temp_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
         End If
-
-
     End Function
 
     Function set_temp(ByVal temp As Double, ByVal time As Double) As Integer
@@ -23,15 +22,10 @@
             '正 = 空白 Convert.ToChar(&HB) , 負 = -
             ts = "T" & temp & "," & time & vbNewLine  'sprintf(ts,"T %d.0,0 \n\r",chamber_settemp); //設定溫箱
             ilwrt(Temp_Dev, ts, CInt(Len(ts)))
-
         Else
-
             Set_TEC_temp(temp)
             TEC_ONOFF("ON")
         End If
-
-
-
 
     End Function
 

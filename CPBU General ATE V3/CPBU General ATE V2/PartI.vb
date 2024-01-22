@@ -4189,16 +4189,10 @@ Public Class PartI
                             Else
                                 pass_value_Max = vout_now * (1 + num_vout_pos.Value / 100)
                                 pass_value_Min = vout_now * (1 - num_vout_neg.Value / 100)
-
                                 stability_col(23) = "Vmax(max) <" & pass_value_Max & "V"
                                 stability_col(24) = "Vmin(min) >" & pass_value_Min & "V"
-
                             End If
-
-
                             col_num = stability_col.Length
-
-
                             start_col = test_col + chart_width + col_Space + (TA_Test_num * total_vcc.Length * total_fs.Length + n * total_fs.Length + f) * (col_num + 1)
                             row_num_temp = 0
                             '----------------------------------------------------------------------------------
@@ -4219,20 +4213,13 @@ Public Class PartI
                                             row_num = row_num + (stability_row_stop(set_num) - stability_row_start(set_num) + 1 + 2) + 1
                                         End If
                                     Next
-
-
-
                                     'Init row
                                     If (row_num) < (4 * (chart_height + row_Space) - row_Space) Then
                                         row_num_temp = row_num_temp + (4 * (chart_height + 1 + row_Space))
-
                                     Else
                                         row_num_temp = row_num_temp + row_num + row_Space
                                     End If
-
-
                                 Next
-
                                 first_row = test_row + row_num_temp
                                 'Init row
                                 'If (row_num) < (4 * (chart_height + row_Space) - row_Space) Then
@@ -4241,47 +4228,24 @@ Public Class PartI
                                 'Else
                                 '    first_row = test_row + row_num + v * row_Space
                                 'End If
-
-
-
                             End If
                             '----------------------------------------------------------------------------------        
-
-
-
-
                             col = start_col
                             row = first_row
-
-
-
-
                             'Total Chart
                             chart_num = v * 4 + 1
                             '----------------------------------------------------------------------------------
                             'Chart
                             If (TA_Test_num = 0) And (n = 0) And (f = 0) Then
-
-
                                 chart_col = test_col
                                 chart_row = first_row
-
                                 chart_init(Freq_Chart, "VOUT=" & vout_now & "V", "Frequency vs Load Current", Iout_title, "Frequency (kHz)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Ton_Chart, "VOUT=" & vout_now & "V", "Ton vs Load Current", Iout_title, "Ton (ns)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Toff_Chart, "VOUT=" & vout_now & "V", "Toff vs Load Current", Iout_title, "Toff (ns)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
                                 chart_row = chart_row + chart_height + row_Space
-
                                 chart_init(Vpp_Chart, "VOUT=" & vout_now & "V", "Vpp vs Load Current", Iout_title, "Vpp (mV)", Full_load, 0, "", "", cbox_type_stability.SelectedItem)
-
-
                             End If
                             '-------------------------------------------------------------------------------
 
@@ -4290,21 +4254,10 @@ Public Class PartI
                             row = first_row
 
                             For i = 0 To data_vin.Rows.Count - 1
-
-
-
-
-
                                 xlSheet.Activate()
-
                                 first_row = row
-
-
-
                                 ReDim Preserve stability_report_row(stability_num)
                                 stability_report_row(stability_num) = first_row
-
-
                                 row = first_row
                                 col = start_col
                                 vin_now = data_vin.Rows(i).Cells(0).Value
@@ -4313,10 +4266,7 @@ Public Class PartI
                                 'Title
                                 report_title(total_title, col, row, col_num, 1, data_title_color)
                                 row = row + 1
-
-
                                 If i = 0 Then
-
                                     copy_row = row
                                     For nn = 0 To stability_col.Length - 1
                                         report_title(stability_col(nn), col, row, 1, 1, data_title_color)
@@ -5737,8 +5687,6 @@ Public Class PartI
         End If
 
         If check_loadR.Checked = True Then
-
-
             update_report(Load_Regulation)
         End If
 
@@ -5772,7 +5720,6 @@ Public Class PartI
         Calculate_pass(TA_Test_num)
 
         If (check_Force_CCM.Checked = False) And (iout_now = 0) Then
-
             H_scale_value = ((1 / Fs_Min) * 10 / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
         Else
             H_scale_value = ((1 / Fs_Min) * Wave_num / 10) * (10 ^ 9) '1/Fs_Min(Hz)*n/10 
@@ -5783,9 +5730,7 @@ Public Class PartI
         'Timing Scale
         H_scale(H_scale_value, "ns") '1/Fs_Min(Hz)*n/10 
 
-
         'Scope_RUN(True)
-
         If RS_Scope = True Then
             RS_View(True)
         End If
@@ -6179,6 +6124,9 @@ Public Class PartI
 
         Dim i, ii As Integer
 
+        Dim title As String
+        Dim temperature As Double
+
 
         col_num = 0
         row_num = 0
@@ -6187,12 +6135,25 @@ Public Class PartI
             Exit Function
         End If
 
+
+        ' get real time temperature
+        If Main.check_TA_en.Checked = True Then
+            If Main.rbtn_chamber.Checked Then
+                temperature = read_temp()
+            Else
+                If Read_TEC_temp()(0) = 0 Then
+                    temperature = Read_TEC_temp()(1)
+                Else
+                    temperature = 0
+                End If
+            End If
+        End If
+
+
+
         'Start Test
-
         Select Case test_name
-
             Case Stability
-
                 If check_stability_pic.Checked = True Then
                     '將每一張scope的圖都儲存
 
@@ -6255,6 +6216,28 @@ Public Class PartI
 
 
                 first_row = stability_report_row(data_set_now)
+
+                ' re-print title
+                If Main.check_TA_en.Checked = True Then
+                    title = xlSheet.Cells(first_row, start_col).Value.ToString()
+                    Dim title_arr() As String = title.Split(",")
+
+                    title_arr(0) = "TA=" & temperature
+                    Dim len As Integer = title_arr.Length
+                    title = ""
+                    For title_idx As Integer = 0 To len - 1
+                        If (title_idx = len - 1) Then
+                            title &= title_arr(title_idx)
+                        Else
+                            title &= title_arr(title_idx) & ","
+                        End If
+                    Next
+
+                    xlSheet.Cells(first_row, start_col) = title
+                End If
+
+
+
 
                 '----------------------------------------------------------------------------------
 
@@ -6642,6 +6625,29 @@ Public Class PartI
                     End If
                 End If
 
+
+                ' re-print title
+                If Main.check_TA_en.Checked = True Then
+                    title = xlSheet.Cells(first_row, start_col).Value.ToString()
+                    Dim title_arr() As String = title.Split(",")
+
+                    title_arr(0) = "TA=" & temperature
+                    Dim len As Integer = title_arr.Length
+                    title = ""
+                    For title_idx As Integer = 0 To len - 1
+                        If (title_idx = len - 1) Then
+                            title &= title_arr(title_idx)
+                        Else
+                            title &= title_arr(title_idx) & ","
+                        End If
+                    Next
+
+                    xlSheet.Cells(first_row, start_col) = title
+                End If
+
+
+
+
                 col = start_col
                 row = first_row + 2 + jitter_iout_num
                 'Ton_mean(ns)	Toff_min(ns)	Toff_max(ns)
@@ -6826,6 +6832,26 @@ Public Class PartI
                 End If
 
                 '----------------------------------------------------------------------------------
+                ' re-print title
+                If Main.check_TA_en.Checked = True Then
+                    title = xlSheet.Cells(first_row, start_col).Value.ToString()
+                    Dim title_arr() As String = title.Split(",")
+
+                    title_arr(0) = "TA=" & temperature
+                    Dim len As Integer = title_arr.Length
+                    title = ""
+                    For title_idx As Integer = 0 To len - 1
+                        If (title_idx = len - 1) Then
+                            title &= title_arr(title_idx)
+                        Else
+                            title &= title_arr(title_idx) & ","
+                        End If
+                    Next
+
+                    xlSheet.Cells(first_row, start_col) = title
+                End If
+
+
 
                 'Update Vin
                 col = start_col
@@ -7012,12 +7038,25 @@ Public Class PartI
                     first_row = test_row + Vout_test_num * ((chart_height + 1) + row_Space)
                 Else
                     first_row = test_row + Vout_test_num * (row_num + row_Space)
-
                 End If
-
-
                 '----------------------------------------------------------------------------------
+                ' re-print title
+                If Main.check_TA_en.Checked = True Then
+                    title = xlSheet.Cells(first_row, start_col).Value.ToString()
+                    Dim title_arr() As String = title.Split(",")
 
+                    title_arr(0) = "TA=" & temperature
+                    Dim len As Integer = title_arr.Length
+                    title = ""
+                    For title_idx As Integer = 0 To len - 1
+                        If (title_idx = len - 1) Then
+                            title &= title_arr(title_idx)
+                        Else
+                            title &= title_arr(title_idx) & ","
+                        End If
+                    Next
+                    xlSheet.Cells(first_row, start_col) = title
+                End If
 
 
                 'Update Iout
@@ -7103,9 +7142,24 @@ Public Class PartI
                     first_row = test_row + (Vout_test_num * (TA_num + 1) + TA_Test_num) * (row_num + row_Space)
 
                 End If
-
-
                 '----------------------------------------------------------------------------------
+                ' re-print title
+                If Main.check_TA_en.Checked = True Then
+                    title = xlSheet.Cells(first_row, start_col).Value.ToString()
+                    Dim title_arr() As String = title.Split(",")
+                    title_arr(0) = "TA=" & temperature
+                    Dim len As Integer = title_arr.Length
+                    title = ""
+                    For title_idx As Integer = 0 To len - 1
+                        If (title_idx = len - 1) Then
+                            title &= title_arr(title_idx)
+                        Else
+                            title &= title_arr(title_idx) & ","
+                        End If
+                    Next
+                    xlSheet.Cells(first_row, start_col) = title
+                End If
+
 
                 pass_value_Min = num_pass_eff.Value
                 'Update Vin
@@ -8630,8 +8684,35 @@ Public Class PartI
                             If run = False Then
                                 Exit For
                             End If
+
+                            ' iout ramp up
+                            ' -------------------------------------------------------------------------
                             iout_now = data_lineR_iout.Rows(x).Cells(0).Value
-                            DCLoad_Iout(iout_now, monitor_vout)
+                            Dim previous_iout As Double
+                            Dim step_iout As Double
+                            Dim iout_new As Double
+                            If x = 0 Then
+                                previous_iout = 0
+                            Else
+                                previous_iout = data_lineR_iout.Rows(x - 1).Cells(0).Value
+                            End If
+
+                            step_iout = Math.Abs(iout_now - previous_iout)
+                            If step_iout >= 0.5 Then
+
+                                For iout_ii = 1 To 10
+
+                                    If iout_now - previous_iout > 0 Then
+                                        iout_new = previous_iout + (step_iout / 10 * iout_ii)
+                                    Else
+                                        iout_new = previous_iout - (step_iout / 10 * iout_ii)
+                                    End If
+                                    DCLoad_Iout(iout_new, monitor_vout)
+                                Next
+                            End If
+                            ' -------------------------------------------------------------------------
+
+
                             lineR_iout_num = x
                             For v = 0 To data_lineR_vin.Rows.Count - 1
                                 System.Windows.Forms.Application.DoEvents()

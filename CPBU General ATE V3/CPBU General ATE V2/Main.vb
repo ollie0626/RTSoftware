@@ -57,14 +57,9 @@ Public Class Main
             For i = 0 To temp.Length - 1  'visa_count - 1
                 addr = Split(temp(i), "::")
 
-
-
                 Select Case Mid(temp(i), 1, 3)
 
-
                     Case "TCP"
-
-
 
                         name = visa_name(temp(i))
                         Select Case Mid(name(1), 1, 3)
@@ -109,8 +104,6 @@ Public Class Main
                                 Scope_num = Scope_num + 1
                                 data_GPIB.Rows.Add("Scope", name(1), temp(i))
 
-
-
                         End Select
 
 
@@ -127,18 +120,14 @@ Public Class Main
                         End Select
 
                     Case "GPI"
-
-
                         If addr_temp = 0 Then
                             addr_temp = addr(1)
                         Else
-
                             If addr(1) <> addr_temp Then
                                 addr_temp = addr(1)
                             Else
                                 error_message("GPIB Address:" & addr(1) & " has duplicates!")
                                 Exit Function
-
                             End If
                         End If
 
@@ -154,14 +143,11 @@ Public Class Main
                             name = visa_name(temp(i))
 
                             Select Case name(1)
-
-
                                 Case "34970A"
-
                                     DAQ_name = name(1)
                                     DAQ_addr = addr(1)
-
                                     data_GPIB.Rows.Add("DAQ", name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "N6705B"
                                     ReDim Preserve Power_name(Power_num)
                                     ReDim Preserve Power_addr(Power_num)
@@ -170,6 +156,7 @@ Public Class Main
                                     Power_num = Power_num + 1
                                     '-----------------------------------------------------------------------------
                                     data_GPIB.Rows.Add("Power_" & Power_num, name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "E3631A"
                                     ReDim Preserve Power_name(Power_num)
                                     ReDim Preserve Power_addr(Power_num)
@@ -177,6 +164,7 @@ Public Class Main
                                     Power_addr(Power_num) = addr(0) & "::" & addr(1) & "::INSTR"
                                     Power_num = Power_num + 1
                                     data_GPIB.Rows.Add("Power_" & Power_num, name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "E3632A"
                                     ReDim Preserve Power_name(Power_num)
                                     ReDim Preserve Power_addr(Power_num)
@@ -184,7 +172,6 @@ Public Class Main
                                     Power_addr(Power_num) = addr(0) & "::" & addr(1) & "::INSTR"
                                     Power_num = Power_num + 1
                                     data_GPIB.Rows.Add("Power_" & Power_num, name(1), addr(0) & "::" & addr(1) & "::INSTR")
-
 
                                 Case "6210-40"
                                     ReDim Preserve Power_name(Power_num)
@@ -195,15 +182,12 @@ Public Class Main
                                     data_GPIB.Rows.Add("Power_" & Power_num, name(1), addr(0) & "::" & addr(1) & "::INSTR")
 
                                 Case "MODEL 2400"
-
                                     ReDim Preserve Power_name(Power_num)
                                     ReDim Preserve Power_addr(Power_num)
                                     Power_name(Power_num) = name(1)
                                     Power_addr(Power_num) = addr(0) & "::" & addr(1) & "::INSTR"
                                     Power_num = Power_num + 1
                                     data_GPIB.Rows.Add("Power_" & Power_num, name(1), addr(0) & "::" & addr(1) & "::INSTR")
-
-
 
                                 Case "MODEL 2410"
                                     ReDim Preserve Power_name(Power_num)
@@ -225,14 +209,17 @@ Public Class Main
                                     Load_device = name(1)
                                     Load_addr = addr(1)
                                     data_GPIB.Rows.Add("DC Load", name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "6304"
                                     Load_device = name(1)
                                     Load_addr = addr(1)
                                     data_GPIB.Rows.Add("DC Load", name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "6312A"
                                     Load_device = name(1)
                                     Load_addr = addr(1)
                                     data_GPIB.Rows.Add("DC Load", name(1), addr(0) & "::" & addr(1) & "::INSTR")
+
                                 Case "6312"
                                     Load_device = name(1)
                                     Load_addr = addr(1)
@@ -1684,10 +1671,7 @@ Public Class Main
         For i = 0 To data_Test.Rows.Count - 1
 
             If data_Test.Rows(i).Cells(0).Value = True Then
-
-
                 'DC Load
-
                 If (Load_check(i) = True) And (Load_addr = 0) Then
                     error_message("GPIB connection to the DC Load is not detected!!")
                     RUN_stop()
@@ -1696,7 +1680,6 @@ Public Class Main
 
                 ''---------------------------------------------------------------------------------
                 'Scope
-
                 If (Scope_check(i) = True) And (Scope_num = 0) Then
                     error_message("GPIB connection to the Scope is not detected!!")
                     RUN_stop()
@@ -1716,7 +1699,6 @@ Public Class Main
                     meter_temp = meter_temp + 1
                 End If
 
-
                 If (Meter_iout_check(i) = True) Then
                     If Meter_num = meter_temp Then
                         error_message("GPIB connection to the Meter is not detected!!")
@@ -1735,13 +1717,7 @@ Public Class Main
                     meter_temp = meter_temp + 1
                 End If
 
-
-
-
                 'If (Relay_iin_check(i) = True) Or (Relay_iout_check(i) = True) Then
-
-
-
                 '    If data_meas.Rows.Count = 0 Then
                 '        error_message("Current Monitor of relay Board is not detected!!")
                 '        RUN_stop()
@@ -2140,12 +2116,8 @@ Public Class Main
 
                         System.Windows.Forms.Application.DoEvents()
                         f.Hide()
-
                         Exit For
-
                     End If
-
-
                 Next
 
 
