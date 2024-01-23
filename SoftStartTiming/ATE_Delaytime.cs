@@ -413,7 +413,7 @@ namespace SoftStartTiming
                         if (vmax > 0.3 && vmax < Math.Pow(10, 3))
                         {
                             InsControl._tek_scope.CHx_Level(ch_idx + 1, vmax / 3);
-                            if(ch_idx == 0)
+                            if (ch_idx == 0)
                             {
                                 InsControl._tek_scope.SetTriggerLevel((vmax / 3) * 0.8);
                             }
@@ -470,7 +470,7 @@ namespace SoftStartTiming
 
             MyLib.Delay1ms(900);
             LevelEvent();
-            if(dt_test.trigger_event == "Rising edge") PowerOffEvent();
+            if (dt_test.trigger_event == "Rising edge") PowerOffEvent();
             InsControl._tek_scope.SetTimeScale(time_scale);
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
@@ -510,7 +510,7 @@ namespace SoftStartTiming
             // int meas_end = end_list[sel];
             TriggerStatus();
 
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 // enable start channel annotation
                 InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
@@ -584,7 +584,7 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetTimeBasePosition(15);
             MyLib.Delay1s(1);
             int cnt = 0;
-            
+
             #region "Report initial"
 #if Report_en
             _sheet = _book.Worksheets.Add();
@@ -753,17 +753,28 @@ namespace SoftStartTiming
                             MyLib.Delay1s(2);
                             break;
                     }
+
+                    if (test_parameter.sleep_mode) InsControl._tek_scope.SetMeasureSource(1, meas_sst1, "RISe");
+                    else InsControl._tek_scope.SetMeasureSource(1, meas_sst1, "FALL");
+                    InsControl._tek_scope.SetMeasureSource(2, meas_sst2, "RISe");
+                    InsControl._tek_scope.SetMeasureSource(3, meas_sst3, "RISe");
+                    InsControl._tek_scope.SetMeasureSource(4, meas_sst4, "RISe");
                 }
                 else
                 {
                     PowerOffEvent();
+
+                    InsControl._tek_scope.SetMeasureSource(1, meas_sst1, "FALL");
+                    InsControl._tek_scope.SetMeasureSource(2, meas_sst2, "FALL");
+                    InsControl._tek_scope.SetMeasureSource(3, meas_sst3, "FALL");
+                    InsControl._tek_scope.SetMeasureSource(4, meas_sst4, "FALL");
                 }
 
                 if (time_scale >= 0.005) MyLib.Delay1s(5);
                 while (InsControl._tek_scope.GetCount() <= 0) ;
                 InsControl._tek_scope.SetStop();
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-               
+
 
                 int ch1;
                 int ch2;
@@ -811,7 +822,7 @@ namespace SoftStartTiming
                     ch1 = dt_test.meas_posCH4[0];
                     ch2 = dt_test.meas_posCH4[1];
                     direct = dt_test.precentCH4[0] > dt_test.precentCH4[1];
-                    if(!test_parameter.cursor_disable) delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
+                    if (!test_parameter.cursor_disable) delay_time_res4 = CursorFunction(ch1, ch2, direct); // ideal time4
                     MyLib.Delay1ms(100);
                     InsControl._tek_scope.SaveWaveform(test_parameter.waveform_path, file_name + "_seq3");
                     delay_time_res += delay_time_res4;
@@ -980,7 +991,7 @@ namespace SoftStartTiming
 
                 wave_row += 19;
                 #region "old version past waveform"
-                
+
                 //switch (wave_pos)
                 //{
                 //    case 0:
