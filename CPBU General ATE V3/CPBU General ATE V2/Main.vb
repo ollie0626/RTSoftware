@@ -44,7 +44,6 @@ Public Class Main
         addr_temp = 0
         TCP_addr = ""
 
-
         ReDim LOAD_63600_CCH(0)
         ReDim LOAD_63600_CCL(0)
         ReDim LOAD_63600_Watt_L(0)
