@@ -45,13 +45,13 @@ namespace Console_test
         static void Main()
         {
 
-            string temp = "TA=36, Fsw=2000K";
-            int ta_idx = temp.IndexOf("TA=");
-            int do_idx = temp.IndexOf(",");
+            //string temp = "TA=36, Fsw=2000K";
+            //int ta_idx = temp.IndexOf("TA=");
+            //int do_idx = temp.IndexOf(",");
 
 
-            string inputString1 = "00[2A]";
-            ExtractNumbersAndLetters(inputString1);
+            //string inputString1 = "00[2A]";
+            //ExtractNumbersAndLetters(inputString1);
 
             int vendorId = 0x0488;
             int productId = 0x5755;
