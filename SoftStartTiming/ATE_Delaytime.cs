@@ -559,7 +559,7 @@ namespace SoftStartTiming
             GetParameter(0);
             RTDev.BoadInit();
             RTDev.GpioInit();
-            GetParameter(0);
+            //GetParameter(0);
 
             int vin_cnt = test_parameter.VinList.Count;
             int row = 8;
