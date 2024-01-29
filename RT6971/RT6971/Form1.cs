@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.06";
+        string win_ver = "1.07";
 
 
         public Form1()

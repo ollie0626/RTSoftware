@@ -3851,7 +3851,7 @@
             this.cb_ilmt1.FormattingEnabled = true;
             this.cb_ilmt1.Items.AddRange(new object[] {
             "0h : 1.5A",
-            "1h : 3.2A"});
+            "1h : 3A"});
             this.cb_ilmt1.Location = new System.Drawing.Point(16, 36);
             this.cb_ilmt1.Name = "cb_ilmt1";
             this.cb_ilmt1.Size = new System.Drawing.Size(121, 20);
