@@ -22,6 +22,7 @@ namespace SoftStartTiming
     public class delayTime_parameter
     {
         public double vin;
+        public double vin2;
 
         // each times test reflash test condition
         public double CH1Lev;
@@ -129,6 +130,7 @@ namespace SoftStartTiming
         {
             DataGridView seq_dg = test_parameter.seq_dg;
             dt_test.vin = Convert.ToDouble(seq_dg[0, idx].Value);
+            dt_test.vin2 = Convert.ToDouble(seq_dg[10, idx].Value);
 
             #region "scope info"
             // init level
@@ -364,6 +366,7 @@ namespace SoftStartTiming
                 case 2: // vin trigger
 #if Power_en
                     InsControl._power.AutoSelPowerOn(vin);
+                    InsControl._power2.AutoSelPowerOn(dt_test.vin2);
 #endif
                     InsControl._tek_scope.SetTriggerSource(1);
                     InsControl._tek_scope.SetTriggerLevel(vin * 0.35);
@@ -445,14 +448,17 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetTriggerMode();
 #if Power_en
             InsControl._power.AutoSelPowerOn(vin);
+            InsControl._power.AutoSelPowerOn(dt_test.vin2);
             MyLib.Delay1ms(1000);
             I2C_DG_Write(test_parameter.i2c_init_dg);
             SeqAndIdealWrite();
             I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
             MyLib.Delay1s(2); // wait for program time
             InsControl._power.AutoPowerOff();
+            InsControl._power2.AutoPowerOff();
             MyLib.Delay1s(1);
             InsControl._power.AutoSelPowerOn(vin);
+            InsControl._power.AutoSelPowerOn(dt_test.vin2);
             MyLib.Delay1ms(1000);
             I2C_DG_Write(test_parameter.i2c_init_dg);
             SeqAndIdealWrite();
@@ -550,9 +556,10 @@ namespace SoftStartTiming
         public override void ATETask()
         {
             Stopwatch stopWatch = new Stopwatch();
+            GetParameter(0);
             RTDev.BoadInit();
             RTDev.GpioInit();
-            GetParameter(0);
+            //GetParameter(0);
 
             int vin_cnt = test_parameter.VinList.Count;
             int row = 8;
@@ -660,7 +667,8 @@ namespace SoftStartTiming
                 GetParameter(bin_idx);
 
                 double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2 + dt_test.idealTime2) * Math.Pow(10, -3);
-                InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
+                if (idel_time_total <= 0) idel_time_total = 1;
+                InsControl._tek_scope.SetTimeScale(idel_time_total / 5);
                 /* Eload current setting */
                 InsControl._eload.CH1_Loading(dt_test.loading1);
                 InsControl._eload.CH2_Loading(dt_test.loading2);
@@ -703,8 +711,14 @@ namespace SoftStartTiming
                     continue;
                 }
 
+
+                if (dt_test.trigger_event == "Rising edge") InsControl._tek_scope.SetTriggerRise();
+                else InsControl._tek_scope.SetTriggerFall();
+
+
                 InsControl._tek_scope.SetTriggerMode(false);
                 MyLib.Delay1s(2);
+
 
                 if (dt_test.trigger_event == "Rising edge")
                 {
@@ -745,6 +759,7 @@ namespace SoftStartTiming
                         case 2:
                             // Power supply trigger event
                             InsControl._power.AutoSelPowerOn(dt_test.vin);
+                            InsControl._power2.AutoSelPowerOn(dt_test.vin2);
                             MyLib.Delay1ms((int)((time_scale * 10) * 1.2) + 500);
                             break;
                         case 3:
@@ -763,7 +778,6 @@ namespace SoftStartTiming
                 else
                 {
                     PowerOffEvent();
-
                     InsControl._tek_scope.SetMeasureSource(1, meas_sst1, "FALL");
                     InsControl._tek_scope.SetMeasureSource(2, meas_sst2, "FALL");
                     InsControl._tek_scope.SetMeasureSource(3, meas_sst3, "FALL");
@@ -771,7 +785,16 @@ namespace SoftStartTiming
                 }
 
                 if (time_scale >= 0.005) MyLib.Delay1s(5);
-                while (InsControl._tek_scope.GetCount() <= 0) ;
+                int count_null = 0;
+                while (InsControl._tek_scope.GetCount() <= 0)
+                {
+                    count_null++;
+                    if (count_null == 20)
+                    {
+                        retry_cnt++;
+                        goto retest;
+                    }
+                }
                 InsControl._tek_scope.SetStop();
                 time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
 
@@ -837,38 +860,6 @@ namespace SoftStartTiming
                 List<double> min_list = new List<double>();
                 double time_temp = (delay_time_res) / 4.5;
                 double time_div = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-
-                // scope time scale re-size
-                if (delay_time_res > Math.Pow(10, 20) || delay_time_res < 0)
-                {
-                    //InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                    InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
-                    InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                    InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                    InsControl._tek_scope.SetTimeBasePosition(15);
-                    InsControl._tek_scope.SetRun();
-                    InsControl._tek_scope.SetTriggerMode();
-                    PowerOffEvent();
-                    retry_cnt++;
-                    goto retest;
-                }
-                else if (delay_time_res > time_div * 4)
-                {
-                    InsControl._tek_scope.SetTimeScale(time_temp);
-                    InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
-                    InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
-                    InsControl._tek_scope.SetTimeBasePosition(15);
-
-                    if (!(time_div == InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?")))
-                    {
-                        InsControl._tek_scope.SetRun();
-                        InsControl._tek_scope.SetTriggerMode();
-                        PowerOffEvent();
-
-                        retry_cnt++;
-                        goto retest;
-                    }
-                }
 
 
                 MyLib.Delay1ms(100);
@@ -990,78 +981,6 @@ namespace SoftStartTiming
                 MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name + "_seq2");
 
                 wave_row += 19;
-                #region "old version past waveform"
-
-                //switch (wave_pos)
-                //{
-                //    case 0:
-                //        _sheet.Cells[wave_row, XLS_Table.AA] = "No.";
-                //        _sheet.Cells[wave_row, XLS_Table.AB] = "Temp(C)";
-                //        _sheet.Cells[wave_row, XLS_Table.AC] = "Vin(V)";
-                //        _sheet.Cells[wave_row, XLS_Table.AD] = "Conditions";
-                //        _range = _sheet.Range["AA" + wave_row, "AD" + wave_row];
-                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AA] = "=D" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AB] = "=E" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AC] = "=F" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AD] = "=G" + row;
-                //        _range = _sheet.Range["AA" + (wave_row + 2).ToString(), "AG" + (wave_row + 16).ToString()];
-                //        wave_pos++;
-                //        break;
-                //    case 1:
-                //        _sheet.Cells[wave_row, XLS_Table.AL] = "No.";
-                //        _sheet.Cells[wave_row, XLS_Table.AM] = "Temp(C)";
-                //        _sheet.Cells[wave_row, XLS_Table.AN] = "Vin(V)";
-                //        _sheet.Cells[wave_row, XLS_Table.AO] = "Conditions";
-                //        _range = _sheet.Range["AL" + wave_row, "AO" + wave_row];
-                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AL] = "=D" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AM] = "=E" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AN] = "=F" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AO] = "=G" + row;
-                //        _range = _sheet.Range["AL" + (wave_row + 2).ToString(), "AR" + (wave_row + 16).ToString()];
-                //        wave_pos++;
-                //        break;
-                //    case 2:
-                //        _sheet.Cells[wave_row, XLS_Table.AW] = "No.";
-                //        _sheet.Cells[wave_row, XLS_Table.AX] = "Temp(C)";
-                //        _sheet.Cells[wave_row, XLS_Table.AY] = "Vin(V)";
-                //        _sheet.Cells[wave_row, XLS_Table.AZ] = "Conditions";
-                //        _range = _sheet.Range["AW" + wave_row, "AZ" + wave_row];
-                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AW] = "=D" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AX] = "=E" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AY] = "=F" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.AZ] = "=G" + row;
-                //        _range = _sheet.Range["AW" + (wave_row + 2).ToString(), "BC" + (wave_row + 16).ToString()];
-                //        wave_pos++;
-                //        break;
-                //    case 3:
-                //        _sheet.Cells[wave_row, XLS_Table.BH] = "No.";
-                //        _sheet.Cells[wave_row, XLS_Table.BI] = "Temp(C)";
-                //        _sheet.Cells[wave_row, XLS_Table.BJ] = "Vin(V)";
-                //        _sheet.Cells[wave_row, XLS_Table.BK] = "Conditions";
-                //        _range = _sheet.Range["BH" + wave_row, "BK" + wave_row];
-                //        _range.Interior.Color = Color.FromArgb(124, 252, 0);
-                //        _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
-
-                //        _sheet.Cells[wave_row + 1, XLS_Table.BH] = "=D" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.BI] = "=E" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.BJ] = "=F" + row;
-                //        _sheet.Cells[wave_row + 1, XLS_Table.BK] = "=G" + row;
-                //        _range = _sheet.Range["BH" + (wave_row + 2).ToString(), "BN" + (wave_row + 16).ToString()];
-                //        wave_pos = 0; wave_row = wave_row + 19;
-                //        break;
-                //} // switch case
-
-                //MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, file_name);
-                #endregion
 #endif
                 row++;
 #endif
@@ -1105,6 +1024,7 @@ namespace SoftStartTiming
                 case 2: // vin trigger
 #if Power_en
                     InsControl._power.AutoPowerOff();
+                    InsControl._power2.AutoPowerOff();
 #endif
                     break;
                 case 3:

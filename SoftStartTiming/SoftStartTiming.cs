@@ -521,6 +521,9 @@ namespace SoftStartTiming
                     PowerInfoList.Add(powerinfo_s);
                     CBPower.Enabled = true;
                     CBPower.Items.Add(name);
+
+                    cbox_power2.Enabled = true;
+                    cbox_power2.Items.Add(name);
                 }
 
                 if (name.IndexOf("62006P") != -1)
@@ -533,6 +536,9 @@ namespace SoftStartTiming
                     PowerInfoList.Add(powerinfo_s);
                     CBPower.Enabled = true;
                     CBPower.Items.Add(name);
+
+                    cbox_power2.Enabled = true;
+                    cbox_power2.Items.Add(name);
                 }
             }
         }
@@ -541,8 +547,7 @@ namespace SoftStartTiming
         {
             InsControl._power = new PowerModule(PowerInfoList[CBPower.SelectedIndex].ins);
             nuPower_addr.Value = PowerInfoList[CBPower.SelectedIndex].addr;
-
-            tb_power.Text = "Power: " + CBPower.Text;
+            tb_power.Text = "Power: " + CBPower.Text + cbox_power2.Text;
             if (InsControl._power.InsState())
                 led_power.BackColor = Color.LightGreen;
             else
@@ -866,7 +871,7 @@ namespace SoftStartTiming
         private void data_import(Excel.Worksheet sheet, ref int row, DataGridView dg)
         {
             // excel row number
-            int row_number = 10;
+            int row_number = 11;
             string temp = sheet.Cells[row, 1].Value;
             if (temp == "Address") row_number = 2;
 
@@ -1115,6 +1120,7 @@ namespace SoftStartTiming
             
             // add vin
             test_dg[0, current_row].Value = num_vin.Value;
+            test_dg[10, current_row].Value = num_vin2.Value;
 
             string seq_info = "";
             string meas_info = "";
@@ -1187,8 +1193,52 @@ namespace SoftStartTiming
 
                 test_dg[8, current_row].Value = cbox_trigger.Text;
                 test_dg[9, current_row].Value = CBEdge.Text;
+                
             }
             
+        }
+
+        private void cbox_power2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            InsControl._power2 = new PowerModule(PowerInfoList[cbox_power2.SelectedIndex].ins);
+            nu_power2_addr.Value = PowerInfoList[cbox_power2.SelectedIndex].addr;
+
+            tb_power.Text = "Power: " + CBPower.Text + cbox_power2.Text;
+            if (InsControl._power2.InsState())
+                led_power.BackColor = Color.LightGreen;
+            else
+                led_power.BackColor = Color.Red;
+
+            cbox_channel2.Items.Clear();
+            cbox_channel2.Enabled = true;
+            switch (cbox_power2.Text)
+            {
+                case "E3631A":
+                    cbox_channel2.Items.Add("+6V");
+                    cbox_channel2.Items.Add("+25V");
+                    cbox_channel2.Items.Add("-25V");
+                    cbox_channel2.SelectedIndex = 0;
+                    break;
+                case "E3632A":
+                    cbox_channel2.Items.Add("15V");
+                    cbox_channel2.Items.Add("30V");
+                    cbox_channel2.SelectedIndex = 0;
+                    break;
+                case "E3633A":
+                    cbox_channel2.Items.Add("8V");
+                    cbox_channel2.Items.Add("20V");
+                    cbox_channel2.SelectedIndex = 0;
+                    break;
+                case "E3634A":
+                    cbox_channel2.Items.Add("25V");
+                    cbox_channel2.Items.Add("50V");
+                    cbox_channel2.SelectedIndex = 0;
+                    break;
+                case "62006P":
+                    cbox_channel2.Items.Add("600V");
+                    cbox_channel2.SelectedIndex = 0;
+                    break;
+            }
         }
     }
 }

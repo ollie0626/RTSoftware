@@ -14,6 +14,7 @@ namespace SoftStartTiming
     {
         public static AgilentOSC _scope;
         public static PowerModule _power;
+        public static PowerModule _power2;
         public static EloadModule _eload;
         public static MultiChannelModule _34970A;
         public static ChamberModule _chamber;
