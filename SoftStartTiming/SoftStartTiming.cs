@@ -1124,6 +1124,9 @@ namespace SoftStartTiming
             test_dg[0, current_row].Value = num_vin.Value;
             test_dg[10, current_row].Value = num_vin2.Value;
 
+            // add time scale
+            test_dg[11, current_row].Value = num_timeScale.Value;
+
             string seq_info = "";
             string meas_info = "";
             string precent_info = "";
@@ -1195,6 +1198,7 @@ namespace SoftStartTiming
 
                 test_dg[8, current_row].Value = cbox_trigger.Text;
                 test_dg[9, current_row].Value = CBEdge.Text;
+                
                 
             }
             

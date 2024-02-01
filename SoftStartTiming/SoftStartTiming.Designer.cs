@@ -125,6 +125,8 @@ namespace SoftStartTiming
             this.tb_chamber = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.num_timeScale = new System.Windows.Forms.NumericUpDown();
+            this.label47 = new System.Windows.Forms.Label();
             this.Label79 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
             this.CbTrigger = new System.Windows.Forms.ComboBox();
@@ -207,6 +209,7 @@ namespace SoftStartTiming
             this.Column9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bt_add_to_table = new System.Windows.Forms.Button();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -327,6 +330,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage1.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_timeScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin)).BeginInit();
             this.panel7.SuspendLayout();
@@ -1437,6 +1441,8 @@ namespace SoftStartTiming
             // panel9
             // 
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.num_timeScale);
+            this.panel9.Controls.Add(this.label47);
             this.panel9.Controls.Add(this.Label79);
             this.panel9.Controls.Add(this.label45);
             this.panel9.Controls.Add(this.CbTrigger);
@@ -1458,6 +1464,39 @@ namespace SoftStartTiming
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(345, 159);
             this.panel9.TabIndex = 3275;
+            // 
+            // num_timeScale
+            // 
+            this.num_timeScale.DecimalPlaces = 3;
+            this.num_timeScale.Location = new System.Drawing.Point(258, 131);
+            this.num_timeScale.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.num_timeScale.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_timeScale.Name = "num_timeScale";
+            this.num_timeScale.Size = new System.Drawing.Size(66, 22);
+            this.num_timeScale.TabIndex = 3276;
+            this.num_timeScale.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.num_timeScale.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(164, 136);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(91, 12);
+            this.label47.TabIndex = 3275;
+            this.label47.Text = "TimeScale (ms)";
             // 
             // Label79
             // 
@@ -2335,7 +2374,8 @@ namespace SoftStartTiming
             this.Column8,
             this.Column9,
             this.Column10,
-            this.Column11});
+            this.Column11,
+            this.Column12});
             this.test_dg.Location = new System.Drawing.Point(18, 490);
             this.test_dg.Name = "test_dg";
             this.test_dg.RowTemplate.Height = 24;
@@ -2403,6 +2443,12 @@ namespace SoftStartTiming
             // 
             this.Column11.HeaderText = "Vin2 (V)";
             this.Column11.Name = "Column11";
+            // 
+            // Column12
+            // 
+            this.Column12.HeaderText = "TimeScale (ms)";
+            this.Column12.Name = "Column12";
+            this.Column12.Width = 120;
             // 
             // bt_add_to_table
             // 
@@ -3473,6 +3519,7 @@ namespace SoftStartTiming
             this.tabPage1.PerformLayout();
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_timeScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin)).EndInit();
             this.panel7.ResumeLayout(false);
@@ -3787,6 +3834,12 @@ namespace SoftStartTiming
         private System.Windows.Forms.ComboBox cbox_channel2;
         private System.Windows.Forms.Label label44;
         private System.Windows.Forms.Panel panel8;
+        internal System.Windows.Forms.Label label45;
+        internal System.Windows.Forms.Label label46;
+        internal System.Windows.Forms.NumericUpDown num_vin2;
+        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Label label47;
+        internal System.Windows.Forms.NumericUpDown num_timeScale;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
@@ -3798,10 +3851,7 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column9;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column10;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column11;
-        internal System.Windows.Forms.Label label45;
-        internal System.Windows.Forms.Label label46;
-        internal System.Windows.Forms.NumericUpDown num_vin2;
-        private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column12;
     }
 }
 
