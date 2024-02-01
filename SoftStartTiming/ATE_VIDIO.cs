@@ -137,7 +137,8 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Offset(1, min);
             InsControl._oscilloscope.CHx_Position(1, -2);
             MyLib.Delay1s(2);
-            InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 1.5);
+            if (test_parameter.vidio.scope_ch2 == 0)
+                InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 1.5);
             InsControl._oscilloscope.CHx_Position(2, -4);
             InsControl._oscilloscope.SetAutoTrigger();
             InsControl._oscilloscope.SetTriggerLevel(2, max - min);
@@ -753,7 +754,12 @@ namespace SoftStartTiming
                 {
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
-                        InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx]);
+                        
+
+                        if(test_parameter.vidio.scope_ch2 == 1) InsControl._oscilloscope.CHx_Level(2, test_parameter.vidio.il_level);
+                        else if (test_parameter.vidio.scope_ch2 == 0) InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx]);
+
+
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
                             // default rising to rising

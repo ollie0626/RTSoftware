@@ -67,6 +67,7 @@ namespace SoftStartTiming
 
         public int trigger_ch;
         public string trigger_event;
+        public double time_scale;
     }
 
     public class ATE_DelayTime : TaskRun
@@ -131,6 +132,7 @@ namespace SoftStartTiming
             DataGridView seq_dg = test_parameter.seq_dg;
             dt_test.vin = Convert.ToDouble(seq_dg[0, idx].Value);
             dt_test.vin2 = Convert.ToDouble(seq_dg[10, idx].Value);
+            dt_test.time_scale = Convert.ToDouble(seq_dg[11, idx].Value);
 
             #region "scope info"
             // init level
@@ -280,7 +282,7 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
-            InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
+            InsControl._tek_scope.SetTimeScale(1 * Math.Pow(10, -3));
             InsControl._tek_scope.SetTimeBasePosition(15);
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode(); // auto trigger
@@ -435,14 +437,14 @@ namespace SoftStartTiming
 
         private void Scope_Channel_Resize(double vin)
         {
-            double time_scale = 0;
+            //double time_scale = 0;
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode();
-            time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
-            if (time_scale <= 55 * Math.Pow(10, -6) || time_scale > 100 * Math.Pow(10, -3))
-            {
-                time_scale = test_parameter.ontime_scale_ms / 1000;
-            }
+            //time_scale = InsControl._tek_scope.doQueryNumber("HORizontal:SCAle?");
+            //if (time_scale <= 55 * Math.Pow(10, -6) || time_scale > 100 * Math.Pow(10, -3))
+            //{
+            //    time_scale = test_parameter.ontime_scale_ms / 1000;
+            //}
             InsControl._tek_scope.SetTimeScale((25 * Math.Pow(10, -12)));
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode();
@@ -477,7 +479,7 @@ namespace SoftStartTiming
             MyLib.Delay1ms(900);
             LevelEvent();
             if (dt_test.trigger_event == "Rising edge") PowerOffEvent();
-            InsControl._tek_scope.SetTimeScale(time_scale);
+            InsControl._tek_scope.SetTimeScale(dt_test.time_scale);
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
             InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
 
@@ -666,9 +668,9 @@ namespace SoftStartTiming
                 /* get test conditions */
                 GetParameter(bin_idx);
 
-                double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2 + dt_test.idealTime2) * Math.Pow(10, -3);
-                if (idel_time_total <= 0) idel_time_total = 1;
-                InsControl._tek_scope.SetTimeScale(idel_time_total / 5);
+                //double idel_time_total = (dt_test.idealTime0 + dt_test.idealTime1 + dt_test.idealTime2 + dt_test.idealTime2) * Math.Pow(10, -3);
+                //if (idel_time_total <= 0) idel_time_total = 1;
+                InsControl._tek_scope.SetTimeScale(dt_test.time_scale);
                 /* Eload current setting */
                 InsControl._eload.CH1_Loading(dt_test.loading1);
                 InsControl._eload.CH2_Loading(dt_test.loading2);
@@ -703,7 +705,8 @@ namespace SoftStartTiming
                 {
                     _sheet.Cells[row, XLS_Table.F] = "sATE test fail";
                     //InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms / 1000);
-                    InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
+                    //InsControl._tek_scope.SetTimeScale(idel_time_total / 4);
+                    InsControl._tek_scope.SetTimeScale(dt_test.time_scale);
                     InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
                     InsControl._tek_scope.DoCommand("HORizontal:MODE:SAMPLERate 500E6");
                     retry_cnt = 0;

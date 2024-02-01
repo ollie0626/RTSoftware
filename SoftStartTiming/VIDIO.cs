@@ -119,6 +119,9 @@ namespace SoftStartTiming
 
             _item[0] = new ToolStripMenuItem("Delete Row", null, new EventHandler(ToolStripDelete_Click));
             _item[1] = new ToolStripMenuItem("Add Row", null, new EventHandler(ToolStripAdd_Click));
+
+            cbox_scope_ch2.SelectedIndex = 0;
+            num_ILXLevel.Value = (decimal)0.5;
             RTDev.BoadInit();
         }
 
@@ -176,6 +179,8 @@ namespace SoftStartTiming
             test_parameter.IoutList = tb_iout.Text.Split(',').Select(double.Parse).ToList();
 
             test_parameter.vidio.criteria.Clear();
+            test_parameter.vidio.scope_ch2 = cbox_scope_ch2.SelectedIndex;
+            test_parameter.vidio.il_level = (double)num_ILXLevel.Value;
 
             int temp = 0;
             for (int idx = 0; idx < dataGridView2.RowCount; idx++)
@@ -222,8 +227,6 @@ namespace SoftStartTiming
                     criteria_container.time_jd = false;
                 else
                     criteria_container.time_jd = true;
-
-
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
@@ -827,6 +830,19 @@ namespace SoftStartTiming
                     break;
             }
         }
+
+        private void cbox_scope_ch2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (cbox_scope_ch2.SelectedIndex)
+            {
+                case 0:
+                    num_ILXLevel.Enabled = false;
+                    break;
+                case 1:
+                    num_ILXLevel.Enabled = true;
+                    break;
+            }
+        }
     }
 
 
@@ -842,6 +858,8 @@ namespace SoftStartTiming
         public double discharge_load;
         public int test_cnt;
         public int test_fail_cnt;
+        public int scope_ch2;
+        public double il_level;
 
         public List<VIDIO_Criteria_parameter> criteria = new List<VIDIO_Criteria_parameter>();
     }

@@ -74,6 +74,12 @@ namespace SoftStartTiming
             this.label14 = new System.Windows.Forms.Label();
             this.tb_templist = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.num_ILXLevel = new System.Windows.Forms.NumericUpDown();
+            this.label20 = new System.Windows.Forms.Label();
+            this.cbox_scope_ch2 = new System.Windows.Forms.ComboBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.nu_test_fail_cnt = new System.Windows.Forms.NumericUpDown();
+            this.label18 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.btn_g1_off = new System.Windows.Forms.Button();
             this.btn_g1_on = new System.Windows.Forms.Button();
@@ -129,8 +135,6 @@ namespace SoftStartTiming
             this.button1 = new System.Windows.Forms.Button();
             this.labStatus = new System.Windows.Forms.Label();
             this.progressBar2 = new System.Windows.Forms.ProgressBar();
-            this.nu_test_fail_cnt = new System.Windows.Forms.NumericUpDown();
-            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
@@ -138,6 +142,8 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_ILXLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -157,7 +163,6 @@ namespace SoftStartTiming
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -311,10 +316,10 @@ namespace SoftStartTiming
             this.Column9,
             this.Column10});
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 309);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 324);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(833, 230);
+            this.dataGridView1.Size = new System.Drawing.Size(833, 215);
             this.dataGridView1.TabIndex = 122;
             this.dataGridView1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dataGridView1_MouseDown);
             // 
@@ -589,6 +594,10 @@ namespace SoftStartTiming
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.DarkGray;
+            this.tabPage2.Controls.Add(this.num_ILXLevel);
+            this.tabPage2.Controls.Add(this.label20);
+            this.tabPage2.Controls.Add(this.cbox_scope_ch2);
+            this.tabPage2.Controls.Add(this.label19);
             this.tabPage2.Controls.Add(this.nu_test_fail_cnt);
             this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.panel5);
@@ -633,12 +642,78 @@ namespace SoftStartTiming
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
             // 
+            // num_ILXLevel
+            // 
+            this.num_ILXLevel.DecimalPlaces = 3;
+            this.num_ILXLevel.Location = new System.Drawing.Point(510, 296);
+            this.num_ILXLevel.Name = "num_ILXLevel";
+            this.num_ILXLevel.Size = new System.Drawing.Size(77, 22);
+            this.num_ILXLevel.TabIndex = 170;
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(322, 298);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(76, 12);
+            this.label20.TabIndex = 169;
+            this.label20.Text = "IL Level (A)";
+            // 
+            // cbox_scope_ch2
+            // 
+            this.cbox_scope_ch2.FormattingEnabled = true;
+            this.cbox_scope_ch2.Items.AddRange(new object[] {
+            "Measure LX",
+            "Measure ILX"});
+            this.cbox_scope_ch2.Location = new System.Drawing.Point(510, 270);
+            this.cbox_scope_ch2.Name = "cbox_scope_ch2";
+            this.cbox_scope_ch2.Size = new System.Drawing.Size(97, 20);
+            this.cbox_scope_ch2.TabIndex = 168;
+            this.cbox_scope_ch2.SelectedIndexChanged += new System.EventHandler(this.cbox_scope_ch2_SelectedIndexChanged);
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(322, 273);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(67, 12);
+            this.label19.TabIndex = 167;
+            this.label19.Text = "Scope CH2";
+            // 
+            // nu_test_fail_cnt
+            // 
+            this.nu_test_fail_cnt.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nu_test_fail_cnt.Location = new System.Drawing.Point(510, 242);
+            this.nu_test_fail_cnt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.nu_test_fail_cnt.Maximum = new decimal(new int[] {
+            6000,
+            0,
+            0,
+            0});
+            this.nu_test_fail_cnt.Name = "nu_test_fail_cnt";
+            this.nu_test_fail_cnt.Size = new System.Drawing.Size(77, 23);
+            this.nu_test_fail_cnt.TabIndex = 166;
+            this.nu_test_fail_cnt.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(322, 248);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(91, 12);
+            this.label18.TabIndex = 165;
+            this.label18.Text = "Test Fail Count";
+            // 
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.Silver;
             this.panel5.Controls.Add(this.btn_g1_off);
             this.panel5.Controls.Add(this.btn_g1_on);
-            this.panel5.Location = new System.Drawing.Point(696, 229);
+            this.panel5.Location = new System.Drawing.Point(753, 241);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(107, 34);
             this.panel5.TabIndex = 164;
@@ -667,7 +742,7 @@ namespace SoftStartTiming
             // 
             this.panel6.BackColor = System.Drawing.Color.Silver;
             this.panel6.Controls.Add(this.textBox3);
-            this.panel6.Location = new System.Drawing.Point(617, 229);
+            this.panel6.Location = new System.Drawing.Point(674, 241);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(76, 34);
             this.panel6.TabIndex = 163;
@@ -689,7 +764,7 @@ namespace SoftStartTiming
             this.panel3.BackColor = System.Drawing.Color.Silver;
             this.panel3.Controls.Add(this.btn_g0_off);
             this.panel3.Controls.Add(this.btn_g0_on);
-            this.panel3.Location = new System.Drawing.Point(696, 189);
+            this.panel3.Location = new System.Drawing.Point(753, 201);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(107, 34);
             this.panel3.TabIndex = 162;
@@ -719,7 +794,7 @@ namespace SoftStartTiming
             this.panel2.BackColor = System.Drawing.Color.Silver;
             this.panel2.Controls.Add(this.btn_lpm_off);
             this.panel2.Controls.Add(this.btn_lpm_on);
-            this.panel2.Location = new System.Drawing.Point(696, 149);
+            this.panel2.Location = new System.Drawing.Point(753, 161);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(107, 34);
             this.panel2.TabIndex = 158;
@@ -748,7 +823,7 @@ namespace SoftStartTiming
             // 
             this.panel4.BackColor = System.Drawing.Color.Silver;
             this.panel4.Controls.Add(this.textBox2);
-            this.panel4.Location = new System.Drawing.Point(617, 189);
+            this.panel4.Location = new System.Drawing.Point(674, 201);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(76, 34);
             this.panel4.TabIndex = 161;
@@ -769,7 +844,7 @@ namespace SoftStartTiming
             // 
             this.panel1.BackColor = System.Drawing.Color.Silver;
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Location = new System.Drawing.Point(617, 149);
+            this.panel1.Location = new System.Drawing.Point(674, 161);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(76, 34);
             this.panel1.TabIndex = 157;
@@ -1274,34 +1349,6 @@ namespace SoftStartTiming
             this.progressBar2.Size = new System.Drawing.Size(371, 21);
             this.progressBar2.TabIndex = 136;
             // 
-            // nu_test_fail_cnt
-            // 
-            this.nu_test_fail_cnt.Font = new System.Drawing.Font("Calibri", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nu_test_fail_cnt.Location = new System.Drawing.Point(510, 242);
-            this.nu_test_fail_cnt.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.nu_test_fail_cnt.Maximum = new decimal(new int[] {
-            6000,
-            0,
-            0,
-            0});
-            this.nu_test_fail_cnt.Name = "nu_test_fail_cnt";
-            this.nu_test_fail_cnt.Size = new System.Drawing.Size(77, 23);
-            this.nu_test_fail_cnt.TabIndex = 166;
-            this.nu_test_fail_cnt.Value = new decimal(new int[] {
-            100,
-            0,
-            0,
-            0});
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(322, 248);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(91, 12);
-            this.label18.TabIndex = 165;
-            this.label18.Text = "Test Fail Count";
-            // 
             // VIDIO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -1328,6 +1375,8 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.num_ILXLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -1352,7 +1401,6 @@ namespace SoftStartTiming
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuDisLoad)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nuDischarge)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_test_fail_cnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1462,5 +1510,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.NumericUpDown nu_test_fail_cnt;
         private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.ComboBox cbox_scope_ch2;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.NumericUpDown num_ILXLevel;
     }
 }
