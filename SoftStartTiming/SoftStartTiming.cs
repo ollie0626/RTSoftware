@@ -475,6 +475,8 @@ namespace SoftStartTiming
 
         private void BTScan_Click(object sender, EventArgs e)
         {
+            CBPower.Items.Clear();
+            cbox_power2.Items.Clear();
             list_ins.Items.Clear();
             string[] scope_name = new string[] { "DSOS054A", "DSO9064A", "DPO7054C", "DPO7104C" };
             string[] ins_list = ViCMD.ScanIns();
@@ -547,7 +549,7 @@ namespace SoftStartTiming
         {
             InsControl._power = new PowerModule(PowerInfoList[CBPower.SelectedIndex].ins);
             nuPower_addr.Value = PowerInfoList[CBPower.SelectedIndex].addr;
-            tb_power.Text = "Power: " + CBPower.Text + cbox_power2.Text;
+            tb_power.Text = "Power: " + CBPower.Text + ", " + cbox_power2.Text;
             if (InsControl._power.InsState())
                 led_power.BackColor = Color.LightGreen;
             else
@@ -1203,7 +1205,7 @@ namespace SoftStartTiming
             InsControl._power2 = new PowerModule(PowerInfoList[cbox_power2.SelectedIndex].ins);
             nu_power2_addr.Value = PowerInfoList[cbox_power2.SelectedIndex].addr;
 
-            tb_power.Text = "Power: " + CBPower.Text + cbox_power2.Text;
+            tb_power.Text = "Power: " + CBPower.Text + ", " + cbox_power2.Text;
             if (InsControl._power2.InsState())
                 led_power.BackColor = Color.LightGreen;
             else

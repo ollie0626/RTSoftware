@@ -23,7 +23,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.16";
+        string win_name = "VIDIO v1.17";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;

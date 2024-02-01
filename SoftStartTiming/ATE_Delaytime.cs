@@ -447,20 +447,27 @@ namespace SoftStartTiming
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode();
 #if Power_en
-            InsControl._power.AutoSelPowerOn(vin);
-            InsControl._power.AutoSelPowerOn(dt_test.vin2);
-            MyLib.Delay1ms(1000);
+            InsControl._power2.AutoSelPowerOn(dt_test.vin2);
+            MyLib.Delay1ms(500);
             I2C_DG_Write(test_parameter.i2c_init_dg);
+            InsControl._power.AutoSelPowerOn(vin);
+            MyLib.Delay1ms(500);
             SeqAndIdealWrite();
             I2C_DG_Write(test_parameter.i2c_mtp_dg); // i2c mtp program
             MyLib.Delay1s(2); // wait for program time
+            
+            // ---------------------------------------
             InsControl._power.AutoPowerOff();
             InsControl._power2.AutoPowerOff();
+            // ---------------------------------------
+
+
             MyLib.Delay1s(1);
-            InsControl._power.AutoSelPowerOn(vin);
-            InsControl._power.AutoSelPowerOn(dt_test.vin2);
-            MyLib.Delay1ms(1000);
+            InsControl._power2.AutoSelPowerOn(dt_test.vin2);
+            MyLib.Delay1ms(500);
             I2C_DG_Write(test_parameter.i2c_init_dg);
+            InsControl._power.AutoSelPowerOn(vin);
+            MyLib.Delay1ms(500);
             SeqAndIdealWrite();
 #endif
             TriggerEvent(vin); // gpio, i2c(initial), vin trigger
@@ -518,18 +525,41 @@ namespace SoftStartTiming
 
             for (int i = 0; i < 3; i++)
             {
+                double x1 = 0, x2 = 0;
                 // enable start channel annotation
-                InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
-                MyLib.Delay1ms(800);
-                double x1 = direct ?
-                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
-                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
 
-                InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch2));
-                MyLib.Delay1ms(800);
-                double x2 = !direct ?
-                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
-                    InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
+
+                //dt_test.trigger_event == "Rising edge";
+
+                if (dt_test.trigger_event == "Rising edge")
+                {
+                    InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
+                    MyLib.Delay1ms(800);
+                    x1 = direct ?
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
+
+                    InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch2));
+                    MyLib.Delay1ms(800);
+                    x2 = !direct ?
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?")) :
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?"));
+                }
+                else
+                {
+                    InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch1));
+                    MyLib.Delay1ms(800);
+                    x1 = direct ?
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?")) :
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?"));
+
+                    InsControl._tek_scope.DoCommand(string.Format("MEASUrement:ANNOTation:STATE MEAS{0}", ch2));
+                    MyLib.Delay1ms(800);
+                    x2 = !direct ?
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X1?")) :
+                        InsControl._tek_scope.doQueryNumber(string.Format("MEASUrement:ANNOTation:X2?"));
+                }
+
 
 
                 InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
