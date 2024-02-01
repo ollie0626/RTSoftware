@@ -124,12 +124,24 @@ namespace SoftStartTiming
             this.tb_daq = new System.Windows.Forms.TextBox();
             this.tb_chamber = new System.Windows.Forms.TextBox();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panel9 = new System.Windows.Forms.Panel();
+            this.Label79 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
+            this.CbTrigger = new System.Windows.Forms.ComboBox();
             this.label46 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.num_vin2 = new System.Windows.Forms.NumericUpDown();
+            this.num_vin = new System.Windows.Forms.NumericUpDown();
             this.ck_cursor_disable = new System.Windows.Forms.CheckBox();
+            this.CBGPIO = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
+            this.CBEdge = new System.Windows.Forms.ComboBox();
             this.cbox_trigger = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.Label78 = new System.Windows.Forms.Label();
+            this.BTSelectWavePath = new System.Windows.Forms.Button();
+            this.tbWave = new System.Windows.Forms.TextBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.cbox_eload_ch4 = new System.Windows.Forms.ComboBox();
             this.cbox_eload_ch3 = new System.Windows.Forms.ComboBox();
@@ -146,8 +158,6 @@ namespace SoftStartTiming
             this.textBox38 = new System.Windows.Forms.TextBox();
             this.nu_eload_ch2 = new System.Windows.Forms.NumericUpDown();
             this.nu_eload_ch3 = new System.Windows.Forms.NumericUpDown();
-            this.BTSelectWavePath = new System.Windows.Forms.Button();
-            this.Label79 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.textBox40 = new System.Windows.Forms.TextBox();
             this.nu_idel_time4 = new System.Windows.Forms.NumericUpDown();
@@ -169,12 +179,6 @@ namespace SoftStartTiming
             this.textBox32 = new System.Windows.Forms.TextBox();
             this.textBox33 = new System.Windows.Forms.TextBox();
             this.textBox34 = new System.Windows.Forms.TextBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.tbWave = new System.Windows.Forms.TextBox();
-            this.Label78 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.CBEdge = new System.Windows.Forms.ComboBox();
-            this.CBGPIO = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.nu_seq3_data = new System.Windows.Forms.NumericUpDown();
             this.nu_seq2_data = new System.Windows.Forms.NumericUpDown();
@@ -204,7 +208,6 @@ namespace SoftStartTiming
             this.Column10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bt_add_to_table = new System.Windows.Forms.Button();
-            this.num_vin = new System.Windows.Forms.NumericUpDown();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.ck_MeasSeq3 = new System.Windows.Forms.CheckBox();
@@ -265,8 +268,6 @@ namespace SoftStartTiming
             this.cbox_dly3_to = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.cbox_dly2_to = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.CbTrigger = new System.Windows.Forms.ComboBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.CkBin3 = new System.Windows.Forms.CheckBox();
             this.CkBin2 = new System.Windows.Forms.CheckBox();
@@ -295,7 +296,6 @@ namespace SoftStartTiming
             this.BTPause = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.nuCriteria = new System.Windows.Forms.NumericUpDown();
-            this.panel9 = new System.Windows.Forms.Panel();
             this.tabControl1.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.panel8.SuspendLayout();
@@ -326,7 +326,9 @@ namespace SoftStartTiming
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).BeginInit();
             this.tabPage1.SuspendLayout();
+            this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_vin)).BeginInit();
             this.panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_eload_ch4)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_eload_ch1)).BeginInit();
@@ -355,7 +357,6 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_seq1_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_seq0_addr)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.test_dg)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_vin)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch0_level)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudly0_from)).BeginInit();
@@ -374,7 +375,6 @@ namespace SoftStartTiming
             this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).BeginInit();
-            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -494,6 +494,7 @@ namespace SoftStartTiming
             // 
             // nu_power2_addr
             // 
+            this.nu_power2_addr.Enabled = false;
             this.nu_power2_addr.Location = new System.Drawing.Point(209, 65);
             this.nu_power2_addr.Name = "nu_power2_addr";
             this.nu_power2_addr.Size = new System.Drawing.Size(47, 22);
@@ -521,6 +522,7 @@ namespace SoftStartTiming
             // 
             // nuPower_addr
             // 
+            this.nuPower_addr.Enabled = false;
             this.nuPower_addr.Location = new System.Drawing.Point(209, 8);
             this.nuPower_addr.Name = "nuPower_addr";
             this.nuPower_addr.Size = new System.Drawing.Size(47, 22);
@@ -1432,6 +1434,42 @@ namespace SoftStartTiming
             this.tabPage1.TabIndex = 2;
             this.tabPage1.Text = "Scope";
             // 
+            // panel9
+            // 
+            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel9.Controls.Add(this.Label79);
+            this.panel9.Controls.Add(this.label45);
+            this.panel9.Controls.Add(this.CbTrigger);
+            this.panel9.Controls.Add(this.label46);
+            this.panel9.Controls.Add(this.label5);
+            this.panel9.Controls.Add(this.num_vin2);
+            this.panel9.Controls.Add(this.num_vin);
+            this.panel9.Controls.Add(this.ck_cursor_disable);
+            this.panel9.Controls.Add(this.CBGPIO);
+            this.panel9.Controls.Add(this.label42);
+            this.panel9.Controls.Add(this.CBEdge);
+            this.panel9.Controls.Add(this.cbox_trigger);
+            this.panel9.Controls.Add(this.label7);
+            this.panel9.Controls.Add(this.Label78);
+            this.panel9.Controls.Add(this.BTSelectWavePath);
+            this.panel9.Controls.Add(this.tbWave);
+            this.panel9.Controls.Add(this.label16);
+            this.panel9.Location = new System.Drawing.Point(379, 322);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(345, 159);
+            this.panel9.TabIndex = 3275;
+            // 
+            // Label79
+            // 
+            this.Label79.AutoSize = true;
+            this.Label79.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label79.ForeColor = System.Drawing.Color.Black;
+            this.Label79.Location = new System.Drawing.Point(3, 6);
+            this.Label79.Name = "Label79";
+            this.Label79.Size = new System.Drawing.Size(48, 15);
+            this.Label79.TabIndex = 3253;
+            this.Label79.Text = "VIN (V):";
+            // 
             // label45
             // 
             this.label45.AutoSize = true;
@@ -1443,6 +1481,20 @@ namespace SoftStartTiming
             this.label45.TabIndex = 3274;
             this.label45.Text = "VIN2 (V):";
             // 
+            // CbTrigger
+            // 
+            this.CbTrigger.FormattingEnabled = true;
+            this.CbTrigger.Items.AddRange(new object[] {
+            "0 : GPIO (PWRDIS / Sleep)",
+            "1 : I2C",
+            "2 : Vin (Power supply)",
+            "3 : Vout (Rail)"});
+            this.CbTrigger.Location = new System.Drawing.Point(96, 55);
+            this.CbTrigger.Name = "CbTrigger";
+            this.CbTrigger.Size = new System.Drawing.Size(192, 20);
+            this.CbTrigger.TabIndex = 80;
+            this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
+            // 
             // label46
             // 
             this.label46.AutoSize = true;
@@ -1453,6 +1505,15 @@ namespace SoftStartTiming
             this.label46.Size = new System.Drawing.Size(15, 15);
             this.label46.TabIndex = 3273;
             this.label46.Text = "V";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(2, 58);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 12);
+            this.label5.TabIndex = 81;
+            this.label5.Text = "Trigger Type";
             // 
             // num_vin2
             // 
@@ -1468,6 +1529,20 @@ namespace SoftStartTiming
             this.num_vin2.TabIndex = 3272;
             this.num_vin2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // num_vin
+            // 
+            this.num_vin.DecimalPlaces = 3;
+            this.num_vin.Location = new System.Drawing.Point(64, 3);
+            this.num_vin.Maximum = new decimal(new int[] {
+            150,
+            0,
+            0,
+            0});
+            this.num_vin.Name = "num_vin";
+            this.num_vin.Size = new System.Drawing.Size(66, 22);
+            this.num_vin.TabIndex = 3250;
+            this.num_vin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // ck_cursor_disable
             // 
             this.ck_cursor_disable.AutoSize = true;
@@ -1478,6 +1553,18 @@ namespace SoftStartTiming
             this.ck_cursor_disable.Text = "Cursor Function Disable";
             this.ck_cursor_disable.UseVisualStyleBackColor = true;
             // 
+            // CBGPIO
+            // 
+            this.CBGPIO.FormattingEnabled = true;
+            this.CBGPIO.Items.AddRange(new object[] {
+            "P2.0",
+            "P2.1",
+            "P2.2"});
+            this.CBGPIO.Location = new System.Drawing.Point(96, 133);
+            this.CBGPIO.Name = "CBGPIO";
+            this.CBGPIO.Size = new System.Drawing.Size(62, 20);
+            this.CBGPIO.TabIndex = 86;
+            // 
             // label42
             // 
             this.label42.AutoSize = true;
@@ -1486,6 +1573,17 @@ namespace SoftStartTiming
             this.label42.Size = new System.Drawing.Size(84, 12);
             this.label42.TabIndex = 3270;
             this.label42.Text = "Scope Trigger";
+            // 
+            // CBEdge
+            // 
+            this.CBEdge.FormattingEnabled = true;
+            this.CBEdge.Items.AddRange(new object[] {
+            "Rising edge",
+            "Falling edge"});
+            this.CBEdge.Location = new System.Drawing.Point(96, 79);
+            this.CBEdge.Name = "CBEdge";
+            this.CBEdge.Size = new System.Drawing.Size(192, 20);
+            this.CBEdge.TabIndex = 90;
             // 
             // cbox_trigger
             // 
@@ -1499,6 +1597,53 @@ namespace SoftStartTiming
             this.cbox_trigger.Name = "cbox_trigger";
             this.cbox_trigger.Size = new System.Drawing.Size(72, 20);
             this.cbox_trigger.TabIndex = 3269;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(13, 136);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(72, 12);
+            this.label7.TabIndex = 85;
+            this.label7.Text = "GPIO Select";
+            // 
+            // Label78
+            // 
+            this.Label78.AutoSize = true;
+            this.Label78.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Label78.ForeColor = System.Drawing.Color.Black;
+            this.Label78.Location = new System.Drawing.Point(136, 6);
+            this.Label78.Name = "Label78";
+            this.Label78.Size = new System.Drawing.Size(15, 15);
+            this.Label78.TabIndex = 3252;
+            this.Label78.Text = "V";
+            // 
+            // BTSelectWavePath
+            // 
+            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 107);
+            this.BTSelectWavePath.Name = "BTSelectWavePath";
+            this.BTSelectWavePath.Size = new System.Drawing.Size(80, 20);
+            this.BTSelectWavePath.TabIndex = 55;
+            this.BTSelectWavePath.Text = "Wave Path";
+            this.BTSelectWavePath.UseVisualStyleBackColor = true;
+            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(96, 105);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(192, 22);
+            this.tbWave.TabIndex = 52;
+            this.tbWave.Text = "D:\\";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(4, 82);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(83, 12);
+            this.label16.TabIndex = 89;
+            this.label16.Text = "Trigger Event";
             // 
             // panel7
             // 
@@ -1690,27 +1835,6 @@ namespace SoftStartTiming
             this.nu_eload_ch3.Size = new System.Drawing.Size(89, 22);
             this.nu_eload_ch3.TabIndex = 3265;
             this.nu_eload_ch3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // BTSelectWavePath
-            // 
-            this.BTSelectWavePath.Location = new System.Drawing.Point(6, 107);
-            this.BTSelectWavePath.Name = "BTSelectWavePath";
-            this.BTSelectWavePath.Size = new System.Drawing.Size(80, 20);
-            this.BTSelectWavePath.TabIndex = 55;
-            this.BTSelectWavePath.Text = "Wave Path";
-            this.BTSelectWavePath.UseVisualStyleBackColor = true;
-            this.BTSelectWavePath.Click += new System.EventHandler(this.BTSelectWavePath_Click);
-            // 
-            // Label79
-            // 
-            this.Label79.AutoSize = true;
-            this.Label79.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label79.ForeColor = System.Drawing.Color.Black;
-            this.Label79.Location = new System.Drawing.Point(3, 6);
-            this.Label79.Name = "Label79";
-            this.Label79.Size = new System.Drawing.Size(48, 15);
-            this.Label79.TabIndex = 3253;
-            this.Label79.Text = "VIN (V):";
             // 
             // panel6
             // 
@@ -1980,66 +2104,6 @@ namespace SoftStartTiming
             this.textBox34.TabIndex = 116;
             this.textBox34.Text = "Seq2/Dly2";
             this.textBox34.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(4, 82);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 12);
-            this.label16.TabIndex = 89;
-            this.label16.Text = "Trigger Event";
-            // 
-            // tbWave
-            // 
-            this.tbWave.Location = new System.Drawing.Point(96, 105);
-            this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(192, 22);
-            this.tbWave.TabIndex = 52;
-            this.tbWave.Text = "D:\\";
-            // 
-            // Label78
-            // 
-            this.Label78.AutoSize = true;
-            this.Label78.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Label78.ForeColor = System.Drawing.Color.Black;
-            this.Label78.Location = new System.Drawing.Point(136, 6);
-            this.Label78.Name = "Label78";
-            this.Label78.Size = new System.Drawing.Size(15, 15);
-            this.Label78.TabIndex = 3252;
-            this.Label78.Text = "V";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(13, 136);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(72, 12);
-            this.label7.TabIndex = 85;
-            this.label7.Text = "GPIO Select";
-            // 
-            // CBEdge
-            // 
-            this.CBEdge.FormattingEnabled = true;
-            this.CBEdge.Items.AddRange(new object[] {
-            "Rising edge",
-            "Falling edge"});
-            this.CBEdge.Location = new System.Drawing.Point(96, 79);
-            this.CBEdge.Name = "CBEdge";
-            this.CBEdge.Size = new System.Drawing.Size(192, 20);
-            this.CBEdge.TabIndex = 90;
-            // 
-            // CBGPIO
-            // 
-            this.CBGPIO.FormattingEnabled = true;
-            this.CBGPIO.Items.AddRange(new object[] {
-            "P2.0",
-            "P2.1",
-            "P2.2"});
-            this.CBGPIO.Location = new System.Drawing.Point(96, 133);
-            this.CBGPIO.Name = "CBGPIO";
-            this.CBGPIO.Size = new System.Drawing.Size(62, 20);
-            this.CBGPIO.TabIndex = 86;
             // 
             // panel5
             // 
@@ -2349,20 +2413,6 @@ namespace SoftStartTiming
             this.bt_add_to_table.Text = "Add to Table";
             this.bt_add_to_table.UseVisualStyleBackColor = true;
             this.bt_add_to_table.Click += new System.EventHandler(this.bt_add_to_table_Click);
-            // 
-            // num_vin
-            // 
-            this.num_vin.DecimalPlaces = 3;
-            this.num_vin.Location = new System.Drawing.Point(64, 3);
-            this.num_vin.Maximum = new decimal(new int[] {
-            150,
-            0,
-            0,
-            0});
-            this.num_vin.Name = "num_vin";
-            this.num_vin.Size = new System.Drawing.Size(66, 22);
-            this.num_vin.TabIndex = 3250;
-            this.num_vin.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBox9
             // 
@@ -3066,29 +3116,6 @@ namespace SoftStartTiming
             this.cbox_dly2_to.Size = new System.Drawing.Size(107, 20);
             this.cbox_dly2_to.TabIndex = 9;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(2, 58);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(79, 12);
-            this.label5.TabIndex = 81;
-            this.label5.Text = "Trigger Type";
-            // 
-            // CbTrigger
-            // 
-            this.CbTrigger.FormattingEnabled = true;
-            this.CbTrigger.Items.AddRange(new object[] {
-            "0 : GPIO (PWRDIS / Sleep)",
-            "1 : I2C",
-            "2 : Vin (Power supply)",
-            "3 : Vout (Rail)"});
-            this.CbTrigger.Location = new System.Drawing.Point(96, 55);
-            this.CbTrigger.Name = "CbTrigger";
-            this.CbTrigger.Size = new System.Drawing.Size(192, 20);
-            this.CbTrigger.TabIndex = 80;
-            this.CbTrigger.SelectedIndexChanged += new System.EventHandler(this.CbTrigger_SelectedIndexChanged);
-            // 
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.LightGray;
@@ -3385,31 +3412,6 @@ namespace SoftStartTiming
             0,
             0});
             // 
-            // panel9
-            // 
-            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel9.Controls.Add(this.Label79);
-            this.panel9.Controls.Add(this.label45);
-            this.panel9.Controls.Add(this.CbTrigger);
-            this.panel9.Controls.Add(this.label46);
-            this.panel9.Controls.Add(this.label5);
-            this.panel9.Controls.Add(this.num_vin2);
-            this.panel9.Controls.Add(this.num_vin);
-            this.panel9.Controls.Add(this.ck_cursor_disable);
-            this.panel9.Controls.Add(this.CBGPIO);
-            this.panel9.Controls.Add(this.label42);
-            this.panel9.Controls.Add(this.CBEdge);
-            this.panel9.Controls.Add(this.cbox_trigger);
-            this.panel9.Controls.Add(this.label7);
-            this.panel9.Controls.Add(this.Label78);
-            this.panel9.Controls.Add(this.BTSelectWavePath);
-            this.panel9.Controls.Add(this.tbWave);
-            this.panel9.Controls.Add(this.label16);
-            this.panel9.Location = new System.Drawing.Point(379, 322);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(345, 159);
-            this.panel9.TabIndex = 3275;
-            // 
             // SoftStartTiming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
@@ -3469,7 +3471,10 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_steady)).EndInit();
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.num_vin2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_vin)).EndInit();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_eload_ch4)).EndInit();
@@ -3501,7 +3506,6 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nu_seq1_addr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_seq0_addr)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.test_dg)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.num_vin)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_ch0_level)).EndInit();
@@ -3525,8 +3529,6 @@ namespace SoftStartTiming
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuCriteria)).EndInit();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
