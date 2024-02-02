@@ -132,7 +132,7 @@ namespace SoftStartTiming
             DataGridView seq_dg = test_parameter.seq_dg;
             dt_test.vin = Convert.ToDouble(seq_dg[0, idx].Value);
             dt_test.vin2 = Convert.ToDouble(seq_dg[10, idx].Value);
-            dt_test.time_scale = Convert.ToDouble(seq_dg[11, idx].Value);
+            dt_test.time_scale = Convert.ToDouble(seq_dg[11, idx].Value) * Math.Pow(10, -3);
 
             #region "scope info"
             // init level
@@ -282,7 +282,7 @@ namespace SoftStartTiming
 
         private void OSCInit()
         {
-            InsControl._tek_scope.SetTimeScale(1 * Math.Pow(10, -3));
+            InsControl._tek_scope.SetTimeScale(dt_test.time_scale);
             InsControl._tek_scope.SetTimeBasePosition(15);
             InsControl._tek_scope.SetRun();
             InsControl._tek_scope.SetTriggerMode(); // auto trigger

@@ -873,7 +873,7 @@ namespace SoftStartTiming
         private void data_import(Excel.Worksheet sheet, ref int row, DataGridView dg)
         {
             // excel row number
-            int row_number = 11;
+            int row_number = 12;
             string temp = sheet.Cells[row, 1].Value;
             if (temp == "Address") row_number = 2;
 
