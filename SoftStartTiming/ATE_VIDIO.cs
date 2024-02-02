@@ -51,6 +51,7 @@ namespace SoftStartTiming
         int meas_vmin = 4;
         int meas_delay = 5;
         int meas_delay100 = 6;
+        int meas_trigger_src = 7;
         const int cnt_rest = 10000;
         const int cursor_fail_cnt = 10;
 
@@ -59,6 +60,9 @@ namespace SoftStartTiming
         FinishNotification delegate_mess;
         VIDIO updateMain;
         int progress = 0;
+
+        double vid_up;
+        double vid_down;
 
         public ATE_VIDIO(VIDIO main)
         {
@@ -220,19 +224,21 @@ namespace SoftStartTiming
             InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1.2");
             //InsControl._oscilloscope.SetTimeOutEither();
 
-            InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.7);
+            InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.2);
             InsControl._oscilloscope.CHx_Offset(1, vout);
             InsControl._oscilloscope.CHx_Position(1, -2);
             //InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
-        private void GetTriggerSel(int initial, int next)
+        private int GetTriggerSel(int initial, int next)
         {
             int initial_G01 = (initial & 0x06) >> 1;
             int next_G01 = (next & 0x06) >> 1;
             int res = initial_G01 ^ next_G01;
             int ch = 0;
+            bool init_rise_en = true;
+
             for (int i = 0; i < 2; i++)
             {
                 if ((res & (0x01 << i)) != 0)
@@ -242,6 +248,15 @@ namespace SoftStartTiming
                 }
             }
             InsControl._oscilloscope.DoCommand(string.Format("TRIGger:A:EDGE:SOUrce CH{0}", ch + 3));
+
+            init_rise_en = (((initial_G01 & (0x01 << ch)) >> ch) == 0) ? true : false;
+
+            if (init_rise_en)
+                InsControl._oscilloscope.SetMeasureSource(ch + 3, meas_trigger_src, "RISE");
+            else
+                InsControl._oscilloscope.SetMeasureSource(ch + 3, meas_trigger_src, "FALL");
+
+            return (ch + 3);
         }
 
         private void LPMTrigger(int meas_idx)
@@ -404,7 +419,6 @@ namespace SoftStartTiming
                         InsControl._oscilloscope.SetAnnotation(meas_rising);
                         InsControl._oscilloscope.SetAnnotation(meas_rising);
                     }
-
                 }
 
                 if (overshoot_en) InsControl._oscilloscope.DoCommand("MEASUrement:ANNOTation:STATE OFF");
@@ -754,9 +768,9 @@ namespace SoftStartTiming
                 {
                     for (int iout_idx = 0; iout_idx < test_parameter.IoutList.Count; iout_idx++)
                     {
-                        
 
-                        if(test_parameter.vidio.scope_ch2 == 1) InsControl._oscilloscope.CHx_Level(2, test_parameter.vidio.il_level);
+
+                        if (test_parameter.vidio.scope_ch2 == 1) InsControl._oscilloscope.CHx_Level(2, test_parameter.vidio.il_level);
                         else if (test_parameter.vidio.scope_ch2 == 0) InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[vin_idx]);
 
 
