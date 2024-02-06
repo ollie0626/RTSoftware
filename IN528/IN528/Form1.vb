@@ -3,7 +3,7 @@ Imports System.IO
 
 Public Class Form1
 
-    Dim main_ver As String = "IN528 Tool v1.8"
+    Dim main_ver As String = "IN528 Tool v1.9"
     Dim byt_Bin1(255) As Byte
     Dim byt_Bin2(255) As Byte
     Dim flagTable() As Boolean = {True, True, True, True, True, True, True, True}
@@ -273,7 +273,7 @@ Public Class Form1
         W04.Maximum = &H7F
         W05.Maximum = &H3F
         W06.Maximum = &H1F
-        W07.Maximum = &H2F
+        W07.Maximum = &H3F
         W08.Maximum = &H1F
         W09.Maximum = &H2F
         W0B.Maximum = &HF
@@ -334,7 +334,7 @@ Public Class Form1
         W1E.Maximum = &HFF
         W1F.Maximum = &HFF
 
-        Bar_HAVDD.Maximum = &H2F
+        Bar_HAVDD.Maximum = &H3F
         Bar_VIO.Maximum = &H2F
         Bar_VGL2Dly.Maximum = &H7
         Bar_VGHDly.Maximum = &H7
