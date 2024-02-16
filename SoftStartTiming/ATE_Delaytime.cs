@@ -563,7 +563,6 @@ namespace SoftStartTiming
                 }
 
 
-
                 InsControl._tek_scope.DoCommand("CURSor:FUNCtion WAVEform");
                 InsControl._tek_scope.DoCommand("CURSor:SOUrce1 CH" + ch1.ToString());
                 MyLib.Delay1ms(600);
@@ -615,7 +614,6 @@ namespace SoftStartTiming
             //    Convert.ToDouble(dt_test.ideal1) +
             //    Convert.ToDouble(dt_test.ideal2)+
             //    Convert.ToDouble(dt_test.ideal3);
-
 
             InsControl._tek_scope.SetTimeScale(test_parameter.ontime_scale_ms * Math.Pow(10, -3));
             InsControl._tek_scope.DoCommand("HORizontal:MODE AUTO");
