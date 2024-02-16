@@ -805,7 +805,6 @@ Public Class Form1
             D2_label.Text = "False"
             flagTable(1) = False
         End If
-        CalculateFlagNum()
         ShowCheckSum()
     End Sub
 

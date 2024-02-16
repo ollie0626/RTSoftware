@@ -63,6 +63,7 @@ namespace SoftStartTiming
 
         double vid_up;
         double vid_down;
+        int trigger_ch = 1;
 
         public ATE_VIDIO(VIDIO main)
         {
@@ -267,6 +268,64 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
+        private bool Mesure_VIDup_down(int tri_ch, bool up_en = true)
+        {
+            bool res = true;
+            double x1, x2;
+
+            for(int i = 0; i < 3; i++)
+            {
+                InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 50", meas_trigger_src)); // trigger ch setting
+                if (up_en)
+                    InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 90", meas_rising)); // vout 90%, measure rising
+                else
+                    InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 10", meas_falling)); // vout 10%, measure falling
+
+                InsControl._oscilloscope.SetAnnotation(meas_trigger_src);
+                MyLib.Delay1ms(200);
+                x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+
+                if (up_en)
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                }
+                else
+                {
+                    InsControl._oscilloscope.SetAnnotation(meas_falling);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                }
+
+                // set cursor
+                InsControl._oscilloscope.SetCursorSource(meas_trigger_src, tri_ch); MyLib.Delay1ms(100);
+
+                if (up_en)
+                {
+                    InsControl._oscilloscope.SetCursorSource(meas_rising, 1); MyLib.Delay1ms(100);
+                }
+                else
+                {
+                    InsControl._oscilloscope.SetCursorSource(meas_falling, 1); MyLib.Delay1ms(100);
+                }
+                InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+
+
+
+                if (up_en)
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_vid_up");
+                else
+                    InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_vid_down");
+
+
+                if (up_en)
+                    vid_up = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+                else
+                    vid_down = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+            }
+
+            return res;
+        }
+
         private bool SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
             vmax_list.Clear();
@@ -278,6 +337,7 @@ namespace SoftStartTiming
 
             double vout = 0;
             double vout_af = 0;
+
             if (test_parameter.vidio.criteria[case_idx].lpm_en)
                 vout = 0;
             else
@@ -299,7 +359,7 @@ namespace SoftStartTiming
             next_state = test_parameter.vidio.vout_map[vout_af.ToString()];
 
             Scope_Task_Setting(meas_rising, vout, vout_af); // trigger and time scale
-            IOStateSetting(initial_state);
+            IOStateSetting(initial_state); // initial state
 
             double hi = test_parameter.vidio.criteria[case_idx].hi;
             double lo = test_parameter.vidio.criteria[case_idx].lo;
@@ -341,7 +401,7 @@ namespace SoftStartTiming
             }
 
             if (!test_parameter.vidio.criteria[case_idx].lpm_en)
-                GetTriggerSel(initial_state, next_state);
+                trigger_ch = GetTriggerSel(initial_state, next_state);
             else
                 LPMTrigger(meas_rising);
 
@@ -404,7 +464,6 @@ namespace SoftStartTiming
                     InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
                     InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_delay");
                 }
-
 
                 // set cursor position
                 if (!overshoot_en)
@@ -570,7 +629,7 @@ namespace SoftStartTiming
             }
 
             if (!test_parameter.vidio.criteria[case_idx].lpm_en)
-                GetTriggerSel(initial_state, next_state);
+                trigger_ch = GetTriggerSel(initial_state, next_state);
             else
                 LPMTrigger(meas_falling);
 
@@ -741,21 +800,34 @@ namespace SoftStartTiming
             _sheet.Cells[row, XLS_Table.U] = "overshoot (%)";
             _sheet.Cells[row, XLS_Table.V] = "underhoot (%)";
 
+            _sheet.Cells[row, XLS_Table.W] = "VID up (us)";
+            _sheet.Cells[row, XLS_Table.X] = "VID down (us)";
+
+           
+
             if (test_parameter.vidio.criteria[0].lpm_en)
             {
                 _sheet.Cells[row, XLS_Table.O] = "Fall SR (V/s)";
                 _sheet.Cells[row, XLS_Table.P] = "Fall Time (ms)";
-                _sheet.Cells[row, XLS_Table.W] = "Delay time (LPM->vout)";
+                //_sheet.Cells[row, XLS_Table.W] = "Delay time (LPM->vout)";
+                //_sheet.Cells[row, XLS_Table.X] = "total exit time (LPM->100%)";
+                //_sheet.Cells[row, XLS_Table.Y] = "Result";
+
+                _sheet.Cells[row, XLS_Table.Y] = "Delay time (LPM->vout)";
                 _sheet.Cells[row, XLS_Table.X] = "total exit time (LPM->100%)";
-                _sheet.Cells[row, XLS_Table.Y] = "Result";
-                _range = _sheet.Range["C" + row, "Y" + row];
+                _sheet.Cells[row, XLS_Table.Z] = "Result";
+
+                _range = _sheet.Range["C" + row, "Z" + row];
                 _range.Interior.Color = Color.FromArgb(124, 252, 0);
                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             }
             else
             {
-                _sheet.Cells[row, XLS_Table.W] = "Result";
-                _range = _sheet.Range["C" + row, "W" + row];
+                _sheet.Cells[row, XLS_Table.Y] = "Result";
+                _range = _sheet.Range["C" + row, "Y" + row];
+
+                //_sheet.Cells[row, XLS_Table.W] = "Result";
+                //_range = _sheet.Range["C" + row, "W" + row];
                 _range.Interior.Color = Color.FromArgb(124, 252, 0);
                 _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             }
@@ -848,6 +920,11 @@ namespace SoftStartTiming
                         double res;
                         string shoot_max;
                         bool ris_res = !SlewRate_Rise_Task(case_idx);
+
+                        Mesure_VIDup_down(trigger_ch, true);
+                        _range = _sheet.Range["BY" + (wave_row + 2), "CG" + (wave_row + 25)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, test_parameter.waveform_name + "_vid_up");
+
                         if (ris_res) // Rise time and slew
                         {
                             _sheet.Cells[row, XLS_Table.C] = "Fail";
@@ -894,6 +971,11 @@ namespace SoftStartTiming
                             row++;
                             continue;
                         }
+                        Mesure_VIDup_down(trigger_ch, false);
+                        _range = _sheet.Range["CI" + (wave_row + 2), "CQ" + (wave_row + 25)];
+                        MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, test_parameter.waveform_name + "_vid_down");
+
+
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
                         _range = _sheet.Range["AU" + (wave_row + 2), "BC" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
@@ -934,6 +1016,12 @@ namespace SoftStartTiming
                         bool judge_time = true;
                         bool judge_res = true;
                         bool judge_lpm = true;
+                        bool judge_vid_up_down = true;
+
+                        if (vid_up * Math.Pow(10, 6) > 15 || vid_down * Math.Pow(10, 6) > 15)
+                        {
+                            judge_vid_up_down = false;
+                        }
 
                         // slew rate judge
                         double rise_sr, fall_sr, rise_res, fall_res;
@@ -962,7 +1050,7 @@ namespace SoftStartTiming
                             // rise and fall time small is good.
                             judge_time = (rise_time_res < rise_time & fall_time_res < fall_time) ? true : false;
                         }
-                        judge_res = judge_vol & judge_sr & judge_time;
+                        judge_res = judge_vol & judge_sr & judge_time & judge_vid_up_down;
 
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
@@ -972,73 +1060,19 @@ namespace SoftStartTiming
                             judge_lpm = (delay100 < 120) & (delay < 20);
                             judge_res = judge_res & judge_lpm;
 
-                            _sheet.Cells[row, XLS_Table.Y] = judge_res ? "Pass" : "Fail";
+                            _sheet.Cells[row, XLS_Table.Z] = judge_res ? "Pass" : "Fail";
                             //_range.Interior.Color = judge_res ? Color.LightGreen : Color.LightPink;
-
                         }
                         else
                         {
-                            _sheet.Cells[row, XLS_Table.W] = judge_res ? "Pass" : "Fail";
+                            _sheet.Cells[row, XLS_Table.Y] = judge_res ? "Pass" : "Fail";
                             //_range = _sheet.Cells[row, XLS_Table.W];
                             //_range.Interior.Color = judge_res ? Color.White : Color.LightPink;
                         }
 
+                        _sheet.Cells[row, XLS_Table.W] = vid_up * Math.Pow(10, 6);
+                        _sheet.Cells[row, XLS_Table.X] = vid_down * Math.Pow(10, 6);
 
-
-                        //if (test_parameter.vidio.criteria[case_idx].sr_time_jd)
-                        //{
-                        //    // slew rate judege
-                        //    //_sheet.Cells[row, XLS_Table.I] = (string)test_parameter.vidio.criteria[case_idx].rise_time;
-                        //    //_sheet.Cells[row, XLS_Table.J] = (string)test_parameter.vidio.criteria[case_idx].sr_rise;
-                        //    //_sheet.Cells[row, XLS_Table.M] = (string)test_parameter.vidio.criteria[case_idx].fall_time;
-                        //    //_sheet.Cells[row, XLS_Table.N] = (string)test_parameter.vidio.criteria[case_idx].sr_fall;
-                        //    bool judge = judge_sr & judge_vol;
-                        //    if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                        //    {
-                        //        double delay = Convert.ToDouble(_sheet.Cells[row, XLS_Table.W].Value);
-                        //        double delay100 = Convert.ToDouble(_sheet.Cells[row, XLS_Table.X].Value);
-                        //        judge = judge_sr & (delay100 < 120) & (delay < 20);
-                        //        _range = _sheet.Cells[row, XLS_Table.Y];
-                        //        _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
-                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                        //    }
-                        //    else
-                        //    {
-                        //        _range = _sheet.Cells[row, XLS_Table.W];
-                        //        _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                        //    }
-                        //}
-                        //else
-                        //{
-                        //    // rise / fall judege
-                        //    double rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
-                        //    double fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);
-                        //    double rise_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.L].Value);
-                        //    double fall_res = Convert.ToDouble(_sheet.Cells[row, XLS_Table.P].Value);
-                        //    bool judge_time = (rise_res > rise_time | fall_res > fall_time) ? false : true;
-
-                        //    bool judge = judge_time & judge_vol;
-
-                        //    if (test_parameter.vidio.criteria[case_idx].lpm_en)
-                        //    {
-                        //        double delay = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.W].Value);
-                        //        double delay100 = Convert.ToDouble((string)_sheet.Cells[row, XLS_Table.X].Value);
-
-                        //        judge = judge_time & (delay100 < 120) & (delay < 20);
-                        //        _range = _sheet.Cells[row, XLS_Table.Y];
-                        //        _sheet.Cells[row, XLS_Table.Y] = judge ? "Pass" : "Fail";
-                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                        //    }
-                        //    else
-                        //    {
-                        //        _range = _sheet.Cells[row, XLS_Table.W];
-                        //        _sheet.Cells[row, XLS_Table.W] = judge ? "Pass" : "Fail";
-                        //        _range.Interior.Color = judge ? Color.LightGreen : Color.LightPink;
-                        //    }
-                        //}
-                        //    _sheet.Cells[row, XLS_Table.N] = (rise > 20) | (fall > 20) ? "Pass" : "Fail";
-                        //    _range.Interior.Color = (rise > 20) | (fall > 20) ? Color.LightGreen : Color.LightPink;
 
                         Excel.Range main_range = _sheet.Range["D" + row];
                         Excel.Range hyper = _sheet.Range["AA" + (wave_row + 1)];
