@@ -11,8 +11,6 @@
 
     Public Scope_num As Integer
 
-
-
     Public BW_20M As String = "TWEnty"
     Public BW_150M As String = "ONEfifty"
     Public BW_500M As String = "FULl" '"FIVe"
@@ -105,8 +103,6 @@
         Else
             ts = "SYSTem:DISPlay:UPDate OFF"
         End If
-
-
 
         visa_write(RS_Scope_Dev, RS_vi, ts)
         Delay(100)
@@ -2816,11 +2812,7 @@
             'ts = "HCOP:IMM;*WAI"
             ts = "HCOP:IMMediate;*OPC?"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
             visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-
-
-
 
 
             While retcount = 0
