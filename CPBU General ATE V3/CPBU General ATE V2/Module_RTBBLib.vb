@@ -44,9 +44,10 @@ Module Module_RTBBLib
         Main.num_ID.Value = 0
 
 
-        ' TEC 控制溫度
+        ' TEC 控制溫度 RTBBLib v1.4.6
+        'RTBB_EnumIsolatedBoard(TEC_ControlFuntion.isoboardNames, TEC_ControlFuntion.isoboardNames.Length)
         hIsoEnum = RTBB_EnumIsolatedBoard(TEC_ControlFuntion.isoboardNames, TEC_ControlFuntion.isoboardNames.Length)
-        pIsoDevice = RTBB_ConnectToIsoBoardAsBridgeByIndex(hIsoEnum, 0)
+        pIsoDevice = RTBB_ConnectToIsoBoardByIndex(hIsoEnum, 0)
 
 
         RTBB_board = False
@@ -55,17 +56,13 @@ Module Module_RTBBLib
             Exit Function
         Else
 
-
             If BoardCount > 1 Then
                 ReDim Device_List(BoardCount - 1)
                 ReDim VID_List(BoardCount - 1)
-
                 pEnumBoardInfo = RTBB_GetEnumBoardInfo(hEnum, 0)
                 strLibraryName = Marshal.PtrToStringAnsi(RTBB_BIGetLibraryName(pEnumBoardInfo))
                 strFirmwareInfo = Marshal.PtrToStringAnsi(RTBB_BIGetFirmwareInfo(pEnumBoardInfo))
                 Main.status_bridgeboad.Text = strLibraryName & " (" & strFirmwareInfo & ")"
-
-
 
                 For i = 0 To BoardCount - 1
                     Device_List(i) = RTBB_ConnectToBridgeByIndex(i)
@@ -114,7 +111,6 @@ Module Module_RTBBLib
                 I2CSetFrequency(1024, 1000, device_sel)
             End If
         End If
-
 
 
     End Function

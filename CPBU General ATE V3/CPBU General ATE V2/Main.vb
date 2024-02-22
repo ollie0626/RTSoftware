@@ -1363,6 +1363,8 @@ Public Class Main
         status_Version.Text = My.Application.Info.Version.Major & "." & My.Application.Info.Version.Minor & My.Application.Info.Version.Build
         Scan_Instrument()
         Check_Eagleboard()
+        'Set_TEC_temp(35)
+
         If data_meas.Rows.Count > 0 Then
             cbox_INA226_b11_9.SelectedIndex = cbox_INA226_b11_9.Items.Count - 1
         Else
@@ -1588,7 +1590,7 @@ Public Class Main
         Dim addr() As String
         Dim meter_temp As Integer = 0
 
-
+        Check_Eagleboard()
         If data_Test.Rows.Count = 0 Then
             Exit Sub
         End If
@@ -1736,17 +1738,17 @@ Public Class Main
         If (check_TA_en.Checked = True) Then
 
             If check_multi.Checked = False Or (check_multi.Checked = True And rbtn_Master.Checked = True) Then
-                If Temp_addr = 0 Then
-                    error_message("GPIB connection to the Chamber is not detected!!")
-                    RUN_stop()
-                    Exit Sub
-                ElseIf data_Temp.Rows.Count = 0 Then
-                    error_message("Please enter the Temp test value!!")
-                    RUN_stop()
-                    Exit Sub
-                End If
 
                 If rbtn_chamber.Checked Then
+                    If Temp_addr = 0 Then
+                        error_message("GPIB connection to the Chamber is not detected!!")
+                        RUN_stop()
+                        Exit Sub
+                    ElseIf data_Temp.Rows.Count = 0 Then
+                        error_message("Please enter the Temp test value!!")
+                        RUN_stop()
+                        Exit Sub
+                    End If
                     Temp_Dev = ildev(BDINDEX, Temp_addr, NO_SECONDARY_ADDR, TIMEOUT, EOTMODE, EOSMODE)
                 End If
 
@@ -1947,7 +1949,7 @@ Public Class Main
                         'set Chamber
                         If (rbtn_chamber.Checked) Then
                             Chamber_Temp(TA_now)
-                        Else
+                        ElseIf (rbtn_TEC.Checked) Then
                             Set_TEC_temp(TA_now)
                         End If
 
@@ -2032,7 +2034,7 @@ Public Class Main
 
                     If rbtn_chamber.Checked Then
                         Chamber_Temp(TA_now)
-                    Else
+                    ElseIf (rbtn_TEC.Checked) Then
                         Set_TEC_temp(TA_now)
                     End If
 

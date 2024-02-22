@@ -114,6 +114,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetMeasureSource(1, meas_vmax, "MAXimum");
             InsControl._oscilloscope.SetMeasureSource(1, meas_vmin, "MINImum");
 
+
             double vout = 0;
             double vout_af = 0;
 
@@ -143,10 +144,28 @@ namespace SoftStartTiming
             InsControl._oscilloscope.CHx_Position(1, -2);
             MyLib.Delay1s(2);
             if (test_parameter.vidio.scope_ch2 == 0)
+            {
+                // measure Lx
+                InsControl._oscilloscope.SetProbeGain(2, 1);
+                InsControl._oscilloscope.SetCHxUnit(2, "V");
+                InsControl._oscilloscope.SetCHxTERmination(2, true);
                 InsControl._oscilloscope.CHx_Level(2, test_parameter.VinList[0] / 1.5);
-            InsControl._oscilloscope.CHx_Position(2, -4);
+                InsControl._oscilloscope.CHx_Position(2, -4);
+                InsControl._oscilloscope.SetTriggerLevel(2, max - min);
+            }
+            else
+            {
+                // measure ILx
+                InsControl._oscilloscope.SetProbeGain(2, 10);
+                InsControl._oscilloscope.SetCHxUnit(2, "A");
+                InsControl._oscilloscope.SetCHxTERmination(2, false);
+                InsControl._oscilloscope.CHx_Level(2, test_parameter.vidio.il_level);
+                InsControl._oscilloscope.CHx_Position(2, -4);
+                InsControl._oscilloscope.SetTriggerLevel(2, max - min);
+            }
+                
+            
             InsControl._oscilloscope.SetAutoTrigger();
-            InsControl._oscilloscope.SetTriggerLevel(2, max - min);
             InsControl._oscilloscope.SetTimeBasePosition(25);
         }
 
@@ -232,7 +251,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.SetAnnotation(meas_idx);
         }
 
-        private int GetTriggerSel(int initial, int next)
+        private int GetTriggerSel(int initial, int next, bool rise_case = true)
         {
             int initial_G01 = (initial & 0x06) >> 1;
             int next_G01 = (next & 0x06) >> 1;
@@ -252,7 +271,7 @@ namespace SoftStartTiming
 
             init_rise_en = (((initial_G01 & (0x01 << ch)) >> ch) == 0) ? true : false;
 
-            if (init_rise_en)
+            if (init_rise_en & rise_case)
                 InsControl._oscilloscope.SetMeasureSource(ch + 3, meas_trigger_src, "RISE");
             else
                 InsControl._oscilloscope.SetMeasureSource(ch + 3, meas_trigger_src, "FALL");
@@ -273,42 +292,62 @@ namespace SoftStartTiming
             bool res = true;
             double x1, x2;
 
-            for(int i = 0; i < 3; i++)
+            string cmd = "";
+            cmd = string.Format("MEASUrement:MEAS{0}:REFLevel:METHod PERCent", meas_trigger_src);
+            InsControl._oscilloscope.DoCommand(cmd);
+            if (up_en)
+                cmd = string.Format("MEASUrement:MEAS{0}:REFLevel:METHod PERCent", meas_rising);
+            else
+                cmd = string.Format("MEASUrement:MEAS{0}:REFLevel:METHod PERCent", meas_falling);
+            InsControl._oscilloscope.DoCommand(cmd);
+
+
+            for (int i = 0; i < 3; i++)
             {
                 InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 50", meas_trigger_src)); // trigger ch setting
                 if (up_en)
-                    InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 90", meas_rising)); // vout 90%, measure rising
+                    InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 50", meas_rising)); // vout 90%, measure rising
                 else
                     InsControl._oscilloscope.DoCommand(string.Format("MEASUrement:MEAS{0}:REFLevel:PERCent:MID2 10", meas_falling)); // vout 10%, measure falling
 
                 InsControl._oscilloscope.SetAnnotation(meas_trigger_src);
-                MyLib.Delay1ms(200);
+                MyLib.Delay1ms(500);
+                x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
                 x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
 
                 if (up_en)
                 {
                     InsControl._oscilloscope.SetAnnotation(meas_rising);
+                    InsControl._oscilloscope.SetAnnotation(meas_rising);
+                    MyLib.Delay1ms(500);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                    MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2);
                 }
                 else
                 {
                     InsControl._oscilloscope.SetAnnotation(meas_falling);
+                    InsControl._oscilloscope.SetAnnotation(meas_falling);
+                    MyLib.Delay1ms(500);
+                    x2 = InsControl._oscilloscope.GetAnnotationXn(2);
+                    MyLib.Delay1ms(100);
                     x2 = InsControl._oscilloscope.GetAnnotationXn(2);
                 }
 
                 // set cursor
-                InsControl._oscilloscope.SetCursorSource(meas_trigger_src, tri_ch); MyLib.Delay1ms(100);
+                InsControl._oscilloscope.SetCursorSource(1, tri_ch); MyLib.Delay1ms(100);
 
                 if (up_en)
                 {
-                    InsControl._oscilloscope.SetCursorSource(meas_rising, 1); MyLib.Delay1ms(100);
+                    InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                 }
                 else
                 {
-                    InsControl._oscilloscope.SetCursorSource(meas_falling, 1); MyLib.Delay1ms(100);
+                    InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
                 }
+                MyLib.Delay1ms(500);
                 InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
-
+                MyLib.Delay1ms(500);
 
 
                 if (up_en)
@@ -318,9 +357,9 @@ namespace SoftStartTiming
 
 
                 if (up_en)
-                    vid_up = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+                    vid_up = InsControl._oscilloscope.doQueryNumber("CURSor:VBArs:DELTa?");
                 else
-                    vid_down = InsControl._tek_scope.doQueryNumber("CURSor:VBArs:DELTa?");
+                    vid_down = InsControl._oscilloscope.doQueryNumber("CURSor:VBArs:DELTa?");
             }
 
             return res;
@@ -404,6 +443,14 @@ namespace SoftStartTiming
                 trigger_ch = GetTriggerSel(initial_state, next_state);
             else
                 LPMTrigger(meas_rising);
+
+
+            
+            if (test_parameter.vidio.scope_ch2 == 1)
+            {
+                InsControl._oscilloscope.CHx_Position(2, -4);
+            }
+
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
@@ -629,9 +676,15 @@ namespace SoftStartTiming
             }
 
             if (!test_parameter.vidio.criteria[case_idx].lpm_en)
-                trigger_ch = GetTriggerSel(initial_state, next_state);
+                trigger_ch = GetTriggerSel(initial_state, next_state, false);
             else
                 LPMTrigger(meas_falling);
+
+            if(test_parameter.vidio.scope_ch2 == 1)
+            {
+                InsControl._oscilloscope.CHx_Position(2, 1);
+            }
+
 
             for (int repeat_idx = 0; repeat_idx < test_parameter.vidio.test_cnt; repeat_idx++)
             {
@@ -1040,7 +1093,7 @@ namespace SoftStartTiming
                         }
 
 
-                        if (test_parameter.vidio.criteria[case_idx].time_jd)
+                        if (test_parameter.vidio.criteria[case_idx].time_jd & !test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
                             rise_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].rise_time);
                             fall_time = Convert.ToDouble((string)test_parameter.vidio.criteria[case_idx].fall_time);

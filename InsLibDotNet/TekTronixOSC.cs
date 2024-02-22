@@ -50,6 +50,7 @@ namespace InsLibDotNet
         }
 
 
+
         public void SaveWaveform(string path, string filename)
         {
             string buf = path.Substring(path.Length - 1, 1) == @"/" ? path.Substring(0, path.Length - 1) : path;

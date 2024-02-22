@@ -26,9 +26,10 @@
         End If
         final_cal = first_cal * 4
         final_temp = BitConverter.GetBytes(final_cal)
+        Dim errCode As Integer
 
+        errCode = RTBB_Iso_Transact(pIsoDevice, {TECCmd.SetTemp}, {4}, final_temp, {cmdOut}, {dataOutCount}, dataOut)
 
-        Dim errCode As Integer = RTBB_Iso_Transact(pIsoDevice, {TECCmd.SetTemp}, {4}, final_temp, {cmdOut}, {dataOutCount}, dataOut)
 
         If errCode <> 0 Then
             final_errcode = errCode

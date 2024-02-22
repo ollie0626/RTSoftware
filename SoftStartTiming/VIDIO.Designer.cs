@@ -170,7 +170,7 @@ namespace SoftStartTiming
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 14);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(65, 15);
             this.label1.TabIndex = 110;
             this.label1.Text = "Slave ID";
             this.label1.Visible = false;
@@ -183,7 +183,7 @@ namespace SoftStartTiming
             "E3633"});
             this.CBChannel.Location = new System.Drawing.Point(156, 241);
             this.CBChannel.Name = "CBChannel";
-            this.CBChannel.Size = new System.Drawing.Size(215, 20);
+            this.CBChannel.Size = new System.Drawing.Size(215, 23);
             this.CBChannel.TabIndex = 119;
             // 
             // label10
@@ -191,7 +191,7 @@ namespace SoftStartTiming
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(27, 244);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(92, 12);
+            this.label10.Size = new System.Drawing.Size(110, 15);
             this.label10.TabIndex = 118;
             this.label10.Text = "Channel Select:";
             // 
@@ -230,7 +230,7 @@ namespace SoftStartTiming
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(27, 218);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(123, 12);
+            this.label9.Size = new System.Drawing.Size(149, 15);
             this.label9.TabIndex = 117;
             this.label9.Text = "Power Supply Select:";
             // 
@@ -245,7 +245,7 @@ namespace SoftStartTiming
             0});
             this.nuslave.Name = "nuslave";
             this.nuslave.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.nuslave.Size = new System.Drawing.Size(64, 22);
+            this.nuslave.Size = new System.Drawing.Size(64, 25);
             this.nuslave.TabIndex = 111;
             this.nuslave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuslave.Value = new decimal(new int[] {
@@ -259,17 +259,17 @@ namespace SoftStartTiming
             // 
             this.tbWave.Location = new System.Drawing.Point(156, 267);
             this.tbWave.Name = "tbWave";
-            this.tbWave.Size = new System.Drawing.Size(215, 22);
+            this.tbWave.Size = new System.Drawing.Size(215, 25);
             this.tbWave.TabIndex = 120;
             this.tbWave.Text = "D:\\Waveform\\VID";
             // 
             // list_ins
             // 
             this.list_ins.FormattingEnabled = true;
-            this.list_ins.ItemHeight = 12;
+            this.list_ins.ItemHeight = 15;
             this.list_ins.Location = new System.Drawing.Point(8, 71);
             this.list_ins.Name = "list_ins";
-            this.list_ins.Size = new System.Drawing.Size(363, 136);
+            this.list_ins.Size = new System.Drawing.Size(363, 124);
             this.list_ins.TabIndex = 116;
             // 
             // BTScan
@@ -287,7 +287,7 @@ namespace SoftStartTiming
             this.CBPower.FormattingEnabled = true;
             this.CBPower.Location = new System.Drawing.Point(156, 215);
             this.CBPower.Name = "CBPower";
-            this.CBPower.Size = new System.Drawing.Size(215, 20);
+            this.CBPower.Size = new System.Drawing.Size(215, 23);
             this.CBPower.TabIndex = 115;
             this.CBPower.SelectedIndexChanged += new System.EventHandler(this.CBPower_SelectedIndexChanged);
             // 
@@ -296,7 +296,7 @@ namespace SoftStartTiming
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(27, 270);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 12);
+            this.label2.Size = new System.Drawing.Size(114, 15);
             this.label2.TabIndex = 121;
             this.label2.Text = "Waveform Path:";
             // 
@@ -318,6 +318,7 @@ namespace SoftStartTiming
             this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView1.Location = new System.Drawing.Point(15, 324);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
             this.dataGridView1.Size = new System.Drawing.Size(833, 215);
             this.dataGridView1.TabIndex = 122;
@@ -326,61 +327,79 @@ namespace SoftStartTiming
             // Column4
             // 
             this.Column4.HeaderText = "Vout (V) (begin)";
+            this.Column4.MinimumWidth = 6;
             this.Column4.Name = "Column4";
             this.Column4.Width = 80;
             // 
             // Column8
             // 
             this.Column8.HeaderText = "Vout (after)";
+            this.Column8.MinimumWidth = 6;
             this.Column8.Name = "Column8";
             this.Column8.Width = 95;
             // 
             // Column1
             // 
             this.Column1.HeaderText = "Rise time (us)";
+            this.Column1.MinimumWidth = 6;
             this.Column1.Name = "Column1";
+            this.Column1.Width = 125;
             // 
             // Column2
             // 
             this.Column2.HeaderText = "Slew Rate (mV/us)";
+            this.Column2.MinimumWidth = 6;
             this.Column2.Name = "Column2";
+            this.Column2.Width = 125;
             // 
             // Column3
             // 
             this.Column3.HeaderText = "Fall time (us)";
+            this.Column3.MinimumWidth = 6;
             this.Column3.Name = "Column3";
+            this.Column3.Width = 125;
             // 
             // Column5
             // 
             this.Column5.HeaderText = "Slew Rate (mV/us)";
+            this.Column5.MinimumWidth = 6;
             this.Column5.Name = "Column5";
+            this.Column5.Width = 125;
             // 
             // Column6
             // 
             this.Column6.HeaderText = "Vmax (V) ";
+            this.Column6.MinimumWidth = 6;
             this.Column6.Name = "Column6";
+            this.Column6.Width = 125;
             // 
             // Column7
             // 
             this.Column7.HeaderText = "Vmin (V)";
+            this.Column7.MinimumWidth = 6;
             this.Column7.Name = "Column7";
+            this.Column7.Width = 125;
             // 
             // Column9
             // 
             this.Column9.HeaderText = "Vrise_point (V)";
+            this.Column9.MinimumWidth = 6;
             this.Column9.Name = "Column9";
+            this.Column9.Width = 125;
             // 
             // Column10
             // 
             this.Column10.HeaderText = "Vfall_point (V)";
+            this.Column10.MinimumWidth = 6;
             this.Column10.Name = "Column10";
+            this.Column10.Width = 125;
             // 
             // tb_power
             // 
             this.tb_power.Enabled = false;
             this.tb_power.Location = new System.Drawing.Point(410, 68);
             this.tb_power.Name = "tb_power";
-            this.tb_power.Size = new System.Drawing.Size(298, 22);
+            this.tb_power.Size = new System.Drawing.Size(298, 25);
             this.tb_power.TabIndex = 129;
             this.tb_power.Text = "Power: ";
             // 
@@ -389,7 +408,7 @@ namespace SoftStartTiming
             this.tb_eload.Enabled = false;
             this.tb_eload.Location = new System.Drawing.Point(410, 96);
             this.tb_eload.Name = "tb_eload";
-            this.tb_eload.Size = new System.Drawing.Size(298, 22);
+            this.tb_eload.Size = new System.Drawing.Size(298, 25);
             this.tb_eload.TabIndex = 130;
             this.tb_eload.Text = "ELoad:";
             // 
@@ -398,7 +417,7 @@ namespace SoftStartTiming
             this.led_power.BackColor = System.Drawing.Color.Red;
             this.led_power.Location = new System.Drawing.Point(378, 68);
             this.led_power.Name = "led_power";
-            this.led_power.Size = new System.Drawing.Size(25, 22);
+            this.led_power.Size = new System.Drawing.Size(25, 25);
             this.led_power.TabIndex = 125;
             // 
             // tb_daq
@@ -406,7 +425,7 @@ namespace SoftStartTiming
             this.tb_daq.Enabled = false;
             this.tb_daq.Location = new System.Drawing.Point(410, 126);
             this.tb_daq.Name = "tb_daq";
-            this.tb_daq.Size = new System.Drawing.Size(298, 22);
+            this.tb_daq.Size = new System.Drawing.Size(298, 25);
             this.tb_daq.TabIndex = 131;
             this.tb_daq.Text = "DAQ:";
             // 
@@ -415,7 +434,7 @@ namespace SoftStartTiming
             this.tb_osc.Enabled = false;
             this.tb_osc.Location = new System.Drawing.Point(410, 40);
             this.tb_osc.Name = "tb_osc";
-            this.tb_osc.Size = new System.Drawing.Size(298, 22);
+            this.tb_osc.Size = new System.Drawing.Size(298, 25);
             this.tb_osc.TabIndex = 124;
             this.tb_osc.Text = "Scope: ";
             // 
@@ -424,7 +443,7 @@ namespace SoftStartTiming
             this.led_eload.BackColor = System.Drawing.Color.Red;
             this.led_eload.Location = new System.Drawing.Point(378, 96);
             this.led_eload.Name = "led_eload";
-            this.led_eload.Size = new System.Drawing.Size(25, 22);
+            this.led_eload.Size = new System.Drawing.Size(25, 25);
             this.led_eload.TabIndex = 126;
             // 
             // tb_chamber
@@ -432,7 +451,7 @@ namespace SoftStartTiming
             this.tb_chamber.Enabled = false;
             this.tb_chamber.Location = new System.Drawing.Point(410, 154);
             this.tb_chamber.Name = "tb_chamber";
-            this.tb_chamber.Size = new System.Drawing.Size(298, 22);
+            this.tb_chamber.Size = new System.Drawing.Size(298, 25);
             this.tb_chamber.TabIndex = 132;
             this.tb_chamber.Text = "Chanber:GPIB0::3::INSTR";
             // 
@@ -441,7 +460,7 @@ namespace SoftStartTiming
             this.led_chamber.BackColor = System.Drawing.Color.Red;
             this.led_chamber.Location = new System.Drawing.Point(378, 154);
             this.led_chamber.Name = "led_chamber";
-            this.led_chamber.Size = new System.Drawing.Size(25, 22);
+            this.led_chamber.Size = new System.Drawing.Size(25, 25);
             this.led_chamber.TabIndex = 128;
             // 
             // led_osc
@@ -449,7 +468,7 @@ namespace SoftStartTiming
             this.led_osc.BackColor = System.Drawing.Color.Red;
             this.led_osc.Location = new System.Drawing.Point(378, 40);
             this.led_osc.Name = "led_osc";
-            this.led_osc.Size = new System.Drawing.Size(25, 22);
+            this.led_osc.Size = new System.Drawing.Size(25, 25);
             this.led_osc.TabIndex = 123;
             // 
             // led_daq
@@ -457,7 +476,7 @@ namespace SoftStartTiming
             this.led_daq.BackColor = System.Drawing.Color.Red;
             this.led_daq.Location = new System.Drawing.Point(378, 126);
             this.led_daq.Name = "led_daq";
-            this.led_daq.Size = new System.Drawing.Size(25, 22);
+            this.led_daq.Size = new System.Drawing.Size(25, 25);
             this.led_daq.TabIndex = 127;
             // 
             // tabControl1
@@ -497,10 +516,10 @@ namespace SoftStartTiming
             this.tabPage1.Controls.Add(this.label10);
             this.tabPage1.Controls.Add(this.CBChannel);
             this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(872, 560);
+            this.tabPage1.Size = new System.Drawing.Size(872, 557);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "General Setting";
             // 
@@ -532,7 +551,7 @@ namespace SoftStartTiming
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 84);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(103, 12);
+            this.label3.Size = new System.Drawing.Size(122, 15);
             this.label3.TabIndex = 61;
             this.label3.Text = "count down: 5:00";
             // 
@@ -541,7 +560,7 @@ namespace SoftStartTiming
             this.label15.AutoSize = true;
             this.label15.Location = new System.Drawing.Point(113, 84);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(85, 12);
+            this.label15.Size = new System.Drawing.Size(103, 15);
             this.label15.TabIndex = 60;
             this.label15.Text = "Steady time(s)";
             // 
@@ -550,7 +569,7 @@ namespace SoftStartTiming
             this.ck_chamber_en.AutoSize = true;
             this.ck_chamber_en.Location = new System.Drawing.Point(6, 21);
             this.ck_chamber_en.Name = "ck_chamber_en";
-            this.ck_chamber_en.Size = new System.Drawing.Size(116, 16);
+            this.ck_chamber_en.Size = new System.Drawing.Size(137, 19);
             this.ck_chamber_en.TabIndex = 61;
             this.ck_chamber_en.Text = "Chamber Enable";
             this.ck_chamber_en.UseVisualStyleBackColor = true;
@@ -566,7 +585,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_steady.Name = "nu_steady";
-            this.nu_steady.Size = new System.Drawing.Size(51, 23);
+            this.nu_steady.Size = new System.Drawing.Size(51, 27);
             this.nu_steady.TabIndex = 59;
             this.nu_steady.Value = new decimal(new int[] {
             5,
@@ -579,7 +598,7 @@ namespace SoftStartTiming
             this.label14.AutoSize = true;
             this.label14.Location = new System.Drawing.Point(6, 49);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(90, 12);
+            this.label14.Size = new System.Drawing.Size(107, 15);
             this.label14.TabIndex = 59;
             this.label14.Text = "Chamber Temp";
             // 
@@ -587,7 +606,7 @@ namespace SoftStartTiming
             // 
             this.tb_templist.Location = new System.Drawing.Point(102, 46);
             this.tb_templist.Name = "tb_templist";
-            this.tb_templist.Size = new System.Drawing.Size(152, 22);
+            this.tb_templist.Size = new System.Drawing.Size(152, 25);
             this.tb_templist.TabIndex = 60;
             this.tb_templist.Text = "25,40,80";
             // 
@@ -635,27 +654,33 @@ namespace SoftStartTiming
             this.tabPage2.Controls.Add(this.nuDischarge);
             this.tabPage2.Controls.Add(this.tb_connect3);
             this.tabPage2.Controls.Add(this.label4);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(872, 560);
+            this.tabPage2.Size = new System.Drawing.Size(872, 557);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Test Parameter";
             // 
             // num_ILXLevel
             // 
+            this.num_ILXLevel.BackColor = System.Drawing.Color.White;
             this.num_ILXLevel.DecimalPlaces = 3;
             this.num_ILXLevel.Location = new System.Drawing.Point(510, 296);
             this.num_ILXLevel.Name = "num_ILXLevel";
-            this.num_ILXLevel.Size = new System.Drawing.Size(77, 22);
+            this.num_ILXLevel.Size = new System.Drawing.Size(77, 25);
             this.num_ILXLevel.TabIndex = 170;
+            this.num_ILXLevel.Value = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(322, 298);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(76, 12);
+            this.label20.Size = new System.Drawing.Size(93, 15);
             this.label20.TabIndex = 169;
             this.label20.Text = "IL Level (A)";
             // 
@@ -667,7 +692,7 @@ namespace SoftStartTiming
             "Measure ILX"});
             this.cbox_scope_ch2.Location = new System.Drawing.Point(510, 270);
             this.cbox_scope_ch2.Name = "cbox_scope_ch2";
-            this.cbox_scope_ch2.Size = new System.Drawing.Size(97, 20);
+            this.cbox_scope_ch2.Size = new System.Drawing.Size(97, 23);
             this.cbox_scope_ch2.TabIndex = 168;
             this.cbox_scope_ch2.SelectedIndexChanged += new System.EventHandler(this.cbox_scope_ch2_SelectedIndexChanged);
             // 
@@ -676,7 +701,7 @@ namespace SoftStartTiming
             this.label19.AutoSize = true;
             this.label19.Location = new System.Drawing.Point(322, 273);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(67, 12);
+            this.label19.Size = new System.Drawing.Size(80, 15);
             this.label19.TabIndex = 167;
             this.label19.Text = "Scope CH2";
             // 
@@ -691,7 +716,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_test_fail_cnt.Name = "nu_test_fail_cnt";
-            this.nu_test_fail_cnt.Size = new System.Drawing.Size(77, 23);
+            this.nu_test_fail_cnt.Size = new System.Drawing.Size(77, 27);
             this.nu_test_fail_cnt.TabIndex = 166;
             this.nu_test_fail_cnt.Value = new decimal(new int[] {
             100,
@@ -704,7 +729,7 @@ namespace SoftStartTiming
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(322, 248);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(91, 12);
+            this.label18.Size = new System.Drawing.Size(110, 15);
             this.label18.TabIndex = 165;
             this.label18.Text = "Test Fail Count";
             // 
@@ -754,7 +779,7 @@ namespace SoftStartTiming
             this.textBox3.Location = new System.Drawing.Point(8, 7);
             this.textBox3.Name = "textBox3";
             this.textBox3.ReadOnly = true;
-            this.textBox3.Size = new System.Drawing.Size(56, 22);
+            this.textBox3.Size = new System.Drawing.Size(56, 25);
             this.textBox3.TabIndex = 0;
             this.textBox3.Text = "G1";
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -835,7 +860,7 @@ namespace SoftStartTiming
             this.textBox2.Location = new System.Drawing.Point(8, 7);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(56, 22);
+            this.textBox2.Size = new System.Drawing.Size(56, 25);
             this.textBox2.TabIndex = 0;
             this.textBox2.Text = "G0";
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -856,7 +881,7 @@ namespace SoftStartTiming
             this.textBox1.Location = new System.Drawing.Point(8, 7);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(56, 22);
+            this.textBox1.Size = new System.Drawing.Size(56, 25);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = "LPM";
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -866,7 +891,7 @@ namespace SoftStartTiming
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(703, 94);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(86, 12);
+            this.label17.Size = new System.Drawing.Size(103, 15);
             this.label17.TabIndex = 156;
             this.label17.Text = "base+diff*0.2 ";
             // 
@@ -875,7 +900,7 @@ namespace SoftStartTiming
             this.label16.AutoSize = true;
             this.label16.Location = new System.Drawing.Point(615, 94);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(78, 12);
+            this.label16.Size = new System.Drawing.Size(93, 15);
             this.label16.TabIndex = 155;
             this.label16.Text = "top-diff*0.2 ";
             // 
@@ -891,7 +916,7 @@ namespace SoftStartTiming
             0,
             0});
             this.numericUpDown2.Name = "numericUpDown2";
-            this.numericUpDown2.Size = new System.Drawing.Size(77, 23);
+            this.numericUpDown2.Size = new System.Drawing.Size(77, 27);
             this.numericUpDown2.TabIndex = 154;
             this.numericUpDown2.Value = new decimal(new int[] {
             1,
@@ -911,7 +936,7 @@ namespace SoftStartTiming
             0,
             0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(77, 23);
+            this.numericUpDown1.Size = new System.Drawing.Size(77, 27);
             this.numericUpDown1.TabIndex = 153;
             this.numericUpDown1.Value = new decimal(new int[] {
             1,
@@ -924,7 +949,7 @@ namespace SoftStartTiming
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(785, 56);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(66, 12);
+            this.label13.Size = new System.Drawing.Size(80, 15);
             this.label13.TabIndex = 152;
             this.label13.Text = "Min (0.95)";
             // 
@@ -940,7 +965,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_vmin.Name = "nu_vmin";
-            this.nu_vmin.Size = new System.Drawing.Size(77, 23);
+            this.nu_vmin.Size = new System.Drawing.Size(77, 27);
             this.nu_vmin.TabIndex = 151;
             this.nu_vmin.Value = new decimal(new int[] {
             1,
@@ -953,7 +978,7 @@ namespace SoftStartTiming
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(702, 55);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(68, 12);
+            this.label12.Size = new System.Drawing.Size(82, 15);
             this.label12.TabIndex = 150;
             this.label12.Text = "Max (1.05)";
             // 
@@ -969,7 +994,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_vmax.Name = "nu_vmax";
-            this.nu_vmax.Size = new System.Drawing.Size(77, 23);
+            this.nu_vmax.Size = new System.Drawing.Size(77, 27);
             this.nu_vmax.TabIndex = 149;
             this.nu_vmax.Value = new decimal(new int[] {
             1,
@@ -982,7 +1007,7 @@ namespace SoftStartTiming
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(615, 55);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(26, 12);
+            this.label11.Size = new System.Drawing.Size(32, 15);
             this.label11.TabIndex = 148;
             this.label11.Text = "Sub";
             // 
@@ -998,7 +1023,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_diff.Name = "nu_diff";
-            this.nu_diff.Size = new System.Drawing.Size(77, 23);
+            this.nu_diff.Size = new System.Drawing.Size(77, 27);
             this.nu_diff.TabIndex = 147;
             this.nu_diff.Value = new decimal(new int[] {
             1,
@@ -1018,7 +1043,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_vtop.Name = "nu_vtop";
-            this.nu_vtop.Size = new System.Drawing.Size(77, 23);
+            this.nu_vtop.Size = new System.Drawing.Size(77, 27);
             this.nu_vtop.TabIndex = 146;
             this.nu_vtop.Value = new decimal(new int[] {
             1,
@@ -1032,7 +1057,7 @@ namespace SoftStartTiming
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(702, 15);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(32, 12);
+            this.label8.Size = new System.Drawing.Size(39, 15);
             this.label8.TabIndex = 145;
             this.label8.Text = "Vtop";
             // 
@@ -1048,7 +1073,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_vbase.Name = "nu_vbase";
-            this.nu_vbase.Size = new System.Drawing.Size(77, 23);
+            this.nu_vbase.Size = new System.Drawing.Size(77, 27);
             this.nu_vbase.TabIndex = 144;
             this.nu_vbase.Value = new decimal(new int[] {
             1,
@@ -1062,7 +1087,7 @@ namespace SoftStartTiming
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(615, 15);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 12);
+            this.label7.Size = new System.Drawing.Size(46, 15);
             this.label7.TabIndex = 143;
             this.label7.Text = "Vbase";
             // 
@@ -1077,7 +1102,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nu_test_cnt.Name = "nu_test_cnt";
-            this.nu_test_cnt.Size = new System.Drawing.Size(77, 23);
+            this.nu_test_cnt.Size = new System.Drawing.Size(77, 27);
             this.nu_test_cnt.TabIndex = 142;
             this.nu_test_cnt.Value = new decimal(new int[] {
             5,
@@ -1097,6 +1122,7 @@ namespace SoftStartTiming
             this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.dataGridView2.Location = new System.Drawing.Point(15, 73);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
             this.dataGridView2.Size = new System.Drawing.Size(301, 230);
             this.dataGridView2.TabIndex = 137;
@@ -1105,6 +1131,7 @@ namespace SoftStartTiming
             // dataGridViewComboBoxColumn1
             // 
             this.dataGridViewComboBoxColumn1.HeaderText = "LPM";
+            this.dataGridViewComboBoxColumn1.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
             this.dataGridViewComboBoxColumn1.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1113,6 +1140,7 @@ namespace SoftStartTiming
             // dataGridViewComboBoxColumn2
             // 
             this.dataGridViewComboBoxColumn2.HeaderText = "G0";
+            this.dataGridViewComboBoxColumn2.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn2.Name = "dataGridViewComboBoxColumn2";
             this.dataGridViewComboBoxColumn2.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1121,6 +1149,7 @@ namespace SoftStartTiming
             // dataGridViewComboBoxColumn3
             // 
             this.dataGridViewComboBoxColumn3.HeaderText = "G1";
+            this.dataGridViewComboBoxColumn3.MinimumWidth = 6;
             this.dataGridViewComboBoxColumn3.Name = "dataGridViewComboBoxColumn3";
             this.dataGridViewComboBoxColumn3.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewComboBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
@@ -1129,7 +1158,9 @@ namespace SoftStartTiming
             // dataGridViewTextBoxColumn1
             // 
             this.dataGridViewTextBoxColumn1.HeaderText = "Vout (V)";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 125;
             // 
             // groupBox2
             // 
@@ -1150,7 +1181,7 @@ namespace SoftStartTiming
             // 
             this.tb_iout.Location = new System.Drawing.Point(6, 21);
             this.tb_iout.Name = "tb_iout";
-            this.tb_iout.Size = new System.Drawing.Size(231, 22);
+            this.tb_iout.Size = new System.Drawing.Size(231, 25);
             this.tb_iout.TabIndex = 49;
             this.tb_iout.Text = "0.5";
             // 
@@ -1159,7 +1190,7 @@ namespace SoftStartTiming
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(322, 221);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(66, 12);
+            this.label6.Size = new System.Drawing.Size(79, 15);
             this.label6.TabIndex = 141;
             this.label6.Text = "Test Count";
             // 
@@ -1192,7 +1223,7 @@ namespace SoftStartTiming
             // 
             this.tb_vinList.Location = new System.Drawing.Point(6, 21);
             this.tb_vinList.Name = "tb_vinList";
-            this.tb_vinList.Size = new System.Drawing.Size(231, 22);
+            this.tb_vinList.Size = new System.Drawing.Size(231, 25);
             this.tb_vinList.TabIndex = 49;
             this.tb_vinList.Text = "3.3";
             // 
@@ -1208,7 +1239,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nuDisLoad.Name = "nuDisLoad";
-            this.nuDisLoad.Size = new System.Drawing.Size(77, 23);
+            this.nuDisLoad.Size = new System.Drawing.Size(77, 27);
             this.nuDisLoad.TabIndex = 139;
             this.nuDisLoad.Value = new decimal(new int[] {
             1,
@@ -1231,7 +1262,7 @@ namespace SoftStartTiming
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(322, 192);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(129, 12);
+            this.label5.Size = new System.Drawing.Size(154, 15);
             this.label5.TabIndex = 140;
             this.label5.Text = "Discharge Loading(A)";
             // 
@@ -1240,7 +1271,7 @@ namespace SoftStartTiming
             this.tb_connect1.Enabled = false;
             this.tb_connect1.Location = new System.Drawing.Point(322, 73);
             this.tb_connect1.Name = "tb_connect1";
-            this.tb_connect1.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect1.Size = new System.Drawing.Size(146, 25);
             this.tb_connect1.TabIndex = 134;
             this.tb_connect1.Text = "LPM = GPIO2.0";
             this.tb_connect1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1250,7 +1281,7 @@ namespace SoftStartTiming
             this.tb_connect2.Enabled = false;
             this.tb_connect2.Location = new System.Drawing.Point(322, 101);
             this.tb_connect2.Name = "tb_connect2";
-            this.tb_connect2.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect2.Size = new System.Drawing.Size(146, 25);
             this.tb_connect2.TabIndex = 135;
             this.tb_connect2.Text = "G0 = GPIO2.1";
             this.tb_connect2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1266,7 +1297,7 @@ namespace SoftStartTiming
             0,
             0});
             this.nuDischarge.Name = "nuDischarge";
-            this.nuDischarge.Size = new System.Drawing.Size(77, 23);
+            this.nuDischarge.Size = new System.Drawing.Size(77, 27);
             this.nuDischarge.TabIndex = 137;
             this.nuDischarge.Value = new decimal(new int[] {
             10,
@@ -1279,7 +1310,7 @@ namespace SoftStartTiming
             this.tb_connect3.Enabled = false;
             this.tb_connect3.Location = new System.Drawing.Point(322, 129);
             this.tb_connect3.Name = "tb_connect3";
-            this.tb_connect3.Size = new System.Drawing.Size(146, 22);
+            this.tb_connect3.Size = new System.Drawing.Size(146, 25);
             this.tb_connect3.TabIndex = 136;
             this.tb_connect3.Text = "G1 = GPIO2.2";
             this.tb_connect3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1289,7 +1320,7 @@ namespace SoftStartTiming
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(322, 165);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(182, 12);
+            this.label4.Size = new System.Drawing.Size(221, 15);
             this.label4.TabIndex = 138;
             this.label4.Text = "LPM Mode Discharge Time(ms)";
             // 
@@ -1338,7 +1369,7 @@ namespace SoftStartTiming
             this.labStatus.AutoSize = true;
             this.labStatus.Location = new System.Drawing.Point(17, 604);
             this.labStatus.Name = "labStatus";
-            this.labStatus.Size = new System.Drawing.Size(97, 12);
+            this.labStatus.Size = new System.Drawing.Size(118, 15);
             this.labStatus.TabIndex = 135;
             this.labStatus.Text = "Progress Status :";
             // 
@@ -1351,7 +1382,7 @@ namespace SoftStartTiming
             // 
             // VIDIO
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.ClientSize = new System.Drawing.Size(917, 670);

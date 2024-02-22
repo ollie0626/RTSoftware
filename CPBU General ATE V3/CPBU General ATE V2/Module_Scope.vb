@@ -1,4 +1,17 @@
 ﻿Module Module_Scope
+
+    ' scope sel option
+    ' 0: R&S
+    ' 1: Tek 7 series
+    ' 2: Agilent
+    ' 3: Tek MSO series
+    Public osc_sel As Integer
+    Public cmd As String
+
+
+
+
+
     Public Scope_folder As String
 
     Public Scope_name() As String
@@ -22,6 +35,16 @@
 
     Public RS_Scope_Dev As String
     Public RS_vi As Integer
+
+    Public Tek_Dev As String
+    Public Tek_vi As Integer
+
+    Public MSO_Dev As String
+    Public MSO_vi As Integer
+
+    Public Agilent_Dev As String
+    Public Agilent_vi As Integer
+
 
     Public Scope_vpp As String = "PK2PK"
     Public Scope_Ton As String = "PWIDTH"
@@ -70,8 +93,60 @@
     Public RS_DISP_FLOA As String = "FLOA"
     Public RS_DISP_DOCK As String = "DOCK"
 
-    'source_num =1~4
+    Sub Docommand(ByVal cmd As String)
 
+        Dim Dev As String = RS_Scope_Dev
+        Dim vi As Integer
+
+        Select Case osc_sel
+            Case 0
+                Dev = RS_Scope_Dev
+                vi = RS_vi
+            Case 1
+                Dev = Tek_Dev
+                vi = Tek_vi
+            Case 2
+                Dev = Agilent_Dev
+                vi = Agilent_vi
+            Case 3
+                Dev = MSO_Dev
+                vi = MSO_vi
+        End Select
+        visa_write(Dev, vi, cmd)
+    End Sub
+
+    Function DoQueryNumber(ByVal cmd As String) As Double
+        Dim res As Double
+        Dim Dev As String = RS_Scope_Dev
+        Dim vi As Integer
+
+        Select Case osc_sel
+            Case 0
+                Dev = RS_Scope_Dev
+                vi = RS_vi
+            Case 1
+                Dev = Tek_Dev
+                vi = Tek_vi
+            Case 2
+                Dev = Agilent_Dev
+                vi = Agilent_vi
+            Case 3
+                Dev = MSO_Dev
+                vi = MSO_vi
+        End Select
+
+        visa_write(Dev, vi, cmd)
+        visa_status = viRead(vi, visa_response, Len(visa_response), retcount)
+
+        If (retcount > 0) Then
+            res = Val(Mid(visa_response, 1, retcount - 1))
+        End If
+
+        Return res
+    End Function
+
+
+    'source_num =1~4
     'Tek Measure error= 99.00000000000E+36\n
     'R&S Measure error 會傳最大的scale值
 
@@ -111,18 +186,28 @@
 
 
     Function Display_reset() As Integer
-        If RS_Scope = False Then
-            'clearing of persistence data.
-            ts = "DISplay:PERSistence:RESET"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'clearing of persistence data.
-            '重新累積
-            ts = "DISPlay:PERSistence:RESet"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        'If RS_Scope = False Then
+        '    'clearing of persistence data.
+        '    ts = "DISplay:PERSistence:RESET"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'clearing of persistence data.
+        '    '重新累積
+        '    ts = "DISPlay:PERSistence:RESet"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
-        End If
+        Select Case osc_sel
+            Case 0
+                cmd = "DISPlay:PERSistence:RESet"
+            Case 1
+                cmd = "DISplay:PERSistence:RESET"
+            Case 2
+                cmd = ":DISPlay:PERSistence MINimum"
+            Case 3
 
+        End Select
+        Docommand(cmd)
         Delay(10)
     End Function
 
@@ -136,14 +221,11 @@
     Function FastAcq_ONOFF(ByVal ONOFF As String) As Integer
 
         If RS_Scope = False Then
-
             ts = "FASTAcq:STATE " & ONOFF
         End If
         ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
         Delay(50)
         ' Display_reset()
-
     End Function
 
 
@@ -157,7 +239,6 @@
         'VARPersist sets a display mode where set pixels are gradually dimmed.
         If RS_Scope = False Then
 
-
             If PERSistence_ON = True Then
                 '無限持續累積
                 ts = "DISplay:PERSistence INFPersist"
@@ -165,21 +246,14 @@
                 ts = "DISplay:PERSistence OFF"
             End If
 
-
-
-
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
             Display_reset()
         Else
-
             If PERSistence_ON = True Then
                 '無限持續累積
-
                 ts = "DISplay:PERSistence ON"
                 visa_write(RS_Scope_Dev, RS_vi, ts)
                 ts = "DISplay:PERSistence:INFinite ON"
-
             Else
                 ts = "DISplay:PERSistence:INFinite OFF"
                 visa_write(RS_Scope_Dev, RS_vi, ts)
@@ -187,16 +261,38 @@
             End If
 
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
             'clearing of persistence data.
             '重新累積
             ts = "DISPlay:PERSistence:RESet"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
         End If
 
 
+        Select Case osc_sel
+            Case 0
+                If PERSistence_ON Then
+                    cmd = "DISplay:PERSistence ON"
+                    Docommand(cmd)
+                Else
+                    cmd = "DISplay:PERSistence:INFinite OFF"
+                    Docommand(cmd)
+                End If
+                cmd = "DISplay:PERSistence ON"
+                Docommand(cmd)
+                cmd = "DISPlay:PERSistence:RESet"
+                Docommand(cmd)
+            Case 1
+                If PERSistence_ON Then
+                    cmd = "DISplay:PERSistence INFPersist"
+                    Docommand(cmd)
+                    cmd = "DISplay:PERSistence OFF"
+                    Docommand(cmd)
+                End If
+            Case 2
+
+            Case 3
+
+        End Select
 
 
 

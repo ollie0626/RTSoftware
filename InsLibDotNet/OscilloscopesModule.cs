@@ -598,6 +598,8 @@ namespace InsLibDotNet
         }
 
 
+
+
         public string GetStatistics(int sel)
         {
             string res = "";
@@ -1068,6 +1070,52 @@ namespace InsLibDotNet
                     break;
             }    
         }
+
+        public void SetProbeGain(int CHx, int gain)
+        {
+            string cmd = "";
+            switch (osc_sel)
+            {
+                case 0:
+                    cmd = string.Format("CH{0}:PROBEFunc:EXTAtten {1}", CHx, gain);
+                    break;
+                case 1:
+                    break;
+            }
+            DoCommand(cmd);
+        }
+
+
+        public void SetCHxUnit(int CHx, string unit)
+        {
+            string cmd = "";
+            switch (osc_sel)
+            {
+                case 0:
+                     cmd = string.Format("CH{0}:PROBEFunc:EXTUnits {1}", CHx, unit);
+                    break;
+                case 1:
+                    break;
+            }
+
+            DoCommand(cmd);
+        }
+
+        public void SetCHxTERmination(int CHx, bool _1Mohm_en = true)
+        {
+            string cmd = "";
+
+            switch(osc_sel)
+            {
+                case 0:
+                    cmd = string.Format("CH{0}:TERmination {1}", CHx, _1Mohm_en ? "1E6" : "50");
+                    break;
+                case 1:
+                    break;
+            }
+            DoCommand(cmd);
+        }
+
 
         public void SetCursorOn()
         {

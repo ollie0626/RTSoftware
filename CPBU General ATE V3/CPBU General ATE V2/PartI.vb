@@ -7560,23 +7560,9 @@ Public Class PartI
                 sr.Close()   '???桀????
             End If
 
-
-
-
-
-
-
-
-
-
-
-
-
             ReDim ton_start_time(max_data)
             'time_volt(n, 1) =Time  (n=1~max_data)
             'time_volt(n, 2) =Volt  (n=1~max_data)
-
-
 
             note_string = "Analysis Wave data..."
 
@@ -8585,7 +8571,6 @@ Public Class PartI
                     'Line Regulation
                     If (check_LineR.Checked = True) And (rbtn_lineR_test1.Checked = True) Then
                         excel_open()
-
 
                         If rbtn_iin_current_measure.Checked Then
                             relay_in_meter_intial()

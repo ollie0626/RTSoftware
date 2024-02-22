@@ -23,7 +23,7 @@ namespace SoftStartTiming
 {
     public partial class VIDIO : Form
     {
-        string win_name = "VIDIO v1.18";
+        string win_name = "VIDIO v1.19";
         ParameterizedThreadStart p_thread;
         Thread ATETask;
         TaskRun[] ate_table;
@@ -121,7 +121,7 @@ namespace SoftStartTiming
             _item[1] = new ToolStripMenuItem("Add Row", null, new EventHandler(ToolStripAdd_Click));
 
             cbox_scope_ch2.SelectedIndex = 0;
-            num_ILXLevel.Value = (decimal)0.5;
+            num_ILXLevel.Value = (decimal)5;
             RTDev.BoadInit();
         }
 
@@ -224,9 +224,9 @@ namespace SoftStartTiming
                     criteria_container.lpm_en = false;
 
                 if ((string)dataGridView1[2, i].Value != "NA") // time judge enable
-                    criteria_container.time_jd = false;
-                else
                     criteria_container.time_jd = true;
+                else
+                    criteria_container.time_jd = false;
 
                 test_parameter.vidio.criteria.Add(criteria_container);
             }
@@ -557,8 +557,11 @@ namespace SoftStartTiming
             settings += "4.WavePath=$" + tbWave.Text + "$\r\n";
             settings += "5.Vin=$" + tb_vinList.Text + "$\r\n";
             settings += "6.Iout=$" + tb_iout.Text + "$\r\n";
+            settings += "Scope_CH2=$" + cbox_scope_ch2.SelectedIndex + "$\r\n";
+            settings += "ILX_Level=$" + num_ILXLevel.Value + "$\r\n";
             settings += "7.DGrow=$" + dataGridView2.RowCount + "$\r\n";
             settings += "8.DGrow_vout=$" + dataGridView1.RowCount + "$\r\n";
+
 
             for (int i = 0; i < dataGridView2.RowCount; i++)
             {
@@ -602,8 +605,9 @@ namespace SoftStartTiming
         {
             object[] obj_arr = new object[]
             {
-                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, dataGridView2 , dataGridView1
+                ck_chamber_en, tb_chamber, nu_steady, nuslave, tbWave, tb_vinList, tb_iout, cbox_scope_ch2, num_ILXLevel, dataGridView2 , dataGridView1
             };
+
             List<string> info = new List<string>();
             using (StreamReader sr = new StreamReader(file))
             {
