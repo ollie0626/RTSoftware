@@ -237,35 +237,35 @@
         'OFF disables the persistence aspect of the display.
         'INFPersist sets a display mode where any pixels, once touched by samples, remain set until cleared by a mode change.
         'VARPersist sets a display mode where set pixels are gradually dimmed.
-        If RS_Scope = False Then
 
-            If PERSistence_ON = True Then
-                '無限持續累積
-                ts = "DISplay:PERSistence INFPersist"
-            Else
-                ts = "DISplay:PERSistence OFF"
-            End If
+        'If RS_Scope = False Then
+        '    If PERSistence_ON = True Then
+        '        '無限持續累積
+        '        ts = "DISplay:PERSistence INFPersist"
+        '    Else
+        '        ts = "DISplay:PERSistence OFF"
+        '    End If
 
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Display_reset()
-        Else
-            If PERSistence_ON = True Then
-                '無限持續累積
-                ts = "DISplay:PERSistence ON"
-                visa_write(RS_Scope_Dev, RS_vi, ts)
-                ts = "DISplay:PERSistence:INFinite ON"
-            Else
-                ts = "DISplay:PERSistence:INFinite OFF"
-                visa_write(RS_Scope_Dev, RS_vi, ts)
-                ts = "DISplay:PERSistence OFF"
-            End If
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Display_reset()
+        'Else
+        '    If PERSistence_ON = True Then
+        '        '無限持續累積
+        '        ts = "DISplay:PERSistence ON"
+        '        visa_write(RS_Scope_Dev, RS_vi, ts)
+        '        ts = "DISplay:PERSistence:INFinite ON"
+        '    Else
+        '        ts = "DISplay:PERSistence:INFinite OFF"
+        '        visa_write(RS_Scope_Dev, RS_vi, ts)
+        '        ts = "DISplay:PERSistence OFF"
+        '    End If
 
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            'clearing of persistence data.
-            '重新累積
-            ts = "DISPlay:PERSistence:RESet"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    'clearing of persistence data.
+        '    '重新累積
+        '    ts = "DISPlay:PERSistence:RESet"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
         Select Case osc_sel
@@ -285,10 +285,18 @@
                 If PERSistence_ON Then
                     cmd = "DISplay:PERSistence INFPersist"
                     Docommand(cmd)
+                Else
                     cmd = "DISplay:PERSistence OFF"
                     Docommand(cmd)
                 End If
             Case 2
+                If PERSistence_ON Then
+                    cmd = ":DISPlay:PERSistence INFinite"
+                    Docommand(cmd)
+                Else
+                    cmd = ":DISPlay:PERSistence MINimum"
+                    Docommand(cmd)
+                End If
 
             Case 3
 
