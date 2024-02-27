@@ -1385,6 +1385,11 @@
                 cmd = ":MARKer:MODE " & type
                 Docommand(cmd)
                 Delay(10)
+                cmd = String.Format(":MARKer1:SOURce CHANnel{0}", x1)
+                Docommand(cmd)
+                Delay(10)
+                cmd = String.Format(":MARKer2:SOURce CHANnel{0}", x2)
+                Docommand(cmd)
             Case 3
 
         End Select
@@ -1423,54 +1428,47 @@
 
 
     Function Cursor_move(ByVal type As String, ByVal position1 As Double, ByVal position2 As Double) As Integer
-        Dim value As Double
-        If RS_Scope = False Then
-            'move time: type="VBArs"
-            'move volt: type="HBArs"
-            ts = "CURSOR:" & type & ":POSITION1 " & position1 '& "E+00"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-            ts = "CURSOR:" & type & ":POSITION2 " & position2 '& "E+00"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'Defines the position of the vertical cursor line
-            'CURSor<m>:X1Position <X1Position>
-            'CURSor<m>:X2Position <X2Position>
-            '<X2Position>,<X1Position>:Range 0 to 500
+        'Dim value As Double
+        'If RS_Scope = False Then
+        '    'move time: type="VBArs"
+        '    'move volt: type="HBArs"
+        '    ts = "CURSOR:" & type & ":POSITION1 " & position1 '& "E+00"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        '    ts = "CURSOR:" & type & ":POSITION2 " & position2 '& "E+00"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'Defines the position of the vertical cursor line
+        '    'CURSor<m>:X1Position <X1Position>
+        '    'CURSor<m>:X2Position <X2Position>
+        '    '<X2Position>,<X1Position>:Range 0 to 500
 
-            'Defines the position of the horizontal cursor line
-            'CURSor<m>:Y1Position <Y1Position>
-            'CURSor<m>:Y2Position <Y2Position>
-            '<Y2Position>,<Y1Position>:Range -50 to 50
+        '    'Defines the position of the horizontal cursor line
+        '    'CURSor<m>:Y1Position <Y1Position>
+        '    'CURSor<m>:Y2Position <Y2Position>
+        '    '<Y2Position>,<Y1Position>:Range -50 to 50
 
-            'If set to ON,the horizontal cursor lines follow the waveform.
-            'CURSor<m>:TRACKing <trackcurve>
-            '<trackcurve>:ON/OFF
+        '    'If set to ON,the horizontal cursor lines follow the waveform.
+        '    'CURSor<m>:TRACKing <trackcurve>
+        '    '<trackcurve>:ON/OFF
 
-            Select Case type
-                Case "VBArs"
+        '    Select Case type
+        '        Case "VBArs"
+        '            ts = "CURSor1:X1Position" & " " & position1
+        '            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '            Delay(10)
+        '            ts = "CURSor1:X2Position" & " " & position2
+        '            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '        Case "HBArs"
+        '            ts = "CURSor1:Y1Position" & " " & position1
+        '            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '            Delay(10)
 
-                    ts = "CURSor1:X1Position" & " " & position1
-                    visa_write(RS_Scope_Dev, RS_vi, ts)
-                    Delay(10)
-
-                    ts = "CURSor1:X2Position" & " " & position2
-                    visa_write(RS_Scope_Dev, RS_vi, ts)
-
-                Case "HBArs"
-
-                    ts = "CURSor1:Y1Position" & " " & position1
-                    visa_write(RS_Scope_Dev, RS_vi, ts)
-                    Delay(10)
-
-                    ts = "CURSor1:Y2Position" & " " & position2
-                    visa_write(RS_Scope_Dev, RS_vi, ts)
-            End Select
-
-
-        End If
-
-        Delay(10)
+        '            ts = "CURSor1:Y2Position" & " " & position2
+        '            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    End Select
+        'End If
+        'Delay(10)
 
 
         Select Case osc_sel
@@ -1496,6 +1494,20 @@
                 cmd = "CURSOR:" & type & ":POSITION2 " & position2
                 Docommand(cmd)
             Case 2
+                Select Case type
+                    Case "VBArs"
+                        cmd = String.Format(":MARKer:X1Position {0}", position1)
+                        Docommand(cmd)
+                        Delay(10)
+                        cmd = String.Format(":MARKer:X2Position {0}", position2)
+                        Docommand(cmd)
+                    Case "HBArs"
+                        cmd = String.Format(":MARKer:Y1Position {0}", position1)
+                        Docommand(cmd)
+                        Delay(10)
+                        cmd = String.Format(":MARKer:Y2Position {0}", position2)
+                        Docommand(cmd)
+                End Select
             Case 3
 
         End Select
@@ -1552,17 +1564,12 @@
         If RS_Scope = False Then
             'move time: type="VBArs"
             'move volt: type="HBArs"
-
-
             ts = "CURSor:" & type & ":DELTa?"
-
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
             ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
             If ibcntl > 0 Then
                 Cursor_delta = Val(Mid(ValueStr, 1, (ibcntl - 1)))
             End If
-
-
         Else
             Select Case type
                 Case "VBArs"
@@ -1570,16 +1577,44 @@
                 Case "HBArs"
                     delta = ":YDELta?"
             End Select
-
-
             ts = "CURSor1" & delta
             visa_write(RS_Scope_Dev, RS_vi, ts)
             visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
             Cursor_delta = Val(Mid(visa_response, 1, (retcount - 1)))
         End If
 
-        Return Cursor_delta
 
+        Select Case osc_sel
+            Case 0
+                Select Case type
+                    Case "VBArs"
+                        delta = ":XDELta?"
+                    Case "HBArs"
+                        delta = ":YDELta?"
+                End Select
+                cmd = "CURSor1" & delta
+                Cursor_delta = DoQueryNumber(cmd)
+            Case 1
+                cmd = "CURSor:" & type & ":DELTa?"
+                Cursor_delta = DoQueryNumber(cmd)
+            Case 2
+                Select Case type
+                    Case "VBArs"
+                        delta = ":XDELta?"
+                    Case "HBArs"
+                        delta = ":YDELta?"
+                End Select
+                cmd = ":MARKer:DELTa ON"
+                Docommand(cmd)
+                Delay(10)
+                cmd = ":MARKer:" & delta
+                Docommand(cmd)
+            Case 3
+
+        End Select
+
+
+        Return Cursor_delta
     End Function
     'Function RS_Cursor_delta(ByVal type As String) As Double
     '    'CURSor<x>:XDELta?
@@ -1697,6 +1732,60 @@
         End If
 
 
+        Select Case osc_sel
+            Case 0
+                cmd = "TRIGger1:TYPE EDGE"
+                Docommand(10)
+                Delay(10)
+                If edge = "R" Then
+                    cmd = "TRIGger1:EDGE:SLOPe POSitive"
+                ElseIf edge = "F" Then
+                    cmd = "TRIGger1:EDGE:SLOPe NEGative"
+                End If
+                Docommand(cmd)
+
+                cmd = "TRIGger1:SOURce" & " " & "CHAN" & source_num
+                Docommand(cmd)
+                Delay(10)
+                cmd = ts = "TRIGger1:LEVel" & source_num & " " & level
+                Docommand(10)
+
+            Case 1
+                cmd = "TRIGger:A:EDGE:COUPling DC"
+                Docommand(cmd)
+                Delay(10)
+                If edge = "R" Then
+                    cmd = "TRIGger:A:EDGE:SLOpe RISe"
+                ElseIf edge = "F" Then
+                    cmd = "TRIGger:A:EDGE:SLOpe FALL"
+                End If
+                Docommand(cmd)
+                Delay(10)
+                cmd = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
+                Docommand(cmd)
+                Delay(10)
+                cmd = "TRIGger:A:LEVel " & level & "E+00"
+                Docommand(cmd)
+            Case 2
+                cmd = ":TRIGger:MODE EDGE"
+                Docommand(cmd)
+                Delay(10)
+                cmd = String.Format(":TRIGger:EDGE1:SOURce CHANnel{0}", source_num)
+                Docommand(cmd)
+                Delay(10)
+
+                If edge = "R" Then
+                    cmd = ":TRIGger:EDGE1:SLOPe POSitive"
+                ElseIf edge = "F" Then
+                    cmd = ":TRIGger:EDGE1:SLOPe NEGative"
+                End If
+                Docommand(cmd)
+                cmd = String.Format(":TRIGger:LEVel CHANnel{0}, {1}", source_num, level)
+                Docommand(cmd)
+            Case 3
+
+        End Select
+
     End Function
 
     Function RS_trigger_level(ByVal source_num As Integer) As Double
@@ -1747,44 +1836,88 @@
     'End Function
     Function Trigger_auto_level(ByVal source_num As Integer, ByVal edge As String) As Integer
 
+        Select Case osc_sel
+            Case 0
+                cmd = "TRIGger1:SOURce" & " " & "CHAN" & source_num
+                Docommand(cmd)
+                Delay(10)
+                If edge = "R" Then
+                    cmd = "TRIGger1:EDGE:SLOPe POSitive"
+                ElseIf edge = "F" Then
+                    cmd = "TRIGger1:EDGE:SLOPe NEGative"
+                End If
+                Docommand(cmd)
+                Delay(10)
+
+            Case 1
+                cmd = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
+                Docommand(cmd)
+                Delay(10)
+                If edge = "R" Then
+                    cmd = "TRIGger:A:EDGE:SLOpe RISe"
+                ElseIf edge = "F" Then
+                    cmd = "TRIGger:A:EDGE:SLOpe FALL"
+                End If
+                Docommand(cmd)
+                Delay(10)
+                cmd = "TRIGger:A SETLevel"
+                Docommand(cmd)
+                cmd = "TRIGger1:FINDlevel"
+                Docommand(cmd)
+            Case 2
+                cmd = ":TRIGger:MODE EDGE"
+                Docommand(cmd)
+                cmd = String.Format(":TRIGger:EDGE1:SOURce CHANnel{0}", source_num)
+                Docommand(cmd)
+                If edge = "R" Then
+                    cmd = ":TRIGger:EDGE1:SLOPe POSitive"
+                ElseIf edge = "F" Then
+                    cmd = ":TRIGger:EDGE1:SLOPe NEGative"
+                End If
+                Docommand(cmd)
+            Case 3
+
+        End Select
 
 
-        If RS_Scope = False Then
-            ts = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            If edge = "R" Then
-                ts = "TRIGger:A:EDGE:SLOpe RISe"
-            ElseIf edge = "F" Then
-                ts = "TRIGger:A:EDGE:SLOpe FALL"
-            End If
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            '        This command sets the A trigger level automatically to 50% of the range of the
-            'minimum and maximum values of the trigger input signal. 
 
 
-            ts = "TRIGger:A SETLevel"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
+        'If RS_Scope = False Then
+        '    ts = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-            ts = "TRIGger1:SOURce" & " " & "CHAN" & source_num
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    If edge = "R" Then
+        '        ts = "TRIGger:A:EDGE:SLOpe RISe"
+        '    ElseIf edge = "F" Then
+        '        ts = "TRIGger:A:EDGE:SLOpe FALL"
+        '    End If
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    '        This command sets the A trigger level automatically to 50% of the range of the
+        '    'minimum and maximum values of the trigger input signal. 
 
 
-            If edge = "R" Then
-                ts = "TRIGger1:EDGE:SLOPe POSitive"
-            ElseIf edge = "F" Then
-                ts = "TRIGger1:EDGE:SLOPe NEGative"
-            End If
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "TRIGger:A SETLevel"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
 
-            'Sets the trigger level automatically  (50%)
-            ts = "TRIGger1:FINDlevel"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            Delay(200)
+        '    ts = "TRIGger1:SOURce" & " " & "CHAN" & source_num
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
 
-        End If
+
+        '    If edge = "R" Then
+        '        ts = "TRIGger1:EDGE:SLOPe POSitive"
+        '    ElseIf edge = "F" Then
+        '        ts = "TRIGger1:EDGE:SLOPe NEGative"
+        '    End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+        '    'Sets the trigger level automatically  (50%)
+        '    ts = "TRIGger1:FINDlevel"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    Delay(200)
+
+        'End If
 
 
     End Function
@@ -1887,28 +2020,54 @@
 
     Function Trigger_run(ByVal mode As String) As Integer
 
+        Select Case osc_sel
+            Case 0
+                If mode = "N" Then
+                    cmd = "TRIGger1:MODE NORMal"
+                ElseIf mode = "A" Then
+                    cmd = "TRIGger1:MODE AUTO"
+                End If
+                Docommand(cmd)
+            Case 1
+                If mode = "N" Then
+                    cmd = "TRIGger:A:MODe NORMAL"
+                ElseIf mode = "A" Then
+                    cmd = "TRIGger:A:MODe AUTO"
+                End If
+                Docommand(cmd)
+            Case 2
+                If mode = "N" Then
+                    cmd = ":TRIGger:SWEep TRIGgered"
+                ElseIf mode = "A" Then
+                    cmd = ":TRIGger:SWEep AUTO"
+                End If
+                Docommand(cmd)
+            Case 3
 
-        If RS_Scope = False Then
-            'This command sets or queries the A trigger mode.
-            'TRIGger:A:MODe {AUTO|NORMal}
+        End Select
 
-            If mode = "N" Then
-                ts = "TRIGger:A:MODe NORMAL"
-            ElseIf mode = "A" Then
-                ts = "TRIGger:A:MODe AUTO"
-            End If
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command sets or queries the A trigger mode.
-            'TRIGger<m>:MODE {AUTO|NORMal}
 
-            If mode = "N" Then
-                ts = "TRIGger1:MODE NORMal"
-            ElseIf mode = "A" Then
-                ts = "TRIGger1:MODE AUTO"
-            End If
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        'If RS_Scope = False Then
+        '    'This command sets or queries the A trigger mode.
+        '    'TRIGger:A:MODe {AUTO|NORMal}
+
+        '    If mode = "N" Then
+        '        ts = "TRIGger:A:MODe NORMAL"
+        '    ElseIf mode = "A" Then
+        '        ts = "TRIGger:A:MODe AUTO"
+        '    End If
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets or queries the A trigger mode.
+        '    'TRIGger<m>:MODE {AUTO|NORMal}
+
+        '    If mode = "N" Then
+        '        ts = "TRIGger1:MODE NORMal"
+        '    ElseIf mode = "A" Then
+        '        ts = "TRIGger1:MODE AUTO"
+        '    End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
     End Function
 
@@ -1925,49 +2084,49 @@
     'End Function
     Function RUN_set(ByVal mode As String) As Integer
 
+        Select Case osc_sel
+            Case 0
+                If mode = "SEQuence" Then
+                    cmd = "ACQuire:COUNt 1"
+                Else
+                    cmd = "ACQuire:COUNt MAX"
+                End If
+                Docommand(cmd)
+            Case 1
+                cmd = "ACQuire:MODE SAMple"
+                Docommand(cmd)
+                cmd = "ACQuire:STOPAfter " & mode
+                Docommand(cmd)
+            Case 2
+
+            Case 3
+
+        End Select
+
 
         If RS_Scope = False Then
             'This command sets or queries the acquisition mode of the instrument.
             'ACQuire:MODe{SAMple|PEAKdetect|HIRes|AVErage|ENVelope}
             'SAMple specifies that the displayed data point value is the first sampled value that is taken during the acquisition interval.
-
             'This command sets or queries whether the instrument continually acquires acquisitions or acquires a single sequence.
             'ACQuire:STOPAfter {RUNSTop|SEQuence}
-
-
             ts = "ACQuire:MODE SAMple"
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
             ts = "ACQuire:STOPAfter " & mode
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
         Else
             'This command  sets a single sequence.
             'Pressing "RUN Nx SINGLE" on the front panel button is equivalent to sending this command
             '要先設定"TRIGger1:MODE NORMal",才能設定"SINGle"
-
-
-
-
-
             If mode = "SEQuence" Then
-
-
-
-
                 'ts = "SINGle"
-
                 ts = "ACQuire:COUNt 1"
-
             Else
                 'ts = "RUN"
                 ts = "ACQuire:COUNt MAX"
             End If
-
-
             visa_write(RS_Scope_Dev, RS_vi, ts)
             Delay(10)
-
         End If
 
     End Function

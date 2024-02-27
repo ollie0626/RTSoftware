@@ -1479,9 +1479,9 @@ namespace BuckTool
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(472, 673);
+            this.label19.Location = new System.Drawing.Point(453, 673);
             this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(50, 12);
+            this.label19.Size = new System.Drawing.Size(63, 15);
             this.label19.TabIndex = 100;
             this.label19.Text = "en test cnt";
             // 

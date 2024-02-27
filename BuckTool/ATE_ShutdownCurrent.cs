@@ -25,14 +25,16 @@ namespace BuckTool
             _sheet.Cells[row, XLS_Table.D] = "Iout(A)";
             _sheet.Cells[row, XLS_Table.E] = "EnOn Vout(V)";
             _sheet.Cells[row, XLS_Table.F] = "EnOn Iin(mA)";
-            _sheet.Cells[row, XLS_Table.G] = "EnOff Vout(V)";
-            _sheet.Cells[row, XLS_Table.H] = "EnOff Iin(mA)";
+
+            _sheet.Cells[row, XLS_Table.G] = "En (V)";
+            _sheet.Cells[row, XLS_Table.H] = "EnOff Vout(V)";
+            _sheet.Cells[row, XLS_Table.I] = "EnOff Iin(mA)";
 
             _range = _sheet.Range["A" + row, "D" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(124, 252, 0);
 
-            _range = _sheet.Range["E" + row, "H" + row];
+            _range = _sheet.Range["E" + row, "I" + row];
             _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
             _range.Interior.Color = Color.FromArgb(30, 144, 255);
         }
@@ -105,6 +107,8 @@ namespace BuckTool
                                 RTBBControl.GpioEn_Disable();
                                 InsControl._eload.LoadOFF(1);
 
+                                double en_vol = InsControl._34970A.Get_10Vol(2);
+
                                 // Measure Iin current (En off)
                                 off_current = InsControl._dmm1.GetCurrent(0);
                                 off_vout = InsControl._34970A.Get_10Vol(1);
@@ -118,8 +122,10 @@ namespace BuckTool
                                 _sheet.Cells[row, XLS_Table.D] = iout;
                                 _sheet.Cells[row, XLS_Table.E] = on_vout;
                                 _sheet.Cells[row, XLS_Table.F] = on_current;
-                                _sheet.Cells[row, XLS_Table.G] = off_vout;
-                                _sheet.Cells[row, XLS_Table.H] = off_current;
+
+                                _sheet.Cells[row, XLS_Table.G] = en_vol;
+                                _sheet.Cells[row, XLS_Table.H] = off_vout;
+                                _sheet.Cells[row, XLS_Table.I] = off_current;
                                 row++;
                             }
                         }

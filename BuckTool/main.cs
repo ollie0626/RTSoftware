@@ -50,7 +50,7 @@ namespace BuckTool
         ATE_ShutdownCurrent _ate_iq = new ATE_ShutdownCurrent();
 
         TaskRun[] ate_table;
-        string App_name = "Buck Tool v1.672";
+        string App_name = "Buck Tool v1.673";
 
         ChamberCtr chamberCtr = new ChamberCtr();
 

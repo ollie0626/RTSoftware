@@ -219,6 +219,7 @@ namespace IN528ATE_tool
 
         private void test_parameter_copy()
         {
+            //nu_ch2_level
             test_parameter.ch2_level = (double)nu_ch2_level.Value;
             test_parameter.chamber_en = ck_chaber_en.Checked;
             test_parameter.run_stop = false;
