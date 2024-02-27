@@ -1,0 +1,31 @@
+﻿<metro:MetroWindow x:Class="Scope_Simple_tool.Pages.SubWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"        
+        
+        xmlns:local="clr-namespace:Scope_Simple_tool.Pages"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="600" Width="450"
+                   ShowMinButton="False"
+                   ShowMaxRestoreButton="False"
+                   ShowCloseButton="True"
+                   Background="DarkGray">
+
+    <metro:MetroWindow.DataContext>
+        <local:SubWindowViewModel></local:SubWindowViewModel>
+    </metro:MetroWindow.DataContext>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Visible" BorderThickness="2">
+            <TextBlock Text="{Binding DebugMessage}" Margin="5" Foreground="Gold" ScrollViewer.CanContentScroll="True"
+                       ScrollViewer.VerticalScrollBarVisibility="Visible"/>
+        </ScrollViewer>
+    </Grid>
+
+</metro:MetroWindow>

@@ -1,0 +1,74 @@
+﻿<metro:MetroWindow x:Class="Scope_Simple_tool.Pages.LuaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        
+        xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"        
+
+        
+        xmlns:local="clr-namespace:Scope_Simple_tool.Pages"
+        mc:Ignorable="d"
+        Title="LuaWindow" Height="800" Width="650"                   
+                   ShowMinButton="False"
+                   ShowMaxRestoreButton="False"
+                   ShowCloseButton="True">
+
+    <metro:MetroWindow.DataContext>
+        <local:LuaWindowViewModel></local:LuaWindowViewModel>
+    </metro:MetroWindow.DataContext>
+
+
+
+    <StackPanel>
+        <StackPanel Orientation="Horizontal" Height="42" Margin="5">
+            <TextBlock Margin="5" Height="18" Width="380" TextAlignment="Left" Background="Gray" IsEnabled="True" Foreground="LightBlue" Text="{Binding LuaPath}"></TextBlock>
+            <Button Width="120" Margin="1" Command="{Binding OpenCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconJamIcons Margin="5" Kind="Folder" VerticalAlignment="Center"></iconPacks:PackIconJamIcons>
+                    <TextBlock VerticalAlignment="Center">Open Lua Script</TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="1" HorizontalAlignment="Center" Width="50" Height="40" Command="{Binding RunCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconPicolIcons Margin="5" Kind="BadgeRun" VerticalAlignment="Center"></iconPacks:PackIconPicolIcons>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="1" HorizontalAlignment="Center" Width="50" Height="40" Command="{Binding ClearCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterialDesign Margin="5" Kind="ClearAll" VerticalAlignment="Center"></iconPacks:PackIconMaterialDesign>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+
+        <StackPanel Margin="5" Orientation="Horizontal">
+            <Button Command="{Binding RunstringCommand}" Width="150" Margin="2">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconPicolIcons Margin="5" Kind="BadgeRun" VerticalAlignment="Center"></iconPacks:PackIconPicolIcons>
+                    <TextBlock Text="Run Lua script (string)" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Button>
+
+            <Button Margin="2" Command="{Binding ClearLuaWindowCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterialDesign Margin="5" Kind="ClearAll" VerticalAlignment="Center"></iconPacks:PackIconMaterialDesign>
+                    <TextBlock Text="Clear Lua Window" VerticalAlignment="Center"></TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <StackPanel>
+            <TextBox Margin="5" Foreground="Gold" ScrollViewer.CanContentScroll="True" Height="650" TextWrapping="Wrap" AcceptsReturn="True"
+                       ScrollViewer.VerticalScrollBarVisibility="Visible" Background="DarkGray" Text="{Binding LuaScript_str}"/>
+        </StackPanel>
+
+
+
+
+    </StackPanel>
+</metro:MetroWindow>
