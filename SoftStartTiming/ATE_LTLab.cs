@@ -87,7 +87,7 @@ namespace SoftStartTiming
         private void TimerInit()
         {
             // Create a timer with a 1 second interval
-            timer = new System.Timers.Timer(1000);
+            timer = new System.Timers.Timer(test_parameter.lt_lab.delay_time);
             timer.Elapsed += RefleshMeasure;
             timer.AutoReset = true;
         }
@@ -119,7 +119,7 @@ namespace SoftStartTiming
             // data cnt & vin cnt as same         
             for (int i2c_idx = 0; i2c_idx < test_parameter.lt_lab.data_list.Count; i2c_idx++)
             {
-
+                int detect_cnt = 0;
 #if Report_en
                 row = 1;
                 string sheet_name = string.Format("Vin={0:##.##}_Vout={1:##.##}_{2:X2}={3:X2}",
@@ -127,7 +127,7 @@ namespace SoftStartTiming
                                             test_parameter.lt_lab.vout_list[i2c_idx],
                                             test_parameter.lt_lab.addr_list[i2c_idx],
                                             test_parameter.lt_lab.data_list[i2c_idx]);
-                InsControl._oscilloscope.SetTriggerLevel(1, test_parameter.lt_lab.vout_list[i2c_idx]);
+                //InsControl._oscilloscope.SetTriggerLevel(1, test_parameter.lt_lab.vout_list[i2c_idx]);
                 if(i2c_idx != 0)  _sheet = (Excel.Worksheet)_book.Worksheets.Add();
                 _sheet.Name = sheet_name;
                 _sheet.Cells[row, XLS_Table.A] = "Vin (V)";
@@ -150,17 +150,18 @@ namespace SoftStartTiming
 
                 while (I2C_Check(i2c_idx))
                 {
-                    int detect_cnt = 0;
+
                     //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     //CHxResize(i2c_idx);
                     //InsControl._oscilloscope.SetPERSistence();
 
-                    timer.Enabled = true;
+                    //timer.Enabled = true;
                     // This command sets the A trigger level automatically to 50% of the range of the
                     // minimum and maximum values of the trigger input signal.
-                    InsControl._oscilloscope.DoCommand("TRIGger:A"); 
+                    //InsControl._oscilloscope.DoCommand("TRIGger:A");
                     //InsControl._oscilloscope.SetClear();
-                    MyLib.Delay1ms(200);
+                    InsControl._oscilloscope.DoCommand("MEASUrement:STATIstics:COUNt RESET");
+                    MyLib.Delay1ms(test_parameter.lt_lab.delay_time * 1000);
 
                     double vin = 0;
                     double Iin = 0, vmax = 0, vmin = 0, vmean = 0;

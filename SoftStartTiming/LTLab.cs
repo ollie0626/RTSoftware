@@ -21,7 +21,7 @@ namespace SoftStartTiming
     {
 
         System.Collections.Generic.Dictionary<string, string> Device_map = new Dictionary<string, string>();
-        string win_name = "LTLab v1.05";
+        string win_name = "LTLab v1.07";
         ParameterizedThreadStart p_thread;
         ATE_LTLab _ate_ltlab;
         Thread ATETask;
@@ -173,6 +173,8 @@ namespace SoftStartTiming
 
             test_parameter.lt_lab.Iin_compare = (double)num_Iin_detect.Value;
             test_parameter.lt_lab.detect_cnt = (int)num_detect_cnt.Value;
+            test_parameter.lt_lab.delay_time = (int)nu_delay_s.Value;
+            test_parameter.waveform_path = tbWave.Text;
 
             test_parameter.slave = (byte)nuslave.Value;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();
@@ -424,6 +426,7 @@ namespace SoftStartTiming
         public double time_scale;
         public int detect_cnt;
         public double Iin_compare;
+        public int delay_time;
     }
 
 }

@@ -61,12 +61,17 @@ namespace SoftStartTiming
             this.label4 = new System.Windows.Forms.Label();
             this.num_Iin_detect = new System.Windows.Forms.NumericUpDown();
             this.num_detect_cnt = new System.Windows.Forms.NumericUpDown();
+            this.nu_delay_s = new System.Windows.Forms.NumericUpDown();
+            this.label5 = new System.Windows.Forms.Label();
+            this.tbWave = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuTimeScale)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Iin_detect)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_detect_cnt)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_delay_s)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -363,7 +368,7 @@ namespace SoftStartTiming
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(384, 155);
+            this.label3.Location = new System.Drawing.Point(384, 134);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(94, 12);
             this.label3.TabIndex = 167;
@@ -372,7 +377,7 @@ namespace SoftStartTiming
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(384, 194);
+            this.label4.Location = new System.Drawing.Point(384, 173);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(75, 12);
             this.label4.TabIndex = 168;
@@ -380,15 +385,15 @@ namespace SoftStartTiming
             // 
             // num_Iin_detect
             // 
-            this.num_Iin_detect.DecimalPlaces = 3;
-            this.num_Iin_detect.Location = new System.Drawing.Point(484, 153);
+            this.num_Iin_detect.DecimalPlaces = 5;
+            this.num_Iin_detect.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            327680});
+            this.num_Iin_detect.Location = new System.Drawing.Point(386, 149);
             this.num_Iin_detect.Maximum = new decimal(new int[] {
             100000,
-            0,
-            0,
-            0});
-            this.num_Iin_detect.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});
@@ -400,12 +405,11 @@ namespace SoftStartTiming
             0,
             0,
             0});
-            this.num_Iin_detect.Visible = false;
             // 
             // num_detect_cnt
             // 
             this.num_detect_cnt.DecimalPlaces = 3;
-            this.num_detect_cnt.Location = new System.Drawing.Point(484, 192);
+            this.num_detect_cnt.Location = new System.Drawing.Point(386, 188);
             this.num_detect_cnt.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -424,7 +428,55 @@ namespace SoftStartTiming
             0,
             0,
             0});
-            this.num_detect_cnt.Visible = false;
+            // 
+            // nu_delay_s
+            // 
+            this.nu_delay_s.DecimalPlaces = 3;
+            this.nu_delay_s.Location = new System.Drawing.Point(386, 232);
+            this.nu_delay_s.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.nu_delay_s.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nu_delay_s.Name = "nu_delay_s";
+            this.nu_delay_s.Size = new System.Drawing.Size(120, 22);
+            this.nu_delay_s.TabIndex = 172;
+            this.nu_delay_s.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(384, 217);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(84, 12);
+            this.label5.TabIndex = 171;
+            this.label5.Text = "Delay Time(s)";
+            // 
+            // tbWave
+            // 
+            this.tbWave.Location = new System.Drawing.Point(386, 275);
+            this.tbWave.Name = "tbWave";
+            this.tbWave.Size = new System.Drawing.Size(215, 22);
+            this.tbWave.TabIndex = 173;
+            this.tbWave.Text = "D:\\";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(384, 260);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(95, 12);
+            this.label6.TabIndex = 174;
+            this.label6.Text = "Waveform Path:";
             // 
             // LTLab
             // 
@@ -432,6 +484,10 @@ namespace SoftStartTiming
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(731, 483);
+            this.Controls.Add(this.tbWave);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.nu_delay_s);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.num_detect_cnt);
             this.Controls.Add(this.num_Iin_detect);
             this.Controls.Add(this.label4);
@@ -471,6 +527,7 @@ namespace SoftStartTiming
             ((System.ComponentModel.ISupportInitialize)(this.nuTimeScale)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_Iin_detect)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.num_detect_cnt)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_delay_s)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -510,5 +567,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown num_Iin_detect;
         private System.Windows.Forms.NumericUpDown num_detect_cnt;
+        private System.Windows.Forms.NumericUpDown nu_delay_s;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox tbWave;
+        private System.Windows.Forms.Label label6;
     }
 }
