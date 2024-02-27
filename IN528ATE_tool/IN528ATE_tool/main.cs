@@ -54,7 +54,7 @@ namespace IN528ATE_tool
         private void GUIInit()
         {
             /* class init */
-            this.Text = "ATE Tool v3.42";
+            this.Text = "ATE Tool v3.43";
             RTDev = new RTBBControl();
             myLib = new MyLib();
 
@@ -219,6 +219,7 @@ namespace IN528ATE_tool
 
         private void test_parameter_copy()
         {
+            test_parameter.ch2_level = (double)nu_ch2_level.Value;
             test_parameter.chamber_en = ck_chaber_en.Checked;
             test_parameter.run_stop = false;
             test_parameter.VinList = tb_vinList.Text.Split(',').Select(double.Parse).ToList();

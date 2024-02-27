@@ -140,6 +140,8 @@
 
         If (retcount > 0) Then
             res = Val(Mid(visa_response, 1, retcount - 1))
+        Else
+            res = 0
         End If
 
         Return res
@@ -277,8 +279,10 @@
                     cmd = "DISplay:PERSistence:INFinite OFF"
                     Docommand(cmd)
                 End If
+                Delay(10)
                 cmd = "DISplay:PERSistence ON"
                 Docommand(cmd)
+                Delay(10)
                 cmd = "DISPlay:PERSistence:RESet"
                 Docommand(cmd)
             Case 1
@@ -334,19 +338,32 @@
         'This command sets or queries the displayed state of the specified channel waveform. 
         'The x can be channel 1 through 4.
         'SELect:CH<x> {<NR1>|OFF|ON}
-        If RS_Scope = False Then
 
-            ts = "SELect:CH" & source_num & " " & ONOFF
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command sets or queries the displayed state of the specified channel waveform. 
-            'The x can be channel 1 through 4.
-            'CHANnel<x>:STATe {OFF|ON}
-            '設定CHANnel ON/FF
-            ts = "CHANnel" & source_num & ":STATe " & ONOFF
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        'If RS_Scope = False Then
 
+        '    ts = "SELect:CH" & source_num & " " & ONOFF
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets or queries the displayed state of the specified channel waveform. 
+        '    'The x can be channel 1 through 4.
+        '    'CHANnel<x>:STATe {OFF|ON}
+        '    '設定CHANnel ON/FF
+        '    ts = "CHANnel" & source_num & ":STATe " & ONOFF
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
+
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("CHANnel{0}:STATe {1}", source_num, ONOFF)
+            Case 1
+                cmd = String.Format("SELect:CH{0} {1}", source_num, ONOFF)
+            Case 2
+                cmd = String.Format(":CHANnel{0}:DISPLAY {1}", source_num, ONOFF)
+            Case 3
+        End Select
+
+
+        Docommand(cmd)
     End Function
 
     'Function RS_CHx_display(ByVal source_num As Integer, ByVal ONOFF As String) As Integer
@@ -358,64 +375,127 @@
     '     visa_write(RS_Scope_Dev,RS_vi, ts)
     'End Function
 
+    Function CouplingSel(ByVal coupling As String) As Integer
+        Dim sel As Integer = 0
+
+
+        Select Case coupling
+            Case "DC (1MΩ)"
+                sel = 0
+            Case "AC"
+                sel = 1
+            Case "DC (50Ω)"
+                sel = 2
+        End Select
+
+        Return sel
+    End Function
+
+
     Function CHx_coupling(ByVal source_num As Integer, ByVal coupling As String) As Integer
         'This command sets or queries the input attenuator coupling setting for the specified channel.
         'CH<x>:COUPling {AC|DC|GND|DCREJect}
 
         'CH<x>:TERmination
         '50 Ω or 1,000,000 Ω. (50.0E+0, 1.0E+6)
-
         'DC (1MΩ)
         'AC
         'DC (50Ω)
 
 
-        If RS_Scope = False Then
-            Select Case coupling
+        'If RS_Scope = False Then
+        '    Select Case coupling
 
-                Case "DC (1MΩ)"
+        '        Case "DC (1MΩ)"
 
-                    ts = "CH" & source_num & ":TERmination 1.0E+6"
-                    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '            ts = "CH" & source_num & ":TERmination 1.0E+6"
+        '            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-                    ts = "CH" & source_num & ":COUPling DC"
+        '            ts = "CH" & source_num & ":COUPling DC"
 
-                Case "AC"
+        '        Case "AC"
 
-                    ts = "CH" & source_num & ":COUPling AC"
+        '            ts = "CH" & source_num & ":COUPling AC"
 
-                Case "DC (50Ω)"
+        '        Case "DC (50Ω)"
 
-                    ts = "CH" & source_num & ":TERmination 50.0E+0"
-                    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '            ts = "CH" & source_num & ":TERmination 50.0E+0"
+        '            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-                    ts = "CH" & source_num & ":COUPling DC"
+        '            ts = "CH" & source_num & ":COUPling DC"
 
-            End Select
-            ts = "CH" & source_num & ":COUPling " & coupling
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command sets or queries the input attenuator coupling setting for the specified channel.
-            'CHANnel<x>:COUPling {DC|AC|DCLimit}
-            'DC:50ohm,DCLimit:1M0ohm
-            '設定碳棒阻抗匹配
-            Select Case coupling
+        '    End Select
+        '    ts = "CH" & source_num & ":COUPling " & coupling
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets or queries the input attenuator coupling setting for the specified channel.
+        '    'CHANnel<x>:COUPling {DC|AC|DCLimit}
+        '    'DC:50ohm,DCLimit:1M0ohm
+        '    '設定碳棒阻抗匹配
+        '    Select Case coupling
 
-                Case "DC (1MΩ)"
-                    ts = "CHANnel" & source_num & ":COUPling DCLimit"
-                Case "AC"
+        '        Case "DC (1MΩ)"
+        '            ts = "CHANnel" & source_num & ":COUPling DCLimit"
+        '        Case "AC"
 
-                    ts = "CHANnel" & source_num & ":COUPling AC"
+        '            ts = "CHANnel" & source_num & ":COUPling AC"
 
-                Case "DC (50Ω)"
+        '        Case "DC (50Ω)"
 
-                    ts = "CHANnel" & source_num & ":COUPling DC"
+        '            ts = "CHANnel" & source_num & ":COUPling DC"
 
-            End Select
+        '    End Select
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
+
+        ' 0: DC 1M ohm
+        ' 1: AC
+        ' 2: DC 50 ohm
+        Select Case osc_sel
+            Case 0 ' R&S Scope
+                Select Case CouplingSel(coupling)
+                    Case 0
+                        cmd = String.Format("CHANnel{0}:COUPling DCLimit", source_num)
+                        Docommand(cmd)
+                    Case 1
+                        cmd = String.Format("CHANnel{0}:COUPling AC", source_num)
+                        Docommand(cmd)
+                    Case 2
+                        cmd = String.Format("CHANnel{0}:COUPling DC", source_num)
+                        Docommand(cmd)
+                End Select
+            Case 1 ' Tek Scope
+                Select Case CouplingSel(coupling)
+                    Case 0
+                        cmd = String.Format("CH{0}:TERmination 1.0E+6", source_num)
+                        Docommand(cmd)
+                        Delay(10)
+                        cmd = String.Format("CH{0}:COUPling DC", source_num)
+                        Docommand(cmd)
+                    Case 1
+                        cmd = String.Format("CH{0}:COUPling AC")
+                        Docommand(cmd)
+                    Case 2
+                        cmd = String.Format("CH{0}:COUPling DC")
+                        Docommand(cmd)
+                End Select
+            Case 2 ' Agilent Scope
+                Select Case CouplingSel(coupling)
+                    Case 0
+                        cmd = String.Format(":CHANnel{0}:INPut DC", source_num)
+                        Docommand(cmd)
+                    Case 1
+                        cmd = String.Format(":CHANnel{0}:INPut AC", source_num)
+                        Docommand(cmd)
+                    Case 2
+                        cmd = String.Format(":CHANnel{0}:INPut DC50", source_num)
+                        Docommand(cmd)
+                End Select
+            Case 3 ' MSO Scope
+
+        End Select
 
 
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
 
 
     End Function
@@ -449,54 +529,61 @@
         'bandwidth.
         'mode= BW_20M or BW_150M
 
+        'If RS_Scope = False Then
+        '    Select Case mode
+        '        Case "20MHz"
+        '            mode = BW_20M
+        '        Case "Full"
+        '            mode = BW_500M
+        '    End Select
+        '    ts = "CH" & source_num & ":BANdwidth " & mode
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'CHANnel<x>:BANDwidth {B20|B200|FULL}
+        '    'B20
+        '    'This sets the upper bandwidth limit to 20 MHz.
+        '    'B200
+        '    'This sets the upper bandwidth limit to 200 MHz.
+        '    'FULL
+        '    'Use full bandwidth
+        '    '設定CHANnel頻寬
+        '    Select Case mode
+        '        Case "20MHz"
+        '            mode = "B20"
+        '        Case "Full"
+        '            mode = "FULL"
+        '    End Select
+        '    ts = "CHANnel" & source_num & ":BANdwidth " & " " & mode
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
-
-
-        If RS_Scope = False Then
-            Select Case mode
-
-                Case "20MHz"
-
-                    mode = BW_20M
-                Case "Full"
-
-
-                    mode = BW_500M
-            End Select
-
-
-            ts = "CH" & source_num & ":BANdwidth " & mode
-
-
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'CHANnel<x>:BANDwidth {B20|B200|FULL}
-            'B20
-            'This sets the upper bandwidth limit to 20 MHz.
-            'B200
-            'This sets the upper bandwidth limit to 200 MHz.
-            'FULL
-            'Use full bandwidth
-            '設定CHANnel頻寬
-
-            Select Case mode
-
-                Case "20MHz"
-
+        Select Case osc_sel
+            Case 0 ' R&S
+                If mode = "20MHz" Then
                     mode = "B20"
-
-                Case "Full"
-
-
+                ElseIf mode = "Full" Then
                     mode = "FULL"
-            End Select
+                End If
+                cmd = String.Format("CHANnel{0}:BANdwidth {1}", source_num, mode)
 
+            Case 1 ' Tek
+                If mode = "20MHz" Then
+                    mode = BW_20M
+                ElseIf mode = "Full" Then
+                    mode = BW_500M
+                End If
+                cmd = String.Format("CH{0}:BANdwidth {1}", source_num, mode)
+            Case 2 ' Agilent
+                If mode = "20MHz" Then
+                    mode = "20e6"
+                Else
+                    mode = "ON"
+                End If
+                cmd = String.Format(":CHANnel{0}:BWLimit {1}", source_num, mode)
+            Case 3
 
-            ts = "CHANnel" & source_num & ":BANdwidth " & " " & mode
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
-
-
+        End Select
+        Docommand(cmd)
 
     End Function
 
@@ -523,23 +610,30 @@
             Case "V"
                 unit_value = value & "E-0"
         End Select
-        If RS_Scope = False Then
-            'This command sets or queries the vertical scale of the specified channel. 
 
+        'If RS_Scope = False Then
+        '    'This command sets or queries the vertical scale of the specified channel. 
+        '    ts = "CH" & source_num & ":SCAle " & unit_value
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets or queries the vertical scale of the specified channel. 
+        '    'CHANnel<x>:SCALe <scale>
+        '    'scale unit:V/div
+        '    '設定CHANnel的SCALe為多少V/div
+        '    ts = "CHANnel" & source_num & ":SCAle" & " " & unit_value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
-            ts = "CH" & source_num & ":SCAle " & unit_value
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command sets or queries the vertical scale of the specified channel. 
-            'CHANnel<x>:SCALe <scale>
-            'scale unit:V/div
-            '設定CHANnel的SCALe為多少V/div
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("CHANnel{0}:SCAle {1}", source_num, unit_value)
+            Case 1
+                cmd = String.Format("CH{0}:SCAle {1}", source_num, unit_value)
+            Case 2
+                cmd = String.Format(":CHANNEL{0}:SCALe {1}", unit_value)
+        End Select
 
-            ts = "CHANnel" & source_num & ":SCAle" & " " & unit_value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-        End If
-
+        Docommand(cmd)
 
     End Function
 
@@ -563,25 +657,41 @@
 
     Function CHx_position(ByVal source_num As Integer, ByVal value As Double) As Integer
 
-        If RS_Scope = False Then
-            'This command sets or queries the vertical position of the specified channel.
-            'CH<x>:POSition <NR3>
-            '<NR3> is the position value, in divisions from the center graticule, ranging from 8.000 to -8.000 divisions.
-            ts = "CH" & source_num & ":POSition " & value & "E+00"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'If RS_Scope = False Then
+        '    'This command sets or queries the vertical position of the specified channel.
+        '    'CH<x>:POSition <NR3>
+        '    '<NR3> is the position value, in divisions from the center graticule, ranging from 8.000 to -8.000 divisions.
+        '    ts = "CH" & source_num & ":POSition " & value & "E+00"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-        Else
-            'This command sets or queries the vertical position of the specified channel.
-            'CHANnel<x>:POSition <position>
-            '<position>, ranging from 5 to -5 divisions,unit:div
-            '設定CHANnel的水平軸位置
+        'Else
+        '    'This command sets or queries the vertical position of the specified channel.
+        '    'CHANnel<x>:POSition <position>
+        '    '<position>, ranging from 5 to -5 divisions,unit:div
+        '    '設定CHANnel的水平軸位置
+        '    ts = "CHANnel" & source_num & ":POSition " & value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
+
+
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("CHANnel{0}:POSition {1}", source_num, value)
+            Case 1
+                cmd = String.Format("CH{0}:POSition {1}", source_num, value)
+            Case 2
+                cmd = String.Format(":CHANnel{0}:SCALe?")
+                Dim res As Double = DoQueryNumber(cmd)
+                Delay(300)
+                cmd = String.Format(":CHANnel{0}:OFFSet {1}", source_num, value * res)
+            Case 3
+
+        End Select
+        Docommand(cmd)
 
 
 
 
-            ts = "CHANnel" & source_num & ":POSition " & value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
 
     End Function
 
@@ -598,23 +708,33 @@
 
     Function CHx_OFFSET(ByVal source_num As Integer, ByVal value As Double) As Integer
 
-        If RS_Scope = False Then
-            'This command sets or queries the vertical offset for the specified channel. The
-            'channel is specified by x. The value of x can range from 1 through 4. This
-            'command is equivalent to selecting Offset from the Vertical menu.
-            'CH<x>:OFFSet <NR3>
-            ts = "CH" & source_num & ":OFFSet " & value
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command sets offset voltage of the specified channel.
-            'CHANnel<x>:OFFSet <offset>
-            '<offset>   increment:0.01,unit:V
-            '設定CHANnel的offset
+        'If RS_Scope = False Then
+        '    'This command sets or queries the vertical offset for the specified channel. The
+        '    'channel is specified by x. The value of x can range from 1 through 4. This
+        '    'command is equivalent to selecting Offset from the Vertical menu.
+        '    'CH<x>:OFFSet <NR3>
+        '    ts = "CH" & source_num & ":OFFSet " & value
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets offset voltage of the specified channel.
+        '    'CHANnel<x>:OFFSet <offset>
+        '    '<offset>   increment:0.01,unit:V
+        '    '設定CHANnel的offset
 
-            ts = "CHANnel" & source_num & ":OFFSet " & " " & value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    ts = "CHANnel" & source_num & ":OFFSet " & " " & value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("CHANnel{0}:OFFSet {1}", source_num, value)
+            Case 1
+                cmd = String.Format("CH{0}:OFFSet {1}", source_num, value)
+            Case 2
+                cmd = String.Format(":CHANnel{0}:OFFSet {1}", source_num, value)
+            Case 3
+        End Select
+        Docommand(cmd)
 
     End Function
 
@@ -642,33 +762,58 @@
 
         'Sets or returns the Y display coordinate
         'CH<x>:LABel:YPOS <NR1>
-        If RS_Scope = False Then
-            ts = "CH" & source_num & ":LABEL:NAMe """ & name & """"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-            ts = "CH" & source_num & ":LABEL:XPOS " & label_XPOS
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-            ts = "CH" & source_num & ":LABEL:YPOS " & label_YPOS
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-        Else
+        'If RS_Scope = False Then
+        '    ts = "CH" & source_num & ":LABEL:NAMe """ & name & """"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        '    ts = "CH" & source_num & ":LABEL:XPOS " & label_XPOS
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        '    ts = "CH" & source_num & ":LABEL:YPOS " & label_YPOS
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        'Else
+        '    ts = "CHANnel" & source_num & ":POSition?"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    If retcount > 0 Then
+        '        temp = Val(Mid(visa_response, 1, retcount - 1))
+        '        YPOS = (5 - Math.Floor(temp)) * 10 - RS_label_YPOS
 
-            ts = "CHANnel" & source_num & ":POSition?"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            If retcount > 0 Then
-                temp = Val(Mid(visa_response, 1, retcount - 1))
-                YPOS = (5 - Math.Floor(temp)) * 10 - RS_label_YPOS
+        '        ts = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",REL," & RS_label_XPOS & "," & YPOS
+        '        'ts = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",ABS," & x & "," & y
+        '        visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    End If
+        '    Delay(10)
+        'End If
 
-                ts = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",REL," & RS_label_XPOS & "," & YPOS
-                'ts = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",ABS," & x & "," & y
-                visa_write(RS_Scope_Dev, RS_vi, ts)
-            End If
+        Dim value As Double
+        Select Case osc_sel
+            Case 0
+                cmd = "CHANnel" & source_num & ":POSition?"
+                value = DoQueryNumber(cmd)
+                Delay(10)
+                YPOS = (5 - Math.Floor(value)) * 10 - RS_label_YPOS
+                cmd = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",REL," & RS_label_XPOS & "," & YPOS
+                Docommand(cmd)
+            Case 1
+                cmd = "CH" & source_num & ":LABEL:NAMe """ & name & """"
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CH" & source_num & ":LABEL:XPOS " & label_XPOS
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CH" & source_num & ":LABEL:YPOS " & label_YPOS
+                Docommand(cmd)
+                Delay(10)
+            Case 2
 
-            Delay(10)
+            Case 3
+        End Select
 
-        End If
+
+
+
 
 
 
@@ -740,6 +885,24 @@
         End If
 
 
+        Select Case osc_sel
+            Case 0
+                cmd = "ACQuire:POINts:AUTO RECLength"
+                Docommand(10)
+                cmd = String.Format("ACQuire:POINts:VALue {0}", value)
+                Docommand(cmd)
+            Case 1
+                cmd = String.Format("HORizontal:RECOrdlength {0}", value)
+                Docommand(cmd)
+                Docommand(10)
+                cmd = String.Format("HORizontal:MODE AUTO")
+                Docommand(cmd)
+            Case 2
+            Case 3
+
+        End Select
+
+
 
     End Function
 
@@ -756,22 +919,34 @@
     'End Function
 
     Function H_Roll(ByVal mode As String) As Integer
-        If RS_Scope = False Then
-            '            This command sets or queries the Roll Mode status. Use Roll Mode when you
-            'want to view data at very slow sweep speeds. It is useful for observing data
-            'samples on the screen as they occur. This command is equivalent to selecting
-            'Horizontal/Acquisition Setup from the Horiz/Acq menu, selecting the Acquisition
-            'tab, and setting the Roll Mode to Auto or Off.
+        'If RS_Scope = False Then
+        '    '            This command sets or queries the Roll Mode status. Use Roll Mode when you
+        '    'want to view data at very slow sweep speeds. It is useful for observing data
+        '    'samples on the screen as they occur. This command is equivalent to selecting
+        '    'Horizontal/Acquisition Setup from the Horiz/Acq menu, selecting the Acquisition
+        '    'tab, and setting the Roll Mode to Auto or Off.
 
-            'HORizontal:ROLL {AUTO|OFF|ON}
-            ts = "HORizontal:ROLL " & mode
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            '<Mode> AUTO | OFF
-            ts = "TIMebase:ROLL:ENABle " & mode
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    'HORizontal:ROLL {AUTO|OFF|ON}
+        '    ts = "HORizontal:ROLL " & mode
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    '<Mode> AUTO | OFF
+        '    ts = "TIMebase:ROLL:ENABle " & mode
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("HORizontal:ROLL {0}", mode)
+            Case 1
+                cmd = String.Format("TIMebase:ROLL:ENABle {0}", mode)
+            Case 2
+                ':TIMebase:ROLL:ENABLE {{ON | 1} | {OFF | 0}}
+                cmd = String.Format(":TIMebase:ROLL:ENABLE {0}", mode)
+            Case 3
+
+        End Select
+        Docommand(cmd)
     End Function
 
     'Function RS_H_Roll(ByVal mode As String) As Integer
@@ -792,88 +967,102 @@
             Case "s"
                 unit_value = ""
         End Select
-        If RS_Scope = False Then
-            'This command sets or queries the horizontal scale.
-            'HORizontal:MODE:SCAle <NR1>
+
+        'If RS_Scope = False Then
+        '    'This command sets or queries the horizontal scale.
+        '    'HORizontal:MODE:SCAle <NR1>
+        '    ts = "HORizontal:SCAle " & unit_value
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command sets or queries the horizontal scale.
+        '    'Timebase:SCALe <Timebase>,Timebase unit:s/div
+        '    '設定Timebase的SCALe
+        '    ts = "Timebase:SCALe " & " " & unit_value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
-            ts = "HORizontal:SCAle " & unit_value
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("Timebase:SCALe {0}", unit_value)
+            Case 1
+                cmd = String.Format("HORizontal:SCAle {0}", unit_value)
+            Case 2
+                cmd = String.Format(":TIMebase:SCALe {0}", unit_value)
+            Case 3
 
-        Else
-            'This command sets or queries the horizontal scale.
-            'Timebase:SCALe <Timebase>,Timebase unit:s/div
-            '設定Timebase的SCALe
+        End Select
 
-            ts = "Timebase:SCALe " & " " & unit_value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        Docommand(cmd)
 
-
-
-
-
-        End If
 
 
     End Function
 
     Function H_scale_now() As Double
-        If RS_Scope = False Then
-            'This command sets or queries the horizontal scale.
-            'HORizontal:MODE:SCAle <NR1>
+        'If RS_Scope = False Then
+        '    'This command sets or queries the horizontal scale.
+        '    'HORizontal:MODE:SCAle <NR1>
 
 
-            ts = "HORizontal:SCAle?"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+        '    ts = "HORizontal:SCAle?"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
 
-            If ibcntl > 0 Then
-                Return Val(Mid(ValueStr, 1, (ibcntl - 1)))
-            Else
-                Return 0
-            End If
+        '    If ibcntl > 0 Then
+        '        Return Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '    Else
+        '        Return 0
+        '    End If
 
-        Else
-            ts = "Timebase:SCALe?"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        'Else
+        '    ts = "Timebase:SCALe?"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    If visa_status = VI_ERROR_CONN_LOST Then
+        '        viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
+        '    End If
+
+        '    If retcount > 0 Then
+
+        '        Return Val(Mid(visa_response, 1, retcount - 1))
+        '    Else
+
+        '        visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '        If visa_status = VI_ERROR_CONN_LOST Then
+        '            viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
+        '        End If
+
+        '        While retcount = 0
+        '            System.Windows.Forms.Application.DoEvents()
+        '            read_error = read_error + 1
+        '            If (read_error = 100) Or (run = False) Then
+        '                Return 0
+        '                Exit Function
+        '            End If
+        '            Delay(10)
+        '            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '        End While
+
+        '        If retcount > 0 Then
+        '            Return Val(Mid(visa_response, 1, retcount - 1))
+        '        End If
+        '    End If
+        'End If
 
 
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            If visa_status = VI_ERROR_CONN_LOST Then
-                viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
-            End If
-
-            If retcount > 0 Then
-
-                Return Val(Mid(visa_response, 1, retcount - 1))
-            Else
-
-                visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-                If visa_status = VI_ERROR_CONN_LOST Then
-                    viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
-                End If
-
-                While retcount = 0
-                    System.Windows.Forms.Application.DoEvents()
+        Select Case osc_sel
+            Case 0
+                cmd = "Timebase:SCALe?"
+            Case 1
+                cmd = "HORizontal:SCAle?"
+            Case 2
+                cmd = ":TIMEBASE:SCALE?"
+            Case 3
+        End Select
 
 
-                    read_error = read_error + 1
-                    If (read_error = 100) Or (run = False) Then
-                        Return 0
-                        Exit Function
-                    End If
-                    Delay(10)
-                    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-                End While
-
-                If retcount > 0 Then
-                    Return Val(Mid(visa_response, 1, retcount - 1))
-                End If
-
-            End If
-
-        End If
-
+        Return DoQueryNumber(cmd)
     End Function
 
 
@@ -915,20 +1104,39 @@
                 unit_value = value
         End Select
 
-        If RS_Scope = False Then
-            ts = "HORizontal:MODE:SAMPLERate " & unit_value
+        'If RS_Scope = False Then
+        '    ts = "HORizontal:MODE:SAMPLERate " & unit_value
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "HORizontal:MODE AUTO"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    ts = "ACQuire:POINts:AUTO RESolution"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "ACQuire:SRATe " & unit_value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        Select Case osc_sel
+            Case 0
+                cmd = "ACQuire:POINts:AUTO RESolution"
+                Docommand(cmd)
+                cmd = String.Format("ACQuire:SRATe {0}", unit_value)
+                Docommand(cmd)
+            Case 1
+                cmd = String.Format("HORizontal:MODE:SAMPLERate {0}", unit_value)
+                Docommand(cmd)
+                cmd = "HORizontal:MODE AUTO"
+                Docommand(cmd)
+            Case 2
+                ' need to test
+                cmd = String.Format(":ACQuire:SRATe:ANALog {0}", unit_value)
+                Docommand(cmd)
 
-            ts = "HORizontal:MODE AUTO"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            ts = "ACQuire:POINts:AUTO RESolution"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            ts = "ACQuire:SRATe " & unit_value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+                cmd = ":ACQuire:SRATe:ANALog:AUTO ON"
+                Docommand(cmd)
 
+            Case 3
+        End Select
 
     End Function
 
@@ -937,10 +1145,7 @@
     '    'ACQuire:SRATe <Samplerate>
     '    '<Samplerate> Range:2 to 20E+20
     '    '要設定"ACQuire:POINts:AUTO RESolution"才能寫入Samplerate
-
-
     '    Select Case unit
-
     '        Case "GS/s"
     '            unit_value = value & "E9"
     '        Case "MS/s"
@@ -958,25 +1163,38 @@
     'End Function
 
     Function H_position(ByVal value As Double) As Integer
-        If RS_Scope = False Then
-            'HORizontal[:MAIn]:POSition <NR3>
-            '<NR3> argument can range from 0 to ??00
-            ts = "HORizontal:POSition " & value
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'Defines the time distance between the reference point and the trigger point.
-            'TIMebase:HORizontal:POSition <RescaleCenter Time>
-            '<RescaleCenter Time> argument can range from -100E+24 t0 100E+24
+        'If RS_Scope = False Then
+        '    'HORizontal[:MAIn]:POSition <NR3>
+        '    '<NR3> argument can range from 0 to ??00
+        '    ts = "HORizontal:POSition " & value
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'Defines the time distance between the reference point and the trigger point.
+        '    'TIMebase:HORizontal:POSition <RescaleCenter Time>
+        '    '<RescaleCenter Time> argument can range from -100E+24 t0 100E+24
+        '    ts = "TIMebase:HORizontal:POSition 0"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "TIMebase:REFerence " & value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
-
-            ts = "TIMebase:HORizontal:POSition 0"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-            ts = "TIMebase:REFerence " & value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-        End If
+        Dim timeScale As Double = 0
+        Select Case osc_sel
+            Case 0
+                cmd = "TIMebase:HORizontal:POSition 0"
+                Docommand(cmd)
+                cmd = String.Format("TIMebase:REFerence {0}", value)
+                Docommand(cmd)
+            Case 1
+                cmd = String.Format("HORizontal:POSition {0}", value)
+                Docommand(cmd)
+            Case 2
+                timeScale = DoQueryNumber(":TIMEBASE:SCALE?")
+                Delay(300)
+                cmd = String.Format(":TIMEBASE:POSITION {0}", value * timeScale)
+                Docommand(cmd)
+            Case 3
+        End Select
 
 
     End Function
@@ -1003,15 +1221,30 @@
 
 
     Function Cursor_ONOFF(ByVal ONOFF As String) As Integer
-        If RS_Scope = False Then
-            ts = "CURSor:STATE " & ONOFF
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'If RS_Scope = False Then
+        '    ts = "CURSor:STATE " & ONOFF
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    ts = "CURSor1:STATe " & ONOFF
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    Delay(10)
+        'End If
 
-        Else
-            ts = "CURSor1:STATe " & ONOFF
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            Delay(10)
-        End If
+        Select Case osc_sel
+            Case 0
+                cmd = String.Format("CURSor1:STATe {0}", ONOFF)
+            Case 1
+                cmd = String.Format("CURSor:STATE {0}", ONOFF)
+            Case 2
+                If ONOFF = "ON" Then
+                    ONOFF = "MANual"
+                End If
+                cmd = String.Format(":MARKer:MODE {0}", ONOFF)
+            Case 3
+        End Select
+
+        Docommand(cmd)
+
     End Function
 
 
@@ -1023,16 +1256,14 @@
             ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
             If ibcntl > 0 Then
                 ONOFF = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-
             End If
-
-
         Else
             ts = "CURSor1:STATe?"
             visa_write(RS_Scope_Dev, RS_vi, ts)
             visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
             ONOFF = Val(Mid(visa_response, 1, (retcount - 1)))
         End If
+
 
         If ONOFF = 1 Then
             Return True
@@ -1124,6 +1355,42 @@
             Delay(10)
         End If
 
+        ' need to check function application
+        Select Case osc_sel
+            Case 0
+                Select Case type
+                    Case "VBArs"
+                        cmd = "CURSor1:FUNCtion VERTical"
+                    Case "HBArs"
+                        cmd = "CURSor1:FUNCtion HORizontal"
+                    Case "SCREEN"
+                        cmd = "CURSor1:FUNCtion PALRed"
+                End Select
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CURSor1:SOURce C" & x1 & "W1"
+                Docommand(cmd)
+
+            Case 1
+                cmd = "CURSor:FUNCtion " & type
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CURSor:SOUrce1 " & "CH" & x1
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CURSor:SOUrce2 " & "CH" & x2
+                Docommand(cmd)
+            Case 2
+                ':MARKer:MODE {OFF | MANual | WAVeform | MEASurement | XONLy | YONLy}
+                cmd = ":MARKer:MODE " & type
+                Docommand(cmd)
+                Delay(10)
+            Case 3
+
+        End Select
+
+
+
 
 
     End Function
@@ -1160,17 +1427,11 @@
         If RS_Scope = False Then
             'move time: type="VBArs"
             'move volt: type="HBArs"
-
             ts = "CURSOR:" & type & ":POSITION1 " & position1 '& "E+00"
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
             Delay(10)
-
-
             ts = "CURSOR:" & type & ":POSITION2 " & position2 '& "E+00"
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
         Else
             'Defines the position of the vertical cursor line
             'CURSor<m>:X1Position <X1Position>
@@ -1204,13 +1465,43 @@
 
                     ts = "CURSor1:Y2Position" & " " & position2
                     visa_write(RS_Scope_Dev, RS_vi, ts)
-
             End Select
 
 
         End If
 
         Delay(10)
+
+
+        Select Case osc_sel
+            Case 0
+                Select Case type
+                    Case "VBArs"
+                        cmd = String.Format("CURSor1:X1Position {0}", position1)
+                        Docommand(cmd)
+                        Delay(10)
+                        cmd = String.Format("CURSor1:X2Position {0}", position2)
+                        Docommand(cmd)
+                    Case "HBArs"
+                        cmd = String.Format("CURSor1:Y1Position {0}", position1)
+                        Docommand(cmd)
+                        Delay(10)
+                        cmd = String.Format("CURSor1:Y2Position {0}", position2)
+                        Docommand(cmd)
+                End Select
+            Case 1
+                cmd = "CURSOR:" & type & ":POSITION1 " & position1
+                Docommand(cmd)
+                Delay(10)
+                cmd = "CURSOR:" & type & ":POSITION2 " & position2
+                Docommand(cmd)
+            Case 2
+            Case 3
+
+        End Select
+
+
+
 
     End Function
 

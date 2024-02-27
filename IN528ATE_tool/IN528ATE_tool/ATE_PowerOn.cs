@@ -60,7 +60,7 @@ namespace IN528ATE_tool
                 InsControl._scope.CH4_BWLimitOn();
             }
 
-            InsControl._scope.CH2_Level(6);
+            InsControl._scope.CH2_Level(test_parameter.ch2_level);
             InsControl._scope.Trigger_CH1();
             InsControl._scope.TriggerLevel_CH1(test_parameter.trigger_level); // gui trigger level
             InsControl._scope.AutoTrigger();
@@ -103,10 +103,10 @@ namespace IN528ATE_tool
                 RTDev.GpEn_Enable();
             }
 
-            InsControl._scope.CH2_Level(6);
+            InsControl._scope.CH2_Level(test_parameter.ch2_level);
 
-            if (test_parameter.dt_rising_en) InsControl._scope.CH2_Offset(6);
-            else InsControl._scope.CH2_Offset(-6);
+            if (test_parameter.dt_rising_en) InsControl._scope.CH2_Offset(test_parameter.ch2_level);
+            else InsControl._scope.CH2_Offset(test_parameter.ch2_level * -1);
 
 
 

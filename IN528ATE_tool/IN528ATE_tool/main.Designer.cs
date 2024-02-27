@@ -162,6 +162,8 @@ namespace IN528ATE_tool
             this.saveSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.check_ripple_time = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -207,6 +209,7 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.nu_loVout)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -309,7 +312,6 @@ namespace IN528ATE_tool
             this.uibt_run.Symbol = 61515;
             this.uibt_run.TabIndex = 15;
             this.uibt_run.Text = "RUN";
-            this.uibt_run.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_run.Click += new System.EventHandler(this.uibt_run_Click);
             // 
             // uiSymbolButton1
@@ -334,7 +336,6 @@ namespace IN528ATE_tool
             this.uiSymbolButton1.Symbol = 61517;
             this.uiSymbolButton1.TabIndex = 16;
             this.uiSymbolButton1.Text = "STOP";
-            this.uiSymbolButton1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton1.Click += new System.EventHandler(this.uiSymbolButton1_Click);
             // 
             // led_osc
@@ -344,7 +345,6 @@ namespace IN528ATE_tool
             this.led_osc.Size = new System.Drawing.Size(16, 14);
             this.led_osc.TabIndex = 17;
             this.led_osc.Text = "uiLedBulb1";
-            this.led_osc.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_power
             // 
@@ -353,7 +353,6 @@ namespace IN528ATE_tool
             this.led_power.Size = new System.Drawing.Size(16, 14);
             this.led_power.TabIndex = 18;
             this.led_power.Text = "uiLedBulb2";
-            this.led_power.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // led_eload
             // 
@@ -362,7 +361,6 @@ namespace IN528ATE_tool
             this.led_eload.Size = new System.Drawing.Size(16, 14);
             this.led_eload.TabIndex = 19;
             this.led_eload.Text = "uiLedBulb3";
-            this.led_eload.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // nu_eload
             // 
@@ -420,7 +418,6 @@ namespace IN528ATE_tool
             this.uibt_osc_connect.Symbol = 61633;
             this.uibt_osc_connect.TabIndex = 0;
             this.uibt_osc_connect.Text = "OSC Connect";
-            this.uibt_osc_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_osc_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_power_connect
@@ -445,7 +442,6 @@ namespace IN528ATE_tool
             this.uibt_power_connect.Symbol = 61633;
             this.uibt_power_connect.TabIndex = 1;
             this.uibt_power_connect.Text = "Power Connect";
-            this.uibt_power_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_power_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // ui_eload_connect
@@ -470,7 +466,6 @@ namespace IN528ATE_tool
             this.ui_eload_connect.Symbol = 61633;
             this.ui_eload_connect.TabIndex = 2;
             this.ui_eload_connect.Text = "ELoad Connect";
-            this.ui_eload_connect.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.ui_eload_connect.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // uibt_34970
@@ -495,7 +490,6 @@ namespace IN528ATE_tool
             this.uibt_34970.Symbol = 61633;
             this.uibt_34970.TabIndex = 3;
             this.uibt_34970.Text = "34970 Connect";
-            this.uibt_34970.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_34970.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_34970A
@@ -518,7 +512,6 @@ namespace IN528ATE_tool
             this.led_37940.Size = new System.Drawing.Size(16, 14);
             this.led_37940.TabIndex = 27;
             this.led_37940.Text = "uiLedBulb4";
-            this.led_37940.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // cb_item
             // 
@@ -582,7 +575,6 @@ namespace IN528ATE_tool
             this.uibt_chamber.Symbol = 61633;
             this.uibt_chamber.TabIndex = 4;
             this.uibt_chamber.Text = "Chamber Connect";
-            this.uibt_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_chamber.Click += new System.EventHandler(this.uibt_osc_connect_Click);
             // 
             // nu_chamber
@@ -605,7 +597,6 @@ namespace IN528ATE_tool
             this.led_chamber.Size = new System.Drawing.Size(16, 14);
             this.led_chamber.TabIndex = 38;
             this.led_chamber.Text = "uiLedBulb4";
-            this.led_chamber.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label10
             // 
@@ -713,7 +704,6 @@ namespace IN528ATE_tool
             this.uiProcessBar1.Style = Sunny.UI.UIStyle.Custom;
             this.uiProcessBar1.TabIndex = 49;
             this.uiProcessBar1.Text = "uiProcessBar1";
-            this.uiProcessBar1.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             // 
             // label15
             // 
@@ -932,7 +922,6 @@ namespace IN528ATE_tool
             this.uibt_kill.Symbol = 61944;
             this.uibt_kill.TabIndex = 52;
             this.uibt_kill.Text = "Kill Excel";
-            this.uibt_kill.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_kill.Click += new System.EventHandler(this.uibt_kill_Click);
             // 
             // uibut_binfile
@@ -957,7 +946,6 @@ namespace IN528ATE_tool
             this.uibut_binfile.Symbol = 61787;
             this.uibut_binfile.TabIndex = 53;
             this.uibut_binfile.Text = "Bin File";
-            this.uibut_binfile.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibut_binfile.Click += new System.EventHandler(this.uibut_binfile_Click);
             // 
             // uibt_Wavepath
@@ -982,7 +970,6 @@ namespace IN528ATE_tool
             this.uibt_Wavepath.Symbol = 61717;
             this.uibt_Wavepath.TabIndex = 54;
             this.uibt_Wavepath.Text = "Wave Path";
-            this.uibt_Wavepath.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_Wavepath.Click += new System.EventHandler(this.uibt_Wavepath_Click);
             // 
             // uibt_specify
@@ -1007,7 +994,6 @@ namespace IN528ATE_tool
             this.uibt_specify.Symbol = 61462;
             this.uibt_specify.TabIndex = 55;
             this.uibt_specify.Text = "Specify Bin";
-            this.uibt_specify.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_specify.Click += new System.EventHandler(this.uibt_specify_Click);
             // 
             // openFileDialog1
@@ -1085,7 +1071,6 @@ namespace IN528ATE_tool
             this.uiSymbolButton2.Symbol = 261912;
             this.uiSymbolButton2.TabIndex = 59;
             this.uiSymbolButton2.Text = "Debug";
-            this.uiSymbolButton2.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uiSymbolButton2.Click += new System.EventHandler(this.uiSymbolButton2_Click);
             // 
             // uibt_pause
@@ -1110,7 +1095,6 @@ namespace IN528ATE_tool
             this.uibt_pause.Symbol = 61516;
             this.uibt_pause.TabIndex = 60;
             this.uibt_pause.Text = "Pause";
-            this.uibt_pause.ZoomScaleRect = new System.Drawing.Rectangle(0, 0, 0, 0);
             this.uibt_pause.Click += new System.EventHandler(this.uibt_pause_Click);
             // 
             // nu_offtime_scale
@@ -1642,14 +1626,16 @@ namespace IN528ATE_tool
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.ck_sst_define);
+            this.tabPage2.Controls.Add(this.nu_ch2_level);
             this.tabPage2.Controls.Add(this.ck_negvol);
             this.tabPage2.Controls.Add(this.groupBox10);
             this.tabPage2.Controls.Add(this.groupBox7);
-            this.tabPage2.Location = new System.Drawing.Point(4, 30);
+            this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(320, 322);
+            this.tabPage2.Size = new System.Drawing.Size(320, 328);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "SST Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1941,6 +1927,29 @@ namespace IN528ATE_tool
             this.check_ripple_time.Text = "Ripple Time Scale Manual Fixed";
             this.check_ripple_time.UseVisualStyleBackColor = true;
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(170, 33);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(77, 15);
+            this.label36.TabIndex = 85;
+            this.label36.Text = "CH2 Level (V)";
+            // 
+            // nu_ch2_level
+            // 
+            this.nu_ch2_level.DecimalPlaces = 2;
+            this.nu_ch2_level.Location = new System.Drawing.Point(173, 51);
+            this.nu_ch2_level.Name = "nu_ch2_level";
+            this.nu_ch2_level.Size = new System.Drawing.Size(66, 23);
+            this.nu_ch2_level.TabIndex = 84;
+            this.nu_ch2_level.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_ch2_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
             // main
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -2074,6 +2083,7 @@ namespace IN528ATE_tool
             this.groupBox9.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2213,6 +2223,8 @@ namespace IN528ATE_tool
         private System.Windows.Forms.CheckBox ck_negvol;
         private System.Windows.Forms.CheckBox ck_sst_define;
         private System.Windows.Forms.CheckBox check_ripple_time;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.NumericUpDown nu_ch2_level;
     }
 }
 

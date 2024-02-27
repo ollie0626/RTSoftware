@@ -8,6 +8,9 @@ namespace IN528ATE_tool
 {
     static public class test_parameter
     {
+        public static double ch2_level;
+
+
         public static List<double> VinList = new List<double>();
         public static List<double> IoutList = new List<double>();
         public static string binFolder;
