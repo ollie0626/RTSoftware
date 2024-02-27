@@ -57,10 +57,16 @@ namespace SoftStartTiming
             this.nuTimeScale = new System.Windows.Forms.NumericUpDown();
             this.BT_LoadSetting = new System.Windows.Forms.Button();
             this.BT_SaveSetting = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.num_Iin_detect = new System.Windows.Forms.NumericUpDown();
+            this.num_detect_cnt = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nuslave)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuTimeScale)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Iin_detect)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_detect_cnt)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -354,12 +360,82 @@ namespace SoftStartTiming
             this.BT_SaveSetting.UseVisualStyleBackColor = true;
             this.BT_SaveSetting.Click += new System.EventHandler(this.BT_SaveSetting_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(384, 155);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(94, 12);
+            this.label3.TabIndex = 167;
+            this.label3.Text = "Iin(A) Compare";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(384, 194);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(75, 12);
+            this.label4.TabIndex = 168;
+            this.label4.Text = "Detect count";
+            // 
+            // num_Iin_detect
+            // 
+            this.num_Iin_detect.DecimalPlaces = 3;
+            this.num_Iin_detect.Location = new System.Drawing.Point(484, 153);
+            this.num_Iin_detect.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.num_Iin_detect.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_Iin_detect.Name = "num_Iin_detect";
+            this.num_Iin_detect.Size = new System.Drawing.Size(120, 22);
+            this.num_Iin_detect.TabIndex = 169;
+            this.num_Iin_detect.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_Iin_detect.Visible = false;
+            // 
+            // num_detect_cnt
+            // 
+            this.num_detect_cnt.DecimalPlaces = 3;
+            this.num_detect_cnt.Location = new System.Drawing.Point(484, 192);
+            this.num_detect_cnt.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
+            this.num_detect_cnt.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_detect_cnt.Name = "num_detect_cnt";
+            this.num_detect_cnt.Size = new System.Drawing.Size(120, 22);
+            this.num_detect_cnt.TabIndex = 170;
+            this.num_detect_cnt.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.num_detect_cnt.Visible = false;
+            // 
             // LTLab
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Silver;
             this.ClientSize = new System.Drawing.Size(731, 483);
+            this.Controls.Add(this.num_detect_cnt);
+            this.Controls.Add(this.num_Iin_detect);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.BT_LoadSetting);
             this.Controls.Add(this.BT_SaveSetting);
             this.Controls.Add(this.nuTimeScale);
@@ -393,6 +469,8 @@ namespace SoftStartTiming
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nuTimeScale)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_Iin_detect)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.num_detect_cnt)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -428,5 +506,9 @@ namespace SoftStartTiming
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.Button BT_LoadSetting;
         private System.Windows.Forms.Button BT_SaveSetting;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown num_Iin_detect;
+        private System.Windows.Forms.NumericUpDown num_detect_cnt;
     }
 }

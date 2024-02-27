@@ -127,6 +127,7 @@ namespace SoftStartTiming
                                             test_parameter.lt_lab.vout_list[i2c_idx],
                                             test_parameter.lt_lab.addr_list[i2c_idx],
                                             test_parameter.lt_lab.data_list[i2c_idx]);
+                InsControl._oscilloscope.SetTriggerLevel(1, test_parameter.lt_lab.vout_list[i2c_idx]);
                 if(i2c_idx != 0)  _sheet = (Excel.Worksheet)_book.Worksheets.Add();
                 _sheet.Name = sheet_name;
                 _sheet.Cells[row, XLS_Table.A] = "Vin (V)";
@@ -149,6 +150,7 @@ namespace SoftStartTiming
 
                 while (I2C_Check(i2c_idx))
                 {
+                    int detect_cnt = 0;
                     //InsControl._oscilloscope.SetTimeScale(50 * Math.Pow(10, -9));
                     //CHxResize(i2c_idx);
                     //InsControl._oscilloscope.SetPERSistence();
@@ -185,6 +187,13 @@ namespace SoftStartTiming
                     _sheet.Cells[row, XLS_Table.H] = ifreq;         // Iout freq
                     row++;
 #endif
+
+                    if (Iin < test_parameter.lt_lab.Iin_compare)
+                    {
+                        detect_cnt++;
+                        if (detect_cnt > test_parameter.lt_lab.detect_cnt) break;
+                    }
+
                     #endregion
                 };
                 //"MEASUrement:STATIstics:COUNt RESET"
