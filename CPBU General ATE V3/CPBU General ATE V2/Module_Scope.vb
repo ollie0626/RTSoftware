@@ -1,4 +1,7 @@
-﻿Module Module_Scope
+﻿
+Imports System.Text
+
+Module Module_Scope
 
     ' scope sel option
     ' 0: R&S
@@ -142,6 +145,36 @@
             res = Val(Mid(visa_response, 1, retcount - 1))
         Else
             res = 0
+        End If
+
+        Return res
+    End Function
+
+    Function DoQueryString(ByVal cmd As String) As String
+        Dim res As String = ""
+        Dim Dev As String = RS_Scope_Dev
+        Dim vi As Integer
+
+        Select Case osc_sel
+            Case 0
+                Dev = RS_Scope_Dev
+                vi = RS_vi
+            Case 1
+                Dev = Tek_Dev
+                vi = Tek_vi
+            Case 2
+                Dev = Agilent_Dev
+                vi = Agilent_vi
+            Case 3
+                Dev = MSO_Dev
+                vi = MSO_vi
+        End Select
+
+        visa_write(Dev, vi, cmd)
+        visa_status = viRead(vi, visa_response, Len(visa_response), retcount)
+        'res = Encoding.ASCII.GetString(visa_response, 0, retcount)
+        If (retcount > 0) Then
+            res = Mid(visa_response, 1, retcount - 1)
         End If
 
         Return res
@@ -688,11 +721,6 @@
 
         End Select
         Docommand(cmd)
-
-
-
-
-
     End Function
 
     'Function RS_CHx_position(ByVal source_num As Integer, ByVal value As Double) As Double
@@ -1120,18 +1148,20 @@
             Case 0
                 cmd = "ACQuire:POINts:AUTO RESolution"
                 Docommand(cmd)
+                Delay(10)
                 cmd = String.Format("ACQuire:SRATe {0}", unit_value)
                 Docommand(cmd)
             Case 1
                 cmd = String.Format("HORizontal:MODE:SAMPLERate {0}", unit_value)
                 Docommand(cmd)
+                Delay(10)
                 cmd = "HORizontal:MODE AUTO"
                 Docommand(cmd)
             Case 2
                 ' need to test
                 cmd = String.Format(":ACQuire:SRATe:ANALog {0}", unit_value)
                 Docommand(cmd)
-
+                Delay(10)
                 cmd = ":ACQuire:SRATe:ANALog:AUTO ON"
                 Docommand(cmd)
 
@@ -1210,13 +1240,9 @@
     'End Function
 
     Function RS_H_position_reference(ByVal value As Integer) As Double
-
         '"TIMebase:REFerence 50 ":讓H_Positopn的位置在示波器50%的位置
-
         ts = "TIMebase:REFerence" & " " & value
         visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
     End Function
 
 
@@ -1242,9 +1268,7 @@
                 cmd = String.Format(":MARKer:MODE {0}", ONOFF)
             Case 3
         End Select
-
         Docommand(cmd)
-
     End Function
 
 
@@ -1263,97 +1287,65 @@
             visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
             ONOFF = Val(Mid(visa_response, 1, (retcount - 1)))
         End If
-
-
         If ONOFF = 1 Then
             Return True
         Else
             Return False
         End If
-
-
     End Function
 
 
 
     Function Cursor_set(ByVal type As String, ByVal x1 As Integer, ByVal x2 As Integer) As Integer
-        If RS_Scope = False Then
-            'This command sets or queries the cursor type.
-            'CURSor:FUNCtion {OFF|HBArs|VBArs|SCREEN|WAVEform}
-            'OFF removes the cursors from the display but does not change the cursor type.
-            'HBArs specifies horizontal bar cursors, which measure in vertical units. 
-            'VBArs specifies vertical bar cursors, which measure in horizontal units. 
+        'If RS_Scope = False Then
+        '    'This command sets or queries the cursor type.
+        '    'CURSor:FUNCtion {OFF|HBArs|VBArs|SCREEN|WAVEform}
+        '    'OFF removes the cursors from the display but does not change the cursor type.
+        '    'HBArs specifies horizontal bar cursors, which measure in vertical units. 
+        '    'VBArs specifies vertical bar cursors, which measure in horizontal units. 
+        '    'This command sets or queries the source(s) for the currently selected cursor type.
+        '    'CURSor:SOUrce<x> {CH<x>|MATH<x>|REF<x>}
+        '    'This command sets or queries the cursor type for Screen mode.
+        '    'CURSor:SCREEN:STYle {LINE_X|LINES|X}
+        '    'LINES specifies the cursor style to be a line.
+        '    'LINE_X specifies the cursor style to be a line with superimposed X.
+        '    'X specifies the cursor style to be an X.
 
+        '    'type=OFF|HBArs|VBArs|SCREEN|WAVEform
+        '    ts = "CURSor:FUNCtion " & type
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "CURSor:SOUrce1 " & "CH" & x1
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "CURSor:SOUrce2 " & "CH" & x2
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'Set cursor on or off
+        '    'CURSor<m>:STATe <state>
+        '    'm:1 ,2 ; <state>: ON/OFF
 
-            'This command sets or queries the source(s) for the currently selected cursor type.
-            'CURSor:SOUrce<x> {CH<x>|MATH<x>|REF<x>}
+        '    'Defines the type of the indicated cursor set.
+        '    'CURSor<m>:FUNCtion <Type>
+        '    'm:1 ,2 ; <type>: HORizontal/VERTical/PALRed(both HORizontal and VERTical cursor line pairs)
 
-            'This command sets or queries the cursor type for Screen mode.
-            'CURSor:SCREEN:STYle {LINE_X|LINES|X}
-            'LINES specifies the cursor style to be a line.
-            'LINE_X specifies the cursor style to be a line with superimposed X.
-            'X specifies the cursor style to be an X.
-
-            'type=OFF|HBArs|VBArs|SCREEN|WAVEform
-
-
-
-            ts = "CURSor:FUNCtion " & type
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-            ts = "CURSor:SOUrce1 " & "CH" & x1
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            ts = "CURSor:SOUrce2 " & "CH" & x2
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-
-
-        Else
-            'Set cursor on or off
-            'CURSor<m>:STATe <state>
-            'm:1 ,2 ; <state>: ON/OFF
-
-            'Defines the type of the indicated cursor set.
-            'CURSor<m>:FUNCtion <Type>
-            'm:1 ,2 ; <type>: HORizontal/VERTical/PALRed(both HORizontal and VERTical cursor line pairs)
-
-            'Defines thr source of the cursor measurement.
-            'CURSor<m>:SOURce <cursorsource>
-            'm:1 ,2 ;<cursorsource>: C1W1＞set CH1,C2W1＞set CH2,C3W1>set CH3,C4W1＞set CH4
-
-            Select Case type
-
-                Case "VBArs"
-
-                    ts = "CURSor1:FUNCtion VERTical"
-
-                Case "HBArs"
-
-                    ts = "CURSor1:FUNCtion HORizontal"
-
-
-                Case "SCREEN"
-
-                    ts = "CURSor1:FUNCtion PALRed"
-
-            End Select
-
-
-
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            Delay(10)
-
-            ts = "CURSor1:SOURce C" & x1 & "W1"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            'ts = "CURSor1:STATe " & " " & ONOFF
-            'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
-            Delay(10)
-        End If
+        '    'Defines thr source of the cursor measurement.
+        '    'CURSor<m>:SOURce <cursorsource>
+        '    'm:1 ,2 ;<cursorsource>: C1W1＞set CH1,C2W1＞set CH2,C3W1>set CH3,C4W1＞set CH4
+        '    Select Case type
+        '        Case "VBArs"
+        '            ts = "CURSor1:FUNCtion VERTical"
+        '        Case "HBArs"
+        '            ts = "CURSor1:FUNCtion HORizontal"
+        '        Case "SCREEN"
+        '            ts = "CURSor1:FUNCtion PALRed"
+        '    End Select
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    Delay(10)
+        '    ts = "CURSor1:SOURce C" & x1 & "W1"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    'ts = "CURSor1:STATe " & " " & ONOFF
+        '    'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
+        '    Delay(10)
+        'End If
 
         ' need to check function application
         Select Case osc_sel
@@ -1552,36 +1544,33 @@
 
     'End Function
     Function RS_Cursor_track(ByVal ONOFF As String) As Integer
-
-
         ts = "CURSor1:TRACKing " & ONOFF
         visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
     End Function
+
     Function Cursor_delta(ByVal type As String) As Double
         Dim delta As String = ""
-        If RS_Scope = False Then
-            'move time: type="VBArs"
-            'move volt: type="HBArs"
-            ts = "CURSor:" & type & ":DELTa?"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
-            If ibcntl > 0 Then
-                Cursor_delta = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-            End If
-        Else
-            Select Case type
-                Case "VBArs"
-                    delta = ":XDELta?"
-                Case "HBArs"
-                    delta = ":YDELta?"
-            End Select
-            ts = "CURSor1" & delta
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            Cursor_delta = Val(Mid(visa_response, 1, (retcount - 1)))
-        End If
+        'If RS_Scope = False Then
+        '    'move time: type="VBArs"
+        '    'move volt: type="HBArs"
+        '    ts = "CURSor:" & type & ":DELTa?"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+        '    If ibcntl > 0 Then
+        '        Cursor_delta = Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '    End If
+        'Else
+        '    Select Case type
+        '        Case "VBArs"
+        '            delta = ":XDELta?"
+        '        Case "HBArs"
+        '            delta = ":YDELta?"
+        '    End Select
+        '    ts = "CURSor1" & delta
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    Cursor_delta = Val(Mid(visa_response, 1, (retcount - 1)))
+        'End If
 
 
         Select Case osc_sel
@@ -1662,74 +1651,75 @@
 
     End Function
     Function Trigger_set(ByVal source_num As Integer, ByVal edge As String, ByVal level As Double) As Integer
-        If RS_Scope = False Then
-            'This command sets or queries the type of coupling for the edge trigger.
-            'TRIGger:{A|B}:EDGE:COUPling {AC|DC|HFRej|LFRej|NOISErej|ATRIGger}
 
-            'This command sets or queries the slope for the edge trigger.
-            'TRIGger:{A|B}:EDGE:SLOpe {RISe|FALL|EITher}
+        'If RS_Scope = False Then
+        '    'This command sets or queries the type of coupling for the edge trigger.
+        '    'TRIGger:{A|B}:EDGE:COUPling {AC|DC|HFRej|LFRej|NOISErej|ATRIGger}
 
-            'This command sets or queries the source for the edge trigger.
-            'TRIGger:{A|B}:EDGE:SOUrce {AUXiliary|CH<x>|LINE}
+        '    'This command sets or queries the slope for the edge trigger.
+        '    'TRIGger:{A|B}:EDGE:SLOpe {RISe|FALL|EITher}
 
-            'This command sets or queries the level for the trigger.
-            'TRIGger:{A|B}:LEVel {ECL|TTL|<NR3>}
-            '<NR3> specifies the trigger level in user units (usually volts).
+        '    'This command sets or queries the source for the edge trigger.
+        '    'TRIGger:{A|B}:EDGE:SOUrce {AUXiliary|CH<x>|LINE}
 
-            ts = "TRIGger:A:EDGE:COUPling DC"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    'This command sets or queries the level for the trigger.
+        '    'TRIGger:{A|B}:LEVel {ECL|TTL|<NR3>}
+        '    '<NR3> specifies the trigger level in user units (usually volts).
 
-            If edge = "R" Then
-                ts = "TRIGger:A:EDGE:SLOpe RISe"
-            ElseIf edge = "F" Then
-                ts = "TRIGger:A:EDGE:SLOpe FALL"
-            End If
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "TRIGger:A:EDGE:COUPling DC"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-            ts = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    If edge = "R" Then
+        '        ts = "TRIGger:A:EDGE:SLOpe RISe"
+        '    ElseIf edge = "F" Then
+        '        ts = "TRIGger:A:EDGE:SLOpe FALL"
+        '    End If
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-
-            ts = "TRIGger:A:LEVel " & level & "E+00"
-
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-        Else
-            'Selects the trigger type to trigger on analog channels
-            'TRIGger<m>:TYPE <Type>
-            '<Type>:EDGE/GLITch/WIDTh
-
-            'Selects the source of the trigger signal
-            'TRIGger<m>:SOURce <SOURce>
-            '<SOURce>:CHAN1/CHAN2/CHAN3/CHAN4
-
-            'Define the edge for the edge trigger event
-            'TRIGger<m>:EDGE:SLOPe <SLOPe>
-            '<SLOPe>:POSitive/NEGative/EITHer
-
-            'Sets the trigger level for the specofoed event and source
-            'TRIGger<m>:LEVel<n> <Level>
-            '<Level>:range -10 to 10 ,default unit:V
-            '<n>:1>set CH1 ,2>set CH2 ,3>set CH3,4>set CH4
+        '    ts = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
 
-            ts = "TRIGger1:TYPE EDGE"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "TRIGger:A:LEVel " & level & "E+00"
 
-            If edge = "R" Then
-                ts = "TRIGger1:EDGE:SLOPe POSitive"
-            ElseIf edge = "F" Then
-                ts = "TRIGger1:EDGE:SLOPe NEGative"
-            End If
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-            ts = "TRIGger1:SOURce" & " " & "CHAN" & source_num
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        'Else
+        '    'Selects the trigger type to trigger on analog channels
+        '    'TRIGger<m>:TYPE <Type>
+        '    '<Type>:EDGE/GLITch/WIDTh
+
+        '    'Selects the source of the trigger signal
+        '    'TRIGger<m>:SOURce <SOURce>
+        '    '<SOURce>:CHAN1/CHAN2/CHAN3/CHAN4
+
+        '    'Define the edge for the edge trigger event
+        '    'TRIGger<m>:EDGE:SLOPe <SLOPe>
+        '    '<SLOPe>:POSitive/NEGative/EITHer
+
+        '    'Sets the trigger level for the specofoed event and source
+        '    'TRIGger<m>:LEVel<n> <Level>
+        '    '<Level>:range -10 to 10 ,default unit:V
+        '    '<n>:1>set CH1 ,2>set CH2 ,3>set CH3,4>set CH4
 
 
-            ts = "TRIGger1:LEVel" & source_num & " " & level
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    ts = "TRIGger1:TYPE EDGE"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+        '    If edge = "R" Then
+        '        ts = "TRIGger1:EDGE:SLOPe POSitive"
+        '    ElseIf edge = "F" Then
+        '        ts = "TRIGger1:EDGE:SLOPe NEGative"
+        '    End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+        '    ts = "TRIGger1:SOURce" & " " & "CHAN" & source_num
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+
+        '    ts = "TRIGger1:LEVel" & source_num & " " & level
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
         Select Case osc_sel
@@ -1775,9 +1765,9 @@
                 Delay(10)
 
                 If edge = "R" Then
-                    cmd = ":TRIGger:EDGE1:SLOPe POSitive"
+                    cmd = ":TRIGger:EDGE:SLOPe POSitive"
                 ElseIf edge = "F" Then
-                    cmd = ":TRIGger:EDGE1:SLOPe NEGative"
+                    cmd = ":TRIGger:EDGE:SLOPe NEGative"
                 End If
                 Docommand(cmd)
                 cmd = String.Format(":TRIGger:LEVel CHANnel{0}, {1}", source_num, level)
@@ -1870,9 +1860,9 @@
                 cmd = String.Format(":TRIGger:EDGE1:SOURce CHANnel{0}", source_num)
                 Docommand(cmd)
                 If edge = "R" Then
-                    cmd = ":TRIGger:EDGE1:SLOPe POSitive"
+                    cmd = ":TRIGger:EDGE:SLOPe POSitive"
                 ElseIf edge = "F" Then
-                    cmd = ":TRIGger:EDGE1:SLOPe NEGative"
+                    cmd = ":TRIGger:EDGE:SLOPe NEGative"
                 End If
                 Docommand(cmd)
             Case 3
@@ -1941,22 +1931,38 @@
     'End Function
 
     Function Trigger_timeout_set(ByVal source_num As Integer, ByVal HL As String) As Integer
-        If RS_Scope = False Then
-            'This command sets or queries the polarity for the A or B pulse timeout trigger for the channel.
-            'TRIGger:{A|B}:PULse:TIMEOut:POLarity:CH<x> {STAYSHigh|STAYSLow|EITher}
+        'If RS_Scope = False Then
+        '    'This command sets or queries the polarity for the A or B pulse timeout trigger for the channel.
+        '    'TRIGger:{A|B}:PULse:TIMEOut:POLarity:CH<x> {STAYSHigh|STAYSLow|EITher}
 
-            If HL = "H" Then
-                ts = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSHigh"
-            Else
+        '    If HL = "H" Then
+        '        ts = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSHigh"
+        '    Else
 
-                ts = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSLow"
+        '        ts = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSLow"
 
-            End If
+        '    End If
 
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
 
-        End If
+        'End If
+
+        Select Case osc_sel
+            Case 0
+                If HL = "H" Then
+                    cmd = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSHigh"
+                Else
+                    cmd = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSLow"
+                End If
+                Docommand(cmd)
+            Case 1
+            Case 2
+            Case 3
+
+        End Select
+
+
 
 
     End Function
@@ -1981,39 +1987,64 @@
                 temp = temp & "E-0"
         End Select
 
-        If RS_Scope = False Then
-            'This command sets or queries the type of trigger.
-            'TRIGger:A:TYPe {EDGE|LOGIc|PULse|VIDeo|I2C|CAN|SPI|COMMunication|SERIAL|RS232}}
 
-            'This command sets or queries the source for the pulse trigger.
-            'TRIGger:{A|B}:PULse:SOUrce CH<x>
+        Select Case osc_sel
+            Case 0
+                cmd = "TRIGger1:TIMeout:TIME " & temp
+                Docommand(cmd)
+            Case 1
+                cmd = "TRIGger:A:TYPe PULse"
+                Docommand(cmd)
+                cmd = "TRIGger:A:PULse:SOUrce " & "CH" & source_num
+                Docommand(cmd)
+                cmd = "TRIGger:A:PULse:TIMEOut:QUAlify OCCurs"
+                Docommand(cmd)
+                cmd = "TRIGger:A:PULse:TIMEOut:TIMe " & temp
+                Docommand(cmd)
+            Case 2
+                cmd = ":TRIGger:TIMeout1:CONDition HIGH"
+                Docommand(cmd)
 
-            'This command sets or queries the Timeout Trigger qualification.
-            'TRIGger:{A|B}:PULse:TIMEOut:QUAlify {OCCurs|LOGIc}
+                cmd = ":TRIGger:TIMeout:SOURce CHANnel" & source_num
+                Docommand(cmd)
 
-            'This command sets or queries the pulse timeout trigger time (measured in seconds).
-            'TRIGger:{A|B}:PULse:TIMEOut:TIMe <NR3>
-            '<NR3> argument specifies the timeout period in seconds.
+                cmd = ":TRIGger:TIMeout:TIME " & temp
+                Docommand(cmd)
+            Case 3
 
-
-
-            ts = "TRIGger:A:TYPe PULse"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        End Select
 
 
-            ts = "TRIGger:A:PULse:SOUrce " & "CH" & source_num
 
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'If RS_Scope = False Then
+        '    'This command sets or queries the type of trigger.
+        '    'TRIGger:A:TYPe {EDGE|LOGIc|PULse|VIDeo|I2C|CAN|SPI|COMMunication|SERIAL|RS232}}
 
-            ts = "TRIGger:A:PULse:TIMEOut:QUAlify OCCurs"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    'This command sets or queries the source for the pulse trigger.
+        '    'TRIGger:{A|B}:PULse:SOUrce CH<x>
 
-            ts = "TRIGger:A:PULse:TIMEOut:TIMe " & temp
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            ts = "TRIGger1:TIMeout:TIME " & temp
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    'This command sets or queries the Timeout Trigger qualification.
+        '    'TRIGger:{A|B}:PULse:TIMEOut:QUAlify {OCCurs|LOGIc}
+
+        '    'This command sets or queries the pulse timeout trigger time (measured in seconds).
+        '    'TRIGger:{A|B}:PULse:TIMEOut:TIMe <NR3>
+        '    '<NR3> argument specifies the timeout period in seconds.
+
+        '    ts = "TRIGger:A:TYPe PULse"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "TRIGger:A:PULse:SOUrce " & "CH" & source_num
+
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = "TRIGger:A:PULse:TIMEOut:QUAlify OCCurs"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = "TRIGger:A:PULse:TIMEOut:TIMe " & temp
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    ts = "TRIGger1:TIMeout:TIME " & temp
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
     End Function
@@ -2098,36 +2129,42 @@
                 cmd = "ACQuire:STOPAfter " & mode
                 Docommand(cmd)
             Case 2
-
+                ' single and auto setting
+                If mode = "SEQuence" Then
+                    cmd = ":TRIGger:SWEep SINGle"
+                Else
+                    cmd = "TRIGger:SWEep AUTO"
+                End If
+                Docommand(cmd)
             Case 3
 
         End Select
 
 
-        If RS_Scope = False Then
-            'This command sets or queries the acquisition mode of the instrument.
-            'ACQuire:MODe{SAMple|PEAKdetect|HIRes|AVErage|ENVelope}
-            'SAMple specifies that the displayed data point value is the first sampled value that is taken during the acquisition interval.
-            'This command sets or queries whether the instrument continually acquires acquisitions or acquires a single sequence.
-            'ACQuire:STOPAfter {RUNSTop|SEQuence}
-            ts = "ACQuire:MODE SAMple"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ts = "ACQuire:STOPAfter " & mode
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command  sets a single sequence.
-            'Pressing "RUN Nx SINGLE" on the front panel button is equivalent to sending this command
-            '要先設定"TRIGger1:MODE NORMal",才能設定"SINGle"
-            If mode = "SEQuence" Then
-                'ts = "SINGle"
-                ts = "ACQuire:COUNt 1"
-            Else
-                'ts = "RUN"
-                ts = "ACQuire:COUNt MAX"
-            End If
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            Delay(10)
-        End If
+        'If RS_Scope = False Then
+        '    'This command sets or queries the acquisition mode of the instrument.
+        '    'ACQuire:MODe{SAMple|PEAKdetect|HIRes|AVErage|ENVelope}
+        '    'SAMple specifies that the displayed data point value is the first sampled value that is taken during the acquisition interval.
+        '    'This command sets or queries whether the instrument continually acquires acquisitions or acquires a single sequence.
+        '    'ACQuire:STOPAfter {RUNSTop|SEQuence}
+        '    ts = "ACQuire:MODE SAMple"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "ACQuire:STOPAfter " & mode
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command  sets a single sequence.
+        '    'Pressing "RUN Nx SINGLE" on the front panel button is equivalent to sending this command
+        '    '要先設定"TRIGger1:MODE NORMal",才能設定"SINGle"
+        '    If mode = "SEQuence" Then
+        '        'ts = "SINGle"
+        '        ts = "ACQuire:COUNt 1"
+        '    Else
+        '        'ts = "RUN"
+        '        ts = "ACQuire:COUNt MAX"
+        '    End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    Delay(10)
+        'End If
 
     End Function
 
@@ -2143,46 +2180,62 @@
 
     Function Scope_RUN(ByVal ONOFF As Boolean) As Integer
         Dim temp As String
-        If RS_Scope = False Then
-            'This command starts or stops acquisitions.
-            'ACQuire:STATE {OFF|ON|RUN|STOP|<NR1>}
-            'OFF stops acquisitions.
-            'STOP stops acquisitions.
-            'ON starts acquisitions.
-            'RUN starts acquisitions.
+        'If RS_Scope = False Then
+        '    'This command starts or stops acquisitions.
+        '    'ACQuire:STATE {OFF|ON|RUN|STOP|<NR1>}
+        '    'OFF stops acquisitions.
+        '    'STOP stops acquisitions.
+        '    'ON starts acquisitions.
+        '    'RUN starts acquisitions.
+        '    If ONOFF = True Then
+        '        ts = "ACQuire:STATE RUN"
+        '    Else
+        '        ts = "ACQuire:STATE STOP"
+        '    End If
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'Else
+        '    'This command starts or stops acquisitions.
+        '    'ACQuire:STATE {OFF|ON|RUN|STOP|<NR1>}
+        '    'OFF stops acquisitions.
+        '    'STOP stops acquisitions.
+        '    'ON starts acquisitions.
+        '    'RUN starts acquisitions.
+        '    If ONOFF = True Then
+        '        'ts = "RUN"
+        '        ts = "RUNSingle" ';*OPC?"
+        '    Else
+        '        ts = "STOP;*OPC?"
+        '    End If
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    '  Delay(10)
+        'End If
 
-            If ONOFF = True Then
-                ts = "ACQuire:STATE RUN"
-            Else
-                ts = "ACQuire:STATE STOP"
-            End If
+        Select Case osc_sel
+            Case 0
+                If ONOFF = True Then
+                    cmd = "RUNSingle" ';*OPC?"
+                Else
+                    cmd = "STOP;*OPC?"
+                End If
+                Docommand(cmd)
+            Case 1
+                If ONOFF = True Then
+                    cmd = "ACQuire:STATE RUN"
+                Else
+                    cmd = "ACQuire:STATE STOP"
+                End If
+                Docommand(cmd)
+            Case 2
+                If ONOFF = True Then
+                    cmd = ":RUN"
+                Else
+                    cmd = ":STOP"
+                End If
+                Docommand(cmd)
+            Case 3
 
+        End Select
 
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        Else
-            'This command starts or stops acquisitions.
-            'ACQuire:STATE {OFF|ON|RUN|STOP|<NR1>}
-            'OFF stops acquisitions.
-            'STOP stops acquisitions.
-            'ON starts acquisitions.
-            'RUN starts acquisitions.
-
-            If ONOFF = True Then
-                'ts = "RUN"
-                ts = "RUNSingle" ';*OPC?"
-            Else
-                ts = "STOP;*OPC?"
-            End If
-
-
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            '  Delay(10)
-
-
-
-        End If
-
-        'Delay(10)
 
 
     End Function
@@ -2211,37 +2264,63 @@
         Dim status As String = ""
         Dim temp As Integer
 
+        'If RS_Scope = False Then
+        '    ts = "ACQuire:STATE?"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        '    ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
 
-        If RS_Scope = False Then
+        '    If ibcntl > 0 Then
+        '        temp = Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '    End If
+        '    If temp = 0 Or temp = 2 Then
+        '        status = "Stopping"
+        '    ElseIf temp = 1 Or temp = 3 Then
+        '        status = "Running"
+        '    End If
+        'Else
+        '    ts = "ACQuire:CURRent?"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    If retcount > 0 Then
+        '        temp = Val(Mid(visa_response, 1, retcount - 1))
+        '        If temp = 1 Then
+        '            status = "Stopping"
+        '        ElseIf temp = 0 Then
+        '            status = "Running"
+        '        End If
+        '    End If
+        'End If
 
-            ts = "ACQuire:STATE?"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-            ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
 
-            If ibcntl > 0 Then
-                temp = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-            End If
-            If temp = 0 Or temp = 2 Then
-                status = "Stopping"
-            ElseIf temp = 1 Or temp = 3 Then
-                status = "Running"
-            End If
-        Else
-
-            ts = "ACQuire:CURRent?"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            If retcount > 0 Then
-                temp = Val(Mid(visa_response, 1, retcount - 1))
+        Select Case osc_sel
+            Case 0
+                cmd = "ACQuire:CURRent?"
+                temp = DoQueryNumber(cmd)
                 If temp = 1 Then
                     status = "Stopping"
                 ElseIf temp = 0 Then
                     status = "Running"
                 End If
-            End If
+            Case 1
+                cmd = "ACQuire:STATE?"
+                temp = DoQueryNumber(cmd)
+                If temp = 0 Or temp = 2 Then
+                    status = "Stopping"
+                ElseIf temp = 1 Or temp = 3 Then
+                    status = "Running"
+                End If
+            Case 2
+                cmd = ":RSTate?"
+                temp = DoQueryString(cmd)
+                If temp = "RUN" Then
+                    status = "Running"
+                Else temp = "STOP"
+                    status = "Stopping"
+                End If
+            Case 3
 
-        End If
+        End Select
 
 
 
