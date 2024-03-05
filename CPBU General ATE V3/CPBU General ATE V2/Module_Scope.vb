@@ -2311,6 +2311,7 @@ Module Module_Scope
                     status = "Running"
                 End If
             Case 2
+                ' need to test
                 cmd = ":RSTate?"
                 temp = DoQueryString(cmd)
                 If temp = "RUN" Then
@@ -2354,22 +2355,44 @@ Module Module_Scope
             Scope_RUN(False)
             'RS_View()
         End If
-        For i = 1 To 8
+        'For i = 1 To 8
 
-            If RS_Scope = False Then
-                'This command sets or queries whether the specified measurement slot is computed and displayed.
-                'MEASUrement:MEAS<x>:STATE {OFF|ON|<NR1>}
-                ts = "MEASUrement:MEAS" & i & ":STATE " & "OFF"
-                ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Else
-                'This command sets or queries whether the specified measurement slot is computed and displayed.
-                'MEASurement<m> {OFF|ON}
-                ts = "MEASurement" & i & " " & "OFF"
-                visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    If RS_Scope = False Then
+        '        'This command sets or queries whether the specified measurement slot is computed and displayed.
+        '        'MEASUrement:MEAS<x>:STATE {OFF|ON|<NR1>}
+        '        ts = "MEASUrement:MEAS" & i & ":STATE " & "OFF"
+        '        ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Else
+        '        'This command sets or queries whether the specified measurement slot is computed and displayed.
+        '        'MEASurement<m> {OFF|ON}
+        '        ts = "MEASurement" & i & " " & "OFF"
+        '        visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    End If
+        '    Delay(10)
+        'Next
 
-            End If
-            Delay(10)
-        Next
+
+        Select Case osc_sel
+            Case 0
+                For i = 1 To 8
+                    cmd = "MEASurement" & i & " " & "OFF"
+                    Docommand(cmd)
+                    Delay(10)
+                Next
+            Case 1
+                For i = 1 To 8
+                    cmd = "MEASUrement:MEAS" & i & ":STATE " & "OFF"
+                    Docommand(cmd)
+                    Delay(10)
+                Next
+            Case 2
+                cmd = ":MEASure:CLEar"
+                Docommand(cmd)
+            Case 3
+
+        End Select
+
+
 
 
 
@@ -2380,20 +2403,13 @@ Module Module_Scope
     Function RS_Scope_measure_status(ByVal num As Integer, ByVal Status_ON As Boolean) As Integer
         'This command sets or queries whether the specified measurement slot is computed and displayed.
         'MEASurement<m> {OFF|ON}
-
         If Status_ON = True Then
             ts = "MEASurement" & num & " ON"
         Else
             ts = "MEASurement" & num & " OFF "
         End If
-
-
         visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
         Delay(10)
-
-
     End Function
 
 
@@ -2468,24 +2484,26 @@ Module Module_Scope
                 Case "NDUty"
                     type = "NDCYcle"
             End Select
-
-
-
-
             ts = "MEASurement" & x & ":SOURce " & " " & "C" & source_num & "W1"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
             ts = "MEASurement" & x & ":MAIN " & " " & type
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
             ts = "MEASurement" & x & " " & "ON"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
             ts = "MEASurement" & x & ":STATistics" & " " & "ON"
             visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
         End If
+
+
+        Select Case osc_sel
+            Case 0
+            Case 1
+            Case 2
+            Case 3
+
+        End Select
+
+
 
     End Function
 
