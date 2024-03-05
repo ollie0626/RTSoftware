@@ -2415,90 +2415,141 @@ Module Module_Scope
 
     Function Scope_measure_set(ByVal x As Integer, ByVal source_num As Integer, ByVal type As String) As Integer
 
-        If RS_Scope = False Then
-            'MEASUrement:MEAS<x>:TYPe {AMPlitude|AREa|
-            'BURst|CARea|CMEan|CRMs|DELay|DISTDUty|
-            'EXTINCTDB|EXTINCTPCT|EXTINCTRATIO|EYEHeight|
-            'EYEWIdth|FALL|FREQuency|HIGH|HITs|LOW|
-            'MAXimum|MEAN|MEDian|MINImum|NCROss|NDUty|
-            'NOVershoot|NWIdth|PBASe|PCROss|PCTCROss|PDUty|
-            'PEAKHits|PERIod|PHAse|PK2Pk|PKPKJitter|
-            'PKPKNoise|POVershoot|PTOP|PWIdth|QFACtor|
-            'RISe|RMS|RMSJitter|RMSNoise|SIGMA1|SIGMA2|
-            'SIGMA3|SIXSigmajit|SNRatio|STDdev|UNDEFINED| WAVEFORMS}
-            'MEASUrement:MEAS<x>:TYPe?
+        'If RS_Scope = False Then
+        '    'MEASUrement:MEAS<x>:TYPe {AMPlitude|AREa|
+        '    'BURst|CARea|CMEan|CRMs|DELay|DISTDUty|
+        '    'EXTINCTDB|EXTINCTPCT|EXTINCTRATIO|EYEHeight|
+        '    'EYEWIdth|FALL|FREQuency|HIGH|HITs|LOW|
+        '    'MAXimum|MEAN|MEDian|MINImum|NCROss|NDUty|
+        '    'NOVershoot|NWIdth|PBASe|PCROss|PCTCROss|PDUty|
+        '    'PEAKHits|PERIod|PHAse|PK2Pk|PKPKJitter|
+        '    'PKPKNoise|POVershoot|PTOP|PWIdth|QFACtor|
+        '    'RISe|RMS|RMSJitter|RMSNoise|SIGMA1|SIGMA2|
+        '    'SIGMA3|SIXSigmajit|SNRatio|STDdev|UNDEFINED| WAVEFORMS}
+        '    'MEASUrement:MEAS<x>:TYPe?
 
-            '<x>, where <x> can be 1, 2, 3, 4, 5, 6, 7, or 8. There must be an active
+        '    '<x>, where <x> can be 1, 2, 3, 4, 5, 6, 7, or 8. There must be an active
 
-            ts = "MEASUrement:MEAS" & x & ":SOUrce CH" & source_num
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-            ts = "MEASUrement:MEAS" & x & ":TYPe " & type
-            '    ts = "MEASUrement:IMMed:TYPE " & type
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "MEASUrement:MEAS" & x & ":SOUrce CH" & source_num
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
 
-            ts = "MEASUrement:MEAS" & x & ":STATE " & "ON"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "MEASUrement:MEAS" & x & ":TYPe " & type
+        '    '    ts = "MEASUrement:IMMed:TYPE " & type
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
 
-        Else
-            'Defines the source of the measurement
-            'MEASurement<m>:SOURce <signalsource> 
-            '<signalsource>: C1W1＞set CH1,C2W1＞set CH2,C3W1>set CH3,C4W1＞set CH4
+        '    ts = "MEASUrement:MEAS" & x & ":STATE " & "ON"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
-            'Defines the measurement type of the selected measurement
-            'MEASurement<m>:MAIN <Meastype>
-            ' <Meastype>:HIGH/LOW/AMPLitude/MAXimum/MINimum/PDELta/MEAN/RMS/
-            'STDDecv/POVershoot/NOVershoot/AREA/RTIMe/FTIMe/PPULse/NPULse/PERiod/
-            'FREQuency/PDCYcle/NDCYcle/CYCare/CYCMean/CYCRms/CYCStddev/PULCnt/DELay
-            'PHASe/BWIDth/PSWitching/NSWitching/PULSetrain/EDGecount/SHT/SHR/DTOTrigger/PROBemeter
 
-            '先設定MEASurement<x> ON再設定MEASurement<x>:STATistics ON才會開啟STATistics 量測mode
+        'Else
+        '    'Defines the source of the measurement
+        '    'MEASurement<m>:SOURce <signalsource> 
+        '    '<signalsource>: C1W1＞set CH1,C2W1＞set CH2,C3W1>set CH3,C4W1＞set CH4
 
-            Select Case type
-                Case "PK2Pk"
-                    type = "PDELta"
+        '    'Defines the measurement type of the selected measurement
+        '    'MEASurement<m>:MAIN <Meastype>
+        '    ' <Meastype>:HIGH/LOW/AMPLitude/MAXimum/MINimum/PDELta/MEAN/RMS/
+        '    'STDDecv/POVershoot/NOVershoot/AREA/RTIMe/FTIMe/PPULse/NPULse/PERiod/
+        '    'FREQuency/PDCYcle/NDCYcle/CYCare/CYCMean/CYCRms/CYCStddev/PULCnt/DELay
+        '    'PHASe/BWIDth/PSWitching/NSWitching/PULSetrain/EDGecount/SHT/SHR/DTOTrigger/PROBemeter
 
-                Case "CRMs"
-                    type = "CYCRms"
+        '    '先設定MEASurement<x> ON再設定MEASurement<x>:STATistics ON才會開啟STATistics 量測mode
 
-                Case "CMEan"
-                    type = "CYCMean"
+        '    Select Case type
+        '        Case "PK2Pk"
+        '            type = "PDELta"
 
-                Case "RISe"
-                    type = "RTIMe"
+        '        Case "CRMs"
+        '            type = "CYCRms"
 
-                Case "FALL"
-                    type = "FTIMe"
+        '        Case "CMEan"
+        '            type = "CYCMean"
 
-                Case "PWIdth"
-                    type = "PPULse"
+        '        Case "RISe"
+        '            type = "RTIMe"
 
-                Case "NWIdth"
-                    type = "NPULse"
+        '        Case "FALL"
+        '            type = "FTIMe"
 
-                Case "PDUty"
-                    type = "PDCYcle"
-                Case "NDUty"
-                    type = "NDCYcle"
-            End Select
-            ts = "MEASurement" & x & ":SOURce " & " " & "C" & source_num & "W1"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            ts = "MEASurement" & x & ":MAIN " & " " & type
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            ts = "MEASurement" & x & " " & "ON"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            ts = "MEASurement" & x & ":STATistics" & " " & "ON"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '        Case "PWIdth"
+        '            type = "PPULse"
+
+        '        Case "NWIdth"
+        '            type = "NPULse"
+
+        '        Case "PDUty"
+        '            type = "PDCYcle"
+        '        Case "NDUty"
+        '            type = "NDCYcle"
+        '    End Select
+        '    ts = "MEASurement" & x & ":SOURce " & " " & "C" & source_num & "W1"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "MEASurement" & x & ":MAIN " & " " & type
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "MEASurement" & x & " " & "ON"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "MEASurement" & x & ":STATistics" & " " & "ON"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
         Select Case osc_sel
             Case 0
+                Select Case type
+                    Case "PK2Pk"
+                        type = "PDELta"
+
+                    Case "CRMs"
+                        type = "CYCRms"
+
+                    Case "CMEan"
+                        type = "CYCMean"
+
+                    Case "RISe"
+                        type = "RTIMe"
+
+                    Case "FALL"
+                        type = "FTIMe"
+
+                    Case "PWIdth"
+                        type = "PPULse"
+
+                    Case "NWIdth"
+                        type = "NPULse"
+
+                    Case "PDUty"
+                        type = "PDCYcle"
+                    Case "NDUty"
+                        type = "NDCYcle"
+                End Select
+
+                cmd = "MEASurement" & x & ":SOURce " & " " & "C" & source_num & "W1"
+                Docommand(cmd)
+
+                cmd = "MEASurement" & x & ":MAIN " & " " & type
+                Docommand(cmd)
+
+                cmd = "MEASurement" & x & " " & "ON"
+                Docommand(cmd)
+
+                cmd = "MEASurement" & x & ":STATistics" & " " & "ON"
+                Docommand(cmd)
+
             Case 1
+
+                cmd = "MEASUrement:MEAS" & x & ":SOUrce CH" & source_num
+                Docommand(cmd)
+
+                cmd = "MEASUrement:MEAS" & x & ":TYPe " & type
+                Docommand(cmd)
+
+                cmd = "MEASUrement:MEAS" & x & ":STATE " & "ON"
+                Docommand(cmd)
             Case 2
+                cmd = ":MEASure:" & type & "CHANnel" & source_num
+                Docommand(cmd)
             Case 3
 
         End Select
@@ -2735,39 +2786,45 @@ Module Module_Scope
 
     Function Scope_measure_reset() As Integer
         Dim i As Integer
-        If RS_Scope = False Then
+        'If RS_Scope = False Then
+        '    'This command (no query form) clears existing measurement statistics from memory.
+        '    ts = "MEASUrement:STATIstics:COUNt RESET"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(100)
+        '    Scope_RUN(True)
+        'Else
+        '    'RS_View()
+        '    'ts = "MEASurement:STATistics:RESet"
+        '    'visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    For i = 1 To 8
+        '        ts = "MEASurement" & i & ":STATistics:RESet"
+        '        visa_write(RS_Scope_Dev, RS_vi, ts)
+        '        Delay(10)
+        '    Next
+        '    Scope_RUN(True)
+        '    'RS_View()
+        '    RS_Local()
+        'End If
 
-            'This command (no query form) clears existing measurement statistics from memory.
-            ts = "MEASUrement:STATIstics:COUNt RESET"
-
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(100)
-
-            Scope_RUN(True)
-        Else
-            'RS_View()
-
-
-
-            'ts = "MEASurement:STATistics:RESet"
-            'visa_write(RS_Scope_Dev, RS_vi, ts)
-            For i = 1 To 8
-                ts = "MEASurement" & i & ":STATistics:RESet"
-                visa_write(RS_Scope_Dev, RS_vi, ts)
-                Delay(10)
-            Next
-            Scope_RUN(True)
-            'RS_View()
-            RS_Local()
-
-
-
-
-        End If
+        Select Case osc_sel
+            Case 0
+                For i = 1 To 8
+                    cmd = "MEASurement" & i & ":STATistics:RESet"
+                    Docommand(cmd)
+                    Delay(10)
+                Next
+                Scope_RUN(True)
+                RS_Local()
+            Case 1
+                cmd = "MEASUrement:STATIstics:COUNt RESET"
+                Docommand(cmd)
+            Case 2
+                cmd = ":CDISplay"
+                Docommand(cmd)
+        End Select
 
 
         Delay(10)
-
     End Function
 
 
@@ -2799,13 +2856,9 @@ Module Module_Scope
 
         If RS_Scope = False Then
             ts = "MEASUrement:MEAS" & x & ":COUNt?"
-
-
             ilwrt(Scope_Dev, ts, CInt(Len(ts)))
             ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
-
             If ibcntl > 0 Then
-
                 measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
             Else
                 ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
@@ -2871,23 +2924,30 @@ Module Module_Scope
                 End If
 
             End If
-
-
-
-
-
-
-
             'RS_View()
-
-
         End If
 
 
 
+        Select Case osc_sel
+            Case 0
+                cmd = "MEASurement" & x & ":RESult:WFMCount?"
+                measure = DoQueryNumber(cmd)
+            Case 1
+                cmd = "MEASUrement:MEAS" & x & ":COUNt?"
+                measure = DoQueryNumber(cmd)
+            Case 2
+                cmd = ":MEASure:STATistics COUNt"
+                Docommand(cmd)
+
+                cmd = ":MEASure:RESults?"
+                measure = DoQueryNumber(cmd)
+
+                cmd = ":MEASure:STATistics CURRent"
+                Docommand(cmd)
+        End Select
+
         Return measure
-
-
     End Function
 
     'Function RS_Scope_measure_count(ByVal x As Integer) As Integer
@@ -2915,121 +2975,127 @@ Module Module_Scope
         End If
 
 
-        If RS_Scope = False Then
-            'x=1~8
-            'MEASUrement:MEAS<x>:MEAN?
-            'MEASUrement:MEAS<x>:MAXimum?
-            'MEASUrement:MEAS<x>:MINImum?
-            'MEASUrement:MEAS<x>:VALue?
-            'MEASUrement:MEAS<x>:STDdev?
+        'If RS_Scope = False Then
+        '    'x=1~8
+        '    'MEASUrement:MEAS<x>:MEAN?
+        '    'MEASUrement:MEAS<x>:MAXimum?
+        '    'MEASUrement:MEAS<x>:MINImum?
+        '    'MEASUrement:MEAS<x>:VALue?
+        '    'MEASUrement:MEAS<x>:STDdev?
+        '    ts = "MEASUrement:MEAS" & x & ":" & mode & "?"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+
+        '    If (ibcnt > 0) And (ibsta <> EERR) Then
+        '        measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '    Else
+        '        ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+        '        While (ibcntl = 0) Or (ibsta = EERR)
+
+        '            read_error = read_error + 1
+        '            If read_error = 10 Then
+        '                Exit While
+        '            End If
+        '            Delay(10)
+        '            ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+        '            'measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '        End While
+
+        '        If (ibcnt > 0) And (ibsta <> EERR) Then
+        '            measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
+        '        End If
+
+        '    End If
+
+        'Else
+        '    Select Case mode
+        '        Case Meas_mean
+        '            mode = RS_Meas_mean
+        '        Case Meas_max
+        '            mode = RS_Meas_max
+
+        '        Case Meas_min
+        '            mode = RS_Meas_min
+        '        Case Scope_Meas
+        '            mode = RS_Scope_Meas
+        '    End Select
+        '    'MEASurement<m>:RESult[:ACTual]? [<MeasType>]
+        '    'MEASurement<m>:RESult:AVG? [<MeasType>]
+        '    'MEASurement<m>:RESult:EVTCount? [<MeasType>]
+        '    'MEASurement<m>:RESult:NPEak? [<MeasType>]
+        '    'MEASurement<m>:RESult:PPEak? [<MeasType>]
+        '    'MEASurement<m>:RESult:RMS? [<MeasType>]
+        '    'MEASurement<m>:RESult:WFMCount? [<MeasType>]
+        '    'MEASurement<m>:RESult:STDDev? [<MeasType>]
+        '    ' ● [:ACTual]: current measurement result
+        '    '● AVG: average of the long-term measurement results
+        '    '● EVTCount: number of measurement results in the long-term measurement
+        '    '● NPEak: negative peak value of the long-term measurement results
+        '    '● PPEak: positive peak value of the long-term measurement results
+        '    '● RELiability: reliability of the measurement result
+        '    '● RMS: RMS value of the long-term measurement results
+        '    '● STDDev: standard deviation of the long-term measurement results
+        '    'For a detailed description of the results see "Measurement selection: MEASurement<
 
 
-            ts = "MEASUrement:MEAS" & x & ":" & mode & "?"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "MEASurement" & x & ":RESult:" & mode & "?"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    If visa_status = VI_ERROR_CONN_LOST Then
+        '        viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
+        '    End If
+        '    If retcount > 0 Then
+        '        measure = Val(Mid(visa_response, 1, retcount - 1))
+        '    Else
+        '        visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '        If visa_status = VI_ERROR_CONN_LOST Then
+        '            viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
+        '        End If
+        '        While retcount = 0
+        '            System.Windows.Forms.Application.DoEvents()
+        '            read_error = read_error + 1
+        '            If (read_error = 20) Or (run = False) Then
+        '                Return measure
+        '                Exit Function
+        '            End If
+        '            Delay(10)
+        '            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '        End While
+        '        If retcount > 0 Then
+        '            measure = Val(Mid(visa_response, 1, retcount - 1))
+        '        End If
+        '    End If
+        'End If
 
-            ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
+        Select Case osc_sel
+            Case 0
+                Select Case mode
+                    Case Meas_mean
+                        mode = RS_Meas_mean
+                    Case Meas_max
+                        mode = RS_Meas_max
 
-            If (ibcnt > 0) And (ibsta <> EERR) Then
-                measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-            Else
-                ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
-                While (ibcntl = 0) Or (ibsta = EERR)
+                    Case Meas_min
+                        mode = RS_Meas_min
+                    Case Scope_Meas
+                        mode = RS_Scope_Meas
+                End Select
+                cmd = "MEASurement" & x & ":RESult:" & mode & "?"
+                measure = DoQueryNumber(cmd)
+            Case 1
+                cmd = "MEASUrement:MEAS" & x & ":" & mode & "?"
+                measure = DoQueryNumber(cmd)
+            Case 2
+                cmd = ":MEASure:STATistics MEAN"
+                Docommand(cmd)
 
-                    read_error = read_error + 1
-                    If read_error = 10 Then
-                        Exit While
-                    End If
-                    Delay(10)
-                    ilrd(Scope_Dev, ValueStr, ARRAYSIZE)
-                    'measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-                End While
+                ' mode: VPP, VMAX
+                ' x: channel 1 ~ 4
+                cmd = ":MEASure:" & mode & "? " & "CHANnel" & x
+                measure = DoQueryNumber(cmd)
 
-                If (ibcnt > 0) And (ibsta <> EERR) Then
-                    measure = Val(Mid(ValueStr, 1, (ibcntl - 1)))
-                End If
-
-            End If
-
-        Else
-            Select Case mode
-                Case Meas_mean
-                    mode = RS_Meas_mean
-                Case Meas_max
-                    mode = RS_Meas_max
-
-                Case Meas_min
-                    mode = RS_Meas_min
-                Case Scope_Meas
-                    mode = RS_Scope_Meas
-            End Select
-            'MEASurement<m>:RESult[:ACTual]? [<MeasType>]
-            'MEASurement<m>:RESult:AVG? [<MeasType>]
-            'MEASurement<m>:RESult:EVTCount? [<MeasType>]
-            'MEASurement<m>:RESult:NPEak? [<MeasType>]
-            'MEASurement<m>:RESult:PPEak? [<MeasType>]
-            'MEASurement<m>:RESult:RMS? [<MeasType>]
-            'MEASurement<m>:RESult:WFMCount? [<MeasType>]
-            'MEASurement<m>:RESult:STDDev? [<MeasType>]
-            ' ● [:ACTual]: current measurement result
-            '● AVG: average of the long-term measurement results
-            '● EVTCount: number of measurement results in the long-term measurement
-            '● NPEak: negative peak value of the long-term measurement results
-            '● PPEak: positive peak value of the long-term measurement results
-            '● RELiability: reliability of the measurement result
-            '● RMS: RMS value of the long-term measurement results
-            '● STDDev: standard deviation of the long-term measurement results
-            'For a detailed description of the results see "Measurement selection: MEASurement<
-
-
-            ts = "MEASurement" & x & ":RESult:" & mode & "?"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            If visa_status = VI_ERROR_CONN_LOST Then
-                viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
-            End If
-
-            If retcount > 0 Then
-
-                measure = Val(Mid(visa_response, 1, retcount - 1))
-            Else
-
-                visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-                If visa_status = VI_ERROR_CONN_LOST Then
-                    viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
-                End If
-
-                While retcount = 0
-                    System.Windows.Forms.Application.DoEvents()
-
-
-                    read_error = read_error + 1
-                    If (read_error = 20) Or (run = False) Then
-                        Return measure
-                        Exit Function
-                    End If
-                    Delay(10)
-                    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-                End While
-
-                If retcount > 0 Then
-                    measure = Val(Mid(visa_response, 1, retcount - 1))
-                End If
-
-            End If
-
-        End If
-
-
-
-
-
-
-
-
-
-
+        End Select
 
 
         Return measure
@@ -3097,42 +3163,51 @@ Module Module_Scope
 
     Function Waveform_data_init(ByVal data_Stop As Integer) As Integer
 
+        Select Case osc_sel
+            Case 0
+                cmd = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
+                Docommand(cmd)
+                cmd = "SAVe:WAVEform:DATa:STOP " & data_Stop
+                Docommand(cmd)
+                cmd = "SAVe:WAVEform:FORCESAMEFilesize ON"
+                Docommand(cmd)
+            Case 1
 
-        ts = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
-        ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-        ts = "SAVe:WAVEform:DATa:STOP " & data_Stop
-        ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+            Case 2
 
-        ts = "SAVe:WAVEform:FORCESAMEFilesize ON"
-        ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        End Select
+
+        'ts = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
+        'ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        'ts = "SAVe:WAVEform:DATa:STOP " & data_Stop
+        'ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        'ts = "SAVe:WAVEform:FORCESAMEFilesize ON"
+        'ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
 
     End Function
 
     Function RS_Waveform_data_init() As Integer
 
+        Select Case osc_sel
+            Case 0
+                cmd = "EXPort:WAVeform:SCOPe WFM"
+                Docommand(cmd)
+                cmd = "EXPort:WAVeform:RAW OFF"
+                Docommand(cmd)
+                cmd = "EXPort:WAVeform:INCXvalues ON"
+                Docommand(cmd)
+                'OPC, STB
+                cmd = "EXPort:WAVeform:DLOGging OFF"
+                Docommand(cmd)
+            Case 1
+            Case 2
 
-        ts = "EXPort:WAVeform:SCOPe WFM"
-
-        visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-        ts = "EXPort:WAVeform:RAW OFF"
-
-        visa_write(RS_Scope_Dev, RS_vi, ts)
+        End Select
 
 
 
-        ts = "EXPort:WAVeform:INCXvalues ON"
-
-        visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-        'STB
-        'OPC
-
-        ts = "EXPort:WAVeform:DLOGging OFF"
-        visa_write(RS_Scope_Dev, RS_vi, ts)
 
 
     End Function
@@ -3152,94 +3227,133 @@ Module Module_Scope
 
         'Delay(10)
 
-        If RS_Scope = False Then
-            'This command specifies or returns the file format for saved waveforms.
-            'SAVe:WAVEform:FILEFormat {INTERNal|MATHCad|MATLab|SPREADSHEETCsv|SPREADSHEETTxt|TIMEStamp}
+        'If RS_Scope = False Then
+        '    'This command specifies or returns the file format for saved waveforms.
+        '    'SAVe:WAVEform:FILEFormat {INTERNal|MATHCad|MATLab|SPREADSHEETCsv|SPREADSHEETTxt|TIMEStamp}
 
-            'This command (no query form) saves a waveform to one of four reference memory locations or a file.
-            'SAVe:WAVEform <wfm>,{<file path>|REF<x>}
-            '<wfm> is the waveform that will be saved. Valid waveforms include CH<x>, MATH<y>, and REF<x>.
+        '    'This command (no query form) saves a waveform to one of four reference memory locations or a file.
+        '    'SAVe:WAVEform <wfm>,{<file path>|REF<x>}
+        '    '<wfm> is the waveform that will be saved. Valid waveforms include CH<x>, MATH<y>, and REF<x>.
 
-            'This command (no query form) prints a named file to a named port.
-            'FILESystem:READFile <filepath>
+        '    'This command (no query form) prints a named file to a named port.
+        '    'FILESystem:READFile <filepath>
 
-            '------------------------------------------------------------
+        '    '------------------------------------------------------------
 
-            ts = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            'ts = "SAVe:WAVEform:DATa:STOP 1000000"
-            'ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-            ts = "SAVe:WAVEform:FORCESAMEFilesize ON"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ts = "SAVE:WAVEFORM CH" & channel & ", " & """" & file_path & """"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ts = "FILESystem:READFile " & """" & file_path & """"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            ts = save_path
-            ibrdf(Scope_Dev, ts)
+        '    ts = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    'ts = "SAVe:WAVEform:DATa:STOP 1000000"
+        '    'ilwrt(Scope_Dev, ts, CInt(Len(ts)))
 
 
-        Else
+        '    ts = "SAVe:WAVEform:FORCESAMEFilesize ON"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "SAVE:WAVEFORM CH" & channel & ", " & """" & file_path & """"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "FILESystem:READFile " & """" & file_path & """"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = save_path
+        '    ibrdf(Scope_Dev, ts)
 
 
-            temp = Split(file_path, ".")
-            file_temp = temp(0) & ".Wfm." & temp(1)
-            'file format要小寫
-            '一次產生兩個file，其中xxx.Wfm.csv才是我們要的
-            'FW Ver4.7會將Time與volt分開不同列，之前的是由";"分開
+        'Else
 
 
-            ts = "EXPort:WAVeform:SOURce C" & channel & "W1"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            'ts = "EXPort:WAVeform:SCOPe WFM"
-            'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
-
-            ts = "EXPort:WAVeform:NAME '" & file_path & "'"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            'export x,y data
-            'ts = "EXPort:WAVeform:INCXvalues ON"
-            'visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            ts = "EXPort:WAVeform:SAVE"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    temp = Split(file_path, ".")
+        '    file_temp = temp(0) & ".Wfm." & temp(1)
+        '    'file format要小寫
+        '    '一次產生兩個file，其中xxx.Wfm.csv才是我們要的
+        '    'FW Ver4.7會將Time與volt分開不同列，之前的是由";"分開
 
 
-            'xxx.Wfm.csv儲存的是時間跟電壓資料
-            ts = "MMEM:DATA? '" & file_temp & "'"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "EXPort:WAVeform:SOURce C" & channel & "W1"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
 
-            visa_status = viRead(RS_vi, ts, 2, retcount)
+        '    'ts = "EXPort:WAVeform:SCOPe WFM"
+        '    'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
 
-            While retcount = 0
+        '    ts = "EXPort:WAVeform:NAME '" & file_path & "'"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
 
-                System.Windows.Forms.Application.DoEvents()
+        '    'export x,y data
+        '    'ts = "EXPort:WAVeform:INCXvalues ON"
+        '    'visa_write(RS_Scope_Dev, RS_vi, ts)
 
-
-                read_error = read_error + 1
-                If (read_error = 200) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-                visa_status = viRead(RS_vi, ts, 2, retcount)
-            End While
-
-            If retcount > 0 Then
-                visa_status = viRead(RS_vi, ts, Mid(ts, 2, 1), retcount)
+        '    ts = "EXPort:WAVeform:SAVE"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
 
 
-                visa_status = viReadToFile(RS_vi, save_path, Val(ts), retcount)
+        '    'xxx.Wfm.csv儲存的是時間跟電壓資料
+        '    ts = "MMEM:DATA? '" & file_temp & "'"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+        '    visa_status = viRead(RS_vi, ts, 2, retcount)
+
+        '    While retcount = 0
+
+        '        System.Windows.Forms.Application.DoEvents()
+
+
+        '        read_error = read_error + 1
+        '        If (read_error = 200) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+        '        visa_status = viRead(RS_vi, ts, 2, retcount)
+        '    End While
+
+        '    If retcount > 0 Then
+        '        visa_status = viRead(RS_vi, ts, Mid(ts, 2, 1), retcount)
+        '        visa_status = viReadToFile(RS_vi, save_path, Val(ts), retcount)
+        '    End If
+        'End If
+
+
+
+        Select Case osc_sel
+            Case 0
+                temp = Split(file_path, ".")
+                file_temp = temp(0) & ".Wfm." & temp(1)
+                cmd = "EXPort:WAVeform:SOURce C" & channel & "W1"
+                Docommand(cmd)
+                cmd = "EXPort:WAVeform:NAME '" & file_path & "'"
+                Docommand(cmd)
+                cmd = "EXPort:WAVeform:SAVE"
+                Docommand(cmd)
+                cmd = "MMEM:DATA? '" & file_temp & "'"
+                Docommand(cmd)
+            Case 1
+                cmd = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
+                Docommand(cmd)
+                cmd = "SAVe:WAVEform:FORCESAMEFilesize ON"
+                Docommand(cmd)
+                cmd = "SAVE:WAVEFORM CH" & channel & ", " & """" & file_path & """"
+                Docommand(cmd)
+                cmd = "FILESystem:READFile " & """" & file_path & """"
+                Docommand(cmd)
+            Case 2
+                'Agilent Save CSV
+                'cmd = ":DISPlay:DATA? PNG"
+                'Docommand(cmd)
+        End Select
+
+        visa_status = viRead(RS_vi, ts, 2, retcount)
+        While retcount = 0
+            System.Windows.Forms.Application.DoEvents()
+            read_error = read_error + 1
+            If (read_error = 200) Or (run = False) Then
+                Return 0
+                Exit Function
             End If
-
-
+            Delay(10)
+            visa_status = viRead(RS_vi, ts, 2, retcount)
+        End While
+        If retcount > 0 Then
+            visa_status = viRead(RS_vi, ts, Mid(ts, 2, 1), retcount)
+            visa_status = viReadToFile(RS_vi, save_path, Val(ts), retcount)
         End If
-
-
 
 
         If read_error = 200 Then
@@ -3256,7 +3370,6 @@ Module Module_Scope
 
 
         Return ByteSize
-
     End Function
 
     'Function RS_Waveform_data(ByVal file_path As String, ByVal save_path As String, ByVal x As Integer) As Integer
@@ -3315,9 +3428,7 @@ Module Module_Scope
         visa_status = viRead(RS_vi, ts, 2, retcount)
 
         file_temp = Mid(ts, 2, 1)
-
         visa_status = viRead(RS_vi, ts, file_temp, retcount)
-
         visa_status = viReadToFile(Scope_Dev, save_path, Val(ts), retcount)
 
     End Function
@@ -3344,16 +3455,22 @@ Module Module_Scope
     Function RS_Hardcopy_init(ByVal scope_format As String) As Integer
 
 
+        Select Case osc_sel
+            Case 0
+                cmd = "HCOPy:DEV:INV OFF"
+                Docommand(cmd)
 
-        ts = "HCOPy:DEV:INV OFF"
-        visa_write(RS_Scope_Dev, RS_vi, ts)
+                cmd = "HCOP:DEV:COL ON"
+                Docommand(cmd)
 
-        ts = "HCOP:DEV:COL ON"
-        visa_write(RS_Scope_Dev, RS_vi, ts)
+                cmd = "HCOP:DEV:LANG " & scope_format
+                Docommand(cmd)
+            Case 1
+            Case 2
+
+        End Select
 
 
-        ts = "HCOP:DEV:LANG " & scope_format
-        visa_write(RS_Scope_Dev, RS_vi, ts)
 
 
 
@@ -3366,6 +3483,118 @@ Module Module_Scope
         Dim file_temp As Integer
 
         read_error = 0
+
+
+        Select Case osc_sel
+            Case 0
+                Scope_RUN(False)
+                Delay(10)
+                cmd = "SYSTem:DISPlay:UPDate ON"
+                Docommand(cmd)
+                cmd = "HCOP:DEST 'MMEM'"
+                Docommand(cmd)
+                cmd = "MMEM:NAME '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+                Docommand(cmd)
+
+                'ts = "HCOP:IMM;*WAI"
+                ts = "HCOP:IMMediate;*OPC?"
+                Docommand(cmd)
+                visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+                While retcount = 0
+                    System.Windows.Forms.Application.DoEvents()
+                    read_error = read_error + 1
+                    If (read_error = 100) Or (run = False) Then
+                        Return 0
+                        Exit Function
+                    End If
+                    Delay(10)
+                    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+                End While
+                Delay(10)
+                cmd = "MMEM:DATA? '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+                Docommand(cmd)
+                visa_status = viRead(RS_vi, ts, 2, retcount)
+                '-------------------------------------------------
+                'FILESystem:READFile Error
+                While retcount = 0
+                    System.Windows.Forms.Application.DoEvents()
+                    read_error = read_error + 1
+                    If (read_error = 100) Or (run = False) Then
+                        Return 0
+                        Exit Function
+                    End If
+                    Delay(10)
+                    visa_status = viRead(RS_vi, ts, 2, retcount)
+                End While
+                '-------------------------------------------------
+                file_temp = Mid(ts, 2, 1)
+                visa_status = viRead(RS_vi, ts, file_temp, retcount)
+                read_error = 0
+                '-------------------------------------------------
+                'FILESystem:READFile Error
+                While retcount = 0
+                    System.Windows.Forms.Application.DoEvents()
+                    read_error = read_error + 1
+                    If (read_error = 100) Or (run = False) Then
+                        Return 0
+                        Exit Function
+                    End If
+                    Delay(10)
+                    visa_status = viRead(RS_vi, ts, file_temp, retcount)
+                End While
+                visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+                'FILESystem:READFile Error
+                read_error = 0
+                While retcount = 0
+                    System.Windows.Forms.Application.DoEvents()
+                    read_error = read_error + 1
+                    If (read_error = 100) Or (run = False) Then
+                        Return 0
+                        Exit Function
+                    End If
+                    Delay(10)
+                    visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+                End While
+                ByteSize = 0
+                If (System.IO.File.Exists(pc_path)) = True Then
+                    ByteSize = FileLen(pc_path)
+                End If
+            Case 1
+                cmd = "EXP:FORM " & Scope_format
+                ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+                cmd = "HARDCopy:PORT FILE"
+                Docommand(cmd)
+                cmd = "HARDCopy:FILEName '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+                Docommand(cmd)
+                cmd = "HARDCopy STARt"
+                Docommand(cmd)
+                cmd = "FILESystem:READFile '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+                Docommand(cmd)
+                System.Threading.Thread.Sleep(1000)
+
+                '-------------------------------------------------
+                'file path of PC
+                read_error = 0
+                cmd = pc_path
+                ibrdf32(Scope_Dev, ts)
+                '-------------------------------------------------
+                ' Error
+                While (ibcntl = 0) Or (ibsta = EERR)
+                    System.Windows.Forms.Application.DoEvents()
+                    read_error = read_error + 1
+                    If (read_error = 100) Or (run = False) Then
+                        Return 0
+                        Exit Function
+                    End If
+                    Delay(10)
+                    ibrdf32(Scope_Dev, ts)
+                End While
+                '-------------------------------------------------
+                ByteSize = FileLen(pc_path)
+            Case 2
+
+        End Select
+
 
 
 
