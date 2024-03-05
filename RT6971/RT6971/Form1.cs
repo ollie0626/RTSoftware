@@ -22,7 +22,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.07";
+        string win_ver = "1.08";
 
 
         public Form1()
@@ -170,7 +170,7 @@ namespace RT6971
             vol = (double)(code * 2 + 80) / 100;
             if (vol > 2.36) vol = 2.36;
 
-            VCC1SL.Value = code;
+            VCC1SL.Value = (int)VCC1H.Value;
             VCC1V.Value = (decimal)vol;
             W01.Value = (int)VCC1H.Value | ((int)W01.Value & 0x80);
         }
@@ -1441,20 +1441,26 @@ namespace RT6971
                 List<byte> bin_buf = new List<byte>();
                 BinaryWriter bw = new BinaryWriter(new FileStream(file_name, FileMode.Create));
 
-                for (int i = 0; i < 0x100; i++)
+                try
                 {
-                    if (i < WriteTable.Length)
+                    for (int i = 0; i < WriteTable.Length; i++)
                     {
+
                         bin_buf.Add(Convert.ToByte(WriteTable[i].Value));
-                    }
-                    else
-                    {
-                        bin_buf.Add(0);
+                        //if (i < WriteTable.Length)
+                        //{
+
+                        //}
+                        //else
+                        //{
+                        //    bin_buf.Add(0);
+                        //}
                     }
                 }
+                catch
+                {
 
-                
-
+                }
 
                 bw.Write(bin_buf.ToArray());
                 bw.Close();
@@ -1473,13 +1479,22 @@ namespace RT6971
 
                 br.Read(ReadBuf, 0, 0xff);
 
-                for (int i = 0; i < 0x100; i++)
+                try
                 {
-                    if (i < WriteTable.Length)
+                    for (int i = 0; i < ReadTable.Length; i++)
                     {
                         ReadTable[i].Value = ReadBuf[i];
+                        //if (i < WriteTable.Length)
+                        //{
+
+                        //}
                     }
                 }
+                catch
+                {
+
+                }
+
                 br.Close();
             }
         }
@@ -1668,6 +1683,90 @@ namespace RT6971
         {
             if (cb_ft_vcc2.SelectedIndex == 0) cb_ft_vcc2.BackColor = Color.White;
             else if (cb_ft_vcc2.SelectedIndex == 1) cb_ft_vcc2.BackColor = Color.Red;
+        }
+
+        private void AVDDV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)AVDDV.Value;
+            code = (int)(((vol * 10) - 138) + 1);
+            AVDDH.Value = code;
+        }
+
+        private void VCC1V_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VCC1V.Value;
+            code = (int)(((vol * 100) - 80) / 2);
+            VCC1H.Value = code;
+
+        }
+
+        private void VCC2V_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VCC2V.Value;
+            code = (int)((vol * 10) - 8);
+            VCC2H.Value = code;
+        }
+
+        private void VGHLTV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VGHLTV.Value;
+            code = (int)((vol * 10) - 210) / 2;
+            VGHLTH.Value = code;
+        }
+
+        private void VGHHTV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VGHHTV.Value;
+            code = (int)((vol * 10) - 200) / 2;
+            VGHHTH.Value = code;
+
+        }
+
+        private void VGL1V_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VGL1V.Value;
+            code = (int)((vol * -10) - 18) / 2;
+            VGL1H.Value = code;
+        }
+
+        private void VGL2LTV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VGL2LTV.Value;
+            code = (int)(((vol * (-10)) - 45) / 2);
+
+            if (code <= 0x4c) VGL2LTH.Value = code;
+            else VGL2LTH.Value = 0x4e;
+        }
+
+        private void VGL2HTV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = (decimal)VGL2HTV.Value;
+            code = (int)(((vol * (-10)) - 45) / 2);
+            if (code <= 0x4c)
+            {
+                VGL2HTH.Value = code;
+            }
+            else
+            {
+                VGL2HTH.Value = 0x4e;
+            }
+            
+        }
+
+        private void GLDOV_ValueChanged(object sender, EventArgs e)
+        {
+            int code = 0x00;
+            decimal vol = GLDOV.Value;
+            code = (int)((vol * 10) - 130) / 2;
+            GLDOH.Value = code;
         }
     }
 }

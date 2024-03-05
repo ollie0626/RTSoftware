@@ -1092,7 +1092,6 @@
             0,
             65536});
             this.AVDDV.Name = "AVDDV";
-            this.AVDDV.ReadOnly = true;
             this.AVDDV.Size = new System.Drawing.Size(63, 22);
             this.AVDDV.TabIndex = 157;
             this.AVDDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -1101,6 +1100,7 @@
             0,
             0,
             65536});
+            this.AVDDV.ValueChanged += new System.EventHandler(this.AVDDV_ValueChanged);
             // 
             // AVDDH
             // 
@@ -2689,7 +2689,6 @@
             this.GAM1V.Enabled = false;
             this.GAM1V.Location = new System.Drawing.Point(233, 16);
             this.GAM1V.Name = "GAM1V";
-            this.GAM1V.ReadOnly = true;
             this.GAM1V.Size = new System.Drawing.Size(63, 22);
             this.GAM1V.TabIndex = 157;
             this.GAM1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2744,6 +2743,7 @@
             // HAVDDV
             // 
             this.HAVDDV.DecimalPlaces = 2;
+            this.HAVDDV.Enabled = false;
             this.HAVDDV.Increment = new decimal(new int[] {
             1,
             0,
@@ -2751,7 +2751,6 @@
             65536});
             this.HAVDDV.Location = new System.Drawing.Point(233, 21);
             this.HAVDDV.Name = "HAVDDV";
-            this.HAVDDV.ReadOnly = true;
             this.HAVDDV.Size = new System.Drawing.Size(63, 22);
             this.HAVDDV.TabIndex = 157;
             this.HAVDDV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2828,7 +2827,6 @@
             0,
             0});
             this.GLDOV.Name = "GLDOV";
-            this.GLDOV.ReadOnly = true;
             this.GLDOV.Size = new System.Drawing.Size(63, 22);
             this.GLDOV.TabIndex = 157;
             this.GLDOV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2837,6 +2835,7 @@
             0,
             0,
             0});
+            this.GLDOV.ValueChanged += new System.EventHandler(this.GLDOV_ValueChanged);
             // 
             // GLDOH
             // 
@@ -2889,7 +2888,7 @@
             // 
             this.VGL2HTV.DecimalPlaces = 1;
             this.VGL2HTV.Increment = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             65536});
@@ -2905,7 +2904,6 @@
             0,
             -2147483648});
             this.VGL2HTV.Name = "VGL2HTV";
-            this.VGL2HTV.ReadOnly = true;
             this.VGL2HTV.Size = new System.Drawing.Size(63, 22);
             this.VGL2HTV.TabIndex = 157;
             this.VGL2HTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2914,6 +2912,7 @@
             0,
             0,
             -2147418112});
+            this.VGL2HTV.ValueChanged += new System.EventHandler(this.VGL2HTV_ValueChanged);
             // 
             // VGL2HTH
             // 
@@ -2969,7 +2968,7 @@
             2,
             0,
             0,
-            131072});
+            65536});
             this.VGL2LTV.Location = new System.Drawing.Point(233, 21);
             this.VGL2LTV.Maximum = new decimal(new int[] {
             45,
@@ -2982,7 +2981,6 @@
             0,
             -2147483648});
             this.VGL2LTV.Name = "VGL2LTV";
-            this.VGL2LTV.ReadOnly = true;
             this.VGL2LTV.Size = new System.Drawing.Size(63, 22);
             this.VGL2LTV.TabIndex = 157;
             this.VGL2LTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -2991,6 +2989,7 @@
             0,
             0,
             -2147418112});
+            this.VGL2LTV.ValueChanged += new System.EventHandler(this.VGL2LTV_ValueChanged);
             // 
             // VGL2LTH
             // 
@@ -3059,7 +3058,6 @@
             0,
             -2147483648});
             this.VGL1V.Name = "VGL1V";
-            this.VGL1V.ReadOnly = true;
             this.VGL1V.Size = new System.Drawing.Size(63, 22);
             this.VGL1V.TabIndex = 157;
             this.VGL1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3068,6 +3066,7 @@
             0,
             0,
             -2147418112});
+            this.VGL1V.ValueChanged += new System.EventHandler(this.VGL1V_ValueChanged);
             // 
             // VGL1H
             // 
@@ -3120,7 +3119,7 @@
             // 
             this.VGHHTV.DecimalPlaces = 1;
             this.VGHHTV.Increment = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             65536});
@@ -3136,7 +3135,6 @@
             0,
             0});
             this.VGHHTV.Name = "VGHHTV";
-            this.VGHHTV.ReadOnly = true;
             this.VGHHTV.Size = new System.Drawing.Size(63, 22);
             this.VGHHTV.TabIndex = 157;
             this.VGHHTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3145,6 +3143,7 @@
             0,
             0,
             65536});
+            this.VGHHTV.ValueChanged += new System.EventHandler(this.VGHHTV_ValueChanged);
             // 
             // VGHHTH
             // 
@@ -3213,7 +3212,6 @@
             0,
             0});
             this.VGHLTV.Name = "VGHLTV";
-            this.VGHLTV.ReadOnly = true;
             this.VGHLTV.Size = new System.Drawing.Size(63, 22);
             this.VGHLTV.TabIndex = 157;
             this.VGHLTV.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3222,6 +3220,7 @@
             0,
             0,
             0});
+            this.VGHLTV.ValueChanged += new System.EventHandler(this.VGHLTV_ValueChanged);
             // 
             // VGHLTH
             // 
@@ -3290,7 +3289,6 @@
             0,
             65536});
             this.VCC2V.Name = "VCC2V";
-            this.VCC2V.ReadOnly = true;
             this.VCC2V.Size = new System.Drawing.Size(63, 22);
             this.VCC2V.TabIndex = 157;
             this.VCC2V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3299,6 +3297,7 @@
             0,
             0,
             65536});
+            this.VCC2V.ValueChanged += new System.EventHandler(this.VCC2V_ValueChanged);
             // 
             // VCC2H
             // 
@@ -3367,7 +3366,6 @@
             0,
             65536});
             this.VCC1V.Name = "VCC1V";
-            this.VCC1V.ReadOnly = true;
             this.VCC1V.Size = new System.Drawing.Size(63, 22);
             this.VCC1V.TabIndex = 157;
             this.VCC1V.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -3376,6 +3374,7 @@
             0,
             0,
             131072});
+            this.VCC1V.ValueChanged += new System.EventHandler(this.VCC1V_ValueChanged);
             // 
             // VCC1H
             // 
