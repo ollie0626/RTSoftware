@@ -415,11 +415,6 @@ namespace SoftStartTiming
             0,
             0,
             0});
-            this.num_detect_cnt.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             this.num_detect_cnt.Name = "num_detect_cnt";
             this.num_detect_cnt.Size = new System.Drawing.Size(120, 22);
             this.num_detect_cnt.TabIndex = 170;
@@ -435,11 +430,6 @@ namespace SoftStartTiming
             this.nu_delay_s.Location = new System.Drawing.Point(386, 232);
             this.nu_delay_s.Maximum = new decimal(new int[] {
             100000,
-            0,
-            0,
-            0});
-            this.nu_delay_s.Minimum = new decimal(new int[] {
-            1,
             0,
             0,
             0});

@@ -109,16 +109,19 @@ namespace IN528ATE_tool
             else InsControl._scope.CH2_Offset(test_parameter.ch2_level * -1);
 
 
-
-            for (int i = 0; i < 3; i++)
+            if(test_parameter.sst_sel == 0)
             {
-                double Vo;
-                Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
-                
-                InsControl._scope.CH3_Level(Vo / 3);
-                InsControl._scope.CH2_Level(Vo / 3);
-                MyLib.WaveformCheck();
+                for (int i = 0; i < 3; i++)
+                {
+                    double Vo;
+                    Vo = Math.Abs(InsControl._scope.Meas_CH2MAX());
+
+                    InsControl._scope.CH3_Level(Vo / 3);
+                    InsControl._scope.CH2_Level(Vo / 3);
+                    MyLib.WaveformCheck();
+                }
             }
+
 
             RTDev.GpEn_Disable();
             InsControl._power.AutoPowerOff();

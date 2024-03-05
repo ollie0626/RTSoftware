@@ -173,7 +173,7 @@ namespace SoftStartTiming
 
             test_parameter.lt_lab.Iin_compare = (double)num_Iin_detect.Value;
             test_parameter.lt_lab.detect_cnt = (int)num_detect_cnt.Value;
-            test_parameter.lt_lab.delay_time = (int)nu_delay_s.Value;
+            test_parameter.lt_lab.delay_time = (double)nu_delay_s.Value;
             test_parameter.waveform_path = tbWave.Text;
 
             test_parameter.slave = (byte)nuslave.Value;
@@ -426,7 +426,7 @@ namespace SoftStartTiming
         public double time_scale;
         public int detect_cnt;
         public double Iin_compare;
-        public int delay_time;
+        public double delay_time;
     }
 
 }

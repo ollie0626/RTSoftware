@@ -161,7 +161,7 @@ namespace SoftStartTiming
                     //InsControl._oscilloscope.DoCommand("TRIGger:A");
                     //InsControl._oscilloscope.SetClear();
                     InsControl._oscilloscope.DoCommand("MEASUrement:STATIstics:COUNt RESET");
-                    MyLib.Delay1ms(test_parameter.lt_lab.delay_time * 1000);
+                    System.Threading.Thread.Sleep((int)(test_parameter.lt_lab.delay_time * 1000));
 
                     double vin = 0;
                     double Iin = 0, vmax = 0, vmin = 0, vmean = 0;
