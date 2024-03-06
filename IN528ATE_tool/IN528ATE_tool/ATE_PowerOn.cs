@@ -109,7 +109,7 @@ namespace IN528ATE_tool
             else InsControl._scope.CH2_Offset(test_parameter.ch2_level * -1);
 
 
-            if(test_parameter.sst_sel == 0)
+            if(!test_parameter.ch2_user_define)
             {
                 for (int i = 0; i < 3; i++)
                 {

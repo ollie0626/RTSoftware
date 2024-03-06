@@ -941,6 +941,7 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.functionToolStripMenuItem});
@@ -963,14 +964,14 @@
             // saveBinToolStripMenuItem
             // 
             this.saveBinToolStripMenuItem.Name = "saveBinToolStripMenuItem";
-            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.saveBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveBinToolStripMenuItem.Text = "Save Bin";
             this.saveBinToolStripMenuItem.Click += new System.EventHandler(this.saveBinToolStripMenuItem_Click);
             // 
             // openBinToolStripMenuItem
             // 
             this.openBinToolStripMenuItem.Name = "openBinToolStripMenuItem";
-            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.openBinToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openBinToolStripMenuItem.Text = "Open Bin";
             this.openBinToolStripMenuItem.Click += new System.EventHandler(this.openBinToolStripMenuItem_Click);
             // 
@@ -1021,7 +1022,7 @@
             0,
             0});
             this.nuSlave.Name = "nuSlave";
-            this.nuSlave.Size = new System.Drawing.Size(85, 22);
+            this.nuSlave.Size = new System.Drawing.Size(260, 22);
             this.nuSlave.TabIndex = 6;
             this.nuSlave.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.nuSlave.Value = new decimal(new int[] {
@@ -2811,7 +2812,7 @@
             // 
             this.GLDOV.DecimalPlaces = 1;
             this.GLDOV.Increment = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             65536});
@@ -3042,7 +3043,7 @@
             // 
             this.VGL1V.DecimalPlaces = 1;
             this.VGL1V.Increment = new decimal(new int[] {
-            1,
+            2,
             0,
             0,
             65536});
@@ -8988,15 +8989,16 @@
             // 
             this.statusStrip1.BackColor = System.Drawing.Color.FloralWhite;
             this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
+            this.statusStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
             this.toolStripStatusLabel3,
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel5});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 782);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 778);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1309, 25);
+            this.statusStrip1.Size = new System.Drawing.Size(1309, 29);
             this.statusStrip1.TabIndex = 449;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -9005,7 +9007,7 @@
             this.toolStripStatusLabel1.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel1.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(104, 20);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(104, 24);
             this.toolStripStatusLabel1.Text = "Connect status:";
             // 
             // toolStripStatusLabel2
@@ -9013,28 +9015,28 @@
             this.toolStripStatusLabel2.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripStatusLabel2.Image")));
             this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(148, 20);
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(152, 24);
             this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // toolStripStatusLabel3
             // 
             this.toolStripStatusLabel3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
-            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 20);
+            this.toolStripStatusLabel3.Size = new System.Drawing.Size(0, 24);
             this.toolStripStatusLabel3.Text = "toolStripStatusLabel3";
             // 
             // toolStripStatusLabel4
             // 
             this.toolStripStatusLabel4.Font = new System.Drawing.Font("Microsoft JhengHei UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
             this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
-            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 20);
+            this.toolStripStatusLabel4.Size = new System.Drawing.Size(30, 24);
             this.toolStripStatusLabel4.Text = "Ver:";
             // 
             // toolStripStatusLabel5
             // 
             this.toolStripStatusLabel5.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Right;
             this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
-            this.toolStripStatusLabel5.Size = new System.Drawing.Size(132, 20);
+            this.toolStripStatusLabel5.Size = new System.Drawing.Size(132, 24);
             this.toolStripStatusLabel5.Text = "toolStripStatusLabel5";
             // 
             // pictureBox1

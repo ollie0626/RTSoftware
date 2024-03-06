@@ -136,7 +136,9 @@ namespace IN528ATE_tool
             this.bt_SwireLoad = new System.Windows.Forms.Button();
             this.bt_SwireSave = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label36 = new System.Windows.Forms.Label();
             this.ck_sst_define = new System.Windows.Forms.CheckBox();
+            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
             this.ck_negvol = new System.Windows.Forms.CheckBox();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -162,8 +164,7 @@ namespace IN528ATE_tool
             this.saveSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadSettingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.check_ripple_time = new System.Windows.Forms.CheckBox();
-            this.label36 = new System.Windows.Forms.Label();
-            this.nu_ch2_level = new System.Windows.Forms.NumericUpDown();
+            this.ck_ch2_user_define = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_slave)).BeginInit();
@@ -203,13 +204,13 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.swireTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).BeginInit();
             this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
             this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_hiVout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_midVout)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nu_loVout)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -1626,6 +1627,7 @@ namespace IN528ATE_tool
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.ck_ch2_user_define);
             this.tabPage2.Controls.Add(this.label36);
             this.tabPage2.Controls.Add(this.ck_sst_define);
             this.tabPage2.Controls.Add(this.nu_ch2_level);
@@ -1640,6 +1642,15 @@ namespace IN528ATE_tool
             this.tabPage2.Text = "SST Setting";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(170, 33);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(77, 15);
+            this.label36.TabIndex = 85;
+            this.label36.Text = "CH2 Level (V)";
+            // 
             // ck_sst_define
             // 
             this.ck_sst_define.AutoSize = true;
@@ -1649,6 +1660,20 @@ namespace IN528ATE_tool
             this.ck_sst_define.TabIndex = 86;
             this.ck_sst_define.Text = "SST define by user";
             this.ck_sst_define.UseVisualStyleBackColor = true;
+            // 
+            // nu_ch2_level
+            // 
+            this.nu_ch2_level.DecimalPlaces = 2;
+            this.nu_ch2_level.Location = new System.Drawing.Point(173, 51);
+            this.nu_ch2_level.Name = "nu_ch2_level";
+            this.nu_ch2_level.Size = new System.Drawing.Size(66, 23);
+            this.nu_ch2_level.TabIndex = 84;
+            this.nu_ch2_level.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nu_ch2_level.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // ck_negvol
             // 
@@ -1927,28 +1952,15 @@ namespace IN528ATE_tool
             this.check_ripple_time.Text = "Ripple Time Scale Manual Fixed";
             this.check_ripple_time.UseVisualStyleBackColor = true;
             // 
-            // label36
+            // ck_ch2_user_define
             // 
-            this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(170, 33);
-            this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(77, 15);
-            this.label36.TabIndex = 85;
-            this.label36.Text = "CH2 Level (V)";
-            // 
-            // nu_ch2_level
-            // 
-            this.nu_ch2_level.DecimalPlaces = 2;
-            this.nu_ch2_level.Location = new System.Drawing.Point(173, 51);
-            this.nu_ch2_level.Name = "nu_ch2_level";
-            this.nu_ch2_level.Size = new System.Drawing.Size(66, 23);
-            this.nu_ch2_level.TabIndex = 84;
-            this.nu_ch2_level.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.nu_ch2_level.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.ck_ch2_user_define.AutoSize = true;
+            this.ck_ch2_user_define.Location = new System.Drawing.Point(173, 80);
+            this.ck_ch2_user_define.Name = "ck_ch2_user_define";
+            this.ck_ch2_user_define.Size = new System.Drawing.Size(141, 19);
+            this.ck_ch2_user_define.TabIndex = 87;
+            this.ck_ch2_user_define.Text = "CH2 Level user define";
+            this.ck_ch2_user_define.UseVisualStyleBackColor = true;
             // 
             // main
             // 
@@ -2074,6 +2086,7 @@ namespace IN528ATE_tool
             ((System.ComponentModel.ISupportInitialize)(this.SwireRow)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nu_hiVout)).EndInit();
@@ -2083,7 +2096,6 @@ namespace IN528ATE_tool
             this.groupBox9.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nu_ch2_level)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2225,6 +2237,7 @@ namespace IN528ATE_tool
         private System.Windows.Forms.CheckBox check_ripple_time;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.NumericUpDown nu_ch2_level;
+        private System.Windows.Forms.CheckBox ck_ch2_user_define;
     }
 }
 

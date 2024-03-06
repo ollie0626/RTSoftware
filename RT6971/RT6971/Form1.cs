@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RTBBLibDotNet;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,7 +23,7 @@ namespace RT6971
         Thread thread;
 
         string win_name = "PMIC RT6971";
-        string win_ver = "1.08";
+        string win_ver = "1.09";
 
 
         public Form1()
@@ -252,10 +253,8 @@ namespace RT6971
         private void VGL2LTH_ValueChanged(object sender, EventArgs e)
         {
             int code = (int)VGL2LTH.Value;
-            double vol = ((double)code * 2 + 45) / -10;
-
+            double vol = (((double)code * 2 + 45) / -10);
             if (vol < -20) vol = -20;
-
             VGL2LTV.Value = (decimal)vol;
             VGL2LTSL.Value = (int)VGL2LTH.Value;
             W06.Value = code | (int)W06.Value & 0x80;
@@ -1443,7 +1442,7 @@ namespace RT6971
 
                 try
                 {
-                    for (int i = 0; i < WriteTable.Length; i++)
+                    for (int i = 0; i < 0x46; i++)
                     {
 
                         bin_buf.Add(Convert.ToByte(WriteTable[i].Value));
@@ -1481,7 +1480,7 @@ namespace RT6971
 
                 try
                 {
-                    for (int i = 0; i < ReadTable.Length; i++)
+                    for (int i = 0; i < 0x46; i++)
                     {
                         ReadTable[i].Value = ReadBuf[i];
                         //if (i < WriteTable.Length)
@@ -1742,7 +1741,6 @@ namespace RT6971
             code = (int)(((vol * (-10)) - 45) / 2);
 
             if (code <= 0x4c) VGL2LTH.Value = code;
-            else VGL2LTH.Value = 0x4e;
         }
 
         private void VGL2HTV_ValueChanged(object sender, EventArgs e)
@@ -1750,15 +1748,7 @@ namespace RT6971
             int code = 0x00;
             decimal vol = (decimal)VGL2HTV.Value;
             code = (int)(((vol * (-10)) - 45) / 2);
-            if (code <= 0x4c)
-            {
-                VGL2HTH.Value = code;
-            }
-            else
-            {
-                VGL2HTH.Value = 0x4e;
-            }
-            
+            if (code <= 0x4c) VGL2HTH.Value = code;
         }
 
         private void GLDOV_ValueChanged(object sender, EventArgs e)

@@ -9,6 +9,7 @@ namespace IN528ATE_tool
     static public class test_parameter
     {
         public static double ch2_level;
+        public static bool ch2_user_define;
 
 
         public static List<double> VinList = new List<double>();
