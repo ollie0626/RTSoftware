@@ -1,4 +1,5 @@
 ﻿
+Imports System.IO
 Imports System.Text
 
 Module Module_Scope
@@ -3365,6 +3366,51 @@ Module Module_Scope
 
             ByteSize = FileLen(save_path)
         End If
+
+        'Public void SaveWaveformData(int ch, String path, ref Double SSR, bool IsFunc = False)
+        '{
+        '    If (device == 0) Then
+        '                {
+        '        Return;
+        '    }
+        '    Docommand(":SYSTEM:HEADER OFF");
+        '    Docommand(":WAVeform:FORMat Byte");
+        '    If (IsFunc) Then
+        '        Docommand(":WAVeform:SOURce FUNC" + ch.ToString());
+        '    Else
+        '        Docommand(":WAVeform:SOURce CHAN" + ch.ToString());
+        '    Docommand(":WAVeform:STReaming ON");
+        '    Int Point = (Int())doQueryNumber(":WAVEFORM:POINTS?");
+        '    Int step = 1;
+        '    Double X_INS = DoQueryNumber(":WAVEFORM:XINCrement?");
+        '    Double X_ORG = DoQueryNumber(":WAVEFORM:XORigin?");
+        '    Double Y_INS = DoQueryNumber(":WAVEFORM:YINCrement?");
+        '    Double Y_ORG = DoQueryNumber(":WAVEFORM:YORigin?");
+        '    If (X_INS > SSR) Then SSR = X_INS;
+        '    Else
+        '    {
+        '        step = (int)Math.Round(SSR / X_INS, 0);
+        '    }
+        '    Byte[] Arr = New Byte[Point];
+        '    Docommand(":WAVeform:DATA? 1," + Point.ToString());
+        '    Int cnt = IEEEBlock_Bytes2(ref Arr);
+        '    Console.WriteLine("N:{0},Xin:{1},Xor:{2},Yin:{3},Yor{4},FB:{5}", Point, X_INS, X_ORG, Y_INS, Y_ORG, cnt);
+        '    Double data;
+        '    // byte[] Arr2 = New byte[Point2];
+        '    Using (StreamWriter sw = New StreamWriter(path))   //小寫TXT
+        '    {
+        '        For (Int() i = 2; i < Arr.Length; i += step)
+        '        {
+        '            If (Arr[i] > 127)
+        '                data = (Arr[i] - 256) * Y_INS + Y_ORG;
+        '            Else
+        '                        data = (Arr[i]) * Y_INS + Y_ORG;
+        '            sw.WriteLine(data);
+        '        }
+        '    }
+        '    Arr = null;
+        '}
+
 
 
 
