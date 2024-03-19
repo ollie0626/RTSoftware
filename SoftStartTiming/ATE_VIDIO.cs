@@ -52,6 +52,8 @@ namespace SoftStartTiming
         int meas_delay = 5;
         int meas_delay100 = 6;
         int meas_trigger_src = 7;
+        int meas_phse_rise = 8;
+        
         const int cnt_rest = 10000;
         const int cursor_fail_cnt = 10;
 
@@ -63,6 +65,7 @@ namespace SoftStartTiming
 
         double vid_up;
         double vid_down;
+        double lpm_phase;
         int trigger_ch = 1;
 
         public ATE_VIDIO(VIDIO main)
@@ -163,6 +166,12 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.CHx_Position(2, -4);
                 InsControl._oscilloscope.SetTriggerLevel(2, max - min);
             }
+
+            if (test_parameter.vidio.criteria[0].lpm_en)
+            {
+                InsControl._oscilloscope.SetMeasureSource(4, meas_phse_rise, "RISe");
+                InsControl._oscilloscope.SetMeasureSource(3, meas_trigger_src, "RISe");
+            }
                 
             
             InsControl._oscilloscope.SetAutoTrigger();
@@ -244,7 +253,7 @@ namespace SoftStartTiming
             InsControl._oscilloscope.DoCommand("TRIGger:A:LEVel 1.2");
             //InsControl._oscilloscope.SetTimeOutEither();
 
-            InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 4.2);
+            InsControl._oscilloscope.CHx_Level(1, (vout_af - vout) / 3.6);
             InsControl._oscilloscope.CHx_Offset(1, vout);
             InsControl._oscilloscope.CHx_Position(1, -2);
             //InsControl._oscilloscope.SetTriggerLevel(1, (vout_af - vout) * 0.5 + vout);
@@ -365,6 +374,49 @@ namespace SoftStartTiming
             return res;
         }
 
+        private bool LPMEn_to_Phase()
+        {
+            bool res = true;
+            int meas_pahse = 8;
+            double x1 = 0, x2 = 0;
+            
+            // LPM GPIO
+            InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
+            // Phase channel
+            InsControl._oscilloscope.SetCursorSource(2, 4); MyLib.Delay1ms(100);
+
+            for(int i = 0; i < 3; i++)
+            {
+                InsControl._oscilloscope.SetMeasureSource(3, meas_pahse, "RISE"); MyLib.Delay1ms(100);
+                InsControl._oscilloscope.SetAnnotation(meas_pahse); MyLib.Delay1ms(100);
+                x1 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+            }
+
+            for(int i = 0; i < 3; i++)
+            {
+                InsControl._oscilloscope.SetMeasureSource(4, meas_pahse, "RISE"); MyLib.Delay1ms(100);
+                InsControl._oscilloscope.SetAnnotation(meas_pahse); MyLib.Delay1ms(100);
+                x2 = InsControl._oscilloscope.GetAnnotationXn(1); MyLib.Delay1ms(100);
+            }
+
+
+
+            for(int i = 0; i < 3; i++)
+            {
+                InsControl._oscilloscope.SetCursorScreenXpos(x1, x2);
+                MyLib.Delay1ms(500);
+            }
+
+            InsControl._oscilloscope.SaveWaveform(test_parameter.waveform_path, test_parameter.waveform_name + "_lpm_pahse");
+            MyLib.Delay1ms(500);
+
+
+            for (int i = 0; i < 3; i++) 
+                lpm_phase = InsControl._oscilloscope.doQueryNumber("CURSor:VBArs:DELTa?");
+
+            return res;
+        }
+
         private bool SlewRate_Rise_Task(int case_idx, bool overshoot_en = false)
         {
             vmax_list.Clear();
@@ -423,6 +475,8 @@ namespace SoftStartTiming
                 InsControl._oscilloscope.SetAnnotation(meas_delay);
                 InsControl._oscilloscope.SetCursorSource(1, 3); MyLib.Delay1ms(100);
                 InsControl._oscilloscope.SetCursorSource(2, 1); MyLib.Delay1ms(100);
+
+
             }
 
             InsControl._oscilloscope.SetCursorWaveform();
@@ -916,6 +970,17 @@ namespace SoftStartTiming
                                                 test_parameter.vidio.vout_list_af[case_idx]
                                                 );
 
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        {
+                            // define ch4 measure Lx if lpm mode enable
+                            InsControl._oscilloscope.CHx_Position(4, -4);
+                            InsControl._oscilloscope.SetProbeGain(4, 1);
+                            InsControl._oscilloscope.SetCHxUnit(4, "V");
+                            InsControl._oscilloscope.SetCHxTERmination(4, true);
+                            InsControl._oscilloscope.CHx_Level(4, test_parameter.VinList[vin_idx] / 1.5);
+                        }
+
+
                         test_parameter.waveform_name = file_name;
 #if Power_en
                         InsControl._power.AutoSelPowerOn(test_parameter.VinList[vin_idx]);
@@ -975,7 +1040,17 @@ namespace SoftStartTiming
                         bool ris_res = !SlewRate_Rise_Task(case_idx);
 
                         Mesure_VIDup_down(trigger_ch, true);
-                        _range = _sheet.Range["BY" + (wave_row + 2), "CG" + (wave_row + 25)];
+
+                        if (test_parameter.vidio.criteria[case_idx].lpm_en)
+                        {
+                            LPMEn_to_Phase();
+                            _range = _sheet.Range["CT" + (wave_row + 2), "DB" + (wave_row + 25)];
+                            MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, test_parameter.waveform_name + "_lpm_pahse");
+                        }
+
+
+
+                        _range = _sheet.Range["BZ" + (wave_row + 2), "CH" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, test_parameter.waveform_name + "_vid_up");
 
                         if (ris_res) // Rise time and slew
@@ -988,7 +1063,7 @@ namespace SoftStartTiming
                         else
                         {
                             slewrate_min = phase1_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                            _range = _sheet.Range["AA" + (wave_row + 2), "AI" + (wave_row + 25)];
+                            _range = _sheet.Range["AB" + (wave_row + 2), "AJ" + (wave_row + 25)];
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                             res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
@@ -998,6 +1073,7 @@ namespace SoftStartTiming
                             {
                                 _sheet.Cells[row, XLS_Table.W] = delay_list.Max() * Math.Pow(10, 6);
                                 _sheet.Cells[row, XLS_Table.X] = delay100_list.Max() * Math.Pow(10, 6);
+                                _sheet.Cells[row, XLS_Table.Y] = lpm_phase * Math.Pow(10, 6);
                             }
 
                             if (!SlewRate_Rise_Task(case_idx, true))         // overshoot
@@ -1010,7 +1086,7 @@ namespace SoftStartTiming
 
                             _sheet.Cells[row, XLS_Table.R] = vmax_list.Max();
                             shoot_max = test_parameter.waveform_name + "_overshoot";
-                            _range = _sheet.Range["AK" + (wave_row + 2), "AS" + (wave_row + 25)];
+                            _range = _sheet.Range["AL" + (wave_row + 2), "AT" + (wave_row + 25)];
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
 
                             _sheet.Cells[row, XLS_Table.U] = overshoot_list.Max() * 100;
@@ -1024,13 +1100,14 @@ namespace SoftStartTiming
                             row++;
                             continue;
                         }
+
                         Mesure_VIDup_down(trigger_ch, false);
-                        _range = _sheet.Range["CI" + (wave_row + 2), "CQ" + (wave_row + 25)];
+                        _range = _sheet.Range["CJ" + (wave_row + 2), "CR" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, test_parameter.waveform_name + "_vid_down");
 
 
                         slewrate_min = phase2_name[slewrate_list.IndexOf(slewrate_list.Min())];
-                        _range = _sheet.Range["AU" + (wave_row + 2), "BC" + (wave_row + 25)];
+                        _range = _sheet.Range["AV" + (wave_row + 2), "BD" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, slewrate_min);
                         res = diff ? slewrate_list.Min() * Math.Pow(10, 6) : slewrate_list.Min();
 
@@ -1047,14 +1124,14 @@ namespace SoftStartTiming
                         _sheet.Cells[row, XLS_Table.T] = vmin_list.Min();
                         shoot_max = test_parameter.waveform_name + "_undershoot";
                         // past over/under-shoot max case
-                        _range = _sheet.Range["BE" + (wave_row + 2), "BM" + (wave_row + 25)];
+                        _range = _sheet.Range["BF" + (wave_row + 2), "BN" + (wave_row + 25)];
                         MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, shoot_max);
                         _sheet.Cells[row, XLS_Table.V] = undershoot_list.Min() * 100;
                         //_sheet.Cells[row, XLS_Table.F] = vmin_list.Max() + "->" + vmax_list.Max();
 
                         if (test_parameter.vidio.criteria[case_idx].lpm_en)
                         {
-                            _range = _sheet.Range["BO" + (wave_row + 2), "BW" + (wave_row + 25)];
+                            _range = _sheet.Range["BP" + (wave_row + 2), "BX" + (wave_row + 25)];
                             string name = test_parameter.waveform_name + "_delay";
                             MyLib.PastWaveform(_sheet, _range, test_parameter.waveform_path, name);
                         }
@@ -1128,35 +1205,35 @@ namespace SoftStartTiming
 
 
                         Excel.Range main_range = _sheet.Range["D" + row];
-                        Excel.Range hyper = _sheet.Range["AA" + (wave_row + 1)];
+                        Excel.Range hyper = _sheet.Range["AB" + (wave_row + 1)];
                         // A to B
                         _sheet.Hyperlinks.Add(main_range, "#'" + _sheet.Name + "'!AA" + (wave_row + 1));
                         _sheet.Hyperlinks.Add(hyper, "#'" + _sheet.Name + "'!D" + row);
 
-                        _sheet.Cells[wave_row, XLS_Table.AA] = "超連結";
-                        _sheet.Cells[wave_row, XLS_Table.AB] = "VIN";
-                        _sheet.Cells[wave_row, XLS_Table.AC] = "Vout";
-                        _sheet.Cells[wave_row, XLS_Table.AD] = "Iout";
-                        _sheet.Cells[wave_row, XLS_Table.AE] = "Rise (us)";
-                        _sheet.Cells[wave_row, XLS_Table.AF] = "Rise SR (us/V)";
-                        _sheet.Cells[wave_row, XLS_Table.AG] = "Fall (us)";
-                        _sheet.Cells[wave_row, XLS_Table.AH] = "Fall SR (us/V)";
-                        _sheet.Cells[wave_row, XLS_Table.AI] = "VMax (V)";
-                        _sheet.Cells[wave_row, XLS_Table.AJ] = "VMin (V)";
-                        _range = _sheet.Range["AA" + wave_row, "AJ" + wave_row];
+                        _sheet.Cells[wave_row, XLS_Table.AB] = "超連結";
+                        _sheet.Cells[wave_row, XLS_Table.AC] = "VIN";
+                        _sheet.Cells[wave_row, XLS_Table.AD] = "Vout";
+                        _sheet.Cells[wave_row, XLS_Table.AE] = "Iout";
+                        _sheet.Cells[wave_row, XLS_Table.AF] = "Rise (us)";
+                        _sheet.Cells[wave_row, XLS_Table.AG] = "Rise SR (us/V)";
+                        _sheet.Cells[wave_row, XLS_Table.AH] = "Fall (us)";
+                        _sheet.Cells[wave_row, XLS_Table.AI] = "Fall SR (us/V)";
+                        _sheet.Cells[wave_row, XLS_Table.AJ] = "VMax (V)";
+                        _sheet.Cells[wave_row, XLS_Table.AK] = "VMin (V)";
+                        _range = _sheet.Range["AB" + wave_row, "AK" + wave_row];
                         _range.Interior.Color = Color.FromArgb(124, 252, 0);
                         _range.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
 
-                        _sheet.Cells[wave_row + 1, XLS_Table.AA] = "Go back";
-                        _sheet.Cells[wave_row + 1, XLS_Table.AB] = test_parameter.VinList[vin_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.AC] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.AD] = test_parameter.IoutList[iout_idx];
-                        _sheet.Cells[wave_row + 1, XLS_Table.AE] = "=L" + row; // tise time
-                        _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=K" + row; // rise slew rate
-                        _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=P" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AH] = "=O" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=R" + row;
-                        _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=T" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AB] = "Go back";
+                        _sheet.Cells[wave_row + 1, XLS_Table.AC] = test_parameter.VinList[vin_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AD] = test_parameter.vidio.vout_list[case_idx] + "->" + test_parameter.vidio.vout_list_af[case_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AE] = test_parameter.IoutList[iout_idx];
+                        _sheet.Cells[wave_row + 1, XLS_Table.AF] = "=L" + row; // tise time
+                        _sheet.Cells[wave_row + 1, XLS_Table.AG] = "=K" + row; // rise slew rate
+                        _sheet.Cells[wave_row + 1, XLS_Table.AH] = "=P" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AI] = "=O" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AJ] = "=R" + row;
+                        _sheet.Cells[wave_row + 1, XLS_Table.AK] = "=T" + row;
 #endif
                         InsControl._oscilloscope.SetAutoTrigger();
                         wave_row += 31;
