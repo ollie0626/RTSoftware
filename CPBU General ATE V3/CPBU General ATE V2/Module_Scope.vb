@@ -12,22 +12,19 @@ Module Module_Scope
     Public osc_sel As Integer
     Public cmd As String
 
-
-
+    Public Rohde_Schwarz As Integer = 0
+    Public Tektronix_7Series As Integer = 1
+    Public Agilent_9Series As Integer = 2
+    Public Tektronix_MSO As Integer = 3
 
 
     Public Scope_folder As String
-
     Public Scope_name() As String
     Public Scope_IF() As String
-
     Public Scope_Dev As Integer
     Public Scope_format As String = "PNG"
     Public Scope_Addr As Integer
-
-
     Public Scope_num As Integer
-
     Public BW_20M As String = "TWEnty"
     Public BW_150M As String = "ONEfifty"
     Public BW_500M As String = "FULl" '"FIVe"
@@ -35,8 +32,6 @@ Module Module_Scope
     Public RS_Scope_EN As Boolean = False
     Public TDS2024_scope As Boolean = False
     Public TDS5054_scope As Boolean = False
-
-
     Public RS_Scope_Dev As String
     Public RS_vi As Integer
 
@@ -49,7 +44,6 @@ Module Module_Scope
     Public Agilent_Dev As String
     Public Agilent_vi As Integer
 
-
     Public Scope_vpp As String = "PK2PK"
     Public Scope_Ton As String = "PWIDTH"
     Public Scope_Toff As String = "NWIDTH"
@@ -59,7 +53,6 @@ Module Module_Scope
     Public Scope_vmin As String = "MINImum"
     Public Scope_cursor_type As String = "WAVEform"
 
-
     Public RS_Scope_vpp As String = "PDELta" 'Peak-to-peak value of the waveform
     Public RS_Scope_Ton As String = "PPULse"
     Public RS_Scope_Toff As String = "NPULse"
@@ -67,7 +60,6 @@ Module Module_Scope
     Public RS_Scope_vmax As String = "MAXimum"
     Public RS_Scope_vmean As String = "MEAN"
     Public RS_Scope_vmin As String = "MINimum"
-
 
     Public Meas_mean As String = "MEAN"
     Public Meas_max As String = "MAX"
@@ -103,16 +95,20 @@ Module Module_Scope
         Dim vi As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 Dev = RS_Scope_Dev
                 vi = RS_vi
-            Case 1
+            Case Tektronix_7Series
+
                 Dev = Tek_Dev
                 vi = Tek_vi
-            Case 2
+            Case Agilent_9Series
+
                 Dev = Agilent_Dev
                 vi = Agilent_vi
-            Case 3
+            Case Tektronix_MSO
+
                 Dev = MSO_Dev
                 vi = MSO_vi
         End Select
@@ -125,16 +121,20 @@ Module Module_Scope
         Dim vi As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 Dev = RS_Scope_Dev
                 vi = RS_vi
-            Case 1
+            Case Tektronix_7Series
+
                 Dev = Tek_Dev
                 vi = Tek_vi
-            Case 2
+            Case Agilent_9Series
+
                 Dev = Agilent_Dev
                 vi = Agilent_vi
-            Case 3
+            Case Tektronix_MSO
+
                 Dev = MSO_Dev
                 vi = MSO_vi
         End Select
@@ -147,6 +147,26 @@ Module Module_Scope
         Else
             res = 0
         End If
+
+        'visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        'If visa_status = VI_ERROR_CONN_LOST Then
+        '    viOpen(defaultRM, RS_Scope_Dev, VI_NO_LOCK, 2000, RS_vi)
+        'End If
+
+        'While retcount = 0
+        '    System.Windows.Forms.Application.DoEvents()
+        '    read_error = read_error + 1
+        '    If (read_error = 100) Or (run = False) Then
+        '        Return 0
+        '        Exit Function
+        '    End If
+        '    Delay(10)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        'End While
+
+        'If retcount > 0 Then
+        '    Return Val(Mid(visa_response, 1, retcount - 1))
+        'End If
 
         Return res
     End Function
@@ -181,6 +201,10 @@ Module Module_Scope
         Return res
     End Function
 
+    Function QueryIDN() As String
+        Return DoQueryString("*IDN?")
+    End Function
+
 
     'source_num =1~4
     'Tek Measure error= 99.00000000000E+36\n
@@ -196,8 +220,6 @@ Module Module_Scope
             viClose(defaultRM)
             RS_Scope_EN = False
         End If
-
-
     End Function
 
     Function RS_Local() As Integer
@@ -234,13 +256,16 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 cmd = "DISPlay:PERSistence:RESet"
-            Case 1
+            Case Tektronix_7Series
+
                 cmd = "DISplay:PERSistence:RESET"
-            Case 2
+            Case Agilent_9Series
+
                 cmd = ":DISPlay:PERSistence MINimum"
-            Case 3
+            Case Tektronix_MSO
 
         End Select
         Docommand(cmd)
@@ -305,7 +330,8 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 If PERSistence_ON Then
                     cmd = "DISplay:PERSistence ON"
                     Docommand(cmd)
@@ -319,7 +345,8 @@ Module Module_Scope
                 Delay(10)
                 cmd = "DISPlay:PERSistence:RESet"
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
+
                 If PERSistence_ON Then
                     cmd = "DISplay:PERSistence INFPersist"
                     Docommand(cmd)
@@ -327,7 +354,8 @@ Module Module_Scope
                     cmd = "DISplay:PERSistence OFF"
                     Docommand(cmd)
                 End If
-            Case 2
+            Case Agilent_9Series
+
                 If PERSistence_ON Then
                     cmd = ":DISPlay:PERSistence INFinite"
                     Docommand(cmd)
@@ -336,7 +364,7 @@ Module Module_Scope
                     Docommand(cmd)
                 End If
 
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -387,13 +415,17 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 cmd = String.Format("CHANnel{0}:STATe {1}", source_num, ONOFF)
-            Case 1
+            Case Tektronix_7Series
+
                 cmd = String.Format("SELect:CH{0} {1}", source_num, ONOFF)
-            Case 2
+            Case Agilent_9Series
+
                 cmd = String.Format(":CHANnel{0}:DISPLAY {1}", source_num, ONOFF)
-            Case 3
+            Case Tektronix_MSO
+
         End Select
 
 
@@ -486,7 +518,8 @@ Module Module_Scope
         ' 1: AC
         ' 2: DC 50 ohm
         Select Case osc_sel
-            Case 0 ' R&S Scope
+            Case Rohde_Schwarz ' R&S Scope
+
                 Select Case CouplingSel(coupling)
                     Case 0
                         cmd = String.Format("CHANnel{0}:COUPling DCLimit", source_num)
@@ -498,7 +531,8 @@ Module Module_Scope
                         cmd = String.Format("CHANnel{0}:COUPling DC", source_num)
                         Docommand(cmd)
                 End Select
-            Case 1 ' Tek Scope
+            Case Tektronix_7Series
+
                 Select Case CouplingSel(coupling)
                     Case 0
                         cmd = String.Format("CH{0}:TERmination 1.0E+6", source_num)
@@ -513,7 +547,8 @@ Module Module_Scope
                         cmd = String.Format("CH{0}:COUPling DC")
                         Docommand(cmd)
                 End Select
-            Case 2 ' Agilent Scope
+            Case Agilent_9Series
+
                 Select Case CouplingSel(coupling)
                     Case 0
                         cmd = String.Format(":CHANnel{0}:INPut DC", source_num)
@@ -525,7 +560,7 @@ Module Module_Scope
                         cmd = String.Format(":CHANnel{0}:INPut DC50", source_num)
                         Docommand(cmd)
                 End Select
-            Case 3 ' MSO Scope
+            Case Tektronix_MSO
 
         End Select
 
@@ -592,7 +627,8 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0 ' R&S
+            Case Rohde_Schwarz
+
                 If mode = "20MHz" Then
                     mode = "B20"
                 ElseIf mode = "Full" Then
@@ -600,21 +636,23 @@ Module Module_Scope
                 End If
                 cmd = String.Format("CHANnel{0}:BANdwidth {1}", source_num, mode)
 
-            Case 1 ' Tek
+            Case Tektronix_7Series
+
                 If mode = "20MHz" Then
                     mode = BW_20M
                 ElseIf mode = "Full" Then
                     mode = BW_500M
                 End If
                 cmd = String.Format("CH{0}:BANdwidth {1}", source_num, mode)
-            Case 2 ' Agilent
+            Case Agilent_9Series
+
                 If mode = "20MHz" Then
                     mode = "20e6"
                 Else
                     mode = "ON"
                 End If
                 cmd = String.Format(":CHANnel{0}:BWLimit {1}", source_num, mode)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
         Docommand(cmd)
@@ -659,12 +697,15 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("CHANnel{0}:SCAle {1}", source_num, unit_value)
-            Case 1
+            Case Tektronix_7Series
+
                 cmd = String.Format("CH{0}:SCAle {1}", source_num, unit_value)
-            Case 2
+            Case Agilent_9Series
+
                 cmd = String.Format(":CHANNEL{0}:SCALe {1}", unit_value)
+            Case Tektronix_MSO
         End Select
 
         Docommand(cmd)
@@ -709,16 +750,16 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("CHANnel{0}:POSition {1}", source_num, value)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("CH{0}:POSition {1}", source_num, value)
-            Case 2
+            Case Agilent_9Series
                 cmd = String.Format(":CHANnel{0}:SCALe?")
                 Dim res As Double = DoQueryNumber(cmd)
                 Delay(300)
                 cmd = String.Format(":CHANnel{0}:OFFSet {1}", source_num, value * res)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
         Docommand(cmd)
@@ -755,13 +796,13 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("CHANnel{0}:OFFSet {1}", source_num, value)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("CH{0}:OFFSet {1}", source_num, value)
-            Case 2
+            Case Agilent_9Series
                 cmd = String.Format(":CHANnel{0}:OFFSet {1}", source_num, value)
-            Case 3
+            Case Tektronix_MSO
         End Select
         Docommand(cmd)
 
@@ -818,14 +859,14 @@ Module Module_Scope
 
         Dim value As Double
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "CHANnel" & source_num & ":POSition?"
                 value = DoQueryNumber(cmd)
                 Delay(10)
                 YPOS = (5 - Math.Floor(value)) * 10 - RS_label_YPOS
                 cmd = "DISplay:SIGNal:LABel:ADD 'Label1',C" & source_num & "W1," & "'" & name & "'" & ",REL," & RS_label_XPOS & "," & YPOS
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "CH" & source_num & ":LABEL:NAMe """ & name & """"
                 Docommand(cmd)
                 Delay(10)
@@ -835,16 +876,10 @@ Module Module_Scope
                 cmd = "CH" & source_num & ":LABEL:YPOS " & label_YPOS
                 Docommand(cmd)
                 Delay(10)
-            Case 2
+            Case Agilent_9Series
 
-            Case 3
+            Case Tektronix_MSO
         End Select
-
-
-
-
-
-
 
     End Function
 
@@ -881,53 +916,56 @@ Module Module_Scope
     'End Function
 
     Function H_reclength(ByVal value As Integer) As Integer
-        If RS_Scope = False Then
+        'If RS_Scope = False Then
 
-            'This command sets or queries the record length.
-            'HORizontal:MODE:RECOrdlength <NR1>
-            ts = "HORizontal:RECOrdlength " & value
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-            'Arguments AUTO selects the automatic horizontal model. Auto mode attempts to keep
-            'record length constant as you change the time per division setting. Record length
-            'is read only.
-            'CONSTANT selects the constant horizontal model. Constant mode attempts to
-            'keep sample rate constant as you change the time per division setting. Record
-            'length is read only.
-            'MANUAL selects the manual horizontal model. Manual mode lets you change
-            'sample mode and record length. Time per division or Horizontal scale is read only.
+        '    'This command sets or queries the record length.
+        '    'HORizontal:MODE:RECOrdlength <NR1>
+        '    ts = "HORizontal:RECOrdlength " & valueㄉ
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        '    'Arguments AUTO selects the automatic horizontal model. Auto mode attempts to keep
+        '    'record length constant as you change the time per division setting. Record length
+        '    'is read only.
+        '    'CONSTANT selects the constant horizontal model. Constant mode attempts to
+        '    'keep sample rate constant as you change the time per division setting. Record
+        '    'length is read only.
+        '    'MANUAL selects the manual horizontal model. Manual mode lets you change
+        '    'sample mode and record length. Time per division or Horizontal scale is read only.
 
-            'NOTE: 只要寫這個command就會變成MANUAL Mode
-            ts = "HORizontal:MODE AUTO"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            Delay(10)
-        Else
-            'This command sets or queries the record length.
-            'ACQuire:POINts:VALue <RECOrdlength>
-            '<RECOrdlength> Range:1000 to 1000000000
-            '要設定"ACQuire:POINts:AUTO RECLength"才能寫入reclength
+        '    'NOTE: 只要寫這個command就會變成MANUAL Mode
+        '    ts = "HORizontal:MODE AUTO"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    Delay(10)
+        'Else
+        '    'This command sets or queries the record length.
+        '    'ACQuire:POINts:VALue <RECOrdlength>
+        '    '<RECOrdlength> Range:1000 to 1000000000
+        '    '要設定"ACQuire:POINts:AUTO RECLength"才能寫入reclength
 
-            ts = "ACQuire:POINts:AUTO RECLength"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            ts = "ACQuire:POINts:VALue" & " " & value
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-        End If
+        '    ts = "ACQuire:POINts:AUTO RECLength"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    ts = "ACQuire:POINts:VALue" & " " & value
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        'End If
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
+
                 cmd = "ACQuire:POINts:AUTO RECLength"
                 Docommand(10)
                 cmd = String.Format("ACQuire:POINts:VALue {0}", value)
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
+
                 cmd = String.Format("HORizontal:RECOrdlength {0}", value)
                 Docommand(cmd)
                 Docommand(10)
                 cmd = String.Format("HORizontal:MODE AUTO")
                 Docommand(cmd)
-            Case 2
-            Case 3
+            Case Agilent_9Series
+
+            Case Tektronix_MSO
 
         End Select
 
@@ -965,14 +1003,14 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("HORizontal:ROLL {0}", mode)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("TIMebase:ROLL:ENABle {0}", mode)
-            Case 2
+            Case Agilent_9Series
                 ':TIMebase:ROLL:ENABLE {{ON | 1} | {OFF | 0}}
                 cmd = String.Format(":TIMebase:ROLL:ENABLE {0}", mode)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
         Docommand(cmd)
@@ -1012,13 +1050,13 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("Timebase:SCALe {0}", unit_value)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("HORizontal:SCAle {0}", unit_value)
-            Case 2
+            Case Agilent_9Series
                 cmd = String.Format(":TIMebase:SCALe {0}", unit_value)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1081,13 +1119,13 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "Timebase:SCALe?"
-            Case 1
+            Case Tektronix_7Series
                 cmd = "HORizontal:SCAle?"
-            Case 2
+            Case Agilent_9Series
                 cmd = ":TIMEBASE:SCALE?"
-            Case 3
+            Case Tektronix_MSO
         End Select
 
 
@@ -1146,19 +1184,19 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "ACQuire:POINts:AUTO RESolution"
                 Docommand(cmd)
                 Delay(10)
                 cmd = String.Format("ACQuire:SRATe {0}", unit_value)
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("HORizontal:MODE:SAMPLERate {0}", unit_value)
                 Docommand(cmd)
                 Delay(10)
                 cmd = "HORizontal:MODE AUTO"
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 ' need to test
                 cmd = String.Format(":ACQuire:SRATe:ANALog {0}", unit_value)
                 Docommand(cmd)
@@ -1166,7 +1204,7 @@ Module Module_Scope
                 cmd = ":ACQuire:SRATe:ANALog:AUTO ON"
                 Docommand(cmd)
 
-            Case 3
+            Case Tektronix_MSO
         End Select
 
     End Function
@@ -1211,20 +1249,20 @@ Module Module_Scope
 
         Dim timeScale As Double = 0
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "TIMebase:HORizontal:POSition 0"
                 Docommand(cmd)
                 cmd = String.Format("TIMebase:REFerence {0}", value)
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("HORizontal:POSition {0}", value)
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 timeScale = DoQueryNumber(":TIMEBASE:SCALE?")
                 Delay(300)
                 cmd = String.Format(":TIMEBASE:POSITION {0}", value * timeScale)
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
         End Select
 
 
@@ -1258,16 +1296,16 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = String.Format("CURSor1:STATe {0}", ONOFF)
-            Case 1
+            Case Tektronix_7Series
                 cmd = String.Format("CURSor:STATE {0}", ONOFF)
-            Case 2
+            Case Agilent_9Series
                 If ONOFF = "ON" Then
                     ONOFF = "MANual"
                 End If
                 cmd = String.Format(":MARKer:MODE {0}", ONOFF)
-            Case 3
+            Case Tektronix_MSO
         End Select
         Docommand(cmd)
     End Function
@@ -1350,7 +1388,7 @@ Module Module_Scope
 
         ' need to check function application
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Select Case type
                     Case "VBArs"
                         cmd = "CURSor1:FUNCtion VERTical"
@@ -1364,7 +1402,7 @@ Module Module_Scope
                 cmd = "CURSor1:SOURce C" & x1 & "W1"
                 Docommand(cmd)
 
-            Case 1
+            Case Tektronix_7Series
                 cmd = "CURSor:FUNCtion " & type
                 Docommand(cmd)
                 Delay(10)
@@ -1373,7 +1411,7 @@ Module Module_Scope
                 Delay(10)
                 cmd = "CURSor:SOUrce2 " & "CH" & x2
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 ':MARKer:MODE {OFF | MANual | WAVeform | MEASurement | XONLy | YONLy}
                 cmd = ":MARKer:MODE " & type
                 Docommand(cmd)
@@ -1383,7 +1421,7 @@ Module Module_Scope
                 Delay(10)
                 cmd = String.Format(":MARKer2:SOURce CHANnel{0}", x2)
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1465,7 +1503,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Select Case type
                     Case "VBArs"
                         cmd = String.Format("CURSor1:X1Position {0}", position1)
@@ -1480,13 +1518,13 @@ Module Module_Scope
                         cmd = String.Format("CURSor1:Y2Position {0}", position2)
                         Docommand(cmd)
                 End Select
-            Case 1
+            Case Tektronix_7Series
                 cmd = "CURSOR:" & type & ":POSITION1 " & position1
                 Docommand(cmd)
                 Delay(10)
                 cmd = "CURSOR:" & type & ":POSITION2 " & position2
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 Select Case type
                     Case "VBArs"
                         cmd = String.Format(":MARKer:X1Position {0}", position1)
@@ -1501,7 +1539,7 @@ Module Module_Scope
                         cmd = String.Format(":MARKer:Y2Position {0}", position2)
                         Docommand(cmd)
                 End Select
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1575,7 +1613,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Select Case type
                     Case "VBArs"
                         delta = ":XDELta?"
@@ -1584,10 +1622,10 @@ Module Module_Scope
                 End Select
                 cmd = "CURSor1" & delta
                 Cursor_delta = DoQueryNumber(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "CURSor:" & type & ":DELTa?"
                 Cursor_delta = DoQueryNumber(cmd)
-            Case 2
+            Case Agilent_9Series
                 Select Case type
                     Case "VBArs"
                         delta = ":XDELta?"
@@ -1599,7 +1637,7 @@ Module Module_Scope
                 Delay(10)
                 cmd = ":MARKer:" & delta
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1724,7 +1762,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "TRIGger1:TYPE EDGE"
                 Docommand(10)
                 Delay(10)
@@ -1741,7 +1779,7 @@ Module Module_Scope
                 cmd = ts = "TRIGger1:LEVel" & source_num & " " & level
                 Docommand(10)
 
-            Case 1
+            Case Tektronix_7Series
                 cmd = "TRIGger:A:EDGE:COUPling DC"
                 Docommand(cmd)
                 Delay(10)
@@ -1757,7 +1795,7 @@ Module Module_Scope
                 Delay(10)
                 cmd = "TRIGger:A:LEVel " & level & "E+00"
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":TRIGger:MODE EDGE"
                 Docommand(cmd)
                 Delay(10)
@@ -1773,7 +1811,7 @@ Module Module_Scope
                 Docommand(cmd)
                 cmd = String.Format(":TRIGger:LEVel CHANnel{0}, {1}", source_num, level)
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1828,7 +1866,7 @@ Module Module_Scope
     Function Trigger_auto_level(ByVal source_num As Integer, ByVal edge As String) As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "TRIGger1:SOURce" & " " & "CHAN" & source_num
                 Docommand(cmd)
                 Delay(10)
@@ -1840,7 +1878,7 @@ Module Module_Scope
                 Docommand(cmd)
                 Delay(10)
 
-            Case 1
+            Case Tektronix_7Series
                 cmd = "TRIGger:A:EDGE:SOUrce " & "CH" & source_num
                 Docommand(cmd)
                 Delay(10)
@@ -1855,7 +1893,7 @@ Module Module_Scope
                 Docommand(cmd)
                 cmd = "TRIGger1:FINDlevel"
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":TRIGger:MODE EDGE"
                 Docommand(cmd)
                 cmd = String.Format(":TRIGger:EDGE1:SOURce CHANnel{0}", source_num)
@@ -1866,7 +1904,7 @@ Module Module_Scope
                     cmd = ":TRIGger:EDGE:SLOPe NEGative"
                 End If
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -1950,16 +1988,16 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 If HL = "H" Then
                     cmd = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSHigh"
                 Else
                     cmd = "TRIGger:A:PULse:TIMEOut:POLarity:" & "CH" & source_num & " STAYSLow"
                 End If
                 Docommand(cmd)
-            Case 1
-            Case 2
-            Case 3
+            Case Tektronix_7Series
+            Case Agilent_9Series
+            Case Tektronix_MSO
 
         End Select
 
@@ -1990,10 +2028,10 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "TRIGger1:TIMeout:TIME " & temp
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "TRIGger:A:TYPe PULse"
                 Docommand(cmd)
                 cmd = "TRIGger:A:PULse:SOUrce " & "CH" & source_num
@@ -2002,7 +2040,7 @@ Module Module_Scope
                 Docommand(cmd)
                 cmd = "TRIGger:A:PULse:TIMEOut:TIMe " & temp
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":TRIGger:TIMeout1:CONDition HIGH"
                 Docommand(cmd)
 
@@ -2011,7 +2049,7 @@ Module Module_Scope
 
                 cmd = ":TRIGger:TIMeout:TIME " & temp
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -2117,19 +2155,19 @@ Module Module_Scope
     Function RUN_set(ByVal mode As String) As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 If mode = "SEQuence" Then
                     cmd = "ACQuire:COUNt 1"
                 Else
                     cmd = "ACQuire:COUNt MAX"
                 End If
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "ACQuire:MODE SAMple"
                 Docommand(cmd)
                 cmd = "ACQuire:STOPAfter " & mode
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 ' single and auto setting
                 If mode = "SEQuence" Then
                     cmd = ":TRIGger:SWEep SINGle"
@@ -2137,7 +2175,7 @@ Module Module_Scope
                     cmd = "TRIGger:SWEep AUTO"
                 End If
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -2212,28 +2250,28 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 If ONOFF = True Then
                     cmd = "RUNSingle" ';*OPC?"
                 Else
                     cmd = "STOP;*OPC?"
                 End If
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 If ONOFF = True Then
                     cmd = "ACQuire:STATE RUN"
                 Else
                     cmd = "ACQuire:STATE STOP"
                 End If
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 If ONOFF = True Then
                     cmd = ":RUN"
                 Else
                     cmd = ":STOP"
                 End If
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -2295,7 +2333,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "ACQuire:CURRent?"
                 temp = DoQueryNumber(cmd)
                 If temp = 1 Then
@@ -2303,7 +2341,7 @@ Module Module_Scope
                 ElseIf temp = 0 Then
                     status = "Running"
                 End If
-            Case 1
+            Case Tektronix_7Series
                 cmd = "ACQuire:STATE?"
                 temp = DoQueryNumber(cmd)
                 If temp = 0 Or temp = 2 Then
@@ -2311,7 +2349,7 @@ Module Module_Scope
                 ElseIf temp = 1 Or temp = 3 Then
                     status = "Running"
                 End If
-            Case 2
+            Case Agilent_9Series
                 ' need to test
                 cmd = ":RSTate?"
                 temp = DoQueryString(cmd)
@@ -2320,7 +2358,7 @@ Module Module_Scope
                 Else temp = "STOP"
                     status = "Stopping"
                 End If
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -2374,28 +2412,25 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 For i = 1 To 8
                     cmd = "MEASurement" & i & " " & "OFF"
                     Docommand(cmd)
                     Delay(10)
                 Next
-            Case 1
+            Case Tektronix_7Series
                 For i = 1 To 8
                     cmd = "MEASUrement:MEAS" & i & ":STATE " & "OFF"
                     Docommand(cmd)
                     Delay(10)
                 Next
-            Case 2
+            Case Agilent_9Series
                 cmd = ":MEASure:CLEar"
                 Docommand(cmd)
-            Case 3
+
+            Case Tektronix_MSO
 
         End Select
-
-
-
-
 
     End Function
 
@@ -2497,7 +2532,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Select Case type
                     Case "PK2Pk"
                         type = "PDELta"
@@ -2538,7 +2573,7 @@ Module Module_Scope
                 cmd = "MEASurement" & x & ":STATistics" & " " & "ON"
                 Docommand(cmd)
 
-            Case 1
+            Case Tektronix_7Series
 
                 cmd = "MEASUrement:MEAS" & x & ":SOUrce CH" & source_num
                 Docommand(cmd)
@@ -2548,10 +2583,10 @@ Module Module_Scope
 
                 cmd = "MEASUrement:MEAS" & x & ":STATE " & "ON"
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":MEASure:" & type & "CHANnel" & source_num
                 Docommand(cmd)
-            Case 3
+            Case Tektronix_MSO
 
         End Select
 
@@ -2689,8 +2724,6 @@ Module Module_Scope
                 temp = ibcntl - 1
                 note = Split(Mid(ValueStr, 1, temp), ";")
 
-
-
                 If note(0) = "0" Then
                     measure(i) = "None"
                 Else
@@ -2808,7 +2841,7 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 For i = 1 To 8
                     cmd = "MEASurement" & i & ":STATistics:RESet"
                     Docommand(cmd)
@@ -2816,12 +2849,13 @@ Module Module_Scope
                 Next
                 Scope_RUN(True)
                 RS_Local()
-            Case 1
+            Case Tektronix_7Series
                 cmd = "MEASUrement:STATIstics:COUNt RESET"
                 Docommand(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":CDISplay"
                 Docommand(cmd)
+            Case Tektronix_MSO
         End Select
 
 
@@ -2931,13 +2965,14 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "MEASurement" & x & ":RESult:WFMCount?"
                 measure = DoQueryNumber(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "MEASUrement:MEAS" & x & ":COUNt?"
                 measure = DoQueryNumber(cmd)
-            Case 2
+            Case Agilent_9Series
+                ':WAVeform:COUNt?
                 cmd = ":MEASure:STATistics COUNt"
                 Docommand(cmd)
 
@@ -2946,6 +2981,7 @@ Module Module_Scope
 
                 cmd = ":MEASure:STATistics CURRent"
                 Docommand(cmd)
+            Case Tektronix_MSO
         End Select
 
         Return measure
@@ -3070,7 +3106,7 @@ Module Module_Scope
         'End If
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Select Case mode
                     Case Meas_mean
                         mode = RS_Meas_mean
@@ -3084,10 +3120,10 @@ Module Module_Scope
                 End Select
                 cmd = "MEASurement" & x & ":RESult:" & mode & "?"
                 measure = DoQueryNumber(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "MEASUrement:MEAS" & x & ":" & mode & "?"
                 measure = DoQueryNumber(cmd)
-            Case 2
+            Case Agilent_9Series
                 cmd = ":MEASure:STATistics MEAN"
                 Docommand(cmd)
 
@@ -3095,6 +3131,7 @@ Module Module_Scope
                 ' x: channel 1 ~ 4
                 cmd = ":MEASure:" & mode & "? " & "CHANnel" & x
                 measure = DoQueryNumber(cmd)
+            Case Tektronix_MSO
 
         End Select
 
@@ -3165,16 +3202,17 @@ Module Module_Scope
     Function Waveform_data_init(ByVal data_Stop As Integer) As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
                 Docommand(cmd)
                 cmd = "SAVe:WAVEform:DATa:STOP " & data_Stop
                 Docommand(cmd)
                 cmd = "SAVe:WAVEform:FORCESAMEFilesize ON"
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
 
-            Case 2
+            Case Agilent_9Series
+            Case Tektronix_MSO
 
         End Select
 
@@ -3192,7 +3230,7 @@ Module Module_Scope
     Function RS_Waveform_data_init() As Integer
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "EXPort:WAVeform:SCOPe WFM"
                 Docommand(cmd)
                 cmd = "EXPort:WAVeform:RAW OFF"
@@ -3202,8 +3240,9 @@ Module Module_Scope
                 'OPC, STB
                 cmd = "EXPort:WAVeform:DLOGging OFF"
                 Docommand(cmd)
-            Case 1
-            Case 2
+            Case Tektronix_7Series
+            Case Agilent_9Series
+            Case Tektronix_MSO
 
         End Select
 
@@ -3314,7 +3353,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 temp = Split(file_path, ".")
                 file_temp = temp(0) & ".Wfm." & temp(1)
                 cmd = "EXPort:WAVeform:SOURce C" & channel & "W1"
@@ -3325,7 +3364,7 @@ Module Module_Scope
                 Docommand(cmd)
                 cmd = "MMEM:DATA? '" & file_temp & "'"
                 Docommand(cmd)
-            Case 1
+            Case Tektronix_7Series
                 cmd = "SAVe:WAVEform:FILEFormat SPREADSHEETCsv"
                 Docommand(cmd)
                 cmd = "SAVe:WAVEform:FORCESAMEFilesize ON"
@@ -3334,10 +3373,45 @@ Module Module_Scope
                 Docommand(cmd)
                 cmd = "FILESystem:READFile " & """" & file_path & """"
                 Docommand(cmd)
-            Case 2
-                'Agilent Save CSV
-                'cmd = ":DISPlay:DATA? PNG"
-                'Docommand(cmd)
+            Case Agilent_9Series
+                cmd = ":SYSTEM:HEADER OFF"
+                Docommand(cmd)
+                cmd = ":WAVeform:FORMat Byte"
+                Docommand(cmd)
+                cmd = ":WAVeform:SOURce CHAN" & channel
+                Docommand(cmd)
+                cmd = ":WAVeform:STReaming ON"
+                Docommand(cmd)
+
+
+                Dim point As Integer = DoQueryNumber(":WAVEFORM:POINTS?")
+                Dim x_ins As Double = DoQueryNumber(":WAVEFORM:XINCrement?")
+                Dim x_org As Double = DoQueryNumber(":WAVEFORM:XORigin?")
+                Dim y_ins As Double = DoQueryNumber(":WAVEFORM:YINCrement?")
+                Dim y_org As Double = DoQueryNumber(":WAVEFORM:YORigin?")
+
+                Dim arr() As Byte = New Byte(point) {}
+                Docommand(":WAVeform:DATA? 1," + point.ToString())
+
+                '    Byte[] Arr = New Byte[Point];
+                '    Docommand(":WAVeform:DATA? 1," + Point.ToString());
+                '    Int cnt = IEEEBlock_Bytes2(ref Arr);
+                '    Console.WriteLine("N:{0},Xin:{1},Xor:{2},Yin:{3},Yor{4},FB:{5}", Point, X_INS, X_ORG, Y_INS, Y_ORG, cnt);
+                '    Double data;
+                '    // byte[] Arr2 = New byte[Point2];
+                '    Using (StreamWriter sw = New StreamWriter(path))   //小寫TXT
+                '    {
+                '        For (Int() i = 2; i < Arr.Length; i += step)
+                '        {
+                '            If (Arr[i] > 127)
+                '                data = (Arr[i] - 256) * Y_INS + Y_ORG;
+                '            Else
+                '                        data = (Arr[i]) * Y_INS + Y_ORG;
+                '            sw.WriteLine(data);
+                '        }
+                '    }
+
+
         End Select
 
         visa_status = viRead(RS_vi, ts, 2, retcount)
@@ -3367,51 +3441,6 @@ Module Module_Scope
             ByteSize = FileLen(save_path)
         End If
 
-        'Public void SaveWaveformData(int ch, String path, ref Double SSR, bool IsFunc = False)
-        '{
-        '    If (device == 0) Then
-        '                {
-        '        Return;
-        '    }
-        '    Docommand(":SYSTEM:HEADER OFF");
-        '    Docommand(":WAVeform:FORMat Byte");
-        '    If (IsFunc) Then
-        '        Docommand(":WAVeform:SOURce FUNC" + ch.ToString());
-        '    Else
-        '        Docommand(":WAVeform:SOURce CHAN" + ch.ToString());
-        '    Docommand(":WAVeform:STReaming ON");
-        '    Int Point = (Int())doQueryNumber(":WAVEFORM:POINTS?");
-        '    Int step = 1;
-        '    Double X_INS = DoQueryNumber(":WAVEFORM:XINCrement?");
-        '    Double X_ORG = DoQueryNumber(":WAVEFORM:XORigin?");
-        '    Double Y_INS = DoQueryNumber(":WAVEFORM:YINCrement?");
-        '    Double Y_ORG = DoQueryNumber(":WAVEFORM:YORigin?");
-        '    If (X_INS > SSR) Then SSR = X_INS;
-        '    Else
-        '    {
-        '        step = (int)Math.Round(SSR / X_INS, 0);
-        '    }
-        '    Byte[] Arr = New Byte[Point];
-        '    Docommand(":WAVeform:DATA? 1," + Point.ToString());
-        '    Int cnt = IEEEBlock_Bytes2(ref Arr);
-        '    Console.WriteLine("N:{0},Xin:{1},Xor:{2},Yin:{3},Yor{4},FB:{5}", Point, X_INS, X_ORG, Y_INS, Y_ORG, cnt);
-        '    Double data;
-        '    // byte[] Arr2 = New byte[Point2];
-        '    Using (StreamWriter sw = New StreamWriter(path))   //小寫TXT
-        '    {
-        '        For (Int() i = 2; i < Arr.Length; i += step)
-        '        {
-        '            If (Arr[i] > 127)
-        '                data = (Arr[i] - 256) * Y_INS + Y_ORG;
-        '            Else
-        '                        data = (Arr[i]) * Y_INS + Y_ORG;
-        '            sw.WriteLine(data);
-        '        }
-        '    }
-        '    Arr = null;
-        '}
-
-
 
 
 
@@ -3420,7 +3449,7 @@ Module Module_Scope
 
     'Function RS_Waveform_data(ByVal file_path As String, ByVal save_path As String, ByVal x As Integer) As Integer
     '    Dim file_temp As Integer
-    '    ts = "EXPort:WAVeform:SOURce C" & x & "W1"
+    '    ts = "EXPort: WAVeform:SOURce C" & x & "W1"
     '     visa_write(RS_Scope_Dev,RS_vi, ts)
     '    ts = "EXPort:WAVeform:SCOPe WFM"
     '     visa_write(RS_Scope_Dev,RS_vi, ts)
@@ -3502,7 +3531,7 @@ Module Module_Scope
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 cmd = "HCOPy:DEV:INV OFF"
                 Docommand(cmd)
 
@@ -3511,8 +3540,9 @@ Module Module_Scope
 
                 cmd = "HCOP:DEV:LANG " & scope_format
                 Docommand(cmd)
-            Case 1
-            Case 2
+            Case Tektronix_7Series
+            Case Agilent_9Series
+            Case Tektronix_MSO
 
         End Select
 
@@ -3528,11 +3558,207 @@ Module Module_Scope
         Dim ByteSize As Long
         Dim file_temp As Integer
 
+        ' save waveform function
         read_error = 0
+
+        'If RS_Scope = False Then
+
+        '    ts = "EXP:FORM " & Scope_format
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+        '    ts = "HARDCopy:PORT FILE"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = "HARDCopy:FILEName '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = "HARDCopy STARt"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    ts = "FILESystem:READFile '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+        '    ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+
+
+
+        '    '-------------------------------------------------
+        '    'FILESystem:READFile Error
+
+        '    While (ibcntl = 0) Or (ibsta = EERR)
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+        '        ilwrt(Scope_Dev, ts, CInt(Len(ts)))
+
+        '    End While
+
+        '    '-------------------------------------------------
+
+
+        '    'file path of PC
+        '    read_error = 0
+
+        '    ts = pc_path
+        '    ibrdf32(Scope_Dev, ts)
+
+        '    '-------------------------------------------------
+        '    ' Error
+        '    While (ibcntl = 0) Or (ibsta = EERR)
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+
+        '        ibrdf32(Scope_Dev, ts)
+        '    End While
+        '    '-------------------------------------------------
+
+
+
+        '    ByteSize = FileLen(pc_path)
+        'Else
+        '    Scope_RUN(False)
+        '    Delay(10)
+        '    ts = "SYSTem:DISPlay:UPDate ON"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+
+
+        '    ts = "HCOP:DEST 'MMEM'"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+        '    'ts = "HCOPy:DEV:INV OFF"
+        '    'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
+
+        '    'ts = "HCOP:DEV:COL ON"
+        '    'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
+
+
+        '    'ts = "HCOP:DEV:LANG " & Scope_format
+        '    'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
+
+
+
+        '    ts = "MMEM:NAME '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+
+
+        '    'ts = "HCOP:IMM;*WAI"
+        '    ts = "HCOP:IMMediate;*OPC?"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+        '    visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+
+
+        '    While retcount = 0
+
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+
+        '        visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
+        '    End While
+        '    Delay(10)
+
+        '    ts = "MMEM:DATA? '" & Scope_folder & "\hardcopy." & Scope_format & "'"
+        '    visa_write(RS_Scope_Dev, RS_vi, ts)
+
+
+        '    visa_status = viRead(RS_vi, ts, 2, retcount)
+
+
+        '    '-------------------------------------------------
+        '    'FILESystem:READFile Error
+
+        '    While retcount = 0
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+        '        visa_status = viRead(RS_vi, ts, 2, retcount)
+        '    End While
+
+
+
+
+        '    '-------------------------------------------------
+
+        '    file_temp = Mid(ts, 2, 1)
+
+        '    visa_status = viRead(RS_vi, ts, file_temp, retcount)
+
+        '    read_error = 0
+
+
+        '    '-------------------------------------------------
+        '    'FILESystem:READFile Error
+
+        '    While retcount = 0
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+        '        visa_status = viRead(RS_vi, ts, file_temp, retcount)
+        '    End While
+
+
+
+
+        '    '-------------------------------------------------
+        '    visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+        '    '-------------------------------------------------
+        '    'FILESystem:READFile Error
+        '    read_error = 0
+        '    While retcount = 0
+        '        System.Windows.Forms.Application.DoEvents()
+
+        '        read_error = read_error + 1
+        '        If (read_error = 100) Or (run = False) Then
+        '            Return 0
+        '            Exit Function
+        '        End If
+        '        Delay(10)
+        '        visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+        '    End While
+
+
+
+
+        '    '-------------------------------------------------
+
+
+        '    ByteSize = 0
+        '    If (System.IO.File.Exists(pc_path)) = True Then
+        '        ByteSize = FileLen(pc_path)
+
+        '    End If
+
+        'End If
 
 
         Select Case osc_sel
-            Case 0
+            Case Rohde_Schwarz
                 Scope_RUN(False)
                 Delay(10)
                 cmd = "SYSTem:DISPlay:UPDate ON"
@@ -3559,53 +3785,7 @@ Module Module_Scope
                 Delay(10)
                 cmd = "MMEM:DATA? '" & Scope_folder & "\hardcopy." & Scope_format & "'"
                 Docommand(cmd)
-                visa_status = viRead(RS_vi, ts, 2, retcount)
-                '-------------------------------------------------
-                'FILESystem:READFile Error
-                While retcount = 0
-                    System.Windows.Forms.Application.DoEvents()
-                    read_error = read_error + 1
-                    If (read_error = 100) Or (run = False) Then
-                        Return 0
-                        Exit Function
-                    End If
-                    Delay(10)
-                    visa_status = viRead(RS_vi, ts, 2, retcount)
-                End While
-                '-------------------------------------------------
-                file_temp = Mid(ts, 2, 1)
-                visa_status = viRead(RS_vi, ts, file_temp, retcount)
-                read_error = 0
-                '-------------------------------------------------
-                'FILESystem:READFile Error
-                While retcount = 0
-                    System.Windows.Forms.Application.DoEvents()
-                    read_error = read_error + 1
-                    If (read_error = 100) Or (run = False) Then
-                        Return 0
-                        Exit Function
-                    End If
-                    Delay(10)
-                    visa_status = viRead(RS_vi, ts, file_temp, retcount)
-                End While
-                visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
-                'FILESystem:READFile Error
-                read_error = 0
-                While retcount = 0
-                    System.Windows.Forms.Application.DoEvents()
-                    read_error = read_error + 1
-                    If (read_error = 100) Or (run = False) Then
-                        Return 0
-                        Exit Function
-                    End If
-                    Delay(10)
-                    visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
-                End While
-                ByteSize = 0
-                If (System.IO.File.Exists(pc_path)) = True Then
-                    ByteSize = FileLen(pc_path)
-                End If
-            Case 1
+            Case Tektronix_7Series
                 cmd = "EXP:FORM " & Scope_format
                 ilwrt(Scope_Dev, ts, CInt(Len(ts)))
                 cmd = "HARDCopy:PORT FILE"
@@ -3617,242 +3797,47 @@ Module Module_Scope
                 cmd = "FILESystem:READFile '" & Scope_folder & "\hardcopy." & Scope_format & "'"
                 Docommand(cmd)
                 System.Threading.Thread.Sleep(1000)
+            Case Agilent_9Series
+                cmd = ":DISPlay:DATA? PNG"
+                Docommand(cmd)
+                System.Threading.Thread.Sleep(2000)
 
-                '-------------------------------------------------
-                'file path of PC
-                read_error = 0
-                cmd = pc_path
-                ibrdf32(Scope_Dev, ts)
-                '-------------------------------------------------
-                ' Error
-                While (ibcntl = 0) Or (ibsta = EERR)
-                    System.Windows.Forms.Application.DoEvents()
-                    read_error = read_error + 1
-                    If (read_error = 100) Or (run = False) Then
-                        Return 0
-                        Exit Function
-                    End If
-                    Delay(10)
-                    ibrdf32(Scope_Dev, ts)
-                End While
-                '-------------------------------------------------
-                ByteSize = FileLen(pc_path)
-            Case 2
-
+            Case Tektronix_MSO
         End Select
 
-
-
-
-        If RS_Scope = False Then
-
-            ts = "EXP:FORM " & Scope_format
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-            ts = "HARDCopy:PORT FILE"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            ts = "HARDCopy:FILEName '" & Scope_folder & "\hardcopy." & Scope_format & "'"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            ts = "HARDCopy STARt"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            ts = "FILESystem:READFile '" & Scope_folder & "\hardcopy." & Scope_format & "'"
-            ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-
-
-
-            '-------------------------------------------------
-            'FILESystem:READFile Error
-
-            While (ibcntl = 0) Or (ibsta = EERR)
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-                ilwrt(Scope_Dev, ts, CInt(Len(ts)))
-
-            End While
-
-            '-------------------------------------------------
-
-
-            'file path of PC
-            read_error = 0
-
-            ts = pc_path
-            ibrdf32(Scope_Dev, ts)
-
-            '-------------------------------------------------
-            ' Error
-            While (ibcntl = 0) Or (ibsta = EERR)
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-
-                ibrdf32(Scope_Dev, ts)
-            End While
-            '-------------------------------------------------
-
-
-
-            ByteSize = FileLen(pc_path)
-        Else
-            Scope_RUN(False)
-            Delay(10)
-            ts = "SYSTem:DISPlay:UPDate ON"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-
-            ts = "HCOP:DEST 'MMEM'"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-            'ts = "HCOPy:DEV:INV OFF"
-            'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
-
-            'ts = "HCOP:DEV:COL ON"
-            'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
-
-
-            'ts = "HCOP:DEV:LANG " & Scope_format
-            'visa_status = viWrite(RS_vi, ts, Len(ts), retcount)
-
-
-
-            ts = "MMEM:NAME '" & Scope_folder & "\hardcopy." & Scope_format & "'"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-
-            'ts = "HCOP:IMM;*WAI"
-            ts = "HCOP:IMMediate;*OPC?"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-            visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-
-
-            While retcount = 0
-
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-
-                visa_status = viRead(RS_vi, visa_response, Len(visa_response), retcount)
-            End While
-            Delay(10)
-
-            ts = "MMEM:DATA? '" & Scope_folder & "\hardcopy." & Scope_format & "'"
-            visa_write(RS_Scope_Dev, RS_vi, ts)
-
-
-            visa_status = viRead(RS_vi, ts, 2, retcount)
-
-
-            '-------------------------------------------------
-            'FILESystem:READFile Error
-
-            While retcount = 0
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-                visa_status = viRead(RS_vi, ts, 2, retcount)
-            End While
-
-
-
-
-            '-------------------------------------------------
-
-            file_temp = Mid(ts, 2, 1)
-
-            visa_status = viRead(RS_vi, ts, file_temp, retcount)
-
-            read_error = 0
-
-
-            '-------------------------------------------------
-            'FILESystem:READFile Error
-
-            While retcount = 0
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-                visa_status = viRead(RS_vi, ts, file_temp, retcount)
-            End While
-
-
-
-
-            '-------------------------------------------------
-
-
-
-            visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
-
-
-
-
-            '-------------------------------------------------
-            'FILESystem:READFile Error
-            read_error = 0
-            While retcount = 0
-                System.Windows.Forms.Application.DoEvents()
-
-                read_error = read_error + 1
-                If (read_error = 100) Or (run = False) Then
-                    Return 0
-                    Exit Function
-                End If
-                Delay(10)
-                visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
-            End While
-
-
-
-
-            '-------------------------------------------------
-
-
-            ByteSize = 0
-            If (System.IO.File.Exists(pc_path)) = True Then
-                ByteSize = FileLen(pc_path)
-
+        file_temp = Mid(ts, 2, 1)
+        visa_status = viRead(RS_vi, ts, file_temp, retcount)
+        read_error = 0
+        '-------------------------------------------------
+        'FILESystem:READFile Error
+        While retcount = 0
+            System.Windows.Forms.Application.DoEvents()
+            read_error = read_error + 1
+            If (read_error = 100) Or (run = False) Then
+                Return 0
+                Exit Function
             End If
-
+            Delay(10)
+            visa_status = viRead(RS_vi, ts, file_temp, retcount)
+        End While
+        visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+        'FILESystem:READFile Error
+        read_error = 0
+        While retcount = 0
+            System.Windows.Forms.Application.DoEvents()
+            read_error = read_error + 1
+            If (read_error = 100) Or (run = False) Then
+                Return 0
+                Exit Function
+            End If
+            Delay(10)
+            visa_status = viReadToFile(RS_vi, pc_path, Val(ts), retcount)
+        End While
+        ByteSize = 0
+        If (System.IO.File.Exists(pc_path)) = True Then
+            ByteSize = FileLen(pc_path)
         End If
-
-
-
-
-
         Return ByteSize
-
-
     End Function
 
     'Function RS_Hardcopy(ByVal Scope_format As String, ByVal pc_path As String) As Integer
@@ -3906,18 +3891,12 @@ Module Module_Scope
 
     'End Function
 
-
     Function TDSJIT3() As Integer
 
 
         ts = "application:activate ""Jitter Analysis - Advanced"""
         ilwrt(Scope_Dev, ts, CInt(Len(ts)))
     End Function
-
-
-
-
-
 
     Function RS_Display(ByVal result_mode As String, ByVal parameters As String) As Integer
         'PREV | FLOA | DOCK

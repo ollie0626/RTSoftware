@@ -77,8 +77,8 @@ Public Class Main
                                     TCP_addr = addr(1)
                                     data_GPIB.Rows.Add("Scope", name(1), temp(i))
                                 End If
-
-
+                                ' scope cmd select
+                                osc_sel = Rohde_Schwarz
                             Case "RTO"
                                 ReDim Preserve Scope_name(Scope_num)
                                 ReDim Preserve Scope_IF(Scope_num)
@@ -92,7 +92,8 @@ Public Class Main
                                     TCP_addr = addr(1)
                                     data_GPIB.Rows.Add("Scope", name(1), temp(i))
                                 End If
-
+                                ' scope cmd select
+                                osc_sel = Rohde_Schwarz
                             Case "DPO"
                                 ReDim Preserve Scope_name(Scope_num)
                                 ReDim Preserve Scope_IF(Scope_num)
@@ -102,7 +103,8 @@ Public Class Main
                                 Scope_Addr = addr(1)
                                 Scope_num = Scope_num + 1
                                 data_GPIB.Rows.Add("Scope", name(1), temp(i))
-
+                                ' scope cmd select
+                                osc_sel = Tektronix_7Series
                         End Select
 
 
@@ -133,14 +135,11 @@ Public Class Main
 
 
                         If addr(1) = 3 Then
-
                             Temp_name = "4350B"
                             Temp_addr = addr(1)
                             data_GPIB.Rows.Add("Chamber", Temp_name, temp(i))
-
                         Else
                             name = visa_name(temp(i))
-
                             Select Case name(1)
                                 Case "34970A"
                                     DAQ_name = name(1)
